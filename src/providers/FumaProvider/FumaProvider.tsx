@@ -5,6 +5,7 @@ import { docs } from "@/../.source";
 
 import type { ReactNode } from "react";
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
+import { app } from "@/lib/config";
 
 export const source = loader({
   baseUrl: "/",
@@ -13,9 +14,9 @@ export const source = loader({
 
 const baseOptions: BaseLayoutProps = {
   nav: {
-    title: "Thornberry",
+    title: app.name,
   },
-  githubUrl: "https://github.com/omnidotdev/thornberry",
+  githubUrl: app.githubUrl,
 };
 
 interface Props {
