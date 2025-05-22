@@ -1,4 +1,4 @@
-import "./example-card.css"
+import "./example-card.css";
 
 export function ExampleCard() {
   return (
@@ -40,5 +40,5 @@ export function ExampleCard() {
         </form>
       </div>
     </div>
-  )
+  );
 }
