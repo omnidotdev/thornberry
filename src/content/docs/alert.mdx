@@ -3,7 +3,44 @@ title: Alert
 description: Alert component
 ---
 
-<Alert>
-    <AlertTitle>Alert Title</AlertTitle>
-    <AlertDescription>Alert Description</AlertDescription>
-</Alert>
+<div className="flex flex-col gap-4">
+    <Alert>
+        <AlertIcon>
+            <FiDownload />
+        </AlertIcon>
+        <AlertTitle>Update available</AlertTitle>
+        <AlertDescription>For the best experience, update to the latest version.</AlertDescription>
+    </Alert>
+
+    <Alert variant="info">
+        <AlertIcon>
+            <FiInfo />
+        </AlertIcon>
+        <AlertTitle>Info</AlertTitle>
+        <AlertDescription>Did you know platypuses are venomous?</AlertDescription>
+    </Alert>
+
+    <Alert variant="success">
+        <AlertIcon>
+            <FiCheck />
+        </AlertIcon>
+        <AlertTitle>Success</AlertTitle>
+        <AlertDescription>It was a great success!</AlertDescription>
+    </Alert>
+
+    <Alert variant="warning">
+        <AlertIcon>
+            <IoWarningOutline />
+        </AlertIcon>
+        <AlertTitle>Warning</AlertTitle>
+        <AlertDescription>Beware of animals running towards you.</AlertDescription>
+    </Alert>
+
+    <Alert variant="error">
+        <AlertIcon>
+            <BiErrorAlt />
+        </AlertIcon>
+        <AlertTitle>Error</AlertTitle>
+        <AlertDescription>segfault</AlertDescription>
+    </Alert>
+</div>
