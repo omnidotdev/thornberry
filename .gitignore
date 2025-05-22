@@ -4,6 +4,9 @@
 # typescript
 *.tsbuildinfo
 
+# fumadocs
+.source
+
 # editor
 .vscode
 
