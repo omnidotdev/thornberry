@@ -1,8 +1,8 @@
-import { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
+import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 
 export const baseOptions: BaseLayoutProps = {
   nav: {
-    title: 'Thornberry',
+    title: "Thornberry",
   },
   githubUrl: "https://github.com/omnidotdev/thornberry",
 };

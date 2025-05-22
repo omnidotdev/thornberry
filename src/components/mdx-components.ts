@@ -1,14 +1,15 @@
-import defaultMdxComponents from 'fumadocs-ui/mdx';
-import { Button } from "../registry/thornberry/ui/button";
-import { Input } from "../registry/thornberry/ui/input";
+import defaultMdxComponents from "fumadocs-ui/mdx";
 
-import type { MDXComponents } from 'mdx/types';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
-export function getMDXComponents(components?: MDXComponents): MDXComponents {
+import type { MDXComponents } from "mdx/types";
+
+export const getMDXComponents = (components?: MDXComponents): MDXComponents => {
   return {
     ...defaultMdxComponents,
     Button,
     Input,
     ...components,
   };
-}
+};
