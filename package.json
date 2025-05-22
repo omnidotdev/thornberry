@@ -6,17 +6,26 @@
     "dev": "rm -rf .next && next dev --turbo",
     "build": "next build",
     "start": "next start",
+<<<<<<< Updated upstream
     "check": "biome check src",
     "lint": "biome lint src",
     "format": "biome format --write src",
     "registry:build": "shadcn registry:build",
     "prepare": "husky"
+=======
+    "lint": "next lint",
+    "registry:build": "node ~/code/shadcn/ui/packages/shadcn/dist/index.js build",
+    "postinstall": "fumadocs-mdx"
+>>>>>>> Stashed changes
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "fumadocs-core": "^15.3.4",
+    "fumadocs-mdx": "^11.6.5",
+    "fumadocs-ui": "^15.3.4",
     "lucide-react": "^0.487.0",
     "next": "15.3.1",
     "react": "19.1.0",
@@ -27,9 +36,16 @@
     "zod": "^3.25.20"
   },
   "devDependencies": {
+<<<<<<< Updated upstream
     "@biomejs/biome": "1.9.4",
     "@tailwindcss/postcss": "^4.1.7",
     "@types/node": "^20.17.50",
+=======
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^20",
+>>>>>>> Stashed changes
     "@types/react": "19.1.2",
     "@types/react-dom": "19.1.2",
     "husky": "^9.1.7",
