@@ -18,12 +18,8 @@
         "name": "next"
       }
     ],
-    "paths": {
-<<<<<<< Updated upstream
+   "paths": {
       "@/*": ["./src/*"]
-=======
-      "@/*": ["./*"],
->>>>>>> Stashed changes
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
