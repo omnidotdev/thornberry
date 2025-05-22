@@ -4,7 +4,7 @@ import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 import type { VariantProps } from "class-variance-authority";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 
 const alertVariants = cva(
   "relative w-full rounded-lg border px-4 py-5 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7",
@@ -27,7 +27,7 @@ const alertVariants = cva(
   },
 );
 
-const Alert = ({
+const AlertRoot = ({
   className,
   variant,
   ...rest
@@ -67,4 +67,45 @@ const AlertDescription = ({
   />
 );
 
-export { Alert, AlertIcon, AlertTitle, AlertDescription, alertVariants };
+interface AlertProps
+  extends ComponentProps<typeof ark.div>,
+    VariantProps<typeof alertVariants> {
+  title?: string;
+  description?: string;
+  icon?: ReactNode;
+  titleProps?: ComponentProps<typeof ark.div>;
+  descriptionProps?: ComponentProps<typeof ark.div>;
+  iconProps?: ComponentProps<typeof ark.svg>;
+}
+
+const Alert = ({
+  className,
+  variant,
+  title,
+  description,
+  icon,
+  titleProps,
+  descriptionProps,
+  iconProps,
+  children,
+  ...rest
+}: AlertProps) => (
+  <AlertRoot className={cn(alertVariants({ variant }), className)} {...rest}>
+    {icon && <AlertIcon {...iconProps}>{icon}</AlertIcon>}
+    {title && <AlertTitle {...titleProps}>{title}</AlertTitle>}
+    {description && (
+      <AlertDescription {...descriptionProps}>{description}</AlertDescription>
+    )}
+    {children}
+  </AlertRoot>
+);
+
+export {
+  Alert,
+  AlertRoot,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  alertVariants,
+  type AlertProps,
+};

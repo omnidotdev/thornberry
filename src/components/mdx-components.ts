@@ -7,6 +7,7 @@ import {
   Alert,
   AlertDescription,
   AlertIcon,
+  AlertRoot,
   AlertTitle,
 } from "@/registry/thornberry/components/alert";
 import { Button } from "@/registry/thornberry/components/button";
@@ -20,6 +21,7 @@ export const getMDXComponents = (components?: MDXComponents): MDXComponents => {
     Alert,
     AlertDescription,
     AlertIcon,
+    AlertRoot,
     AlertTitle,
     BiErrorAlt,
     Button,
