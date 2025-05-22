@@ -6,7 +6,9 @@
     "dev": "rm -rf .next && next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "check": "biome check src",
+    "format": "biome format --write src",
+    "lint": "biome lint src",
     "registry:build": "shadcn registry:build",
     "postinstall": "fumadocs-mdx",
     "prepare": "husky"

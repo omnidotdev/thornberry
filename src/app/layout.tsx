@@ -1,4 +1,4 @@
-import { RootProvider } from 'fumadocs-ui/provider';
+import { RootProvider } from "fumadocs-ui/provider";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import type { Metadata } from "next";
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 const RootLayout = ({
   children,
 }: Readonly<{
-  children: ReactNode
+  children: ReactNode;
 }>) => {
   return (
     // TODO: check if necessary for Fumadocs - docs install shows this in layout
@@ -36,6 +36,6 @@ const RootLayout = ({
       </body>
     </html>
   );
-}
+};
 
 export default RootLayout;
