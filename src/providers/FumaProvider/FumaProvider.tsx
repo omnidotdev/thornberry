@@ -1,0 +1,35 @@
+import { loader } from "fumadocs-core/source";
+import { DocsLayout } from "fumadocs-ui/layouts/docs";
+import { RootProvider } from "fumadocs-ui/provider";
+import { docs } from "@/../.source";
+
+import type { ReactNode } from "react";
+import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
+
+export const source = loader({
+  baseUrl: "/",
+  source: docs.toFumadocsSource(),
+});
+
+const baseOptions: BaseLayoutProps = {
+  nav: {
+    title: "Thornberry",
+  },
+  githubUrl: "https://github.com/omnidotdev/thornberry",
+};
+
+interface Props {
+    children: ReactNode;
+}
+
+const FumaProvider = ({children}: Props) => {
+  return (
+     <RootProvider>
+        <DocsLayout tree={source.pageTree} {...baseOptions}>
+            {children}
+        </DocsLayout>
+    </RootProvider>
+  )
+}
+
+export default FumaProvider

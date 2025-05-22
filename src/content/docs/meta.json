@@ -1,0 +1,10 @@
+{
+  "root": true,
+  "pages": [
+    "---Introduction---",
+    "index",
+    "---Components---",
+    "button",
+    "input"
+  ]
+}

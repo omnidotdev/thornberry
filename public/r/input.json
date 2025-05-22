@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "type": "registry:ui",
+  "title": "Input",
+  "description": "An input component",
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/input.tsx",
+      "content": "import { ark } from \"@ark-ui/react\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst Input = ({ className, ...rest }: ComponentProps<typeof ark.input>) => (\n  <ark.input\n    className={cn(\n      \"flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nexport { Input };\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

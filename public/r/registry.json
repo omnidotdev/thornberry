@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "thornberry",
+  "homepage": "https://github.com/omnidotdev/thornberry",
+  "items": [
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "A button component",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "An input component",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}
