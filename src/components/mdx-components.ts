@@ -1,7 +1,7 @@
 import defaultMdxComponents from "fumadocs-ui/mdx";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/registry/thornberry/components/button";
+import { Input } from "@/registry/thornberry/components/input";
 
 import type { MDXComponents } from "mdx/types";
 
