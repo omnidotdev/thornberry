@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 
 import { getMDXComponents } from "@/components/mdx-components";
 import { app } from "@/lib/config";
-import { source } from "@/lib/source";
+import { source } from "@/providers";
 
 export const generateStaticParams = async () => {
   return source.generateParams();
