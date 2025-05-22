@@ -6,6 +6,7 @@ import {
 } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
 
+import { app } from "@/lib/config";
 import { getMDXComponents } from "@/components/mdx-components";
 import { source } from "@/lib/source";
 
@@ -22,7 +23,7 @@ export const generateMetadata = async (props: {
   if (!page) notFound();
 
   return {
-    title: page.data.title,
+    title: `${app.name} - ${page.data.title}`,
     description: page.data.description,
   };
 };
