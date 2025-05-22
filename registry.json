@@ -4,6 +4,18 @@
   "homepage": "https://github.com/omnidotdev/thornberry",
   "items": [
     {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "An alert component",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/alert.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
