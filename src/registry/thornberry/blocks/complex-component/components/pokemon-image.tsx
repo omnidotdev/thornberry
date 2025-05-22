@@ -1,6 +1,6 @@
 "use client";
 
-import { usePokemonImage } from "@/registry/new-york/blocks/complex-component/hooks/use-pokemon";
+import { usePokemonImage } from "@/registry/thornberry/blocks/complex-component/hooks/use-pokemon";
 
 export function PokemonImage({
   name,

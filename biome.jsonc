@@ -10,7 +10,7 @@
     "ignore": [
       "public/r/**",
       "src/components/ui/**",
-      "src/registry/new-york/ui/**"
+      "src/registry/thornberry/ui/**"
     ]
   },
   "formatter": {

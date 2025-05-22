@@ -1,8 +1,8 @@
 import { OpenInV0Button } from "@/components/open-in-v0-button";
-import PokemonPage from "@/registry/new-york/blocks/complex-component/page";
-import { ExampleForm } from "@/registry/new-york/blocks/example-form/example-form";
-import { ExampleCard } from "@/registry/new-york/blocks/example-with-css/example-card";
-import { HelloWorld } from "@/registry/new-york/blocks/hello-world/hello-world";
+import PokemonPage from "@/registry/thornberry/blocks/complex-component/page";
+import { ExampleForm } from "@/registry/thornberry/blocks/example-form/example-form";
+import { ExampleCard } from "@/registry/thornberry/blocks/example-with-css/example-card";
+import { HelloWorld } from "@/registry/thornberry/blocks/hello-world/hello-world";
 // This page displays items from the custom registry.
 // You are free to implement this with your own design as needed.
 

@@ -11,7 +11,7 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "src/registry/new-york/blocks/hello-world/hello-world.tsx",
+          "path": "src/registry/thornberry/blocks/hello-world/hello-world.tsx",
           "type": "registry:component"
         }
       ]
@@ -25,7 +25,7 @@
       "registryDependencies": ["button", "input", "label", "textarea", "card"],
       "files": [
         {
-          "path": "src/registry/new-york/blocks/example-form/example-form.tsx",
+          "path": "src/registry/thornberry/blocks/example-form/example-form.tsx",
           "type": "registry:component"
         }
       ]
@@ -38,24 +38,24 @@
       "registryDependencies": ["card"],
       "files": [
         {
-          "path": "src/registry/new-york/blocks/complex-component/page.tsx",
+          "path": "src/registry/thornberry/blocks/complex-component/page.tsx",
           "type": "registry:page",
           "target": "app/pokemon/page.tsx"
         },
         {
-          "path": "src/registry/new-york/blocks/complex-component/components/pokemon-card.tsx",
+          "path": "src/registry/thornberry/blocks/complex-component/components/pokemon-card.tsx",
           "type": "registry:component"
         },
         {
-          "path": "src/registry/new-york/blocks/complex-component/components/pokemon-image.tsx",
+          "path": "src/registry/thornberry/blocks/complex-component/components/pokemon-image.tsx",
           "type": "registry:component"
         },
         {
-          "path": "src/registry/new-york/blocks/complex-component/lib/pokemon.ts",
+          "path": "src/registry/thornberry/blocks/complex-component/lib/pokemon.ts",
           "type": "registry:lib"
         },
         {
-          "path": "src/registry/new-york/blocks/complex-component/hooks/use-pokemon.ts",
+          "path": "src/registry/thornberry/blocks/complex-component/hooks/use-pokemon.ts",
           "type": "registry:hook"
         }
       ]
@@ -67,11 +67,11 @@
       "description": "A login form with a CSS file.",
       "files": [
         {
-          "path": "src/registry/new-york/blocks/example-with-css/example-card.tsx",
+          "path": "src/registry/thornberry/blocks/example-with-css/example-card.tsx",
           "type": "registry:component"
         },
         {
-          "path": "src/registry/new-york/blocks/example-with-css/example-card.css",
+          "path": "src/registry/thornberry/blocks/example-with-css/example-card.css",
           "type": "registry:component"
         }
       ]
