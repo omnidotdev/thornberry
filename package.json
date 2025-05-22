@@ -34,12 +34,6 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.1.2",
-      "@types/react-dom": "19.1.2"
-    }
-  },
   "trustedDependencies": [
     "@tailwindcss/oxide",
     "unrs-resolver"
