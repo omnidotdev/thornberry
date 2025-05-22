@@ -1,5 +1,5 @@
 const app = {
-    name: "Thornberry",
-}
+  name: "Thornberry",
+};
 
 export default app;

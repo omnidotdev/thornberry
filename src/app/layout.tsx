@@ -1,9 +1,9 @@
-import { RootProvider } from "fumadocs-ui/provider";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
+import { RootProvider } from "fumadocs-ui/provider";
 import { Geist, Geist_Mono } from "next/font/google";
 
-import { baseOptions } from '@/app/layout.config';
-import { source } from '@/lib/source';
+import { baseOptions } from "@/app/layout.config";
+import { source } from "@/lib/source";
 
 import type { ReactNode } from "react";
 
@@ -31,12 +31,9 @@ const RootLayout = ({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <RootProvider>
-           <DocsLayout 
-              tree={source.pageTree} 
-              {...baseOptions}
-            >
-                {children}
-              </DocsLayout>
+          <DocsLayout tree={source.pageTree} {...baseOptions}>
+            {children}
+          </DocsLayout>
         </RootProvider>
       </body>
     </html>

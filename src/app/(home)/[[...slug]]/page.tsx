@@ -6,8 +6,8 @@ import {
 } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
 
-import { app } from "@/lib/config";
 import { getMDXComponents } from "@/components/mdx-components";
+import { app } from "@/lib/config";
 import { source } from "@/lib/source";
 
 export const generateStaticParams = async () => {
