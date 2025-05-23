@@ -28,6 +28,18 @@
       ]
     },
     {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A badge component",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
@@ -35,6 +47,30 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "A card component",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "A checkbox component",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/checkbox.tsx",
           "type": "registry:ui"
         }
       ]

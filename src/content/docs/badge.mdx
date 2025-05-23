@@ -1,0 +1,56 @@
+---
+title: Badge
+description: Small status descriptors for UI elements.
+---
+
+<div className="flex flex-col gap-4">
+  <div className="flex flex-wrap gap-2">
+    <Badge>Default</Badge>
+    <Badge variant="secondary">Secondary</Badge>
+    <Badge variant="destructive">Destructive</Badge>
+    <Badge variant="outline">Outline</Badge>
+  </div>
+
+  <div className="flex flex-col gap-2">
+    <h3 className="text-lg font-semibold">Badge Usage</h3>
+    <div className="text-sm text-muted-foreground">
+      Badges are used to highlight an item's status for quick recognition.
+    </div>
+
+    <div className="mt-4">
+      <h4 className="text-base font-medium">Default</h4>
+      <div className="flex items-center gap-2 mt-2">
+        <Badge>New</Badge>
+        <Badge>Featured</Badge>
+        <Badge>Popular</Badge>
+      </div>
+    </div>
+
+    <div className="mt-4">
+      <h4 className="text-base font-medium">Secondary</h4>
+      <div className="flex items-center gap-2 mt-2">
+        <Badge variant="secondary">Beta</Badge>
+        <Badge variant="secondary">Coming Soon</Badge>
+        <Badge variant="secondary">In Progress</Badge>
+      </div>
+    </div>
+
+    <div className="mt-4">
+      <h4 className="text-base font-medium">Destructive</h4>
+      <div className="flex items-center gap-2 mt-2">
+        <Badge variant="destructive">Deprecated</Badge>
+        <Badge variant="destructive">Error</Badge>
+        <Badge variant="destructive">Removed</Badge>
+      </div>
+    </div>
+
+    <div className="mt-4">
+      <h4 className="text-base font-medium">Outline</h4>
+      <div className="flex items-center gap-2 mt-2">
+        <Badge variant="outline">Documentation</Badge>
+        <Badge variant="outline">API</Badge>
+        <Badge variant="outline">Reference</Badge>
+      </div>
+    </div>
+  </div>
+</div>

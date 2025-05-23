@@ -1,0 +1,52 @@
+---
+title: Checkbox
+description: A control that allows the user to toggle between checked and not checked.
+---
+
+## Basic Checkbox
+
+<CheckboxRoot>
+  <CheckboxHiddenInput />
+  <CheckboxControl>
+    <CheckboxIndicator>
+      <FiCheck className="size-4" />
+    </CheckboxIndicator>
+  </CheckboxControl>
+  <CheckboxLabel>Checkbox Label</CheckboxLabel>
+</CheckboxRoot>
+
+## Disabled Checkbox
+
+<div className="flex flex-col gap-2">
+  <CheckboxRoot disabled checked>
+    <CheckboxHiddenInput />
+    <CheckboxControl>
+      <CheckboxIndicator>
+        <FiCheck className="size-4" />
+      </CheckboxIndicator>
+    </CheckboxControl>
+    <CheckboxLabel>Disabled (checked)</CheckboxLabel>
+  </CheckboxRoot>
+
+  <CheckboxRoot disabled checked={false}>
+    <CheckboxHiddenInput />
+    <CheckboxControl>
+      <CheckboxIndicator>
+        <FiCheck className="size-4" />
+      </CheckboxIndicator>
+    </CheckboxControl>
+    <CheckboxLabel>Disabled (unchecked)</CheckboxLabel>
+  </CheckboxRoot>
+</div>
+
+## Custom Icon
+
+<CheckboxRoot defaultChecked>
+  <CheckboxHiddenInput />
+  <CheckboxControl>
+    <CheckboxIndicator>
+      <FiUser className="size-3" />
+    </CheckboxIndicator>
+  </CheckboxControl>
+  <CheckboxLabel>Custom user icon</CheckboxLabel>
+</CheckboxRoot>

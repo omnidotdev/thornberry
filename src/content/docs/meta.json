@@ -6,7 +6,10 @@
     "---Components---",
     "alert",
     "avatar",
+    "badge",
     "button",
+    "card",
+    "checkbox",
     "input"
   ]
 }

@@ -16,7 +16,24 @@ import {
   AvatarImage,
   AvatarRoot,
 } from "@/registry/thornberry/components/avatar";
+import { Badge } from "@/registry/thornberry/components/badge";
 import { Button } from "@/registry/thornberry/components/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardRoot,
+  CardTitle,
+} from "@/registry/thornberry/components/card";
+import {
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+  CheckboxRoot,
+} from "@/registry/thornberry/components/checkbox";
 import { Input } from "@/registry/thornberry/components/input";
 
 import type { MDXComponents } from "mdx/types";
@@ -33,8 +50,21 @@ export const getMDXComponents = (components?: MDXComponents): MDXComponents => {
     AvatarRoot,
     AvatarImage,
     AvatarFallback,
+    Badge,
     BiErrorAlt,
     Button,
+    Card,
+    CardRoot,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+    CheckboxControl,
+    CheckboxHiddenInput,
+    CheckboxIndicator,
+    CheckboxLabel,
+    CheckboxRoot,
     FiCheck,
     FiDownload,
     FiInfo,

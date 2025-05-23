@@ -1,0 +1,98 @@
+---
+title: Card
+description: Surface container for grouping related content and actions.
+---
+
+<div className="flex flex-col gap-8">
+  {/* Basic Card Example */}
+  <CardRoot>
+    <CardHeader>
+      <CardTitle>Card Title</CardTitle>
+      <CardDescription>Card Description</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>This is the content area of the card, where the main information is displayed.</p>
+    </CardContent>
+    <CardFooter>
+      <Button>Action</Button>
+    </CardFooter>
+  </CardRoot>
+  {/* Card with combined props */}
+  <Card
+    header={{
+      title: "Easy Card",
+      description: "Created with the header prop"
+    }}
+    footer={<Button>Save</Button>}
+  >
+    <p>This card uses the simplified API with header and footer props.</p>
+  </Card>
+  {/* Different card styles and layouts */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <CardRoot>
+      <CardHeader>
+        <CardTitle>Product Feature</CardTitle>
+        <CardDescription>Explore the capabilities</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Cards can be used for featuring products, services, or content.</p>
+      </CardContent>
+      <CardFooter className="flex justify-between">
+        <Button variant="outline">Cancel</Button>
+        <Button>Continue</Button>
+      </CardFooter>
+    </CardRoot>
+    <CardRoot>
+      <CardHeader className="bg-muted/50">
+        <CardTitle>Content Block</CardTitle>
+        <CardDescription>Using different background in header</CardDescription>
+      </CardHeader>
+      <CardContent className="pt-6">
+        <p>Customize different parts of the card with various styles.</p>
+      </CardContent>
+      <CardFooter className="border-t px-6 py-4">
+        <Button>Read more</Button>
+      </CardFooter>
+    </CardRoot>
+  </div>
+  {/* Card with Avatar */}
+  <CardRoot>
+    <CardHeader className="flex flex-row items-center gap-4">
+      <Avatar>
+        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+        <AvatarFallback>SC</AvatarFallback>
+      </Avatar>
+      <div className="flex flex-col">
+        <CardTitle>User Profile Card</CardTitle>
+        <CardDescription>Cards can contain images and avatars</CardDescription>
+      </div>
+    </CardHeader>
+    <CardContent>
+      <p>This card demonstrates how to include an avatar or image alongside the card title.</p>
+    </CardContent>
+    <CardFooter>
+      <Button>View Profile</Button>
+    </CardFooter>
+  </CardRoot>
+  {/* Card with form elements */}
+  <CardRoot>
+    <CardHeader>
+      <CardTitle>Input Form</CardTitle>
+      <CardDescription>Cards work well for forms</CardDescription>
+    </CardHeader>
+    <CardContent className="space-y-4">
+      <div className="space-y-2">
+        <label htmlFor="name" className="text-sm font-medium">Name</label>
+        <Input id="name" placeholder="Enter your name" />
+      </div>
+      <div className="space-y-2">
+        <label htmlFor="email" className="text-sm font-medium">Email</label>
+        <Input id="email" type="email" placeholder="Enter your email" />
+      </div>
+    </CardContent>
+    <CardFooter className="flex justify-end gap-2">
+      <Button variant="outline">Cancel</Button>
+      <Button>Submit</Button>
+    </CardFooter>
+  </CardRoot>
+</div>

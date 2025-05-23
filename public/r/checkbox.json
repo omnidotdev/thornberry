@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "type": "registry:ui",
+  "title": "Checkbox",
+  "description": "A checkbox component",
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/checkbox.tsx",
+      "content": "import { Checkbox as ArkCheckbox } from \"@ark-ui/react/checkbox\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps, ReactNode } from \"react\";\n\nconst CheckboxProvider = ArkCheckbox.RootProvider;\nconst CheckboxGroup = ArkCheckbox.Group;\nconst CheckboxContext = ArkCheckbox.Context;\n\nconst CheckboxRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkCheckbox.Root>) => (\n  <ArkCheckbox.Root className={cn(\"flex items-center\", className)} {...rest} />\n);\n\nconst CheckboxLabel = ({ children }: { children: ReactNode }) => (\n  <ArkCheckbox.Label className=\"ml-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\">\n    {children}\n  </ArkCheckbox.Label>\n);\n\nconst CheckboxControl = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkCheckbox.Control>) => (\n  <ArkCheckbox.Control\n    className={cn(\n      \"flex items-center justify-center cursor-pointer transition-normal size-5 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed peer-disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst CheckboxIndicator = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkCheckbox.Indicator>) => (\n  <ArkCheckbox.Indicator className={cn(\"peer\", className)} {...rest} />\n);\n\nconst CheckboxHiddenInput = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkCheckbox.HiddenInput>) => (\n  <ArkCheckbox.HiddenInput\n    className={cn(\"peer shrink-0\", className)}\n    {...rest}\n  />\n);\n\nexport {\n  CheckboxRoot,\n  CheckboxLabel,\n  CheckboxControl,\n  CheckboxIndicator,\n  CheckboxHiddenInput,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}
