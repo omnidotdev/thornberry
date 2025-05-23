@@ -1,11 +1,11 @@
+import { docs } from "@/../.source";
 import { loader } from "fumadocs-core/source";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import { RootProvider } from "fumadocs-ui/provider";
-import { docs } from "@/../.source";
 
-import type { ReactNode } from "react";
-import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import { app } from "@/lib/config";
+import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
+import type { ReactNode } from "react";
 
 export const source = loader({
   baseUrl: "/",
@@ -20,17 +20,17 @@ const baseOptions: BaseLayoutProps = {
 };
 
 interface Props {
-    children: ReactNode;
+  children: ReactNode;
 }
 
-const FumaProvider = ({children}: Props) => {
+const FumaProvider = ({ children }: Props) => {
   return (
-     <RootProvider>
-        <DocsLayout tree={source.pageTree} {...baseOptions}>
-            {children}
-        </DocsLayout>
+    <RootProvider>
+      <DocsLayout tree={source.pageTree} {...baseOptions}>
+        {children}
+      </DocsLayout>
     </RootProvider>
-  )
-}
+  );
+};
 
-export default FumaProvider
+export default FumaProvider;
