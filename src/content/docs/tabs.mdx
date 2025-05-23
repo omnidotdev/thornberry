@@ -1,0 +1,146 @@
+---
+title: Tabs
+description: A set of layered sections of content that display one panel at a time
+---
+
+## Basic
+
+<Tabs
+  tabs={[
+    {
+      value: "account",
+      trigger: "Account",
+      content: (
+        <div className="p-4 rounded-md border">
+          <h3 className="text-lg font-medium">Account Settings</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            Manage your account settings and preferences.
+          </p>
+        </div>
+      )
+    },
+    {
+      value: "password",
+      trigger: "Password",
+      content: (
+        <div className="p-4 rounded-md border">
+          <h3 className="text-lg font-medium">Password Settings</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            Change your password and security settings.
+          </p>
+        </div>
+      )
+    },
+    {
+      value: "notifications",
+      trigger: "Notifications",
+      content: (
+        <div className="p-4 rounded-md border">
+          <h3 className="text-lg font-medium">Notification Preferences</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            Configure how and when you receive notifications.
+          </p>
+        </div>
+      )
+    }
+  ]}
+/>
+
+## Disabled Tab
+
+<Tabs
+  tabs={[
+    {
+      value: "active",
+      trigger: "Active",
+      content: (
+        <div className="p-4 rounded-md border">
+          <h3 className="text-lg font-medium">Active Users</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            View all currently active users on the platform.
+          </p>
+        </div>
+      )
+    },
+    {
+      value: "inactive",
+      trigger: "Inactive",
+      content: (
+        <div className="p-4 rounded-md border">
+          <h3 className="text-lg font-medium">Inactive Users</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            View all inactive users on the platform.
+          </p>
+        </div>
+      )
+    },
+    {
+      value: "deleted",
+      trigger: "Deleted",
+      disabled: true,
+      content: (
+        <div className="p-4 rounded-md border">
+          <h3 className="text-lg font-medium">Deleted Users</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            This section requires admin privileges.
+          </p>
+        </div>
+      )
+    }
+  ]}
+/>
+
+## Fixed Value
+
+<TabsRoot value="code">
+  <TabsList className="grid w-full grid-cols-2">
+    <TabsTrigger value="code">Code</TabsTrigger>
+    <TabsTrigger value="preview">Preview</TabsTrigger>
+  </TabsList>
+  <TabsContent value="code">
+    <div className="p-4 rounded-md bg-muted font-mono text-sm">
+      const greeting = "Hello, world!";
+      <br />
+      console.log(greeting);
+    </div>
+  </TabsContent>
+  <TabsContent value="preview">
+    <div className="p-4 rounded-md border flex items-center justify-center">
+      <div className="text-xl">Hello, world!</div>
+    </div>
+  </TabsContent>
+</TabsRoot>
+
+## Primitives
+
+<TabsRoot defaultValue="primitives">
+  <TabsList>
+    <TabsTrigger value="primitives">Primitives</TabsTrigger>
+    <TabsTrigger value="usage">Usage</TabsTrigger>
+    <TabsTrigger value="styling">Styling</TabsTrigger>
+  </TabsList>
+  <TabsContent value="primitives">
+    <div className="p-4 rounded-md border">
+      <div className="text-sm">
+        Tabs are built using primitive components that you can compose to create custom tab interfaces.
+        The main primitives are <code>TabsRoot</code>, <code>TabsList</code>, <code>TabsTrigger</code>, and <code>TabsContent</code>.
+      </div>
+    </div>
+  </TabsContent>
+  <TabsContent value="usage">
+    <div className="p-4 rounded-md border">
+      <div className="text-sm">
+        You can use the simplified <code>Tabs</code> component by passing an array of tab objects, or build more complex
+        tab interfaces using the primitive components directly.
+      </div>
+    </div>
+  </TabsContent>
+  <TabsContent value="styling">
+    <div className="p-4 rounded-md border">
+      <div className="text-sm">
+        All tab components accept a <code>className</code> prop for custom styling using Tailwind CSS or other CSS classes.
+        You can also style tabs using data attributes for different states.
+      </div>
+    </div>
+  </TabsContent>
+</TabsRoot>

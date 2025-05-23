@@ -1,0 +1,115 @@
+---
+title: Combobox
+description: A searchable dropdown select component that allows users to filter through a list of options
+---
+
+## Basic
+
+<Combobox
+  items={[
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Orange", value: "orange" },
+    { label: "Strawberry", value: "strawberry" },
+    { label: "Blueberry", value: "blueberry" }
+  ]}
+/>
+
+## With Label
+
+<Combobox
+  label="Select a fruit"
+  items={[
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Orange", value: "orange" },
+    { label: "Strawberry", value: "strawberry" },
+    { label: "Blueberry", value: "blueberry" }
+  ]}
+/>
+
+## Custom Placeholder
+
+<Combobox
+  placeholder="Search for a fruit..."
+  items={[
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Orange", value: "orange" },
+    { label: "Strawberry", value: "strawberry" },
+    { label: "Blueberry", value: "blueberry" }
+  ]}
+/>
+
+## With Disabled Options
+
+<Combobox
+  label="Select a fruit"
+  items={[
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana", disabled: true },
+    { label: "Orange", value: "orange" },
+    { label: "Strawberry", value: "strawberry", disabled: true },
+    { label: "Blueberry", value: "blueberry" }
+  ]}
+/>
+
+## Primitives
+
+<ComboboxRoot
+  items={[
+    { label: "Red", value: "red" },
+    { label: "Green", value: "green" },
+    { label: "Blue", value: "blue" },
+    { label: "Yellow", value: "yellow" },
+    { label: "Purple", value: "purple" }
+  ]}
+>
+  <ComboboxLabel className="text-blue-700">Select a color</ComboboxLabel>
+  <ComboboxControl>
+    <ComboboxInput className="border-blue-400 focus-visible:ring-blue-500" placeholder="Search colors..." />
+    <ComboboxTrigger className="text-blue-700" />
+  </ComboboxControl>
+  <ComboboxPositioner>
+    <ComboboxContent className="border-blue-200 bg-blue-50">
+      <ComboboxItem item={{ label: "Red", value: "red" }}>Red</ComboboxItem>
+      <ComboboxItem item={{ label: "Green", value: "green" }}>Green</ComboboxItem>
+      <ComboboxItem item={{ label: "Blue", value: "blue" }}>Blue</ComboboxItem>
+      <ComboboxItem item={{ label: "Yellow", value: "yellow" }}>Yellow</ComboboxItem>
+      <ComboboxItem item={{ label: "Purple", value: "purple" }}>Purple</ComboboxItem>
+    </ComboboxContent>
+  </ComboboxPositioner>
+</ComboboxRoot>
+
+## Grouped Options
+
+<ComboboxRoot
+  items={[
+    { label: "Apple", value: "apple", group: "Fruits" },
+    { label: "Banana", value: "banana", group: "Fruits" },
+    { label: "Carrot", value: "carrot", group: "Vegetables" },
+    { label: "Broccoli", value: "broccoli", group: "Vegetables" },
+    { label: "Spinach", value: "spinach", group: "Vegetables" }
+  ]}
+>
+  <ComboboxLabel>Food Items</ComboboxLabel>
+  <ComboboxControl>
+    <ComboboxInput placeholder="Search foods..." />
+    <ComboboxTrigger />
+  </ComboboxControl>
+  <ComboboxPositioner>
+    <ComboboxContent>
+      <ComboboxItemGroup>
+        <ComboboxItemGroupLabel>Fruits</ComboboxItemGroupLabel>
+        <ComboboxItem item={{ label: "Apple", value: "apple" }}>Apple</ComboboxItem>
+        <ComboboxItem item={{ label: "Banana", value: "banana" }}>Banana</ComboboxItem>
+      </ComboboxItemGroup>
+      <ComboboxItemGroup>
+        <ComboboxItemGroupLabel>Vegetables</ComboboxItemGroupLabel>
+        <ComboboxItem item={{ label: "Carrot", value: "carrot" }}>Carrot</ComboboxItem>
+        <ComboboxItem item={{ label: "Broccoli", value: "broccoli" }}>Broccoli</ComboboxItem>
+        <ComboboxItem item={{ label: "Spinach", value: "spinach" }}>Spinach</ComboboxItem>
+      </ComboboxItemGroup>
+    </ComboboxContent>
+  </ComboboxPositioner>
+</ComboboxRoot>

@@ -1,0 +1,72 @@
+---
+title: Collapsible
+description: An interactive component that can be opened and closed to reveal or hide content
+---
+
+## Basic
+
+<Collapsible trigger="Click to expand">
+  <div className="p-4 pt-2">
+    <p>This content can be expanded and collapsed with the click of a button.</p>
+  </div>
+</Collapsible>
+
+## Open by Default
+
+<Collapsible defaultOpen trigger="This starts expanded">
+  <div className="p-4 pt-2">
+    <p>This content is visible by default because we set the defaultOpen prop.</p>
+    <p>Click the trigger to collapse it.</p>
+  </div>
+</Collapsible>
+
+## Disabled
+
+<Collapsible disabled trigger="Cannot be expanded (disabled)">
+  <div className="p-4 pt-2">
+    <p>This content cannot be accessed because the collapsible is disabled.</p>
+  </div>
+</Collapsible>
+
+## Custom Styling
+
+<Collapsible 
+  trigger={
+    <div className="flex items-center gap-2">
+      <div className="h-3 w-3 rounded-full bg-blue-500" />
+      <span>Custom trigger with icon</span>
+    </div>
+  }
+>
+  <div className="rounded-b-md border border-t-0 p-4 shadow-sm">
+    <p>You can style the collapsible components to match your design.</p>
+  </div>
+</Collapsible>
+
+## Primitives
+
+<CollapsibleRoot>
+  <CollapsibleTrigger className="bg-purple-100 hover:bg-purple-200 data-[state=open]:bg-purple-200">
+    Click to reveal primitives example
+  </CollapsibleTrigger>
+  <CollapsibleContent className="border border-t-0 p-4 rounded-b-md bg-purple-50">
+    <p>This example uses the primitive components to have more control over the structure.</p>
+    <p className="mt-2">You can customize each part independently.</p>
+  </CollapsibleContent>
+</CollapsibleRoot>
+
+## With Card
+
+<div className="rounded-md border shadow-sm">
+  <CollapsibleRoot>
+    <CollapsibleTrigger className="border-b p-4 rounded-t-md">
+      Card with collapsible content
+    </CollapsibleTrigger>
+    <CollapsibleContent>
+      <div className="p-4">
+        <p>This example shows how to combine the collapsible with a card-like container.</p>
+        <p className="mt-2">The border styling creates a seamless experience.</p>
+      </div>
+    </CollapsibleContent>
+  </CollapsibleRoot>
+</div>

@@ -4,12 +4,25 @@
     "---Introduction---",
     "index",
     "---Components---",
+    "accordion",
     "alert",
     "avatar",
     "badge",
     "button",
     "card",
+    "carousel",
     "checkbox",
-    "input"
+    "collapsible",
+    "combobox",
+    "dialog",
+    "input",
+    "menu",
+    "number-input",
+    "pagination",
+    "popover",
+    "slider",
+    "switch",
+    "tabs",
+    "tooltip"
   ]
 }

@@ -1,0 +1,105 @@
+---
+title: Accordion
+description: A collapsible component for displaying content in a vertical stack
+---
+
+## Basic
+
+<Accordion
+  items={[
+    {
+      value: "item-1",
+      trigger: "What is Thornberry?",
+      content: "Thornberry is a component library built on Ark UI primitives with a modern design system."
+    },
+    {
+      value: "item-2",
+      trigger: "Is it accessible?",
+      content: "Yes! All components are built with accessibility in mind, following WAI-ARIA standards."
+    },
+    {
+      value: "item-3",
+      trigger: "Can I customize the components?",
+      content: "Absolutely. All components can be fully customized using Tailwind CSS classes."
+    }
+  ]}
+/>
+
+## Multiple
+
+<Accordion
+  multiple
+  defaultValue={["item-1"]}
+  items={[
+    {
+      value: "item-1",
+      trigger: "Can I open multiple items?",
+      content: "Yes, just add the multiple prop to the Accordion component."
+    },
+    {
+      value: "item-2",
+      trigger: "Is there a default open state?",
+      content: "Yes, use the defaultValue prop to specify which items should be open by default."
+    },
+    {
+      value: "item-3",
+      trigger: "Can items be disabled?",
+      content: "Yes, individual items can be disabled by setting the disabled property."
+    }
+  ]}
+/>
+
+## Collapsible
+
+<Accordion
+  collapsible
+  defaultValue={["item-1"]}
+  items={[
+    {
+      value: "item-1",
+      trigger: "What is collapsible mode?",
+      content: "Collapsible mode allows users to close all items, including the currently open one."
+    },
+    {
+      value: "item-2",
+      trigger: "How do I enable it?",
+      content: "Add the collapsible prop to the Accordion component."
+    },
+    {
+      value: "item-3",
+      disabled: true,
+      trigger: "This item is disabled",
+      content: "You cannot interact with this item because it's disabled."
+    }
+  ]}
+/>
+
+## Primitives
+
+<AccordionRoot defaultValue={["custom-1"]}>
+  <AccordionItem value="custom-1">
+    <AccordionItemTrigger>
+      Using Primitives
+      <AccordionItemIndicator />
+    </AccordionItemTrigger>
+    <AccordionItemContent>
+      <div className="pb-4 pt-0">
+        You can build custom accordions using the primitive components directly. 
+        This gives you more flexibility in how you structure and style your accordion.
+      </div>
+    </AccordionItemContent>
+  </AccordionItem>
+  <AccordionItem value="custom-2">
+    <AccordionItemTrigger>
+      Custom Styling
+      <AccordionItemIndicator>
+        <span className="text-blue-500 ml-2">+</span>
+      </AccordionItemIndicator>
+    </AccordionItemTrigger>
+    <AccordionItemContent>
+      <div className="pb-4 pt-0 text-blue-600">
+        You can fully customize the appearance of each part of the accordion.
+      </div>
+    </AccordionItemContent>
+  </AccordionItem>
+</AccordionRoot>

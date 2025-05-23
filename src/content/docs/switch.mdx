@@ -1,0 +1,70 @@
+---
+title: Switch
+description: A control that allows the user to toggle between checked and unchecked states
+---
+
+## Basic
+
+<div className="flex flex-col gap-4">
+  <Switch />
+  <Switch defaultChecked />
+</div>
+
+## With Label
+
+<div className="flex flex-col gap-4">
+  <Switch label="Airplane Mode" />
+  <Switch label="Dark Mode" defaultChecked />
+</div>
+
+## Disabled
+
+<div className="flex flex-col gap-4">
+  <Switch label="Notifications (disabled)" disabled />
+  <Switch label="Auto-update (disabled)" disabled defaultChecked />
+</div>
+
+## Form Usage
+
+<div className="flex flex-col gap-4">
+  <div className="p-4 rounded-md border">
+    <form className="space-y-4">
+      <div className="space-y-2">
+        <Switch name="wifi" label="Enable Wi-Fi" />
+        <Switch name="bluetooth" label="Enable Bluetooth" defaultChecked />
+        <Switch name="location" label="Enable Location Services" />
+      </div>
+      <Button type="submit" size="sm">Save Settings</Button>
+    </form>
+  </div>
+</div>
+
+## Primitives
+
+<SwitchRoot defaultChecked className="flex flex-row-reverse justify-end gap-2">
+  <SwitchLabel>Custom Placement</SwitchLabel>
+  <SwitchControl className="bg-green-100 data-[state=checked]:bg-green-500">
+    <SwitchThumb className="bg-white" />
+  </SwitchControl>
+  <SwitchHiddenInput />
+</SwitchRoot>
+
+<div className="h-4" />
+
+<SwitchRoot defaultChecked>
+  <SwitchHiddenInput />
+  <SwitchControl className="bg-red-100 data-[state=checked]:bg-red-500">
+    <SwitchThumb className="bg-white" />
+  </SwitchControl>
+  <SwitchLabel>Custom Colors</SwitchLabel>
+</SwitchRoot>
+
+<div className="h-4" />
+
+<SwitchRoot>
+  <SwitchHiddenInput />
+  <SwitchControl className="h-6 w-12 data-[state=checked]:bg-blue-600">
+    <SwitchThumb className="h-5 w-5 data-[state=checked]:translate-x-6" />
+  </SwitchControl>
+  <SwitchLabel>Custom Size</SwitchLabel>
+</SwitchRoot>

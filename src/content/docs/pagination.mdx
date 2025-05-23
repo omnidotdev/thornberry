@@ -1,0 +1,97 @@
+---
+title: Pagination
+description: A component for navigating through multiple pages of content
+---
+
+## Basic
+
+<Pagination count={10} />
+
+## Current Page
+
+<Pagination count={10} page={3} />
+
+## Large Number of Pages
+
+<Pagination count={20} />
+
+## Custom Sibling Count
+
+Shows more page numbers around the current page.
+
+<Pagination count={20} page={10} siblingCount={2} />
+
+## Disabled
+
+<Pagination count={10} disabled />
+
+## Compact
+
+<Pagination count={5} className="justify-center" />
+
+## Custom Styling
+
+<PaginationRoot
+  count={10}
+  page={5}
+  className="justify-center"
+>
+  <div className="flex items-center gap-2">
+    <PaginationPrevTrigger />
+    {Array.from({ length: 10 }, (_, i) => i + 1).map(pageNum => (
+      <PaginationItem 
+        key={pageNum}
+        value={pageNum}
+        type="page"
+
+        className="bg-amber-50 border-amber-200 data-[selected]:bg-amber-500 data-[selected]:border-amber-500 data-[selected]:text-white"
+      >
+        {pageNum}
+      </PaginationItem>
+    ))}
+    <PaginationNextTrigger />
+  </div>
+</PaginationRoot>
+
+## Primitives
+
+<PaginationRoot count={10} page={4}>
+  <div className="flex items-center justify-center gap-2">
+    <PaginationPrevTrigger className="border-purple-200 hover:bg-purple-50 hover:text-purple-700" />
+    {Array.from({ length: 10 }, (_, i) => i + 1).map(pageNum => (
+      <PaginationItem 
+        key={pageNum}
+        value={pageNum}
+        type="page"
+
+        className="border-purple-200 hover:bg-purple-50 data-[selected]:bg-purple-600 data-[selected]:border-purple-600"
+      >
+        {pageNum}
+      </PaginationItem>
+    ))}
+    <PaginationNextTrigger className="border-purple-200 hover:bg-purple-50 hover:text-purple-700" />
+  </div>
+</PaginationRoot>
+
+## With Labels
+
+<div className="space-y-2">
+  <PaginationRoot count={100} page={7}>
+    <div className="flex flex-col items-center gap-2">
+      <div className="flex items-center gap-1">
+        <PaginationPrevTrigger />
+        <PaginationItem value={1} type="page">1</PaginationItem>
+        <PaginationEllipsis index={2} />
+        <PaginationItem value={6} type="page">6</PaginationItem>
+        <PaginationItem value={7} type="page">7</PaginationItem>
+        <PaginationItem value={8} type="page">8</PaginationItem>
+        <PaginationEllipsis index={9} />
+        <PaginationItem value={100} type="page">100</PaginationItem>
+        <PaginationNextTrigger />
+      </div>
+      <div className="text-sm text-muted-foreground">
+        Page 7 of 100
+      </div>
+    </div>
+  </PaginationRoot>
+</div>

@@ -1,0 +1,288 @@
+import { Menu as ArkMenu } from "@ark-ui/react/menu";
+import { Check, ChevronRight } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import type { ComponentProps, ReactNode } from "react";
+
+const MenuProvider = ArkMenu.Provider;
+
+const MenuRoot = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkMenu.Root>) => (
+  <ArkMenu.Root className={cn("", className)} {...rest} />
+);
+
+const MenuTrigger = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkMenu.Trigger>) => (
+  <ArkMenu.Trigger
+    className={cn("inline-flex items-center justify-center", className)}
+    {...rest}
+  />
+);
+
+const MenuPositioner = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkMenu.Positioner>) => (
+  <ArkMenu.Positioner className={cn("", className)} {...rest} />
+);
+
+const MenuContent = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkMenu.Content>) => (
+  <ArkMenu.Content
+    className={cn(
+      "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      className,
+    )}
+    {...rest}
+  />
+);
+
+const MenuArrow = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkMenu.Arrow>) => (
+  <ArkMenu.Arrow className={cn("fill-popover", className)} {...rest} />
+);
+
+const MenuArrowTip = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkMenu.ArrowTip>) => (
+  <ArkMenu.ArrowTip className={cn("fill-border", className)} {...rest} />
+);
+
+const MenuItem = ({
+  className,
+  children,
+  ...rest
+}: ComponentProps<typeof ArkMenu.Item>) => (
+  <ArkMenu.Item
+    className={cn(
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground",
+      className,
+    )}
+    {...rest}
+  >
+    {children}
+  </ArkMenu.Item>
+);
+
+const MenuCheckboxItem = ({
+  className,
+  children,
+  ...rest
+}: ComponentProps<typeof ArkMenu.CheckboxItem>) => (
+  <ArkMenu.CheckboxItem
+    className={cn(
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      className,
+    )}
+    {...rest}
+  >
+    {children}
+  </ArkMenu.CheckboxItem>
+);
+
+const MenuItemGroup = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkMenu.ItemGroup>) => (
+  <ArkMenu.ItemGroup
+    className={cn("overflow-hidden p-1", className)}
+    {...rest}
+  />
+);
+
+const MenuItemGroupLabel = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkMenu.ItemGroupLabel>) => (
+  <ArkMenu.ItemGroupLabel
+    className={cn(
+      "px-2 py-1.5 text-xs font-semibold text-muted-foreground",
+      className,
+    )}
+    {...rest}
+  />
+);
+
+const MenuItemText = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkMenu.ItemText>) => (
+  <ArkMenu.ItemText className={cn("", className)} {...rest} />
+);
+
+const MenuItemIndicator = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkMenu.ItemIndicator>) => (
+  <ArkMenu.ItemIndicator
+    className={cn(
+      "absolute left-2 flex h-3.5 w-3.5 items-center justify-center",
+      className,
+    )}
+    {...rest}
+  />
+);
+
+const MenuRadioItem = ({
+  className,
+  children,
+  ...rest
+}: ComponentProps<typeof ArkMenu.RadioItem>) => (
+  <ArkMenu.RadioItem
+    className={cn(
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground",
+      className,
+    )}
+    {...rest}
+  >
+    {children}
+  </ArkMenu.RadioItem>
+);
+
+const MenuRadioItemGroup = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkMenu.RadioItemGroup>) => (
+  <ArkMenu.RadioItemGroup className={cn("", className)} {...rest} />
+);
+
+const MenuSeparator = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkMenu.Separator>) => (
+  <ArkMenu.Separator
+    className={cn("-mx-1 my-1 h-px bg-muted", className)}
+    {...rest}
+  />
+);
+
+const MenuTriggerItem = ({
+  className,
+  children,
+  ...rest
+}: ComponentProps<typeof ArkMenu.TriggerItem>) => (
+  <ArkMenu.TriggerItem
+    className={cn(
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      className,
+    )}
+    {...rest}
+  >
+    {children}
+    <ChevronRight className="ml-auto h-4 w-4" />
+  </ArkMenu.TriggerItem>
+);
+
+interface MenuProps extends ComponentProps<typeof MenuRoot> {
+  trigger: ReactNode;
+  items: Array<{
+    value: string;
+    label: string;
+    onSelect?: () => void;
+    disabled?: boolean;
+    type?: "item" | "separator" | "group" | "checkbox" | "radio";
+    checked?: boolean;
+    onCheckedChange?: (checked: boolean) => void;
+    groupLabel?: string;
+    items?: Array<{
+      value: string;
+      label: string;
+      onSelect?: () => void;
+      disabled?: boolean;
+    }>;
+  }>;
+}
+
+const Menu = ({ trigger, items, ...rest }: MenuProps) => (
+  <MenuRoot closeOnSelect {...rest}>
+    <MenuTrigger asChild>{trigger}</MenuTrigger>
+    <MenuPositioner>
+      <MenuContent>
+        {items.map((item, index) => {
+          if (item.type === "separator") {
+            return <MenuSeparator key={index} />;
+          }
+
+          if (item.type === "group" && item.items) {
+            return (
+              <MenuItemGroup key={index}>
+                {item.groupLabel && (
+                  <MenuItemGroupLabel>{item.groupLabel}</MenuItemGroupLabel>
+                )}
+                {item.items.map((subItem, subIndex) => (
+                  <MenuItem
+                    key={subIndex}
+                    value={subItem.value}
+                    onSelect={subItem.onSelect}
+                    disabled={subItem.disabled}
+                  >
+                    {subItem.label}
+                  </MenuItem>
+                ))}
+              </MenuItemGroup>
+            );
+          }
+
+          if (item.type === "checkbox") {
+            return (
+              <MenuCheckboxItem
+                key={index}
+                value={item.value}
+                checked={item.checked}
+                onCheckedChange={item.onCheckedChange}
+                disabled={item.disabled}
+              >
+                <MenuItemIndicator>
+                  <Check className="h-4 w-4" />
+                </MenuItemIndicator>
+                <MenuItemText>{item.label}</MenuItemText>
+              </MenuCheckboxItem>
+            );
+          }
+
+          return (
+            <MenuItem
+              key={index}
+              value={item.value}
+              onSelect={item.onSelect}
+              disabled={item.disabled}
+            >
+              {item.label}
+            </MenuItem>
+          );
+        })}
+      </MenuContent>
+    </MenuPositioner>
+  </MenuRoot>
+);
+
+export {
+  Menu,
+  MenuArrow,
+  MenuArrowTip,
+  MenuContent,
+  MenuItem,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuCheckboxItem,
+  MenuRadioItem,
+  MenuRadioItemGroup,
+  MenuItemText,
+  MenuItemIndicator,
+  MenuPositioner,
+  MenuProvider,
+  MenuRoot,
+  MenuSeparator,
+  MenuTrigger,
+  MenuTriggerItem,
+};

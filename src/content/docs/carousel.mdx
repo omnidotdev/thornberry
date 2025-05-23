@@ -1,0 +1,77 @@
+---
+title: Carousel
+description: A component that displays content in a rotating cycle with navigation controls
+---
+
+## Basic
+
+<Carousel>
+  <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
+    <span className="text-2xl font-bold">Slide 1</span>
+  </div>
+  <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
+    <span className="text-2xl font-bold">Slide 2</span>
+  </div>
+  <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
+    <span className="text-2xl font-bold">Slide 3</span>
+  </div>
+</Carousel>
+
+## Without Controls
+
+<Carousel showControls={false}>
+  <div className="h-64 bg-blue-200 flex items-center justify-center rounded-md">
+    <span className="text-2xl font-bold">Slide 1</span>
+  </div>
+  <div className="h-64 bg-blue-300 flex items-center justify-center rounded-md">
+    <span className="text-2xl font-bold">Slide 2</span>
+  </div>
+  <div className="h-64 bg-blue-400 flex items-center justify-center rounded-md">
+    <span className="text-2xl font-bold">Slide 3</span>
+  </div>
+</Carousel>
+
+## Without Indicators
+
+<Carousel showIndicators={false}>
+  <div className="h-64 bg-green-200 flex items-center justify-center rounded-md">
+    <span className="text-2xl font-bold">Slide 1</span>
+  </div>
+  <div className="h-64 bg-green-300 flex items-center justify-center rounded-md">
+    <span className="text-2xl font-bold">Slide 2</span>
+  </div>
+  <div className="h-64 bg-green-400 flex items-center justify-center rounded-md">
+    <span className="text-2xl font-bold">Slide 3</span>
+  </div>
+</Carousel>
+
+## Primitives
+
+<CarouselRoot slideCount={3}>
+  <div className="overflow-hidden">
+    <CarouselItemGroup>
+      <CarouselItem index={0}>
+        <div className="h-64 bg-red-200 flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold">Slide 1</span>
+        </div>
+      </CarouselItem>
+      <CarouselItem index={1}>
+        <div className="h-64 bg-red-300 flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold">Slide 2</span>
+        </div>
+      </CarouselItem>
+      <CarouselItem index={2}>
+        <div className="h-64 bg-red-400 flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold">Slide 3</span>
+        </div>
+      </CarouselItem>
+    </CarouselItemGroup>
+  </div>
+  <CarouselPrevTrigger />
+  <CarouselNextTrigger />
+  <CarouselIndicatorGroup>
+    <CarouselIndicator index={0} />
+    <CarouselIndicator index={1} />
+    <CarouselIndicator index={2} />
+  </CarouselIndicatorGroup>
+</CarouselRoot>

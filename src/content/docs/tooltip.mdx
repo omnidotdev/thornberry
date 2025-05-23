@@ -1,0 +1,117 @@
+---
+title: Tooltip
+description: A popup that displays information related to an element when it receives focus or is hovered over
+---
+
+## Basic
+
+<div className="flex justify-center py-8">
+  <Tooltip content="This is a tooltip">
+    <Button variant="outline">Hover Me</Button>
+  </Tooltip>
+</div>
+
+## Without Arrow
+
+<div className="flex justify-center py-8">
+  <Tooltip content="Tooltip without an arrow" withArrow={false}>
+    <Button variant="outline">No Arrow</Button>
+  </Tooltip>
+</div>
+
+## Placement
+
+<div className="flex flex-wrap justify-center gap-4 py-8">
+  <Tooltip content="Top tooltip" placement="top">
+    <Button variant="outline" size="sm">Top</Button>
+  </Tooltip>
+  
+  <Tooltip content="Right tooltip" placement="right">
+    <Button variant="outline" size="sm">Right</Button>
+  </Tooltip>
+  
+  <Tooltip content="Bottom tooltip" placement="bottom">
+    <Button variant="outline" size="sm">Bottom</Button>
+  </Tooltip>
+  
+  <Tooltip content="Left tooltip" placement="left">
+    <Button variant="outline" size="sm">Left</Button>
+  </Tooltip>
+</div>
+
+## Custom Styling
+
+<div className="flex justify-center py-8">
+  <Tooltip 
+    content="Customized tooltip style"
+    closeDelay={500}
+  >
+    <span className="underline decoration-dotted cursor-help">
+      Custom Trigger
+    </span>
+  </Tooltip>
+</div>
+
+## Rich Content
+
+<div className="flex justify-center py-8">
+  <Tooltip
+    content={
+      <div className="flex flex-col gap-1">
+        <div className="font-medium">Rich Tooltip</div>
+        <div className="text-xs text-muted-foreground">
+          Tooltips can contain rich content and formatting
+        </div>
+        <div className="h-1 bg-primary/20 rounded-full mt-1" />
+        <div className="text-xs font-mono bg-muted p-1 rounded mt-1">Code example</div>
+      </div>
+    }
+  >
+    <Button>Rich Content</Button>
+  </Tooltip>
+</div>
+
+## Primitives
+
+<div className="flex justify-center py-8">
+  <TooltipRoot>
+    <TooltipTrigger asChild>
+      <Button variant="outline">Custom Tooltip</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent className="bg-blue-50 border-blue-200 text-blue-900">
+        <TooltipArrow>
+          <TooltipArrowTip className="fill-blue-200" />
+        </TooltipArrow>
+        <div className="flex items-center gap-2">
+          <div className="h-2 w-2 rounded-full bg-blue-500" />
+          <div>Custom styled tooltip using primitives</div>
+        </div>
+      </TooltipContent>
+    </TooltipPositioner>
+  </TooltipRoot>
+</div>
+
+## Delay Configuration
+
+<div className="flex justify-center gap-4 py-8">
+  <Tooltip 
+    content="Fast open (100ms), slow close (1000ms)" 
+    openDelay={100}
+    closeDelay={1000}
+  >
+    <Button variant="outline" size="sm">
+      Slow Close
+    </Button>
+  </Tooltip>
+  
+  <Tooltip 
+    content="Slow open (800ms), fast close (100ms)" 
+    openDelay={800}
+    closeDelay={100}
+  >
+    <Button variant="outline" size="sm">
+      Slow Open
+    </Button>
+  </Tooltip>
+</div>
