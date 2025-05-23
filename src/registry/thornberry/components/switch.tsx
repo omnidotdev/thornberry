@@ -2,7 +2,7 @@ import { Switch as ArkSwitch } from "@ark-ui/react/switch";
 
 import { cn } from "@/lib/utils";
 
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const SwitchProvider = ArkSwitch.RootProvider;
 const SwitchContext = ArkSwitch.Context;
@@ -63,9 +63,7 @@ const SwitchHiddenInput = ({
   <ArkSwitch.HiddenInput className={cn(className)} {...rest} />
 );
 
-interface SwitchProps extends ComponentProps<typeof SwitchRoot> {
-  label?: ReactNode;
-}
+interface SwitchProps extends ComponentProps<typeof SwitchRoot> {}
 
 const Switch = ({ label, ...rest }: SwitchProps) => (
   <SwitchRoot {...rest}>
@@ -86,4 +84,5 @@ export {
   SwitchProvider,
   SwitchContext,
   Switch,
+  type SwitchProps,
 };

@@ -1,18 +1,12 @@
 import { Menu as ArkMenu } from "@ark-ui/react/menu";
-import { Check, ChevronRight } from "lucide-react";
+import { FiChevronRight } from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
 
 import type { ComponentProps, ReactNode } from "react";
 
-const MenuProvider = ArkMenu.Provider;
-
-const MenuRoot = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ArkMenu.Root>) => (
-  <ArkMenu.Root className={cn("", className)} {...rest} />
-);
+const MenuProvider = ArkMenu.RootProvider;
+const MenuRoot = ArkMenu.Root;
 
 const MenuTrigger = ({
   className,
@@ -125,10 +119,7 @@ const MenuItemIndicator = ({
   ...rest
 }: ComponentProps<typeof ArkMenu.ItemIndicator>) => (
   <ArkMenu.ItemIndicator
-    className={cn(
-      "absolute left-2 flex h-3.5 w-3.5 items-center justify-center",
-      className,
-    )}
+    className={cn("flex h-3.5 w-3.5 items-center justify-center", className)}
     {...rest}
   />
 );
@@ -179,89 +170,33 @@ const MenuTriggerItem = ({
     {...rest}
   >
     {children}
-    <ChevronRight className="ml-auto h-4 w-4" />
+    <FiChevronRight className="ml-auto h-4 w-4" />
   </ArkMenu.TriggerItem>
 );
 
 interface MenuProps extends ComponentProps<typeof MenuRoot> {
-  trigger: ReactNode;
-  items: Array<{
-    value: string;
-    label: string;
-    onSelect?: () => void;
-    disabled?: boolean;
-    type?: "item" | "separator" | "group" | "checkbox" | "radio";
-    checked?: boolean;
-    onCheckedChange?: (checked: boolean) => void;
-    groupLabel?: string;
-    items?: Array<{
-      value: string;
-      label: string;
-      onSelect?: () => void;
-      disabled?: boolean;
-    }>;
-  }>;
+  trigger?: ReactNode;
+  triggerProps?: ComponentProps<typeof MenuTrigger>;
+  positionerProps?: ComponentProps<typeof MenuPositioner>;
+  contentProps?: ComponentProps<typeof MenuContent>;
 }
 
-const Menu = ({ trigger, items, ...rest }: MenuProps) => (
+const Menu = ({
+  trigger,
+  triggerProps,
+  positionerProps,
+  contentProps,
+  children,
+  ...rest
+}: MenuProps) => (
   <MenuRoot closeOnSelect {...rest}>
-    <MenuTrigger asChild>{trigger}</MenuTrigger>
-    <MenuPositioner>
-      <MenuContent>
-        {items.map((item, index) => {
-          if (item.type === "separator") {
-            return <MenuSeparator key={index} />;
-          }
-
-          if (item.type === "group" && item.items) {
-            return (
-              <MenuItemGroup key={index}>
-                {item.groupLabel && (
-                  <MenuItemGroupLabel>{item.groupLabel}</MenuItemGroupLabel>
-                )}
-                {item.items.map((subItem, subIndex) => (
-                  <MenuItem
-                    key={subIndex}
-                    value={subItem.value}
-                    onSelect={subItem.onSelect}
-                    disabled={subItem.disabled}
-                  >
-                    {subItem.label}
-                  </MenuItem>
-                ))}
-              </MenuItemGroup>
-            );
-          }
-
-          if (item.type === "checkbox") {
-            return (
-              <MenuCheckboxItem
-                key={index}
-                value={item.value}
-                checked={item.checked}
-                onCheckedChange={item.onCheckedChange}
-                disabled={item.disabled}
-              >
-                <MenuItemIndicator>
-                  <Check className="h-4 w-4" />
-                </MenuItemIndicator>
-                <MenuItemText>{item.label}</MenuItemText>
-              </MenuCheckboxItem>
-            );
-          }
-
-          return (
-            <MenuItem
-              key={index}
-              value={item.value}
-              onSelect={item.onSelect}
-              disabled={item.disabled}
-            >
-              {item.label}
-            </MenuItem>
-          );
-        })}
-      </MenuContent>
+    {trigger && (
+      <MenuTrigger asChild {...triggerProps}>
+        {trigger}
+      </MenuTrigger>
+    )}
+    <MenuPositioner {...positionerProps}>
+      <MenuContent {...contentProps}>{children}</MenuContent>
     </MenuPositioner>
   </MenuRoot>
 );
@@ -285,4 +220,5 @@ export {
   MenuSeparator,
   MenuTrigger,
   MenuTriggerItem,
+  type MenuProps,
 };

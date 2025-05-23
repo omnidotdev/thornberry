@@ -4,14 +4,9 @@ import { cn } from "@/lib/utils";
 
 import type { ComponentProps, ReactNode } from "react";
 
-const TooltipProvider = ArkTooltip.Provider;
-
-const TooltipRoot = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ArkTooltip.Root>) => (
-  <ArkTooltip.Root className={cn("", className)} {...rest} />
-);
+const TooltipProvider = ArkTooltip.RootProvider;
+const TooltipRoot = ArkTooltip.Root;
+const TooltipArrow = ArkTooltip.Arrow;
 
 const TooltipTrigger = ({
   className,
@@ -40,18 +35,14 @@ const TooltipContent = ({
   />
 );
 
-const TooltipArrow = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ArkTooltip.Arrow>) => (
-  <ArkTooltip.Arrow className={cn("fill-popover", className)} {...rest} />
-);
-
 const TooltipArrowTip = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkTooltip.ArrowTip>) => (
-  <ArkTooltip.ArrowTip className={cn("fill-border", className)} {...rest} />
+  <ArkTooltip.ArrowTip
+    className={cn("border-t-[1px] border-l-[1px]", className)}
+    {...rest}
+  />
 );
 
 interface TooltipProps extends ComponentProps<typeof TooltipRoot> {
@@ -92,4 +83,5 @@ export {
   TooltipProvider,
   TooltipRoot,
   TooltipTrigger,
+  type TooltipProps,
 };

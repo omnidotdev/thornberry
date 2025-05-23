@@ -82,6 +82,26 @@
   .prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     @apply mt-0 mb-0;
   }
+
+  .prose :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply mt-0 mb-0;
+  }
+
+  .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply mt-0 mb-0;
+  }
+
+  .prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply mt-0 mb-0;
+  }
+
+  .prose :where(h4):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply mt-0 mb-0;
+  }
+
+  .prose :where(hr):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply mt-1 mb-1;
+  }
 }
 
 .dark {

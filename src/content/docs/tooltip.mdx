@@ -11,38 +11,27 @@ description: A popup that displays information related to an element when it rec
   </Tooltip>
 </div>
 
-## Without Arrow
-
-<div className="flex justify-center py-8">
-  <Tooltip content="Tooltip without an arrow" withArrow={false}>
-    <Button variant="outline">No Arrow</Button>
-  </Tooltip>
-</div>
-
 ## Placement
 
 <div className="flex flex-wrap justify-center gap-4 py-8">
-  <Tooltip content="Top tooltip" placement="top">
+    <Tooltip content="Left tooltip" positioning={{ placement: "left" }}>
+      <Button variant="outline" size="sm">Left</Button>
+    </Tooltip>
+  <Tooltip content="Top tooltip" positioning={{ placement: "top" }}>
     <Button variant="outline" size="sm">Top</Button>
   </Tooltip>
-  
-  <Tooltip content="Right tooltip" placement="right">
-    <Button variant="outline" size="sm">Right</Button>
-  </Tooltip>
-  
-  <Tooltip content="Bottom tooltip" placement="bottom">
+  <Tooltip content="Bottom tooltip" positioning={{ placement: "bottom" }}>
     <Button variant="outline" size="sm">Bottom</Button>
   </Tooltip>
-  
-  <Tooltip content="Left tooltip" placement="left">
-    <Button variant="outline" size="sm">Left</Button>
+  <Tooltip content="Right tooltip" positioning={{ placement: "right" }}>
+    <Button variant="outline" size="sm">Right</Button>
   </Tooltip>
 </div>
 
 ## Custom Styling
 
 <div className="flex justify-center py-8">
-  <Tooltip 
+  <Tooltip
     content="Customized tooltip style"
     closeDelay={500}
   >
@@ -95,8 +84,8 @@ description: A popup that displays information related to an element when it rec
 ## Delay Configuration
 
 <div className="flex justify-center gap-4 py-8">
-  <Tooltip 
-    content="Fast open (100ms), slow close (1000ms)" 
+  <Tooltip
+    content="Fast open (100ms), slow close (1000ms)"
     openDelay={100}
     closeDelay={1000}
   >
@@ -104,9 +93,9 @@ description: A popup that displays information related to an element when it rec
       Slow Close
     </Button>
   </Tooltip>
-  
-  <Tooltip 
-    content="Slow open (800ms), fast close (100ms)" 
+
+  <Tooltip
+    content="Slow open (800ms), fast close (100ms)"
     openDelay={800}
     closeDelay={100}
   >

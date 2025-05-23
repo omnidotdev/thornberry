@@ -5,45 +5,47 @@ description: A component that displays content in a rotating cycle with navigati
 
 ## Basic
 
-<Carousel>
-  <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
+<Carousel
+  items={[
+    <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
     <span className="text-2xl font-bold">Slide 1</span>
-  </div>
+  </div>,
   <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
     <span className="text-2xl font-bold">Slide 2</span>
-  </div>
+  </div>,
   <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
     <span className="text-2xl font-bold">Slide 3</span>
   </div>
-</Carousel>
+  ]}
+/>
 
 ## Without Controls
 
-<Carousel showControls={false}>
-  <div className="h-64 bg-blue-200 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold">Slide 1</span>
-  </div>
-  <div className="h-64 bg-blue-300 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold">Slide 2</span>
-  </div>
-  <div className="h-64 bg-blue-400 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold">Slide 3</span>
-  </div>
-</Carousel>
+<Carousel showControls={false} items={[
+  <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
+  <span className="text-2xl font-bold">Slide 1</span>
+</div>,
+<div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
+  <span className="text-2xl font-bold">Slide 2</span>
+</div>,
+<div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
+  <span className="text-2xl font-bold">Slide 3</span>
+</div>
+]} />
 
 ## Without Indicators
 
-<Carousel showIndicators={false}>
-  <div className="h-64 bg-green-200 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold">Slide 1</span>
-  </div>
-  <div className="h-64 bg-green-300 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold">Slide 2</span>
-  </div>
-  <div className="h-64 bg-green-400 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold">Slide 3</span>
-  </div>
-</Carousel>
+<Carousel showIndicators={false} items={[
+  <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
+  <span className="text-2xl font-bold">Slide 1</span>
+</div>,
+<div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
+  <span className="text-2xl font-bold">Slide 2</span>
+</div>,
+<div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
+  <span className="text-2xl font-bold">Slide 3</span>
+</div>
+]} />
 
 ## Primitives
 

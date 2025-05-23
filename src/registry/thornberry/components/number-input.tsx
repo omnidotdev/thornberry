@@ -1,8 +1,8 @@
 import { NumberInput as ArkNumberInput } from "@ark-ui/react/number-input";
-import { MinusIcon, PlusIcon } from "lucide-react";
+import { FiMinus, FiPlus } from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
-import { Button } from "./button";
+import { Button } from "@/registry/thornberry/components/button";
 
 import type { ComponentProps, ReactNode } from "react";
 
@@ -63,7 +63,7 @@ const NumberInputDecrementTrigger = ({
       size="icon"
       className={cn("h-full rounded-l-md border-r", className)}
     >
-      <MinusIcon className="h-4 w-4" />
+      <FiMinus className="h-4 w-4" />
     </Button>
   </ArkNumberInput.DecrementTrigger>
 );
@@ -78,7 +78,7 @@ const NumberInputIncrementTrigger = ({
       size="icon"
       className={cn("h-full rounded-r-md border-l", className)}
     >
-      <PlusIcon className="h-4 w-4" />
+      <FiPlus className="h-4 w-4" />
     </Button>
   </ArkNumberInput.IncrementTrigger>
 );
@@ -123,4 +123,5 @@ export {
   NumberInputProvider,
   NumberInputContext,
   NumberInput,
+  type NumberInputProps,
 };

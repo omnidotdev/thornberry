@@ -1,5 +1,5 @@
 import { Accordion as ArkAccordion } from "@ark-ui/react/accordion";
-import { ChevronDown } from "lucide-react";
+import { FiChevronDown } from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
 
@@ -41,7 +41,7 @@ const AccordionItemTrigger = ({
 const AccordionItemIndicator = ({
   className,
   children = (
-    <ChevronDown className="size-4 transition-transform duration-200" />
+    <FiChevronDown className="size-4 transition-transform duration-200" />
   ),
   ...rest
 }: ComponentProps<typeof ArkAccordion.ItemIndicator>) => (
@@ -101,4 +101,5 @@ export {
   AccordionProvider,
   AccordionContext,
   Accordion,
+  type AccordionProps,
 };

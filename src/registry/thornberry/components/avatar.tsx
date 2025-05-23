@@ -67,4 +67,11 @@ const Avatar = ({ name, fallback, imageSrc, ...rest }: AvatarProps) => (
   </AvatarRoot>
 );
 
-export { AvatarRoot, AvatarFallback, AvatarImage, Avatar, AvatarProvider };
+export {
+  AvatarRoot,
+  AvatarFallback,
+  AvatarImage,
+  Avatar,
+  AvatarProvider,
+  type AvatarProps,
+};

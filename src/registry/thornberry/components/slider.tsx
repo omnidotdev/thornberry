@@ -156,4 +156,5 @@ export {
   SliderProvider,
   SliderContext,
   Slider,
+  type SliderProps,
 };

@@ -1,7 +1,6 @@
 import defaultMdxComponents from "fumadocs-ui/mdx";
-import { Check, ChevronDown, ChevronRight, X } from "lucide-react";
 import { BiErrorAlt } from "react-icons/bi";
-import { FiCheck, FiDownload, FiInfo, FiUser } from "react-icons/fi";
+import { FiCheck, FiDownload, FiInfo, FiUser, FiChevronDown, FiChevronRight, FiX } from "react-icons/fi";
 import { IoWarningOutline } from "react-icons/io5";
 
 import {
@@ -338,13 +337,12 @@ export const getMDXComponents = (components?: MDXComponents): MDXComponents => {
     CheckboxIndicator,
     CheckboxLabel,
     CheckboxRoot,
-    Check,
-    ChevronDown,
-    ChevronRight,
     FiCheck,
+    FiChevronDown,
+    FiChevronRight,
     FiDownload,
     FiInfo,
-    X,
+    FiX,
     FiUser,
     Input,
     IoWarningOutline,

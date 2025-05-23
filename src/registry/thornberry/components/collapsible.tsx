@@ -1,7 +1,7 @@
 import { Collapsible as ArkCollapsible } from "@ark-ui/react/collapsible";
 
 import { cn } from "@/lib/utils";
-import { ChevronDown } from "lucide-react";
+import { FiChevronDown } from "react-icons/fi";
 
 import type { ComponentProps, ReactNode } from "react";
 
@@ -30,7 +30,7 @@ const CollapsibleTrigger = ({
     {...rest}
   >
     {children}
-    <ChevronDown className="h-4 w-4 transition-transform data-[state=open]:rotate-180" />
+    <FiChevronDown className="h-4 w-4 transition-transform data-[state=open]:rotate-180" />
   </ArkCollapsible.Trigger>
 );
 
@@ -66,4 +66,5 @@ export {
   CollapsibleProvider,
   CollapsibleContext,
   Collapsible,
+  type CollapsibleProps,
 };

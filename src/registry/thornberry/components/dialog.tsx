@@ -1,19 +1,14 @@
 import { Dialog as ArkDialog } from "@ark-ui/react/dialog";
-import { X } from "lucide-react";
+import { FiX } from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
+import { Button } from "@/registry/thornberry/components/button";
 
 import type { ComponentProps, ReactNode } from "react";
 
 const DialogProvider = ArkDialog.RootProvider;
 const DialogContext = ArkDialog.Context;
-
-const DialogRoot = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ArkDialog.Root>) => (
-  <ArkDialog.Root className={cn("", className)} {...rest} />
-);
+const DialogRoot = ArkDialog.Root;
 
 const DialogTrigger = ({
   className,
@@ -100,7 +95,7 @@ const DialogCloseTrigger = ({
         )}
         {...rest}
       >
-        <X className="h-4 w-4" />
+        <FiX className="h-4 w-4" />
         <span className="sr-only">Close</span>
       </ArkDialog.CloseTrigger>
     );
@@ -137,7 +132,7 @@ const Dialog = ({
     <DialogRoot {...rest}>
       {trigger && (
         <DialogTrigger asChild>
-          {typeof trigger === "string" ? <button>{trigger}</button> : trigger}
+          {typeof trigger === "string" ? <Button>{trigger}</Button> : trigger}
         </DialogTrigger>
       )}
       <DialogBackdrop />
@@ -165,4 +160,5 @@ export {
   DialogCloseTrigger,
   DialogProvider,
   DialogContext,
+  type DialogProps,
 };

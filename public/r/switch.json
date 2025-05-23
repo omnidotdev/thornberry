@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch",
+  "type": "registry:ui",
+  "title": "Switch",
+  "description": "A control that allows the user to toggle between checked and not checked",
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/switch.tsx",
+      "content": "import { Switch as ArkSwitch } from \"@ark-ui/react/switch\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst SwitchProvider = ArkSwitch.RootProvider;\nconst SwitchContext = ArkSwitch.Context;\n\nconst SwitchRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkSwitch.Root>) => (\n  <ArkSwitch.Root\n    className={cn(\"flex items-center gap-2\", className)}\n    {...rest}\n  />\n);\n\nconst SwitchControl = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkSwitch.Control>) => (\n  <ArkSwitch.Control\n    className={cn(\n      \"peer inline-flex h-[24px] w-[44px] shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst SwitchThumb = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkSwitch.Thumb>) => (\n  <ArkSwitch.Thumb\n    className={cn(\n      \"pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst SwitchLabel = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkSwitch.Label>) => (\n  <ArkSwitch.Label\n    className={cn(\n      \"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst SwitchHiddenInput = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkSwitch.HiddenInput>) => (\n  <ArkSwitch.HiddenInput className={cn(className)} {...rest} />\n);\n\ninterface SwitchProps extends ComponentProps<typeof SwitchRoot> {}\n\nconst Switch = ({ label, ...rest }: SwitchProps) => (\n  <SwitchRoot {...rest}>\n    <SwitchHiddenInput />\n    <SwitchControl>\n      <SwitchThumb />\n    </SwitchControl>\n    {label && <SwitchLabel>{label}</SwitchLabel>}\n  </SwitchRoot>\n);\n\nexport {\n  SwitchRoot,\n  SwitchControl,\n  SwitchThumb,\n  SwitchLabel,\n  SwitchHiddenInput,\n  SwitchProvider,\n  SwitchContext,\n  Switch,\n  type SwitchProps,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

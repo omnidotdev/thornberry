@@ -1,11 +1,10 @@
 import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
-import React from "react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "./button";
+import { Button } from "@/registry/thornberry/components/button";
 
-import type { ComponentProps, ReactElement, ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 
 const CarouselProvider = ArkCarousel.RootProvider;
 const CarouselContext = ArkCarousel.Context;
@@ -49,7 +48,7 @@ const CarouselNextTrigger = ({
         className,
       )}
     >
-      <ChevronRight className="h-4 w-4" />
+      <FiChevronRight className="h-4 w-4" />
     </Button>
   </ArkCarousel.NextTrigger>
 );
@@ -67,7 +66,7 @@ const CarouselPrevTrigger = ({
         className,
       )}
     >
-      <ChevronLeft className="h-4 w-4" />
+      <FiChevronLeft className="h-4 w-4" />
     </Button>
   </ArkCarousel.PrevTrigger>
 );
@@ -90,8 +89,8 @@ const CarouselIndicator = ({
   <ArkCarousel.Indicator
     index={index}
     className={cn(
-      "h-2 w-2 rounded-full bg-secondary transition-colors",
-      "data-[active]:bg-primary",
+      "size-3 rounded-full bg-secondary transition-colors",
+      "data-[current]:bg-primary",
       className,
     )}
     {...rest}
@@ -109,49 +108,44 @@ const CarouselControl = ({
 );
 
 interface CarouselProps extends ComponentProps<typeof CarouselRoot> {
-  children: ReactNode;
+  items: ReactNode[];
   showControls?: boolean;
   showIndicators?: boolean;
 }
 
 const Carousel = ({
-  children,
+  items,
   showControls = true,
   showIndicators = true,
   ...rest
-}: CarouselProps) => {
-  // Convert children to array to work with them
-  const childrenArray = React.Children.toArray(children) as ReactElement[];
+}: CarouselProps) => (
+  <CarouselRoot loop {...rest} slideCount={items.length}>
+    <CarouselItemGroup className="overflow-hidden">
+      {items.map((item, i) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: simple index for use case
+        <CarouselItem key={`carousel-item-${i}`} index={i}>
+          {item}
+        </CarouselItem>
+      ))}
+    </CarouselItemGroup>
 
-  return (
-    <CarouselRoot loop {...rest} slideCount={childrenArray.length}>
-      <div className="overflow-hidden">
-        <CarouselItemGroup>
-          {childrenArray.map((child, i) => (
-            <CarouselItem key={`carousel-item-${i}`} index={i}>
-              {child}
-            </CarouselItem>
-          ))}
-        </CarouselItemGroup>
-      </div>
+    {showControls && (
+      <>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </>
+    )}
 
-      {showControls && (
-        <>
-          <CarouselPrevTrigger />
-          <CarouselNextTrigger />
-        </>
-      )}
-
-      {showIndicators && (
-        <CarouselIndicatorGroup>
-          {childrenArray.map((_, i) => (
-            <CarouselIndicator key={`carousel-indicator-${i}`} index={i} />
-          ))}
-        </CarouselIndicatorGroup>
-      )}
-    </CarouselRoot>
-  );
-};
+    {showIndicators && (
+      <CarouselIndicatorGroup>
+        {items.map((_, i) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: simple index for use case
+          <CarouselIndicator key={`carousel-indicator-${i}`} index={i} />
+        ))}
+      </CarouselIndicatorGroup>
+    )}
+  </CarouselRoot>
+);
 
 export {
   CarouselRoot,
@@ -165,4 +159,5 @@ export {
   CarouselProvider,
   CarouselContext,
   Carousel,
+  type CarouselProps,
 };

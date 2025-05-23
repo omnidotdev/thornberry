@@ -6,16 +6,11 @@ description: A dropdown menu that displays a list of options
 ## Basic
 
 <div className="flex justify-center">
-  <Menu
-    trigger={<Button variant="outline">Open Menu</Button>}
-    items={[
-      { label: "New File" },
-      { label: "New Folder" },
-      { type: "separator" },
-      { label: "Settings" },
-      { label: "Help", disabled: true },
-    ]}
-  />
+  <Menu trigger={<Button variant="outline">Open Menu</Button>}>
+      <MenuItem value="copy">Copy</MenuItem>
+      <MenuItem value="paste">Paste</MenuItem>
+      <MenuItem value="cut">Cut</MenuItem>
+  </Menu>
 </div>
 
 ## With Groups
@@ -72,29 +67,29 @@ description: A dropdown menu that displays a list of options
   ## Checkbox Items
 
   <div className="flex justify-center">
-    <MenuRoot>
+    <MenuRoot closeOnSelect={false}>
       <MenuTrigger asChild>
         <Button>Menu with Checkboxes</Button>
       </MenuTrigger>
       <MenuPositioner>
         <MenuContent>
-          <MenuCheckboxItem value="bold" checked={true}>
-            <MenuItemIndicator>
-              <Check className="h-4 w-4" />
-            </MenuItemIndicator>
+          <MenuCheckboxItem value="bold" className="justify-between">
             <MenuItemText>Bold</MenuItemText>
-          </MenuCheckboxItem>
-          <MenuCheckboxItem value="italic" checked={false}>
             <MenuItemIndicator>
-              <Check className="h-4 w-4" />
+              <Check className="size-4" />
             </MenuItemIndicator>
+          </MenuCheckboxItem>
+          <MenuCheckboxItem value="italic" className="justify-between">
             <MenuItemText>Italic</MenuItemText>
-          </MenuCheckboxItem>
-          <MenuCheckboxItem value="underline" checked={true}>
             <MenuItemIndicator>
-              <Check className="h-4 w-4" />
+              <Check className="size-4" />
             </MenuItemIndicator>
+          </MenuCheckboxItem>
+          <MenuCheckboxItem value="underline" className="justify-between">
             <MenuItemText>Underline</MenuItemText>
+            <MenuItemIndicator>
+              <Check className="size-4" />
+            </MenuItemIndicator>
           </MenuCheckboxItem>
         </MenuContent>
       </MenuPositioner>

@@ -101,4 +101,5 @@ export {
   TabsProvider,
   TabsContext,
   Tabs,
+  type TabsProps,
 };

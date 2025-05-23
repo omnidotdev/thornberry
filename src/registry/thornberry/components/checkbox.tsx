@@ -1,4 +1,5 @@
 import { Checkbox as ArkCheckbox } from "@ark-ui/react/checkbox";
+import { FiCheck } from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
 
@@ -51,10 +52,44 @@ const CheckboxHiddenInput = ({
   />
 );
 
+interface CheckboxProps extends ComponentProps<typeof ArkCheckbox.Root> {
+  label?: string;
+  icon?: ReactNode;
+  labelProps?: ComponentProps<typeof CheckboxLabel>;
+  indicatorProps?: ComponentProps<typeof CheckboxIndicator>;
+  controlProps?: ComponentProps<typeof CheckboxControl>;
+  hiddenInputProps?: ComponentProps<typeof CheckboxHiddenInput>;
+}
+
+const Checkbox = ({
+  label,
+  icon,
+  labelProps,
+  indicatorProps,
+  controlProps,
+  hiddenInputProps,
+  ...rest
+}: CheckboxProps) => (
+  <CheckboxRoot {...rest}>
+    <CheckboxHiddenInput {...hiddenInputProps} />
+    <CheckboxControl {...controlProps}>
+      <CheckboxIndicator asChild {...indicatorProps}>
+        {icon ? icon : <FiCheck className="size-4" />}
+      </CheckboxIndicator>
+    </CheckboxControl>
+    {label && <CheckboxLabel {...labelProps}>{label}</CheckboxLabel>}
+  </CheckboxRoot>
+);
+
 export {
+  CheckboxProvider,
+  CheckboxGroup,
+  CheckboxContext,
   CheckboxRoot,
   CheckboxLabel,
   CheckboxControl,
   CheckboxIndicator,
   CheckboxHiddenInput,
+  Checkbox,
+  type CheckboxProps,
 };

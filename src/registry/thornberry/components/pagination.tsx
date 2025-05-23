@@ -1,8 +1,12 @@
 import { Pagination as ArkPagination } from "@ark-ui/react/pagination";
-import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import {
+  FiChevronLeft,
+  FiChevronRight,
+  FiMoreHorizontal,
+} from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
-import { Button } from "./button";
+import { Button } from "@/registry/thornberry/components/button";
 
 import type { ComponentProps } from "react";
 
@@ -29,7 +33,7 @@ const PaginationEllipsis = ({
     className={cn("flex h-9 w-9 items-center justify-center", className)}
     {...rest}
   >
-    <MoreHorizontal className="h-4 w-4" />
+    <FiMoreHorizontal className="h-4 w-4" />
   </ArkPagination.Ellipsis>
 );
 
@@ -55,7 +59,7 @@ const PaginationPrevTrigger = ({
 }: ComponentProps<typeof ArkPagination.PrevTrigger>) => (
   <ArkPagination.PrevTrigger asChild {...rest}>
     <Button variant="outline" size="icon" className={cn("h-9 w-9", className)}>
-      <ChevronLeft className="h-4 w-4" />
+      <FiChevronLeft className="h-4 w-4" />
     </Button>
   </ArkPagination.PrevTrigger>
 );
@@ -66,7 +70,7 @@ const PaginationNextTrigger = ({
 }: ComponentProps<typeof ArkPagination.NextTrigger>) => (
   <ArkPagination.NextTrigger asChild {...rest}>
     <Button variant="outline" size="icon" className={cn("h-9 w-9", className)}>
-      <ChevronRight className="h-4 w-4" />
+      <FiChevronRight className="h-4 w-4" />
     </Button>
   </ArkPagination.NextTrigger>
 );
@@ -133,4 +137,5 @@ export {
   PaginationProvider,
   PaginationContext,
   Pagination,
+  type PaginationProps,
 };

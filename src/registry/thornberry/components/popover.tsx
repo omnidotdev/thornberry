@@ -1,4 +1,5 @@
 import { Popover as ArkPopover } from "@ark-ui/react/popover";
+import { FiX } from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
 
@@ -6,13 +7,8 @@ import type { ComponentProps, ReactNode } from "react";
 
 const PopoverProvider = ArkPopover.RootProvider;
 const PopoverContext = ArkPopover.Context;
-
-const PopoverRoot = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ArkPopover.Root>) => (
-  <ArkPopover.Root className={cn("", className)} {...rest} />
-);
+const PopoverRoot = ArkPopover.Root;
+const PopoverArrow = ArkPopover.Arrow;
 
 const PopoverTrigger = ({
   className,
@@ -44,48 +40,65 @@ const PopoverPositioner = ({
   <ArkPopover.Positioner className={cn("", className)} {...rest} />
 );
 
-const PopoverArrow = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ArkPopover.Arrow>) => (
-  <ArkPopover.Arrow className={cn("fill-popover", className)} {...rest} />
-);
-
 const PopoverArrowTip = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkPopover.ArrowTip>) => (
-  <ArkPopover.ArrowTip className={cn("fill-border", className)} {...rest} />
+  <ArkPopover.ArrowTip
+    className={cn("border-t-[1px] border-l-[1px]", className)}
+    {...rest}
+  />
 );
 
 const PopoverCloseTrigger = ({
   className,
+  children,
+  asChild,
   ...rest
-}: ComponentProps<typeof ArkPopover.CloseTrigger>) => (
-  <ArkPopover.CloseTrigger className={cn("", className)} {...rest} />
-);
+}: ComponentProps<typeof ArkPopover.CloseTrigger>) => {
+  // If there are no children, render the default X icon
+  if (!children) {
+    return (
+      <ArkPopover.CloseTrigger
+        className={cn(
+          "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none",
+          className,
+        )}
+        {...rest}
+      >
+        <FiX className="h-4 w-4" />
+        <span className="sr-only">Close</span>
+      </ArkPopover.CloseTrigger>
+    );
+  }
+
+  // If children are provided, use them inside the CloseTrigger
+  // This is useful for creating buttons that close the dialog
+  return (
+    <ArkPopover.CloseTrigger
+      className={cn(className)}
+      asChild={asChild}
+      {...rest}
+    >
+      {children}
+    </ArkPopover.CloseTrigger>
+  );
+};
 
 interface PopoverProps extends ComponentProps<typeof PopoverRoot> {
   trigger: ReactNode;
   children: ReactNode;
-  withArrow?: boolean;
+  hasArrow?: boolean;
 }
 
-const Popover = ({
-  trigger,
-  children,
-  withArrow = true,
-  ...rest
-}: PopoverProps) => (
+const Popover = ({ trigger, children, hasArrow, ...rest }: PopoverProps) => (
   <PopoverRoot {...rest}>
     <PopoverTrigger asChild>{trigger}</PopoverTrigger>
     <PopoverPositioner>
       <PopoverContent>
-        {withArrow && (
-          <PopoverArrow>
-            <PopoverArrowTip />
-          </PopoverArrow>
-        )}
+        <PopoverArrow>
+          <PopoverArrowTip />
+        </PopoverArrow>
         {children}
       </PopoverContent>
     </PopoverPositioner>
@@ -103,4 +116,5 @@ export {
   PopoverCloseTrigger,
   PopoverProvider,
   PopoverContext,
+  type PopoverProps,
 };

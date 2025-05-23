@@ -1,8 +1,8 @@
 import { Combobox as ArkCombobox } from "@ark-ui/react/combobox";
-import { CheckIcon, ChevronsUpDown } from "lucide-react";
+import { FiCheck, FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
-import { Button } from "./button";
+import { Button } from "@/registry/thornberry/components/button";
 
 import type { ComponentProps, ReactNode } from "react";
 
@@ -59,7 +59,10 @@ const ComboboxTrigger = ({
       size="icon"
       className={cn("absolute right-0 top-0 h-10 w-10", className)}
     >
-      <ChevronsUpDown className="h-4 w-4" />
+      <div className="flex flex-col">
+        <FiChevronUp className="h-2 w-4" />
+        <FiChevronDown className="h-2 w-4" />
+      </div>
     </Button>
   </ArkCombobox.Trigger>
 );
@@ -120,7 +123,7 @@ const ComboboxItem = ({
   >
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <ArkCombobox.ItemIndicator>
-        <CheckIcon className="h-4 w-4" />
+        <FiCheck className="h-4 w-4" />
       </ArkCombobox.ItemIndicator>
     </span>
     <ArkCombobox.ItemText>{children}</ArkCombobox.ItemText>
@@ -193,4 +196,5 @@ export {
   ComboboxProvider,
   ComboboxContext,
   Combobox,
+  type ComboboxProps,
 };

@@ -4,6 +4,18 @@
   "homepage": "https://github.com/omnidotdev/thornberry",
   "items": [
     {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "A vertically stacked set of interactive headings that each reveal a section of content",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "alert",
       "type": "registry:ui",
       "title": "Alert",
@@ -64,6 +76,18 @@
       ]
     },
     {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "A component that displays content in a rotating cycle with navigation controls",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/carousel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "checkbox",
       "type": "registry:ui",
       "title": "Checkbox",
@@ -76,6 +100,42 @@
       ]
     },
     {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "An interactive component that can be opened and closed to reveal or hide content",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "A searchable dropdown select component that allows users to filter through a list of options",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/combobox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "A modal dialog that interrupts the user with important content",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
@@ -83,6 +143,102 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "menu",
+      "type": "registry:ui",
+      "title": "Menu",
+      "description": "A vertically stacked set of interactive menu items",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "number-input",
+      "type": "registry:ui",
+      "title": "Number Input",
+      "description": "A form control that allows users to input numeric values with increment and decrement buttons",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/number-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "A component for navigating through multiple pages of content",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/pagination.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "A popup element that displays information related to an element when the element receives keyboard focus or the mouse hovers over it",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/popover.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "A control that allows users to select a value or range from a given range",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/slider.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "A control that allows the user to toggle between checked and not checked",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "A set of layered sections of content that display one panel of content at a time",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/tooltip.tsx",
           "type": "registry:ui"
         }
       ]
