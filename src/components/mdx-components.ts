@@ -1,6 +1,14 @@
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { BiErrorAlt } from "react-icons/bi";
-import { FiCheck, FiDownload, FiInfo, FiUser, FiChevronDown, FiChevronRight, FiX } from "react-icons/fi";
+import {
+  FiCheck,
+  FiChevronDown,
+  FiChevronRight,
+  FiDownload,
+  FiInfo,
+  FiUser,
+  FiX,
+} from "react-icons/fi";
 import { IoWarningOutline } from "react-icons/io5";
 
 import {
