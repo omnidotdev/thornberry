@@ -1,6 +1,6 @@
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { BiErrorAlt } from "react-icons/bi";
-import { FiCheck, FiDownload, FiInfo } from "react-icons/fi";
+import { FiCheck, FiDownload, FiInfo, FiUser } from "react-icons/fi";
 import { IoWarningOutline } from "react-icons/io5";
 
 import {
@@ -10,6 +10,12 @@ import {
   AlertRoot,
   AlertTitle,
 } from "@/registry/thornberry/components/alert";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  AvatarRoot,
+} from "@/registry/thornberry/components/avatar";
 import { Button } from "@/registry/thornberry/components/button";
 import { Input } from "@/registry/thornberry/components/input";
 
@@ -23,11 +29,16 @@ export const getMDXComponents = (components?: MDXComponents): MDXComponents => {
     AlertIcon,
     AlertRoot,
     AlertTitle,
+    Avatar,
+    AvatarRoot,
+    AvatarImage,
+    AvatarFallback,
     BiErrorAlt,
     Button,
     FiCheck,
     FiDownload,
     FiInfo,
+    FiUser,
     Input,
     IoWarningOutline,
     ...components,

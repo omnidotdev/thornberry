@@ -1,0 +1,49 @@
+---
+title: Avatar
+description: Avatar component
+---
+
+## Fallback Initials
+
+```tsx
+<Avatar name="Elon Musk" imageSrc="/img/elon-musk.jpg" />
+```
+
+<br />
+
+<div className="flex gap-2">
+   <Avatar name="Elon Musk" className="size-10" />
+   <Avatar name="Elon Musk" imageSrc="/img/elon-musk.jpg" className="size-10" />
+</div>
+
+## Fallback Icon
+
+```tsx
+<Avatar fallback={<FiUser />} imageSrc="/img/elon-musk.jpg" />
+```
+
+<br />
+
+<div className="flex gap-2">
+    <Avatar fallback={<FiUser />} className="size-10" />
+    <Avatar fallback={<FiUser />} imageSrc="/img/elon-musk.jpg" className="size-10" />
+</div>
+
+## Primitives
+
+```tsx
+<AvatarRoot>
+    <AvatarFallback>EM</AvatarFallback>
+    <AvatarImage src="/img/elon-musk.jpg" />
+</AvatarRoot>
+```
+
+<div className="flex gap-2">
+    <AvatarRoot>
+        <AvatarFallback>EM</AvatarFallback>
+    </AvatarRoot>
+    <AvatarRoot>
+        <AvatarFallback>EM</AvatarFallback>
+        <AvatarImage src="/img/elon-musk.jpg" />
+    </AvatarRoot>
+</div>

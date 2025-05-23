@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "type": "registry:ui",
+  "title": "Avatar",
+  "description": "An avatar component",
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/avatar.tsx",
+      "content": "import { Avatar as ArkAvatar } from \"@ark-ui/react\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps, ReactNode } from \"react\";\n\ntype Nullable<T> = T | null;\n\nconst getInitials = (name: string) =>\n  name\n    .match(/(^\\S\\S?|\\s\\S)?/g)!\n    .map((v) => v.trim())\n    .join(\"\")\n    .match(/(^\\S|\\S$)?/g)!\n    .join(\"\")\n    .toLocaleUpperCase();\n\nconst AvatarProvider = ArkAvatar.RootProvider;\n\nconst AvatarRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkAvatar.Root>) => (\n  <ArkAvatar.Root\n    className={cn(\n      \"relative flex size-10 shrink-0 overflow-hidden rounded-full items-center justify-center\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst AvatarFallback = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkAvatar.Fallback>) => (\n  <ArkAvatar.Fallback\n    className={cn(\n      \"flex size-full items-center justify-center rounded-full bg-muted\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst AvatarImage = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkAvatar.Image>) => (\n  <ArkAvatar.Image\n    className={cn(\"aspect-square h-full w-full\", className)}\n    alt=\"avatar\"\n    {...rest}\n  />\n);\n\ninterface AvatarProps extends ComponentProps<typeof AvatarRoot> {\n  name?: Nullable<string>;\n  fallback?: ReactNode;\n  imageSrc?: string;\n}\n\nconst Avatar = ({ name, fallback, imageSrc, ...rest }: AvatarProps) => (\n  <AvatarRoot {...rest}>\n    <AvatarFallback>{name ? getInitials(name) : fallback}</AvatarFallback>\n    {imageSrc && <AvatarImage src={imageSrc} />}\n  </AvatarRoot>\n);\n\nexport { AvatarRoot, AvatarFallback, AvatarImage, Avatar, AvatarProvider };\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}
