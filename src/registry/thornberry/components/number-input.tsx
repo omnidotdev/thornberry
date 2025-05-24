@@ -107,7 +107,7 @@ const NumberInput = ({
     {label && <NumberInputLabel>{label}</NumberInputLabel>}
     <NumberInputControl>
       <NumberInputInput placeholder={placeholder} />
-      <div className="flex flex-col border-l justify-center h-full overflow-hidden">
+      <div className="flex h-full flex-col justify-center overflow-hidden border-l">
         <NumberInputIncrementTrigger />
         <div className="h-px bg-border" />
         <NumberInputDecrementTrigger />

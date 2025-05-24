@@ -14,7 +14,7 @@ const ComboboxRoot = ({
   ...rest
 }: ComponentProps<typeof ArkCombobox.Root>) => (
   <ArkCombobox.Root
-    className={cn("flex flex-col gap-1.5 w-full", className)}
+    className={cn("flex w-full flex-col gap-1.5", className)}
     {...rest}
   />
 );
@@ -66,8 +66,8 @@ const ComboboxTrigger = ({
       className={cn("absolute top-1.5 right-1.5 bottom-1 h-fit w-7", className)}
     >
       <div className="flex flex-col">
-        <FiChevronUp className="h-2 w-4 -mb-0.5" />
-        <FiChevronDown className="h-2 w-4 -mt-0.5" />
+        <FiChevronUp className="-mb-0.5 h-2 w-4" />
+        <FiChevronDown className="-mt-0.5 h-2 w-4" />
       </div>
     </Button>
   </ArkCombobox.Trigger>
@@ -103,7 +103,7 @@ const ComboboxContent = ({
 }: ComponentProps<typeof ArkCombobox.Content>) => (
   <ArkCombobox.Content
     className={cn(
-      "max-h-[300px] overflow-y-auto rounded-md border bg-popover p-1 shadow-md z-50",
+      "z-50 max-h-[300px] overflow-y-auto rounded-md border bg-popover p-1 shadow-md",
       "data-[state=closed]:animate-out data-[state=open]:animate-in",
       "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
