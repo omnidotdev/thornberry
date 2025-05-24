@@ -7,18 +7,18 @@ import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
 
 const alertVariants = cva(
-  "relative w-full rounded-lg border px-4 py-5 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7",
+  "relative w-full rounded-lg border px-4 py-5 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:top-4 [&>svg]:left-4 [&>svg]:text-foreground [&>svg~*]:pl-7",
   {
     variants: {
       variant: {
         default: "bg-background text-foreground",
         error:
-          "bg-destructive/5 border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
-        info: "bg-blue-500/5 border-blue-500/50 text-blue-500 dark:border-blue-500 [&>svg]:text-blue-500",
+          "border-destructive/50 bg-destructive/5 text-destructive dark:border-destructive [&>svg]:text-destructive",
+        info: "border-blue-500/50 bg-blue-500/5 text-blue-500 dark:border-blue-500 [&>svg]:text-blue-500",
         warning:
-          "bg-yellow-500/5 border-yellow-500/50 text-yellow-500 dark:border-yellow-500 [&>svg]:text-yellow-500",
+          "border-yellow-500/50 bg-yellow-500/5 text-yellow-500 dark:border-yellow-500 [&>svg]:text-yellow-500",
         success:
-          "bg-green-500/5 border-green-500/50 text-green-500 dark:border-green-500 [&>svg]:text-green-500",
+          "border-green-500/50 bg-green-500/5 text-green-500 dark:border-green-500 [&>svg]:text-green-500",
       },
     },
     defaultVariants: {
@@ -41,7 +41,7 @@ const AlertRoot = ({
 
 const AlertIcon = ({ className, ...rest }: ComponentProps<typeof ark.svg>) => (
   <ark.svg
-    className={cn("text-foreground shrink-0 size-5", className)}
+    className={cn("size-5 shrink-0 text-foreground", className)}
     asChild
     {...rest}
   />
@@ -50,7 +50,7 @@ const AlertIcon = ({ className, ...rest }: ComponentProps<typeof ark.svg>) => (
 const AlertTitle = ({ className, ...rest }: ComponentProps<typeof ark.div>) => (
   <ark.div
     className={cn(
-      "-mt-1 mb-1 font-bold leading-none tracking-tight text-lg",
+      "-mt-1 mb-1 font-bold text-lg leading-none tracking-tight",
       className,
     )}
     {...rest}

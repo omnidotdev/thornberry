@@ -23,7 +23,7 @@ const AvatarRoot = ({
 }: ComponentProps<typeof ArkAvatar.Root>) => (
   <ArkAvatar.Root
     className={cn(
-      "relative flex size-10 shrink-0 overflow-hidden rounded-full items-center justify-center",
+      "relative flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full",
       className,
     )}
     {...rest}

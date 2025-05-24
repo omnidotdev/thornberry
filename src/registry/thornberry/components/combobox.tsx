@@ -21,7 +21,7 @@ const ComboboxLabel = ({
   ...rest
 }: ComponentProps<typeof ArkCombobox.Label>) => (
   <ArkCombobox.Label
-    className={cn("mb-2 block text-sm font-medium", className)}
+    className={cn("mb-2 block font-medium text-sm", className)}
     {...rest}
   />
 );
@@ -40,7 +40,7 @@ const ComboboxInput = ({
   <ArkCombobox.Input
     className={cn(
       "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
-      "ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium",
+      "ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-sm",
       "placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2",
       "focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
       className,
@@ -57,7 +57,7 @@ const ComboboxTrigger = ({
     <Button
       variant="outline"
       size="icon"
-      className={cn("absolute right-0 top-0 h-10 w-10", className)}
+      className={cn("absolute top-0 right-0 h-10 w-10", className)}
     >
       <div className="flex flex-col">
         <FiChevronUp className="h-2 w-4" />
@@ -73,7 +73,7 @@ const ComboboxClearTrigger = ({
 }: ComponentProps<typeof ArkCombobox.ClearTrigger>) => (
   <ArkCombobox.ClearTrigger
     className={cn(
-      "absolute right-10 top-0 flex h-full items-center justify-center pr-2 text-muted-foreground",
+      "absolute top-0 right-10 flex h-full items-center justify-center pr-2 text-muted-foreground",
       "hover:text-foreground disabled:pointer-events-none",
       className,
     )}
@@ -98,7 +98,7 @@ const ComboboxContent = ({
   <ArkCombobox.Content
     className={cn(
       "max-h-[300px] overflow-y-auto rounded-md border bg-popover p-1 shadow-md",
-      "data-[state=open]:animate-in data-[state=closed]:animate-out",
+      "data-[state=closed]:animate-out data-[state=open]:animate-in",
       "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
       className,
@@ -114,7 +114,7 @@ const ComboboxItem = ({
 }: ComponentProps<typeof ArkCombobox.Item>) => (
   <ArkCombobox.Item
     className={cn(
-      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none",
+      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pr-2 pl-8 text-sm outline-none",
       "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       "data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground",
       className,
@@ -143,7 +143,7 @@ const ComboboxItemGroupLabel = ({
 }: ComponentProps<typeof ArkCombobox.ItemGroupLabel>) => (
   <ArkCombobox.ItemGroupLabel
     className={cn(
-      "px-2 py-1.5 text-xs font-medium text-muted-foreground",
+      "px-2 py-1.5 font-medium text-muted-foreground text-xs",
       className,
     )}
     {...rest}

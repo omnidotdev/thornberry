@@ -17,7 +17,7 @@ const CheckboxRoot = ({
 );
 
 const CheckboxLabel = ({ children }: { children: ReactNode }) => (
-  <ArkCheckbox.Label className="ml-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+  <ArkCheckbox.Label className="ml-2 font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
     {children}
   </ArkCheckbox.Label>
 );
@@ -28,7 +28,7 @@ const CheckboxControl = ({
 }: ComponentProps<typeof ArkCheckbox.Control>) => (
   <ArkCheckbox.Control
     className={cn(
-      "flex items-center justify-center cursor-pointer transition-normal size-5 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed peer-disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
+      "flex size-5 cursor-pointer items-center justify-center rounded-sm border border-primary shadow transition-normal focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed peer-disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
       className,
     )}
     {...rest}

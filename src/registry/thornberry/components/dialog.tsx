@@ -23,7 +23,7 @@ const DialogBackdrop = ({
 }: ComponentProps<typeof ArkDialog.Backdrop>) => (
   <ArkDialog.Backdrop
     className={cn(
-      "fixed inset-0 z-50 bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-background/80 backdrop-blur-sm data-[state=closed]:animate-out data-[state=open]:animate-in",
       className,
     )}
     {...rest}
@@ -49,7 +49,7 @@ const DialogContent = ({
 }: ComponentProps<typeof ArkDialog.Content>) => (
   <ArkDialog.Content
     className={cn(
-      "relative grid w-full max-w-lg gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%] sm:rounded-lg",
+      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%] relative grid w-full max-w-lg gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=closed]:animate-out data-[state=open]:animate-in sm:rounded-lg",
       className,
     )}
     {...rest}
@@ -62,7 +62,7 @@ const DialogTitle = ({
 }: ComponentProps<typeof ArkDialog.Title>) => (
   <ArkDialog.Title
     className={cn(
-      "text-lg font-semibold leading-none tracking-tight",
+      "font-semibold text-lg leading-none tracking-tight",
       className,
     )}
     {...rest}
@@ -74,7 +74,7 @@ const DialogDescription = ({
   ...rest
 }: ComponentProps<typeof ArkDialog.Description>) => (
   <ArkDialog.Description
-    className={cn("text-sm text-muted-foreground", className)}
+    className={cn("text-muted-foreground text-sm", className)}
     {...rest}
   />
 );
@@ -90,7 +90,7 @@ const DialogCloseTrigger = ({
     return (
       <ArkDialog.CloseTrigger
         className={cn(
-          "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none",
+          "absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none",
           className,
         )}
         {...rest}

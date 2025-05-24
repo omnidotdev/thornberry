@@ -30,7 +30,7 @@ const CardDescription = ({
   ...rest
 }: ComponentProps<typeof ark.div>) => (
   <ark.div
-    className={cn("text-sm text-muted-foreground", className)}
+    className={cn("text-muted-foreground text-sm", className)}
     {...rest}
   />
 );

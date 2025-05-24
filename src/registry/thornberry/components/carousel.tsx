@@ -44,7 +44,7 @@ const CarouselNextTrigger = ({
       variant="outline"
       size="icon"
       className={cn(
-        "absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full",
+        "-translate-y-1/2 absolute top-1/2 right-2 z-10 rounded-full",
         className,
       )}
     >
@@ -62,7 +62,7 @@ const CarouselPrevTrigger = ({
       variant="outline"
       size="icon"
       className={cn(
-        "absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full",
+        "-translate-y-1/2 absolute top-1/2 left-2 z-10 rounded-full",
         className,
       )}
     >
@@ -76,7 +76,7 @@ const CarouselIndicatorGroup = ({
   ...rest
 }: ComponentProps<typeof ArkCarousel.IndicatorGroup>) => (
   <ArkCarousel.IndicatorGroup
-    className={cn("flex gap-1 justify-center mt-3", className)}
+    className={cn("mt-3 flex justify-center gap-1", className)}
     {...rest}
   />
 );

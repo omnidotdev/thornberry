@@ -44,7 +44,7 @@ const PaginationItem = ({
 }: ComponentProps<typeof ArkPagination.Item> & { page?: number }) => (
   <ArkPagination.Item
     className={cn(
-      "flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background text-sm font-medium",
+      "flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background font-medium text-sm",
       "hover:bg-muted",
       "data-[selected]:border-primary data-[selected]:bg-primary data-[selected]:text-primary-foreground",
       className,

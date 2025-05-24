@@ -22,7 +22,7 @@ const CollapsibleTrigger = ({
 }: ComponentProps<typeof ArkCollapsible.Trigger>) => (
   <ArkCollapsible.Trigger
     className={cn(
-      "flex w-full items-center justify-between rounded-md px-4 py-2 text-sm font-medium",
+      "flex w-full items-center justify-between rounded-md px-4 py-2 font-medium text-sm",
       "bg-background hover:bg-muted/50",
       "data-[state=open]:bg-muted/50",
       className,

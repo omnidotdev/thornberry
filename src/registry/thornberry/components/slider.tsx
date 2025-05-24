@@ -25,7 +25,7 @@ const SliderLabel = ({
   ...rest
 }: ComponentProps<typeof ArkSlider.Label>) => (
   <ArkSlider.Label
-    className={cn("mb-2 text-sm font-medium", className)}
+    className={cn("mb-2 font-medium text-sm", className)}
     {...rest}
   />
 );

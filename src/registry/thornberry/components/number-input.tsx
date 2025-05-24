@@ -24,7 +24,7 @@ const NumberInputLabel = ({
   ...rest
 }: ComponentProps<typeof ArkNumberInput.Label>) => (
   <ArkNumberInput.Label
-    className={cn("mb-2 block text-sm font-medium", className)}
+    className={cn("mb-2 block font-medium text-sm", className)}
     {...rest}
   />
 );

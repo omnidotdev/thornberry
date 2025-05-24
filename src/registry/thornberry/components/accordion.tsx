@@ -29,7 +29,7 @@ const AccordionItemTrigger = ({
 }: ComponentProps<typeof ArkAccordion.ItemTrigger>) => (
   <ArkAccordion.ItemTrigger
     className={cn(
-      "flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
+      "flex flex-1 items-center justify-between py-4 font-medium text-sm transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
       className,
     )}
     {...rest}
@@ -85,7 +85,7 @@ const Accordion = ({ items, ...rest }: AccordionProps) => (
           <AccordionItemIndicator />
         </AccordionItemTrigger>
         <AccordionItemContent>
-          <div className="pb-4 pt-0">{item.content}</div>
+          <div className="pt-0 pb-4">{item.content}</div>
         </AccordionItemContent>
       </AccordionItem>
     ))}
