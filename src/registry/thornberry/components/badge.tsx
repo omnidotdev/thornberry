@@ -7,21 +7,24 @@ import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-md border px-2.5 py-0.5 font-semibold text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center rounded-md border transition-colors select-none font-medium whitespace-nowrap",
   {
     variants: {
       variant: {
-        default:
-          "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80",
-        secondary:
-          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        destructive:
-          "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
+        solid: "border-transparent bg-primary text-primary-foreground",
+        subtle:
+          "border-transparent bg-primary-200/20 dark:bg-primary-900/20 text-foreground",
         outline: "text-foreground",
+      },
+      size: {
+        sm: "text-xs px-2 h-5 gap-1 [&_svg]:size-3",
+        md: "text-xs px-2.5 h-6 gap-1 [&_svg]:size-4",
+        lg: "text-sm px-3 h-7 gap-1 [&_svg]:size-4",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "solid",
+      size: "md",
     },
   },
 );
@@ -29,9 +32,13 @@ const badgeVariants = cva(
 const Badge = ({
   className,
   variant,
+  size,
   ...rest
 }: ComponentProps<typeof ark.div> & VariantProps<typeof badgeVariants>) => (
-  <ark.div className={cn(badgeVariants({ className, variant }))} {...rest} />
+  <ark.div
+    className={cn(badgeVariants({ className, variant, size }))}
+    {...rest}
+  />
 );
 
 export { Badge, badgeVariants };

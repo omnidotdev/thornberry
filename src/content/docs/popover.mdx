@@ -3,6 +3,21 @@ title: Popover
 description: A small floating content display that appears when a user interacts with a trigger element
 ---
 
+import {
+  Popover,
+  PopoverArrow,
+  PopoverArrowTip,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverContext,
+  PopoverPositioner,
+  PopoverProvider,
+  PopoverRoot,
+  PopoverTrigger,
+} from "@/registry/thornberry/components/popover";
+import { Button } from "@/registry/thornberry/components/button";
+import { Input } from "@/registry/thornberry/components/input";
+
 ## Basic
 
 <div className="flex justify-center">
@@ -46,12 +61,12 @@ description: A small floating content display that appears when a user interacts
 ## Positioning
 
 <div className="flex flex-wrap justify-center gap-4">
-    <Popover
-      trigger={<Button variant="outline">Left</Button>}
-      positioning={{ placement: "left" }}
-    >
-      This popover appears on the left
-    </Popover>
+  <Popover
+    trigger={<Button variant="outline">Left</Button>}
+    positioning={{ placement: "left" }}
+  >
+    This popover appears on the left
+  </Popover>
   <Popover
     trigger={<Button variant="outline">Top</Button>}
     positioning={{ placement: "top" }}

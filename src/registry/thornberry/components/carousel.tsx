@@ -89,7 +89,7 @@ const CarouselIndicator = ({
   <ArkCarousel.Indicator
     index={index}
     className={cn(
-      "size-3 rounded-full bg-secondary transition-colors",
+      "size-3 rounded-full bg-base-600 transition-colors",
       "data-[current]:bg-primary",
       className,
     )}

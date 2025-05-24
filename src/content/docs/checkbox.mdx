@@ -3,9 +3,18 @@ title: Checkbox
 description: A control that allows the user to toggle between checked and not checked.
 ---
 
+import {
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+  CheckboxRoot,
+} from "@/registry/thornberry/components/checkbox";
+import { FiCheck, FiUser } from "react-icons/fi";
+
 ## Basic Checkbox
 
-<CheckboxRoot>
+<CheckboxRoot className="mb-4">
   <CheckboxHiddenInput />
   <CheckboxControl>
     <CheckboxIndicator>
@@ -17,7 +26,7 @@ description: A control that allows the user to toggle between checked and not ch
 
 ## Disabled Checkbox
 
-<div className="flex flex-col gap-2">
+<div className="flex flex-col gap-2 mb-4">
   <CheckboxRoot disabled checked>
     <CheckboxHiddenInput />
     <CheckboxControl>

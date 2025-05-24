@@ -3,13 +3,37 @@ title: Menu
 description: A dropdown menu that displays a list of options
 ---
 
+import { FiCheck, FiChevronDown } from "react-icons/fi";
+
+import {
+  Menu,
+  MenuArrow,
+  MenuArrowTip,
+  MenuCheckboxItem,
+  MenuContent,
+  MenuItem,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuItemIndicator,
+  MenuItemText,
+  MenuPositioner,
+  MenuProvider,
+  MenuRadioItem,
+  MenuRadioItemGroup,
+  MenuRoot,
+  MenuSeparator,
+  MenuTrigger,
+  MenuTriggerItem,
+} from "@/registry/thornberry/components/menu";
+import { Button } from "@/registry/thornberry/components/button";
+
 ## Basic
 
 <div className="flex justify-center">
   <Menu trigger={<Button variant="outline">Open Menu</Button>}>
-      <MenuItem value="copy">Copy</MenuItem>
-      <MenuItem value="paste">Paste</MenuItem>
-      <MenuItem value="cut">Cut</MenuItem>
+    <MenuItem value="copy">Copy</MenuItem>
+    <MenuItem value="paste">Paste</MenuItem>
+    <MenuItem value="cut">Cut</MenuItem>
   </Menu>
 </div>
 
@@ -49,7 +73,7 @@ description: A dropdown menu that displays a list of options
         <div className="flex items-center gap-2">
           <div className="h-5 w-5 rounded-full bg-primary" />
           <div className="text-sm">John Doe</div>
-          <ChevronDown className="h-4 w-4" />
+          <FiChevronDown className="h-4 w-4" />
         </div>
       </div>
     </MenuTrigger>
@@ -62,82 +86,82 @@ description: A dropdown menu that displays a list of options
       </MenuContent>
     </MenuPositioner>
   </MenuRoot>
-  </div>
+</div>
 
-  ## Checkbox Items
+## Checkbox Items
 
-  <div className="flex justify-center">
-    <MenuRoot closeOnSelect={false}>
-      <MenuTrigger asChild>
-        <Button>Menu with Checkboxes</Button>
-      </MenuTrigger>
-      <MenuPositioner>
-        <MenuContent>
-          <MenuCheckboxItem value="bold" className="justify-between">
-            <MenuItemText>Bold</MenuItemText>
+<div className="flex justify-center">
+  <MenuRoot closeOnSelect={false}>
+    <MenuTrigger asChild>
+      <Button>Menu with Checkboxes</Button>
+    </MenuTrigger>
+    <MenuPositioner>
+      <MenuContent>
+        <MenuCheckboxItem value="bold" className="justify-between">
+          <MenuItemText>Bold</MenuItemText>
+          <MenuItemIndicator>
+            <FiCheck className="size-4" />
+          </MenuItemIndicator>
+        </MenuCheckboxItem>
+        <MenuCheckboxItem value="italic" className="justify-between">
+          <MenuItemText>Italic</MenuItemText>
+          <MenuItemIndicator>
+            <FiCheck className="size-4" />
+          </MenuItemIndicator>
+        </MenuCheckboxItem>
+        <MenuCheckboxItem value="underline" className="justify-between">
+          <MenuItemText>Underline</MenuItemText>
+          <MenuItemIndicator>
+            <FiCheck className="size-4" />
+          </MenuItemIndicator>
+        </MenuCheckboxItem>
+      </MenuContent>
+    </MenuPositioner>
+  </MenuRoot>
+</div>
+
+## Radio Items
+
+<div className="flex justify-center">
+  <MenuRoot>
+    <MenuTrigger asChild>
+      <Button>Menu with Radio Options</Button>
+    </MenuTrigger>
+    <MenuPositioner>
+      <MenuContent>
+        <MenuRadioItemGroup value="react">
+          <MenuItemGroupLabel>Frameworks</MenuItemGroupLabel>
+          <MenuRadioItem value="react">
             <MenuItemIndicator>
-              <Check className="size-4" />
+              <FiCheck className="h-4 w-4" />
             </MenuItemIndicator>
-          </MenuCheckboxItem>
-          <MenuCheckboxItem value="italic" className="justify-between">
-            <MenuItemText>Italic</MenuItemText>
+            <MenuItemText>React</MenuItemText>
+          </MenuRadioItem>
+          <MenuRadioItem value="solid">
             <MenuItemIndicator>
-              <Check className="size-4" />
+              <FiCheck className="h-4 w-4" />
             </MenuItemIndicator>
-          </MenuCheckboxItem>
-          <MenuCheckboxItem value="underline" className="justify-between">
-            <MenuItemText>Underline</MenuItemText>
+            <MenuItemText>Solid</MenuItemText>
+          </MenuRadioItem>
+          <MenuRadioItem value="vue">
             <MenuItemIndicator>
-              <Check className="size-4" />
+              <FiCheck className="h-4 w-4" />
             </MenuItemIndicator>
-          </MenuCheckboxItem>
-        </MenuContent>
-      </MenuPositioner>
-    </MenuRoot>
-  </div>
+            <MenuItemText>Vue</MenuItemText>
+          </MenuRadioItem>
+          <MenuRadioItem value="svelte" disabled>
+            <MenuItemIndicator>
+              <FiCheck className="h-4 w-4" />
+            </MenuItemIndicator>
+            <MenuItemText>Svelte (Disabled)</MenuItemText>
+          </MenuRadioItem>
+        </MenuRadioItemGroup>
+      </MenuContent>
+    </MenuPositioner>
+  </MenuRoot>
+</div>
 
-  ## Radio Items
-
-  <div className="flex justify-center">
-    <MenuRoot>
-      <MenuTrigger asChild>
-        <Button>Menu with Radio Options</Button>
-      </MenuTrigger>
-      <MenuPositioner>
-        <MenuContent>
-          <MenuRadioItemGroup value="react">
-            <MenuItemGroupLabel>Frameworks</MenuItemGroupLabel>
-            <MenuRadioItem value="react">
-              <MenuItemIndicator>
-                <Check className="h-4 w-4" />
-              </MenuItemIndicator>
-              <MenuItemText>React</MenuItemText>
-            </MenuRadioItem>
-            <MenuRadioItem value="solid">
-              <MenuItemIndicator>
-                <Check className="h-4 w-4" />
-              </MenuItemIndicator>
-              <MenuItemText>Solid</MenuItemText>
-            </MenuRadioItem>
-            <MenuRadioItem value="vue">
-              <MenuItemIndicator>
-                <Check className="h-4 w-4" />
-              </MenuItemIndicator>
-              <MenuItemText>Vue</MenuItemText>
-            </MenuRadioItem>
-            <MenuRadioItem value="svelte" disabled>
-              <MenuItemIndicator>
-                <Check className="h-4 w-4" />
-              </MenuItemIndicator>
-              <MenuItemText>Svelte (Disabled)</MenuItemText>
-            </MenuRadioItem>
-          </MenuRadioItemGroup>
-        </MenuContent>
-      </MenuPositioner>
-    </MenuRoot>
-  </div>
-
-  ## Primitives
+## Primitives
 
 <div className="flex justify-center">
   <MenuRoot>
@@ -170,19 +194,19 @@ description: A dropdown menu that displays a list of options
           <MenuItemGroupLabel>View Options</MenuItemGroupLabel>
           <MenuCheckboxItem value="grid">
             <MenuItemIndicator>
-              <Check className="h-4 w-4" />
+              <FiCheck className="h-4 w-4" />
             </MenuItemIndicator>
             <MenuItemText>Grid View</MenuItemText>
           </MenuCheckboxItem>
           <MenuCheckboxItem value="list">
             <MenuItemIndicator>
-              <Check className="h-4 w-4" />
+              <FiCheck className="h-4 w-4" />
             </MenuItemIndicator>
             <MenuItemText>List View</MenuItemText>
           </MenuCheckboxItem>
           <MenuCheckboxItem disabled value="compact">
             <MenuItemIndicator>
-              <Check className="h-4 w-4" />
+              <FiCheck className="h-4 w-4" />
             </MenuItemIndicator>
             <MenuItemText>Compact View</MenuItemText>
           </MenuCheckboxItem>

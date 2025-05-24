@@ -3,6 +3,18 @@ title: Tooltip
 description: A popup that displays information related to an element when it receives focus or is hovered over
 ---
 
+import {
+  Tooltip,
+  TooltipArrow,
+  TooltipArrowTip,
+  TooltipContent,
+  TooltipPositioner,
+  TooltipProvider,
+  TooltipRoot,
+  TooltipTrigger,
+} from "@/registry/thornberry/components/tooltip";
+import { Button } from "@/registry/thornberry/components/button";
+
 ## Basic
 
 <div className="flex justify-center py-8">
@@ -14,9 +26,9 @@ description: A popup that displays information related to an element when it rec
 ## Placement
 
 <div className="flex flex-wrap justify-center gap-4 py-8">
-    <Tooltip content="Left tooltip" positioning={{ placement: "left" }}>
-      <Button variant="outline" size="sm">Left</Button>
-    </Tooltip>
+  <Tooltip content="Left tooltip" positioning={{ placement: "left" }}>
+    <Button variant="outline" size="sm">Left</Button>
+  </Tooltip>
   <Tooltip content="Top tooltip" positioning={{ placement: "top" }}>
     <Button variant="outline" size="sm">Top</Button>
   </Tooltip>
