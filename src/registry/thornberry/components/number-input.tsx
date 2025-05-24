@@ -1,5 +1,5 @@
 import { NumberInput as ArkNumberInput } from "@ark-ui/react/number-input";
-import { FiMinus, FiPlus } from "react-icons/fi";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
@@ -24,7 +24,7 @@ const NumberInputLabel = ({
   ...rest
 }: ComponentProps<typeof ArkNumberInput.Label>) => (
   <ArkNumberInput.Label
-    className={cn("mb-2 block font-medium text-sm", className)}
+    className={cn("block font-medium text-sm", className)}
     {...rest}
   />
 );
@@ -61,9 +61,9 @@ const NumberInputDecrementTrigger = ({
     <Button
       variant="ghost"
       size="icon"
-      className={cn("h-full rounded-l-md border-r", className)}
+      className={cn("flex-1 rounded-none", className)}
     >
-      <FiMinus className="h-4 w-4" />
+      <FiChevronDown className="h-4 w-4" />
     </Button>
   </ArkNumberInput.DecrementTrigger>
 );
@@ -76,9 +76,9 @@ const NumberInputIncrementTrigger = ({
     <Button
       variant="ghost"
       size="icon"
-      className={cn("h-full rounded-r-md border-l", className)}
+      className={cn("flex-1 rounded-none", className)}
     >
-      <FiPlus className="h-4 w-4" />
+      <FiChevronUp className="h-4 w-4" />
     </Button>
   </ArkNumberInput.IncrementTrigger>
 );
@@ -106,9 +106,12 @@ const NumberInput = ({
   >
     {label && <NumberInputLabel>{label}</NumberInputLabel>}
     <NumberInputControl>
-      <NumberInputDecrementTrigger />
       <NumberInputInput placeholder={placeholder} />
-      <NumberInputIncrementTrigger />
+      <div className="flex flex-col border-l justify-center h-full overflow-hidden">
+        <NumberInputIncrementTrigger />
+        <div className="h-px bg-border" />
+        <NumberInputDecrementTrigger />
+      </div>
     </NumberInputControl>
   </NumberInputRoot>
 );

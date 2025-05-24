@@ -49,7 +49,7 @@ const SliderTrack = ({
 }: ComponentProps<typeof ArkSlider.Track>) => (
   <ArkSlider.Track
     className={cn(
-      "relative h-2 w-full grow overflow-hidden rounded-full bg-secondary",
+      "relative h-2 w-full grow overflow-hidden rounded-full bg-base-200 dark:bg-base-800",
       className,
     )}
     {...rest}
@@ -140,7 +140,9 @@ const Slider = ({
       ))}
       <SliderThumb index={0} />
     </SliderControl>
-    {showValueText && <SliderValueText />}
+    {showValueText && (
+      <SliderValueText className={markers ? "pt-4" : undefined} />
+    )}
   </SliderRoot>
 );
 

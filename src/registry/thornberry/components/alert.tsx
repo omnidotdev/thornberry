@@ -50,7 +50,7 @@ const AlertIcon = ({ className, ...rest }: ComponentProps<typeof ark.svg>) => (
 const AlertTitle = ({ className, ...rest }: ComponentProps<typeof ark.div>) => (
   <ark.div
     className={cn(
-      "-mt-1 mb-1 font-bold text-lg leading-none tracking-tight",
+      "mb-1 font-bold text-lg leading-none tracking-tight",
       className,
     )}
     {...rest}

@@ -1,8 +1,49 @@
 ---
 title: Button
-description: Button component
+description: Interactive button component for actions in forms, dialogs, and more.
 ---
+
+import { FiPlus } from "react-icons/fi";
 
 import { Button } from "@/registry/thornberry/components/button";
 
-<Button>Click me</Button>
+## Variants
+
+```tsx
+<Button variant="outline">Outline</Button>
+```
+
+<div className="flex items-center gap-2 mb-4">
+  <Button>Solid</Button>
+  <Button variant="outline">Outline</Button>
+  <Button variant="muted">Muted</Button>
+  <Button variant="ghost">Ghost</Button>
+  <Button variant="link">Link</Button>
+</div>
+
+## Sizes
+
+```tsx
+<Button size="sm">Small</Button>
+```
+
+<div className="flex gap-2 mb-4">
+  <Button size="sm">Small</Button>
+  <Button>Medium</Button>
+  <Button size="lg">Large</Button>
+  <Button size="icon">
+    <FiPlus />
+  </Button>
+</div>
+
+## Custom Colors
+
+```tsx
+<Button className="bg-blue-500 hover:bg-blue-400 dark:hover:bg-blue-600">Blue</Button>
+```
+
+<div className="flex gap-2 mb-4">
+  <Button className="bg-blue-500 hover:bg-blue-400 dark:hover:bg-blue-600">Blue</Button>
+  <Button variant="outline" className="text-green-500 dark:text-green-500 border-green-500 dark:border-green-500">Green</Button>
+  <Button variant="ghost" className="text-red-500 hover:text-red-500">Red</Button>
+</div>

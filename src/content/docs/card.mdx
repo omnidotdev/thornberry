@@ -20,9 +20,49 @@ import {
 } from "@/registry/thornberry/components/card";
 import { Input } from "@/registry/thornberry/components/input";
 
-<div className="flex flex-col gap-8">
-  {/* Basic Card Example */}
-  <CardRoot>
+## Basic
+
+  ```tsx
+  <Card
+    header={{
+      title: "Card Title",
+      description: "This is the card description."
+    }}
+    footer={<Button>Save</Button>}
+  >
+    <p>This card uses the simplified API with header and footer props.</p>
+  </Card>
+  ```
+
+  <Card
+    header={{
+      title: "Card Title",
+      description: "This is the card description."
+    }}
+    footer={<Button>Save</Button>}
+    className="my-4"
+  >
+    <p>This card uses the simplified API with header and footer props.</p>
+  </Card>
+
+## Primitives
+
+```tsx
+<CardRoot>
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card Description</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>This is the content area of the card, where the main information is displayed.</p>
+  </CardContent>
+  <CardFooter>
+    <Button>Action</Button>
+  </CardFooter>
+</CardRoot>
+```
+
+  <CardRoot className="my-4">
     <CardHeader>
       <CardTitle>Card Title</CardTitle>
       <CardDescription>Card Description</CardDescription>
@@ -34,24 +74,17 @@ import { Input } from "@/registry/thornberry/components/input";
       <Button>Action</Button>
     </CardFooter>
   </CardRoot>
-  {/* Card with combined props */}
-  <Card
-    header={{
-      title: "Easy Card",
-      description: "Created with the header prop"
-    }}
-    footer={<Button>Save</Button>}
-  >
-    <p>This card uses the simplified API with header and footer props.</p>
-  </Card>
-  {/* Different card styles and layouts */}
+
+## Examples
+
+<div className="flex flex-col gap-8 py-4">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <CardRoot>
+    <CardRoot className="flex flex-col">
       <CardHeader>
         <CardTitle>Product Feature</CardTitle>
         <CardDescription>Explore the capabilities</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex-1">
         <p>Cards can be used for featuring products, services, or content.</p>
       </CardContent>
       <CardFooter className="flex justify-between">
@@ -72,7 +105,6 @@ import { Input } from "@/registry/thornberry/components/input";
       </CardFooter>
     </CardRoot>
   </div>
-  {/* Card with Avatar */}
   <CardRoot>
     <CardHeader className="flex flex-row items-center gap-4">
       <Avatar>
@@ -91,7 +123,6 @@ import { Input } from "@/registry/thornberry/components/input";
       <Button>View Profile</Button>
     </CardFooter>
   </CardRoot>
-  {/* Card with form elements */}
   <CardRoot>
     <CardHeader>
       <CardTitle>Input Form</CardTitle>

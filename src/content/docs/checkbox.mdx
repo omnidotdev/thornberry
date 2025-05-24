@@ -14,6 +14,18 @@ import { FiCheck, FiUser } from "react-icons/fi";
 
 ## Basic Checkbox
 
+```tsx
+<CheckboxRoot>
+  <CheckboxHiddenInput />
+  <CheckboxControl>
+    <CheckboxIndicator>
+      <FiCheck className="size-4" />
+    </CheckboxIndicator>
+  </CheckboxControl>
+  <CheckboxLabel>Checkbox Label</CheckboxLabel>
+</CheckboxRoot>
+```
+
 <CheckboxRoot className="mb-4">
   <CheckboxHiddenInput />
   <CheckboxControl>
@@ -24,31 +36,19 @@ import { FiCheck, FiUser } from "react-icons/fi";
   <CheckboxLabel>Checkbox Label</CheckboxLabel>
 </CheckboxRoot>
 
-## Disabled Checkbox
-
-<div className="flex flex-col gap-2 mb-4">
-  <CheckboxRoot disabled checked>
-    <CheckboxHiddenInput />
-    <CheckboxControl>
-      <CheckboxIndicator>
-        <FiCheck className="size-4" />
-      </CheckboxIndicator>
-    </CheckboxControl>
-    <CheckboxLabel>Disabled (checked)</CheckboxLabel>
-  </CheckboxRoot>
-
-  <CheckboxRoot disabled checked={false}>
-    <CheckboxHiddenInput />
-    <CheckboxControl>
-      <CheckboxIndicator>
-        <FiCheck className="size-4" />
-      </CheckboxIndicator>
-    </CheckboxControl>
-    <CheckboxLabel>Disabled (unchecked)</CheckboxLabel>
-  </CheckboxRoot>
-</div>
-
 ## Custom Icon
+
+```tsx
+<CheckboxRoot defaultChecked>
+  <CheckboxHiddenInput />
+  <CheckboxControl>
+    <CheckboxIndicator>
+      <FiUser className="size-3" />
+    </CheckboxIndicator>
+  </CheckboxControl>
+  <CheckboxLabel>Custom user icon</CheckboxLabel>
+</CheckboxRoot>
+```
 
 <CheckboxRoot defaultChecked>
   <CheckboxHiddenInput />

@@ -21,6 +21,22 @@ import { Input } from "@/registry/thornberry/components/input";
 
 ## Basic
 
+```tsx
+<Dialog
+  trigger={<Button>Open Dialog</Button>}
+  title="Dialog Title"
+  description="This is a description of the dialog's purpose."
+>
+  <div className="py-4">This is the main content of the dialog.</div>
+  <div className="flex justify-end gap-2">
+    <DialogCloseTrigger asChild>
+      <Button variant="outline">Cancel</Button>
+    </DialogCloseTrigger>
+    <Button>Save</Button>
+  </div>
+</Dialog>
+```
+
 <div className="flex my-4">
   <Dialog
     trigger={<Button>Open Dialog</Button>}
@@ -37,57 +53,28 @@ import { Input } from "@/registry/thornberry/components/input";
   </Dialog>
 </div>
 
-## Without Description
-
-<div className="flex my-4">
-  <Dialog
-    trigger={<Button variant="outline">Simple Dialog</Button>}
-    title="Confirmation"
-  >
-    <div className="py-4">Are you sure you want to continue?</div>
-    <div className="flex justify-end gap-2">
-      <DialogCloseTrigger asChild>
-        <Button variant="outline">No</Button>
-      </DialogCloseTrigger>
-      <DialogCloseTrigger asChild>
-        <Button>Yes</Button>
-      </DialogCloseTrigger>
-    </div>
-  </Dialog>
-</div>
-
-## Custom Content
-
-<div className="flex my-4">
-  <Dialog
-    trigger={<Button>Open Form</Button>}
-    title="User Information"
-    description="Please fill out your details below."
-  >
-    <div className="grid gap-4 py-4">
-      <div className="grid grid-cols-4 items-center gap-4">
-        <label htmlFor="name" className="text-right text-sm font-medium">
-          Name
-        </label>
-        <Input id="name" defaultValue="John Doe" className="col-span-3" />
-      </div>
-      <div className="grid grid-cols-4 items-center gap-4">
-        <label htmlFor="email" className="text-right text-sm font-medium">
-          Email
-        </label>
-        <Input id="email" defaultValue="john@example.com" className="col-span-3" />
-      </div>
-    </div>
-    <div className="flex justify-end gap-2">
-      <DialogCloseTrigger asChild>
-        <Button variant="outline">Cancel</Button>
-      </DialogCloseTrigger>
-      <Button>Submit</Button>
-    </div>
-  </Dialog>
-</div>
-
 ## Primitives
+
+```tsx
+<DialogRoot>
+  <DialogTrigger asChild>
+    <Button variant="outline">Using Primitives</Button>
+  </DialogTrigger>
+  <DialogBackdrop />
+  <DialogPositioner>
+    <DialogContent>
+      <DialogCloseTrigger />
+      <DialogTitle>Custom Dialog</DialogTitle>
+      <DialogDescription>
+        This dialog is built using primitive components directly.
+      </DialogDescription>
+      <div className="border-t pt-4">
+        <div>You can fully customize each part of the dialog using the primitive components.</div>
+      </div>
+    </DialogContent>
+  </DialogPositioner>
+</DialogRoot>
+```
 
 <div className="flex my-4">
   <DialogRoot>
@@ -102,13 +89,8 @@ import { Input } from "@/registry/thornberry/components/input";
         <DialogDescription className="text-blue-500">
           This dialog is built using primitive components directly.
         </DialogDescription>
-        <div className="my-4 border-t pt-4">
+        <div className="border-t pt-4">
           <div>You can fully customize each part of the dialog using the primitive components.</div>
-        </div>
-        <div className="flex justify-end">
-          <DialogCloseTrigger asChild>
-            <Button>Close</Button>
-          </DialogCloseTrigger>
         </div>
       </DialogContent>
     </DialogPositioner>

@@ -25,6 +25,7 @@ const CollapsibleTrigger = ({
       "flex w-full items-center justify-between rounded-md px-4 py-2 font-medium text-sm",
       "bg-background hover:bg-muted/50",
       "data-[state=open]:bg-muted/50",
+      "data-[state=open]:rounded-b-none",
       className,
     )}
     {...rest}

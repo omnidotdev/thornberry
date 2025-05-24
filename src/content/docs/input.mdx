@@ -1,8 +1,42 @@
 ---
 title: Input
-description: Input component
+description: A form field for collecting user input
 ---
 
 import { Input } from "@/registry/thornberry/components/input";
 
+## Basic Input
+
+```tsx
 <Input placeholder="Enter text" />
+```
+
+<Input placeholder="Enter text" className="mb-4" />
+
+## With Label
+
+```tsx
+<div className="space-y-2">
+  <label htmlFor="email" className="text-sm font-medium">Email</label>
+  <Input id="email" type="email" placeholder="Enter your email" />
+</div>
+```
+
+<div className="space-y-2 mb-4">
+  <label htmlFor="email" className="text-sm font-medium">Email</label>
+  <Input id="email" type="email" placeholder="Enter your email" />
+</div>
+
+## Input Types
+
+```tsx
+<Input type="password" placeholder="Enter password" />
+```
+
+<div className="flex flex-col gap-4">
+  <Input type="text" placeholder="Text input" />
+  <Input type="password" placeholder="******" />
+  <Input type="email" placeholder="Email input" />
+  <Input type="number" placeholder="Number input" />
+  <Input type="search" placeholder="Search input" />
+</div>

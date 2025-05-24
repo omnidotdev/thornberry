@@ -20,8 +20,27 @@ import { Input } from "@/registry/thornberry/components/input";
 
 ## Basic
 
-<div className="flex justify-center">
-  <Popover trigger={<Button>Open Popover</Button>}>
+```tsx
+<Popover trigger={<Button>Open</Button>}>
+  <div className="space-y-2">
+    <h4 className="font-medium leading-none">Dimensions</h4>
+    <div className="text-sm text-muted-foreground">Set the dimensions for the object.</div>
+    <div className="flex gap-2">
+      <div className="grid gap-1">
+        <label htmlFor="width" className="text-xs">Width</label>
+        <Input id="width" defaultValue="100%" />
+      </div>
+      <div className="grid gap-1">
+        <label htmlFor="height" className="text-xs">Height</label>
+        <Input id="height" defaultValue="25px" />
+      </div>
+    </div>
+  </div>
+</Popover>
+```
+
+<div className="flex mb-4">
+  <Popover trigger={<Button>Open</Button>}>
     <div className="space-y-2">
       <h4 className="font-medium leading-none">Dimensions</h4>
       <div className="text-sm text-muted-foreground">Set the dimensions for the object.</div>
@@ -41,8 +60,25 @@ import { Input } from "@/registry/thornberry/components/input";
 
 ## With Close Trigger
 
-<div className="flex justify-center">
-  <Popover trigger={<Button>With Close Button</Button>}>
+```tsx
+<Popover trigger={<Button>Open</Button>}>
+  <div className="space-y-3">
+    <div className="flex items-center justify-between">
+      <h4 className="font-medium leading-none">Notifications</h4>
+      <PopoverCloseTrigger />
+    </div>
+    <div className="text-sm text-muted-foreground">
+      You have 3 unread messages.
+    </div>
+    <div className="pt-2 border-t">
+      <Button size="sm" className="w-full">View All</Button>
+    </div>
+  </div>
+</Popover>
+```
+
+<div className="flex mb-4">
+  <Popover trigger={<Button>Open</Button>}>
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <h4 className="font-medium leading-none">Notifications</h4>
@@ -60,7 +96,16 @@ import { Input } from "@/registry/thornberry/components/input";
 
 ## Positioning
 
-<div className="flex flex-wrap justify-center gap-4">
+```tsx
+<Popover
+  trigger={<Button variant="outline">Left</Button>}
+  positioning={{ placement: "left" }}
+>
+  This popover appears on the left
+</Popover>
+```
+
+<div className="flex gap-4 mb-4">
   <Popover
     trigger={<Button variant="outline">Left</Button>}
     positioning={{ placement: "left" }}
@@ -89,10 +134,36 @@ import { Input } from "@/registry/thornberry/components/input";
 
 ## Primitives
 
-<div className="flex justify-center">
+```tsx
+<PopoverRoot>
+  <PopoverTrigger asChild>
+    <Button variant="outline">Open</Button>
+  </PopoverTrigger>
+  <PopoverPositioner>
+    <PopoverContent>
+      <PopoverArrow>
+        <PopoverArrowTip />
+      </PopoverArrow>
+      <div className="space-y-2">
+        <h4 className="font-medium">Custom Styled Popover</h4>
+        <div className="text-sm">
+          This popover uses primitive components for custom styling.
+        </div>
+        <div className="flex justify-end">
+          <PopoverCloseTrigger asChild>
+            <Button variant="outline" size="sm">Close</Button>
+          </PopoverCloseTrigger>
+        </div>
+      </div>
+    </PopoverContent>
+  </PopoverPositioner>
+</PopoverRoot>
+```
+
+<div className="flex mb-4">
   <PopoverRoot>
     <PopoverTrigger asChild>
-      <Button variant="outline">Custom Popover</Button>
+      <Button variant="outline">Open</Button>
     </PopoverTrigger>
     <PopoverPositioner>
       <PopoverContent className="w-80 bg-blue-50 border-blue-200">
@@ -106,7 +177,7 @@ import { Input } from "@/registry/thornberry/components/input";
           </div>
           <div className="flex justify-end">
             <PopoverCloseTrigger asChild>
-              <Button variant="outline" size="sm">Close</Button>
+              <Button variant="outline" size="sm" className="dark:text-base-950">Close</Button>
             </PopoverCloseTrigger>
           </div>
         </div>

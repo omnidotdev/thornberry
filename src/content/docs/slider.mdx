@@ -19,19 +19,32 @@ import {
 
 ## Basic
 
+```tsx
 <Slider defaultValue={[50]} />
+```
+
+<Slider defaultValue={[50]} className="mb-4" />
 
 ## With Label
 
+```tsx
 <Slider label="Volume" defaultValue={[75]} />
+```
+
+<Slider label="Volume" defaultValue={[75]} className="mb-4" />
 
 ## With Value Display
 
+```tsx
 <Slider label="Brightness" defaultValue={[60]} showValueText />
+```
+
+<Slider label="Brightness" defaultValue={[60]} showValueText className="mb-4" />
 
 ## Custom Range
 
-<Slider 
+```tsx
+<Slider
   label="Temperature"
   min={15}
   max={30}
@@ -39,10 +52,22 @@ import {
   defaultValue={[22.5]}
   showValueText
 />
+```
+
+<Slider
+  label="Temperature"
+  min={15}
+  max={30}
+  step={0.5}
+  defaultValue={[22.5]}
+  showValueText
+  className="mb-4"
+/>
 
 ## With Markers
 
-<Slider 
+```tsx
+<Slider
   label="Speed"
   min={0}
   max={100}
@@ -57,37 +82,45 @@ import {
   ]}
   showValueText
 />
+```
 
-## Disabled
-
-<Slider 
-  label="Disabled Slider" 
-  defaultValue={[30]} 
-  disabled 
+<Slider
+  label="Speed"
+  min={0}
+  max={100}
+  step={25}
+  defaultValue={[50]}
+  markers={[
+    { value: 0, label: "0%" },
+    { value: 25, label: "25%" },
+    { value: 50, label: "50%" },
+    { value: 75, label: "75%" },
+    { value: 100, label: "100%" }
+  ]}
   showValueText
+  className="mb-4"
 />
 
-## Primitives
+## Range Slider
 
+```tsx
 <SliderRoot
   min={0}
   max={100}
-  defaultValue={[40]}
+  step={10}
+  defaultValue={[30, 70]}
 >
-  <SliderLabel>Custom Slider</SliderLabel>
+  <SliderLabel>Range Slider</SliderLabel>
   <SliderControl>
-    <SliderTrack className="bg-blue-100">
-      <SliderRange className="bg-blue-500" />
+    <SliderTrack>
+      <SliderRange />
     </SliderTrack>
-    <SliderMarker value={0}>Min</SliderMarker>
-    <SliderMarker value={50}>Mid</SliderMarker>
-    <SliderMarker value={100}>Max</SliderMarker>
-    <SliderThumb index={0} className="bg-white border-blue-500" />
+    <SliderThumb index={0} />
+    <SliderThumb index={1} />
   </SliderControl>
-  <SliderValueText className="text-blue-500 font-bold" />
+  <SliderValueText />
 </SliderRoot>
-
-<div className="h-16" />
+```
 
 <SliderRoot
   min={0}
@@ -104,4 +137,45 @@ import {
     <SliderThumb index={1} className="bg-white border-green-500" />
   </SliderControl>
   <SliderValueText />
+</SliderRoot>
+
+## Primitives
+
+```tsx
+<SliderRoot
+  min={0}
+  max={100}
+  defaultValue={[40]}
+>
+  <SliderLabel>Custom Slider</SliderLabel>
+  <SliderControl>
+    <SliderTrack>
+      <SliderRange />
+    </SliderTrack>
+    <SliderMarker value={0}>Min</SliderMarker>
+    <SliderMarker value={50}>Mid</SliderMarker>
+    <SliderMarker value={100}>Max</SliderMarker>
+    <SliderThumb index={0} />
+  </SliderControl>
+  <SliderValueText />
+</SliderRoot>
+```
+
+<SliderRoot
+  min={0}
+  max={100}
+  defaultValue={[40]}
+  className="mb-4"
+>
+  <SliderLabel>Custom Slider</SliderLabel>
+  <SliderControl>
+    <SliderTrack className="bg-blue-100">
+      <SliderRange className="bg-blue-500" />
+    </SliderTrack>
+    <SliderMarker value={0}>Min</SliderMarker>
+    <SliderMarker value={50}>Mid</SliderMarker>
+    <SliderMarker value={100}>Max</SliderMarker>
+    <SliderThumb index={0} className="bg-white border-blue-500" />
+  </SliderControl>
+  <SliderValueText className="text-blue-500 font-bold pt-4" />
 </SliderRoot>

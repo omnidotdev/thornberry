@@ -16,6 +16,30 @@ import {
 
 ## Basic
 
+```tsx
+<Tabs
+  tabs={[
+    {
+      value: "account",
+      trigger: "Account",
+      content: (
+        <div className="p-4 rounded-md border">
+          <h3 className="text-lg font-medium">Account Settings</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            Manage your account settings and preferences.
+          </p>
+        </div>
+      )
+    },
+    {
+      value: "password",
+      trigger: "Password",
+      content: "Password tab content here"
+    }
+  ]}
+/>
+```
+
 <Tabs
   tabs={[
     {
@@ -55,76 +79,36 @@ import {
       )
     }
   ]}
+  className="mb-4"
 />
-
-## Disabled Tab
-
-<Tabs
-  tabs={[
-    {
-      value: "active",
-      trigger: "Active",
-      content: (
-        <div className="p-4 rounded-md border">
-          <h3 className="text-lg font-medium">Active Users</h3>
-          <p className="text-sm text-muted-foreground mt-2">
-            View all currently active users on the platform.
-          </p>
-        </div>
-      )
-    },
-    {
-      value: "inactive",
-      trigger: "Inactive",
-      content: (
-        <div className="p-4 rounded-md border">
-          <h3 className="text-lg font-medium">Inactive Users</h3>
-          <p className="text-sm text-muted-foreground mt-2">
-            View all inactive users on the platform.
-          </p>
-        </div>
-      )
-    },
-    {
-      value: "deleted",
-      trigger: "Deleted",
-      disabled: true,
-      content: (
-        <div className="p-4 rounded-md border">
-          <h3 className="text-lg font-medium">Deleted Users</h3>
-          <p className="text-sm text-muted-foreground mt-2">
-            This section requires admin privileges.
-          </p>
-        </div>
-      )
-    }
-  ]}
-/>
-
-## Fixed Value
-
-<TabsRoot value="code">
-  <TabsList className="grid w-full grid-cols-2">
-    <TabsTrigger value="code">Code</TabsTrigger>
-    <TabsTrigger value="preview">Preview</TabsTrigger>
-  </TabsList>
-  <TabsContent value="code">
-    <div className="p-4 rounded-md bg-muted font-mono text-sm">
-      const greeting = "Hello, world!";
-      <br />
-      console.log(greeting);
-    </div>
-  </TabsContent>
-  <TabsContent value="preview">
-    <div className="p-4 rounded-md border flex items-center justify-center">
-      <div className="text-xl">Hello, world!</div>
-    </div>
-  </TabsContent>
-</TabsRoot>
 
 ## Primitives
 
+```tsx
 <TabsRoot defaultValue="primitives">
+  <TabsList>
+    <TabsTrigger value="primitives">Primitives</TabsTrigger>
+    <TabsTrigger value="usage">Usage</TabsTrigger>
+    <TabsTrigger value="styling">Styling</TabsTrigger>
+  </TabsList>
+  <TabsContent value="primitives">
+    <div className="p-4 rounded-md border">
+      <div className="text-sm">
+        Tabs are built using primitive components that you can compose to create custom tab interfaces.
+      </div>
+    </div>
+  </TabsContent>
+  <TabsContent value="usage">
+    <div className="p-4 rounded-md border">
+      <div className="text-sm">
+        Usage content here
+      </div>
+    </div>
+  </TabsContent>
+</TabsRoot>
+```
+
+<TabsRoot defaultValue="primitives" className="mb-4">
   <TabsList>
     <TabsTrigger value="primitives">Primitives</TabsTrigger>
     <TabsTrigger value="usage">Usage</TabsTrigger>

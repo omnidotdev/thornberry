@@ -13,7 +13,10 @@ const ComboboxRoot = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkCombobox.Root>) => (
-  <ArkCombobox.Root className={cn("relative w-full", className)} {...rest} />
+  <ArkCombobox.Root
+    className={cn("flex flex-col gap-1.5 w-full", className)}
+    {...rest}
+  />
 );
 
 const ComboboxLabel = ({
@@ -21,7 +24,7 @@ const ComboboxLabel = ({
   ...rest
 }: ComponentProps<typeof ArkCombobox.Label>) => (
   <ArkCombobox.Label
-    className={cn("mb-2 block font-medium text-sm", className)}
+    className={cn("block font-medium text-sm", className)}
     {...rest}
   />
 );
@@ -30,7 +33,10 @@ const ComboboxControl = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkCombobox.Control>) => (
-  <ArkCombobox.Control className={cn("relative w-full", className)} {...rest} />
+  <ArkCombobox.Control
+    className={cn("relative flex items-center", className)}
+    {...rest}
+  />
 );
 
 const ComboboxInput = ({
@@ -55,13 +61,13 @@ const ComboboxTrigger = ({
 }: ComponentProps<typeof ArkCombobox.Trigger>) => (
   <ArkCombobox.Trigger asChild {...rest}>
     <Button
-      variant="outline"
+      variant="ghost"
       size="icon"
-      className={cn("absolute top-0 right-0 h-10 w-10", className)}
+      className={cn("absolute top-1.5 right-1.5 bottom-1 h-fit w-7", className)}
     >
       <div className="flex flex-col">
-        <FiChevronUp className="h-2 w-4" />
-        <FiChevronDown className="h-2 w-4" />
+        <FiChevronUp className="h-2 w-4 -mb-0.5" />
+        <FiChevronDown className="h-2 w-4 -mt-0.5" />
       </div>
     </Button>
   </ArkCombobox.Trigger>
@@ -97,7 +103,7 @@ const ComboboxContent = ({
 }: ComponentProps<typeof ArkCombobox.Content>) => (
   <ArkCombobox.Content
     className={cn(
-      "max-h-[300px] overflow-y-auto rounded-md border bg-popover p-1 shadow-md",
+      "max-h-[300px] overflow-y-auto rounded-md border bg-popover p-1 shadow-md z-50",
       "data-[state=closed]:animate-out data-[state=open]:animate-in",
       "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",

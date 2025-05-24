@@ -17,27 +17,34 @@ import {
 
 ## Basic
 
+```tsx
 <NumberInput />
+```
 
-## With Label
-
-<NumberInput label="Quantity" />
-
-## With Placeholder
-
-<NumberInput placeholder="Enter a number" />
+<NumberInput className="my-4" />
 
 ## Custom Range
 
+```tsx
 <NumberInput
   label="Temperature (°C)"
   min={-10}
   max={40}
   defaultValue={22}
 />
+```
+
+<NumberInput
+  label="Temperature (°C)"
+  min={-10}
+  max={40}
+  defaultValue={22}
+  className="my-4"
+/>
 
 ## Custom Step
 
+```tsx
 <NumberInput
   label="Volume"
   min={0}
@@ -45,32 +52,52 @@ import {
   step={5}
   defaultValue={50}
 />
-
-## Disabled
+```
 
 <NumberInput
-  label="Disabled Input"
-  disabled
-  defaultValue={10}
+  label="Volume"
+  min={0}
+  max={100}
+  step={5}
+  defaultValue={50}
+  className="my-4"
 />
 
 ## Primitives
 
+```tsx
 <NumberInputRoot min={0} max={100} step={10} defaultValue={30}>
-  <NumberInputLabel className="text-blue-700">Custom Number Input</NumberInputLabel>
-  <NumberInputControl className="border-blue-300">
-    <NumberInputDecrementTrigger className="bg-blue-50 hover:bg-blue-100 text-blue-700" />
-    <NumberInputInput className="text-center font-medium text-blue-700" />
-    <NumberInputIncrementTrigger className="bg-blue-50 hover:bg-blue-100 text-blue-700" />
+  <NumberInputLabel>Custom Number Input</NumberInputLabel>
+  <NumberInputControl>
+    <NumberInputInput />
+    <div className="flex flex-col border-l justify-center h-full overflow-hidden">
+      <NumberInputIncrementTrigger />
+      <div className="h-px bg-border" />
+      <NumberInputDecrementTrigger />
+    </div>
+  </NumberInputControl>
+</NumberInputRoot>
+```
+
+<NumberInputRoot min={0} max={100} step={10} defaultValue={30} className="my-4">
+  <NumberInputLabel>Custom Number Input</NumberInputLabel>
+  <NumberInputControl>
+    <NumberInputInput />
+    <div className="flex flex-col border-l justify-center h-full overflow-hidden">
+      <NumberInputIncrementTrigger />
+      <div className="h-px bg-border" />
+      <NumberInputDecrementTrigger />
+    </div>
   </NumberInputControl>
 </NumberInputRoot>
 
 ## Format Value
 
-<NumberInputRoot 
-  min={0} 
-  max={1000} 
-  step={100} 
+```tsx
+<NumberInput
+  min={0}
+  max={1000}
+  step={100}
   defaultValue={500}
   formatOptions={{
     style: 'currency',
@@ -78,18 +105,19 @@ import {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
   }}
->
-  <NumberInputLabel>Budget</NumberInputLabel>
-  <NumberInputControl>
-    <NumberInputDecrementTrigger />
-    <NumberInputInput className="text-right" />
-    <NumberInputIncrementTrigger />
-  </NumberInputControl>
-</NumberInputRoot>
+/>
+```
 
-## With Description
-
-<div className="space-y-1">
-  <NumberInput label="Rating" min={1} max={5} defaultValue={3} />
-  <p className="text-xs text-muted-foreground">Rate from 1 to 5 stars</p>
-</div>
+<NumberInput
+  min={0}
+  max={1000}
+  step={100}
+  defaultValue={500}
+  formatOptions={{
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }}
+  className="my-4"
+/>

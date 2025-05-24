@@ -7,7 +7,11 @@ import { Badge } from "@/registry/thornberry/components/badge";
 
 ## Variants
 
-<div className="flex items-center gap-2 mb-4">
+```tsx
+<Badge variant="subtle">Subtle</Badge>
+```
+
+<div className="flex gap-2 mb-4">
   <Badge>Solid</Badge>
   <Badge variant="subtle">Subtle</Badge>
   <Badge variant="outline">Outline</Badge>
@@ -15,13 +19,21 @@ import { Badge } from "@/registry/thornberry/components/badge";
 
 ## Sizes
 
-<div className="flex items-center gap-2 mb-4">
+```tsx
+<Badge size="sm">Small</Badge>
+```
+
+<div className="flex gap-2 mb-4">
   <Badge size="sm">Small</Badge>
   <Badge>Medium</Badge>
   <Badge size="lg">Large</Badge>
 </div>
 
 ## Custom Colors
+
+```tsx
+<Badge variant="outline" className="border-blue-500 text-blue-500">Blue</Badge>
+```
 
 <div className="flex items-center gap-2">
   <Badge variant="outline" className="border-blue-500 text-blue-500">Blue</Badge>
