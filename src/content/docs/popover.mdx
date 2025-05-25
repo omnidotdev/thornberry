@@ -1,45 +1,64 @@
 ---
 title: Popover
-description: A small floating content display that appears when a user interacts with a trigger element
+description: A small floating content display that appears when a user interacts with a trigger element.
 ---
 
-import {
-  Popover,
-  PopoverArrow,
-  PopoverArrowTip,
-  PopoverCloseTrigger,
-  PopoverContent,
-  PopoverContext,
-  PopoverPositioner,
-  PopoverProvider,
-  PopoverRoot,
-  PopoverTrigger,
-} from "@/registry/thornberry/components/popover";
+import { Popover, PopoverCloseTrigger } from "@/registry/thornberry/components/popover";
 import { Button } from "@/registry/thornberry/components/button";
 import { Input } from "@/registry/thornberry/components/input";
 
-## Basic
-
-```tsx
-<Popover trigger={<Button>Open</Button>}>
+<Popover trigger={<Button>Open</Button>} className="mb-8">
   <div className="space-y-2">
     <h4 className="font-medium leading-none">Dimensions</h4>
     <div className="text-sm text-muted-foreground">Set the dimensions for the object.</div>
     <div className="flex gap-2">
       <div className="grid gap-1">
         <label htmlFor="width" className="text-xs">Width</label>
-        <Input id="width" defaultValue="100%" />
+        <Input id="width" defaultValue="100%" className="h-8" />
       </div>
       <div className="grid gap-1">
         <label htmlFor="height" className="text-xs">Height</label>
-        <Input id="height" defaultValue="25px" />
+        <Input id="height" defaultValue="25px" className="h-8" />
       </div>
     </div>
   </div>
 </Popover>
-```
 
-<div className="flex mb-4">
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/popover.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/popover.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/popover.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/popover.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Popover` component. Let's start with a basic example:
+
+```tsx
+import { Popover } from "@/components/ui/popover"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+
+export const BasicPopover = () => (
   <Popover trigger={<Button>Open</Button>}>
     <div className="space-y-2">
       <h4 className="font-medium leading-none">Dimensions</h4>
@@ -47,37 +66,25 @@ import { Input } from "@/registry/thornberry/components/input";
       <div className="flex gap-2">
         <div className="grid gap-1">
           <label htmlFor="width" className="text-xs">Width</label>
-          <Input id="width" defaultValue="100%" className="h-8" />
+          <Input id="width" defaultValue="100%" />
         </div>
         <div className="grid gap-1">
           <label htmlFor="height" className="text-xs">Height</label>
-          <Input id="height" defaultValue="25px" className="h-8" />
+          <Input id="height" defaultValue="25px" />
         </div>
       </div>
     </div>
   </Popover>
-</div>
-
-## With Close Trigger
-
-```tsx
-<Popover trigger={<Button>Open</Button>}>
-  <div className="space-y-3">
-    <div className="flex items-center justify-between">
-      <h4 className="font-medium leading-none">Notifications</h4>
-      <PopoverCloseTrigger />
-    </div>
-    <div className="text-sm text-muted-foreground">
-      You have 3 unread messages.
-    </div>
-    <div className="pt-2 border-t">
-      <Button size="sm" className="w-full">View All</Button>
-    </div>
-  </div>
-</Popover>
+)
 ```
 
-<div className="flex mb-4">
+You can add a close trigger to the popover content:
+
+```tsx
+import { Popover, PopoverCloseTrigger } from "@/components/ui/popover"
+import { Button } from "@/components/ui/button"
+
+export const PopoverWithClose = () => (
   <Popover trigger={<Button>Open</Button>}>
     <div className="space-y-3">
       <div className="flex items-center justify-between">
@@ -92,96 +99,82 @@ import { Input } from "@/registry/thornberry/components/input";
       </div>
     </div>
   </Popover>
-</div>
-
-## Positioning
-
-```tsx
-<Popover
-  trigger={<Button variant="outline">Left</Button>}
-  positioning={{ placement: "left" }}
->
-  This popover appears on the left
-</Popover>
+)
 ```
 
-<div className="flex gap-4 mb-4">
-  <Popover
-    trigger={<Button variant="outline">Left</Button>}
-    positioning={{ placement: "left" }}
-  >
-    This popover appears on the left
-  </Popover>
-  <Popover
-    trigger={<Button variant="outline">Top</Button>}
-    positioning={{ placement: "top" }}
-  >
-    This popover appears on top
-  </Popover>
-  <Popover
-    trigger={<Button variant="outline">Bottom</Button>}
-    positioning={{ placement: "bottom" }}
-  >
-    This popover appears on the bottom
-  </Popover>
-  <Popover
-    trigger={<Button variant="outline">Right</Button>}
-    positioning={{ placement: "right" }}
-  >
-    This popover appears on the right
-  </Popover>
-</div>
-
-## Primitives
+You can customize the positioning of the popover:
 
 ```tsx
-<PopoverRoot>
-  <PopoverTrigger asChild>
-    <Button variant="outline">Open</Button>
-  </PopoverTrigger>
-  <PopoverPositioner>
-    <PopoverContent>
-      <PopoverArrow>
-        <PopoverArrowTip />
-      </PopoverArrow>
-      <div className="space-y-2">
-        <h4 className="font-medium">Custom Styled Popover</h4>
-        <div className="text-sm">
-          This popover uses primitive components for custom styling.
-        </div>
-        <div className="flex justify-end">
-          <PopoverCloseTrigger asChild>
-            <Button variant="outline" size="sm">Close</Button>
-          </PopoverCloseTrigger>
-        </div>
-      </div>
-    </PopoverContent>
-  </PopoverPositioner>
-</PopoverRoot>
+import { Popover } from "@/components/ui/popover"
+import { Button } from "@/components/ui/button"
+
+export const PositionedPopovers = () => (
+  <div className="flex gap-4">
+    <Popover
+      trigger={<Button variant="outline">Left</Button>}
+      positioning={{ placement: "left" }}
+    >
+      This popover appears on the left
+    </Popover>
+    <Popover
+      trigger={<Button variant="outline">Top</Button>}
+      positioning={{ placement: "top" }}
+    >
+      This popover appears on top
+    </Popover>
+    <Popover
+      trigger={<Button variant="outline">Bottom</Button>}
+      positioning={{ placement: "bottom" }}
+    >
+      This popover appears on the bottom
+    </Popover>
+    <Popover
+      trigger={<Button variant="outline">Right</Button>}
+      positioning={{ placement: "right" }}
+    >
+      This popover appears on the right
+    </Popover>
+  </div>
+)
 ```
 
-<div className="flex mb-4">
+For more granular control, Thornberry provides Popover primitives:
+
+```tsx
+import {
+  PopoverRoot,
+  PopoverTrigger,
+  PopoverPositioner,
+  PopoverContent,
+  PopoverArrow,
+  PopoverArrowTip,
+  PopoverCloseTrigger
+} from "@/components/ui/popover"
+import { Button } from "@/components/ui/button"
+
+export const PopoverPrimitives = () => (
   <PopoverRoot>
     <PopoverTrigger asChild>
       <Button variant="outline">Open</Button>
     </PopoverTrigger>
     <PopoverPositioner>
-      <PopoverContent className="w-80 bg-blue-50 border-blue-200">
+      <PopoverContent>
         <PopoverArrow>
           <PopoverArrowTip />
         </PopoverArrow>
         <div className="space-y-2">
-          <h4 className="font-medium text-blue-900">Custom Styled Popover</h4>
-          <div className="text-sm text-blue-700">
+          <h4 className="font-medium">Custom Styled Popover</h4>
+          <div className="text-sm">
             This popover uses primitive components for custom styling.
           </div>
           <div className="flex justify-end">
             <PopoverCloseTrigger asChild>
-              <Button variant="outline" size="sm" className="dark:text-base-950">Close</Button>
+              <Button variant="outline" size="sm">Close</Button>
             </PopoverCloseTrigger>
           </div>
         </div>
       </PopoverContent>
     </PopoverPositioner>
   </PopoverRoot>
-</div>
+)
+```

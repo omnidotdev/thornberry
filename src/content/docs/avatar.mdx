@@ -1,53 +1,67 @@
 ---
 title: Avatar
-description: Avatar component
+description: An image element with a fallback for representing the user.
 ---
-import { FiUser } from "react-icons/fi";
+import { Avatar } from "@/registry/thornberry/components/avatar";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  AvatarRoot,
-} from "@/registry/thornberry/components/avatar";
+<Avatar name="Elon Musk" imageSrc="/img/elon-musk.jpg" className="size-10 mb-8" />
 
-## Fallback Initials
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/avatar.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/avatar.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/avatar.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/avatar.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Avatar` component. Let's start with a basic example:
 
 ```tsx
-<Avatar name="Elon Musk" imageSrc="/img/elon-musk.jpg" />
+import { Avatar } from "@/components/ui/avatar"
+
+export const BasicAvatar = () => (
+  <Avatar name="Elon Musk" imageSrc="/img/elon-musk.jpg" />
+)
 ```
 
-<div className="flex gap-2 mb-8">
-  <Avatar name="Elon Musk" className="size-10" />
-  <Avatar name="Elon Musk" imageSrc="/img/elon-musk.jpg" className="size-10" />
-</div>
-
-## Fallback Icon
+If the user's name is not known ahead of time, you can use the `fallback` prop to provide a fallback icon.
 
 ```tsx
-<Avatar fallback={<FiUser />} imageSrc="/img/elon-musk.jpg" />
+import { Avatar } from "@/components/ui/avatar"
+
+export const FallbackAvatar = () => (
+  <Avatar fallback={<UserIcon />} imageSrc="/img/elon-musk.jpg" />
+)
 ```
 
-<div className="flex gap-2 mb-8">
-  <Avatar fallback={<FiUser />} className="size-10" />
-  <Avatar fallback={<FiUser />} imageSrc="/img/elon-musk.jpg" className="size-10" />
-</div>
-
-## Primitives
+Thornberry also ships primitives for more granular control:
 
 ```tsx
-<AvatarRoot>
-  <AvatarFallback>EM</AvatarFallback>
-  <AvatarImage src="/img/elon-musk.jpg" />
-</AvatarRoot>
-```
+import { AvatarFallback, AvatarImage, AvatarRoot } from "@/components/ui/avatar"
 
-<div className="flex gap-2">
-  <AvatarRoot>
-    <AvatarFallback>EM</AvatarFallback>
-  </AvatarRoot>
+export const Primatives = () => (
   <AvatarRoot>
     <AvatarFallback>EM</AvatarFallback>
     <AvatarImage src="/img/elon-musk.jpg" />
   </AvatarRoot>
-</div>
+)
+```

@@ -2,48 +2,80 @@
 title: Button
 description: Interactive button component for actions in forms, dialogs, and more.
 ---
-
 import { FiPlus } from "react-icons/fi";
 
 import { Button } from "@/registry/thornberry/components/button";
 
-## Variants
+<Button className="mb-8">Button</Button>
+
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/button.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/button.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/button.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/button.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Button` component. Let's start with a basic example:
 
 ```tsx
-<Button variant="outline">Outline</Button>
+import { Button } from "@/components/ui/button"
+
+export const BasicButton = () => (
+  <Button>Click me</Button>
+)
 ```
 
-<div className="flex items-center gap-2 mb-4">
-  <Button>Solid</Button>
-  <Button variant="outline">Outline</Button>
-  <Button variant="muted">Muted</Button>
-  <Button variant="ghost">Ghost</Button>
-  <Button variant="link">Link</Button>
-</div>
-
-## Sizes
+The Button component comes with different variants to suit your needs:
 
 ```tsx
-<Button size="sm">Small</Button>
+import { Button } from "@/components/ui/button"
+
+export const ButtonVariants = () => (
+  <div className="flex items-center gap-2">
+    <Button>Solid</Button>
+    <Button variant="outline">Outline</Button>
+    <Button variant="muted">Muted</Button>
+    <Button variant="ghost">Ghost</Button>
+    <Button variant="link">Link</Button>
+  </div>
+)
 ```
 
-<div className="flex gap-2 mb-4">
-  <Button size="sm">Small</Button>
-  <Button>Medium</Button>
-  <Button size="lg">Large</Button>
-  <Button size="icon">
-    <FiPlus />
-  </Button>
-</div>
-
-## Custom Colors
+You can also use different sizes:
 
 ```tsx
-<Button className="bg-blue-500 hover:bg-blue-400 dark:hover:bg-blue-600">Blue</Button>
-```
+import { FiPlus } from "react-icons/fi"
 
-<div className="flex gap-2 mb-4">
-  <Button className="bg-blue-500 hover:bg-blue-400 dark:hover:bg-blue-600">Blue</Button>
-  <Button variant="outline" className="text-green-500 dark:text-green-500 border-green-500 dark:border-green-500">Green</Button>
-  <Button variant="ghost" className="text-red-500 hover:text-red-500">Red</Button>
-</div>
+import { Button } from "@/components/ui/button"
+
+export const ButtonSizes = () => (
+  <div className="flex gap-2 items-center">
+    <Button size="sm">Small</Button>
+    <Button>Medium</Button>
+    <Button size="lg">Large</Button>
+    <Button size="icon">
+      <FiPlus />
+    </Button>
+  </div>
+)
+```

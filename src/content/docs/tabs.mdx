@@ -1,46 +1,11 @@
 ---
 title: Tabs
-description: A set of layered sections of content that display one panel at a time
+description: A set of layered sections of content that display one panel at a time.
 ---
 
-import {
-  Tabs,
-  TabsContent,
-  TabsContext,
-  TabsIndicator,
-  TabsList,
-  TabsProvider,
-  TabsRoot,
-  TabsTrigger,
-} from "@/registry/thornberry/components/tabs";
+import { Tabs as RegistryTabs } from "@/registry/thornberry/components/tabs";
 
-## Basic
-
-```tsx
-<Tabs
-  tabs={[
-    {
-      value: "account",
-      trigger: "Account",
-      content: (
-        <div className="p-4 rounded-md border">
-          <h3 className="text-lg font-medium">Account Settings</h3>
-          <p className="text-sm text-muted-foreground mt-2">
-            Manage your account settings and preferences.
-          </p>
-        </div>
-      )
-    },
-    {
-      value: "password",
-      trigger: "Password",
-      content: "Password tab content here"
-    }
-  ]}
-/>
-```
-
-<Tabs
+<RegistryTabs
   tabs={[
     {
       value: "account",
@@ -65,77 +30,113 @@ import {
           </p>
         </div>
       )
-    },
-    {
-      value: "notifications",
-      trigger: "Notifications",
-      content: (
-        <div className="p-4 rounded-md border">
-          <h3 className="text-lg font-medium">Notification Preferences</h3>
-          <p className="text-sm text-muted-foreground mt-2">
-            Configure how and when you receive notifications.
-          </p>
-        </div>
-      )
     }
   ]}
-  className="mb-4"
+  className="mb-8"
 />
 
-## Primitives
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/tabs.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/tabs.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/tabs.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/tabs.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Tabs` component. Let's start with a basic example:
 
 ```tsx
-<TabsRoot defaultValue="primitives">
-  <TabsList>
-    <TabsTrigger value="primitives">Primitives</TabsTrigger>
-    <TabsTrigger value="usage">Usage</TabsTrigger>
-    <TabsTrigger value="styling">Styling</TabsTrigger>
-  </TabsList>
-  <TabsContent value="primitives">
-    <div className="p-4 rounded-md border">
-      <div className="text-sm">
-        Tabs are built using primitive components that you can compose to create custom tab interfaces.
-      </div>
-    </div>
-  </TabsContent>
-  <TabsContent value="usage">
-    <div className="p-4 rounded-md border">
-      <div className="text-sm">
-        Usage content here
-      </div>
-    </div>
-  </TabsContent>
-</TabsRoot>
+import { Tabs } from "@/components/ui/tabs"
+
+export const BasicTabs = () => (
+  <Tabs
+    tabs={[
+      {
+        value: "account",
+        trigger: "Account",
+        content: (
+          <div className="p-4 rounded-md border">
+            <h3 className="text-lg font-medium">Account Settings</h3>
+            <p className="text-sm text-muted-foreground mt-2">
+              Manage your account settings and preferences.
+            </p>
+          </div>
+        )
+      },
+      {
+        value: "password",
+        trigger: "Password",
+        content: (
+          <div className="p-4 rounded-md border">
+            <h3 className="text-lg font-medium">Password Settings</h3>
+            <p className="text-sm text-muted-foreground mt-2">
+              Change your password and security settings.
+            </p>
+          </div>
+        )
+      }
+    ]}
+  />
+)
 ```
 
-<TabsRoot defaultValue="primitives" className="mb-4">
-  <TabsList>
-    <TabsTrigger value="primitives">Primitives</TabsTrigger>
-    <TabsTrigger value="usage">Usage</TabsTrigger>
-    <TabsTrigger value="styling">Styling</TabsTrigger>
-  </TabsList>
-  <TabsContent value="primitives">
-    <div className="p-4 rounded-md border">
-      <div className="text-sm">
-        Tabs are built using primitive components that you can compose to create custom tab interfaces.
-        The main primitives are <code>TabsRoot</code>, <code>TabsList</code>, <code>TabsTrigger</code>, and <code>TabsContent</code>.
+For more granular control, Thornberry provides Tabs primitives:
+
+```tsx
+import {
+  TabsRoot,
+  TabsList,
+  TabsTrigger,
+  TabsContent
+} from "@/components/ui/tabs"
+
+export const TabsPrimitives = () => (
+  <TabsRoot defaultValue="primitives">
+    <TabsList>
+      <TabsTrigger value="primitives">Primitives</TabsTrigger>
+      <TabsTrigger value="usage">Usage</TabsTrigger>
+      <TabsTrigger value="styling">Styling</TabsTrigger>
+    </TabsList>
+    <TabsContent value="primitives">
+      <div className="p-4 rounded-md border">
+        <div className="text-sm">
+          Tabs are built using primitive components that you can compose to create custom tab interfaces.
+        </div>
       </div>
-    </div>
-  </TabsContent>
-  <TabsContent value="usage">
-    <div className="p-4 rounded-md border">
-      <div className="text-sm">
-        You can use the simplified <code>Tabs</code> component by passing an array of tab objects, or build more complex
-        tab interfaces using the primitive components directly.
+    </TabsContent>
+    <TabsContent value="usage">
+      <div className="p-4 rounded-md border">
+        <div className="text-sm">
+          Usage content here
+        </div>
       </div>
-    </div>
-  </TabsContent>
-  <TabsContent value="styling">
-    <div className="p-4 rounded-md border">
-      <div className="text-sm">
-        All tab components accept a <code>className</code> prop for custom styling using Tailwind CSS or other CSS classes.
-        You can also style tabs using data attributes for different states.
+    </TabsContent>
+    <TabsContent value="styling">
+      <div className="p-4 rounded-md border">
+        <div className="text-sm">
+          Styling content here
+        </div>
       </div>
-    </div>
-  </TabsContent>
-</TabsRoot>
+    </TabsContent>
+  </TabsRoot>
+)
+```

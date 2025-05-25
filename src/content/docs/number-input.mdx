@@ -1,123 +1,103 @@
 ---
 title: Number Input
-description: A form control that allows users to input numeric values with increment and decrement buttons
+description: A form control that allows users to input numeric values with increment and decrement buttons.
 ---
 
+import { NumberInput } from "@/registry/thornberry/components/number-input";
+
+<NumberInput className="mb-8" />
+
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/number-input.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/number-input.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/number-input.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/number-input.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `NumberInput` component. Let's start with a basic example:
+
+```tsx
+import { NumberInput } from "@/components/ui/number-input"
+
+export const BasicNumberInput = () => (
+  <NumberInput />
+)
+```
+
+You can set minimum and maximum values for the number input:
+
+```tsx
+import { NumberInput } from "@/components/ui/number-input"
+
+export const RangeNumberInput = () => (
+  <NumberInput
+    label="Temperature (°C)"
+    min={-10}
+    max={40}
+    defaultValue={22}
+  />
+)
+```
+
+You can customize the step size for increments and decrements:
+
+```tsx
+import { NumberInput } from "@/components/ui/number-input"
+
+export const StepNumberInput = () => (
+  <NumberInput
+    label="Volume"
+    min={0}
+    max={100}
+    step={5}
+    defaultValue={50}
+  />
+)
+```
+
+For more granular control, Thornberry provides NumberInput primitives:
+
+```tsx
 import {
-  NumberInput,
-  NumberInputContext,
-  NumberInputControl,
-  NumberInputDecrementTrigger,
-  NumberInputIncrementTrigger,
-  NumberInputInput,
-  NumberInputLabel,
-  NumberInputProvider,
   NumberInputRoot,
-} from "@/registry/thornberry/components/number-input";
+  NumberInputLabel,
+  NumberInputControl,
+  NumberInputInput,
+  NumberInputIncrementTrigger,
+  NumberInputDecrementTrigger
+} from "@/components/ui/number-input"
 
-## Basic
-
-```tsx
-<NumberInput />
+export const NumberInputPrimitives = () => (
+  <NumberInputRoot min={0} max={100} step={10} defaultValue={30}>
+    <NumberInputLabel>Custom Number Input</NumberInputLabel>
+    <NumberInputControl>
+      <NumberInputInput />
+      <div className="flex flex-col border-l justify-center h-full overflow-hidden">
+        <NumberInputIncrementTrigger />
+        <div className="h-px bg-border" />
+        <NumberInputDecrementTrigger />
+      </div>
+    </NumberInputControl>
+  </NumberInputRoot>
+)
 ```
-
-<NumberInput className="my-4" />
-
-## Custom Range
-
-```tsx
-<NumberInput
-  label="Temperature (°C)"
-  min={-10}
-  max={40}
-  defaultValue={22}
-/>
-```
-
-<NumberInput
-  label="Temperature (°C)"
-  min={-10}
-  max={40}
-  defaultValue={22}
-  className="my-4"
-/>
-
-## Custom Step
-
-```tsx
-<NumberInput
-  label="Volume"
-  min={0}
-  max={100}
-  step={5}
-  defaultValue={50}
-/>
-```
-
-<NumberInput
-  label="Volume"
-  min={0}
-  max={100}
-  step={5}
-  defaultValue={50}
-  className="my-4"
-/>
-
-## Primitives
-
-```tsx
-<NumberInputRoot min={0} max={100} step={10} defaultValue={30}>
-  <NumberInputLabel>Custom Number Input</NumberInputLabel>
-  <NumberInputControl>
-    <NumberInputInput />
-    <div className="flex flex-col border-l justify-center h-full overflow-hidden">
-      <NumberInputIncrementTrigger />
-      <div className="h-px bg-border" />
-      <NumberInputDecrementTrigger />
-    </div>
-  </NumberInputControl>
-</NumberInputRoot>
-```
-
-<NumberInputRoot min={0} max={100} step={10} defaultValue={30} className="my-4">
-  <NumberInputLabel>Custom Number Input</NumberInputLabel>
-  <NumberInputControl>
-    <NumberInputInput />
-    <div className="flex flex-col border-l justify-center h-full overflow-hidden">
-      <NumberInputIncrementTrigger />
-      <div className="h-px bg-border" />
-      <NumberInputDecrementTrigger />
-    </div>
-  </NumberInputControl>
-</NumberInputRoot>
-
-## Format Value
-
-```tsx
-<NumberInput
-  min={0}
-  max={1000}
-  step={100}
-  defaultValue={500}
-  formatOptions={{
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
-  }}
-/>
-```
-
-<NumberInput
-  min={0}
-  max={1000}
-  step={100}
-  defaultValue={500}
-  formatOptions={{
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
-  }}
-  className="my-4"
-/>

@@ -1,79 +1,122 @@
 ---
 title: Alert
-description: Alert component
+description: Displays a callout for user attention with status variants for different scenarios.
 ---
+import { FiInfo } from "react-icons/fi";
 
-import { FiCheck, FiDownload, FiInfo } from "react-icons/fi";
-import { IoWarningOutline } from "react-icons/io5";
-import { BiErrorAlt } from "react-icons/bi";
+import { Alert } from "@/registry/thornberry/components/alert";
 
-import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertRoot,
-  AlertTitle,
-} from "@/registry/thornberry/components/alert";
-
-## Variants
-
-```tsx
 <Alert
   variant="info"
   icon={<FiInfo />}
   title="Info"
   description="Did you know platypuses are venomous?"
+  className="mb-8"
 />
-```
 
-<div className="flex flex-col gap-2 py-4">
-  <Alert
-    icon={<FiDownload />}
-    title="Default"
-    description="For the best experience, update to the latest version."
-  />
-  <Alert
-    variant="info"
-    icon={<FiInfo />}
-    title="Info"
-    description="Did you know platypuses are venomous?"
-  />
-  <Alert
-    variant="success"
-    icon={<FiCheck />}
-    title="Success"
-    description="It was a great success!"
-  />
-  <Alert
-    variant="warning"
-    icon={<IoWarningOutline />}
-    title="Warning"
-    description="Beware of animals running towards you."
-  />
-  <Alert
-    variant="error"
-    icon={<BiErrorAlt />}
-    title="Error"
-    description="segfault"
-  />
-</div>
+### Installation
 
-## Primitives
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/alert.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/alert.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/alert.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/alert.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Alert` component. Let's start with a basic example:
 
 ```tsx
-<AlertRoot>
-  <AlertIcon>
-    <FiInfo />
-  </AlertIcon>
-  <AlertTitle>Primitives</AlertTitle>
-  <AlertDescription>This alert was built with primitives.</AlertDescription>
-</AlertRoot>
+import { FiInfo } from "react-icons/fi"
+
+import { Alert } from "@/components/ui/alert"
+
+export const BasicAlert = () => (
+  <Alert
+    title="Information"
+    description="This is an important information message for the user."
+    icon={<FiInfo />}
+  />
+)
 ```
 
-<AlertRoot>
-  <AlertIcon>
-    <FiInfo />
-  </AlertIcon>
-  <AlertTitle>Primitives</AlertTitle>
-  <AlertDescription>This alert was built with primitives.</AlertDescription>
-</AlertRoot>
+The Alert component comes with different variants that you can use to represent different states:
+
+```tsx
+import { FiCheck, FiInfo } from "react-icons/fi"
+import { IoWarningOutline } from "react-icons/io5"
+import { BiErrorAlt } from "react-icons/bi"
+
+import { Alert } from "@/components/ui/alert"
+
+export const AlertVariants = () => (
+  <div className="flex flex-col gap-2">
+    <Alert
+      title="Default"
+      description="For the best experience, update to the latest version."
+      icon={<FiInfo />}
+    />
+    <Alert
+      variant="info"
+      title="Information"
+      description="Did you know platypuses are venomous?"
+      icon={<FiInfo />}
+    />
+    <Alert
+      variant="success"
+      title="Success"
+      description="Your profile has been updated successfully."
+      icon={<FiCheck />}
+    />
+    <Alert
+      variant="warning"
+      title="Warning"
+      description="Your storage is almost full. Please free up some space."
+      icon={<IoWarningOutline />}
+    />
+    <Alert
+      variant="error"
+      title="Error"
+      description="There was a problem processing your request."
+      icon={<BiErrorAlt />}
+    />
+  </div>
+)
+```
+
+Thornberry also ships primitives for more granular control:
+
+```tsx
+import { FiInfo } from "react-icons/fi"
+
+import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components/ui/alert"
+
+export const AlertPrimitives = () => (
+  <AlertRoot>
+    <AlertIcon>
+      <FiInfo />
+    </AlertIcon>
+    <AlertTitle>Custom Alert</AlertTitle>
+    <AlertDescription>
+      This alert was built using the primitive components for more flexibility.
+    </AlertDescription>
+  </AlertRoot>
+)
+```

@@ -1,31 +1,16 @@
 ---
 title: Dialog
-description: A window overlaid on the primary window that interrupts the user with important content
+description: A window overlaid on the primary window that interrupts the user with important content.
 ---
 
-import {
-  Dialog,
-  DialogBackdrop,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogContext,
-  DialogDescription,
-  DialogPositioner,
-  DialogProvider,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-} from "@/registry/thornberry/components/dialog";
 import { Button } from "@/registry/thornberry/components/button";
-import { Input } from "@/registry/thornberry/components/input";
+import { Dialog, DialogCloseTrigger } from "@/registry/thornberry/components/dialog";
 
-## Basic
-
-```tsx
 <Dialog
   trigger={<Button>Open Dialog</Button>}
   title="Dialog Title"
   description="This is a description of the dialog's purpose."
+  className="mb-8"
 >
   <div className="py-4">This is the main content of the dialog.</div>
   <div className="flex justify-end gap-2">
@@ -35,9 +20,41 @@ import { Input } from "@/registry/thornberry/components/input";
     <Button>Save</Button>
   </div>
 </Dialog>
-```
 
-<div className="flex my-4">
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/dialog.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/dialog.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/dialog.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/dialog.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Dialog` component. Let's start with a basic example:
+
+```tsx
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogCloseTrigger } from "@/components/ui/dialog"
+
+export const BasicDialog = () => (
   <Dialog
     trigger={<Button>Open Dialog</Button>}
     title="Dialog Title"
@@ -51,42 +68,35 @@ import { Input } from "@/registry/thornberry/components/input";
       <Button>Save</Button>
     </div>
   </Dialog>
-</div>
-
-## Primitives
-
-```tsx
-<DialogRoot>
-  <DialogTrigger asChild>
-    <Button variant="outline">Using Primitives</Button>
-  </DialogTrigger>
-  <DialogBackdrop />
-  <DialogPositioner>
-    <DialogContent>
-      <DialogCloseTrigger />
-      <DialogTitle>Custom Dialog</DialogTitle>
-      <DialogDescription>
-        This dialog is built using primitive components directly.
-      </DialogDescription>
-      <div className="border-t pt-4">
-        <div>You can fully customize each part of the dialog using the primitive components.</div>
-      </div>
-    </DialogContent>
-  </DialogPositioner>
-</DialogRoot>
+)
 ```
 
-<div className="flex my-4">
+For more granular control, Thornberry provides Dialog primitives:
+
+```tsx
+import { Button } from "@/components/ui/button"
+import {
+  DialogRoot,
+  DialogTrigger,
+  DialogBackdrop,
+  DialogPositioner,
+  DialogContent,
+  DialogCloseTrigger,
+  DialogTitle,
+  DialogDescription
+} from "@/components/ui/dialog"
+
+export const DialogPrimitives = () => (
   <DialogRoot>
     <DialogTrigger asChild>
       <Button variant="outline">Using Primitives</Button>
     </DialogTrigger>
     <DialogBackdrop />
     <DialogPositioner>
-      <DialogContent className="max-w-md">
+      <DialogContent>
         <DialogCloseTrigger />
-        <DialogTitle className="text-xl">Custom Dialog</DialogTitle>
-        <DialogDescription className="text-blue-500">
+        <DialogTitle>Custom Dialog</DialogTitle>
+        <DialogDescription>
           This dialog is built using primitive components directly.
         </DialogDescription>
         <div className="border-t pt-4">
@@ -95,4 +105,5 @@ import { Input } from "@/registry/thornberry/components/input";
       </DialogContent>
     </DialogPositioner>
   </DialogRoot>
-</div>
+)
+```

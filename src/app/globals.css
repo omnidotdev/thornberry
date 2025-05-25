@@ -83,6 +83,14 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --color-fd-secondary: var(--muted);
+}
+
+html .prose {
+  figure {
+    @apply bg-base-50 dark:bg-primary-950/10;
+  }
 }
 
 :root {

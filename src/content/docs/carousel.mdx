@@ -1,164 +1,159 @@
 ---
 title: Carousel
-description: A component that displays content in a rotating cycle with navigation controls
+description: A component that displays content in a rotating cycle with navigation controls.
 ---
 
-import {
-  Carousel,
-  CarouselContext,
-  CarouselControl,
-  CarouselIndicator,
-  CarouselIndicatorGroup,
-  CarouselItem,
-  CarouselItemGroup,
-  CarouselNextTrigger,
-  CarouselPrevTrigger,
-  CarouselProvider,
-  CarouselRoot,
-} from "@/registry/thornberry/components/carousel";
+import { Carousel, CarouselRoot, CarouselItemGroup, CarouselItem, CarouselPrevTrigger, CarouselNextTrigger, CarouselIndicatorGroup, CarouselIndicator } from "@/registry/thornberry/components/carousel";
 
-## Basic
-
-```tsx
 <Carousel
   items={[
     <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-      <span className="text-2xl font-bold">Slide 1</span>
+      <span className="text-2xl font-bold text-base-950">Slide 1</span>
     </div>,
     <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-      <span className="text-2xl font-bold">Slide 2</span>
+      <span className="text-2xl font-bold text-base-950">Slide 2</span>
     </div>,
     <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-      <span className="text-2xl font-bold">Slide 3</span>
+      <span className="text-2xl font-bold text-base-950">Slide 3</span>
     </div>
   ]}
-/>
-```
-
-<Carousel
-  items={[
-    <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold text-base-950">Slide 1</span>
-  </div>,
-  <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold text-base-950">Slide 2</span>
-  </div>,
-  <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold text-base-950">Slide 3</span>
-  </div>
-  ]}
+  className="mb-8"
 />
 
-## Without Controls
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/carousel.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/carousel.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/carousel.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/carousel.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Carousel` component. Let's start with a basic example:
 
 ```tsx
-<Carousel showControls={false} items={[
-  <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold">Slide 1</span>
-  </div>,
-  <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold">Slide 2</span>
-  </div>,
-  <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold">Slide 3</span>
-  </div>
-]} />
-```
+import { Carousel } from "@/components/ui/carousel"
 
-<Carousel showControls={false} items={[
-  <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-  <span className="text-2xl font-bold text-base-950">Slide 1</span>
-</div>,
-<div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-  <span className="text-2xl font-bold text-base-950">Slide 2</span>
-</div>,
-<div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-  <span className="text-2xl font-bold text-base-950">Slide 3</span>
-</div>
-]} />
-
-## Without Indicators
-
-```tsx
-<Carousel showIndicators={false} items={[
-  <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold">Slide 1</span>
-  </div>,
-  <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold">Slide 2</span>
-  </div>,
-  <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-    <span className="text-2xl font-bold">Slide 3</span>
-  </div>
-]} />
-```
-
-<Carousel showIndicators={false} items={[
-  <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-  <span className="text-2xl font-bold text-base-950">Slide 1</span>
-</div>,
-<div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-  <span className="text-2xl font-bold text-base-950">Slide 2</span>
-</div>,
-<div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-  <span className="text-2xl font-bold text-base-950">Slide 3</span>
-</div>
-]} className="mb-4" />
-
-## Primitives
-
-```tsx
-<CarouselRoot slideCount={3}>
-  <CarouselItemGroup>
-    <CarouselItem index={0}>
-      <div className="h-64 bg-red-200 flex items-center justify-center rounded-md">
+export const BasicCarousel = () => (
+  <Carousel
+    items={[
+      <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
         <span className="text-2xl font-bold">Slide 1</span>
-      </div>
-    </CarouselItem>
-    <CarouselItem index={1}>
-      <div className="h-64 bg-red-300 flex items-center justify-center rounded-md">
+      </div>,
+      <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
         <span className="text-2xl font-bold">Slide 2</span>
-      </div>
-    </CarouselItem>
-    <CarouselItem index={2}>
-      <div className="h-64 bg-red-400 flex items-center justify-center rounded-md">
+      </div>,
+      <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
         <span className="text-2xl font-bold">Slide 3</span>
       </div>
-    </CarouselItem>
-  </CarouselItemGroup>
-  <CarouselPrevTrigger />
-  <CarouselNextTrigger />
-  <CarouselIndicatorGroup>
-    <CarouselIndicator index={0} />
-    <CarouselIndicator index={1} />
-    <CarouselIndicator index={2} />
-  </CarouselIndicatorGroup>
-</CarouselRoot>
+    ]}
+  />
+)
 ```
 
-<CarouselRoot slideCount={3}>
+You can hide the navigation controls:
+
+```tsx
+import { Carousel } from "@/components/ui/carousel"
+
+export const CarouselWithoutControls = () => (
+  <Carousel 
+    showControls={false} 
+    items={[
+      <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
+        <span className="text-2xl font-bold">Slide 1</span>
+      </div>,
+      <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
+        <span className="text-2xl font-bold">Slide 2</span>
+      </div>,
+      <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
+        <span className="text-2xl font-bold">Slide 3</span>
+      </div>
+    ]} 
+  />
+)
+```
+
+You can hide the indicator dots:
+
+```tsx
+import { Carousel } from "@/components/ui/carousel"
+
+export const CarouselWithoutIndicators = () => (
+  <Carousel 
+    showIndicators={false} 
+    items={[
+      <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
+        <span className="text-2xl font-bold">Slide 1</span>
+      </div>,
+      <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
+        <span className="text-2xl font-bold">Slide 2</span>
+      </div>,
+      <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
+        <span className="text-2xl font-bold">Slide 3</span>
+      </div>
+    ]} 
+  />
+)
+```
+
+For more granular control, Thornberry provides Carousel primitives:
+
+```tsx
+import {
+  CarouselRoot,
+  CarouselItemGroup,
+  CarouselItem,
+  CarouselPrevTrigger,
+  CarouselNextTrigger,
+  CarouselIndicatorGroup,
+  CarouselIndicator
+} from "@/components/ui/carousel"
+
+export const CarouselPrimitives = () => (
+  <CarouselRoot slideCount={3}>
     <CarouselItemGroup>
       <CarouselItem index={0}>
         <div className="h-64 bg-red-200 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold text-base-950">Slide 1</span>
+          <span className="text-2xl font-bold">Slide 1</span>
         </div>
       </CarouselItem>
       <CarouselItem index={1}>
         <div className="h-64 bg-red-300 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold text-base-950">Slide 2</span>
+          <span className="text-2xl font-bold">Slide 2</span>
         </div>
       </CarouselItem>
       <CarouselItem index={2}>
         <div className="h-64 bg-red-400 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold text-base-950">Slide 3</span>
+          <span className="text-2xl font-bold">Slide 3</span>
         </div>
       </CarouselItem>
     </CarouselItemGroup>
-  <CarouselPrevTrigger />
-  <CarouselNextTrigger />
-  <CarouselIndicatorGroup>
-    <CarouselIndicator index={0} />
-    <CarouselIndicator index={1} />
-    <CarouselIndicator index={2} />
-  </CarouselIndicatorGroup>
-</CarouselRoot>
+    <CarouselPrevTrigger />
+    <CarouselNextTrigger />
+    <CarouselIndicatorGroup>
+      <CarouselIndicator index={0} />
+      <CarouselIndicator index={1} />
+      <CarouselIndicator index={2} />
+    </CarouselIndicatorGroup>
+  </CarouselRoot>
+)
+```

@@ -3,59 +3,143 @@ title: Checkbox
 description: A control that allows the user to toggle between checked and not checked.
 ---
 
+import { FiCheck } from "react-icons/fi";
+
+import { CheckboxRoot, CheckboxHiddenInput, CheckboxControl, CheckboxIndicator, CheckboxLabel } from "@/registry/thornberry/components/checkbox";
+
+<CheckboxRoot className="mb-8">
+  <CheckboxHiddenInput />
+  <CheckboxControl>
+    <CheckboxIndicator>
+      <FiCheck className="size-4" />
+    </CheckboxIndicator>
+  </CheckboxControl>
+  <CheckboxLabel>Checkbox Label</CheckboxLabel>
+</CheckboxRoot>
+
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/checkbox.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/checkbox.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/checkbox.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/checkbox.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Checkbox` component. Let's start with a basic example:
+
+```tsx
+import { FiCheck } from "react-icons/fi"
+
 import {
-  CheckboxControl,
-  CheckboxHiddenInput,
-  CheckboxIndicator,
-  CheckboxLabel,
   CheckboxRoot,
-} from "@/registry/thornberry/components/checkbox";
-import { FiCheck, FiUser } from "react-icons/fi";
+  CheckboxHiddenInput,
+  CheckboxControl,
+  CheckboxIndicator,
+  CheckboxLabel
+} from "@/components/ui/checkbox"
 
-## Basic Checkbox
-
-```tsx
-<CheckboxRoot>
-  <CheckboxHiddenInput />
-  <CheckboxControl>
-    <CheckboxIndicator>
-      <FiCheck className="size-4" />
-    </CheckboxIndicator>
-  </CheckboxControl>
-  <CheckboxLabel>Checkbox Label</CheckboxLabel>
-</CheckboxRoot>
+export const BasicCheckbox = () => (
+  <CheckboxRoot>
+    <CheckboxHiddenInput />
+    <CheckboxControl>
+      <CheckboxIndicator>
+        <FiCheck className="size-4" />
+      </CheckboxIndicator>
+    </CheckboxControl>
+    <CheckboxLabel>Checkbox Label</CheckboxLabel>
+  </CheckboxRoot>
+)
 ```
 
-<CheckboxRoot className="mb-4">
-  <CheckboxHiddenInput />
-  <CheckboxControl>
-    <CheckboxIndicator>
-      <FiCheck className="size-4" />
-    </CheckboxIndicator>
-  </CheckboxControl>
-  <CheckboxLabel>Checkbox Label</CheckboxLabel>
-</CheckboxRoot>
-
-## Custom Icon
+You can customize the checkbox with different icons:
 
 ```tsx
-<CheckboxRoot defaultChecked>
-  <CheckboxHiddenInput />
-  <CheckboxControl>
-    <CheckboxIndicator>
-      <FiUser className="size-3" />
-    </CheckboxIndicator>
-  </CheckboxControl>
-  <CheckboxLabel>Custom user icon</CheckboxLabel>
-</CheckboxRoot>
+import { FiUser } from "react-icons/fi"
+
+import {
+  CheckboxRoot,
+  CheckboxHiddenInput,
+  CheckboxControl,
+  CheckboxIndicator,
+  CheckboxLabel
+} from "@/components/ui/checkbox"
+
+export const CustomIconCheckbox = () => (
+  <CheckboxRoot defaultChecked>
+    <CheckboxHiddenInput />
+    <CheckboxControl>
+      <CheckboxIndicator>
+        <FiUser className="size-3" />
+      </CheckboxIndicator>
+    </CheckboxControl>
+    <CheckboxLabel>Custom user icon</CheckboxLabel>
+  </CheckboxRoot>
+)
 ```
 
-<CheckboxRoot defaultChecked>
-  <CheckboxHiddenInput />
-  <CheckboxControl>
-    <CheckboxIndicator>
-      <FiUser className="size-3" />
-    </CheckboxIndicator>
-  </CheckboxControl>
-  <CheckboxLabel>Custom user icon</CheckboxLabel>
-</CheckboxRoot>
+You can create a checkbox group for multiple options:
+
+```tsx
+import { FiCheck } from "react-icons/fi"
+
+import {
+  CheckboxRoot,
+  CheckboxHiddenInput,
+  CheckboxControl,
+  CheckboxIndicator,
+  CheckboxLabel
+} from "@/components/ui/checkbox"
+
+export const CheckboxGroup = () => (
+  <div className="flex flex-col gap-2">
+    <CheckboxRoot name="options" value="option1">
+      <CheckboxHiddenInput />
+      <CheckboxControl>
+        <CheckboxIndicator>
+          <FiCheck className="size-4" />
+        </CheckboxIndicator>
+      </CheckboxControl>
+      <CheckboxLabel>Option 1</CheckboxLabel>
+    </CheckboxRoot>
+
+    <CheckboxRoot name="options" value="option2">
+      <CheckboxHiddenInput />
+      <CheckboxControl>
+        <CheckboxIndicator>
+          <FiCheck className="size-4" />
+        </CheckboxIndicator>
+      </CheckboxControl>
+      <CheckboxLabel>Option 2</CheckboxLabel>
+    </CheckboxRoot>
+
+    <CheckboxRoot name="options" value="option3" defaultChecked>
+      <CheckboxHiddenInput />
+      <CheckboxControl>
+        <CheckboxIndicator>
+          <FiCheck className="size-4" />
+        </CheckboxIndicator>
+      </CheckboxControl>
+      <CheckboxLabel>Option 3</CheckboxLabel>
+    </CheckboxRoot>
+  </div>
+)
+```

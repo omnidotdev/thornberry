@@ -1,42 +1,74 @@
 ---
 title: Input
-description: A form field for collecting user input
+description: A form field for collecting user input.
 ---
 
 import { Input } from "@/registry/thornberry/components/input";
 
-## Basic Input
+<Input placeholder="Please enter text..." className="mb-8" />
+
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/input.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/input.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/input.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/input.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Input` component. Let's start with a basic example:
 
 ```tsx
-<Input placeholder="Enter text" />
+import { Input } from "@/components/ui/input"
+
+export const BasicInput = () => (
+  <Input placeholder="Please enter text..." />
+)
 ```
 
-<Input placeholder="Enter text" className="mb-4" />
-
-## With Label
+You can add a label to your input:
 
 ```tsx
-<div className="space-y-2">
-  <label htmlFor="email" className="text-sm font-medium">Email</label>
-  <Input id="email" type="email" placeholder="Enter your email" />
-</div>
+import { Input } from "@/components/ui/input"
+
+export const LabeledInput = () => (
+  <div className="space-y-2">
+    <label htmlFor="email" className="text-sm font-medium">Email</label>
+    <Input id="email" type="email" placeholder="Enter your email" />
+  </div>
+)
 ```
 
-<div className="space-y-2 mb-4">
-  <label htmlFor="email" className="text-sm font-medium">Email</label>
-  <Input id="email" type="email" placeholder="Enter your email" />
-</div>
-
-## Input Types
+Input supports different input types:
 
 ```tsx
-<Input type="password" placeholder="Enter password" />
-```
+import { Input } from "@/components/ui/input"
 
-<div className="flex flex-col gap-4">
-  <Input type="text" placeholder="Text input" />
-  <Input type="password" placeholder="******" />
-  <Input type="email" placeholder="Email input" />
-  <Input type="number" placeholder="Number input" />
-  <Input type="search" placeholder="Search input" />
-</div>
+export const InputTypes = () => (
+  <div className="flex flex-col gap-4">
+    <Input type="text" placeholder="Text input" />
+    <Input type="password" placeholder="******" />
+    <Input type="email" placeholder="Email input" />
+    <Input type="number" placeholder="Number input" />
+    <Input type="search" placeholder="Search input" />
+  </div>
+)
+```

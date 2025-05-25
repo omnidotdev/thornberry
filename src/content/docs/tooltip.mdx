@@ -1,123 +1,135 @@
 ---
 title: Tooltip
-description: A popup that displays information related to an element when it receives focus or is hovered over
+description: A popup that displays information related to an element when it receives focus or is hovered over.
 ---
 
-import {
-  Tooltip,
-  TooltipArrow,
-  TooltipArrowTip,
-  TooltipContent,
-  TooltipPositioner,
-  TooltipProvider,
-  TooltipRoot,
-  TooltipTrigger,
-} from "@/registry/thornberry/components/tooltip";
+import { Tooltip } from "@/registry/thornberry/components/tooltip";
 import { Button } from "@/registry/thornberry/components/button";
 
-## Basic
-
-```tsx
-<Tooltip content="This is a tooltip">
+<Tooltip content="This is a tooltip" className="mb-8">
   <Button variant="outline">Hover Me</Button>
 </Tooltip>
-```
 
-<div className="flex my-4">
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/tooltip.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/tooltip.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/tooltip.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/tooltip.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Tooltip` component. Let's start with a basic example:
+
+```tsx
+import { Tooltip } from "@/components/ui/tooltip"
+import { Button } from "@/components/ui/button"
+
+export const BasicTooltip = () => (
   <Tooltip content="This is a tooltip">
     <Button variant="outline">Hover Me</Button>
   </Tooltip>
-</div>
-
-## Placement
-
-```tsx
-<Tooltip content="Left tooltip" positioning={{ placement: "left" }}>
-  <Button variant="outline" size="sm">Left</Button>
-</Tooltip>
+)
 ```
 
-<div className="flex flex-wrap gap-4 my-4">
-  <Tooltip content="Left tooltip" positioning={{ placement: "left" }}>
-    <Button variant="outline" size="sm">Left</Button>
-  </Tooltip>
-  <Tooltip content="Top tooltip" positioning={{ placement: "top" }}>
-    <Button variant="outline" size="sm">Top</Button>
-  </Tooltip>
-  <Tooltip content="Bottom tooltip" positioning={{ placement: "bottom" }}>
-    <Button variant="outline" size="sm">Bottom</Button>
-  </Tooltip>
-  <Tooltip content="Right tooltip" positioning={{ placement: "right" }}>
-    <Button variant="outline" size="sm">Right</Button>
-  </Tooltip>
-</div>
-
-## Delay Configuration
+You can customize the placement of the tooltip:
 
 ```tsx
-<Tooltip
-  content="Fast open (100ms), slow close (1000ms)"
-  openDelay={100}
-  closeDelay={1000}
->
-  <Button variant="outline" size="sm">
-    Slow Close
-  </Button>
-</Tooltip>
+import { Tooltip } from "@/components/ui/tooltip"
+import { Button } from "@/components/ui/button"
+
+export const TooltipPlacements = () => (
+  <div className="flex gap-4">
+    <Tooltip content="Left tooltip" positioning={{ placement: "left" }}>
+      <Button variant="outline" size="sm">Left</Button>
+    </Tooltip>
+    
+    <Tooltip content="Top tooltip" positioning={{ placement: "top" }}>
+      <Button variant="outline" size="sm">Top</Button>
+    </Tooltip>
+    
+    <Tooltip content="Bottom tooltip" positioning={{ placement: "bottom" }}>
+      <Button variant="outline" size="sm">Bottom</Button>
+    </Tooltip>
+    
+    <Tooltip content="Right tooltip" positioning={{ placement: "right" }}>
+      <Button variant="outline" size="sm">Right</Button>
+    </Tooltip>
+  </div>
+)
 ```
 
-<div className="flex gap-4 my-4">
-  <Tooltip
-    content="Fast open (100ms), slow close (1000ms)"
-    openDelay={100}
-    closeDelay={1000}
-  >
-    <Button variant="outline" size="sm">
-      Slow Close
-    </Button>
-  </Tooltip>
-
-  <Tooltip
-    content="Slow open (800ms), fast close (100ms)"
-    openDelay={800}
-    closeDelay={100}
-  >
-    <Button variant="outline" size="sm">
-      Slow Open
-    </Button>
-  </Tooltip>
-</div>
-
-## Primitives
+You can configure open and close delay times:
 
 ```tsx
-<TooltipRoot>
-  <TooltipTrigger asChild>
-    <Button variant="outline">Hover Me</Button>
-  </TooltipTrigger>
-  <TooltipPositioner>
-    <TooltipContent>
-      <TooltipArrow>
-        <TooltipArrowTip />
-      </TooltipArrow>
-      <div className="flex items-center gap-2">
-        <div className="h-2 w-2 rounded-full bg-blue-500" />
-        <div>Custom styled tooltip using primitives</div>
-      </div>
-    </TooltipContent>
-  </TooltipPositioner>
-</TooltipRoot>
+import { Tooltip } from "@/components/ui/tooltip"
+import { Button } from "@/components/ui/button"
+
+export const TooltipWithDelays = () => (
+  <div className="flex gap-4">
+    <Tooltip
+      content="Fast open (100ms), slow close (1000ms)"
+      openDelay={100}
+      closeDelay={1000}
+    >
+      <Button variant="outline" size="sm">
+        Slow Close
+      </Button>
+    </Tooltip>
+
+    <Tooltip
+      content="Slow open (800ms), fast close (100ms)"
+      openDelay={800}
+      closeDelay={100}
+    >
+      <Button variant="outline" size="sm">
+        Slow Open
+      </Button>
+    </Tooltip>
+  </div>
+)
 ```
 
-<div className="flex my-4">
+For more granular control, Thornberry provides Tooltip primitives:
+
+```tsx
+import {
+  TooltipRoot,
+  TooltipTrigger,
+  TooltipPositioner,
+  TooltipContent,
+  TooltipArrow,
+  TooltipArrowTip
+} from "@/components/ui/tooltip"
+import { Button } from "@/components/ui/button"
+
+export const TooltipPrimitives = () => (
   <TooltipRoot>
     <TooltipTrigger asChild>
       <Button variant="outline">Hover Me</Button>
     </TooltipTrigger>
     <TooltipPositioner>
-      <TooltipContent className="bg-blue-50 border-blue-200 text-blue-900">
+      <TooltipContent>
         <TooltipArrow>
-          <TooltipArrowTip className="fill-blue-200" />
+          <TooltipArrowTip />
         </TooltipArrow>
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-blue-500" />
@@ -126,4 +138,5 @@ import { Button } from "@/registry/thornberry/components/button";
       </TooltipContent>
     </TooltipPositioner>
   </TooltipRoot>
-</div>
+)
+```

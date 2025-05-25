@@ -1,60 +1,109 @@
 ---
 title: Switch
-description: A control that allows the user to toggle between checked and unchecked states
+description: A control that allows the user to toggle between checked and unchecked states.
 ---
 
+import { Switch } from "@/registry/thornberry/components/switch";
+
+<Switch className="mb-8" />
+
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/switch.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/switch.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/switch.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/switch.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Switch` component. Let's start with a basic example:
+
+```tsx
+import { Switch } from "@/components/ui/switch"
+
+export const BasicSwitch = () => (
+  <Switch />
+)
+```
+
+You can add a label to your switch:
+
+```tsx
+import { Switch } from "@/components/ui/switch"
+
+export const LabeledSwitch = () => (
+  <Switch label="Airplane Mode" />
+)
+```
+
+For more granular control, Thornberry provides Switch primitives:
+
+```tsx
 import {
-  Switch,
-  SwitchContext,
-  SwitchControl,
-  SwitchHiddenInput,
-  SwitchLabel,
-  SwitchProvider,
   SwitchRoot,
+  SwitchHiddenInput,
+  SwitchControl,
   SwitchThumb,
-} from "@/registry/thornberry/components/switch";
+  SwitchLabel
+} from "@/components/ui/switch"
 
-## Basic
-
-```tsx
-<Switch />
+export const SwitchPrimitives = () => (
+  <SwitchRoot defaultChecked>
+    <SwitchHiddenInput />
+    <SwitchControl>
+      <SwitchThumb />
+    </SwitchControl>
+    <SwitchLabel>Custom Switch</SwitchLabel>
+  </SwitchRoot>
+)
 ```
 
-<Switch className="mb-4" />
-
-## With Label
+You can customize the appearance of your switch:
 
 ```tsx
-<Switch label="Airplane Mode" />
-```
+import {
+  SwitchRoot,
+  SwitchHiddenInput,
+  SwitchControl,
+  SwitchThumb,
+  SwitchLabel
+} from "@/components/ui/switch"
 
-<Switch label="Airplane Mode" className="mb-4" />
-
-## Primitives
-
-```tsx
-<SwitchRoot defaultChecked>
-  <SwitchHiddenInput />
-  <SwitchControl className="bg-red-100 data-[state=checked]:bg-red-500">
-    <SwitchThumb className="bg-white" />
-  </SwitchControl>
-  <SwitchLabel>Custom Colors</SwitchLabel>
-</SwitchRoot>
-```
-
-<div className="flex flex-col gap-2">
+export const CustomSwitches = () => (
+  <div className="flex flex-col gap-2">
     <SwitchRoot defaultChecked>
-    <SwitchHiddenInput />
-    <SwitchControl className="bg-red-100 data-[state=checked]:bg-red-500">
+      <SwitchHiddenInput />
+      <SwitchControl className="bg-red-100 data-[state=checked]:bg-red-500">
         <SwitchThumb className="bg-white" />
-    </SwitchControl>
-    <SwitchLabel>Custom Colors</SwitchLabel>
+      </SwitchControl>
+      <SwitchLabel>Custom Colors</SwitchLabel>
     </SwitchRoot>
+    
     <SwitchRoot>
-    <SwitchHiddenInput />
-    <SwitchControl className="h-6 w-12">
+      <SwitchHiddenInput />
+      <SwitchControl className="h-6 w-12">
         <SwitchThumb className="h-5 w-5 data-[state=checked]:translate-x-6" />
-    </SwitchControl>
-    <SwitchLabel>Custom Size</SwitchLabel>
+      </SwitchControl>
+      <SwitchLabel>Custom Size</SwitchLabel>
     </SwitchRoot>
-</div>
+  </div>
+)
+```

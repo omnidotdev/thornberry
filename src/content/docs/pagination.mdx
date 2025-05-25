@@ -1,73 +1,93 @@
 ---
 title: Pagination
-description: A component for navigating through multiple pages of content
+description: A component for navigating through multiple pages of content.
 ---
 
+import { Pagination } from "@/registry/thornberry/components/pagination";
+
+<Pagination count={10} className="mb-8" />
+
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/pagination.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/pagination.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/pagination.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/pagination.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Pagination` component. Let's start with a basic example:
+
+```tsx
+import { Pagination } from "@/components/ui/pagination"
+
+export const BasicPagination = () => (
+  <Pagination count={10} />
+)
+```
+
+You can specify the current page:
+
+```tsx
+import { Pagination } from "@/components/ui/pagination"
+
+export const PaginationWithCurrentPage = () => (
+  <Pagination count={10} page={3} />
+)
+```
+
+You can customize the number of siblings displayed around the current page:
+
+```tsx
+import { Pagination } from "@/components/ui/pagination"
+
+export const PaginationWithSiblings = () => (
+  <Pagination count={20} page={10} siblingCount={2} />
+)
+```
+
+For more granular control, Thornberry provides Pagination primitives:
+
+```tsx
 import {
-  Pagination,
-  PaginationContext,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationNextTrigger,
-  PaginationPrevTrigger,
-  PaginationProvider,
   PaginationRoot,
-} from "@/registry/thornberry/components/pagination";
+  PaginationPrevTrigger,
+  PaginationItem,
+  PaginationNextTrigger
+} from "@/components/ui/pagination"
 
-## Basic
-
-```tsx
-<Pagination count={10} />
+export const PaginationPrimitives = () => (
+  <PaginationRoot count={10} page={4}>
+    <div className="flex items-center gap-2">
+      <PaginationPrevTrigger />
+      {Array.from({ length: 10 }, (_, i) => i + 1).map(pageNum => (
+        <PaginationItem
+          key={pageNum}
+          value={pageNum}
+        >
+          {pageNum}
+        </PaginationItem>
+      ))}
+      <PaginationNextTrigger />
+    </div>
+  </PaginationRoot>
+)
 ```
-
-<Pagination count={10} className="mb-4" />
-
-## Current Page
-
-```tsx
-<Pagination count={10} page={3} />
-```
-
-<Pagination count={10} page={3} className="mb-4" />
-
-## Custom Sibling Count
-
-```tsx
-<Pagination count={20} page={10} siblingCount={2} />
-```
-
-<Pagination count={20} page={10} siblingCount={2} className="mb-4" />
-
-## Primitives
-
-```tsx
-<PaginationRoot count={10} page={4}>
-  <div className="flex items-center gap-2">
-    <PaginationPrevTrigger />
-    {Array.from({ length: 10 }, (_, i) => i + 1).map(pageNum => (
-      <PaginationItem
-        key={pageNum}
-        value={pageNum}
-      >
-        {pageNum}
-      </PaginationItem>
-    ))}
-    <PaginationNextTrigger />
-  </div>
-</PaginationRoot>
-```
-
-<PaginationRoot count={10} page={4} className="mb-4">
-  <div className="flex items-center gap-2">
-    <PaginationPrevTrigger />
-    {Array.from({ length: 10 }, (_, i) => i + 1).map(pageNum => (
-      <PaginationItem
-        key={pageNum}
-        value={pageNum}
-      >
-        {pageNum}
-      </PaginationItem>
-    ))}
-    <PaginationNextTrigger />
-  </div>
-</PaginationRoot>

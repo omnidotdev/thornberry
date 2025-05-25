@@ -5,38 +5,69 @@ description: Small status descriptors for UI elements.
 
 import { Badge } from "@/registry/thornberry/components/badge";
 
-## Variants
+<Badge className="mb-8">Default Badge</Badge>
+
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/badge.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/badge.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/badge.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/badge.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Badge` component. Let's start with a basic example:
 
 ```tsx
-<Badge variant="subtle">Subtle</Badge>
+import { Badge } from "@/components/ui/badge"
+
+export const BasicBadge = () => (
+  <Badge>Default Badge</Badge>
+)
 ```
 
-<div className="flex gap-2 mb-4">
-  <Badge>Solid</Badge>
-  <Badge variant="subtle">Subtle</Badge>
-  <Badge variant="outline">Outline</Badge>
-</div>
-
-## Sizes
+The Badge component comes with different variants that you can use to represent different styles:
 
 ```tsx
-<Badge size="sm">Small</Badge>
+import { Badge } from "@/components/ui/badge"
+
+export const BadgeVariants = () => (
+  <div className="flex gap-2">
+    <Badge>Solid</Badge>
+    <Badge variant="subtle">Subtle</Badge>
+    <Badge variant="outline">Outline</Badge>
+  </div>
+)
 ```
 
-<div className="flex gap-2 mb-4">
-  <Badge size="sm">Small</Badge>
-  <Badge>Medium</Badge>
-  <Badge size="lg">Large</Badge>
-</div>
-
-## Custom Colors
+You can also use different sizes for your badges:
 
 ```tsx
-<Badge variant="outline" className="border-blue-500 text-blue-500">Blue</Badge>
-```
+import { Badge } from "@/components/ui/badge"
 
-<div className="flex items-center gap-2">
-  <Badge variant="outline" className="border-blue-500 text-blue-500">Blue</Badge>
-  <Badge className="bg-green-200 dark:bg-green-600 text-green-600 dark:text-green-200">Green</Badge>
-  <Badge variant="subtle" className="bg-red-200/40 dark:bg-red-600/40 text-red-600 dark:text-red-200">Red</Badge>
-</div>
+export const BadgeSizes = () => (
+  <div className="flex gap-2">
+    <Badge size="sm">Small</Badge>
+    <Badge>Medium</Badge>
+    <Badge size="lg">Large</Badge>
+  </div>
+)
+```

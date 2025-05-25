@@ -1,181 +1,178 @@
 ---
 title: Slider
-description: A control that allows users to select a value or range from a given range
+description: A control that allows users to select a value or range from a given range.
 ---
 
+import { Slider } from "@/registry/thornberry/components/slider";
+
+<Slider defaultValue={[50]} className="mb-8" />
+
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/slider.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/slider.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/slider.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/slider.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Slider` component. Let's start with a basic example:
+
+```tsx
+import { Slider } from "@/components/ui/slider"
+
+export const BasicSlider = () => (
+  <Slider defaultValue={[50]} />
+)
+```
+
+You can add a label to your slider:
+
+```tsx
+import { Slider } from "@/components/ui/slider"
+
+export const LabeledSlider = () => (
+  <Slider label="Volume" defaultValue={[75]} />
+)
+```
+
+You can display the current value:
+
+```tsx
+import { Slider } from "@/components/ui/slider"
+
+export const SliderWithValue = () => (
+  <Slider 
+    label="Brightness" 
+    defaultValue={[60]} 
+    showValueText 
+  />
+)
+```
+
+You can customize the range with min, max, and step values:
+
+```tsx
+import { Slider } from "@/components/ui/slider"
+
+export const CustomRangeSlider = () => (
+  <Slider
+    label="Temperature"
+    min={15}
+    max={30}
+    step={0.5}
+    defaultValue={[22.5]}
+    showValueText
+  />
+)
+```
+
+You can add markers to your slider:
+
+```tsx
+import { Slider } from "@/components/ui/slider"
+
+export const SliderWithMarkers = () => (
+  <Slider
+    label="Speed"
+    min={0}
+    max={100}
+    step={25}
+    defaultValue={[50]}
+    markers={[
+      { value: 0, label: "0%" },
+      { value: 25, label: "25%" },
+      { value: 50, label: "50%" },
+      { value: 75, label: "75%" },
+      { value: 100, label: "100%" }
+    ]}
+    showValueText
+  />
+)
+```
+
+For more granular control, Thornberry provides Slider primitives:
+
+```tsx
 import {
-  Slider,
-  SliderContext,
-  SliderControl,
-  SliderLabel,
-  SliderMarker,
-  SliderProvider,
-  SliderRange,
   SliderRoot,
-  SliderThumb,
+  SliderLabel,
+  SliderControl,
   SliderTrack,
+  SliderRange,
+  SliderThumb,
   SliderValueText,
-} from "@/registry/thornberry/components/slider";
+  SliderMarker
+} from "@/components/ui/slider"
 
-## Basic
-
-```tsx
-<Slider defaultValue={[50]} />
+export const SliderPrimitives = () => (
+  <SliderRoot
+    min={0}
+    max={100}
+    defaultValue={[40]}
+  >
+    <SliderLabel>Custom Slider</SliderLabel>
+    <SliderControl>
+      <SliderTrack>
+        <SliderRange />
+      </SliderTrack>
+      <SliderMarker value={0}>Min</SliderMarker>
+      <SliderMarker value={50}>Mid</SliderMarker>
+      <SliderMarker value={100}>Max</SliderMarker>
+      <SliderThumb index={0} />
+    </SliderControl>
+    <SliderValueText />
+  </SliderRoot>
+)
 ```
 
-<Slider defaultValue={[50]} className="mb-4" />
-
-## With Label
+You can create a range slider with multiple thumbs:
 
 ```tsx
-<Slider label="Volume" defaultValue={[75]} />
+import {
+  SliderRoot,
+  SliderLabel,
+  SliderControl,
+  SliderTrack,
+  SliderRange,
+  SliderThumb,
+  SliderValueText
+} from "@/components/ui/slider"
+
+export const RangeSlider = () => (
+  <SliderRoot
+    min={0}
+    max={100}
+    step={10}
+    defaultValue={[30, 70]}
+  >
+    <SliderLabel>Range Slider</SliderLabel>
+    <SliderControl>
+      <SliderTrack>
+        <SliderRange />
+      </SliderTrack>
+      <SliderThumb index={0} />
+      <SliderThumb index={1} />
+    </SliderControl>
+    <SliderValueText />
+  </SliderRoot>
+)
 ```
-
-<Slider label="Volume" defaultValue={[75]} className="mb-4" />
-
-## With Value Display
-
-```tsx
-<Slider label="Brightness" defaultValue={[60]} showValueText />
-```
-
-<Slider label="Brightness" defaultValue={[60]} showValueText className="mb-4" />
-
-## Custom Range
-
-```tsx
-<Slider
-  label="Temperature"
-  min={15}
-  max={30}
-  step={0.5}
-  defaultValue={[22.5]}
-  showValueText
-/>
-```
-
-<Slider
-  label="Temperature"
-  min={15}
-  max={30}
-  step={0.5}
-  defaultValue={[22.5]}
-  showValueText
-  className="mb-4"
-/>
-
-## With Markers
-
-```tsx
-<Slider
-  label="Speed"
-  min={0}
-  max={100}
-  step={25}
-  defaultValue={[50]}
-  markers={[
-    { value: 0, label: "0%" },
-    { value: 25, label: "25%" },
-    { value: 50, label: "50%" },
-    { value: 75, label: "75%" },
-    { value: 100, label: "100%" }
-  ]}
-  showValueText
-/>
-```
-
-<Slider
-  label="Speed"
-  min={0}
-  max={100}
-  step={25}
-  defaultValue={[50]}
-  markers={[
-    { value: 0, label: "0%" },
-    { value: 25, label: "25%" },
-    { value: 50, label: "50%" },
-    { value: 75, label: "75%" },
-    { value: 100, label: "100%" }
-  ]}
-  showValueText
-  className="mb-4"
-/>
-
-## Range Slider
-
-```tsx
-<SliderRoot
-  min={0}
-  max={100}
-  step={10}
-  defaultValue={[30, 70]}
->
-  <SliderLabel>Range Slider</SliderLabel>
-  <SliderControl>
-    <SliderTrack>
-      <SliderRange />
-    </SliderTrack>
-    <SliderThumb index={0} />
-    <SliderThumb index={1} />
-  </SliderControl>
-  <SliderValueText />
-</SliderRoot>
-```
-
-<SliderRoot
-  min={0}
-  max={100}
-  step={10}
-  defaultValue={[30, 70]}
->
-  <SliderLabel>Range Slider</SliderLabel>
-  <SliderControl>
-    <SliderTrack className="bg-gray-200">
-      <SliderRange className="bg-green-500" />
-    </SliderTrack>
-    <SliderThumb index={0} className="bg-white border-green-500" />
-    <SliderThumb index={1} className="bg-white border-green-500" />
-  </SliderControl>
-  <SliderValueText />
-</SliderRoot>
-
-## Primitives
-
-```tsx
-<SliderRoot
-  min={0}
-  max={100}
-  defaultValue={[40]}
->
-  <SliderLabel>Custom Slider</SliderLabel>
-  <SliderControl>
-    <SliderTrack>
-      <SliderRange />
-    </SliderTrack>
-    <SliderMarker value={0}>Min</SliderMarker>
-    <SliderMarker value={50}>Mid</SliderMarker>
-    <SliderMarker value={100}>Max</SliderMarker>
-    <SliderThumb index={0} />
-  </SliderControl>
-  <SliderValueText />
-</SliderRoot>
-```
-
-<SliderRoot
-  min={0}
-  max={100}
-  defaultValue={[40]}
-  className="mb-4"
->
-  <SliderLabel>Custom Slider</SliderLabel>
-  <SliderControl>
-    <SliderTrack className="bg-blue-100">
-      <SliderRange className="bg-blue-500" />
-    </SliderTrack>
-    <SliderMarker value={0}>Min</SliderMarker>
-    <SliderMarker value={50}>Mid</SliderMarker>
-    <SliderMarker value={100}>Max</SliderMarker>
-    <SliderThumb index={0} className="bg-white border-blue-500" />
-  </SliderControl>
-  <SliderValueText className="text-blue-500 font-bold pt-4" />
-</SliderRoot>

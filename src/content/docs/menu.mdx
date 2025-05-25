@@ -1,162 +1,119 @@
 ---
 title: Menu
-description: A dropdown menu that displays a list of options
+description: A dropdown menu that displays a list of options.
 ---
 
-import { FiCheck, FiChevronDown } from "react-icons/fi";
+import { FiChevronRight } from "react-icons/fi";
 
-import {
-  Menu,
-  MenuArrow,
-  MenuArrowTip,
-  MenuCheckboxItem,
-  MenuContent,
-  MenuItem,
-  MenuItemGroup,
-  MenuItemGroupLabel,
-  MenuItemIndicator,
-  MenuItemText,
-  MenuPositioner,
-  MenuProvider,
-  MenuRadioItem,
-  MenuRadioItemGroup,
-  MenuRoot,
-  MenuSeparator,
-  MenuTrigger,
-  MenuTriggerItem,
-} from "@/registry/thornberry/components/menu";
+import { Menu, MenuItem } from "@/registry/thornberry/components/menu";
 import { Button } from "@/registry/thornberry/components/button";
 
-## Basic
-
-```tsx
-<Menu trigger={<Button variant="outline">Open Menu</Button>}>
+<Menu
+  trigger={<Button variant="outline">Open Menu</Button>}
+  className="mb-8"
+>
   <MenuItem value="copy">Copy</MenuItem>
   <MenuItem value="paste">Paste</MenuItem>
   <MenuItem value="cut">Cut</MenuItem>
 </Menu>
-```
 
-<div className="flex mb-4">
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/menu.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/menu.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/menu.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/menu.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Menu` component. Let's start with a basic example:
+
+```tsx
+import { Menu } from "@/components/ui/menu"
+import { Button } from "@/components/ui/button"
+
+export const BasicMenu = () => (
   <Menu trigger={<Button variant="outline">Open Menu</Button>}>
-    <MenuItem value="copy">Copy</MenuItem>
-    <MenuItem value="paste">Paste</MenuItem>
-    <MenuItem value="cut">Cut</MenuItem>
+    <Menu.Item value="copy">Copy</Menu.Item>
+    <Menu.Item value="paste">Paste</Menu.Item>
+    <Menu.Item value="cut">Cut</Menu.Item>
   </Menu>
-</div>
-
-## With Groups
-
-```tsx
-<MenuRoot>
-  <MenuTrigger asChild>
-    <Button>Menu with Groups</Button>
-  </MenuTrigger>
-  <MenuPositioner>
-    <MenuContent>
-      <MenuItemGroup>
-        <MenuItemGroupLabel>Actions</MenuItemGroupLabel>
-        <MenuItem value="copy">Copy</MenuItem>
-        <MenuItem value="paste">Paste</MenuItem>
-        <MenuItem value="cut">Cut</MenuItem>
-      </MenuItemGroup>
-      <MenuSeparator />
-      <MenuItemGroup>
-        <MenuItemGroupLabel>View</MenuItemGroupLabel>
-        <MenuItem value="zoom-in">Zoom In</MenuItem>
-        <MenuItem value="zoom-out">Zoom Out</MenuItem>
-        <MenuItem value="reset" disabled>Reset View</MenuItem>
-      </MenuItemGroup>
-    </MenuContent>
-  </MenuPositioner>
-</MenuRoot>
+)
 ```
 
-<div className="flex mb-4">
-  <MenuRoot>
-    <MenuTrigger asChild>
-      <Button>Menu with Groups</Button>
-    </MenuTrigger>
-    <MenuPositioner>
-      <MenuContent>
-        <MenuItemGroup>
-          <MenuItemGroupLabel>Actions</MenuItemGroupLabel>
-          <MenuItem value="copy">Copy</MenuItem>
-          <MenuItem value="paste">Paste</MenuItem>
-          <MenuItem value="cut">Cut</MenuItem>
-        </MenuItemGroup>
-        <MenuSeparator />
-        <MenuItemGroup>
-          <MenuItemGroupLabel>View</MenuItemGroupLabel>
-          <MenuItem value="zoom-in">Zoom In</MenuItem>
-          <MenuItem value="zoom-out">Zoom Out</MenuItem>
-          <MenuItem value="reset" disabled>Reset View</MenuItem>
-        </MenuItemGroup>
-      </MenuContent>
-    </MenuPositioner>
-  </MenuRoot>
-</div>
-
-## Primitives
+You can organize menu items into groups:
 
 ```tsx
-<MenuRoot>
-  <MenuTrigger asChild>
-    <Button variant="outline">Custom Menu</Button>
-  </MenuTrigger>
-  <MenuPositioner>
-    <MenuContent>
-      <MenuArrow>
-        <MenuArrowTip />
-      </MenuArrow>
-      <MenuItem>
-        <div className="mr-2 h-4 w-4 text-primary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"></svg>
-        </div>
-        <span>Edit</span>
-      </MenuItem>
-      <MenuSeparator />
-      <MenuItemGroup>
-        <MenuItemGroupLabel>View Options</MenuItemGroupLabel>
-        <MenuCheckboxItem value="grid">
-          <MenuItemIndicator>
-            <FiCheck className="h-4 w-4" />
-          </MenuItemIndicator>
-          <MenuItemText>Grid View</MenuItemText>
-        </MenuCheckboxItem>
-      </MenuItemGroup>
-    </MenuContent>
-  </MenuPositioner>
-</MenuRoot>
+import { Menu } from "@/components/ui/menu"
+import { Button } from "@/components/ui/button"
+
+export const MenuWithGroups = () => (
+  <Menu trigger={<Button>Menu with Groups</Button>}>
+    <Menu.Group>
+      <Menu.GroupLabel>Actions</Menu.GroupLabel>
+      <Menu.Item value="copy">Copy</Menu.Item>
+      <Menu.Item value="paste">Paste</Menu.Item>
+      <Menu.Item value="cut">Cut</Menu.Item>
+    </Menu.Group>
+    <Menu.Separator />
+    <Menu.Group>
+      <Menu.GroupLabel>View</Menu.GroupLabel>
+      <Menu.Item value="zoom-in">Zoom In</Menu.Item>
+      <Menu.Item value="zoom-out">Zoom Out</Menu.Item>
+      <Menu.Item value="reset" disabled>Reset View</Menu.Item>
+    </Menu.Group>
+  </Menu>
+)
 ```
 
-<div className="flex mb-4">
+For more granular control, Thornberry provides Menu primitives:
+
+```tsx
+import { FiCheck } from "react-icons/fi"
+
+import {
+  MenuRoot,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuCheckboxItem,
+  MenuItemIndicator,
+  MenuItemText
+} from "@/components/ui/menu"
+import { Button } from "@/components/ui/button"
+
+export const MenuPrimitives = () => (
   <MenuRoot>
     <MenuTrigger asChild>
       <Button variant="outline">Custom Menu</Button>
     </MenuTrigger>
     <MenuPositioner>
-      <MenuContent className="w-56">
-        <MenuArrow>
-          <MenuArrowTip />
-        </MenuArrow>
-
-        <MenuItem className="flex items-center">
-          <div className="mr-2 h-4 w-4 text-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5"/><polyline points="14 2 14 8 20 8"/><path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"/></svg>
-          </div>
-          <span>Edit</span>
-        </MenuItem>
-
-        <MenuItem className="flex items-center">
-          <div className="mr-2 h-4 w-4 text-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
-          </div>
-          <span>Duplicate</span>
-        </MenuItem>
-
+      <MenuContent>
+        <MenuItem value="edit">Edit</MenuItem>
+        <MenuItem value="duplicate">Duplicate</MenuItem>
         <MenuSeparator />
-
         <MenuItemGroup>
           <MenuItemGroupLabel>View Options</MenuItemGroupLabel>
           <MenuCheckboxItem value="grid">
@@ -171,81 +128,9 @@ import { Button } from "@/registry/thornberry/components/button";
             </MenuItemIndicator>
             <MenuItemText>List View</MenuItemText>
           </MenuCheckboxItem>
-          <MenuCheckboxItem disabled value="compact">
-            <MenuItemIndicator>
-              <FiCheck className="h-4 w-4" />
-            </MenuItemIndicator>
-            <MenuItemText>Compact View</MenuItemText>
-          </MenuCheckboxItem>
         </MenuItemGroup>
-
-        <MenuSeparator />
-
-        <MenuItem className="flex items-center text-red-500 focus:text-red-500">
-          <div className="mr-2 h-4 w-4">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-          </div>
-          <span>Delete</span>
-        </MenuItem>
       </MenuContent>
     </MenuPositioner>
   </MenuRoot>
-</div>
-
-## Submenu
-
-```tsx
-<MenuRoot>
-  <MenuTrigger asChild>
-    <Button>Menu with Submenu</Button>
-  </MenuTrigger>
-  <MenuPositioner>
-    <MenuContent>
-      <MenuItem value="new-file">New File</MenuItem>
-      <MenuItem value="new-folder">New Folder</MenuItem>
-      <MenuSeparator />
-      <MenuRoot positioning={{ placement: "right-start", gutter: 4 }}>
-        <MenuTriggerItem>More Options</MenuTriggerItem>
-        <MenuPositioner>
-          <MenuContent>
-            <MenuItem value="import">Import</MenuItem>
-            <MenuItem value="export">Export</MenuItem>
-            <MenuSeparator />
-            <MenuItem value="print">Print</MenuItem>
-          </MenuContent>
-        </MenuPositioner>
-      </MenuRoot>
-      <MenuSeparator />
-      <MenuItem value="settings">Settings</MenuItem>
-    </MenuContent>
-  </MenuPositioner>
-</MenuRoot>
+)
 ```
-
-<div className="flex mb-4">
-  <MenuRoot>
-    <MenuTrigger asChild>
-      <Button>Menu with Submenu</Button>
-    </MenuTrigger>
-    <MenuPositioner>
-      <MenuContent>
-        <MenuItem value="new-file">New File</MenuItem>
-        <MenuItem value="new-folder">New Folder</MenuItem>
-        <MenuSeparator />
-        <MenuRoot positioning={{ placement: "right-start", gutter: 4 }}>
-          <MenuTriggerItem>More Options</MenuTriggerItem>
-          <MenuPositioner>
-            <MenuContent>
-              <MenuItem value="import">Import</MenuItem>
-              <MenuItem value="export">Export</MenuItem>
-              <MenuSeparator />
-              <MenuItem value="print">Print</MenuItem>
-            </MenuContent>
-          </MenuPositioner>
-        </MenuRoot>
-        <MenuSeparator />
-        <MenuItem value="settings">Settings</MenuItem>
-      </MenuContent>
-    </MenuPositioner>
-  </MenuRoot>
-</div>

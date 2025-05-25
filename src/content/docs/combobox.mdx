@@ -1,125 +1,121 @@
 ---
 title: Combobox
-description: A searchable dropdown select component that allows users to filter through a list of options
+description: A searchable dropdown select component that allows users to filter through a list of options.
 ---
 
+import { Combobox } from "@/registry/thornberry/components/combobox";
+
+<Combobox
+  items={[
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Orange", value: "orange" },
+    { label: "Strawberry", value: "strawberry" },
+    { label: "Blueberry", value: "blueberry" }
+  ]}
+  className="mb-8"
+/>
+
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/combobox.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/combobox.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/combobox.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/combobox.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `Combobox` component. Let's start with a basic example:
+
+```tsx
+import { Combobox } from "@/components/ui/combobox"
+
+export const BasicCombobox = () => (
+  <Combobox
+    items={[
+      { label: "Apple", value: "apple" },
+      { label: "Banana", value: "banana" },
+      { label: "Orange", value: "orange" },
+      { label: "Strawberry", value: "strawberry" },
+      { label: "Blueberry", value: "blueberry" }
+    ]}
+  />
+)
+```
+
+You can add a label to the combobox:
+
+```tsx
+import { Combobox } from "@/components/ui/combobox"
+
+export const LabeledCombobox = () => (
+  <Combobox
+    label="Select a fruit"
+    items={[
+      { label: "Apple", value: "apple" },
+      { label: "Banana", value: "banana" },
+      { label: "Orange", value: "orange" },
+      { label: "Strawberry", value: "strawberry" },
+      { label: "Blueberry", value: "blueberry" }
+    ]}
+  />
+)
+```
+
+For more granular control, Thornberry provides Combobox primitives:
+
+```tsx
 import {
-  Combobox,
-  ComboboxClearTrigger,
-  ComboboxContent,
-  ComboboxContext,
+  ComboboxRoot,
   ComboboxControl,
   ComboboxInput,
-  ComboboxItem,
-  ComboboxItemGroup,
-  ComboboxItemGroupLabel,
-  ComboboxLabel,
-  ComboboxPositioner,
-  ComboboxProvider,
-  ComboboxRoot,
   ComboboxTrigger,
-} from "@/registry/thornberry/components/combobox";
+  ComboboxPositioner,
+  ComboboxContent,
+  ComboboxItem
+} from "@/components/ui/combobox"
 
-## Basic
-
-```tsx
-<Combobox
-  items={[
-    { label: "Apple", value: "apple" },
-    { label: "Banana", value: "banana" },
-    { label: "Orange", value: "orange" },
-    { label: "Strawberry", value: "strawberry" },
-    { label: "Blueberry", value: "blueberry" }
-  ]}
-/>
+export const ComboboxPrimitives = () => (
+  <ComboboxRoot
+    items={[
+      { label: "Red", value: "red" },
+      { label: "Green", value: "green" },
+      { label: "Blue", value: "blue" },
+      { label: "Yellow", value: "yellow" },
+      { label: "Purple", value: "purple" }
+    ]}
+  >
+    <ComboboxControl>
+      <ComboboxInput placeholder="Search colors..." />
+      <ComboboxTrigger />
+    </ComboboxControl>
+    <ComboboxPositioner>
+      <ComboboxContent>
+        <ComboboxItem item={{ label: "Red", value: "red" }}>Red</ComboboxItem>
+        <ComboboxItem item={{ label: "Green", value: "green" }}>Green</ComboboxItem>
+        <ComboboxItem item={{ label: "Blue", value: "blue" }}>Blue</ComboboxItem>
+        <ComboboxItem item={{ label: "Yellow", value: "yellow" }}>Yellow</ComboboxItem>
+        <ComboboxItem item={{ label: "Purple", value: "purple" }}>Purple</ComboboxItem>
+      </ComboboxContent>
+    </ComboboxPositioner>
+  </ComboboxRoot>
+)
 ```
-
-<Combobox
-  items={[
-    { label: "Apple", value: "apple" },
-    { label: "Banana", value: "banana" },
-    { label: "Orange", value: "orange" },
-    { label: "Strawberry", value: "strawberry" },
-    { label: "Blueberry", value: "blueberry" }
-  ]}
-  className="mb-4"
-/>
-
-## With Label
-
-```tsx
-<Combobox
-  label="Select a fruit"
-  items={[
-    { label: "Apple", value: "apple" },
-    { label: "Banana", value: "banana" },
-    { label: "Orange", value: "orange" },
-    { label: "Strawberry", value: "strawberry" },
-    { label: "Blueberry", value: "blueberry" }
-  ]}
-/>
-```
-
-<Combobox
-  label="Select a fruit"
-  items={[
-    { label: "Apple", value: "apple" },
-    { label: "Banana", value: "banana" },
-    { label: "Orange", value: "orange" },
-    { label: "Strawberry", value: "strawberry" },
-    { label: "Blueberry", value: "blueberry" }
-  ]}
-  className="mb-4"
-/>
-
-## Primitives
-
-```tsx
-<ComboboxRoot
-  items={[
-    { label: "Red", value: "red" },
-    { label: "Green", value: "green" },
-    { label: "Blue", value: "blue" },
-    { label: "Yellow", value: "yellow" },
-    { label: "Purple", value: "purple" }
-  ]}
->
-  <ComboboxControl>
-    <ComboboxInput placeholder="Search colors..." />
-    <ComboboxTrigger />
-  </ComboboxControl>
-  <ComboboxPositioner>
-    <ComboboxContent>
-      <ComboboxItem item={{ label: "Red", value: "red" }}>Red</ComboboxItem>
-      <ComboboxItem item={{ label: "Green", value: "green" }}>Green</ComboboxItem>
-      <ComboboxItem item={{ label: "Blue", value: "blue" }}>Blue</ComboboxItem>
-      <ComboboxItem item={{ label: "Yellow", value: "yellow" }}>Yellow</ComboboxItem>
-      <ComboboxItem item={{ label: "Purple", value: "purple" }}>Purple</ComboboxItem>
-    </ComboboxContent>
-  </ComboboxPositioner>
-</ComboboxRoot>
-```
-
-<ComboboxRoot
-  items={[
-    { label: "Red", value: "red" },
-    { label: "Green", value: "green" },
-    { label: "Blue", value: "blue" },
-    { label: "Yellow", value: "yellow" },
-    { label: "Purple", value: "purple" }
-  ]}
->
-  <ComboboxControl>
-    <ComboboxInput className="focus-visible:ring-blue-500" placeholder="Search colors..." />
-    <ComboboxTrigger />
-  </ComboboxControl>
-  <ComboboxPositioner>
-    <ComboboxContent>
-      <ComboboxItem item={{ label: "Red", value: "red" }} className="text-red-500 data-[highlighted]:text-red-500">Red</ComboboxItem>
-      <ComboboxItem item={{ label: "Green", value: "green" }} className="text-green-500 data-[highlighted]:text-green-500">Green</ComboboxItem>
-      <ComboboxItem item={{ label: "Blue", value: "blue" }} className="text-blue-500 data-[highlighted]:text-blue-500">Blue</ComboboxItem>
-      <ComboboxItem item={{ label: "Yellow", value: "yellow" }} className="text-yellow-500 data-[highlighted]:text-yellow-500">Yellow</ComboboxItem>
-      <ComboboxItem item={{ label: "Purple", value: "purple" }} className="text-purple-500 data-[highlighted]:text-purple-500">Purple</ComboboxItem>
-    </ComboboxContent>
-  </ComboboxPositioner>
-</ComboboxRoot>
