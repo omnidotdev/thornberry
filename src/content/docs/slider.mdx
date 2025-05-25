@@ -3,9 +3,16 @@ title: Slider
 description: A control that allows users to select a value or range from a given range.
 ---
 
-import { Slider } from "@/registry/thornberry/components/slider";
+import { SliderRoot, SliderControl, SliderTrack, SliderRange, SliderThumb } from "@/registry/thornberry/components/slider";
 
-<Slider defaultValue={[50]} className="mb-8" />
+<SliderRoot defaultValue={[50]} className="mb-8">
+  <SliderControl>
+    <SliderTrack>
+      <SliderRange />
+    </SliderTrack>
+    <SliderThumb index={0} />
+  </SliderControl>
+</SliderRoot>
 
 ### Installation
 
@@ -34,82 +41,150 @@ import { Slider } from "@/registry/thornberry/components/slider";
 
 ### Examples
 
-Let's see how to use the `Slider` component. Let's start with a basic example:
+Let's see how to use the `Slider` components. Let's start with a basic example:
 
 ```tsx
-import { Slider } from "@/components/ui/slider"
+import { 
+  SliderRoot, 
+  SliderControl, 
+  SliderTrack, 
+  SliderRange, 
+  SliderThumb 
+} from "@/components/ui/slider"
 
 export const BasicSlider = () => (
-  <Slider defaultValue={[50]} />
+  <SliderRoot defaultValue={[50]}>
+    <SliderControl>
+      <SliderTrack>
+        <SliderRange />
+      </SliderTrack>
+      <SliderThumb index={0} />
+    </SliderControl>
+  </SliderRoot>
 )
 ```
 
 You can add a label to your slider:
 
 ```tsx
-import { Slider } from "@/components/ui/slider"
+import { 
+  SliderRoot, 
+  SliderLabel,
+  SliderControl, 
+  SliderTrack, 
+  SliderRange, 
+  SliderThumb 
+} from "@/components/ui/slider"
 
 export const LabeledSlider = () => (
-  <Slider label="Volume" defaultValue={[75]} />
+  <SliderRoot defaultValue={[75]}>
+    <SliderLabel>Volume</SliderLabel>
+    <SliderControl>
+      <SliderTrack>
+        <SliderRange />
+      </SliderTrack>
+      <SliderThumb index={0} />
+    </SliderControl>
+  </SliderRoot>
 )
 ```
 
 You can display the current value:
 
 ```tsx
-import { Slider } from "@/components/ui/slider"
+import { 
+  SliderRoot, 
+  SliderLabel,
+  SliderControl, 
+  SliderTrack, 
+  SliderRange, 
+  SliderThumb,
+  SliderValueText
+} from "@/components/ui/slider"
 
 export const SliderWithValue = () => (
-  <Slider 
-    label="Brightness" 
-    defaultValue={[60]} 
-    showValueText 
-  />
+  <SliderRoot defaultValue={[60]}>
+    <SliderLabel>Brightness</SliderLabel>
+    <SliderControl>
+      <SliderTrack>
+        <SliderRange />
+      </SliderTrack>
+      <SliderThumb index={0} />
+    </SliderControl>
+    <SliderValueText />
+  </SliderRoot>
 )
 ```
 
 You can customize the range with min, max, and step values:
 
 ```tsx
-import { Slider } from "@/components/ui/slider"
+import { 
+  SliderRoot, 
+  SliderLabel,
+  SliderControl, 
+  SliderTrack, 
+  SliderRange, 
+  SliderThumb,
+  SliderValueText
+} from "@/components/ui/slider"
 
 export const CustomRangeSlider = () => (
-  <Slider
-    label="Temperature"
+  <SliderRoot
     min={15}
     max={30}
     step={0.5}
     defaultValue={[22.5]}
-    showValueText
-  />
+  >
+    <SliderLabel>Temperature</SliderLabel>
+    <SliderControl>
+      <SliderTrack>
+        <SliderRange />
+      </SliderTrack>
+      <SliderThumb index={0} />
+    </SliderControl>
+    <SliderValueText />
+  </SliderRoot>
 )
 ```
 
 You can add markers to your slider:
 
 ```tsx
-import { Slider } from "@/components/ui/slider"
+import { 
+  SliderRoot, 
+  SliderLabel,
+  SliderControl, 
+  SliderTrack, 
+  SliderRange, 
+  SliderThumb,
+  SliderValueText,
+  SliderMarker
+} from "@/components/ui/slider"
 
 export const SliderWithMarkers = () => (
-  <Slider
-    label="Speed"
+  <SliderRoot
     min={0}
     max={100}
     step={25}
     defaultValue={[50]}
-    markers={[
-      { value: 0, label: "0%" },
-      { value: 25, label: "25%" },
-      { value: 50, label: "50%" },
-      { value: 75, label: "75%" },
-      { value: 100, label: "100%" }
-    ]}
-    showValueText
-  />
+  >
+    <SliderLabel>Speed</SliderLabel>
+    <SliderControl>
+      <SliderTrack>
+        <SliderRange />
+      </SliderTrack>
+      <SliderMarker value={0}>0%</SliderMarker>
+      <SliderMarker value={25}>25%</SliderMarker>
+      <SliderMarker value={50}>50%</SliderMarker>
+      <SliderMarker value={75}>75%</SliderMarker>
+      <SliderMarker value={100}>100%</SliderMarker>
+      <SliderThumb index={0} />
+    </SliderControl>
+    <SliderValueText />
+  </SliderRoot>
 )
 ```
-
-For more granular control, Thornberry provides Slider primitives:
 
 ```tsx
 import {
@@ -123,7 +198,7 @@ import {
   SliderMarker
 } from "@/components/ui/slider"
 
-export const SliderPrimitives = () => (
+export const CustomSlider = () => (
   <SliderRoot
     min={0}
     max={100}

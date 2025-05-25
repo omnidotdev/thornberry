@@ -2,7 +2,7 @@ import { Tabs as ArkTabs } from "@ark-ui/react/tabs";
 
 import { cn } from "@/lib/utils";
 
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const TabsProvider = ArkTabs.RootProvider;
 const TabsContext = ArkTabs.Context;
@@ -66,32 +66,6 @@ const TabsIndicator = ({
   />
 );
 
-interface TabsProps extends ComponentProps<typeof TabsRoot> {
-  tabs: Array<{
-    value: string;
-    trigger: ReactNode;
-    content: ReactNode;
-    disabled?: boolean;
-  }>;
-}
-
-const Tabs = ({ tabs, ...rest }: TabsProps) => (
-  <TabsRoot defaultValue={tabs[0]?.value} {...rest}>
-    <TabsList>
-      {tabs.map((tab) => (
-        <TabsTrigger key={tab.value} value={tab.value} disabled={tab.disabled}>
-          {tab.trigger}
-        </TabsTrigger>
-      ))}
-    </TabsList>
-    {tabs.map((tab) => (
-      <TabsContent key={tab.value} value={tab.value}>
-        {tab.content}
-      </TabsContent>
-    ))}
-  </TabsRoot>
-);
-
 export {
   TabsRoot,
   TabsList,
@@ -100,6 +74,4 @@ export {
   TabsIndicator,
   TabsProvider,
   TabsContext,
-  Tabs,
-  type TabsProps,
 };

@@ -3,22 +3,34 @@ title: Carousel
 description: A component that displays content in a rotating cycle with navigation controls.
 ---
 
-import { Carousel, CarouselRoot, CarouselItemGroup, CarouselItem, CarouselPrevTrigger, CarouselNextTrigger, CarouselIndicatorGroup, CarouselIndicator } from "@/registry/thornberry/components/carousel";
+import { CarouselRoot, CarouselItemGroup, CarouselItem, CarouselPrevTrigger, CarouselNextTrigger, CarouselIndicatorGroup, CarouselIndicator } from "@/registry/thornberry/components/carousel";
 
-<Carousel
-  items={[
-    <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-      <span className="text-2xl font-bold text-base-950">Slide 1</span>
-    </div>,
-    <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-      <span className="text-2xl font-bold text-base-950">Slide 2</span>
-    </div>,
-    <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-      <span className="text-2xl font-bold text-base-950">Slide 3</span>
-    </div>
-  ]}
-  className="mb-8"
-/>
+<CarouselRoot slideCount={3} loop className="mb-8">
+  <CarouselItemGroup className="overflow-hidden">
+    <CarouselItem index={0}>
+      <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
+        <span className="text-2xl font-bold text-base-950">Slide 1</span>
+      </div>
+    </CarouselItem>
+    <CarouselItem index={1}>
+      <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
+        <span className="text-2xl font-bold text-base-950">Slide 2</span>
+      </div>
+    </CarouselItem>
+    <CarouselItem index={2}>
+      <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
+        <span className="text-2xl font-bold text-base-950">Slide 3</span>
+      </div>
+    </CarouselItem>
+  </CarouselItemGroup>
+  <CarouselPrevTrigger />
+  <CarouselNextTrigger />
+  <CarouselIndicatorGroup>
+    <CarouselIndicator index={0} />
+    <CarouselIndicator index={1} />
+    <CarouselIndicator index={2} />
+  </CarouselIndicatorGroup>
+</CarouselRoot>
 
 ### Installation
 
@@ -47,75 +59,7 @@ import { Carousel, CarouselRoot, CarouselItemGroup, CarouselItem, CarouselPrevTr
 
 ### Examples
 
-Let's see how to use the `Carousel` component. Let's start with a basic example:
-
-```tsx
-import { Carousel } from "@/components/ui/carousel"
-
-export const BasicCarousel = () => (
-  <Carousel
-    items={[
-      <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold">Slide 1</span>
-      </div>,
-      <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold">Slide 2</span>
-      </div>,
-      <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold">Slide 3</span>
-      </div>
-    ]}
-  />
-)
-```
-
-You can hide the navigation controls:
-
-```tsx
-import { Carousel } from "@/components/ui/carousel"
-
-export const CarouselWithoutControls = () => (
-  <Carousel 
-    showControls={false} 
-    items={[
-      <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold">Slide 1</span>
-      </div>,
-      <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold">Slide 2</span>
-      </div>,
-      <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold">Slide 3</span>
-      </div>
-    ]} 
-  />
-)
-```
-
-You can hide the indicator dots:
-
-```tsx
-import { Carousel } from "@/components/ui/carousel"
-
-export const CarouselWithoutIndicators = () => (
-  <Carousel 
-    showIndicators={false} 
-    items={[
-      <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold">Slide 1</span>
-      </div>,
-      <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold">Slide 2</span>
-      </div>,
-      <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold">Slide 3</span>
-      </div>
-    ]} 
-  />
-)
-```
-
-For more granular control, Thornberry provides Carousel primitives:
+Let's see how to use the `Carousel` components. Let's start with a basic example:
 
 ```tsx
 import {
@@ -128,7 +72,123 @@ import {
   CarouselIndicator
 } from "@/components/ui/carousel"
 
-export const CarouselPrimitives = () => (
+export const BasicCarousel = () => (
+  <CarouselRoot slideCount={3} loop>
+    <CarouselItemGroup className="overflow-hidden">
+      <CarouselItem index={0}>
+        <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold">Slide 1</span>
+        </div>
+      </CarouselItem>
+      <CarouselItem index={1}>
+        <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold">Slide 2</span>
+        </div>
+      </CarouselItem>
+      <CarouselItem index={2}>
+        <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold">Slide 3</span>
+        </div>
+      </CarouselItem>
+    </CarouselItemGroup>
+    <CarouselPrevTrigger />
+    <CarouselNextTrigger />
+    <CarouselIndicatorGroup>
+      <CarouselIndicator index={0} />
+      <CarouselIndicator index={1} />
+      <CarouselIndicator index={2} />
+    </CarouselIndicatorGroup>
+  </CarouselRoot>
+)
+```
+
+You can hide the navigation controls:
+
+```tsx
+import {
+  CarouselRoot,
+  CarouselItemGroup,
+  CarouselItem,
+  CarouselIndicatorGroup,
+  CarouselIndicator
+} from "@/components/ui/carousel"
+
+export const CarouselWithoutControls = () => (
+  <CarouselRoot slideCount={3} loop>
+    <CarouselItemGroup className="overflow-hidden">
+      <CarouselItem index={0}>
+        <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold">Slide 1</span>
+        </div>
+      </CarouselItem>
+      <CarouselItem index={1}>
+        <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold">Slide 2</span>
+        </div>
+      </CarouselItem>
+      <CarouselItem index={2}>
+        <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold">Slide 3</span>
+        </div>
+      </CarouselItem>
+    </CarouselItemGroup>
+    <CarouselIndicatorGroup>
+      <CarouselIndicator index={0} />
+      <CarouselIndicator index={1} />
+      <CarouselIndicator index={2} />
+    </CarouselIndicatorGroup>
+  </CarouselRoot>
+)
+```
+
+You can hide the indicator dots:
+
+```tsx
+import {
+  CarouselRoot,
+  CarouselItemGroup,
+  CarouselItem,
+  CarouselPrevTrigger,
+  CarouselNextTrigger
+} from "@/components/ui/carousel"
+
+export const CarouselWithoutIndicators = () => (
+  <CarouselRoot slideCount={3} loop>
+    <CarouselItemGroup className="overflow-hidden">
+      <CarouselItem index={0}>
+        <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold">Slide 1</span>
+        </div>
+      </CarouselItem>
+      <CarouselItem index={1}>
+        <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold">Slide 2</span>
+        </div>
+      </CarouselItem>
+      <CarouselItem index={2}>
+        <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold">Slide 3</span>
+        </div>
+      </CarouselItem>
+    </CarouselItemGroup>
+    <CarouselPrevTrigger />
+    <CarouselNextTrigger />
+  </CarouselRoot>
+)
+```
+
+```tsx
+import {
+  CarouselRoot,
+  CarouselItemGroup,
+  CarouselItem,
+  CarouselPrevTrigger,
+  CarouselNextTrigger,
+  CarouselIndicatorGroup,
+  CarouselIndicator
+} from "@/components/ui/carousel"
+
+export const CustomCarousel = () => (
   <CarouselRoot slideCount={3}>
     <CarouselItemGroup>
       <CarouselItem index={0}>

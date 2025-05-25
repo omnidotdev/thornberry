@@ -4,7 +4,7 @@ import { FiCheck, FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
 
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const ComboboxProvider = ArkCombobox.RootProvider;
 const ComboboxContext = ArkCombobox.Context;
@@ -156,37 +156,6 @@ const ComboboxItemGroupLabel = ({
   />
 );
 
-interface ComboboxProps
-  extends Omit<ComponentProps<typeof ComboboxRoot>, "items"> {
-  label?: ReactNode;
-  placeholder?: string;
-  items: Array<{ label: string; value: string; disabled?: boolean }>;
-}
-
-const Combobox = ({
-  label,
-  placeholder = "Select an option...",
-  items,
-  ...rest
-}: ComboboxProps) => (
-  <ComboboxRoot {...rest}>
-    {label && <ComboboxLabel>{label}</ComboboxLabel>}
-    <ComboboxControl>
-      <ComboboxInput placeholder={placeholder} />
-      <ComboboxTrigger />
-    </ComboboxControl>
-    <ComboboxPositioner>
-      <ComboboxContent>
-        {items.map((item) => (
-          <ComboboxItem key={item.value} item={item}>
-            {item.label}
-          </ComboboxItem>
-        ))}
-      </ComboboxContent>
-    </ComboboxPositioner>
-  </ComboboxRoot>
-);
-
 export {
   ComboboxRoot,
   ComboboxLabel,
@@ -201,6 +170,4 @@ export {
   ComboboxItemGroupLabel,
   ComboboxProvider,
   ComboboxContext,
-  Combobox,
-  type ComboboxProps,
 };

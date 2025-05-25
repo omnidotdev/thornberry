@@ -2,7 +2,7 @@ import { Tooltip as ArkTooltip } from "@ark-ui/react/tooltip";
 
 import { cn } from "@/lib/utils";
 
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const TooltipProvider = ArkTooltip.RootProvider;
 const TooltipRoot = ArkTooltip.Root;
@@ -45,37 +45,7 @@ const TooltipArrowTip = ({
   />
 );
 
-interface TooltipProps extends ComponentProps<typeof TooltipRoot> {
-  content: ReactNode;
-  children: ReactNode;
-  withArrow?: boolean;
-}
-
-const Tooltip = ({
-  content,
-  children,
-  withArrow = true,
-  openDelay = 300,
-  closeDelay = 100,
-  ...rest
-}: TooltipProps) => (
-  <TooltipRoot openDelay={openDelay} closeDelay={closeDelay} {...rest}>
-    <TooltipTrigger asChild>{children}</TooltipTrigger>
-    <TooltipPositioner>
-      <TooltipContent>
-        {withArrow && (
-          <TooltipArrow>
-            <TooltipArrowTip />
-          </TooltipArrow>
-        )}
-        {content}
-      </TooltipContent>
-    </TooltipPositioner>
-  </TooltipRoot>
-);
-
 export {
-  Tooltip,
   TooltipArrow,
   TooltipArrowTip,
   TooltipContent,
@@ -83,5 +53,4 @@ export {
   TooltipProvider,
   TooltipRoot,
   TooltipTrigger,
-  type TooltipProps,
 };

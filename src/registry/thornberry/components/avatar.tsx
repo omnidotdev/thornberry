@@ -2,18 +2,7 @@ import { Avatar as ArkAvatar } from "@ark-ui/react";
 
 import { cn } from "@/lib/utils";
 
-import type { ComponentProps, ReactNode } from "react";
-
-type Nullable<T> = T | null;
-
-const getInitials = (name: string) =>
-  name
-    .match(/(^\S\S?|\s\S)?/g)!
-    .map((v) => v.trim())
-    .join("")
-    .match(/(^\S|\S$)?/g)!
-    .join("")
-    .toLocaleUpperCase();
+import type { ComponentProps } from "react";
 
 const AvatarProvider = ArkAvatar.RootProvider;
 
@@ -54,24 +43,4 @@ const AvatarImage = ({
   />
 );
 
-interface AvatarProps extends ComponentProps<typeof AvatarRoot> {
-  name?: Nullable<string>;
-  fallback?: ReactNode;
-  imageSrc?: string;
-}
-
-const Avatar = ({ name, fallback, imageSrc, ...rest }: AvatarProps) => (
-  <AvatarRoot {...rest}>
-    <AvatarFallback>{name ? getInitials(name) : fallback}</AvatarFallback>
-    {imageSrc && <AvatarImage src={imageSrc} />}
-  </AvatarRoot>
-);
-
-export {
-  AvatarRoot,
-  AvatarFallback,
-  AvatarImage,
-  Avatar,
-  AvatarProvider,
-  type AvatarProps,
-};
+export { AvatarRoot, AvatarFallback, AvatarImage, AvatarProvider };

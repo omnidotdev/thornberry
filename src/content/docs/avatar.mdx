@@ -2,9 +2,12 @@
 title: Avatar
 description: An image element with a fallback for representing the user.
 ---
-import { Avatar } from "@/registry/thornberry/components/avatar";
+import { AvatarRoot, AvatarFallback, AvatarImage } from "@/registry/thornberry/components/avatar";
 
-<Avatar name="Elon Musk" imageSrc="/img/elon-musk.jpg" className="size-10 mb-8" />
+<AvatarRoot className="mb-8">
+  <AvatarFallback>EM</AvatarFallback>
+  <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+</AvatarRoot>
 
 ### Installation
 
@@ -33,35 +36,44 @@ import { Avatar } from "@/registry/thornberry/components/avatar";
 
 ### Examples
 
-Let's see how to use the `Avatar` component. Let's start with a basic example:
+Let's see how to use the `Avatar` components. Let's start with a basic example:
 
 ```tsx
-import { Avatar } from "@/components/ui/avatar"
+import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export const BasicAvatar = () => (
-  <Avatar name="Elon Musk" imageSrc="/img/elon-musk.jpg" />
-)
-```
-
-If the user's name is not known ahead of time, you can use the `fallback` prop to provide a fallback icon.
-
-```tsx
-import { Avatar } from "@/components/ui/avatar"
-
-export const FallbackAvatar = () => (
-  <Avatar fallback={<UserIcon />} imageSrc="/img/elon-musk.jpg" />
-)
-```
-
-Thornberry also ships primitives for more granular control:
-
-```tsx
-import { AvatarFallback, AvatarImage, AvatarRoot } from "@/components/ui/avatar"
-
-export const Primatives = () => (
   <AvatarRoot>
     <AvatarFallback>EM</AvatarFallback>
-    <AvatarImage src="/img/elon-musk.jpg" />
+    <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+  </AvatarRoot>
+)
+```
+
+You can provide a custom fallback when the image fails to load:
+
+```tsx
+import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { UserIcon } from "lucide-react"
+
+export const FallbackAvatar = () => (
+  <AvatarRoot>
+    <AvatarFallback>
+      <UserIcon className="h-6 w-6" />
+    </AvatarFallback>
+    <AvatarImage src="/img/elon-musk.jpg" alt="User" />
+  </AvatarRoot>
+)
+```
+
+```tsx
+import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
+export const CustomizedAvatar = () => (
+  <AvatarRoot className="h-16 w-16 border-4 border-primary">
+    <AvatarFallback className="bg-primary text-white text-lg">
+      JD
+    </AvatarFallback>
+    <AvatarImage src="/img/john-doe.jpg" alt="John Doe" />
   </AvatarRoot>
 )
 ```

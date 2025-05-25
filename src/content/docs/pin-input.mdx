@@ -1,0 +1,140 @@
+---
+title: Pin Input
+description: A component that allows users to input a sequence of characters, typically used for verification codes or passwords.
+---
+
+import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/registry/thornberry/components/pin-input";
+
+<PinInputRoot length={4} className="mb-8">
+  <PinInputLabel>Verification Code</PinInputLabel>
+  <PinInputControl>
+    <PinInputInput index={0} />
+    <PinInputInput index={1} />
+    <PinInputInput index={2} />
+    <PinInputInput index={3} />
+  </PinInputControl>
+</PinInputRoot>
+
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/pin-input.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/pin-input.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/pin-input.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/pin-input.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `PinInput` components. Here's a basic example:
+
+```tsx
+import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/components/ui/pin-input"
+
+export const BasicPinInput = () => (
+  <PinInputRoot length={4}>
+    <PinInputLabel>Verification Code</PinInputLabel>
+    <PinInputControl>
+      <PinInputInput index={0} />
+      <PinInputInput index={1} />
+      <PinInputInput index={2} />
+      <PinInputInput index={3} />
+    </PinInputControl>
+  </PinInputRoot>
+)
+```
+
+You can specify a custom length:
+
+```tsx
+import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/components/ui/pin-input"
+
+export const SixDigitPinInput = () => (
+  <PinInputRoot length={6}>
+    <PinInputLabel>6-Digit Code</PinInputLabel>
+    <PinInputControl>
+      <PinInputInput index={0} />
+      <PinInputInput index={1} />
+      <PinInputInput index={2} />
+      <PinInputInput index={3} />
+      <PinInputInput index={4} />
+      <PinInputInput index={5} />
+    </PinInputControl>
+  </PinInputRoot>
+)
+```
+
+You can mask the input for sensitive information:
+
+```tsx
+import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/components/ui/pin-input"
+
+export const MaskedPinInput = () => (
+  <PinInputRoot length={4}>
+    <PinInputLabel>PIN</PinInputLabel>
+    <PinInputControl>
+      <PinInputInput index={0} type="password" />
+      <PinInputInput index={1} type="password" />
+      <PinInputInput index={2} type="password" />
+      <PinInputInput index={3} type="password" />
+    </PinInputControl>
+  </PinInputRoot>
+)
+```
+
+You can customize the placeholder:
+
+```tsx
+import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/components/ui/pin-input"
+
+export const CustomPlaceholderPinInput = () => (
+  <PinInputRoot length={4}>
+    <PinInputLabel>OTP</PinInputLabel>
+    <PinInputControl>
+      <PinInputInput index={0} placeholder="×" />
+      <PinInputInput index={1} placeholder="×" />
+      <PinInputInput index={2} placeholder="×" />
+      <PinInputInput index={3} placeholder="×" />
+    </PinInputControl>
+  </PinInputRoot>
+)
+```
+
+```tsx
+import {
+  PinInputRoot,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInput
+} from "@/components/ui/pin-input"
+
+export const CustomFormatPinInput = () => (
+  <PinInputRoot length={5} onValueComplete={(value) => console.log(value)}>
+    <PinInputLabel>Security Code</PinInputLabel>
+    <PinInputControl>
+      <PinInputInput index={0} />
+      <PinInputInput index={1} />
+      <PinInputInput index={2} />
+      <span className="text-base-600">-</span>
+      <PinInputInput index={3} />
+      <PinInputInput index={4} />
+    </PinInputControl>
+  </PinInputRoot>
+)
+```

@@ -4,7 +4,7 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
 
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const CarouselProvider = ArkCarousel.RootProvider;
 const CarouselContext = ArkCarousel.Context;
@@ -107,46 +107,6 @@ const CarouselControl = ({
   />
 );
 
-interface CarouselProps extends ComponentProps<typeof CarouselRoot> {
-  items: ReactNode[];
-  showControls?: boolean;
-  showIndicators?: boolean;
-}
-
-const Carousel = ({
-  items,
-  showControls = true,
-  showIndicators = true,
-  ...rest
-}: CarouselProps) => (
-  <CarouselRoot loop {...rest} slideCount={items.length}>
-    <CarouselItemGroup className="overflow-hidden">
-      {items.map((item, i) => (
-        // biome-ignore lint/suspicious/noArrayIndexKey: simple index for use case
-        <CarouselItem key={`carousel-item-${i}`} index={i}>
-          {item}
-        </CarouselItem>
-      ))}
-    </CarouselItemGroup>
-
-    {showControls && (
-      <>
-        <CarouselPrevTrigger />
-        <CarouselNextTrigger />
-      </>
-    )}
-
-    {showIndicators && (
-      <CarouselIndicatorGroup>
-        {items.map((_, i) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: simple index for use case
-          <CarouselIndicator key={`carousel-indicator-${i}`} index={i} />
-        ))}
-      </CarouselIndicatorGroup>
-    )}
-  </CarouselRoot>
-);
-
 export {
   CarouselRoot,
   CarouselItemGroup,
@@ -158,6 +118,4 @@ export {
   CarouselControl,
   CarouselProvider,
   CarouselContext,
-  Carousel,
-  type CarouselProps,
 };

@@ -3,9 +3,19 @@ title: Pagination
 description: A component for navigating through multiple pages of content.
 ---
 
-import { Pagination } from "@/registry/thornberry/components/pagination";
+import { PaginationRoot, PaginationItem, PaginationEllipsis, PaginationPrevTrigger, PaginationNextTrigger } from "@/registry/thornberry/components/pagination";
 
-<Pagination count={10} className="mb-8" />
+<PaginationRoot count={10} className="mb-8">
+  <div className="flex items-center gap-1">
+    <PaginationPrevTrigger />
+    <PaginationItem value={1}>1</PaginationItem>
+    <PaginationItem value={2}>2</PaginationItem>
+    <PaginationItem value={3}>3</PaginationItem>
+    <PaginationEllipsis index={0} />
+    <PaginationItem value={10}>10</PaginationItem>
+    <PaginationNextTrigger />
+  </div>
+</PaginationRoot>
 
 ### Installation
 
@@ -34,37 +44,61 @@ import { Pagination } from "@/registry/thornberry/components/pagination";
 
 ### Examples
 
-Let's see how to use the `Pagination` component. Let's start with a basic example:
+Let's see how to use the `Pagination` components. Let's start with a basic example:
 
 ```tsx
-import { Pagination } from "@/components/ui/pagination"
+import {
+  PaginationRoot,
+  PaginationItem,
+  PaginationEllipsis,
+  PaginationPrevTrigger,
+  PaginationNextTrigger
+} from "@/components/ui/pagination"
 
 export const BasicPagination = () => (
-  <Pagination count={10} />
+  <PaginationRoot count={10}>
+    <div className="flex items-center gap-1">
+      <PaginationPrevTrigger />
+      <PaginationItem value={1}>1</PaginationItem>
+      <PaginationItem value={2}>2</PaginationItem>
+      <PaginationItem value={3}>3</PaginationItem>
+      <PaginationEllipsis index={0} />
+      <PaginationItem value={10}>10</PaginationItem>
+      <PaginationNextTrigger />
+    </div>
+  </PaginationRoot>
 )
 ```
 
 You can specify the current page:
 
 ```tsx
-import { Pagination } from "@/components/ui/pagination"
+import {
+  PaginationRoot,
+  PaginationItem,
+  PaginationEllipsis,
+  PaginationPrevTrigger,
+  PaginationNextTrigger
+} from "@/components/ui/pagination"
 
 export const PaginationWithCurrentPage = () => (
-  <Pagination count={10} page={3} />
+  <PaginationRoot count={10} page={3}>
+    <div className="flex items-center gap-1">
+      <PaginationPrevTrigger />
+      <PaginationItem value={1}>1</PaginationItem>
+      <PaginationItem value={2}>2</PaginationItem>
+      <PaginationItem value={3}>3</PaginationItem>
+      <PaginationItem value={4}>4</PaginationItem>
+      <PaginationItem value={5}>5</PaginationItem>
+      <PaginationEllipsis index={0} />
+      <PaginationItem value={10}>10</PaginationItem>
+      <PaginationNextTrigger />
+    </div>
+  </PaginationRoot>
 )
 ```
 
-You can customize the number of siblings displayed around the current page:
-
-```tsx
-import { Pagination } from "@/components/ui/pagination"
-
-export const PaginationWithSiblings = () => (
-  <Pagination count={20} page={10} siblingCount={2} />
-)
-```
-
-For more granular control, Thornberry provides Pagination primitives:
+You can customize the number of items displayed:
 
 ```tsx
 import {
@@ -74,7 +108,7 @@ import {
   PaginationNextTrigger
 } from "@/components/ui/pagination"
 
-export const PaginationPrimitives = () => (
+export const CustomPagination = () => (
   <PaginationRoot count={10} page={4}>
     <div className="flex items-center gap-2">
       <PaginationPrevTrigger />

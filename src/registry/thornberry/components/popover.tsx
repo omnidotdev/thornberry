@@ -3,7 +3,7 @@ import { FiX } from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
 
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const PopoverProvider = ArkPopover.RootProvider;
 const PopoverContext = ArkPopover.Context;
@@ -85,28 +85,7 @@ const PopoverCloseTrigger = ({
   );
 };
 
-interface PopoverProps extends ComponentProps<typeof PopoverRoot> {
-  trigger: ReactNode;
-  children: ReactNode;
-  hasArrow?: boolean;
-}
-
-const Popover = ({ trigger, children, hasArrow, ...rest }: PopoverProps) => (
-  <PopoverRoot {...rest}>
-    <PopoverTrigger asChild>{trigger}</PopoverTrigger>
-    <PopoverPositioner>
-      <PopoverContent>
-        <PopoverArrow>
-          <PopoverArrowTip />
-        </PopoverArrow>
-        {children}
-      </PopoverContent>
-    </PopoverPositioner>
-  </PopoverRoot>
-);
-
 export {
-  Popover,
   PopoverRoot,
   PopoverTrigger,
   PopoverContent,
@@ -116,5 +95,4 @@ export {
   PopoverCloseTrigger,
   PopoverProvider,
   PopoverContext,
-  type PopoverProps,
 };

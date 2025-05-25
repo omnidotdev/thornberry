@@ -1,0 +1,214 @@
+---
+title: Date Picker
+description: A component that allows users to select a date from a calendar.
+---
+
+import DatePicker from "@/components/date-picker"
+
+<DatePicker />
+
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/date-picker.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/date-picker.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/date-picker.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/date-picker.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `DatePicker` components. Here's a basic example:
+
+```tsx
+import {
+  DatePickerRoot,
+  DatePickerLabel,
+  DatePickerControl,
+  DatePickerInput,
+  DatePickerTrigger,
+  DatePickerPositioner,
+  DatePickerContent,
+  DatePickerView,
+  DatePickerViewControl,
+  DatePickerViewTrigger,
+  DatePickerPrevTrigger,
+  DatePickerNextTrigger,
+  DatePickerTable,
+  DatePickerTableHead,
+  DatePickerTableRow,
+  DatePickerTableHeader,
+  DatePickerTableBody,
+  DatePickerTableCell
+} from "@/components/ui/date-picker"
+
+export const BasicDatePicker = () => (
+  <DatePickerRoot>
+    <DatePickerLabel>Select a date</DatePickerLabel>
+    <DatePickerControl>
+      <DatePickerInput />
+      <DatePickerTrigger />
+    </DatePickerControl>
+    <DatePickerPositioner>
+      <DatePickerContent>
+        <DatePickerView view="day">
+          <DatePickerViewControl>
+            <DatePickerPrevTrigger />
+            <DatePickerViewTrigger />
+            <DatePickerNextTrigger />
+          </DatePickerViewControl>
+          <DatePickerTable>
+            <DatePickerTableHead>
+              <DatePickerTableRow>
+                <DatePickerTableHeader>Su</DatePickerTableHeader>
+                <DatePickerTableHeader>Mo</DatePickerTableHeader>
+                <DatePickerTableHeader>Tu</DatePickerTableHeader>
+                <DatePickerTableHeader>We</DatePickerTableHeader>
+                <DatePickerTableHeader>Th</DatePickerTableHeader>
+                <DatePickerTableHeader>Fr</DatePickerTableHeader>
+                <DatePickerTableHeader>Sa</DatePickerTableHeader>
+              </DatePickerTableRow>
+            </DatePickerTableHead>
+            <DatePickerTableBody />
+          </DatePickerTable>
+        </DatePickerView>
+      </DatePickerContent>
+    </DatePickerPositioner>
+  </DatePickerRoot>
+)
+```
+
+You can specify a default date:
+
+```tsx
+import {
+  DatePickerRoot,
+  DatePickerLabel,
+  DatePickerControl,
+  DatePickerInput,
+  DatePickerTrigger,
+  DatePickerPositioner,
+  DatePickerContent
+} from "@/components/ui/date-picker"
+
+export const DatePickerWithDefault = () => (
+  <DatePickerRoot defaultValue="2024-06-15">
+    <DatePickerLabel>Event date</DatePickerLabel>
+    <DatePickerControl>
+      <DatePickerInput />
+      <DatePickerTrigger />
+    </DatePickerControl>
+    <DatePickerPositioner>
+      <DatePickerContent>
+        {/* Calendar view components */}
+      </DatePickerContent>
+    </DatePickerPositioner>
+  </DatePickerRoot>
+)
+```
+
+You can also create a date range picker:
+
+```tsx
+import {
+  DatePickerRoot,
+  DatePickerLabel,
+  DatePickerControl,
+  DatePickerInput,
+  DatePickerTrigger,
+  DatePickerPositioner,
+  DatePickerContent
+} from "@/components/ui/date-picker"
+
+export const DateRangePicker = () => (
+  <DatePickerRoot selectionMode="range">
+    <DatePickerLabel>Select date range</DatePickerLabel>
+    <DatePickerControl>
+      <DatePickerInput />
+      <DatePickerTrigger />
+    </DatePickerControl>
+    <DatePickerPositioner>
+      <DatePickerContent>
+        {/* Calendar view components */}
+      </DatePickerContent>
+    </DatePickerPositioner>
+  </DatePickerRoot>
+)
+```
+
+```tsx
+import {
+  DatePickerRoot,
+  DatePickerLabel,
+  DatePickerControl,
+  DatePickerInput,
+  DatePickerTrigger,
+  DatePickerContent,
+  DatePickerView,
+  DatePickerViewControl,
+  DatePickerViewTrigger,
+  DatePickerPrevTrigger,
+  DatePickerNextTrigger,
+  DatePickerTable,
+  DatePickerTableHead,
+  DatePickerTableRow,
+  DatePickerTableHeader,
+  DatePickerTableBody,
+  DatePickerTableCell,
+  DatePickerTableCellTrigger,
+  DatePickerPositioner
+} from "@/components/ui/date-picker"
+
+export const CustomDatePicker = () => (
+  <DatePickerRoot>
+    <DatePickerLabel>Pick a date</DatePickerLabel>
+    <DatePickerControl>
+      <DatePickerInput />
+      <DatePickerTrigger />
+    </DatePickerControl>
+    <DatePickerPositioner>
+      <DatePickerContent>
+        <DatePickerView view="day">
+          <DatePickerViewControl>
+            <DatePickerPrevTrigger />
+            <DatePickerViewTrigger />
+            <DatePickerNextTrigger />
+          </DatePickerViewControl>
+          <DatePickerTable>
+            <DatePickerTableHead>
+              <DatePickerTableRow>
+                <DatePickerTableHeader>Su</DatePickerTableHeader>
+                <DatePickerTableHeader>Mo</DatePickerTableHeader>
+                <DatePickerTableHeader>Tu</DatePickerTableHeader>
+                <DatePickerTableHeader>We</DatePickerTableHeader>
+                <DatePickerTableHeader>Th</DatePickerTableHeader>
+                <DatePickerTableHeader>Fr</DatePickerTableHeader>
+                <DatePickerTableHeader>Sa</DatePickerTableHeader>
+              </DatePickerTableRow>
+            </DatePickerTableHead>
+            <DatePickerTableBody>
+              {/* Table rows would be dynamically generated */}
+            </DatePickerTableBody>
+          </DatePickerTable>
+        </DatePickerView>
+      </DatePickerContent>
+    </DatePickerPositioner>
+  </DatePickerRoot>
+)
+```

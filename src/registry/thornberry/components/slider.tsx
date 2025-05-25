@@ -2,7 +2,7 @@ import { Slider as ArkSlider } from "@ark-ui/react/slider";
 
 import { cn } from "@/lib/utils";
 
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const SliderProvider = ArkSlider.RootProvider;
 const SliderContext = ArkSlider.Context;
@@ -99,53 +99,6 @@ const SliderValueText = ({
   />
 );
 
-interface SliderProps extends Omit<ComponentProps<typeof SliderRoot>, "value"> {
-  label?: ReactNode;
-  showValueText?: boolean;
-  value?: number[];
-  markers?: Array<{
-    value: number;
-    label?: ReactNode;
-  }>;
-}
-
-const Slider = ({
-  label,
-  showValueText = false,
-  markers,
-  min = 0,
-  max = 100,
-  step = 1,
-  value,
-  defaultValue = [50],
-  ...rest
-}: SliderProps) => (
-  <SliderRoot
-    min={min}
-    max={max}
-    step={step}
-    value={value}
-    defaultValue={defaultValue}
-    {...rest}
-  >
-    {label && <SliderLabel>{label}</SliderLabel>}
-    <SliderControl>
-      <SliderTrack>
-        <SliderRange />
-      </SliderTrack>
-      {markers?.map((marker) => (
-        <SliderMarker key={marker.value} value={marker.value}>
-          {marker.label}
-        </SliderMarker>
-      ))}
-      <SliderThumb index={0} />
-    </SliderControl>
-    {showValueText && (
-      <SliderValueText className={markers ? "pt-4" : undefined} />
-    )}
-  </SliderRoot>
-);
-
 export {
   SliderRoot,
   SliderLabel,
@@ -157,6 +110,4 @@ export {
   SliderValueText,
   SliderProvider,
   SliderContext,
-  Slider,
-  type SliderProps,
 };

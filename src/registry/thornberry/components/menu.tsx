@@ -3,7 +3,7 @@ import { FiChevronRight } from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
 
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const MenuProvider = ArkMenu.RootProvider;
 const MenuRoot = ArkMenu.Root;
@@ -174,35 +174,7 @@ const MenuTriggerItem = ({
   </ArkMenu.TriggerItem>
 );
 
-interface MenuProps extends ComponentProps<typeof MenuRoot> {
-  trigger?: ReactNode;
-  triggerProps?: ComponentProps<typeof MenuTrigger>;
-  positionerProps?: ComponentProps<typeof MenuPositioner>;
-  contentProps?: ComponentProps<typeof MenuContent>;
-}
-
-const Menu = ({
-  trigger,
-  triggerProps,
-  positionerProps,
-  contentProps,
-  children,
-  ...rest
-}: MenuProps) => (
-  <MenuRoot closeOnSelect {...rest}>
-    {trigger && (
-      <MenuTrigger asChild {...triggerProps}>
-        {trigger}
-      </MenuTrigger>
-    )}
-    <MenuPositioner {...positionerProps}>
-      <MenuContent {...contentProps}>{children}</MenuContent>
-    </MenuPositioner>
-  </MenuRoot>
-);
-
 export {
-  Menu,
   MenuArrow,
   MenuArrowTip,
   MenuContent,
@@ -220,5 +192,4 @@ export {
   MenuSeparator,
   MenuTrigger,
   MenuTriggerItem,
-  type MenuProps,
 };

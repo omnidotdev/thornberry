@@ -3,9 +3,17 @@ title: Number Input
 description: A form control that allows users to input numeric values with increment and decrement buttons.
 ---
 
-import { NumberInput } from "@/registry/thornberry/components/number-input";
+import { NumberInputRoot, NumberInputLabel, NumberInputControl, NumberInputInput, NumberInputIncrementTrigger, NumberInputDecrementTrigger } from "@/registry/thornberry/components/number-input";
 
-<NumberInput className="mb-8" />
+<NumberInputRoot className="mb-8">
+  <NumberInputControl>
+    <NumberInputInput />
+    <div className="flex flex-col border-l">
+      <NumberInputIncrementTrigger />
+      <NumberInputDecrementTrigger />
+    </div>
+  </NumberInputControl>
+</NumberInputRoot>
 
 ### Installation
 
@@ -34,48 +42,31 @@ import { NumberInput } from "@/registry/thornberry/components/number-input";
 
 ### Examples
 
-Let's see how to use the `NumberInput` component. Let's start with a basic example:
+Let's see how to use the `NumberInput` components. Let's start with a basic example:
 
 ```tsx
-import { NumberInput } from "@/components/ui/number-input"
+import {
+  NumberInputRoot,
+  NumberInputControl,
+  NumberInputInput,
+  NumberInputIncrementTrigger,
+  NumberInputDecrementTrigger
+} from "@/components/ui/number-input"
 
 export const BasicNumberInput = () => (
-  <NumberInput />
+  <NumberInputRoot>
+    <NumberInputControl>
+      <NumberInputInput />
+      <div className="flex flex-col border-l">
+        <NumberInputIncrementTrigger />
+        <NumberInputDecrementTrigger />
+      </div>
+    </NumberInputControl>
+  </NumberInputRoot>
 )
 ```
 
 You can set minimum and maximum values for the number input:
-
-```tsx
-import { NumberInput } from "@/components/ui/number-input"
-
-export const RangeNumberInput = () => (
-  <NumberInput
-    label="Temperature (°C)"
-    min={-10}
-    max={40}
-    defaultValue={22}
-  />
-)
-```
-
-You can customize the step size for increments and decrements:
-
-```tsx
-import { NumberInput } from "@/components/ui/number-input"
-
-export const StepNumberInput = () => (
-  <NumberInput
-    label="Volume"
-    min={0}
-    max={100}
-    step={5}
-    defaultValue={50}
-  />
-)
-```
-
-For more granular control, Thornberry provides NumberInput primitives:
 
 ```tsx
 import {
@@ -87,15 +78,65 @@ import {
   NumberInputDecrementTrigger
 } from "@/components/ui/number-input"
 
-export const NumberInputPrimitives = () => (
-  <NumberInputRoot min={0} max={100} step={10} defaultValue={30}>
-    <NumberInputLabel>Custom Number Input</NumberInputLabel>
+export const RangeNumberInput = () => (
+  <NumberInputRoot min={-10} max={40} defaultValue={22}>
+    <NumberInputLabel>Temperature (°C)</NumberInputLabel>
     <NumberInputControl>
       <NumberInputInput />
-      <div className="flex flex-col border-l justify-center h-full overflow-hidden">
+      <div className="flex flex-col border-l">
         <NumberInputIncrementTrigger />
-        <div className="h-px bg-border" />
         <NumberInputDecrementTrigger />
+      </div>
+    </NumberInputControl>
+  </NumberInputRoot>
+)
+```
+
+You can customize the step size for increments and decrements:
+
+```tsx
+import {
+  NumberInputRoot,
+  NumberInputLabel,
+  NumberInputControl,
+  NumberInputInput,
+  NumberInputIncrementTrigger,
+  NumberInputDecrementTrigger
+} from "@/components/ui/number-input"
+
+export const StepNumberInput = () => (
+  <NumberInputRoot min={0} max={100} step={5} defaultValue={50}>
+    <NumberInputLabel>Volume</NumberInputLabel>
+    <NumberInputControl>
+      <NumberInputInput />
+      <div className="flex flex-col border-l">
+        <NumberInputIncrementTrigger />
+        <NumberInputDecrementTrigger />
+      </div>
+    </NumberInputControl>
+  </NumberInputRoot>
+)
+```
+
+```tsx
+import {
+  NumberInputRoot,
+  NumberInputLabel,
+  NumberInputControl,
+  NumberInputInput,
+  NumberInputIncrementTrigger,
+  NumberInputDecrementTrigger
+} from "@/components/ui/number-input"
+
+export const CustomNumberInput = () => (
+  <NumberInputRoot min={0} max={100} step={10} defaultValue={30}>
+    <NumberInputLabel>Custom Number Input</NumberInputLabel>
+    <NumberInputControl className="border-primary/20 rounded-xl overflow-hidden">
+      <NumberInputInput className="px-4" />
+      <div className="flex flex-col border-l justify-center h-full overflow-hidden">
+        <NumberInputIncrementTrigger className="hover:bg-primary/10" />
+        <div className="h-px bg-primary/20" />
+        <NumberInputDecrementTrigger className="hover:bg-primary/10" />
       </div>
     </NumberInputControl>
   </NumberInputRoot>

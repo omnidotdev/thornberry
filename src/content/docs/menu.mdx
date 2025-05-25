@@ -5,17 +5,21 @@ description: A dropdown menu that displays a list of options.
 
 import { FiChevronRight } from "react-icons/fi";
 
-import { Menu, MenuItem } from "@/registry/thornberry/components/menu";
+import { MenuRoot, MenuTrigger, MenuPositioner, MenuContent, MenuItem } from "@/registry/thornberry/components/menu";
 import { Button } from "@/registry/thornberry/components/button";
 
-<Menu
-  trigger={<Button variant="outline">Open Menu</Button>}
-  className="mb-8"
->
-  <MenuItem value="copy">Copy</MenuItem>
-  <MenuItem value="paste">Paste</MenuItem>
-  <MenuItem value="cut">Cut</MenuItem>
-</Menu>
+<MenuRoot>
+  <MenuTrigger asChild>
+    <Button variant="outline" className="mb-8">Open Menu</Button>
+  </MenuTrigger>
+  <MenuPositioner>
+    <MenuContent>
+      <MenuItem value="copy">Copy</MenuItem>
+      <MenuItem value="paste">Paste</MenuItem>
+      <MenuItem value="cut">Cut</MenuItem>
+    </MenuContent>
+  </MenuPositioner>
+</MenuRoot>
 
 ### Installation
 
@@ -44,47 +48,74 @@ import { Button } from "@/registry/thornberry/components/button";
 
 ### Examples
 
-Let's see how to use the `Menu` component. Let's start with a basic example:
+Let's see how to use the `Menu` components. Let's start with a basic example:
 
 ```tsx
-import { Menu } from "@/components/ui/menu"
+import {
+  MenuRoot,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuItem
+} from "@/components/ui/menu"
 import { Button } from "@/components/ui/button"
 
 export const BasicMenu = () => (
-  <Menu trigger={<Button variant="outline">Open Menu</Button>}>
-    <Menu.Item value="copy">Copy</Menu.Item>
-    <Menu.Item value="paste">Paste</Menu.Item>
-    <Menu.Item value="cut">Cut</Menu.Item>
-  </Menu>
+  <MenuRoot>
+    <MenuTrigger asChild>
+      <Button variant="outline">Open Menu</Button>
+    </MenuTrigger>
+    <MenuPositioner>
+      <MenuContent>
+        <MenuItem value="copy">Copy</MenuItem>
+        <MenuItem value="paste">Paste</MenuItem>
+        <MenuItem value="cut">Cut</MenuItem>
+      </MenuContent>
+    </MenuPositioner>
+  </MenuRoot>
 )
 ```
 
 You can organize menu items into groups:
 
 ```tsx
-import { Menu } from "@/components/ui/menu"
+import {
+  MenuRoot,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuItem,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuSeparator
+} from "@/components/ui/menu"
 import { Button } from "@/components/ui/button"
 
 export const MenuWithGroups = () => (
-  <Menu trigger={<Button>Menu with Groups</Button>}>
-    <Menu.Group>
-      <Menu.GroupLabel>Actions</Menu.GroupLabel>
-      <Menu.Item value="copy">Copy</Menu.Item>
-      <Menu.Item value="paste">Paste</Menu.Item>
-      <Menu.Item value="cut">Cut</Menu.Item>
-    </Menu.Group>
-    <Menu.Separator />
-    <Menu.Group>
-      <Menu.GroupLabel>View</Menu.GroupLabel>
-      <Menu.Item value="zoom-in">Zoom In</Menu.Item>
-      <Menu.Item value="zoom-out">Zoom Out</Menu.Item>
-      <Menu.Item value="reset" disabled>Reset View</Menu.Item>
-    </Menu.Group>
-  </Menu>
+  <MenuRoot>
+    <MenuTrigger asChild>
+      <Button>Menu with Groups</Button>
+    </MenuTrigger>
+    <MenuPositioner>
+      <MenuContent>
+        <MenuItemGroup>
+          <MenuItemGroupLabel>Actions</MenuItemGroupLabel>
+          <MenuItem value="copy">Copy</MenuItem>
+          <MenuItem value="paste">Paste</MenuItem>
+          <MenuItem value="cut">Cut</MenuItem>
+        </MenuItemGroup>
+        <MenuSeparator />
+        <MenuItemGroup>
+          <MenuItemGroupLabel>View</MenuItemGroupLabel>
+          <MenuItem value="zoom-in">Zoom In</MenuItem>
+          <MenuItem value="zoom-out">Zoom Out</MenuItem>
+          <MenuItem value="reset" disabled>Reset View</MenuItem>
+        </MenuItemGroup>
+      </MenuContent>
+    </MenuPositioner>
+  </MenuRoot>
 )
 ```
-
-For more granular control, Thornberry provides Menu primitives:
 
 ```tsx
 import { FiCheck } from "react-icons/fi"
@@ -100,11 +131,13 @@ import {
   MenuItemGroupLabel,
   MenuCheckboxItem,
   MenuItemIndicator,
-  MenuItemText
+  MenuItemText,
+  MenuRadioItem,
+  MenuRadioItemGroup
 } from "@/components/ui/menu"
 import { Button } from "@/components/ui/button"
 
-export const MenuPrimitives = () => (
+export const CheckboxMenu = () => (
   <MenuRoot>
     <MenuTrigger asChild>
       <Button variant="outline">Custom Menu</Button>

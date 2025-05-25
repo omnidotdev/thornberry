@@ -3,9 +3,14 @@ title: Switch
 description: A control that allows the user to toggle between checked and unchecked states.
 ---
 
-import { Switch } from "@/registry/thornberry/components/switch";
+import { SwitchRoot, SwitchHiddenInput, SwitchControl, SwitchThumb, SwitchLabel } from "@/registry/thornberry/components/switch";
 
-<Switch className="mb-8" />
+<SwitchRoot className="mb-8">
+  <SwitchHiddenInput />
+  <SwitchControl>
+    <SwitchThumb />
+  </SwitchControl>
+</SwitchRoot>
 
 ### Installation
 
@@ -34,27 +39,47 @@ import { Switch } from "@/registry/thornberry/components/switch";
 
 ### Examples
 
-Let's see how to use the `Switch` component. Let's start with a basic example:
+Let's see how to use the `Switch` components. Let's start with a basic example:
 
 ```tsx
-import { Switch } from "@/components/ui/switch"
+import { 
+  SwitchRoot, 
+  SwitchHiddenInput, 
+  SwitchControl, 
+  SwitchThumb 
+} from "@/components/ui/switch"
 
 export const BasicSwitch = () => (
-  <Switch />
+  <SwitchRoot>
+    <SwitchHiddenInput />
+    <SwitchControl>
+      <SwitchThumb />
+    </SwitchControl>
+  </SwitchRoot>
 )
 ```
 
 You can add a label to your switch:
 
 ```tsx
-import { Switch } from "@/components/ui/switch"
+import { 
+  SwitchRoot, 
+  SwitchHiddenInput, 
+  SwitchControl, 
+  SwitchThumb,
+  SwitchLabel
+} from "@/components/ui/switch"
 
 export const LabeledSwitch = () => (
-  <Switch label="Airplane Mode" />
+  <SwitchRoot>
+    <SwitchHiddenInput />
+    <SwitchControl>
+      <SwitchThumb />
+    </SwitchControl>
+    <SwitchLabel>Airplane Mode</SwitchLabel>
+  </SwitchRoot>
 )
 ```
-
-For more granular control, Thornberry provides Switch primitives:
 
 ```tsx
 import {
@@ -65,7 +90,7 @@ import {
   SwitchLabel
 } from "@/components/ui/switch"
 
-export const SwitchPrimitives = () => (
+export const DefaultCheckedSwitch = () => (
   <SwitchRoot defaultChecked>
     <SwitchHiddenInput />
     <SwitchControl>

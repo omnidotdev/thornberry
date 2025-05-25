@@ -1,0 +1,175 @@
+---
+title: Hover Card
+description: A card that appears when hovering over a trigger element, providing additional information.
+---
+
+import { Badge } from "@/registry/thornberry/components/badge";
+import { HoverCardRoot, HoverCardTrigger, HoverCardContent, HoverCardPositioner, HoverCardArrow, HoverCardArrowTip } from "@/registry/thornberry/components/hover-card";
+
+<HoverCardRoot>
+  <HoverCardTrigger>
+    <Badge variant="outline" className="mb-8">Hover me</Badge>
+  </HoverCardTrigger>
+  <HoverCardPositioner>
+    <HoverCardContent>
+      <HoverCardArrow>
+        <HoverCardArrowTip />
+      </HoverCardArrow>
+      Here is the content
+    </HoverCardContent>
+  </HoverCardPositioner>
+</HoverCardRoot>
+
+### Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/hover-card.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/hover-card.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/hover-card.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/hover-card.json
+    ```
+  </Tab>
+</Tabs>
+
+### Examples
+
+Let's see how to use the `HoverCard` components. Here's a basic example:
+
+```tsx
+import { 
+  HoverCardRoot, 
+  HoverCardTrigger, 
+  HoverCardContent, 
+  HoverCardPositioner,
+  HoverCardArrow,
+  HoverCardArrowTip
+} from "@/components/ui/hover-card"
+
+export const BasicHoverCard = () => (
+  <HoverCardRoot>
+    <HoverCardTrigger>
+      <span className="text-primary underline cursor-pointer">Hover me</span>
+    </HoverCardTrigger>
+    <HoverCardPositioner>
+      <HoverCardContent>
+        <HoverCardArrow>
+          <HoverCardArrowTip />
+        </HoverCardArrow>
+        <div>
+          <strong>Hover Card</strong>
+          <p>Additional information here.</p>
+        </div>
+      </HoverCardContent>
+    </HoverCardPositioner>
+  </HoverCardRoot>
+)
+```
+
+You can customize the delay before showing or hiding the hover card:
+
+```tsx
+import { 
+  HoverCardRoot, 
+  HoverCardTrigger, 
+  HoverCardContent, 
+  HoverCardPositioner,
+  HoverCardArrow,
+  HoverCardArrowTip
+} from "@/components/ui/hover-card"
+
+export const DelayedHoverCard = () => (
+  <HoverCardRoot openDelay={300} closeDelay={200}>
+    <HoverCardTrigger>
+      <span className="text-primary underline cursor-pointer">Hover with delay</span>
+    </HoverCardTrigger>
+    <HoverCardPositioner>
+      <HoverCardContent>
+        <HoverCardArrow>
+          <HoverCardArrowTip />
+        </HoverCardArrow>
+        <div>
+          <strong>Delayed Hover Card</strong>
+          <p>This hover card has custom delay timing.</p>
+        </div>
+      </HoverCardContent>
+    </HoverCardPositioner>
+  </HoverCardRoot>
+)
+```
+
+You can hide the arrow by not including the HoverCardArrow component:
+
+```tsx
+import { 
+  HoverCardRoot, 
+  HoverCardTrigger, 
+  HoverCardContent, 
+  HoverCardPositioner
+} from "@/components/ui/hover-card"
+
+export const HoverCardWithoutArrow = () => (
+  <HoverCardRoot>
+    <HoverCardTrigger>
+      <span className="text-primary underline cursor-pointer">No arrow</span>
+    </HoverCardTrigger>
+    <HoverCardPositioner>
+      <HoverCardContent>
+        <div>
+          <strong>No Arrow</strong>
+          <p>This hover card has no arrow pointer.</p>
+        </div>
+      </HoverCardContent>
+    </HoverCardPositioner>
+  </HoverCardRoot>
+)
+```
+
+```tsx
+import {
+  HoverCardRoot,
+  HoverCardTrigger,
+  HoverCardContent,
+  HoverCardArrow,
+  HoverCardArrowTip,
+  HoverCardPositioner
+} from "@/components/ui/hover-card"
+
+export const ProfileHoverCard = () => (
+  <HoverCardRoot openDelay={100} closeDelay={150}>
+    <HoverCardTrigger>
+      <span className="text-primary underline cursor-pointer">User Profile</span>
+    </HoverCardTrigger>
+    <HoverCardPositioner>
+      <HoverCardContent>
+        <HoverCardArrow>
+          <HoverCardArrowTip />
+        </HoverCardArrow>
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <div className="h-10 w-10 rounded-full bg-primary" />
+            <div>
+              <div className="font-medium">John Doe</div>
+              <div className="text-xs text-base-500">@johndoe</div>
+            </div>
+          </div>
+          <p className="text-sm">Full-stack developer and UI/UX enthusiast with a passion for creating intuitive user experiences.</p>
+        </div>
+      </HoverCardContent>
+    </HoverCardPositioner>
+  </HoverCardRoot>
+)
+```

@@ -3,9 +3,9 @@ title: Combobox
 description: A searchable dropdown select component that allows users to filter through a list of options.
 ---
 
-import { Combobox } from "@/registry/thornberry/components/combobox";
+import { ComboboxRoot, ComboboxLabel, ComboboxControl, ComboboxInput, ComboboxTrigger, ComboboxPositioner, ComboboxContent, ComboboxItem } from "@/registry/thornberry/components/combobox";
 
-<Combobox
+<ComboboxRoot 
   items={[
     { label: "Apple", value: "apple" },
     { label: "Banana", value: "banana" },
@@ -14,7 +14,21 @@ import { Combobox } from "@/registry/thornberry/components/combobox";
     { label: "Blueberry", value: "blueberry" }
   ]}
   className="mb-8"
-/>
+>
+  <ComboboxControl>
+    <ComboboxInput placeholder="Select a fruit..." />
+    <ComboboxTrigger />
+  </ComboboxControl>
+  <ComboboxPositioner>
+    <ComboboxContent>
+      <ComboboxItem item={{ label: "Apple", value: "apple" }}>Apple</ComboboxItem>
+      <ComboboxItem item={{ label: "Banana", value: "banana" }}>Banana</ComboboxItem>
+      <ComboboxItem item={{ label: "Orange", value: "orange" }}>Orange</ComboboxItem>
+      <ComboboxItem item={{ label: "Strawberry", value: "strawberry" }}>Strawberry</ComboboxItem>
+      <ComboboxItem item={{ label: "Blueberry", value: "blueberry" }}>Blueberry</ComboboxItem>
+    </ComboboxContent>
+  </ComboboxPositioner>
+</ComboboxRoot>
 
 ### Installation
 
@@ -43,44 +57,7 @@ import { Combobox } from "@/registry/thornberry/components/combobox";
 
 ### Examples
 
-Let's see how to use the `Combobox` component. Let's start with a basic example:
-
-```tsx
-import { Combobox } from "@/components/ui/combobox"
-
-export const BasicCombobox = () => (
-  <Combobox
-    items={[
-      { label: "Apple", value: "apple" },
-      { label: "Banana", value: "banana" },
-      { label: "Orange", value: "orange" },
-      { label: "Strawberry", value: "strawberry" },
-      { label: "Blueberry", value: "blueberry" }
-    ]}
-  />
-)
-```
-
-You can add a label to the combobox:
-
-```tsx
-import { Combobox } from "@/components/ui/combobox"
-
-export const LabeledCombobox = () => (
-  <Combobox
-    label="Select a fruit"
-    items={[
-      { label: "Apple", value: "apple" },
-      { label: "Banana", value: "banana" },
-      { label: "Orange", value: "orange" },
-      { label: "Strawberry", value: "strawberry" },
-      { label: "Blueberry", value: "blueberry" }
-    ]}
-  />
-)
-```
-
-For more granular control, Thornberry provides Combobox primitives:
+Let's see how to use the `Combobox` components. Let's start with a basic example:
 
 ```tsx
 import {
@@ -93,14 +70,97 @@ import {
   ComboboxItem
 } from "@/components/ui/combobox"
 
-export const ComboboxPrimitives = () => (
+export const BasicCombobox = () => (
   <ComboboxRoot
     items={[
-      { label: "Red", value: "red" },
-      { label: "Green", value: "green" },
-      { label: "Blue", value: "blue" },
-      { label: "Yellow", value: "yellow" },
-      { label: "Purple", value: "purple" }
+      { label: "Apple", value: "apple" },
+      { label: "Banana", value: "banana" },
+      { label: "Orange", value: "orange" },
+      { label: "Strawberry", value: "strawberry" },
+      { label: "Blueberry", value: "blueberry" }
+    ]}
+  >
+    <ComboboxControl>
+      <ComboboxInput placeholder="Select a fruit..." />
+      <ComboboxTrigger />
+    </ComboboxControl>
+    <ComboboxPositioner>
+      <ComboboxContent>
+        <ComboboxItem item={{ label: "Apple", value: "apple" }}>Apple</ComboboxItem>
+        <ComboboxItem item={{ label: "Banana", value: "banana" }}>Banana</ComboboxItem>
+        <ComboboxItem item={{ label: "Orange", value: "orange" }}>Orange</ComboboxItem>
+        <ComboboxItem item={{ label: "Strawberry", value: "strawberry" }}>Strawberry</ComboboxItem>
+        <ComboboxItem item={{ label: "Blueberry", value: "blueberry" }}>Blueberry</ComboboxItem>
+      </ComboboxContent>
+    </ComboboxPositioner>
+  </ComboboxRoot>
+)
+```
+
+You can add a label to the combobox:
+
+```tsx
+import {
+  ComboboxRoot,
+  ComboboxLabel,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxTrigger,
+  ComboboxPositioner,
+  ComboboxContent,
+  ComboboxItem
+} from "@/components/ui/combobox"
+
+export const LabeledCombobox = () => (
+  <ComboboxRoot
+    items={[
+      { label: "Apple", value: "apple" },
+      { label: "Banana", value: "banana" },
+      { label: "Orange", value: "orange" },
+      { label: "Strawberry", value: "strawberry" },
+      { label: "Blueberry", value: "blueberry" }
+    ]}
+  >
+    <ComboboxLabel>Select a fruit</ComboboxLabel>
+    <ComboboxControl>
+      <ComboboxInput placeholder="Select a fruit..." />
+      <ComboboxTrigger />
+    </ComboboxControl>
+    <ComboboxPositioner>
+      <ComboboxContent>
+        <ComboboxItem item={{ label: "Apple", value: "apple" }}>Apple</ComboboxItem>
+        <ComboboxItem item={{ label: "Banana", value: "banana" }}>Banana</ComboboxItem>
+        <ComboboxItem item={{ label: "Orange", value: "orange" }}>Orange</ComboboxItem>
+        <ComboboxItem item={{ label: "Strawberry", value: "strawberry" }}>Strawberry</ComboboxItem>
+        <ComboboxItem item={{ label: "Blueberry", value: "blueberry" }}>Blueberry</ComboboxItem>
+      </ComboboxContent>
+    </ComboboxPositioner>
+  </ComboboxRoot>
+)
+```
+
+```tsx
+import {
+  ComboboxRoot,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxTrigger,
+  ComboboxPositioner,
+  ComboboxContent,
+  ComboboxItem,
+  ComboboxItemGroup,
+  ComboboxItemGroupLabel
+} from "@/components/ui/combobox"
+
+export const GroupedCombobox = () => (
+  <ComboboxRoot
+    items={[
+      { label: "Red", value: "red", group: "Warm Colors" },
+      { label: "Orange", value: "orange", group: "Warm Colors" },
+      { label: "Yellow", value: "yellow", group: "Warm Colors" },
+      { label: "Green", value: "green", group: "Cool Colors" },
+      { label: "Blue", value: "blue", group: "Cool Colors" },
+      { label: "Purple", value: "purple", group: "Cool Colors" }
     ]}
   >
     <ComboboxControl>
@@ -109,11 +169,18 @@ export const ComboboxPrimitives = () => (
     </ComboboxControl>
     <ComboboxPositioner>
       <ComboboxContent>
-        <ComboboxItem item={{ label: "Red", value: "red" }}>Red</ComboboxItem>
-        <ComboboxItem item={{ label: "Green", value: "green" }}>Green</ComboboxItem>
-        <ComboboxItem item={{ label: "Blue", value: "blue" }}>Blue</ComboboxItem>
-        <ComboboxItem item={{ label: "Yellow", value: "yellow" }}>Yellow</ComboboxItem>
-        <ComboboxItem item={{ label: "Purple", value: "purple" }}>Purple</ComboboxItem>
+        <ComboboxItemGroup>
+          <ComboboxItemGroupLabel>Warm Colors</ComboboxItemGroupLabel>
+          <ComboboxItem item={{ label: "Red", value: "red" }}>Red</ComboboxItem>
+          <ComboboxItem item={{ label: "Orange", value: "orange" }}>Orange</ComboboxItem>
+          <ComboboxItem item={{ label: "Yellow", value: "yellow" }}>Yellow</ComboboxItem>
+        </ComboboxItemGroup>
+        <ComboboxItemGroup>
+          <ComboboxItemGroupLabel>Cool Colors</ComboboxItemGroupLabel>
+          <ComboboxItem item={{ label: "Green", value: "green" }}>Green</ComboboxItem>
+          <ComboboxItem item={{ label: "Blue", value: "blue" }}>Blue</ComboboxItem>
+          <ComboboxItem item={{ label: "Purple", value: "purple" }}>Purple</ComboboxItem>
+        </ComboboxItemGroup>
       </ComboboxContent>
     </ComboboxPositioner>
   </ComboboxRoot>

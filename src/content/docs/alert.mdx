@@ -4,15 +4,17 @@ description: Displays a callout for user attention with status variants for diff
 ---
 import { FiInfo } from "react-icons/fi";
 
-import { Alert } from "@/registry/thornberry/components/alert";
+import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/registry/thornberry/components/alert";
 
-<Alert
-  variant="info"
-  icon={<FiInfo />}
-  title="Info"
-  description="Did you know platypuses are venomous?"
-  className="mb-8"
-/>
+<AlertRoot variant="info" className="mb-8">
+  <AlertIcon>
+    <FiInfo />
+  </AlertIcon>
+  <AlertTitle>Info</AlertTitle>
+  <AlertDescription>
+    Did you know platypuses are venomous?
+  </AlertDescription>
+</AlertRoot>
 
 ### Installation
 
@@ -46,76 +48,98 @@ Let's see how to use the `Alert` component. Let's start with a basic example:
 ```tsx
 import { FiInfo } from "react-icons/fi"
 
-import { Alert } from "@/components/ui/alert"
+import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components/ui/alert"
 
 export const BasicAlert = () => (
-  <Alert
-    title="Information"
-    description="This is an important information message for the user."
-    icon={<FiInfo />}
-  />
+  <AlertRoot>
+    <AlertIcon>
+      <FiInfo />
+    </AlertIcon>
+    <AlertTitle>Information</AlertTitle>
+    <AlertDescription>
+      This is an important information message for the user.
+    </AlertDescription>
+  </AlertRoot>
 )
 ```
 
-The Alert component comes with different variants that you can use to represent different states:
+The Alert components come with different variants that you can use to represent different states:
 
 ```tsx
 import { FiCheck, FiInfo } from "react-icons/fi"
 import { IoWarningOutline } from "react-icons/io5"
 import { BiErrorAlt } from "react-icons/bi"
 
-import { Alert } from "@/components/ui/alert"
+import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components/ui/alert"
 
 export const AlertVariants = () => (
   <div className="flex flex-col gap-2">
-    <Alert
-      title="Default"
-      description="For the best experience, update to the latest version."
-      icon={<FiInfo />}
-    />
-    <Alert
-      variant="info"
-      title="Information"
-      description="Did you know platypuses are venomous?"
-      icon={<FiInfo />}
-    />
-    <Alert
-      variant="success"
-      title="Success"
-      description="Your profile has been updated successfully."
-      icon={<FiCheck />}
-    />
-    <Alert
-      variant="warning"
-      title="Warning"
-      description="Your storage is almost full. Please free up some space."
-      icon={<IoWarningOutline />}
-    />
-    <Alert
-      variant="error"
-      title="Error"
-      description="There was a problem processing your request."
-      icon={<BiErrorAlt />}
-    />
+    <AlertRoot>
+      <AlertIcon>
+        <FiInfo />
+      </AlertIcon>
+      <AlertTitle>Default</AlertTitle>
+      <AlertDescription>
+        For the best experience, update to the latest version.
+      </AlertDescription>
+    </AlertRoot>
+
+    <AlertRoot variant="info">
+      <AlertIcon>
+        <FiInfo />
+      </AlertIcon>
+      <AlertTitle>Information</AlertTitle>
+      <AlertDescription>
+        Did you know platypuses are venomous?
+      </AlertDescription>
+    </AlertRoot>
+
+    <AlertRoot variant="success">
+      <AlertIcon>
+        <FiCheck />
+      </AlertIcon>
+      <AlertTitle>Success</AlertTitle>
+      <AlertDescription>
+        Your profile has been updated successfully.
+      </AlertDescription>
+    </AlertRoot>
+
+    <AlertRoot variant="warning">
+      <AlertIcon>
+        <IoWarningOutline />
+      </AlertIcon>
+      <AlertTitle>Warning</AlertTitle>
+      <AlertDescription>
+        Your storage is almost full. Please free up some space.
+      </AlertDescription>
+    </AlertRoot>
+
+    <AlertRoot variant="error">
+      <AlertIcon>
+        <BiErrorAlt />
+      </AlertIcon>
+      <AlertTitle>Error</AlertTitle>
+      <AlertDescription>
+        There was a problem processing your request.
+      </AlertDescription>
+    </AlertRoot>
   </div>
 )
 ```
-
-Thornberry also ships primitives for more granular control:
 
 ```tsx
 import { FiInfo } from "react-icons/fi"
 
 import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components/ui/alert"
 
-export const AlertPrimitives = () => (
-  <AlertRoot>
-    <AlertIcon>
+export const CustomAlert = () => (
+  <AlertRoot className="border-indigo-500/50 bg-indigo-500/5 text-indigo-500">
+    <AlertIcon className="text-indigo-500">
       <FiInfo />
     </AlertIcon>
-    <AlertTitle>Custom Alert</AlertTitle>
+    <AlertTitle>Custom Styled Alert</AlertTitle>
     <AlertDescription>
-      This alert was built using the primitive components for more flexibility.
+      You can customize the styling of alert components using standard class names.
     </AlertDescription>
   </AlertRoot>
 )

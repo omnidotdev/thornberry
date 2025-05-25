@@ -63,18 +63,6 @@ const SwitchHiddenInput = ({
   <ArkSwitch.HiddenInput className={cn(className)} {...rest} />
 );
 
-interface SwitchProps extends ComponentProps<typeof SwitchRoot> {}
-
-const Switch = ({ label, ...rest }: SwitchProps) => (
-  <SwitchRoot {...rest}>
-    <SwitchHiddenInput />
-    <SwitchControl>
-      <SwitchThumb />
-    </SwitchControl>
-    {label && <SwitchLabel>{label}</SwitchLabel>}
-  </SwitchRoot>
-);
-
 export {
   SwitchRoot,
   SwitchControl,
@@ -83,6 +71,4 @@ export {
   SwitchHiddenInput,
   SwitchProvider,
   SwitchContext,
-  Switch,
-  type SwitchProps,
 };

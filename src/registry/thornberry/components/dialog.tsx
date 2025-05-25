@@ -2,9 +2,8 @@ import { Dialog as ArkDialog } from "@ark-ui/react/dialog";
 import { FiX } from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/registry/thornberry/components/button";
 
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const DialogProvider = ArkDialog.RootProvider;
 const DialogContext = ArkDialog.Context;
@@ -114,42 +113,7 @@ const DialogCloseTrigger = ({
   );
 };
 
-interface DialogProps extends ComponentProps<typeof DialogRoot> {
-  trigger?: ReactNode;
-  title?: ReactNode;
-  description?: ReactNode;
-  children: ReactNode;
-}
-
-const Dialog = ({
-  trigger,
-  title,
-  description,
-  children,
-  ...rest
-}: DialogProps) => {
-  return (
-    <DialogRoot {...rest}>
-      {trigger && (
-        <DialogTrigger asChild>
-          {typeof trigger === "string" ? <Button>{trigger}</Button> : trigger}
-        </DialogTrigger>
-      )}
-      <DialogBackdrop />
-      <DialogPositioner>
-        <DialogContent>
-          <DialogCloseTrigger />
-          {title && <DialogTitle>{title}</DialogTitle>}
-          {description && <DialogDescription>{description}</DialogDescription>}
-          {children}
-        </DialogContent>
-      </DialogPositioner>
-    </DialogRoot>
-  );
-};
-
 export {
-  Dialog,
   DialogRoot,
   DialogTrigger,
   DialogBackdrop,
@@ -160,5 +124,4 @@ export {
   DialogCloseTrigger,
   DialogProvider,
   DialogContext,
-  type DialogProps,
 };

@@ -3,37 +3,30 @@ title: Tabs
 description: A set of layered sections of content that display one panel at a time.
 ---
 
-import { Tabs as RegistryTabs } from "@/registry/thornberry/components/tabs";
+import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "@/registry/thornberry/components/tabs";
 
-<RegistryTabs
-  tabs={[
-    {
-      value: "account",
-      trigger: "Account",
-      content: (
-        <div className="p-4 rounded-md border">
-          <h3 className="text-lg font-medium">Account Settings</h3>
-          <p className="text-sm text-muted-foreground mt-2">
-            Manage your account settings and preferences.
-          </p>
-        </div>
-      )
-    },
-    {
-      value: "password",
-      trigger: "Password",
-      content: (
-        <div className="p-4 rounded-md border">
-          <h3 className="text-lg font-medium">Password Settings</h3>
-          <p className="text-sm text-muted-foreground mt-2">
-            Change your password and security settings.
-          </p>
-        </div>
-      )
-    }
-  ]}
-  className="mb-8"
-/>
+<TabsRoot defaultValue="account" className="mb-8">
+  <TabsList>
+    <TabsTrigger value="account">Account</TabsTrigger>
+    <TabsTrigger value="password">Password</TabsTrigger>
+  </TabsList>
+  <TabsContent value="account">
+    <div className="p-4 rounded-md border">
+      <h3 className="text-lg font-medium">Account Settings</h3>
+      <p className="text-sm text-muted-foreground mt-2">
+        <span>Manage your account settings and preferences.</span>
+      </p>
+    </div>
+  </TabsContent>
+  <TabsContent value="password">
+    <div className="p-4 rounded-md border">
+      <h3 className="text-lg font-medium">Password Settings</h3>
+      <p className="text-sm text-muted-foreground mt-2">
+        <span>Change your password and security settings.</span>
+      </p>
+    </div>
+  </TabsContent>
+</TabsRoot>
 
 ### Installation
 
@@ -62,44 +55,7 @@ import { Tabs as RegistryTabs } from "@/registry/thornberry/components/tabs";
 
 ### Examples
 
-Let's see how to use the `Tabs` component. Let's start with a basic example:
-
-```tsx
-import { Tabs } from "@/components/ui/tabs"
-
-export const BasicTabs = () => (
-  <Tabs
-    tabs={[
-      {
-        value: "account",
-        trigger: "Account",
-        content: (
-          <div className="p-4 rounded-md border">
-            <h3 className="text-lg font-medium">Account Settings</h3>
-            <p className="text-sm text-muted-foreground mt-2">
-              Manage your account settings and preferences.
-            </p>
-          </div>
-        )
-      },
-      {
-        value: "password",
-        trigger: "Password",
-        content: (
-          <div className="p-4 rounded-md border">
-            <h3 className="text-lg font-medium">Password Settings</h3>
-            <p className="text-sm text-muted-foreground mt-2">
-              Change your password and security settings.
-            </p>
-          </div>
-        )
-      }
-    ]}
-  />
-)
-```
-
-For more granular control, Thornberry provides Tabs primitives:
+Let's see how to use the `Tabs` components. Let's start with a basic example:
 
 ```tsx
 import {
@@ -109,12 +65,48 @@ import {
   TabsContent
 } from "@/components/ui/tabs"
 
-export const TabsPrimitives = () => (
-  <TabsRoot defaultValue="primitives">
+export const BasicTabs = () => (
+  <TabsRoot defaultValue="account">
     <TabsList>
+      <TabsTrigger value="account">Account</TabsTrigger>
+      <TabsTrigger value="password">Password</TabsTrigger>
+    </TabsList>
+    <TabsContent value="account">
+      <div className="p-4 rounded-md border">
+        <h3 className="text-lg font-medium">Account Settings</h3>
+        <p className="text-sm text-muted-foreground mt-2">
+          Manage your account settings and preferences.
+        </p>
+      </div>
+    </TabsContent>
+    <TabsContent value="password">
+      <div className="p-4 rounded-md border">
+        <h3 className="text-lg font-medium">Password Settings</h3>
+        <p className="text-sm text-muted-foreground mt-2">
+          Change your password and security settings.
+        </p>
+      </div>
+    </TabsContent>
+  </TabsRoot>
+)
+```
+
+```tsx
+import {
+  TabsRoot,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  TabsIndicator
+} from "@/components/ui/tabs"
+
+export const CustomTabs = () => (
+  <TabsRoot defaultValue="primitives">
+    <TabsList className="relative bg-base-100 border">
       <TabsTrigger value="primitives">Primitives</TabsTrigger>
       <TabsTrigger value="usage">Usage</TabsTrigger>
       <TabsTrigger value="styling">Styling</TabsTrigger>
+      <TabsIndicator className="h-[2px] bg-primary" />
     </TabsList>
     <TabsContent value="primitives">
       <div className="p-4 rounded-md border">
@@ -137,6 +129,44 @@ export const TabsPrimitives = () => (
         </div>
       </div>
     </TabsContent>
+  </TabsRoot>
+)
+```
+
+```tsx
+import {
+  TabsRoot,
+  TabsList,
+  TabsTrigger,
+  TabsContent
+} from "@/components/ui/tabs"
+
+export const VerticalTabs = () => (
+  <TabsRoot defaultValue="account" orientation="vertical">
+    <div className="flex">
+      <TabsList className="flex-col h-auto mr-4">
+        <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger>
+        <TabsTrigger value="profile">Profile</TabsTrigger>
+      </TabsList>
+      <div className="flex-1">
+        <TabsContent value="account">
+          <div className="p-4 rounded-md border">
+            Account settings content
+          </div>
+        </TabsContent>
+        <TabsContent value="password">
+          <div className="p-4 rounded-md border">
+            Password settings content
+          </div>
+        </TabsContent>
+        <TabsContent value="profile">
+          <div className="p-4 rounded-md border">
+            Profile settings content
+          </div>
+        </TabsContent>
+      </div>
+    </div>
   </TabsRoot>
 )
 ```

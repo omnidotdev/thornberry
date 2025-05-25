@@ -4,7 +4,7 @@ import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
 
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const NumberInputProvider = ArkNumberInput.RootProvider;
 const NumberInputContext = ArkNumberInput.Context;
@@ -83,39 +83,6 @@ const NumberInputIncrementTrigger = ({
   </ArkNumberInput.IncrementTrigger>
 );
 
-interface NumberInputProps extends ComponentProps<typeof NumberInputRoot> {
-  label?: ReactNode;
-  placeholder?: string;
-}
-
-const NumberInput = ({
-  label,
-  placeholder,
-  defaultValue = "0",
-  min = 0,
-  max = 100,
-  step = 1,
-  ...rest
-}: NumberInputProps) => (
-  <NumberInputRoot
-    defaultValue={defaultValue}
-    min={min}
-    max={max}
-    step={step}
-    {...rest}
-  >
-    {label && <NumberInputLabel>{label}</NumberInputLabel>}
-    <NumberInputControl>
-      <NumberInputInput placeholder={placeholder} />
-      <div className="flex h-full flex-col justify-center overflow-hidden border-l">
-        <NumberInputIncrementTrigger />
-        <div className="h-px bg-border" />
-        <NumberInputDecrementTrigger />
-      </div>
-    </NumberInputControl>
-  </NumberInputRoot>
-);
-
 export {
   NumberInputRoot,
   NumberInputLabel,
@@ -125,6 +92,4 @@ export {
   NumberInputIncrementTrigger,
   NumberInputProvider,
   NumberInputContext,
-  NumberInput,
-  type NumberInputProps,
 };

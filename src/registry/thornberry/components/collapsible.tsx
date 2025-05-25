@@ -3,7 +3,7 @@ import { Collapsible as ArkCollapsible } from "@ark-ui/react/collapsible";
 import { cn } from "@/lib/utils";
 import { FiChevronDown } from "react-icons/fi";
 
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const CollapsibleProvider = ArkCollapsible.RootProvider;
 const CollapsibleContext = ArkCollapsible.Context;
@@ -48,24 +48,10 @@ const CollapsibleContent = ({
   />
 );
 
-interface CollapsibleProps extends ComponentProps<typeof CollapsibleRoot> {
-  trigger: ReactNode;
-  children: ReactNode;
-}
-
-const Collapsible = ({ trigger, children, ...rest }: CollapsibleProps) => (
-  <CollapsibleRoot {...rest}>
-    <CollapsibleTrigger>{trigger}</CollapsibleTrigger>
-    <CollapsibleContent>{children}</CollapsibleContent>
-  </CollapsibleRoot>
-);
-
 export {
   CollapsibleRoot,
   CollapsibleTrigger,
   CollapsibleContent,
   CollapsibleProvider,
   CollapsibleContext,
-  Collapsible,
-  type CollapsibleProps,
 };
