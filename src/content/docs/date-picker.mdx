@@ -61,27 +61,39 @@ import {
 export const BasicDatePicker = () => (
   <DatePickerRoot>
     <DatePickerLabel>Select a date</DatePickerLabel>
+
     <DatePickerControl>
       <DatePickerInput />
+
       <DatePickerTrigger />
     </DatePickerControl>
+
     <DatePickerPositioner>
       <DatePickerContent>
         <DatePickerView view="day">
           <DatePickerViewControl>
             <DatePickerPrevTrigger />
+
             <DatePickerViewTrigger />
+
             <DatePickerNextTrigger />
           </DatePickerViewControl>
+
           <DatePickerTable>
             <DatePickerTableHead>
               <DatePickerTableRow>
                 <DatePickerTableHeader>Su</DatePickerTableHeader>
+
                 <DatePickerTableHeader>Mo</DatePickerTableHeader>
+
                 <DatePickerTableHeader>Tu</DatePickerTableHeader>
+
                 <DatePickerTableHeader>We</DatePickerTableHeader>
+
                 <DatePickerTableHeader>Th</DatePickerTableHeader>
+
                 <DatePickerTableHeader>Fr</DatePickerTableHeader>
+
                 <DatePickerTableHeader>Sa</DatePickerTableHeader>
               </DatePickerTableRow>
             </DatePickerTableHead>
@@ -110,10 +122,13 @@ import {
 export const DatePickerWithDefault = () => (
   <DatePickerRoot defaultValue="2024-06-15">
     <DatePickerLabel>Event date</DatePickerLabel>
+
     <DatePickerControl>
       <DatePickerInput />
+
       <DatePickerTrigger />
     </DatePickerControl>
+
     <DatePickerPositioner>
       <DatePickerContent>
         {/* Calendar view components */}
@@ -139,10 +154,13 @@ import {
 export const DateRangePicker = () => (
   <DatePickerRoot selectionMode="range">
     <DatePickerLabel>Select date range</DatePickerLabel>
+
     <DatePickerControl>
       <DatePickerInput />
+
       <DatePickerTrigger />
     </DatePickerControl>
+
     <DatePickerPositioner>
       <DatePickerContent>
         {/* Calendar view components */}
@@ -178,30 +196,43 @@ import {
 export const CustomDatePicker = () => (
   <DatePickerRoot>
     <DatePickerLabel>Pick a date</DatePickerLabel>
+
     <DatePickerControl>
       <DatePickerInput />
+
       <DatePickerTrigger />
     </DatePickerControl>
+
     <DatePickerPositioner>
       <DatePickerContent>
         <DatePickerView view="day">
           <DatePickerViewControl>
             <DatePickerPrevTrigger />
+
             <DatePickerViewTrigger />
+
             <DatePickerNextTrigger />
           </DatePickerViewControl>
+
           <DatePickerTable>
             <DatePickerTableHead>
               <DatePickerTableRow>
                 <DatePickerTableHeader>Su</DatePickerTableHeader>
+
                 <DatePickerTableHeader>Mo</DatePickerTableHeader>
+
                 <DatePickerTableHeader>Tu</DatePickerTableHeader>
+
                 <DatePickerTableHeader>We</DatePickerTableHeader>
+
                 <DatePickerTableHeader>Th</DatePickerTableHeader>
+
                 <DatePickerTableHeader>Fr</DatePickerTableHeader>
+
                 <DatePickerTableHeader>Sa</DatePickerTableHeader>
               </DatePickerTableRow>
             </DatePickerTableHead>
+
             <DatePickerTableBody>
               {/* Table rows would be dynamically generated */}
             </DatePickerTableBody>

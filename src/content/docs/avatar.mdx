@@ -6,6 +6,7 @@ import { AvatarRoot, AvatarFallback, AvatarImage } from "@/registry/thornberry/c
 
 <AvatarRoot className="mb-8">
   <AvatarFallback>EM</AvatarFallback>
+
   <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
 </AvatarRoot>
 
@@ -44,6 +45,7 @@ import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 export const BasicAvatar = () => (
   <AvatarRoot>
     <AvatarFallback>EM</AvatarFallback>
+
     <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
   </AvatarRoot>
 )
@@ -58,8 +60,9 @@ import { UserIcon } from "lucide-react"
 export const FallbackAvatar = () => (
   <AvatarRoot>
     <AvatarFallback>
-      <UserIcon className="h-6 w-6" />
+      <UserIcon />
     </AvatarFallback>
+
     <AvatarImage src="/img/elon-musk.jpg" alt="User" />
   </AvatarRoot>
 )
@@ -69,10 +72,11 @@ export const FallbackAvatar = () => (
 import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export const CustomizedAvatar = () => (
-  <AvatarRoot className="h-16 w-16 border-4 border-primary">
-    <AvatarFallback className="bg-primary text-white text-lg">
+  <AvatarRoot>
+    <AvatarFallback>
       JD
     </AvatarFallback>
+
     <AvatarImage src="/img/john-doe.jpg" alt="John Doe" />
   </AvatarRoot>
 )

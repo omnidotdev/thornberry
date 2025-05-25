@@ -10,7 +10,9 @@ import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/registry/t
   <AlertIcon>
     <FiInfo />
   </AlertIcon>
+
   <AlertTitle>Info</AlertTitle>
+
   <AlertDescription>
     Did you know platypuses are venomous?
   </AlertDescription>
@@ -55,7 +57,9 @@ export const BasicAlert = () => (
     <AlertIcon>
       <FiInfo />
     </AlertIcon>
+
     <AlertTitle>Information</AlertTitle>
+
     <AlertDescription>
       This is an important information message for the user.
     </AlertDescription>
@@ -63,7 +67,7 @@ export const BasicAlert = () => (
 )
 ```
 
-The Alert components come with different variants that you can use to represent different states:
+The `Alert` component come with different variants that you can use to represent different states:
 
 ```tsx
 import { FiCheck, FiInfo } from "react-icons/fi"
@@ -73,12 +77,14 @@ import { BiErrorAlt } from "react-icons/bi"
 import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components/ui/alert"
 
 export const AlertVariants = () => (
-  <div className="flex flex-col gap-2">
+  <>
     <AlertRoot>
       <AlertIcon>
         <FiInfo />
       </AlertIcon>
+
       <AlertTitle>Default</AlertTitle>
+
       <AlertDescription>
         For the best experience, update to the latest version.
       </AlertDescription>
@@ -88,7 +94,9 @@ export const AlertVariants = () => (
       <AlertIcon>
         <FiInfo />
       </AlertIcon>
+
       <AlertTitle>Information</AlertTitle>
+
       <AlertDescription>
         Did you know platypuses are venomous?
       </AlertDescription>
@@ -98,7 +106,9 @@ export const AlertVariants = () => (
       <AlertIcon>
         <FiCheck />
       </AlertIcon>
+
       <AlertTitle>Success</AlertTitle>
+
       <AlertDescription>
         Your profile has been updated successfully.
       </AlertDescription>
@@ -108,7 +118,9 @@ export const AlertVariants = () => (
       <AlertIcon>
         <IoWarningOutline />
       </AlertIcon>
+
       <AlertTitle>Warning</AlertTitle>
+
       <AlertDescription>
         Your storage is almost full. Please free up some space.
       </AlertDescription>
@@ -118,29 +130,13 @@ export const AlertVariants = () => (
       <AlertIcon>
         <BiErrorAlt />
       </AlertIcon>
+
       <AlertTitle>Error</AlertTitle>
+
       <AlertDescription>
         There was a problem processing your request.
       </AlertDescription>
     </AlertRoot>
-  </div>
-)
-```
-
-```tsx
-import { FiInfo } from "react-icons/fi"
-
-import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components/ui/alert"
-
-export const CustomAlert = () => (
-  <AlertRoot className="border-indigo-500/50 bg-indigo-500/5 text-indigo-500">
-    <AlertIcon className="text-indigo-500">
-      <FiInfo />
-    </AlertIcon>
-    <AlertTitle>Custom Styled Alert</AlertTitle>
-    <AlertDescription>
-      You can customize the styling of alert components using standard class names.
-    </AlertDescription>
-  </AlertRoot>
+  </>
 )
 ```

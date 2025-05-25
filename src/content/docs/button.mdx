@@ -51,13 +51,17 @@ The Button component comes with different variants to suit your needs:
 import { Button } from "@/components/ui/button"
 
 export const ButtonVariants = () => (
-  <div className="flex items-center gap-2">
+  <>
     <Button>Solid</Button>
+
     <Button variant="outline">Outline</Button>
+
     <Button variant="muted">Muted</Button>
+
     <Button variant="ghost">Ghost</Button>
+
     <Button variant="link">Link</Button>
-  </div>
+  </>
 )
 ```
 
@@ -69,13 +73,16 @@ import { FiPlus } from "react-icons/fi"
 import { Button } from "@/components/ui/button"
 
 export const ButtonSizes = () => (
-  <div className="flex gap-2 items-center">
+  <>
     <Button size="sm">Small</Button>
+
     <Button>Medium</Button>
+
     <Button size="lg">Large</Button>
+
     <Button size="icon">
       <FiPlus />
     </Button>
-  </div>
+  </>
 )
 ```

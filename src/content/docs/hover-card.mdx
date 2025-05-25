@@ -10,11 +10,13 @@ import { HoverCardRoot, HoverCardTrigger, HoverCardContent, HoverCardPositioner,
   <HoverCardTrigger>
     <Badge variant="outline" className="mb-8">Hover me</Badge>
   </HoverCardTrigger>
+  
   <HoverCardPositioner>
     <HoverCardContent>
       <HoverCardArrow>
         <HoverCardArrowTip />
       </HoverCardArrow>
+      
       Here is the content
     </HoverCardContent>
   </HoverCardPositioner>
@@ -62,17 +64,17 @@ import {
 export const BasicHoverCard = () => (
   <HoverCardRoot>
     <HoverCardTrigger>
-      <span className="text-primary underline cursor-pointer">Hover me</span>
+      Hover me
     </HoverCardTrigger>
+    
     <HoverCardPositioner>
       <HoverCardContent>
         <HoverCardArrow>
           <HoverCardArrowTip />
         </HoverCardArrow>
-        <div>
-          <strong>Hover Card</strong>
-          <p>Additional information here.</p>
-        </div>
+        
+        Hover Card
+        Additional information here.
       </HoverCardContent>
     </HoverCardPositioner>
   </HoverCardRoot>
@@ -94,17 +96,17 @@ import {
 export const DelayedHoverCard = () => (
   <HoverCardRoot openDelay={300} closeDelay={200}>
     <HoverCardTrigger>
-      <span className="text-primary underline cursor-pointer">Hover with delay</span>
+      Hover with delay
     </HoverCardTrigger>
+    
     <HoverCardPositioner>
       <HoverCardContent>
         <HoverCardArrow>
           <HoverCardArrowTip />
         </HoverCardArrow>
-        <div>
-          <strong>Delayed Hover Card</strong>
-          <p>This hover card has custom delay timing.</p>
-        </div>
+        
+        Delayed Hover Card
+        This hover card has custom delay timing.
       </HoverCardContent>
     </HoverCardPositioner>
   </HoverCardRoot>
@@ -124,14 +126,13 @@ import {
 export const HoverCardWithoutArrow = () => (
   <HoverCardRoot>
     <HoverCardTrigger>
-      <span className="text-primary underline cursor-pointer">No arrow</span>
+      No arrow
     </HoverCardTrigger>
+    
     <HoverCardPositioner>
       <HoverCardContent>
-        <div>
-          <strong>No Arrow</strong>
-          <p>This hover card has no arrow pointer.</p>
-        </div>
+        No Arrow
+        This hover card has no arrow pointer.
       </HoverCardContent>
     </HoverCardPositioner>
   </HoverCardRoot>
@@ -151,23 +152,18 @@ import {
 export const ProfileHoverCard = () => (
   <HoverCardRoot openDelay={100} closeDelay={150}>
     <HoverCardTrigger>
-      <span className="text-primary underline cursor-pointer">User Profile</span>
+      User Profile
     </HoverCardTrigger>
+    
     <HoverCardPositioner>
       <HoverCardContent>
         <HoverCardArrow>
           <HoverCardArrowTip />
         </HoverCardArrow>
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2">
-            <div className="h-10 w-10 rounded-full bg-primary" />
-            <div>
-              <div className="font-medium">John Doe</div>
-              <div className="text-xs text-base-500">@johndoe</div>
-            </div>
-          </div>
-          <p className="text-sm">Full-stack developer and UI/UX enthusiast with a passion for creating intuitive user experiences.</p>
-        </div>
+        
+        John Doe
+        @johndoe
+        Full-stack developer and UI/UX enthusiast with a passion for creating intuitive user experiences.
       </HoverCardContent>
     </HoverCardPositioner>
   </HoverCardRoot>

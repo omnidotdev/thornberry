@@ -50,10 +50,11 @@ You can add a label to your input:
 import { Input } from "@/components/ui/input"
 
 export const LabeledInput = () => (
-  <div className="space-y-2">
-    <label htmlFor="email" className="text-sm font-medium">Email</label>
+  <>
+    <label htmlFor="email">Email</label>
+    
     <Input id="email" type="email" placeholder="Enter your email" />
-  </div>
+  </>
 )
 ```
 
@@ -63,12 +64,16 @@ Input supports different input types:
 import { Input } from "@/components/ui/input"
 
 export const InputTypes = () => (
-  <div className="flex flex-col gap-4">
+  <>
     <Input type="text" placeholder="Text input" />
+    
     <Input type="password" placeholder="******" />
+    
     <Input type="email" placeholder="Email input" />
+    
     <Input type="number" placeholder="Number input" />
+    
     <Input type="search" placeholder="Search input" />
-  </div>
+  </>
 )
 ```

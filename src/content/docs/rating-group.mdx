@@ -7,11 +7,16 @@ import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem 
 
 <RatingGroupRoot className="mb-8">
   <RatingGroupLabel>Rate this product</RatingGroupLabel>
+
   <RatingGroupControl>
     <RatingGroupItem index={0} />
+
     <RatingGroupItem index={1} />
+
     <RatingGroupItem index={2} />
+
     <RatingGroupItem index={3} />
+
     <RatingGroupItem index={4} />
   </RatingGroupControl>
 </RatingGroupRoot>
@@ -51,11 +56,16 @@ import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem 
 export const BasicRatingGroup = () => (
   <RatingGroupRoot>
     <RatingGroupLabel>Rate this product</RatingGroupLabel>
+
     <RatingGroupControl>
       <RatingGroupItem index={0} />
+
       <RatingGroupItem index={1} />
+
       <RatingGroupItem index={2} />
+
       <RatingGroupItem index={3} />
+
       <RatingGroupItem index={4} />
     </RatingGroupControl>
   </RatingGroupRoot>
@@ -70,11 +80,16 @@ import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem 
 export const DefaultRating = () => (
   <RatingGroupRoot defaultValue={3}>
     <RatingGroupLabel>Rate this product</RatingGroupLabel>
+
     <RatingGroupControl>
       <RatingGroupItem index={0} />
+
       <RatingGroupItem index={1} />
+
       <RatingGroupItem index={2} />
+
       <RatingGroupItem index={3} />
+
       <RatingGroupItem index={4} />
     </RatingGroupControl>
   </RatingGroupRoot>
@@ -89,6 +104,7 @@ import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem 
 export const TenStarRating = () => (
   <RatingGroupRoot>
     <RatingGroupLabel>Rate on a scale of 1-10</RatingGroupLabel>
+
     <RatingGroupControl>
       {Array.from({ length: 10 }).map((_, index) => (
         <RatingGroupItem key={index} index={index} />
@@ -110,14 +126,14 @@ import { FiHeart } from "react-icons/fi"
 export const CustomRatingGroup = () => (
   <RatingGroupRoot defaultValue={2}>
     <RatingGroupLabel>How much did you enjoy this article?</RatingGroupLabel>
+
     <RatingGroupControl>
       {Array.from({ length: 5 }).map((_, index) => (
         <RatingGroupItem 
           key={index} 
           index={index}
-          className="data-checked:text-red-500 data-highlighted:text-red-300"
         >
-          <FiHeart className="h-6 w-6 fill-current" />
+          <FiHeart />
         </RatingGroupItem>
       ))}
     </RatingGroupControl>

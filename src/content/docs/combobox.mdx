@@ -5,7 +5,7 @@ description: A searchable dropdown select component that allows users to filter 
 
 import { ComboboxRoot, ComboboxLabel, ComboboxControl, ComboboxInput, ComboboxTrigger, ComboboxPositioner, ComboboxContent, ComboboxItem } from "@/registry/thornberry/components/combobox";
 
-<ComboboxRoot 
+<ComboboxRoot
   items={[
     { label: "Apple", value: "apple" },
     { label: "Banana", value: "banana" },
@@ -17,14 +17,20 @@ import { ComboboxRoot, ComboboxLabel, ComboboxControl, ComboboxInput, ComboboxTr
 >
   <ComboboxControl>
     <ComboboxInput placeholder="Select a fruit..." />
+
     <ComboboxTrigger />
   </ComboboxControl>
+
   <ComboboxPositioner>
     <ComboboxContent>
       <ComboboxItem item={{ label: "Apple", value: "apple" }}>Apple</ComboboxItem>
+
       <ComboboxItem item={{ label: "Banana", value: "banana" }}>Banana</ComboboxItem>
+
       <ComboboxItem item={{ label: "Orange", value: "orange" }}>Orange</ComboboxItem>
+
       <ComboboxItem item={{ label: "Strawberry", value: "strawberry" }}>Strawberry</ComboboxItem>
+
       <ComboboxItem item={{ label: "Blueberry", value: "blueberry" }}>Blueberry</ComboboxItem>
     </ComboboxContent>
   </ComboboxPositioner>
@@ -82,14 +88,20 @@ export const BasicCombobox = () => (
   >
     <ComboboxControl>
       <ComboboxInput placeholder="Select a fruit..." />
+
       <ComboboxTrigger />
     </ComboboxControl>
+
     <ComboboxPositioner>
       <ComboboxContent>
         <ComboboxItem item={{ label: "Apple", value: "apple" }}>Apple</ComboboxItem>
+
         <ComboboxItem item={{ label: "Banana", value: "banana" }}>Banana</ComboboxItem>
+
         <ComboboxItem item={{ label: "Orange", value: "orange" }}>Orange</ComboboxItem>
+
         <ComboboxItem item={{ label: "Strawberry", value: "strawberry" }}>Strawberry</ComboboxItem>
+
         <ComboboxItem item={{ label: "Blueberry", value: "blueberry" }}>Blueberry</ComboboxItem>
       </ComboboxContent>
     </ComboboxPositioner>
@@ -122,16 +134,23 @@ export const LabeledCombobox = () => (
     ]}
   >
     <ComboboxLabel>Select a fruit</ComboboxLabel>
+
     <ComboboxControl>
       <ComboboxInput placeholder="Select a fruit..." />
+
       <ComboboxTrigger />
     </ComboboxControl>
+
     <ComboboxPositioner>
       <ComboboxContent>
         <ComboboxItem item={{ label: "Apple", value: "apple" }}>Apple</ComboboxItem>
+
         <ComboboxItem item={{ label: "Banana", value: "banana" }}>Banana</ComboboxItem>
+
         <ComboboxItem item={{ label: "Orange", value: "orange" }}>Orange</ComboboxItem>
+
         <ComboboxItem item={{ label: "Strawberry", value: "strawberry" }}>Strawberry</ComboboxItem>
+
         <ComboboxItem item={{ label: "Blueberry", value: "blueberry" }}>Blueberry</ComboboxItem>
       </ComboboxContent>
     </ComboboxPositioner>
@@ -165,20 +184,29 @@ export const GroupedCombobox = () => (
   >
     <ComboboxControl>
       <ComboboxInput placeholder="Search colors..." />
+
       <ComboboxTrigger />
     </ComboboxControl>
+
     <ComboboxPositioner>
       <ComboboxContent>
         <ComboboxItemGroup>
           <ComboboxItemGroupLabel>Warm Colors</ComboboxItemGroupLabel>
+
           <ComboboxItem item={{ label: "Red", value: "red" }}>Red</ComboboxItem>
+
           <ComboboxItem item={{ label: "Orange", value: "orange" }}>Orange</ComboboxItem>
+
           <ComboboxItem item={{ label: "Yellow", value: "yellow" }}>Yellow</ComboboxItem>
         </ComboboxItemGroup>
+
         <ComboboxItemGroup>
           <ComboboxItemGroupLabel>Cool Colors</ComboboxItemGroupLabel>
+
           <ComboboxItem item={{ label: "Green", value: "green" }}>Green</ComboboxItem>
+
           <ComboboxItem item={{ label: "Blue", value: "blue" }}>Blue</ComboboxItem>
+
           <ComboboxItem item={{ label: "Purple", value: "purple" }}>Purple</ComboboxItem>
         </ComboboxItemGroup>
       </ComboboxContent>

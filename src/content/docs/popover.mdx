@@ -11,6 +11,7 @@ import { Input } from "@/registry/thornberry/components/input";
   <PopoverTrigger asChild>
     <Button className="mb-8">Open</Button>
   </PopoverTrigger>
+  
   <PopoverPositioner>
     <PopoverContent>
       <div className="space-y-2">
@@ -75,22 +76,17 @@ export const BasicPopover = () => (
     <PopoverTrigger asChild>
       <Button>Open</Button>
     </PopoverTrigger>
+    
     <PopoverPositioner>
       <PopoverContent>
-        <div className="space-y-2">
-          <h4 className="font-medium leading-none">Dimensions</h4>
-          <div className="text-sm text-muted-foreground">Set the dimensions for the object.</div>
-          <div className="flex gap-2">
-            <div className="grid gap-1">
-              <label htmlFor="width" className="text-xs">Width</label>
-              <Input id="width" defaultValue="100%" />
-            </div>
-            <div className="grid gap-1">
-              <label htmlFor="height" className="text-xs">Height</label>
-              <Input id="height" defaultValue="25px" />
-            </div>
-          </div>
-        </div>
+        Dimensions
+        Set the dimensions for the object.
+        
+        <label htmlFor="width">Width</label>
+        <Input id="width" defaultValue="100%" />
+        
+        <label htmlFor="height">Height</label>
+        <Input id="height" defaultValue="25px" />
       </PopoverContent>
     </PopoverPositioner>
   </PopoverRoot>
@@ -114,20 +110,15 @@ export const PopoverWithClose = () => (
     <PopoverTrigger asChild>
       <Button>Open</Button>
     </PopoverTrigger>
+    
     <PopoverPositioner>
       <PopoverContent>
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <h4 className="font-medium leading-none">Notifications</h4>
-            <PopoverCloseTrigger />
-          </div>
-          <div className="text-sm text-muted-foreground">
-            You have 3 unread messages.
-          </div>
-          <div className="pt-2 border-t">
-            <Button size="sm" className="w-full">View All</Button>
-          </div>
-        </div>
+        Notifications
+        <PopoverCloseTrigger />
+        
+        You have 3 unread messages.
+        
+        <Button size="sm">View All</Button>
       </PopoverContent>
     </PopoverPositioner>
   </PopoverRoot>
@@ -146,11 +137,12 @@ import {
 import { Button } from "@/components/ui/button"
 
 export const PositionedPopovers = () => (
-  <div className="flex gap-4">
+  <>
     <PopoverRoot>
       <PopoverTrigger asChild>
         <Button variant="outline">Left</Button>
       </PopoverTrigger>
+      
       <PopoverPositioner placement="left">
         <PopoverContent>
           This popover appears on the left
@@ -162,6 +154,7 @@ export const PositionedPopovers = () => (
       <PopoverTrigger asChild>
         <Button variant="outline">Top</Button>
       </PopoverTrigger>
+      
       <PopoverPositioner placement="top">
         <PopoverContent>
           This popover appears on top
@@ -173,6 +166,7 @@ export const PositionedPopovers = () => (
       <PopoverTrigger asChild>
         <Button variant="outline">Bottom</Button>
       </PopoverTrigger>
+      
       <PopoverPositioner placement="bottom">
         <PopoverContent>
           This popover appears on the bottom
@@ -184,13 +178,14 @@ export const PositionedPopovers = () => (
       <PopoverTrigger asChild>
         <Button variant="outline">Right</Button>
       </PopoverTrigger>
+      
       <PopoverPositioner placement="right">
         <PopoverContent>
           This popover appears on the right
         </PopoverContent>
       </PopoverPositioner>
     </PopoverRoot>
-  </div>
+  </>
 )
 ```
 
@@ -211,22 +206,19 @@ export const CustomStyledPopover = () => (
     <PopoverTrigger asChild>
       <Button variant="outline">Open</Button>
     </PopoverTrigger>
+    
     <PopoverPositioner>
       <PopoverContent>
         <PopoverArrow>
           <PopoverArrowTip />
         </PopoverArrow>
-        <div className="space-y-2">
-          <h4 className="font-medium">Custom Styled Popover</h4>
-          <div className="text-sm">
-            This popover includes an arrow and custom styling.
-          </div>
-          <div className="flex justify-end">
-            <PopoverCloseTrigger asChild>
-              <Button variant="outline" size="sm">Close</Button>
-            </PopoverCloseTrigger>
-          </div>
-        </div>
+        
+        Custom Styled Popover
+        This popover includes an arrow and custom styling.
+        
+        <PopoverCloseTrigger asChild>
+          <Button variant="outline" size="sm">Close</Button>
+        </PopoverCloseTrigger>
       </PopoverContent>
     </PopoverPositioner>
   </PopoverRoot>

@@ -7,6 +7,7 @@ import { SwitchRoot, SwitchHiddenInput, SwitchControl, SwitchThumb, SwitchLabel 
 
 <SwitchRoot className="mb-8">
   <SwitchHiddenInput />
+
   <SwitchControl>
     <SwitchThumb />
   </SwitchControl>
@@ -52,6 +53,7 @@ import {
 export const BasicSwitch = () => (
   <SwitchRoot>
     <SwitchHiddenInput />
+
     <SwitchControl>
       <SwitchThumb />
     </SwitchControl>
@@ -73,9 +75,11 @@ import {
 export const LabeledSwitch = () => (
   <SwitchRoot>
     <SwitchHiddenInput />
+
     <SwitchControl>
       <SwitchThumb />
     </SwitchControl>
+
     <SwitchLabel>Airplane Mode</SwitchLabel>
   </SwitchRoot>
 )
@@ -93,9 +97,11 @@ import {
 export const DefaultCheckedSwitch = () => (
   <SwitchRoot defaultChecked>
     <SwitchHiddenInput />
+
     <SwitchControl>
       <SwitchThumb />
     </SwitchControl>
+
     <SwitchLabel>Custom Switch</SwitchLabel>
   </SwitchRoot>
 )
@@ -113,22 +119,26 @@ import {
 } from "@/components/ui/switch"
 
 export const CustomSwitches = () => (
-  <div className="flex flex-col gap-2">
+  <>
     <SwitchRoot defaultChecked>
       <SwitchHiddenInput />
-      <SwitchControl className="bg-red-100 data-[state=checked]:bg-red-500">
-        <SwitchThumb className="bg-white" />
+
+      <SwitchControl>
+        <SwitchThumb />
       </SwitchControl>
+
       <SwitchLabel>Custom Colors</SwitchLabel>
     </SwitchRoot>
     
     <SwitchRoot>
       <SwitchHiddenInput />
-      <SwitchControl className="h-6 w-12">
-        <SwitchThumb className="h-5 w-5 data-[state=checked]:translate-x-6" />
+
+      <SwitchControl>
+        <SwitchThumb />
       </SwitchControl>
+
       <SwitchLabel>Custom Size</SwitchLabel>
     </SwitchRoot>
-  </div>
+  </>
 )
 ```

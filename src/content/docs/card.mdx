@@ -9,11 +9,14 @@ import { CardRoot, CardHeader, CardTitle, CardDescription, CardContent, CardFoot
 <CardRoot className="mb-8">
   <CardHeader>
     <CardTitle>Card Title</CardTitle>
+
     <CardDescription>This is the card description.</CardDescription>
   </CardHeader>
+
   <CardContent>
     This card uses the primitives for maximum flexibility.
   </CardContent>
+
   <CardFooter>
     <Button>Save</Button>
   </CardFooter>
@@ -63,11 +66,14 @@ export const BasicCard = () => (
   <CardRoot>
     <CardHeader>
       <CardTitle>Card Title</CardTitle>
+
       <CardDescription>This is the card description.</CardDescription>
     </CardHeader>
+
     <CardContent>
       This is the content area of the card, where the main information is displayed.
     </CardContent>
+
     <CardFooter>
       <Button>Save</Button>
     </CardFooter>
@@ -87,16 +93,20 @@ import {
 import { Button } from "@/components/ui/button"
 
 export const CustomCard = () => (
-  <CardRoot className="max-w-md border-primary/20">
-    <CardHeader className="bg-primary-50 dark:bg-primary-950/20">
-      <CardTitle className="text-xl text-primary">Custom Styled Card</CardTitle>
+  <CardRoot>
+    <CardHeader>
+      <CardTitle>Custom Styled Card</CardTitle>
+
       <CardDescription>With custom styling applied to each part</CardDescription>
     </CardHeader>
-    <CardContent className="pt-4">
+
+    <CardContent>
       You can customize each part of the card independently for complete control.
     </CardContent>
-    <CardFooter className="justify-end gap-2">
+
+    <CardFooter>
       <Button variant="outline">Cancel</Button>
+
       <Button>Submit</Button>
     </CardFooter>
   </CardRoot>

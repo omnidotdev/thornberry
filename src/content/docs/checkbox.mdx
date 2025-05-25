@@ -9,11 +9,13 @@ import { CheckboxRoot, CheckboxHiddenInput, CheckboxControl, CheckboxIndicator, 
 
 <CheckboxRoot className="mb-8">
   <CheckboxHiddenInput />
+  
   <CheckboxControl>
     <CheckboxIndicator>
-      <FiCheck className="size-4" />
+      <FiCheck />
     </CheckboxIndicator>
   </CheckboxControl>
+  
   <CheckboxLabel>Checkbox Label</CheckboxLabel>
 </CheckboxRoot>
 
@@ -60,11 +62,13 @@ import {
 export const BasicCheckbox = () => (
   <CheckboxRoot>
     <CheckboxHiddenInput />
+    
     <CheckboxControl>
       <CheckboxIndicator>
-        <FiCheck className="size-4" />
+        <FiCheck />
       </CheckboxIndicator>
     </CheckboxControl>
+    
     <CheckboxLabel>Checkbox Label</CheckboxLabel>
   </CheckboxRoot>
 )
@@ -86,11 +90,13 @@ import {
 export const CustomIconCheckbox = () => (
   <CheckboxRoot defaultChecked>
     <CheckboxHiddenInput />
+    
     <CheckboxControl>
       <CheckboxIndicator>
-        <FiUser className="size-3" />
+        <FiUser />
       </CheckboxIndicator>
     </CheckboxControl>
+    
     <CheckboxLabel>Custom user icon</CheckboxLabel>
   </CheckboxRoot>
 )
@@ -110,36 +116,42 @@ import {
 } from "@/components/ui/checkbox"
 
 export const CheckboxGroup = () => (
-  <div className="flex flex-col gap-2">
+  <>
     <CheckboxRoot name="options" value="option1">
       <CheckboxHiddenInput />
+      
       <CheckboxControl>
         <CheckboxIndicator>
-          <FiCheck className="size-4" />
+          <FiCheck />
         </CheckboxIndicator>
       </CheckboxControl>
+      
       <CheckboxLabel>Option 1</CheckboxLabel>
     </CheckboxRoot>
 
     <CheckboxRoot name="options" value="option2">
       <CheckboxHiddenInput />
+      
       <CheckboxControl>
         <CheckboxIndicator>
-          <FiCheck className="size-4" />
+          <FiCheck />
         </CheckboxIndicator>
       </CheckboxControl>
+      
       <CheckboxLabel>Option 2</CheckboxLabel>
     </CheckboxRoot>
 
     <CheckboxRoot name="options" value="option3" defaultChecked>
       <CheckboxHiddenInput />
+      
       <CheckboxControl>
         <CheckboxIndicator>
           <FiCheck className="size-4" />
         </CheckboxIndicator>
       </CheckboxControl>
+      
       <CheckboxLabel>Option 3</CheckboxLabel>
     </CheckboxRoot>
-  </div>
+  </>
 )
 ```

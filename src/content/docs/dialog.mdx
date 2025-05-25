@@ -10,17 +10,24 @@ import { DialogRoot, DialogTrigger, DialogBackdrop, DialogPositioner, DialogCont
   <DialogTrigger asChild>
     <Button className="mb-8">Open Dialog</Button>
   </DialogTrigger>
+  
   <DialogBackdrop />
+  
   <DialogPositioner>
     <DialogContent>
       <DialogCloseTrigger />
+      
       <DialogTitle>Dialog Title</DialogTitle>
+      
       <DialogDescription>This is a description of the dialog's purpose.</DialogDescription>
+      
       <div className="py-4">This is the main content of the dialog.</div>
+      
       <div className="flex justify-end gap-2">
         <DialogCloseTrigger asChild>
           <Button variant="outline">Cancel</Button>
         </DialogCloseTrigger>
+        
         <Button>Save</Button>
       </div>
     </DialogContent>
@@ -74,19 +81,24 @@ export const BasicDialog = () => (
     <DialogTrigger asChild>
       <Button>Open Dialog</Button>
     </DialogTrigger>
+    
     <DialogBackdrop />
+    
     <DialogPositioner>
       <DialogContent>
         <DialogCloseTrigger />
+        
         <DialogTitle>Dialog Title</DialogTitle>
+        
         <DialogDescription>This is a description of the dialog's purpose.</DialogDescription>
-        <div className="py-4">This is the main content of the dialog.</div>
-        <div className="flex justify-end gap-2">
-          <DialogCloseTrigger asChild>
-            <Button variant="outline">Cancel</Button>
-          </DialogCloseTrigger>
-          <Button>Save</Button>
-        </div>
+        
+        This is the main content of the dialog.
+        
+        <DialogCloseTrigger asChild>
+          <Button variant="outline">Cancel</Button>
+        </DialogCloseTrigger>
+        
+        <Button>Save</Button>
       </DialogContent>
     </DialogPositioner>
   </DialogRoot>
@@ -111,23 +123,26 @@ export const CustomDialog = () => (
     <DialogTrigger asChild>
       <Button variant="outline">Open Custom Dialog</Button>
     </DialogTrigger>
-    <DialogBackdrop className="bg-black/40" />
+    
+    <DialogBackdrop />
+    
     <DialogPositioner>
-      <DialogContent className="border-primary/20 max-w-md">
-        <DialogCloseTrigger className="bg-primary-50 rounded-full p-1" />
-        <DialogTitle className="text-primary text-xl">Custom Dialog</DialogTitle>
-        <DialogDescription className="text-base-600">
+      <DialogContent>
+        <DialogCloseTrigger />
+        
+        <DialogTitle>Custom Dialog</DialogTitle>
+        
+        <DialogDescription>
           You can customize the styling of each dialog component.
         </DialogDescription>
-        <div className="border-t pt-4">
-          <div>This dialog has custom styling applied to various parts.</div>
-        </div>
-        <div className="flex justify-end gap-2 mt-4">
-          <DialogCloseTrigger asChild>
-            <Button variant="outline">Dismiss</Button>
-          </DialogCloseTrigger>
-          <Button>Confirm</Button>
-        </div>
+        
+        This dialog has custom styling applied to various parts.
+        
+        <DialogCloseTrigger asChild>
+          <Button variant="outline">Dismiss</Button>
+        </DialogCloseTrigger>
+        
+        <Button>Confirm</Button>
       </DialogContent>
     </DialogPositioner>
   </DialogRoot>

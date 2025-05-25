@@ -12,10 +12,13 @@ import { Button } from "@/registry/thornberry/components/button";
   <MenuTrigger asChild>
     <Button variant="outline" className="mb-8">Open Menu</Button>
   </MenuTrigger>
+
   <MenuPositioner>
     <MenuContent>
       <MenuItem value="copy">Copy</MenuItem>
+
       <MenuItem value="paste">Paste</MenuItem>
+
       <MenuItem value="cut">Cut</MenuItem>
     </MenuContent>
   </MenuPositioner>
@@ -65,10 +68,13 @@ export const BasicMenu = () => (
     <MenuTrigger asChild>
       <Button variant="outline">Open Menu</Button>
     </MenuTrigger>
+
     <MenuPositioner>
       <MenuContent>
         <MenuItem value="copy">Copy</MenuItem>
+
         <MenuItem value="paste">Paste</MenuItem>
+
         <MenuItem value="cut">Cut</MenuItem>
       </MenuContent>
     </MenuPositioner>
@@ -96,19 +102,28 @@ export const MenuWithGroups = () => (
     <MenuTrigger asChild>
       <Button>Menu with Groups</Button>
     </MenuTrigger>
+
     <MenuPositioner>
       <MenuContent>
         <MenuItemGroup>
           <MenuItemGroupLabel>Actions</MenuItemGroupLabel>
+
           <MenuItem value="copy">Copy</MenuItem>
+
           <MenuItem value="paste">Paste</MenuItem>
+
           <MenuItem value="cut">Cut</MenuItem>
         </MenuItemGroup>
+
         <MenuSeparator />
+
         <MenuItemGroup>
           <MenuItemGroupLabel>View</MenuItemGroupLabel>
+
           <MenuItem value="zoom-in">Zoom In</MenuItem>
+
           <MenuItem value="zoom-out">Zoom Out</MenuItem>
+
           <MenuItem value="reset" disabled>Reset View</MenuItem>
         </MenuItemGroup>
       </MenuContent>
@@ -142,23 +157,31 @@ export const CheckboxMenu = () => (
     <MenuTrigger asChild>
       <Button variant="outline">Custom Menu</Button>
     </MenuTrigger>
+
     <MenuPositioner>
       <MenuContent>
         <MenuItem value="edit">Edit</MenuItem>
+
         <MenuItem value="duplicate">Duplicate</MenuItem>
+
         <MenuSeparator />
+
         <MenuItemGroup>
           <MenuItemGroupLabel>View Options</MenuItemGroupLabel>
+
           <MenuCheckboxItem value="grid">
             <MenuItemIndicator>
-              <FiCheck className="h-4 w-4" />
+              <FiCheck />
             </MenuItemIndicator>
+
             <MenuItemText>Grid View</MenuItemText>
           </MenuCheckboxItem>
+
           <MenuCheckboxItem value="list">
             <MenuItemIndicator>
-              <FiCheck className="h-4 w-4" />
+              <FiCheck />
             </MenuItemIndicator>
+
             <MenuItemText>List View</MenuItemText>
           </MenuCheckboxItem>
         </MenuItemGroup>

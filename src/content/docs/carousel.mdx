@@ -12,11 +12,13 @@ import { CarouselRoot, CarouselItemGroup, CarouselItem, CarouselPrevTrigger, Car
         <span className="text-2xl font-bold text-base-950">Slide 1</span>
       </div>
     </CarouselItem>
+
     <CarouselItem index={1}>
       <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
         <span className="text-2xl font-bold text-base-950">Slide 2</span>
       </div>
     </CarouselItem>
+
     <CarouselItem index={2}>
       <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
         <span className="text-2xl font-bold text-base-950">Slide 3</span>
@@ -24,10 +26,14 @@ import { CarouselRoot, CarouselItemGroup, CarouselItem, CarouselPrevTrigger, Car
     </CarouselItem>
   </CarouselItemGroup>
   <CarouselPrevTrigger />
+
   <CarouselNextTrigger />
+
   <CarouselIndicatorGroup>
     <CarouselIndicator index={0} />
+
     <CarouselIndicator index={1} />
+
     <CarouselIndicator index={2} />
   </CarouselIndicatorGroup>
 </CarouselRoot>
@@ -74,28 +80,28 @@ import {
 
 export const BasicCarousel = () => (
   <CarouselRoot slideCount={3} loop>
-    <CarouselItemGroup className="overflow-hidden">
+    <CarouselItemGroup>
       <CarouselItem index={0}>
-        <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold">Slide 1</span>
-        </div>
+        Slide 1
       </CarouselItem>
+
       <CarouselItem index={1}>
-        <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold">Slide 2</span>
-        </div>
+        Slide 2
       </CarouselItem>
+
       <CarouselItem index={2}>
-        <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold">Slide 3</span>
-        </div>
+        Slide 3
       </CarouselItem>
     </CarouselItemGroup>
     <CarouselPrevTrigger />
+
     <CarouselNextTrigger />
+
     <CarouselIndicatorGroup>
       <CarouselIndicator index={0} />
+
       <CarouselIndicator index={1} />
+
       <CarouselIndicator index={2} />
     </CarouselIndicatorGroup>
   </CarouselRoot>
@@ -115,26 +121,25 @@ import {
 
 export const CarouselWithoutControls = () => (
   <CarouselRoot slideCount={3} loop>
-    <CarouselItemGroup className="overflow-hidden">
+    <CarouselItemGroup>
       <CarouselItem index={0}>
-        <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold">Slide 1</span>
-        </div>
+        Slide 1
       </CarouselItem>
+
       <CarouselItem index={1}>
-        <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold">Slide 2</span>
-        </div>
+        Slide 2
       </CarouselItem>
+
       <CarouselItem index={2}>
-        <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold">Slide 3</span>
-        </div>
+        Slide 3
       </CarouselItem>
     </CarouselItemGroup>
+
     <CarouselIndicatorGroup>
       <CarouselIndicator index={0} />
+      
       <CarouselIndicator index={1} />
+      
       <CarouselIndicator index={2} />
     </CarouselIndicatorGroup>
   </CarouselRoot>
@@ -154,24 +159,22 @@ import {
 
 export const CarouselWithoutIndicators = () => (
   <CarouselRoot slideCount={3} loop>
-    <CarouselItemGroup className="overflow-hidden">
+    <CarouselItemGroup>
       <CarouselItem index={0}>
-        <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold">Slide 1</span>
-        </div>
+        Slide 1
       </CarouselItem>
+
       <CarouselItem index={1}>
-        <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold">Slide 2</span>
-        </div>
+        Slide 2
       </CarouselItem>
+
       <CarouselItem index={2}>
-        <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold">Slide 3</span>
-        </div>
+        Slide 3
       </CarouselItem>
     </CarouselItemGroup>
+
     <CarouselPrevTrigger />
+
     <CarouselNextTrigger />
   </CarouselRoot>
 )
@@ -192,26 +195,27 @@ export const CustomCarousel = () => (
   <CarouselRoot slideCount={3}>
     <CarouselItemGroup>
       <CarouselItem index={0}>
-        <div className="h-64 bg-red-200 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold">Slide 1</span>
-        </div>
+        Slide 1
       </CarouselItem>
+
       <CarouselItem index={1}>
-        <div className="h-64 bg-red-300 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold">Slide 2</span>
-        </div>
+        Slide 2
       </CarouselItem>
+
       <CarouselItem index={2}>
-        <div className="h-64 bg-red-400 flex items-center justify-center rounded-md">
-          <span className="text-2xl font-bold">Slide 3</span>
-        </div>
+        Slide 3
       </CarouselItem>
     </CarouselItemGroup>
+
     <CarouselPrevTrigger />
+
     <CarouselNextTrigger />
+
     <CarouselIndicatorGroup>
       <CarouselIndicator index={0} />
+      
       <CarouselIndicator index={1} />
+      
       <CarouselIndicator index={2} />
     </CarouselIndicatorGroup>
   </CarouselRoot>

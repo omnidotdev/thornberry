@@ -10,6 +10,7 @@ import { SliderRoot, SliderControl, SliderTrack, SliderRange, SliderThumb } from
     <SliderTrack>
       <SliderRange />
     </SliderTrack>
+
     <SliderThumb index={0} />
   </SliderControl>
 </SliderRoot>
@@ -58,6 +59,7 @@ export const BasicSlider = () => (
       <SliderTrack>
         <SliderRange />
       </SliderTrack>
+
       <SliderThumb index={0} />
     </SliderControl>
   </SliderRoot>
@@ -79,10 +81,12 @@ import {
 export const LabeledSlider = () => (
   <SliderRoot defaultValue={[75]}>
     <SliderLabel>Volume</SliderLabel>
+
     <SliderControl>
       <SliderTrack>
         <SliderRange />
       </SliderTrack>
+
       <SliderThumb index={0} />
     </SliderControl>
   </SliderRoot>
@@ -105,12 +109,15 @@ import {
 export const SliderWithValue = () => (
   <SliderRoot defaultValue={[60]}>
     <SliderLabel>Brightness</SliderLabel>
+
     <SliderControl>
       <SliderTrack>
         <SliderRange />
       </SliderTrack>
+
       <SliderThumb index={0} />
     </SliderControl>
+
     <SliderValueText />
   </SliderRoot>
 )
@@ -137,12 +144,15 @@ export const CustomRangeSlider = () => (
     defaultValue={[22.5]}
   >
     <SliderLabel>Temperature</SliderLabel>
+
     <SliderControl>
       <SliderTrack>
         <SliderRange />
       </SliderTrack>
+
       <SliderThumb index={0} />
     </SliderControl>
+
     <SliderValueText />
   </SliderRoot>
 )
@@ -170,17 +180,25 @@ export const SliderWithMarkers = () => (
     defaultValue={[50]}
   >
     <SliderLabel>Speed</SliderLabel>
+
     <SliderControl>
       <SliderTrack>
         <SliderRange />
       </SliderTrack>
+
       <SliderMarker value={0}>0%</SliderMarker>
+
       <SliderMarker value={25}>25%</SliderMarker>
+
       <SliderMarker value={50}>50%</SliderMarker>
+
       <SliderMarker value={75}>75%</SliderMarker>
+
       <SliderMarker value={100}>100%</SliderMarker>
+
       <SliderThumb index={0} />
     </SliderControl>
+
     <SliderValueText />
   </SliderRoot>
 )
@@ -205,15 +223,21 @@ export const CustomSlider = () => (
     defaultValue={[40]}
   >
     <SliderLabel>Custom Slider</SliderLabel>
+
     <SliderControl>
       <SliderTrack>
         <SliderRange />
       </SliderTrack>
+
       <SliderMarker value={0}>Min</SliderMarker>
+
       <SliderMarker value={50}>Mid</SliderMarker>
+
       <SliderMarker value={100}>Max</SliderMarker>
+
       <SliderThumb index={0} />
     </SliderControl>
+
     <SliderValueText />
   </SliderRoot>
 )
@@ -240,13 +264,17 @@ export const RangeSlider = () => (
     defaultValue={[30, 70]}
   >
     <SliderLabel>Range Slider</SliderLabel>
+
     <SliderControl>
       <SliderTrack>
         <SliderRange />
       </SliderTrack>
+
       <SliderThumb index={0} />
+
       <SliderThumb index={1} />
     </SliderControl>
+
     <SliderValueText />
   </SliderRoot>
 )

@@ -8,8 +8,10 @@ import { NumberInputRoot, NumberInputLabel, NumberInputControl, NumberInputInput
 <NumberInputRoot className="mb-8">
   <NumberInputControl>
     <NumberInputInput />
+
     <div className="flex flex-col border-l">
       <NumberInputIncrementTrigger />
+
       <NumberInputDecrementTrigger />
     </div>
   </NumberInputControl>
@@ -57,10 +59,10 @@ export const BasicNumberInput = () => (
   <NumberInputRoot>
     <NumberInputControl>
       <NumberInputInput />
-      <div className="flex flex-col border-l">
-        <NumberInputIncrementTrigger />
-        <NumberInputDecrementTrigger />
-      </div>
+
+      <NumberInputIncrementTrigger />
+
+      <NumberInputDecrementTrigger />
     </NumberInputControl>
   </NumberInputRoot>
 )
@@ -81,12 +83,13 @@ import {
 export const RangeNumberInput = () => (
   <NumberInputRoot min={-10} max={40} defaultValue={22}>
     <NumberInputLabel>Temperature (°C)</NumberInputLabel>
+
     <NumberInputControl>
       <NumberInputInput />
-      <div className="flex flex-col border-l">
-        <NumberInputIncrementTrigger />
-        <NumberInputDecrementTrigger />
-      </div>
+
+      <NumberInputIncrementTrigger />
+
+      <NumberInputDecrementTrigger />
     </NumberInputControl>
   </NumberInputRoot>
 )
@@ -107,12 +110,13 @@ import {
 export const StepNumberInput = () => (
   <NumberInputRoot min={0} max={100} step={5} defaultValue={50}>
     <NumberInputLabel>Volume</NumberInputLabel>
+
     <NumberInputControl>
       <NumberInputInput />
-      <div className="flex flex-col border-l">
-        <NumberInputIncrementTrigger />
-        <NumberInputDecrementTrigger />
-      </div>
+
+      <NumberInputIncrementTrigger />
+
+      <NumberInputDecrementTrigger />
     </NumberInputControl>
   </NumberInputRoot>
 )
@@ -131,13 +135,13 @@ import {
 export const CustomNumberInput = () => (
   <NumberInputRoot min={0} max={100} step={10} defaultValue={30}>
     <NumberInputLabel>Custom Number Input</NumberInputLabel>
-    <NumberInputControl className="border-primary/20 rounded-xl overflow-hidden">
-      <NumberInputInput className="px-4" />
-      <div className="flex flex-col border-l justify-center h-full overflow-hidden">
-        <NumberInputIncrementTrigger className="hover:bg-primary/10" />
-        <div className="h-px bg-primary/20" />
-        <NumberInputDecrementTrigger className="hover:bg-primary/10" />
-      </div>
+
+    <NumberInputControl>
+      <NumberInputInput />
+
+      <NumberInputIncrementTrigger />
+
+      <NumberInputDecrementTrigger />
     </NumberInputControl>
   </NumberInputRoot>
 )

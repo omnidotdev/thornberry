@@ -7,6 +7,7 @@ import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "@/regis
 
 <CollapsibleRoot className="mb-8">
   <CollapsibleTrigger>Click to expand</CollapsibleTrigger>
+  
   <CollapsibleContent>
     <div className="p-4 pt-2">
       <p>This content can be expanded and collapsed with the click of a button.</p>
@@ -49,10 +50,9 @@ import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "@/compo
 export const BasicCollapsible = () => (
   <CollapsibleRoot>
     <CollapsibleTrigger>Click to expand</CollapsibleTrigger>
+    
     <CollapsibleContent>
-      <div className="p-4 pt-2">
-        <p>This content can be expanded and collapsed with the click of a button.</p>
-      </div>
+      This content can be expanded and collapsed with the click of a button.
     </CollapsibleContent>
   </CollapsibleRoot>
 )
@@ -65,16 +65,12 @@ import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "@/compo
 
 export const CustomTriggerCollapsible = () => (
   <CollapsibleRoot>
-    <CollapsibleTrigger className="flex items-center justify-between rounded-md px-4 py-2 font-medium">
-      <div className="flex items-center gap-2">
-        <div className="h-3 w-3 rounded-full bg-blue-500" />
-        <span>Custom trigger with icon</span>
-      </div>
+    <CollapsibleTrigger>
+      Custom trigger with icon
     </CollapsibleTrigger>
+    
     <CollapsibleContent>
-      <div className="rounded-b-md border border-t-0 p-4 shadow-sm">
-        <p>You can style the collapsible components to match your design.</p>
-      </div>
+      You can style the collapsible components to match your design.
     </CollapsibleContent>
   </CollapsibleRoot>
 )
@@ -85,14 +81,13 @@ import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "@/compo
 
 export const AnimatedCollapsible = () => (
   <CollapsibleRoot>
-    <CollapsibleTrigger className="bg-primary text-primary-foreground hover:bg-primary/90">
+    <CollapsibleTrigger>
       Click for animated content
     </CollapsibleTrigger>
-    <CollapsibleContent className="data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">
-      <div className="rounded-b-md border border-t-0 p-4 shadow-sm">
-        <p>This example uses custom animations for the collapsible content.</p>
-        <p className="mt-2">You can customize each part independently.</p>
-      </div>
+    
+    <CollapsibleContent>
+      This example uses custom animations for the collapsible content.
+      You can customize each part independently.
     </CollapsibleContent>
   </CollapsibleRoot>
 )

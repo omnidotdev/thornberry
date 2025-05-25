@@ -10,6 +10,7 @@ import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "@/registry/thornbe
     <TabsTrigger value="account">Account</TabsTrigger>
     <TabsTrigger value="password">Password</TabsTrigger>
   </TabsList>
+
   <TabsContent value="account">
     <div className="p-4 rounded-md border">
       <h3 className="text-lg font-medium">Account Settings</h3>
@@ -18,6 +19,7 @@ import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "@/registry/thornbe
       </p>
     </div>
   </TabsContent>
+
   <TabsContent value="password">
     <div className="p-4 rounded-md border">
       <h3 className="text-lg font-medium">Password Settings</h3>
@@ -69,23 +71,16 @@ export const BasicTabs = () => (
   <TabsRoot defaultValue="account">
     <TabsList>
       <TabsTrigger value="account">Account</TabsTrigger>
+      
       <TabsTrigger value="password">Password</TabsTrigger>
     </TabsList>
+
     <TabsContent value="account">
-      <div className="p-4 rounded-md border">
-        <h3 className="text-lg font-medium">Account Settings</h3>
-        <p className="text-sm text-muted-foreground mt-2">
-          Manage your account settings and preferences.
-        </p>
-      </div>
+      Manage your account settings and preferences.
     </TabsContent>
+
     <TabsContent value="password">
-      <div className="p-4 rounded-md border">
-        <h3 className="text-lg font-medium">Password Settings</h3>
-        <p className="text-sm text-muted-foreground mt-2">
-          Change your password and security settings.
-        </p>
-      </div>
+      Change your password and security settings.
     </TabsContent>
   </TabsRoot>
 )
@@ -102,32 +97,25 @@ import {
 
 export const CustomTabs = () => (
   <TabsRoot defaultValue="primitives">
-    <TabsList className="relative bg-base-100 border">
+    <TabsList>
       <TabsTrigger value="primitives">Primitives</TabsTrigger>
+      
       <TabsTrigger value="usage">Usage</TabsTrigger>
+      
       <TabsTrigger value="styling">Styling</TabsTrigger>
-      <TabsIndicator className="h-[2px] bg-primary" />
+      <TabsIndicator />
     </TabsList>
+
     <TabsContent value="primitives">
-      <div className="p-4 rounded-md border">
-        <div className="text-sm">
-          Tabs are built using primitive components that you can compose to create custom tab interfaces.
-        </div>
-      </div>
+      Tabs are built using primitive components that you can compose to create custom tab interfaces.
     </TabsContent>
+
     <TabsContent value="usage">
-      <div className="p-4 rounded-md border">
-        <div className="text-sm">
-          Usage content here
-        </div>
-      </div>
+      Usage content here
     </TabsContent>
+
     <TabsContent value="styling">
-      <div className="p-4 rounded-md border">
-        <div className="text-sm">
-          Styling content here
-        </div>
-      </div>
+      Styling content here
     </TabsContent>
   </TabsRoot>
 )
@@ -143,30 +131,25 @@ import {
 
 export const VerticalTabs = () => (
   <TabsRoot defaultValue="account" orientation="vertical">
-    <div className="flex">
-      <TabsList className="flex-col h-auto mr-4">
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger value="password">Password</TabsTrigger>
-        <TabsTrigger value="profile">Profile</TabsTrigger>
-      </TabsList>
-      <div className="flex-1">
-        <TabsContent value="account">
-          <div className="p-4 rounded-md border">
-            Account settings content
-          </div>
-        </TabsContent>
-        <TabsContent value="password">
-          <div className="p-4 rounded-md border">
-            Password settings content
-          </div>
-        </TabsContent>
-        <TabsContent value="profile">
-          <div className="p-4 rounded-md border">
-            Profile settings content
-          </div>
-        </TabsContent>
-      </div>
-    </div>
+    <TabsList>
+      <TabsTrigger value="account">Account</TabsTrigger>
+      
+      <TabsTrigger value="password">Password</TabsTrigger>
+      
+      <TabsTrigger value="profile">Profile</TabsTrigger>
+    </TabsList>
+
+    <TabsContent value="account">
+      Account settings content
+    </TabsContent>
+
+    <TabsContent value="password">
+      Password settings content
+    </TabsContent>
+
+    <TabsContent value="profile">
+      Profile settings content
+    </TabsContent>
   </TabsRoot>
 )
 ```

@@ -7,10 +7,14 @@ import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/r
 
 <PinInputRoot length={4} className="mb-8">
   <PinInputLabel>Verification Code</PinInputLabel>
+
   <PinInputControl>
     <PinInputInput index={0} />
+
     <PinInputInput index={1} />
+
     <PinInputInput index={2} />
+
     <PinInputInput index={3} />
   </PinInputControl>
 </PinInputRoot>
@@ -50,10 +54,14 @@ import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/c
 export const BasicPinInput = () => (
   <PinInputRoot length={4}>
     <PinInputLabel>Verification Code</PinInputLabel>
+
     <PinInputControl>
       <PinInputInput index={0} />
+
       <PinInputInput index={1} />
+
       <PinInputInput index={2} />
+
       <PinInputInput index={3} />
     </PinInputControl>
   </PinInputRoot>
@@ -68,12 +76,18 @@ import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/c
 export const SixDigitPinInput = () => (
   <PinInputRoot length={6}>
     <PinInputLabel>6-Digit Code</PinInputLabel>
+
     <PinInputControl>
       <PinInputInput index={0} />
+
       <PinInputInput index={1} />
+
       <PinInputInput index={2} />
+
       <PinInputInput index={3} />
+
       <PinInputInput index={4} />
+
       <PinInputInput index={5} />
     </PinInputControl>
   </PinInputRoot>
@@ -88,10 +102,14 @@ import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/c
 export const MaskedPinInput = () => (
   <PinInputRoot length={4}>
     <PinInputLabel>PIN</PinInputLabel>
+
     <PinInputControl>
       <PinInputInput index={0} type="password" />
+
       <PinInputInput index={1} type="password" />
+
       <PinInputInput index={2} type="password" />
+
       <PinInputInput index={3} type="password" />
     </PinInputControl>
   </PinInputRoot>
@@ -106,10 +124,14 @@ import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/c
 export const CustomPlaceholderPinInput = () => (
   <PinInputRoot length={4}>
     <PinInputLabel>OTP</PinInputLabel>
+
     <PinInputControl>
       <PinInputInput index={0} placeholder="×" />
+
       <PinInputInput index={1} placeholder="×" />
+
       <PinInputInput index={2} placeholder="×" />
+
       <PinInputInput index={3} placeholder="×" />
     </PinInputControl>
   </PinInputRoot>
@@ -127,12 +149,16 @@ import {
 export const CustomFormatPinInput = () => (
   <PinInputRoot length={5} onValueComplete={(value) => console.log(value)}>
     <PinInputLabel>Security Code</PinInputLabel>
+
     <PinInputControl>
       <PinInputInput index={0} />
+
       <PinInputInput index={1} />
+
       <PinInputInput index={2} />
-      <span className="text-base-600">-</span>
+      -
       <PinInputInput index={3} />
+
       <PinInputInput index={4} />
     </PinInputControl>
   </PinInputRoot>

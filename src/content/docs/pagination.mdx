@@ -8,11 +8,17 @@ import { PaginationRoot, PaginationItem, PaginationEllipsis, PaginationPrevTrigg
 <PaginationRoot count={10} className="mb-8">
   <div className="flex items-center gap-1">
     <PaginationPrevTrigger />
+
     <PaginationItem value={1}>1</PaginationItem>
+
     <PaginationItem value={2}>2</PaginationItem>
+
     <PaginationItem value={3}>3</PaginationItem>
+
     <PaginationEllipsis index={0} />
+
     <PaginationItem value={10}>10</PaginationItem>
+
     <PaginationNextTrigger />
   </div>
 </PaginationRoot>
@@ -57,15 +63,21 @@ import {
 
 export const BasicPagination = () => (
   <PaginationRoot count={10}>
-    <div className="flex items-center gap-1">
+    <>
       <PaginationPrevTrigger />
+
       <PaginationItem value={1}>1</PaginationItem>
+
       <PaginationItem value={2}>2</PaginationItem>
+
       <PaginationItem value={3}>3</PaginationItem>
+
       <PaginationEllipsis index={0} />
+
       <PaginationItem value={10}>10</PaginationItem>
+
       <PaginationNextTrigger />
-    </div>
+    </>
   </PaginationRoot>
 )
 ```
@@ -83,17 +95,25 @@ import {
 
 export const PaginationWithCurrentPage = () => (
   <PaginationRoot count={10} page={3}>
-    <div className="flex items-center gap-1">
+    <>
       <PaginationPrevTrigger />
+
       <PaginationItem value={1}>1</PaginationItem>
+
       <PaginationItem value={2}>2</PaginationItem>
+
       <PaginationItem value={3}>3</PaginationItem>
+
       <PaginationItem value={4}>4</PaginationItem>
+
       <PaginationItem value={5}>5</PaginationItem>
+
       <PaginationEllipsis index={0} />
+
       <PaginationItem value={10}>10</PaginationItem>
+
       <PaginationNextTrigger />
-    </div>
+    </>
   </PaginationRoot>
 )
 ```
@@ -110,8 +130,9 @@ import {
 
 export const CustomPagination = () => (
   <PaginationRoot count={10} page={4}>
-    <div className="flex items-center gap-2">
+    <>
       <PaginationPrevTrigger />
+
       {Array.from({ length: 10 }, (_, i) => i + 1).map(pageNum => (
         <PaginationItem
           key={pageNum}
@@ -120,8 +141,9 @@ export const CustomPagination = () => (
           {pageNum}
         </PaginationItem>
       ))}
+
       <PaginationNextTrigger />
-    </div>
+    </>
   </PaginationRoot>
 )
 ```

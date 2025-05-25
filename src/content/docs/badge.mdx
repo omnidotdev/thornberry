@@ -50,11 +50,13 @@ The Badge component comes with different variants that you can use to represent 
 import { Badge } from "@/components/ui/badge"
 
 export const BadgeVariants = () => (
-  <div className="flex gap-2">
+  <>
     <Badge>Solid</Badge>
+    
     <Badge variant="subtle">Subtle</Badge>
+    
     <Badge variant="outline">Outline</Badge>
-  </div>
+  </>
 )
 ```
 
@@ -64,10 +66,12 @@ You can also use different sizes for your badges:
 import { Badge } from "@/components/ui/badge"
 
 export const BadgeSizes = () => (
-  <div className="flex gap-2">
+  <>
     <Badge size="sm">Small</Badge>
+    
     <Badge>Medium</Badge>
+    
     <Badge size="lg">Large</Badge>
-  </div>
+  </>
 )
 ```

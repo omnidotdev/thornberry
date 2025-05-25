@@ -10,6 +10,7 @@ import { Button } from "@/registry/thornberry/components/button";
   <TooltipTrigger asChild>
     <Button variant="outline" className="mb-8">Hover Me</Button>
   </TooltipTrigger>
+  
   <TooltipPositioner>
     <TooltipContent>
       This is a tooltip
@@ -60,6 +61,7 @@ export const BasicTooltip = () => (
     <TooltipTrigger asChild>
       <Button variant="outline">Hover Me</Button>
     </TooltipTrigger>
+    
     <TooltipPositioner>
       <TooltipContent>
         This is a tooltip
@@ -81,11 +83,12 @@ import {
 import { Button } from "@/components/ui/button"
 
 export const TooltipPlacements = () => (
-  <div className="flex gap-4">
+  <>
     <TooltipRoot>
       <TooltipTrigger asChild>
         <Button variant="outline" size="sm">Left</Button>
       </TooltipTrigger>
+      
       <TooltipPositioner placement="left">
         <TooltipContent>
           Left tooltip
@@ -97,6 +100,7 @@ export const TooltipPlacements = () => (
       <TooltipTrigger asChild>
         <Button variant="outline" size="sm">Top</Button>
       </TooltipTrigger>
+      
       <TooltipPositioner placement="top">
         <TooltipContent>
           Top tooltip
@@ -108,6 +112,7 @@ export const TooltipPlacements = () => (
       <TooltipTrigger asChild>
         <Button variant="outline" size="sm">Bottom</Button>
       </TooltipTrigger>
+      
       <TooltipPositioner placement="bottom">
         <TooltipContent>
           Bottom tooltip
@@ -119,13 +124,14 @@ export const TooltipPlacements = () => (
       <TooltipTrigger asChild>
         <Button variant="outline" size="sm">Right</Button>
       </TooltipTrigger>
+      
       <TooltipPositioner placement="right">
         <TooltipContent>
           Right tooltip
         </TooltipContent>
       </TooltipPositioner>
     </TooltipRoot>
-  </div>
+  </>
 )
 ```
 
@@ -141,13 +147,14 @@ import {
 import { Button } from "@/components/ui/button"
 
 export const TooltipWithDelays = () => (
-  <div className="flex gap-4">
+  <>
     <TooltipRoot openDelay={100} closeDelay={1000}>
       <TooltipTrigger asChild>
         <Button variant="outline" size="sm">
           Slow Close
         </Button>
       </TooltipTrigger>
+      
       <TooltipPositioner>
         <TooltipContent>
           Fast open (100ms), slow close (1000ms)
@@ -161,13 +168,14 @@ export const TooltipWithDelays = () => (
           Slow Open
         </Button>
       </TooltipTrigger>
+      
       <TooltipPositioner>
         <TooltipContent>
           Slow open (800ms), fast close (100ms)
         </TooltipContent>
       </TooltipPositioner>
     </TooltipRoot>
-  </div>
+  </>
 )
 ```
 
@@ -187,15 +195,14 @@ export const CustomTooltip = () => (
     <TooltipTrigger asChild>
       <Button variant="outline">Hover Me</Button>
     </TooltipTrigger>
+    
     <TooltipPositioner>
       <TooltipContent>
         <TooltipArrow>
           <TooltipArrowTip />
         </TooltipArrow>
-        <div className="flex items-center gap-2">
-          <div className="h-2 w-2 rounded-full bg-blue-500" />
-          <div>Custom styled tooltip with arrow</div>
-        </div>
+        
+        Custom styled tooltip with arrow
       </TooltipContent>
     </TooltipPositioner>
   </TooltipRoot>
