@@ -9,17 +9,15 @@ import { CheckboxRoot, CheckboxHiddenInput, CheckboxControl, CheckboxIndicator, 
 
 <CheckboxRoot className="mb-8">
   <CheckboxHiddenInput />
-  
   <CheckboxControl>
     <CheckboxIndicator>
       <FiCheck />
     </CheckboxIndicator>
   </CheckboxControl>
-  
-  <CheckboxLabel>Checkbox Label</CheckboxLabel>
+  <CheckboxLabel>Checkbox</CheckboxLabel>
 </CheckboxRoot>
 
-### Installation
+## Installation
 
 <Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
   <Tab value="bun">
@@ -44,114 +42,195 @@ import { CheckboxRoot, CheckboxHiddenInput, CheckboxControl, CheckboxIndicator, 
   </Tab>
 </Tabs>
 
-### Examples
-
-Let's see how to use the `Checkbox` component. Let's start with a basic example:
+## Usage
 
 ```tsx
-import { FiCheck } from "react-icons/fi"
-
 import {
   CheckboxRoot,
   CheckboxHiddenInput,
   CheckboxControl,
   CheckboxIndicator,
   CheckboxLabel
-} from "@/components/ui/checkbox"
-
-export const BasicCheckbox = () => (
-  <CheckboxRoot>
-    <CheckboxHiddenInput />
-    
-    <CheckboxControl>
-      <CheckboxIndicator>
-        <FiCheck />
-      </CheckboxIndicator>
-    </CheckboxControl>
-    
-    <CheckboxLabel>Checkbox Label</CheckboxLabel>
-  </CheckboxRoot>
-)
+} from "@/components/ui/checkbox";
 ```
 
-You can customize the checkbox with different icons:
-
 ```tsx
-import { FiUser } from "react-icons/fi"
-
-import {
-  CheckboxRoot,
-  CheckboxHiddenInput,
-  CheckboxControl,
-  CheckboxIndicator,
-  CheckboxLabel
-} from "@/components/ui/checkbox"
-
-export const CustomIconCheckbox = () => (
-  <CheckboxRoot defaultChecked>
-    <CheckboxHiddenInput />
-    
-    <CheckboxControl>
-      <CheckboxIndicator>
-        <FiUser />
-      </CheckboxIndicator>
-    </CheckboxControl>
-    
-    <CheckboxLabel>Custom user icon</CheckboxLabel>
-  </CheckboxRoot>
-)
+<CheckboxRoot>
+  <CheckboxHiddenInput />
+  <CheckboxControl>
+    <CheckboxIndicator>
+      <FiCheck />
+    </CheckboxIndicator>
+  </CheckboxControl>
+  <CheckboxLabel>Checkbox Label</CheckboxLabel>
+</CheckboxRoot>
 ```
 
-You can create a checkbox group for multiple options:
+## Examples
 
-```tsx
-import { FiCheck } from "react-icons/fi"
+<br />
 
-import {
-  CheckboxRoot,
-  CheckboxHiddenInput,
-  CheckboxControl,
-  CheckboxIndicator,
-  CheckboxLabel
-} from "@/components/ui/checkbox"
+#### Basic Checkbox
 
-export const CheckboxGroup = () => (
-  <>
-    <CheckboxRoot name="options" value="option1">
+<Tabs items={["Default", "Checked", "Custom Icon"]} className="mt-4">
+  <Tab value="Default">
+    <CheckboxRoot>
       <CheckboxHiddenInput />
-      
       <CheckboxControl>
         <CheckboxIndicator>
           <FiCheck />
         </CheckboxIndicator>
       </CheckboxControl>
-      
-      <CheckboxLabel>Option 1</CheckboxLabel>
+      <CheckboxLabel>Default checkbox</CheckboxLabel>
     </CheckboxRoot>
 
-    <CheckboxRoot name="options" value="option2">
+    ```tsx
+    <CheckboxRoot>
       <CheckboxHiddenInput />
-      
       <CheckboxControl>
         <CheckboxIndicator>
           <FiCheck />
         </CheckboxIndicator>
       </CheckboxControl>
-      
-      <CheckboxLabel>Option 2</CheckboxLabel>
+      <CheckboxLabel>Default checkbox</CheckboxLabel>
     </CheckboxRoot>
-
-    <CheckboxRoot name="options" value="option3" defaultChecked>
+    ```
+  </Tab>
+  <Tab value="Checked">
+    <CheckboxRoot defaultChecked>
       <CheckboxHiddenInput />
-      
       <CheckboxControl>
         <CheckboxIndicator>
-          <FiCheck className="size-4" />
+          <FiCheck />
         </CheckboxIndicator>
       </CheckboxControl>
-      
-      <CheckboxLabel>Option 3</CheckboxLabel>
+      <CheckboxLabel>Checked by default</CheckboxLabel>
     </CheckboxRoot>
-  </>
-)
-```
+
+    ```tsx
+    <CheckboxRoot defaultChecked>
+      <CheckboxHiddenInput />
+      <CheckboxControl>
+        <CheckboxIndicator>
+          <FiCheck />
+        </CheckboxIndicator>
+      </CheckboxControl>
+      <CheckboxLabel>Checked by default</CheckboxLabel>
+    </CheckboxRoot>
+    ```
+  </Tab>
+  <Tab value="Custom Icon">
+    <CheckboxRoot defaultChecked>
+      <CheckboxHiddenInput />
+      <CheckboxControl>
+        <CheckboxIndicator>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-4">
+            <path fillRule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clipRule="evenodd" />
+          </svg>
+        </CheckboxIndicator>
+      </CheckboxControl>
+      <CheckboxLabel>Custom icon</CheckboxLabel>
+    </CheckboxRoot>
+
+    ```tsx
+    import { LockClosedIcon } from "@heroicons/react/24/solid";
+
+    <CheckboxRoot defaultChecked>
+      <CheckboxHiddenInput />
+      <CheckboxControl>
+        <CheckboxIndicator>
+          <LockClosedIcon className="size-4" />
+        </CheckboxIndicator>
+      </CheckboxControl>
+      <CheckboxLabel>Custom icon</CheckboxLabel>
+    </CheckboxRoot>
+    ```
+  </Tab>
+</Tabs>
+
+#### Checkbox Group
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="space-y-2">
+      <CheckboxRoot name="options" value="option1">
+        <CheckboxHiddenInput />
+        <CheckboxControl>
+          <CheckboxIndicator>
+            <FiCheck />
+          </CheckboxIndicator>
+        </CheckboxControl>
+        <CheckboxLabel>Option 1</CheckboxLabel>
+      </CheckboxRoot>
+
+      <CheckboxRoot name="options" value="option2">
+        <CheckboxHiddenInput />
+        <CheckboxControl>
+          <CheckboxIndicator>
+            <FiCheck />
+          </CheckboxIndicator>
+        </CheckboxControl>
+        <CheckboxLabel>Option 2</CheckboxLabel>
+      </CheckboxRoot>
+
+      <CheckboxRoot name="options" value="option3" defaultChecked>
+        <CheckboxHiddenInput />
+        <CheckboxControl>
+          <CheckboxIndicator>
+            <FiCheck />
+          </CheckboxIndicator>
+        </CheckboxControl>
+        <CheckboxLabel>Option 3</CheckboxLabel>
+      </CheckboxRoot>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { FiCheck } from "react-icons/fi";
+
+    import {
+      CheckboxRoot,
+      CheckboxHiddenInput,
+      CheckboxControl,
+      CheckboxIndicator,
+      CheckboxLabel
+    } from "@/components/ui/checkbox";
+
+    export const CheckboxGroup = () => {
+      return (
+        <div className="space-y-2">
+          <CheckboxRoot name="options" value="option1">
+            <CheckboxHiddenInput />
+            <CheckboxControl>
+              <CheckboxIndicator>
+                <FiCheck />
+              </CheckboxIndicator>
+            </CheckboxControl>
+            <CheckboxLabel>Option 1</CheckboxLabel>
+          </CheckboxRoot>
+
+          <CheckboxRoot name="options" value="option2">
+            <CheckboxHiddenInput />
+            <CheckboxControl>
+              <CheckboxIndicator>
+                <FiCheck />
+              </CheckboxIndicator>
+            </CheckboxControl>
+            <CheckboxLabel>Option 2</CheckboxLabel>
+          </CheckboxRoot>
+
+          <CheckboxRoot name="options" value="option3" defaultChecked>
+            <CheckboxHiddenInput />
+            <CheckboxControl>
+              <CheckboxIndicator>
+                <FiCheck />
+              </CheckboxIndicator>
+            </CheckboxControl>
+            <CheckboxLabel>Option 3</CheckboxLabel>
+          </CheckboxRoot>
+        </div>
+      );
+    }
+    ```
+  </Tab>
+</Tabs>

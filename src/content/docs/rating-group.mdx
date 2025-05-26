@@ -3,25 +3,21 @@ title: Rating Group
 description: A component that allows users to rate items using stars or other symbols.
 ---
 
+import { FiStar, FiHeart, FiThumbsUp, FiAward } from "react-icons/fi";
 import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem } from "@/registry/thornberry/components/rating-group";
 
 <RatingGroupRoot className="mb-8">
   <RatingGroupLabel>Rate this product</RatingGroupLabel>
-
   <RatingGroupControl>
     <RatingGroupItem index={0} />
-
     <RatingGroupItem index={1} />
-
     <RatingGroupItem index={2} />
-
     <RatingGroupItem index={3} />
-
     <RatingGroupItem index={4} />
   </RatingGroupControl>
 </RatingGroupRoot>
 
-### Installation
+## Installation
 
 <Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
   <Tab value="bun">
@@ -46,97 +42,171 @@ import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem 
   </Tab>
 </Tabs>
 
-### Examples
-
-Let's see how to use the `RatingGroup` components. Here's a basic example:
+## Usage
 
 ```tsx
-import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem } from "@/components/ui/rating-group"
-
-export const BasicRatingGroup = () => (
-  <RatingGroupRoot>
-    <RatingGroupLabel>Rate this product</RatingGroupLabel>
-
-    <RatingGroupControl>
-      <RatingGroupItem index={0} />
-
-      <RatingGroupItem index={1} />
-
-      <RatingGroupItem index={2} />
-
-      <RatingGroupItem index={3} />
-
-      <RatingGroupItem index={4} />
-    </RatingGroupControl>
-  </RatingGroupRoot>
-)
-```
-
-You can specify a default rating:
-
-```tsx
-import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem } from "@/components/ui/rating-group"
-
-export const DefaultRating = () => (
-  <RatingGroupRoot defaultValue={3}>
-    <RatingGroupLabel>Rate this product</RatingGroupLabel>
-
-    <RatingGroupControl>
-      <RatingGroupItem index={0} />
-
-      <RatingGroupItem index={1} />
-
-      <RatingGroupItem index={2} />
-
-      <RatingGroupItem index={3} />
-
-      <RatingGroupItem index={4} />
-    </RatingGroupControl>
-  </RatingGroupRoot>
-)
-```
-
-You can customize the number of rating options:
-
-```tsx
-import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem } from "@/components/ui/rating-group"
-
-export const TenStarRating = () => (
-  <RatingGroupRoot>
-    <RatingGroupLabel>Rate on a scale of 1-10</RatingGroupLabel>
-
-    <RatingGroupControl>
-      {Array.from({ length: 10 }).map((_, index) => (
-        <RatingGroupItem key={index} index={index} />
-      ))}
-    </RatingGroupControl>
-  </RatingGroupRoot>
-)
+import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem } from "@/components/ui/rating-group";
 ```
 
 ```tsx
-import {
-  RatingGroupRoot,
-  RatingGroupLabel,
-  RatingGroupControl,
-  RatingGroupItem
-} from "@/components/ui/rating-group"
-import { FiHeart } from "react-icons/fi"
-
-export const CustomRatingGroup = () => (
-  <RatingGroupRoot defaultValue={2}>
-    <RatingGroupLabel>How much did you enjoy this article?</RatingGroupLabel>
-
-    <RatingGroupControl>
-      {Array.from({ length: 5 }).map((_, index) => (
-        <RatingGroupItem 
-          key={index} 
-          index={index}
-        >
-          <FiHeart />
-        </RatingGroupItem>
-      ))}
-    </RatingGroupControl>
-  </RatingGroupRoot>
-)
+<RatingGroupRoot>
+  <RatingGroupLabel>Rate this product</RatingGroupLabel>
+  <RatingGroupControl>
+    <RatingGroupItem index={0} />
+    <RatingGroupItem index={1} />
+    <RatingGroupItem index={2} />
+    <RatingGroupItem index={3} />
+    <RatingGroupItem index={4} />
+  </RatingGroupControl>
+</RatingGroupRoot>
 ```
+
+## Examples
+
+<br />
+
+#### Basic Examples
+
+<Tabs items={["Default", "With Initial Value", "10-Point Scale"]} className="mt-4">
+  <Tab value="Default">
+    <RatingGroupRoot>
+      <RatingGroupLabel>Rate this product</RatingGroupLabel>
+      <RatingGroupControl>
+        <RatingGroupItem index={0} />
+        <RatingGroupItem index={1} />
+        <RatingGroupItem index={2} />
+        <RatingGroupItem index={3} />
+        <RatingGroupItem index={4} />
+      </RatingGroupControl>
+    </RatingGroupRoot>
+  </Tab>
+  <Tab value="With Initial Value">
+    <RatingGroupRoot defaultValue={3}>
+      <RatingGroupLabel>Pre-rated product</RatingGroupLabel>
+      <RatingGroupControl>
+        <RatingGroupItem index={0} />
+        <RatingGroupItem index={1} />
+        <RatingGroupItem index={2} />
+        <RatingGroupItem index={3} />
+        <RatingGroupItem index={4} />
+      </RatingGroupControl>
+    </RatingGroupRoot>
+  </Tab>
+  <Tab value="10-Point Scale">
+    <RatingGroupRoot>
+      <RatingGroupLabel>Rate on a scale of 1-10</RatingGroupLabel>
+      <RatingGroupControl className="flex-wrap">
+        {Array.from({ length: 10 }).map((_, index) => (
+          <RatingGroupItem key={index} index={index} />
+        ))}
+      </RatingGroupControl>
+    </RatingGroupRoot>
+  </Tab>
+</Tabs>
+
+#### Advanced Usage
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="p-6 border rounded-lg">
+      <h3 className="text-lg font-medium mb-4">Product Feedback</h3>
+      <div className="space-y-6">
+        <RatingGroupRoot defaultValue={4}>
+          <RatingGroupLabel className="font-medium">Overall Rating</RatingGroupLabel>
+          <div className="flex items-center gap-4">
+            <RatingGroupControl>
+              <RatingGroupItem index={0} />
+              <RatingGroupItem index={1} />
+              <RatingGroupItem index={2} />
+              <RatingGroupItem index={3} />
+              <RatingGroupItem index={4} />
+            </RatingGroupControl>
+            <span className="text-sm text-muted-foreground">4 out of 5</span>
+          </div>
+        </RatingGroupRoot>
+
+        <div className="grid grid-cols-2 gap-6">
+          <RatingGroupRoot>
+            <RatingGroupLabel className="font-medium">Ease of Use</RatingGroupLabel>
+            <RatingGroupControl>
+              <RatingGroupItem index={0} />
+              <RatingGroupItem index={1} />
+              <RatingGroupItem index={2} />
+              <RatingGroupItem index={3} />
+              <RatingGroupItem index={4} />
+            </RatingGroupControl>
+          </RatingGroupRoot>
+
+          <RatingGroupRoot>
+            <RatingGroupLabel className="font-medium">Value for Money</RatingGroupLabel>
+            <RatingGroupControl>
+              <RatingGroupItem index={0} />
+              <RatingGroupItem index={1} />
+              <RatingGroupItem index={2} />
+              <RatingGroupItem index={3} />
+              <RatingGroupItem index={4} />
+            </RatingGroupControl>
+          </RatingGroupRoot>
+        </div>
+
+        <div className="pt-4 border-t">
+          <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90">Submit Feedback</button>
+        </div>
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem } from "@/components/ui/rating-group";
+
+    const ProductFeedback = () => (
+      <div className="p-6 border rounded-lg">
+        <h3 className="text-lg font-medium mb-4">Product Feedback</h3>
+        <div className="space-y-6">
+          <RatingGroupRoot defaultValue={4}>
+            <RatingGroupLabel className="font-medium">Overall Rating</RatingGroupLabel>
+            <div className="flex items-center gap-4">
+              <RatingGroupControl>
+                <RatingGroupItem index={0} />
+                <RatingGroupItem index={1} />
+                <RatingGroupItem index={2} />
+                <RatingGroupItem index={3} />
+                <RatingGroupItem index={4} />
+              </RatingGroupControl>
+              <span className="text-sm text-muted-foreground">4 out of 5</span>
+            </div>
+          </RatingGroupRoot>
+
+          <div className="grid grid-cols-2 gap-6">
+            <RatingGroupRoot>
+              <RatingGroupLabel className="font-medium">Ease of Use</RatingGroupLabel>
+              <RatingGroupControl>
+                <RatingGroupItem index={0} />
+                <RatingGroupItem index={1} />
+                <RatingGroupItem index={2} />
+                <RatingGroupItem index={3} />
+                <RatingGroupItem index={4} />
+              </RatingGroupControl>
+            </RatingGroupRoot>
+
+            <RatingGroupRoot>
+              <RatingGroupLabel className="font-medium">Value for Money</RatingGroupLabel>
+              <RatingGroupControl>
+                <RatingGroupItem index={0} />
+                <RatingGroupItem index={1} />
+                <RatingGroupItem index={2} />
+                <RatingGroupItem index={3} />
+                <RatingGroupItem index={4} />
+              </RatingGroupControl>
+            </RatingGroupRoot>
+          </div>
+
+          <div className="pt-4 border-t">
+            <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90">Submit Feedback</button>
+          </div>
+        </div>
+      </div>
+    );
+    ```
+  </Tab>
+</Tabs>

@@ -2,7 +2,10 @@
 title: Alert
 description: Displays a callout for user attention with status variants for different scenarios.
 ---
-import { FiInfo } from "react-icons/fi";
+
+import { FiInfo, FiCheck } from "react-icons/fi";
+import { IoWarningOutline } from "react-icons/io5";
+import { BiErrorAlt } from "react-icons/bi";
 
 import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/registry/thornberry/components/alert";
 
@@ -10,15 +13,13 @@ import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/registry/t
   <AlertIcon>
     <FiInfo />
   </AlertIcon>
-
-  <AlertTitle>Info</AlertTitle>
-
+  <AlertTitle>Alert</AlertTitle>
   <AlertDescription>
-    Did you know platypuses are venomous?
+    This is an alert component for important messages.
   </AlertDescription>
 </AlertRoot>
 
-### Installation
+## Installation
 
 <Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
   <Tab value="bun">
@@ -43,100 +44,142 @@ import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/registry/t
   </Tab>
 </Tabs>
 
-### Examples
-
-Let's see how to use the `Alert` component. Let's start with a basic example:
+## Usage
 
 ```tsx
-import { FiInfo } from "react-icons/fi"
-
-import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components/ui/alert"
-
-export const BasicAlert = () => (
-  <AlertRoot>
-    <AlertIcon>
-      <FiInfo />
-    </AlertIcon>
-
-    <AlertTitle>Information</AlertTitle>
-
-    <AlertDescription>
-      This is an important information message for the user.
-    </AlertDescription>
-  </AlertRoot>
-)
+import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components/ui/alert";
 ```
 
-The `Alert` component come with different variants that you can use to represent different states:
-
 ```tsx
-import { FiCheck, FiInfo } from "react-icons/fi"
-import { IoWarningOutline } from "react-icons/io5"
-import { BiErrorAlt } from "react-icons/bi"
+<AlertRoot>
+  <AlertIcon>
+    <YourIcon />
+  </AlertIcon>
+  <AlertTitle>Title</AlertTitle>
+  <AlertDescription>Description</AlertDescription>
+</AlertRoot>
+```
 
-import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components/ui/alert"
+## Examples
 
-export const AlertVariants = () => (
-  <>
+<br />
+
+#### Variants
+
+<Tabs items={["Default", "Info", "Success", "Warning", "Error"]} className="mt-4">
+  <Tab value="Default">
     <AlertRoot>
       <AlertIcon>
         <FiInfo />
       </AlertIcon>
-
       <AlertTitle>Default</AlertTitle>
-
       <AlertDescription>
         For the best experience, update to the latest version.
       </AlertDescription>
     </AlertRoot>
 
+    ```tsx
+    <AlertRoot>
+      <AlertIcon>
+        <FiInfo />
+      </AlertIcon>
+      <AlertTitle>Default</AlertTitle>
+      <AlertDescription>
+        For the best experience, update to the latest version.
+      </AlertDescription>
+    </AlertRoot>
+    ```
+  </Tab>
+  <Tab value="Info">
     <AlertRoot variant="info">
       <AlertIcon>
         <FiInfo />
       </AlertIcon>
-
       <AlertTitle>Information</AlertTitle>
-
       <AlertDescription>
         Did you know platypuses are venomous?
       </AlertDescription>
     </AlertRoot>
 
+    ```tsx
+    <AlertRoot variant="info">
+      <AlertIcon>
+        <FiInfo />
+      </AlertIcon>
+      <AlertTitle>Information</AlertTitle>
+      <AlertDescription>
+        Did you know platypuses are venomous?
+      </AlertDescription>
+    </AlertRoot>
+    ```
+  </Tab>
+  <Tab value="Success">
     <AlertRoot variant="success">
       <AlertIcon>
         <FiCheck />
       </AlertIcon>
-
       <AlertTitle>Success</AlertTitle>
-
       <AlertDescription>
         Your profile has been updated successfully.
       </AlertDescription>
     </AlertRoot>
 
+    ```tsx
+    <AlertRoot variant="success">
+      <AlertIcon>
+        <FiCheck />
+      </AlertIcon>
+      <AlertTitle>Success</AlertTitle>
+      <AlertDescription>
+        Your profile has been updated successfully.
+      </AlertDescription>
+    </AlertRoot>
+    ```
+  </Tab>
+  <Tab value="Warning">
     <AlertRoot variant="warning">
       <AlertIcon>
         <IoWarningOutline />
       </AlertIcon>
-
       <AlertTitle>Warning</AlertTitle>
-
       <AlertDescription>
         Your storage is almost full. Please free up some space.
       </AlertDescription>
     </AlertRoot>
 
+    ```tsx
+    <AlertRoot variant="warning">
+      <AlertIcon>
+        <IoWarningOutline />
+      </AlertIcon>
+      <AlertTitle>Warning</AlertTitle>
+      <AlertDescription>
+        Your storage is almost full. Please free up some space.
+      </AlertDescription>
+    </AlertRoot>
+    ```
+  </Tab>
+  <Tab value="Error">
     <AlertRoot variant="error">
       <AlertIcon>
         <BiErrorAlt />
       </AlertIcon>
-
       <AlertTitle>Error</AlertTitle>
-
       <AlertDescription>
         There was a problem processing your request.
       </AlertDescription>
     </AlertRoot>
-  </>
-)
-```
+
+    ```tsx
+    <AlertRoot variant="error">
+      <AlertIcon>
+        <BiErrorAlt />
+      </AlertIcon>
+      <AlertTitle>Error</AlertTitle>
+      <AlertDescription>
+        There was a problem processing your request.
+      </AlertDescription>
+    </AlertRoot>
+    ```
+  </Tab>
+</Tabs>

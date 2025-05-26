@@ -2,15 +2,16 @@
 title: Avatar
 description: An image element with a fallback for representing the user.
 ---
+import { FiUser } from "react-icons/fi";
+
 import { AvatarRoot, AvatarFallback, AvatarImage } from "@/registry/thornberry/components/avatar";
 
 <AvatarRoot className="mb-8">
-  <AvatarFallback>EM</AvatarFallback>
-
   <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+  <AvatarFallback>EM</AvatarFallback>
 </AvatarRoot>
 
-### Installation
+## Installation
 
 <Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
   <Tab value="bun">
@@ -35,49 +36,113 @@ import { AvatarRoot, AvatarFallback, AvatarImage } from "@/registry/thornberry/c
   </Tab>
 </Tabs>
 
-### Examples
-
-Let's see how to use the `Avatar` components. Let's start with a basic example:
+## Usage
 
 ```tsx
-import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
-export const BasicAvatar = () => (
-  <AvatarRoot>
-    <AvatarFallback>EM</AvatarFallback>
-
-    <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
-  </AvatarRoot>
-)
-```
-
-You can provide a custom fallback when the image fails to load:
-
-```tsx
-import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { UserIcon } from "lucide-react"
-
-export const FallbackAvatar = () => (
-  <AvatarRoot>
-    <AvatarFallback>
-      <UserIcon />
-    </AvatarFallback>
-
-    <AvatarImage src="/img/elon-musk.jpg" alt="User" />
-  </AvatarRoot>
-)
+import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 ```
 
 ```tsx
-import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
-export const CustomizedAvatar = () => (
-  <AvatarRoot>
-    <AvatarFallback>
-      JD
-    </AvatarFallback>
-
-    <AvatarImage src="/img/john-doe.jpg" alt="John Doe" />
-  </AvatarRoot>
-)
+<AvatarRoot>
+  <AvatarImage src="/path-to-image.jpg" alt="User name" />
+  <AvatarFallback>UN</AvatarFallback>
+</AvatarRoot>
 ```
+
+## Examples
+
+<br />
+
+#### Basic Avatar
+
+<Tabs items={["With Image", "With Fallback", "With Custom Fallback"]} className="mt-4">
+  <Tab value="With Image">
+    <AvatarRoot>
+      <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+      <AvatarFallback>EM</AvatarFallback>
+    </AvatarRoot>
+
+    ```tsx
+    <AvatarRoot>
+      <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+      <AvatarFallback>EM</AvatarFallback>
+    </AvatarRoot>
+    ```
+  </Tab>
+  <Tab value="With Fallback">
+    <AvatarRoot>
+      <AvatarImage src="/non-existent-image.jpg" alt="John Doe" />
+      <AvatarFallback>JD</AvatarFallback>
+    </AvatarRoot>
+
+    ```tsx
+    <AvatarRoot>
+      <AvatarImage src="/non-existent-image.jpg" alt="John Doe" />
+      <AvatarFallback>JD</AvatarFallback>
+    </AvatarRoot>
+    ```
+  </Tab>
+  <Tab value="With Custom Fallback">
+    <AvatarRoot>
+      <AvatarImage src="/non-existent-image.jpg" alt="User" />
+      <AvatarFallback className="bg-blue-100 text-blue-800">
+          <FiUser className="size-6" />
+      </AvatarFallback>
+    </AvatarRoot>
+
+    ```tsx
+    import { FiUser } from "react-icons/fi";
+
+    <AvatarRoot>
+      <AvatarImage src="/non-existent-image.jpg" alt="User" />
+      <AvatarFallback className="bg-blue-100 text-blue-800">
+        <FiUser className="size-6" />
+      </AvatarFallback>
+    </AvatarRoot>
+    ```
+  </Tab>
+</Tabs>
+
+#### Sizes
+
+<Tabs items={["Small", "Medium", "Large"]} className="mt-4">
+  <Tab value="Small">
+    <AvatarRoot className="size-8">
+      <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+      <AvatarFallback>EM</AvatarFallback>
+    </AvatarRoot>
+
+    ```tsx
+    <AvatarRoot className="size-8">
+      <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+      <AvatarFallback>EM</AvatarFallback>
+    </AvatarRoot>
+    ```
+  </Tab>
+  <Tab value="Medium">
+    <AvatarRoot className="size-10">
+      <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+      <AvatarFallback>EM</AvatarFallback>
+    </AvatarRoot>
+
+    ```tsx
+    <AvatarRoot className="size-10">
+      <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+      <AvatarFallback>EM</AvatarFallback>
+    </AvatarRoot>
+    ```
+  </Tab>
+  <Tab value="Large">
+    <AvatarRoot className="size-16">
+      <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+      <AvatarFallback>EM</AvatarFallback>
+    </AvatarRoot>
+
+    ```tsx
+    <AvatarRoot className="size-16">
+      <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+      <AvatarFallback>EM</AvatarFallback>
+    </AvatarRoot>
+    ```
+  </Tab>
+</Tabs>

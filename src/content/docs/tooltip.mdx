@@ -3,14 +3,14 @@ title: Tooltip
 description: A popup that displays information related to an element when it receives focus or is hovered over.
 ---
 
-import { TooltipRoot, TooltipTrigger, TooltipPositioner, TooltipContent } from "@/registry/thornberry/components/tooltip";
+import { FiInfo, FiAlertCircle, FiHelpCircle, FiSettings } from "react-icons/fi";
+import { TooltipRoot, TooltipTrigger, TooltipPositioner, TooltipContent, TooltipArrow, TooltipArrowTip } from "@/registry/thornberry/components/tooltip";
 import { Button } from "@/registry/thornberry/components/button";
 
 <TooltipRoot>
-  <TooltipTrigger asChild>
-    <Button variant="outline" className="mb-8">Hover Me</Button>
+  <TooltipTrigger asChild className="mb-8">
+    <Button variant="outline">Hover Me</Button>
   </TooltipTrigger>
-  
   <TooltipPositioner>
     <TooltipContent>
       This is a tooltip
@@ -18,7 +18,7 @@ import { Button } from "@/registry/thornberry/components/button";
   </TooltipPositioner>
 </TooltipRoot>
 
-### Installation
+## Installation
 
 <Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
   <Tab value="bun">
@@ -43,9 +43,7 @@ import { Button } from "@/registry/thornberry/components/button";
   </Tab>
 </Tabs>
 
-### Examples
-
-Let's see how to use the `Tooltip` components. Let's start with a basic example:
+## Usage
 
 ```tsx
 import {
@@ -53,158 +51,172 @@ import {
   TooltipTrigger,
   TooltipPositioner,
   TooltipContent
-} from "@/components/ui/tooltip"
-import { Button } from "@/components/ui/button"
-
-export const BasicTooltip = () => (
-  <TooltipRoot>
-    <TooltipTrigger asChild>
-      <Button variant="outline">Hover Me</Button>
-    </TooltipTrigger>
-    
-    <TooltipPositioner>
-      <TooltipContent>
-        This is a tooltip
-      </TooltipContent>
-    </TooltipPositioner>
-  </TooltipRoot>
-)
+} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
 ```
 
-You can customize the placement of the tooltip:
-
 ```tsx
-import {
-  TooltipRoot,
-  TooltipTrigger,
-  TooltipPositioner,
-  TooltipContent
-} from "@/components/ui/tooltip"
-import { Button } from "@/components/ui/button"
+<TooltipRoot>
+  <TooltipTrigger asChild>
+    <Button>Hover Me</Button>
+  </TooltipTrigger>
+  <TooltipPositioner>
+    <TooltipContent>
+      Tooltip content
+    </TooltipContent>
+  </TooltipPositioner>
+</TooltipRoot>
+```
 
-export const TooltipPlacements = () => (
-  <>
-    <TooltipRoot>
+## Examples
+
+<br />
+
+#### Placements
+
+<Tabs items={["Top", "Right", "Bottom", "Left"]} className="mt-4">
+  <Tab value="Top">
+    <TooltipRoot positioning={{ placement: "top" }}>
       <TooltipTrigger asChild>
-        <Button variant="outline" size="sm">Left</Button>
+        <Button variant="outline">Top Tooltip</Button>
       </TooltipTrigger>
-      
-      <TooltipPositioner placement="left">
+      <TooltipPositioner>
         <TooltipContent>
-          Left tooltip
+          This tooltip appears on top
         </TooltipContent>
       </TooltipPositioner>
     </TooltipRoot>
-
-    <TooltipRoot>
+  </Tab>
+  <Tab value="Right">
+    <TooltipRoot positioning={{ placement: "right" }}>
       <TooltipTrigger asChild>
-        <Button variant="outline" size="sm">Top</Button>
+        <Button variant="outline">Right Tooltip</Button>
       </TooltipTrigger>
-      
-      <TooltipPositioner placement="top">
+      <TooltipPositioner>
         <TooltipContent>
-          Top tooltip
+          This tooltip appears on the right
         </TooltipContent>
       </TooltipPositioner>
     </TooltipRoot>
-
-    <TooltipRoot>
+  </Tab>
+  <Tab value="Bottom">
+    <TooltipRoot positioning={{ placement: "bottom" }}>
       <TooltipTrigger asChild>
-        <Button variant="outline" size="sm">Bottom</Button>
+        <Button variant="outline">Bottom Tooltip</Button>
       </TooltipTrigger>
-      
       <TooltipPositioner placement="bottom">
         <TooltipContent>
-          Bottom tooltip
+          This tooltip appears on the bottom
         </TooltipContent>
       </TooltipPositioner>
     </TooltipRoot>
+  </Tab>
+  <Tab value="Left">
+    <TooltipRoot positioning={{ placement: "left" }}>
+      <TooltipTrigger asChild>
+        <Button variant="outline">Left Tooltip</Button>
+      </TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>
+          This tooltip appears on the left
+        </TooltipContent>
+      </TooltipPositioner>
+    </TooltipRoot>
+  </Tab>
+</Tabs>
 
+#### With Arrow and Delays
+
+<Tabs items={["With Arrow", "Custom Delays", "Icon Tooltips"]} className="mt-4">
+  <Tab value="With Arrow">
     <TooltipRoot>
       <TooltipTrigger asChild>
-        <Button variant="outline" size="sm">Right</Button>
+        <Button variant="outline">With Arrow</Button>
       </TooltipTrigger>
-      
-      <TooltipPositioner placement="right">
-        <TooltipContent>
-          Right tooltip
-        </TooltipContent>
-      </TooltipPositioner>
-    </TooltipRoot>
-  </>
-)
-```
-
-You can configure open and close delay times:
-
-```tsx
-import {
-  TooltipRoot,
-  TooltipTrigger,
-  TooltipPositioner,
-  TooltipContent
-} from "@/components/ui/tooltip"
-import { Button } from "@/components/ui/button"
-
-export const TooltipWithDelays = () => (
-  <>
-    <TooltipRoot openDelay={100} closeDelay={1000}>
-      <TooltipTrigger asChild>
-        <Button variant="outline" size="sm">
-          Slow Close
-        </Button>
-      </TooltipTrigger>
-      
       <TooltipPositioner>
         <TooltipContent>
-          Fast open (100ms), slow close (1000ms)
+          <TooltipArrow>
+            <TooltipArrowTip />
+          </TooltipArrow>
+          This tooltip has an arrow pointer
         </TooltipContent>
       </TooltipPositioner>
     </TooltipRoot>
+  </Tab>
+  <Tab value="Custom Delays">
+    <div className="flex gap-4">
+      <TooltipRoot openDelay={500} closeDelay={100}>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Slow Open</Button>
+        </TooltipTrigger>
+        <TooltipPositioner>
+          <TooltipContent>
+            <TooltipArrow>
+              <TooltipArrowTip />
+            </TooltipArrow>
+            Opens after 500ms, closes after 100ms
+          </TooltipContent>
+        </TooltipPositioner>
+      </TooltipRoot>
 
-    <TooltipRoot openDelay={800} closeDelay={100}>
-      <TooltipTrigger asChild>
-        <Button variant="outline" size="sm">
-          Slow Open
-        </Button>
-      </TooltipTrigger>
-      
-      <TooltipPositioner>
-        <TooltipContent>
-          Slow open (800ms), fast close (100ms)
-        </TooltipContent>
-      </TooltipPositioner>
-    </TooltipRoot>
-  </>
-)
-```
+      <TooltipRoot openDelay={100} closeDelay={1000}>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Slow Close</Button>
+        </TooltipTrigger>
+        <TooltipPositioner>
+          <TooltipContent>
+            <TooltipArrow>
+              <TooltipArrowTip />
+            </TooltipArrow>
+            Opens after 100ms, closes after 1000ms
+          </TooltipContent>
+        </TooltipPositioner>
+      </TooltipRoot>
+    </div>
+  </Tab>
+  <Tab value="Icon Tooltips">
+    <div className="flex gap-4">
+      <TooltipRoot>
+        <TooltipTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <FiInfo className="h-4 w-4" />
+            <span className="sr-only">Info</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipPositioner>
+          <TooltipContent>
+            Important information
+          </TooltipContent>
+        </TooltipPositioner>
+      </TooltipRoot>
 
-```tsx
-import {
-  TooltipRoot,
-  TooltipTrigger,
-  TooltipPositioner,
-  TooltipContent,
-  TooltipArrow,
-  TooltipArrowTip
-} from "@/components/ui/tooltip"
-import { Button } from "@/components/ui/button"
+      <TooltipRoot>
+        <TooltipTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <FiAlertCircle className="h-4 w-4 text-amber-500" />
+            <span className="sr-only">Warning</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipPositioner>
+          <TooltipContent>
+            Warning notification
+          </TooltipContent>
+        </TooltipPositioner>
+      </TooltipRoot>
 
-export const CustomTooltip = () => (
-  <TooltipRoot>
-    <TooltipTrigger asChild>
-      <Button variant="outline">Hover Me</Button>
-    </TooltipTrigger>
-    
-    <TooltipPositioner>
-      <TooltipContent>
-        <TooltipArrow>
-          <TooltipArrowTip />
-        </TooltipArrow>
-        
-        Custom styled tooltip with arrow
-      </TooltipContent>
-    </TooltipPositioner>
-  </TooltipRoot>
-)
-```
+      <TooltipRoot>
+        <TooltipTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <FiHelpCircle className="h-4 w-4 text-blue-500" />
+            <span className="sr-only">Help</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipPositioner>
+          <TooltipContent>
+            Need help? Click for more information
+          </TooltipContent>
+        </TooltipPositioner>
+      </TooltipRoot>
+    </div>
+  </Tab>
+</Tabs>

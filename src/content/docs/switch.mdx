@@ -3,17 +3,17 @@ title: Switch
 description: A control that allows the user to toggle between checked and unchecked states.
 ---
 
+import { FiMoon, FiSun, FiWifi, FiBluetooth, FiBell } from "react-icons/fi";
 import { SwitchRoot, SwitchHiddenInput, SwitchControl, SwitchThumb, SwitchLabel } from "@/registry/thornberry/components/switch";
 
 <SwitchRoot className="mb-8">
   <SwitchHiddenInput />
-
   <SwitchControl>
     <SwitchThumb />
   </SwitchControl>
 </SwitchRoot>
 
-### Installation
+## Installation
 
 <Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
   <Tab value="bun">
@@ -38,107 +38,214 @@ import { SwitchRoot, SwitchHiddenInput, SwitchControl, SwitchThumb, SwitchLabel 
   </Tab>
 </Tabs>
 
-### Examples
-
-Let's see how to use the `Switch` components. Let's start with a basic example:
-
-```tsx
-import { 
-  SwitchRoot, 
-  SwitchHiddenInput, 
-  SwitchControl, 
-  SwitchThumb 
-} from "@/components/ui/switch"
-
-export const BasicSwitch = () => (
-  <SwitchRoot>
-    <SwitchHiddenInput />
-
-    <SwitchControl>
-      <SwitchThumb />
-    </SwitchControl>
-  </SwitchRoot>
-)
-```
-
-You can add a label to your switch:
-
-```tsx
-import { 
-  SwitchRoot, 
-  SwitchHiddenInput, 
-  SwitchControl, 
-  SwitchThumb,
-  SwitchLabel
-} from "@/components/ui/switch"
-
-export const LabeledSwitch = () => (
-  <SwitchRoot>
-    <SwitchHiddenInput />
-
-    <SwitchControl>
-      <SwitchThumb />
-    </SwitchControl>
-
-    <SwitchLabel>Airplane Mode</SwitchLabel>
-  </SwitchRoot>
-)
-```
+## Usage
 
 ```tsx
 import {
   SwitchRoot,
   SwitchHiddenInput,
   SwitchControl,
-  SwitchThumb,
-  SwitchLabel
-} from "@/components/ui/switch"
-
-export const DefaultCheckedSwitch = () => (
-  <SwitchRoot defaultChecked>
-    <SwitchHiddenInput />
-
-    <SwitchControl>
-      <SwitchThumb />
-    </SwitchControl>
-
-    <SwitchLabel>Custom Switch</SwitchLabel>
-  </SwitchRoot>
-)
+  SwitchThumb
+} from "@/components/ui/switch";
 ```
 
-You can customize the appearance of your switch:
-
 ```tsx
-import {
-  SwitchRoot,
-  SwitchHiddenInput,
-  SwitchControl,
-  SwitchThumb,
-  SwitchLabel
-} from "@/components/ui/switch"
+<SwitchRoot>
+  <SwitchHiddenInput />
+  <SwitchControl>
+    <SwitchThumb />
+  </SwitchControl>
+</SwitchRoot>
+```
 
-export const CustomSwitches = () => (
-  <>
-    <SwitchRoot defaultChecked>
-      <SwitchHiddenInput />
+## Examples
 
-      <SwitchControl>
-        <SwitchThumb />
-      </SwitchControl>
+<br />
 
-      <SwitchLabel>Custom Colors</SwitchLabel>
-    </SwitchRoot>
-    
+#### Basic Examples
+
+<Tabs items={["Default", "With Label", "Checked"]} className="mt-4">
+  <Tab value="Default">
     <SwitchRoot>
       <SwitchHiddenInput />
-
       <SwitchControl>
         <SwitchThumb />
       </SwitchControl>
-
-      <SwitchLabel>Custom Size</SwitchLabel>
     </SwitchRoot>
-  </>
-)
-```
+  </Tab>
+  <Tab value="With Label">
+    <SwitchRoot>
+      <SwitchHiddenInput />
+      <SwitchControl>
+        <SwitchThumb />
+      </SwitchControl>
+      <SwitchLabel>Airplane Mode</SwitchLabel>
+    </SwitchRoot>
+  </Tab>
+  <Tab value="Checked">
+    <SwitchRoot defaultChecked>
+      <SwitchHiddenInput />
+      <SwitchControl>
+        <SwitchThumb />
+      </SwitchControl>
+      <SwitchLabel>Enabled</SwitchLabel>
+    </SwitchRoot>
+  </Tab>
+</Tabs>
+
+#### Settings Panel Example
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="w-full p-6 border rounded-lg shadow-sm">
+      <h3 className="text-lg font-medium mb-4">Settings</h3>
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <FiWifi className="h-5 w-5 text-primary" />
+            <div>
+              <div className="font-medium">Wi-Fi</div>
+              <div className="text-sm text-muted-foreground">Enables wireless networking</div>
+            </div>
+          </div>
+          <SwitchRoot defaultChecked>
+            <SwitchHiddenInput />
+            <SwitchControl>
+              <SwitchThumb />
+            </SwitchControl>
+          </SwitchRoot>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <FiBluetooth className="h-5 w-5 text-primary" />
+            <div>
+              <div className="font-medium">Bluetooth</div>
+              <div className="text-sm text-muted-foreground">Connects to nearby devices</div>
+            </div>
+          </div>
+          <SwitchRoot>
+            <SwitchHiddenInput />
+            <SwitchControl>
+              <SwitchThumb />
+            </SwitchControl>
+          </SwitchRoot>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <FiBell className="h-5 w-5 text-primary" />
+            <div>
+              <div className="font-medium">Notifications</div>
+              <div className="text-sm text-muted-foreground">Receive app notifications</div>
+            </div>
+          </div>
+          <SwitchRoot defaultChecked>
+            <SwitchHiddenInput />
+            <SwitchControl>
+              <SwitchThumb />
+            </SwitchControl>
+          </SwitchRoot>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <FiMoon className="h-5 w-5 text-primary" />
+            <div>
+              <div className="font-medium">Dark Mode</div>
+              <div className="text-sm text-muted-foreground">Use dark theme</div>
+            </div>
+          </div>
+          <SwitchRoot>
+            <SwitchHiddenInput />
+            <SwitchControl>
+              <SwitchThumb />
+            </SwitchControl>
+          </SwitchRoot>
+        </div>
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { FiWifi, FiBluetooth, FiBell, FiMoon } from "react-icons/fi";
+    import {
+      SwitchRoot,
+      SwitchHiddenInput,
+      SwitchControl,
+      SwitchThumb
+    } from "@/components/ui/switch";
+
+    const SettingsPanel = () => (
+      <div className="w-full p-6 border rounded-lg shadow-sm">
+        <h3 className="text-lg font-medium mb-4">Settings</h3>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <FiWifi className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">Wi-Fi</div>
+                <div className="text-sm text-muted-foreground">Enables wireless networking</div>
+              </div>
+            </div>
+            <SwitchRoot defaultChecked>
+              <SwitchHiddenInput />
+              <SwitchControl>
+                <SwitchThumb />
+              </SwitchControl>
+            </SwitchRoot>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <FiBluetooth className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">Bluetooth</div>
+                <div className="text-sm text-muted-foreground">Connects to nearby devices</div>
+              </div>
+            </div>
+            <SwitchRoot>
+              <SwitchHiddenInput />
+              <SwitchControl>
+                <SwitchThumb />
+              </SwitchControl>
+            </SwitchRoot>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <FiBell className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">Notifications</div>
+                <div className="text-sm text-muted-foreground">Receive app notifications</div>
+              </div>
+            </div>
+            <SwitchRoot defaultChecked>
+              <SwitchHiddenInput />
+              <SwitchControl>
+                <SwitchThumb />
+              </SwitchControl>
+            </SwitchRoot>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <FiMoon className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">Dark Mode</div>
+                <div className="text-sm text-muted-foreground">Use dark theme</div>
+              </div>
+            </div>
+            <SwitchRoot>
+              <SwitchHiddenInput />
+              <SwitchControl>
+                <SwitchThumb />
+              </SwitchControl>
+            </SwitchRoot>
+          </div>
+        </div>
+      </div>
+    );
+    ```
+  </Tab>
+</Tabs>

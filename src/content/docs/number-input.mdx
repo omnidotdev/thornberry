@@ -3,21 +3,20 @@ title: Number Input
 description: A form control that allows users to input numeric values with increment and decrement buttons.
 ---
 
+import { FiChevronDown, FiChevronUp, FiUser, FiDollarSign, FiPercent } from "react-icons/fi";
 import { NumberInputRoot, NumberInputLabel, NumberInputControl, NumberInputInput, NumberInputIncrementTrigger, NumberInputDecrementTrigger } from "@/registry/thornberry/components/number-input";
 
 <NumberInputRoot className="mb-8">
   <NumberInputControl>
-    <NumberInputInput />
-
+    <NumberInputInput placeholder="0" />
     <div className="flex flex-col border-l">
       <NumberInputIncrementTrigger />
-
       <NumberInputDecrementTrigger />
     </div>
   </NumberInputControl>
 </NumberInputRoot>
 
-### Installation
+## Installation
 
 <Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
   <Tab value="bun">
@@ -42,9 +41,7 @@ import { NumberInputRoot, NumberInputLabel, NumberInputControl, NumberInputInput
   </Tab>
 </Tabs>
 
-### Examples
-
-Let's see how to use the `NumberInput` components. Let's start with a basic example:
+## Usage
 
 ```tsx
 import {
@@ -53,96 +50,202 @@ import {
   NumberInputInput,
   NumberInputIncrementTrigger,
   NumberInputDecrementTrigger
-} from "@/components/ui/number-input"
-
-export const BasicNumberInput = () => (
-  <NumberInputRoot>
-    <NumberInputControl>
-      <NumberInputInput />
-
-      <NumberInputIncrementTrigger />
-
-      <NumberInputDecrementTrigger />
-    </NumberInputControl>
-  </NumberInputRoot>
-)
-```
-
-You can set minimum and maximum values for the number input:
-
-```tsx
-import {
-  NumberInputRoot,
-  NumberInputLabel,
-  NumberInputControl,
-  NumberInputInput,
-  NumberInputIncrementTrigger,
-  NumberInputDecrementTrigger
-} from "@/components/ui/number-input"
-
-export const RangeNumberInput = () => (
-  <NumberInputRoot min={-10} max={40} defaultValue={22}>
-    <NumberInputLabel>Temperature (°C)</NumberInputLabel>
-
-    <NumberInputControl>
-      <NumberInputInput />
-
-      <NumberInputIncrementTrigger />
-
-      <NumberInputDecrementTrigger />
-    </NumberInputControl>
-  </NumberInputRoot>
-)
-```
-
-You can customize the step size for increments and decrements:
-
-```tsx
-import {
-  NumberInputRoot,
-  NumberInputLabel,
-  NumberInputControl,
-  NumberInputInput,
-  NumberInputIncrementTrigger,
-  NumberInputDecrementTrigger
-} from "@/components/ui/number-input"
-
-export const StepNumberInput = () => (
-  <NumberInputRoot min={0} max={100} step={5} defaultValue={50}>
-    <NumberInputLabel>Volume</NumberInputLabel>
-
-    <NumberInputControl>
-      <NumberInputInput />
-
-      <NumberInputIncrementTrigger />
-
-      <NumberInputDecrementTrigger />
-    </NumberInputControl>
-  </NumberInputRoot>
-)
+} from "@/components/ui/number-input";
 ```
 
 ```tsx
-import {
-  NumberInputRoot,
-  NumberInputLabel,
-  NumberInputControl,
-  NumberInputInput,
-  NumberInputIncrementTrigger,
-  NumberInputDecrementTrigger
-} from "@/components/ui/number-input"
-
-export const CustomNumberInput = () => (
-  <NumberInputRoot min={0} max={100} step={10} defaultValue={30}>
-    <NumberInputLabel>Custom Number Input</NumberInputLabel>
-
-    <NumberInputControl>
-      <NumberInputInput />
-
+<NumberInputRoot>
+  <NumberInputControl>
+    <NumberInputInput />
+    <div className="flex flex-col border-l">
       <NumberInputIncrementTrigger />
-
       <NumberInputDecrementTrigger />
-    </NumberInputControl>
-  </NumberInputRoot>
-)
+    </div>
+  </NumberInputControl>
+</NumberInputRoot>
 ```
+
+## Examples
+
+<br />
+
+#### Basic Examples
+
+<Tabs items={["Default", "With Label", "With Min/Max"]} className="mt-4">
+  <Tab value="Default">
+    <NumberInputRoot>
+      <NumberInputControl>
+        <NumberInputInput placeholder="0" />
+        <div className="flex flex-col border-l">
+          <NumberInputIncrementTrigger />
+          <NumberInputDecrementTrigger />
+        </div>
+      </NumberInputControl>
+    </NumberInputRoot>
+  </Tab>
+  <Tab value="With Label">
+    <NumberInputRoot>
+      <NumberInputLabel>Quantity</NumberInputLabel>
+      <NumberInputControl>
+        <NumberInputInput placeholder="0" />
+        <div className="flex flex-col border-l">
+          <NumberInputIncrementTrigger />
+          <NumberInputDecrementTrigger />
+        </div>
+      </NumberInputControl>
+    </NumberInputRoot>
+  </Tab>
+  <Tab value="With Min/Max">
+    <NumberInputRoot min={0} max={10} defaultValue={5}>
+      <NumberInputLabel>Rating (0-10)</NumberInputLabel>
+      <NumberInputControl>
+        <NumberInputInput />
+        <div className="flex flex-col border-l">
+          <NumberInputIncrementTrigger />
+          <NumberInputDecrementTrigger />
+        </div>
+      </NumberInputControl>
+    </NumberInputRoot>
+  </Tab>
+</Tabs>
+
+#### Custom Step Size
+
+<Tabs items={["Step Size 5", "Step Size 0.1", "Currency"]} className="mt-4">
+  <Tab value="Step Size 5">
+    <NumberInputRoot min={0} max={100} step={5} defaultValue={50}>
+      <NumberInputLabel>Volume</NumberInputLabel>
+      <NumberInputControl>
+        <NumberInputInput />
+        <div className="flex flex-col border-l">
+          <NumberInputIncrementTrigger />
+          <NumberInputDecrementTrigger />
+        </div>
+      </NumberInputControl>
+    </NumberInputRoot>
+  </Tab>
+  <Tab value="Step Size 0.1">
+    <NumberInputRoot min={0} max={5} step={0.1} defaultValue={3.5}>
+      <NumberInputLabel>Rating (0.0-5.0)</NumberInputLabel>
+      <NumberInputControl>
+        <NumberInputInput />
+        <div className="flex flex-col border-l">
+          <NumberInputIncrementTrigger />
+          <NumberInputDecrementTrigger />
+        </div>
+      </NumberInputControl>
+    </NumberInputRoot>
+  </Tab>
+  <Tab value="Currency">
+    <NumberInputRoot min={0} step={1} defaultValue={100}>
+      <NumberInputLabel>Price</NumberInputLabel>
+      <NumberInputControl>
+        <div className="flex items-center pl-3 text-muted-foreground">
+          <FiDollarSign className="size-3" />
+        </div>
+        <NumberInputInput className="border-0" />
+        <div className="flex flex-col border-l">
+          <NumberInputIncrementTrigger />
+          <NumberInputDecrementTrigger />
+        </div>
+      </NumberInputControl>
+    </NumberInputRoot>
+  </Tab>
+</Tabs>
+
+#### Advanced Usage
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="flex flex-col gap-2">
+      <NumberInputRoot min={1} max={10} defaultValue={1} className="flex-1">
+        <div className="flex items-center justify-between">
+          <NumberInputLabel>Number of guests</NumberInputLabel>
+          <div className="flex h-6 items-center text-sm text-muted-foreground">
+            <FiUser className="mr-1 h-4 w-4" />
+            <span>per room</span>
+          </div>
+        </div>
+        <NumberInputControl className="mt-1.5">
+          <NumberInputInput />
+          <div className="flex flex-col border-l">
+            <NumberInputIncrementTrigger />
+            <NumberInputDecrementTrigger />
+          </div>
+        </NumberInputControl>
+      </NumberInputRoot>
+
+      <NumberInputRoot min={0} max={100} step={5} defaultValue={25} className="flex-1">
+        <div className="flex items-center justify-between">
+          <NumberInputLabel>Discount</NumberInputLabel>
+          <div className="flex h-6 items-center text-sm text-muted-foreground">
+            <span>Up to 100%</span>
+          </div>
+        </div>
+        <NumberInputControl className="mt-1.5">
+          <NumberInputInput />
+          <div className="flex items-center pr-3 text-muted-foreground">
+            <FiPercent className="h-4 w-4" />
+          </div>
+          <div className="flex flex-col border-l">
+            <NumberInputIncrementTrigger />
+            <NumberInputDecrementTrigger />
+          </div>
+        </NumberInputControl>
+      </NumberInputRoot>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { FiUser, FiPercent } from "react-icons/fi";
+    import {
+      NumberInputRoot,
+      NumberInputLabel,
+      NumberInputControl,
+      NumberInputInput,
+      NumberInputIncrementTrigger,
+      NumberInputDecrementTrigger
+    } from "@/components/ui/number-input";
+
+    const AdvancedNumberInputs = () => (
+      <div className="space-y-6">
+        <NumberInputRoot min={1} max={10} defaultValue={1} className="max-w-[240px]">
+          <div className="flex items-center justify-between">
+            <NumberInputLabel>Number of guests</NumberInputLabel>
+            <div className="flex h-6 items-center text-sm text-muted-foreground">
+              <FiUser className="mr-1 h-4 w-4" />
+              <span>per room</span>
+            </div>
+          </div>
+          <NumberInputControl className="mt-1.5">
+            <NumberInputInput />
+            <div className="flex flex-col border-l">
+              <NumberInputIncrementTrigger />
+              <NumberInputDecrementTrigger />
+            </div>
+          </NumberInputControl>
+        </NumberInputRoot>
+
+        <NumberInputRoot min={0} max={100} step={5} defaultValue={25} className="max-w-[240px]">
+          <div className="flex items-center justify-between">
+            <NumberInputLabel>Discount</NumberInputLabel>
+            <div className="flex h-6 items-center text-sm text-muted-foreground">
+              <span>Up to 100%</span>
+            </div>
+          </div>
+          <NumberInputControl className="mt-1.5">
+            <NumberInputInput />
+            <div className="flex items-center pr-3 text-muted-foreground">
+              <FiPercent className="h-4 w-4" />
+            </div>
+            <div className="flex flex-col border-l">
+              <NumberInputIncrementTrigger />
+              <NumberInputDecrementTrigger />
+            </div>
+          </NumberInputControl>
+        </NumberInputRoot>
+      </div>
+    );
+    ```
+  </Tab>
+</Tabs>

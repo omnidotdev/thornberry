@@ -3,19 +3,19 @@ title: Slider
 description: A control that allows users to select a value or range from a given range.
 ---
 
-import { SliderRoot, SliderControl, SliderTrack, SliderRange, SliderThumb } from "@/registry/thornberry/components/slider";
+import { FiVolume2, FiSun, FiMoon, FiThermometer } from "react-icons/fi";
+import { SliderRoot, SliderControl, SliderTrack, SliderRange, SliderThumb, SliderLabel, SliderValueText, SliderMarker } from "@/registry/thornberry/components/slider";
 
 <SliderRoot defaultValue={[50]} className="mb-8">
   <SliderControl>
     <SliderTrack>
       <SliderRange />
     </SliderTrack>
-
     <SliderThumb index={0} />
   </SliderControl>
 </SliderRoot>
 
-### Installation
+## Installation
 
 <Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
   <Tab value="bun">
@@ -40,242 +40,207 @@ import { SliderRoot, SliderControl, SliderTrack, SliderRange, SliderThumb } from
   </Tab>
 </Tabs>
 
-### Examples
-
-Let's see how to use the `Slider` components. Let's start with a basic example:
-
-```tsx
-import { 
-  SliderRoot, 
-  SliderControl, 
-  SliderTrack, 
-  SliderRange, 
-  SliderThumb 
-} from "@/components/ui/slider"
-
-export const BasicSlider = () => (
-  <SliderRoot defaultValue={[50]}>
-    <SliderControl>
-      <SliderTrack>
-        <SliderRange />
-      </SliderTrack>
-
-      <SliderThumb index={0} />
-    </SliderControl>
-  </SliderRoot>
-)
-```
-
-You can add a label to your slider:
-
-```tsx
-import { 
-  SliderRoot, 
-  SliderLabel,
-  SliderControl, 
-  SliderTrack, 
-  SliderRange, 
-  SliderThumb 
-} from "@/components/ui/slider"
-
-export const LabeledSlider = () => (
-  <SliderRoot defaultValue={[75]}>
-    <SliderLabel>Volume</SliderLabel>
-
-    <SliderControl>
-      <SliderTrack>
-        <SliderRange />
-      </SliderTrack>
-
-      <SliderThumb index={0} />
-    </SliderControl>
-  </SliderRoot>
-)
-```
-
-You can display the current value:
-
-```tsx
-import { 
-  SliderRoot, 
-  SliderLabel,
-  SliderControl, 
-  SliderTrack, 
-  SliderRange, 
-  SliderThumb,
-  SliderValueText
-} from "@/components/ui/slider"
-
-export const SliderWithValue = () => (
-  <SliderRoot defaultValue={[60]}>
-    <SliderLabel>Brightness</SliderLabel>
-
-    <SliderControl>
-      <SliderTrack>
-        <SliderRange />
-      </SliderTrack>
-
-      <SliderThumb index={0} />
-    </SliderControl>
-
-    <SliderValueText />
-  </SliderRoot>
-)
-```
-
-You can customize the range with min, max, and step values:
-
-```tsx
-import { 
-  SliderRoot, 
-  SliderLabel,
-  SliderControl, 
-  SliderTrack, 
-  SliderRange, 
-  SliderThumb,
-  SliderValueText
-} from "@/components/ui/slider"
-
-export const CustomRangeSlider = () => (
-  <SliderRoot
-    min={15}
-    max={30}
-    step={0.5}
-    defaultValue={[22.5]}
-  >
-    <SliderLabel>Temperature</SliderLabel>
-
-    <SliderControl>
-      <SliderTrack>
-        <SliderRange />
-      </SliderTrack>
-
-      <SliderThumb index={0} />
-    </SliderControl>
-
-    <SliderValueText />
-  </SliderRoot>
-)
-```
-
-You can add markers to your slider:
-
-```tsx
-import { 
-  SliderRoot, 
-  SliderLabel,
-  SliderControl, 
-  SliderTrack, 
-  SliderRange, 
-  SliderThumb,
-  SliderValueText,
-  SliderMarker
-} from "@/components/ui/slider"
-
-export const SliderWithMarkers = () => (
-  <SliderRoot
-    min={0}
-    max={100}
-    step={25}
-    defaultValue={[50]}
-  >
-    <SliderLabel>Speed</SliderLabel>
-
-    <SliderControl>
-      <SliderTrack>
-        <SliderRange />
-      </SliderTrack>
-
-      <SliderMarker value={0}>0%</SliderMarker>
-
-      <SliderMarker value={25}>25%</SliderMarker>
-
-      <SliderMarker value={50}>50%</SliderMarker>
-
-      <SliderMarker value={75}>75%</SliderMarker>
-
-      <SliderMarker value={100}>100%</SliderMarker>
-
-      <SliderThumb index={0} />
-    </SliderControl>
-
-    <SliderValueText />
-  </SliderRoot>
-)
-```
+## Usage
 
 ```tsx
 import {
   SliderRoot,
-  SliderLabel,
   SliderControl,
   SliderTrack,
   SliderRange,
-  SliderThumb,
-  SliderValueText,
-  SliderMarker
-} from "@/components/ui/slider"
-
-export const CustomSlider = () => (
-  <SliderRoot
-    min={0}
-    max={100}
-    defaultValue={[40]}
-  >
-    <SliderLabel>Custom Slider</SliderLabel>
-
-    <SliderControl>
-      <SliderTrack>
-        <SliderRange />
-      </SliderTrack>
-
-      <SliderMarker value={0}>Min</SliderMarker>
-
-      <SliderMarker value={50}>Mid</SliderMarker>
-
-      <SliderMarker value={100}>Max</SliderMarker>
-
-      <SliderThumb index={0} />
-    </SliderControl>
-
-    <SliderValueText />
-  </SliderRoot>
-)
+  SliderThumb
+} from "@/components/ui/slider";
 ```
-
-You can create a range slider with multiple thumbs:
 
 ```tsx
-import {
-  SliderRoot,
-  SliderLabel,
-  SliderControl,
-  SliderTrack,
-  SliderRange,
-  SliderThumb,
-  SliderValueText
-} from "@/components/ui/slider"
-
-export const RangeSlider = () => (
-  <SliderRoot
-    min={0}
-    max={100}
-    step={10}
-    defaultValue={[30, 70]}
-  >
-    <SliderLabel>Range Slider</SliderLabel>
-
-    <SliderControl>
-      <SliderTrack>
-        <SliderRange />
-      </SliderTrack>
-
-      <SliderThumb index={0} />
-
-      <SliderThumb index={1} />
-    </SliderControl>
-
-    <SliderValueText />
-  </SliderRoot>
-)
+<SliderRoot defaultValue={[50]}>
+  <SliderControl>
+    <SliderTrack>
+      <SliderRange />
+    </SliderTrack>
+    <SliderThumb index={0} />
+  </SliderControl>
+</SliderRoot>
 ```
+
+## Examples
+
+<br />
+
+#### Basic Examples
+
+<Tabs items={["Simple", "With Label", "With Value"]} className="mt-4">
+  <Tab value="Simple">
+    <SliderRoot defaultValue={[50]}>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumb index={0} />
+      </SliderControl>
+    </SliderRoot>
+  </Tab>
+  <Tab value="With Label">
+    <SliderRoot defaultValue={[75]}>
+      <SliderLabel>Volume</SliderLabel>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumb index={0} />
+      </SliderControl>
+    </SliderRoot>
+  </Tab>
+  <Tab value="With Value">
+    <SliderRoot defaultValue={[60]}>
+      <SliderLabel>Brightness</SliderLabel>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumb index={0} />
+      </SliderControl>
+      <SliderValueText />
+    </SliderRoot>
+  </Tab>
+</Tabs>
+
+#### Advanced Configuration
+
+<Tabs items={["With Markers", "Custom Range", "Range Slider"]} className="mt-4">
+  <Tab value="With Markers">
+    <SliderRoot min={0} max={100} step={25} defaultValue={[50]}>
+      <SliderLabel>Speed</SliderLabel>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderMarker value={0}>0%</SliderMarker>
+        <SliderMarker value={25}>25%</SliderMarker>
+        <SliderMarker value={50}>50%</SliderMarker>
+        <SliderMarker value={75}>75%</SliderMarker>
+        <SliderMarker value={100}>100%</SliderMarker>
+        <SliderThumb index={0} />
+      </SliderControl>
+      <SliderValueText className="pt-6" />
+    </SliderRoot>
+  </Tab>
+  <Tab value="Custom Range">
+    <SliderRoot min={15} max={30} step={0.5} defaultValue={[22.5]}>
+      <SliderLabel>Temperature (°C)</SliderLabel>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumb index={0} />
+      </SliderControl>
+      <SliderValueText />
+    </SliderRoot>
+  </Tab>
+  <Tab value="Range Slider">
+    <SliderRoot min={0} max={100} step={10} defaultValue={[30, 70]}>
+      <SliderLabel>Price Range</SliderLabel>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumb index={0} />
+        <SliderThumb index={1} />
+      </SliderControl>
+      <SliderValueText />
+    </SliderRoot>
+  </Tab>
+</Tabs>
+
+#### Styled Examples
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="flex flex-col gap-4 pb-8">
+      <div className="flex items-center gap-4">
+        <FiVolume2 className="h-5 w-5 text-muted-foreground" />
+        <SliderRoot defaultValue={[60]}>
+          <SliderControl>
+            <SliderTrack className="bg-muted">
+              <SliderRange className="bg-primary" />
+            </SliderTrack>
+            <SliderThumb index={0} className="border-primary" />
+          </SliderControl>
+        </SliderRoot>
+      </div>
+
+      <div>
+        <SliderRoot min={15} max={35} step={0.5} defaultValue={[22.5]}>
+          <div className="flex items-center gap-2 mb-3">
+            <SliderLabel className="flex items-center gap-1 mb-0">
+              <FiThermometer className="size-4 text-red-500" />
+              <p className="text-muted-foreground">Temperature</p>
+            </SliderLabel>
+            <SliderValueText className="bg-primary/10 px-2 py-0.5 rounded text-xs mt-0" />
+          </div>
+          <SliderControl>
+            <SliderTrack className="bg-gradient-to-r from-blue-500 via-purple-500 to-red-500">
+              <SliderRange className="bg-transparent" />
+            </SliderTrack>
+            <SliderMarker value={15} className="text-blue-600">Cold</SliderMarker>
+            <SliderMarker value={25} className="text-purple-600">Ideal</SliderMarker>
+            <SliderMarker value={35} className="text-red-600">Hot</SliderMarker>
+            <SliderThumb index={0} />
+          </SliderControl>
+        </SliderRoot>
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { FiVolume2, FiSun, FiMoon, FiThermometer } from "react-icons/fi";
+    import {
+      SliderRoot,
+      SliderControl,
+      SliderTrack,
+      SliderRange,
+      SliderThumb,
+      SliderLabel,
+      SliderValueText,
+      SliderMarker
+    } from "@/components/ui/slider";
+
+    const StyledSliders = () => (
+    <div className="flex flex-col gap-4 pb-8">
+      <div className="flex items-center gap-4">
+        <FiVolume2 className="h-5 w-5 text-muted-foreground" />
+        <SliderRoot defaultValue={[60]}>
+          <SliderControl>
+            <SliderTrack className="bg-muted">
+              <SliderRange className="bg-primary" />
+            </SliderTrack>
+            <SliderThumb index={0} className="border-primary" />
+          </SliderControl>
+        </SliderRoot>
+      </div>
+
+      <div>
+        <SliderRoot min={15} max={35} step={0.5} defaultValue={[22.5]}>
+          <div className="flex items-center gap-2 mb-3">
+            <SliderLabel className="flex items-center gap-1 mb-0">
+              <FiThermometer className="size-4 text-red-500" />
+              <p className="text-muted-foreground">Temperature</p>
+            </SliderLabel>
+            <SliderValueText className="bg-primary/10 px-2 py-0.5 rounded text-xs mt-0" />
+          </div>
+          <SliderControl>
+            <SliderTrack className="bg-gradient-to-r from-blue-500 via-purple-500 to-red-500">
+              <SliderRange className="bg-transparent" />
+            </SliderTrack>
+            <SliderMarker value={15} className="text-blue-600">Cold</SliderMarker>
+            <SliderMarker value={25} className="text-purple-600">Ideal</SliderMarker>
+            <SliderMarker value={35} className="text-red-600">Hot</SliderMarker>
+            <SliderThumb index={0} />
+          </SliderControl>
+        </SliderRoot>
+      </div>
+    </div>
+    );
+    ```
+  </Tab>
+</Tabs>

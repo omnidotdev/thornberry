@@ -5,9 +5,9 @@ description: Small status descriptors for UI elements.
 
 import { Badge } from "@/registry/thornberry/components/badge";
 
-<Badge className="mb-8">Default Badge</Badge>
+<Badge className="mb-8">Badge</Badge>
 
-### Installation
+## Installation
 
 <Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
   <Tab value="bun">
@@ -32,46 +32,68 @@ import { Badge } from "@/registry/thornberry/components/badge";
   </Tab>
 </Tabs>
 
-### Examples
-
-Let's see how to use the `Badge` component. Let's start with a basic example:
+## Usage
 
 ```tsx
-import { Badge } from "@/components/ui/badge"
-
-export const BasicBadge = () => (
-  <Badge>Default Badge</Badge>
-)
+import { Badge } from "@/components/ui/badge";
 ```
 
-The Badge component comes with different variants that you can use to represent different styles:
-
 ```tsx
-import { Badge } from "@/components/ui/badge"
+<Badge variant="outline">Badge</Badge>
+```
 
-export const BadgeVariants = () => (
-  <>
+## Examples
+
+<br />
+
+#### Variants
+
+<Tabs items={["Solid", "Subtle", "Outline"]} className="mt-4">
+  <Tab value="Solid">
     <Badge>Solid</Badge>
-    
+
+    ```tsx
+    <Badge>Solid</Badge>
+    ```
+  </Tab>
+  <Tab value="Subtle">
     <Badge variant="subtle">Subtle</Badge>
-    
+
+    ```tsx
+    <Badge variant="subtle">Subtle</Badge>
+    ```
+  </Tab>
+  <Tab value="Outline">
     <Badge variant="outline">Outline</Badge>
-  </>
-)
-```
 
-You can also use different sizes for your badges:
+    ```tsx
+    <Badge variant="outline">Outline</Badge>
+    ```
+  </Tab>
+</Tabs>
 
-```tsx
-import { Badge } from "@/components/ui/badge"
+#### Sizes
 
-export const BadgeSizes = () => (
-  <>
+<Tabs items={["Small", "Medium", "Large"]} className="mt-4">
+  <Tab value="Small">
     <Badge size="sm">Small</Badge>
-    
-    <Badge>Medium</Badge>
-    
+
+    ```tsx
+    <Badge size="sm">Small</Badge>
+    ```
+  </Tab>
+  <Tab value="Medium">
+    <Badge size="md">Medium</Badge>
+
+    ```tsx
+    <Badge size="md">Medium</Badge>
+    ```
+  </Tab>
+  <Tab value="Large">
     <Badge size="lg">Large</Badge>
-  </>
-)
-```
+
+    ```tsx
+    <Badge size="lg">Large</Badge>
+    ```
+  </Tab>
+</Tabs>

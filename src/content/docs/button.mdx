@@ -8,7 +8,7 @@ import { Button } from "@/registry/thornberry/components/button";
 
 <Button className="mb-8">Button</Button>
 
-### Installation
+## Installation
 
 <Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
   <Tab value="bun">
@@ -33,56 +33,93 @@ import { Button } from "@/registry/thornberry/components/button";
   </Tab>
 </Tabs>
 
-### Examples
-
-Let's see how to use the `Button` component. Let's start with a basic example:
+## Usage
 
 ```tsx
-import { Button } from "@/components/ui/button"
-
-export const BasicButton = () => (
-  <Button>Click me</Button>
-)
+import { Button } from "@/components/ui/button";
 ```
 
-The Button component comes with different variants to suit your needs:
-
 ```tsx
-import { Button } from "@/components/ui/button"
+<Button>Click me</Button>
+```
 
-export const ButtonVariants = () => (
-  <>
-    <Button>Solid</Button>
+## Examples
 
+<br />
+
+#### Variants
+
+<Tabs items={["Solid", "Outline", "Muted", "Ghost", "Link"]} className="mt-4">
+  <Tab value="Solid">
+    <Button variant="solid">Solid</Button>
+
+    ```tsx
+    <Button variant="solid">Solid</Button>
+    ```
+  </Tab>
+  <Tab value="Outline">
     <Button variant="outline">Outline</Button>
 
+    ```tsx
+    <Button variant="outline">Outline</Button>
+    ```
+  </Tab>
+  <Tab value="Muted">
     <Button variant="muted">Muted</Button>
 
+    ```tsx
+    <Button variant="muted">Muted</Button>
+    ```
+  </Tab>
+  <Tab value="Ghost">
     <Button variant="ghost">Ghost</Button>
 
+    ```tsx
+    <Button variant="ghost">Ghost</Button>
+    ```
+  </Tab>
+  <Tab value="Link">
     <Button variant="link">Link</Button>
-  </>
-)
-```
 
-You can also use different sizes:
+    ```tsx
+    <Button variant="link">Link</Button>
+    ```
+  </Tab>
+</Tabs>
 
-```tsx
-import { FiPlus } from "react-icons/fi"
+#### Sizes
 
-import { Button } from "@/components/ui/button"
-
-export const ButtonSizes = () => (
-  <>
+<Tabs items={["Small", "Medium", "Large", "Icon"]} className="mt-4">
+  <Tab value="Small">
     <Button size="sm">Small</Button>
 
-    <Button>Medium</Button>
+    ```tsx
+    <Button size="sm">Small</Button>
+    ```
+  </Tab>
+  <Tab value="Medium">
+    <Button size="md">Medium</Button>
 
+    ```tsx
+    <Button size="md">Medium</Button>
+    ```
+  </Tab>
+  <Tab value="Large">
     <Button size="lg">Large</Button>
 
+    ```tsx
+    <Button size="lg">Large</Button>
+    ```
+  </Tab>
+  <Tab value="Icon">
     <Button size="icon">
       <FiPlus />
     </Button>
-  </>
-)
-```
+
+    ```tsx
+    <Button size="icon">
+      <FiPlus />
+    </Button>
+    ```
+  </Tab>
+</Tabs>

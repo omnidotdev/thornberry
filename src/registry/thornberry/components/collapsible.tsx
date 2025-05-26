@@ -1,7 +1,7 @@
 import { Collapsible as ArkCollapsible } from "@ark-ui/react/collapsible";
+import { FiChevronDown } from "react-icons/fi";
 
 import { cn } from "@/lib/utils";
-import { FiChevronDown } from "react-icons/fi";
 
 import type { ComponentProps } from "react";
 
@@ -22,16 +22,17 @@ const CollapsibleTrigger = ({
 }: ComponentProps<typeof ArkCollapsible.Trigger>) => (
   <ArkCollapsible.Trigger
     className={cn(
-      "flex w-full items-center justify-between rounded-md px-4 py-2 font-medium text-sm",
+      "flex w-full items-center justify-between rounded-md px-4 py-2 font-medium text-sm transition-all",
       "bg-background hover:bg-muted/50",
       "data-[state=open]:bg-muted/50",
       "data-[state=open]:rounded-b-none",
+      "[&[data-state=open]>svg]:rotate-180",
       className,
     )}
     {...rest}
   >
     {children}
-    <FiChevronDown className="h-4 w-4 transition-transform data-[state=open]:rotate-180" />
+    <FiChevronDown className="h-4 w-4 transition-transform" />
   </ArkCollapsible.Trigger>
 );
 
@@ -40,10 +41,7 @@ const CollapsibleContent = ({
   ...rest
 }: ComponentProps<typeof ArkCollapsible.Content>) => (
   <ArkCollapsible.Content
-    className={cn(
-      "overflow-hidden data-[state=closed]:animate-collapse data-[state=open]:animate-expand",
-      className,
-    )}
+    className={cn("overflow-hidden", className)}
     {...rest}
   />
 );

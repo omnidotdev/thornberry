@@ -3,15 +3,15 @@ title: Popover
 description: A small floating content display that appears when a user interacts with a trigger element.
 ---
 
-import { PopoverRoot, PopoverTrigger, PopoverPositioner, PopoverContent, PopoverCloseTrigger } from "@/registry/thornberry/components/popover";
+import { FiX, FiInfo, FiSettings, FiUser } from "react-icons/fi";
+import { PopoverRoot, PopoverTrigger, PopoverPositioner, PopoverContent, PopoverCloseTrigger, PopoverArrow, PopoverArrowTip } from "@/registry/thornberry/components/popover";
 import { Button } from "@/registry/thornberry/components/button";
 import { Input } from "@/registry/thornberry/components/input";
 
 <PopoverRoot>
-  <PopoverTrigger asChild>
-    <Button className="mb-8">Open</Button>
+  <PopoverTrigger asChild className="mb-8">
+    <Button>Open Popover</Button>
   </PopoverTrigger>
-  
   <PopoverPositioner>
     <PopoverContent>
       <div className="space-y-2">
@@ -32,7 +32,7 @@ import { Input } from "@/registry/thornberry/components/input";
   </PopoverPositioner>
 </PopoverRoot>
 
-### Installation
+## Installation
 
 <Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
   <Tab value="bun">
@@ -57,170 +57,256 @@ import { Input } from "@/registry/thornberry/components/input";
   </Tab>
 </Tabs>
 
-### Examples
-
-Let's see how to use the `Popover` components. Let's start with a basic example:
-
-```tsx
-import { 
-  PopoverRoot, 
-  PopoverTrigger, 
-  PopoverPositioner, 
-  PopoverContent 
-} from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-
-export const BasicPopover = () => (
-  <PopoverRoot>
-    <PopoverTrigger asChild>
-      <Button>Open</Button>
-    </PopoverTrigger>
-    
-    <PopoverPositioner>
-      <PopoverContent>
-        Dimensions
-        Set the dimensions for the object.
-        
-        <label htmlFor="width">Width</label>
-        <Input id="width" defaultValue="100%" />
-        
-        <label htmlFor="height">Height</label>
-        <Input id="height" defaultValue="25px" />
-      </PopoverContent>
-    </PopoverPositioner>
-  </PopoverRoot>
-)
-```
-
-You can add a close trigger to the popover content:
-
-```tsx
-import { 
-  PopoverRoot, 
-  PopoverTrigger, 
-  PopoverPositioner, 
-  PopoverContent, 
-  PopoverCloseTrigger 
-} from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
-
-export const PopoverWithClose = () => (
-  <PopoverRoot>
-    <PopoverTrigger asChild>
-      <Button>Open</Button>
-    </PopoverTrigger>
-    
-    <PopoverPositioner>
-      <PopoverContent>
-        Notifications
-        <PopoverCloseTrigger />
-        
-        You have 3 unread messages.
-        
-        <Button size="sm">View All</Button>
-      </PopoverContent>
-    </PopoverPositioner>
-  </PopoverRoot>
-)
-```
-
-You can customize the positioning of the popover:
-
-```tsx
-import { 
-  PopoverRoot, 
-  PopoverTrigger, 
-  PopoverPositioner, 
-  PopoverContent 
-} from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
-
-export const PositionedPopovers = () => (
-  <>
-    <PopoverRoot>
-      <PopoverTrigger asChild>
-        <Button variant="outline">Left</Button>
-      </PopoverTrigger>
-      
-      <PopoverPositioner placement="left">
-        <PopoverContent>
-          This popover appears on the left
-        </PopoverContent>
-      </PopoverPositioner>
-    </PopoverRoot>
-    
-    <PopoverRoot>
-      <PopoverTrigger asChild>
-        <Button variant="outline">Top</Button>
-      </PopoverTrigger>
-      
-      <PopoverPositioner placement="top">
-        <PopoverContent>
-          This popover appears on top
-        </PopoverContent>
-      </PopoverPositioner>
-    </PopoverRoot>
-    
-    <PopoverRoot>
-      <PopoverTrigger asChild>
-        <Button variant="outline">Bottom</Button>
-      </PopoverTrigger>
-      
-      <PopoverPositioner placement="bottom">
-        <PopoverContent>
-          This popover appears on the bottom
-        </PopoverContent>
-      </PopoverPositioner>
-    </PopoverRoot>
-    
-    <PopoverRoot>
-      <PopoverTrigger asChild>
-        <Button variant="outline">Right</Button>
-      </PopoverTrigger>
-      
-      <PopoverPositioner placement="right">
-        <PopoverContent>
-          This popover appears on the right
-        </PopoverContent>
-      </PopoverPositioner>
-    </PopoverRoot>
-  </>
-)
-```
+## Usage
 
 ```tsx
 import {
   PopoverRoot,
   PopoverTrigger,
   PopoverPositioner,
-  PopoverContent,
-  PopoverArrow,
-  PopoverArrowTip,
-  PopoverCloseTrigger
-} from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
-
-export const CustomStyledPopover = () => (
-  <PopoverRoot>
-    <PopoverTrigger asChild>
-      <Button variant="outline">Open</Button>
-    </PopoverTrigger>
-    
-    <PopoverPositioner>
-      <PopoverContent>
-        <PopoverArrow>
-          <PopoverArrowTip />
-        </PopoverArrow>
-        
-        Custom Styled Popover
-        This popover includes an arrow and custom styling.
-        
-        <PopoverCloseTrigger asChild>
-          <Button variant="outline" size="sm">Close</Button>
-        </PopoverCloseTrigger>
-      </PopoverContent>
-    </PopoverPositioner>
-  </PopoverRoot>
-)
+  PopoverContent
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 ```
+
+```tsx
+<PopoverRoot>
+  <PopoverTrigger asChild>
+    <Button>Open Popover</Button>
+  </PopoverTrigger>
+  <PopoverPositioner>
+    <PopoverContent>
+      <h4 className="font-medium">Title</h4>
+      <p>Popover content goes here.</p>
+    </PopoverContent>
+  </PopoverPositioner>
+</PopoverRoot>
+```
+
+## Examples
+
+<br />
+
+#### Basic Examples
+
+<Tabs items={["Basic", "With Close Button", "With Arrow"]} className="mt-4">
+  <Tab value="Basic">
+    <PopoverRoot>
+      <PopoverTrigger asChild>
+        <Button variant="outline">Basic Popover</Button>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
+          <h4 className="font-medium">Settings</h4>
+          <p className="text-sm text-muted-foreground mt-1">Manage your account settings and preferences.</p>
+          <div className="flex gap-2 mt-4">
+            <Button size="sm">Save</Button>
+          </div>
+        </PopoverContent>
+      </PopoverPositioner>
+    </PopoverRoot>
+  </Tab>
+  <Tab value="With Close Button">
+    <PopoverRoot>
+      <PopoverTrigger asChild>
+        <Button variant="outline">With Close Button</Button>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverCloseTrigger />
+          <h4 className="font-medium">Notifications</h4>
+          <p className="text-sm text-muted-foreground mt-1">You have 3 unread notifications.</p>
+          <div className="flex gap-2 mt-4">
+            <Button size="sm" variant="outline">Mark as Read</Button>
+          </div>
+        </PopoverContent>
+      </PopoverPositioner>
+    </PopoverRoot>
+  </Tab>
+  <Tab value="With Arrow">
+    <PopoverRoot>
+      <PopoverTrigger asChild>
+        <Button variant="outline">With Arrow</Button>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverArrow>
+            <PopoverArrowTip />
+          </PopoverArrow>
+          <h4 className="font-medium">Tooltip Style</h4>
+          <p className="text-sm text-muted-foreground mt-1">This popover includes a pointing arrow.</p>
+        </PopoverContent>
+      </PopoverPositioner>
+    </PopoverRoot>
+  </Tab>
+</Tabs>
+
+#### Positioning
+
+<Tabs items={["Top", "Right", "Bottom", "Left"]} className="mt-4">
+  <Tab value="Top">
+    <PopoverRoot positioning={{ placement: "top" }}>
+      <PopoverTrigger asChild>
+        <Button variant="outline">Top Placement</Button>
+      </PopoverTrigger>
+      <PopoverPositioner placement="top">
+        <PopoverContent>
+          <PopoverArrow>
+            <PopoverArrowTip />
+          </PopoverArrow>
+          <p className="text-sm">This popover appears on top</p>
+        </PopoverContent>
+      </PopoverPositioner>
+    </PopoverRoot>
+  </Tab>
+  <Tab value="Right">
+    <PopoverRoot positioning={{ placement: "right" }}>
+      <PopoverTrigger asChild>
+        <Button variant="outline">Right Placement</Button>
+      </PopoverTrigger>
+      <PopoverPositioner placement="right">
+        <PopoverContent>
+          <PopoverArrow>
+            <PopoverArrowTip />
+          </PopoverArrow>
+          <p className="text-sm">This popover appears on the right</p>
+        </PopoverContent>
+      </PopoverPositioner>
+    </PopoverRoot>
+  </Tab>
+  <Tab value="Bottom">
+    <PopoverRoot positioning={{ placement: "bottom" }}>
+      <PopoverTrigger asChild>
+        <Button variant="outline">Bottom Placement</Button>
+      </PopoverTrigger>
+      <PopoverPositioner placement="bottom">
+        <PopoverContent>
+          <PopoverArrow>
+            <PopoverArrowTip />
+          </PopoverArrow>
+          <p className="text-sm">This popover appears on the bottom</p>
+        </PopoverContent>
+      </PopoverPositioner>
+    </PopoverRoot>
+  </Tab>
+  <Tab value="Left">
+    <PopoverRoot positioning={{ placement: "left" }}>
+      <PopoverTrigger asChild>
+        <Button variant="outline">Left Placement</Button>
+      </PopoverTrigger>
+      <PopoverPositioner placement="left">
+        <PopoverContent>
+          <PopoverArrow>
+            <PopoverArrowTip />
+          </PopoverArrow>
+          <p className="text-sm">This popover appears on the left</p>
+        </PopoverContent>
+      </PopoverPositioner>
+    </PopoverRoot>
+  </Tab>
+</Tabs>
+
+#### Advanced Usage
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <PopoverRoot>
+      <PopoverTrigger asChild>
+        <Button variant="outline" className="flex items-center gap-2">
+          <FiUser className="h-4 w-4" />
+          <span>User Profile</span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent className="w-80 p-0">
+          <div className="border-b px-4 py-3 flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <FiUser className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h4 className="font-medium">John Doe</h4>
+              <p className="text-xs text-muted-foreground">john.doe@example.com</p>
+            </div>
+            <PopoverCloseTrigger className="ml-auto" />
+          </div>
+          <div className="p-4">
+            <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-2">
+                <Button size="sm" variant="outline" className="justify-start">
+                  <FiSettings className="mr-2 h-4 w-4" />
+                  Settings
+                </Button>
+                <Button size="sm" variant="outline" className="justify-start">
+                  <FiInfo className="mr-2 h-4 w-4" />
+                  Help
+                </Button>
+              </div>
+              <div className="pt-2 border-t">
+                <Button variant="ghost" size="sm" className="w-full justify-start text-destructive hover:text-destructive">
+                  Log out
+                </Button>
+              </div>
+            </div>
+          </div>
+        </PopoverContent>
+      </PopoverPositioner>
+    </PopoverRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { FiUser, FiSettings, FiInfo } from "react-icons/fi";
+    import {
+      PopoverRoot,
+      PopoverTrigger,
+      PopoverPositioner,
+      PopoverContent,
+      PopoverCloseTrigger
+    } from "@/components/ui/popover";
+    import { Button } from "@/components/ui/button";
+
+    const UserProfilePopover = () => (
+      <PopoverRoot>
+        <PopoverTrigger asChild>
+          <Button variant="outline" className="flex items-center gap-2">
+            <FiUser className="h-4 w-4" />
+            <span>User Profile</span>
+          </Button>
+        </PopoverTrigger>
+        <PopoverPositioner>
+          <PopoverContent className="w-80 p-0">
+            <div className="border-b px-4 py-3 flex items-center gap-3">
+              <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                <FiUser className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <h4 className="font-medium">John Doe</h4>
+                <p className="text-xs text-muted-foreground">john.doe@example.com</p>
+              </div>
+              <PopoverCloseTrigger className="ml-auto" />
+            </div>
+            <div className="p-4">
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-2">
+                  <Button size="sm" variant="outline" className="justify-start">
+                    <FiSettings className="mr-2 h-4 w-4" />
+                    Settings
+                  </Button>
+                  <Button size="sm" variant="outline" className="justify-start">
+                    <FiInfo className="mr-2 h-4 w-4" />
+                    Help
+                  </Button>
+                </div>
+                <div className="pt-2 border-t">
+                  <Button variant="ghost" size="sm" className="w-full justify-start text-destructive hover:text-destructive">
+                    Log out
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </PopoverContent>
+        </PopoverPositioner>
+      </PopoverRoot>
+    );
+    ```
+  </Tab>
+</Tabs>
