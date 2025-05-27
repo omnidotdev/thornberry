@@ -14,7 +14,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@ark-ui/react": "^5.9.1",
+    "@ark-ui/react": "^5.9.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "fumadocs-core": "^15.3.4",
@@ -32,6 +32,7 @@
     "@biomejs/biome": "1.9.4",
     "@tailwindcss/postcss": "^4.1.7",
     "@types/mdx": "^2.0.13",
+    "@types/node": "22.15.21",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "husky": "^9.1.7",

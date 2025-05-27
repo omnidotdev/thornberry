@@ -94,6 +94,7 @@ html .prose {
 }
 
 :root {
+  --color-fd-secondary-foreground: var(--color-black);
   --base-50: oklch(0.985 0.0013 286.84);
   --base-100: oklch(0.967 0.0027 286.38);
   --base-200: oklch(0.92 0.0053 286.32);
@@ -170,6 +171,7 @@ html .prose {
   --display-weight: 400;
   --text-family: var(--font-sans);
   --text-weight: 400;
+
 
   .prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     @apply mt-0 mb-0;
