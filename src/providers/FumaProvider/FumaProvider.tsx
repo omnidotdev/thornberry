@@ -1,9 +1,9 @@
-import { docs } from "@/../.source";
 import { loader } from "fumadocs-core/source";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import { RootProvider } from "fumadocs-ui/provider";
-
+import { docs } from "@/../.source";
 import { app } from "@/lib/config";
+
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import type { ReactNode } from "react";
 

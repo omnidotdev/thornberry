@@ -99,9 +99,7 @@ const AccordionItemContent = ({
 interface AccordionProps
   extends AccordionRootProps,
     VariantProps<typeof accordionVariants> {
-  items: (Omit<ArkAccordion.ItemProps, "title"> & {
-    /** Unique value of item. */
-    value: string;
+  items: (Omit<ArkAccordion.ItemProps, "title" | "value"> & {
     /** Title of item. */
     title: ReactNode;
     /** Content to display when item is open. */
@@ -139,6 +137,8 @@ const Accordion = ({
       <AccordionItem
         // NB: `title` is of type `ReactNode`, so the mapped index is appended to ensure uniqueness
         key={`${title?.toString()}-${idx}`}
+        // biome-ignore lint/style/noNonNullAssertion: <explanation>
+        value={title!.toString()}
         disabled={isDisabled}
         {...itemProps}
         {...rest}

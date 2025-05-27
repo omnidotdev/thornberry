@@ -24,6 +24,19 @@
       "recommended": true,
       "correctness": {
         "noUnusedImports": "error"
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "level": "warn",
+          "fix": "safe",
+          "options": {
+            "attributes": ["className"],
+            "functions": ["cn", "cva"]
+          }
+        }
+      },
+      "style": {
+        "noNonNullAssertion": "off"
       }
     }
   }

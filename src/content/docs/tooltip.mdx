@@ -1,0 +1,222 @@
+---
+title: Tooltip
+description: A popup that displays information related to an element when it receives focus or is hovered over.
+---
+
+import { FiInfo, FiAlertCircle, FiHelpCircle, FiSettings } from "react-icons/fi";
+import { TooltipRoot, TooltipTrigger, TooltipPositioner, TooltipContent, TooltipArrow, TooltipArrowTip } from "@/registry/thornberry/components/tooltip";
+import { Button } from "@/registry/thornberry/components/button";
+
+<TooltipRoot>
+  <TooltipTrigger asChild className="mb-8">
+    <Button variant="outline">Hover Me</Button>
+  </TooltipTrigger>
+  <TooltipPositioner>
+    <TooltipContent>
+      This is a tooltip
+    </TooltipContent>
+  </TooltipPositioner>
+</TooltipRoot>
+
+## Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/tooltip.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/tooltip.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/tooltip.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/tooltip.json
+    ```
+  </Tab>
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  TooltipRoot,
+  TooltipTrigger,
+  TooltipPositioner,
+  TooltipContent
+} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+```
+
+```tsx
+<TooltipRoot>
+  <TooltipTrigger asChild>
+    <Button>Hover Me</Button>
+  </TooltipTrigger>
+  <TooltipPositioner>
+    <TooltipContent>
+      Tooltip content
+    </TooltipContent>
+  </TooltipPositioner>
+</TooltipRoot>
+```
+
+## Examples
+
+<br />
+
+#### Placements
+
+<Tabs items={["Top", "Right", "Bottom", "Left"]} className="mt-4">
+  <Tab value="Top">
+    <TooltipRoot positioning={{ placement: "top" }}>
+      <TooltipTrigger asChild>
+        <Button variant="outline">Top Tooltip</Button>
+      </TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>
+          This tooltip appears on top
+        </TooltipContent>
+      </TooltipPositioner>
+    </TooltipRoot>
+  </Tab>
+  <Tab value="Right">
+    <TooltipRoot positioning={{ placement: "right" }}>
+      <TooltipTrigger asChild>
+        <Button variant="outline">Right Tooltip</Button>
+      </TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>
+          This tooltip appears on the right
+        </TooltipContent>
+      </TooltipPositioner>
+    </TooltipRoot>
+  </Tab>
+  <Tab value="Bottom">
+    <TooltipRoot positioning={{ placement: "bottom" }}>
+      <TooltipTrigger asChild>
+        <Button variant="outline">Bottom Tooltip</Button>
+      </TooltipTrigger>
+      <TooltipPositioner placement="bottom">
+        <TooltipContent>
+          This tooltip appears on the bottom
+        </TooltipContent>
+      </TooltipPositioner>
+    </TooltipRoot>
+  </Tab>
+  <Tab value="Left">
+    <TooltipRoot positioning={{ placement: "left" }}>
+      <TooltipTrigger asChild>
+        <Button variant="outline">Left Tooltip</Button>
+      </TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>
+          This tooltip appears on the left
+        </TooltipContent>
+      </TooltipPositioner>
+    </TooltipRoot>
+  </Tab>
+</Tabs>
+
+#### With Arrow and Delays
+
+<Tabs items={["With Arrow", "Custom Delays", "Icon Tooltips"]} className="mt-4">
+  <Tab value="With Arrow">
+    <TooltipRoot>
+      <TooltipTrigger asChild>
+        <Button variant="outline">With Arrow</Button>
+      </TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>
+          <TooltipArrow>
+            <TooltipArrowTip />
+          </TooltipArrow>
+          This tooltip has an arrow pointer
+        </TooltipContent>
+      </TooltipPositioner>
+    </TooltipRoot>
+  </Tab>
+  <Tab value="Custom Delays">
+    <div className="flex gap-4">
+      <TooltipRoot openDelay={500} closeDelay={100}>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Slow Open</Button>
+        </TooltipTrigger>
+        <TooltipPositioner>
+          <TooltipContent>
+            <TooltipArrow>
+              <TooltipArrowTip />
+            </TooltipArrow>
+            Opens after 500ms, closes after 100ms
+          </TooltipContent>
+        </TooltipPositioner>
+      </TooltipRoot>
+
+      <TooltipRoot openDelay={100} closeDelay={1000}>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Slow Close</Button>
+        </TooltipTrigger>
+        <TooltipPositioner>
+          <TooltipContent>
+            <TooltipArrow>
+              <TooltipArrowTip />
+            </TooltipArrow>
+            Opens after 100ms, closes after 1000ms
+          </TooltipContent>
+        </TooltipPositioner>
+      </TooltipRoot>
+    </div>
+  </Tab>
+  <Tab value="Icon Tooltips">
+    <div className="flex gap-4">
+      <TooltipRoot>
+        <TooltipTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <FiInfo className="h-4 w-4" />
+            <span className="sr-only">Info</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipPositioner>
+          <TooltipContent>
+            Important information
+          </TooltipContent>
+        </TooltipPositioner>
+      </TooltipRoot>
+
+      <TooltipRoot>
+        <TooltipTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <FiAlertCircle className="h-4 w-4 text-amber-500" />
+            <span className="sr-only">Warning</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipPositioner>
+          <TooltipContent>
+            Warning notification
+          </TooltipContent>
+        </TooltipPositioner>
+      </TooltipRoot>
+
+      <TooltipRoot>
+        <TooltipTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <FiHelpCircle className="h-4 w-4 text-blue-500" />
+            <span className="sr-only">Help</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipPositioner>
+          <TooltipContent>
+            Need help? Click for more information
+          </TooltipContent>
+        </TooltipPositioner>
+      </TooltipRoot>
+    </div>
+  </Tab>
+</Tabs>
