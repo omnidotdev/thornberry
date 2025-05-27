@@ -87,30 +87,5 @@ import { buttonVariants } from 'fumadocs-ui/components/ui/button';
 ## References
 
 <div>
-  <TypeTable
-    type={{
-      orientation: {
-        description:
-          'The orientation of the accordion items.',
-        type: `"horizontal" | "vertical"`,
-        default: "vertical",
-      },
-      multiple: {
-        description:
-          'Whether multiple accordion items can be expanded at the same time.',
-        type: "bool",
-        default: "false",
-      },
-      defaultValue: {
-        description:
-          'The initial value of the expanded accordion items. Use when you dont need to control the value of the accordion.',
-        type: "string[]",
-        default: "[]",
-      },
-    }}
-  />
+    <AutoTypeTable path="./src/content/docs/types.ts" name="AccordionProps" />
 </div>
-
-<Callout title="API Reference" className="mt-4">
-  [Ark UI Accordion API Reference](https://ark-ui.com/docs/components/accordion#api-reference)
-</Callout>
