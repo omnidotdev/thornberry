@@ -94,7 +94,6 @@ html .prose {
 }
 
 :root {
-  --color-fd-secondary-foreground: var(--color-black);
   --base-50: oklch(0.985 0.0013 286.84);
   --base-100: oklch(0.967 0.0027 286.38);
   --base-200: oklch(0.92 0.0053 286.32);
@@ -166,12 +165,11 @@ html .prose {
   --sidebar-accent-foreground: var(--base-800);
   --sidebar-border: var(--base-200);
   --sidebar-ring: var(--primary-400);
-
   --display-family: var(--font-sans);
   --display-weight: 400;
   --text-family: var(--font-sans);
   --text-weight: 400;
-
+  --color-fd-secondary-foreground: var(--base-800);
 
   .prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     @apply mt-0 mb-0;
@@ -235,6 +233,7 @@ html .prose {
   --sidebar-accent-foreground: var(--base-200);
   --sidebar-border: var(--base-800);
   --sidebar-ring: var(--primary-400);
+  --color-fd-secondary-foreground: var(--base-200);
 }
 
 @layer base {
