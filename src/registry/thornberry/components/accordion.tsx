@@ -1,6 +1,6 @@
 import { Accordion as ArkAccordion } from "@ark-ui/react/accordion";
 import { cva } from "class-variance-authority";
-import { ChevronDownIcon } from "lucide-react";
+import { LuChevronDown } from "react-icons/lu";
 
 import { cn } from "@/lib/utils";
 
@@ -58,7 +58,7 @@ const AccordionItemTrigger = ({
 }: AccordionItemTriggerProps) => (
   <ArkAccordion.ItemTrigger
     className={cn(
-      "flex flex-1 cursor-pointer items-center justify-between py-4 text-sm font-medium transition-all text-left disabled:cursor-not-allowed disabled:opacity-50",
+      "flex flex-1 cursor-pointer items-center justify-between py-4 text-left font-medium text-sm transition-all disabled:cursor-not-allowed disabled:opacity-50",
       className,
     )}
     {...rest}
@@ -78,7 +78,7 @@ const AccordionItemIndicator = ({
     )}
     {...rest}
   >
-    <ChevronDownIcon className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
+    <LuChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
   </ArkAccordion.ItemIndicator>
 );
 
@@ -92,7 +92,7 @@ const AccordionItemContent = ({
     className="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
     {...rest}
   >
-    <div className={cn("pb-4 pt-0", className)}>{children}</div>
+    <div className={cn("pt-0 pb-4", className)}>{children}</div>
   </ArkAccordion.ItemContent>
 );
 
@@ -137,7 +137,6 @@ const Accordion = ({
       <AccordionItem
         // NB: `title` is of type `ReactNode`, so the mapped index is appended to ensure uniqueness
         key={`${title?.toString()}-${idx}`}
-        // biome-ignore lint/style/noNonNullAssertion: <explanation>
         value={title!.toString()}
         disabled={isDisabled}
         {...itemProps}
