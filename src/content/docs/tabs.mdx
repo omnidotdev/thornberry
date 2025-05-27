@@ -1,0 +1,330 @@
+---
+title: Tabs
+description: A set of layered sections of content that display one panel at a time.
+---
+
+import { FiUser, FiLock, FiSettings, FiHome, FiBookmark, FiFileText } from "react-icons/fi";
+import { TabsRoot, TabsList, TabsTrigger, TabsContent, TabsIndicator } from "@/registry/thornberry/components/tabs";
+
+<TabsRoot defaultValue="account" className="mb-8">
+  <TabsList>
+    <TabsTrigger value="account">Account</TabsTrigger>
+    <TabsTrigger value="password">Password</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="account">
+    <div className="p-4 rounded-md border">
+      <h3 className="text-lg font-medium">Account Settings</h3>
+      <p className="text-sm text-muted-foreground mt-2">
+        <span>Manage your account settings and preferences.</span>
+      </p>
+    </div>
+  </TabsContent>
+
+  <TabsContent value="password">
+    <div className="p-4 rounded-md border">
+      <h3 className="text-lg font-medium">Password Settings</h3>
+      <p className="text-sm text-muted-foreground mt-2">
+        <span>Change your password and security settings.</span>
+      </p>
+    </div>
+  </TabsContent>
+</TabsRoot>
+
+## Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/tabs.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/tabs.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/tabs.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/tabs.json
+    ```
+  </Tab>
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  TabsRoot,
+  TabsList,
+  TabsTrigger,
+  TabsContent
+} from "@/components/ui/tabs";
+```
+
+```tsx
+<TabsRoot defaultValue="tab1">
+  <TabsList>
+    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+  </TabsList>
+  <TabsContent value="tab1">Tab 1 content</TabsContent>
+  <TabsContent value="tab2">Tab 2 content</TabsContent>
+</TabsRoot>
+```
+
+## Examples
+
+<br />
+
+#### Basic Examples
+
+<Tabs items={["Default", "With Icons", "With Indicator"]} className="mt-4">
+  <Tab value="Default">
+    <TabsRoot defaultValue="account">
+      <TabsList>
+        <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger>
+        <TabsTrigger value="settings">Settings</TabsTrigger>
+      </TabsList>
+      <TabsContent value="account">
+        <div className="p-4 rounded-md border mt-2">
+          <h3 className="text-lg font-medium">Account Settings</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            <span>Manage your account settings and preferences.</span>
+          </p>
+        </div>
+      </TabsContent>
+      <TabsContent value="password">
+        <div className="p-4 rounded-md border mt-2">
+          <h3 className="text-lg font-medium">Password Settings</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            <span>Change your password and security settings.</span>
+          </p>
+        </div>
+      </TabsContent>
+      <TabsContent value="settings">
+        <div className="p-4 rounded-md border mt-2">
+          <h3 className="text-lg font-medium">General Settings</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            <span>Configure general application settings.</span>
+          </p>
+        </div>
+      </TabsContent>
+    </TabsRoot>
+  </Tab>
+  <Tab value="With Icons">
+    <TabsRoot defaultValue="account">
+      <TabsList>
+        <TabsTrigger value="account" className="flex items-center gap-2">
+          <FiUser className="h-4 w-4" />
+          <span>Account</span>
+        </TabsTrigger>
+        <TabsTrigger value="password" className="flex items-center gap-2">
+          <FiLock className="h-4 w-4" />
+          <span>Password</span>
+        </TabsTrigger>
+        <TabsTrigger value="settings" className="flex items-center gap-2">
+          <FiSettings className="h-4 w-4" />
+          <span>Settings</span>
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="account">
+        <div className="p-4 rounded-md border mt-2">
+          <h3 className="text-lg font-medium">Account Settings</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            <span>Manage your account settings and preferences.</span>
+          </p>
+        </div>
+      </TabsContent>
+      <TabsContent value="password">
+        <div className="p-4 rounded-md border mt-2">
+          <h3 className="text-lg font-medium">Password Settings</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            <span>Change your password and security settings.</span>
+          </p>
+        </div>
+      </TabsContent>
+      <TabsContent value="settings">
+        <div className="p-4 rounded-md border mt-2">
+          <h3 className="text-lg font-medium">General Settings</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            <span>Configure general application settings.</span>
+          </p>
+        </div>
+      </TabsContent>
+    </TabsRoot>
+  </Tab>
+  <Tab value="With Indicator">
+    <TabsRoot defaultValue="account">
+      <TabsList className="relative">
+        <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger>
+        <TabsTrigger value="settings">Settings</TabsTrigger>
+        <TabsIndicator className="h-1 bg-primary rounded-sm" />
+      </TabsList>
+      <TabsContent value="account">
+        <div className="p-4 rounded-md border mt-2">
+          <h3 className="text-lg font-medium">Account Settings</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            <span>Manage your account settings and preferences.</span>
+          </p>
+        </div>
+      </TabsContent>
+      <TabsContent value="password">
+        <div className="p-4 rounded-md border mt-2">
+          <h3 className="text-lg font-medium">Password Settings</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            <span>Change your password and security settings.</span>
+          </p>
+        </div>
+      </TabsContent>
+      <TabsContent value="settings">
+        <div className="p-4 rounded-md border mt-2">
+          <h3 className="text-lg font-medium">General Settings</h3>
+          <p className="text-sm text-muted-foreground mt-2">
+            <span>Configure general application settings.</span>
+          </p>
+        </div>
+      </TabsContent>
+    </TabsRoot>
+  </Tab>
+</Tabs>
+
+#### Vertical Tabs
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="flex">
+      <TabsRoot defaultValue="dashboard" orientation="vertical" className="flex">
+        <TabsList className="h-auto w-[200px] flex-col items-start border p-0 mr-6">
+          <TabsTrigger value="dashboard" className="w-full justify-start">
+            <FiHome className="mr-2 h-4 w-4" />
+            Dashboard
+          </TabsTrigger>
+          <TabsTrigger value="bookmarks" className="w-full justify-start">
+            <FiBookmark className="mr-2 h-4 w-4" />
+            Bookmarks
+          </TabsTrigger>
+          <TabsTrigger value="documents" className="w-full justify-start">
+            <FiFileText className="mr-2 h-4 w-4" />
+            Documents
+          </TabsTrigger>
+          <TabsTrigger value="settings" className="w-full justify-start">
+            <FiSettings className="mr-2 h-4 w-4" />
+            Settings
+          </TabsTrigger>
+        </TabsList>
+        <div className="flex-1">
+          <TabsContent value="dashboard">
+            <div className="p-4 rounded-md border">
+              <h3 className="text-lg font-medium">Dashboard</h3>
+              <p className="text-sm text-muted-foreground mt-2">
+                <span>View your account overview and analytics.</span>
+              </p>
+            </div>
+          </TabsContent>
+          <TabsContent value="bookmarks">
+            <div className="p-4 rounded-md border">
+              <h3 className="text-lg font-medium">Bookmarks</h3>
+              <p className="text-sm text-muted-foreground mt-2">
+                <span>Manage your saved bookmarks and collections.</span>
+              </p>
+            </div>
+          </TabsContent>
+          <TabsContent value="documents">
+            <div className="p-4 rounded-md border">
+              <h3 className="text-lg font-medium">Documents</h3>
+              <p className="text-sm text-muted-foreground mt-2">
+                <span>Create, edit and manage documents.</span>
+              </p>
+            </div>
+          </TabsContent>
+          <TabsContent value="settings">
+            <div className="p-4 rounded-md border">
+              <h3 className="text-lg font-medium">Settings</h3>
+              <p className="text-sm text-muted-foreground mt-2">
+                <span>Manage your account settings and preferences.</span>
+              </p>
+            </div>
+          </TabsContent>
+        </div>
+      </TabsRoot>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { FiHome, FiBookmark, FiFileText, FiSettings } from "react-icons/fi";
+    import {
+      TabsRoot,
+      TabsList,
+      TabsTrigger,
+      TabsContent
+    } from "@/components/ui/tabs";
+
+    const VerticalTabs = () => (
+      <div className="flex">
+        <TabsRoot defaultValue="dashboard" orientation="vertical" className="flex">
+          <TabsList className="h-auto w-[200px] flex-col items-start border-r p-0 mr-6">
+            <TabsTrigger value="dashboard" className="w-full justify-start pl-4">
+              <FiHome className="mr-2 h-4 w-4" />
+              Dashboard
+            </TabsTrigger>
+            <TabsTrigger value="bookmarks" className="w-full justify-start pl-4">
+              <FiBookmark className="mr-2 h-4 w-4" />
+              Bookmarks
+            </TabsTrigger>
+            <TabsTrigger value="documents" className="w-full justify-start pl-4">
+              <FiFileText className="mr-2 h-4 w-4" />
+              Documents
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="w-full justify-start pl-4">
+              <FiSettings className="mr-2 h-4 w-4" />
+              Settings
+            </TabsTrigger>
+          </TabsList>
+          <div className="flex-1">
+            <TabsContent value="dashboard">
+              <div className="p-4 rounded-md border">
+                <h3 className="text-lg font-medium">Dashboard</h3>
+                <p className="text-sm text-muted-foreground mt-2">
+                  View your account overview and analytics.
+                </p>
+              </div>
+            </TabsContent>
+            <TabsContent value="bookmarks">
+              <div className="p-4 rounded-md border">
+                <h3 className="text-lg font-medium">Bookmarks</h3>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Manage your saved bookmarks and collections.
+                </p>
+              </div>
+            </TabsContent>
+            <TabsContent value="documents">
+              <div className="p-4 rounded-md border">
+                <h3 className="text-lg font-medium">Documents</h3>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Create, edit and manage documents.
+                </p>
+              </div>
+            </TabsContent>
+            <TabsContent value="settings">
+              <div className="p-4 rounded-md border">
+                <h3 className="text-lg font-medium">Settings</h3>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Manage your account settings and preferences.
+                </p>
+              </div>
+            </TabsContent>
+          </div>
+        </TabsRoot>
+      </div>
+    );
+    ```
+  </Tab>
+</Tabs>

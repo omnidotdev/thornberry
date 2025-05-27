@@ -1,0 +1,293 @@
+---
+title: Menu
+description: A dropdown menu that displays a list of options.
+---
+
+import { FiChevronRight, FiCheck, FiEdit, FiCopy, FiScissors, FiZoomIn, FiZoomOut } from "react-icons/fi";
+
+import { MenuRoot, MenuTrigger, MenuPositioner, MenuContent, MenuItem, MenuItemGroup, MenuItemGroupLabel, MenuSeparator, MenuCheckboxItem, MenuItemIndicator, MenuItemText, MenuRadioItem, MenuRadioItemGroup } from "@/registry/thornberry/components/menu";
+import { Button } from "@/registry/thornberry/components/button";
+
+<MenuRoot>
+  <MenuTrigger asChild className="mb-8">
+    <Button variant="outline">Open Menu</Button>
+  </MenuTrigger>
+  <MenuPositioner>
+    <MenuContent>
+      <MenuItem value="copy">Copy</MenuItem>
+      <MenuItem value="paste">Paste</MenuItem>
+      <MenuItem value="cut">Cut</MenuItem>
+    </MenuContent>
+  </MenuPositioner>
+</MenuRoot>
+
+## Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/menu.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/menu.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/menu.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/menu.json
+    ```
+  </Tab>
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  MenuRoot,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuItem
+} from "@/components/ui/menu";
+import { Button } from "@/components/ui/button";
+```
+
+```tsx
+<MenuRoot>
+  <MenuTrigger asChild>
+    <Button>Open Menu</Button>
+  </MenuTrigger>
+  <MenuPositioner>
+    <MenuContent>
+      <MenuItem value="copy">Copy</MenuItem>
+      <MenuItem value="paste">Paste</MenuItem>
+      <MenuItem value="cut">Cut</MenuItem>
+    </MenuContent>
+  </MenuPositioner>
+</MenuRoot>
+```
+
+## Examples
+
+<br />
+
+#### Basic Menu
+
+<Tabs items={["Simple Menu", "With Groups", "With Separator"]} className="mt-4">
+  <Tab value="Simple Menu">
+    <MenuRoot>
+      <MenuTrigger asChild>
+        <Button variant="outline">Edit Options</Button>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuItem value="edit">
+            <FiEdit className="mr-2 h-4 w-4" />
+            <span>Edit</span>
+          </MenuItem>
+          <MenuItem value="copy">
+            <FiCopy className="mr-2 h-4 w-4" />
+            <span>Copy</span>
+          </MenuItem>
+          <MenuItem value="cut">
+            <FiScissors className="mr-2 h-4 w-4" />
+            <span>Cut</span>
+          </MenuItem>
+        </MenuContent>
+      </MenuPositioner>
+    </MenuRoot>
+  </Tab>
+  <Tab value="With Groups">
+    <MenuRoot>
+      <MenuTrigger asChild>
+        <Button variant="outline">View Options</Button>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuItemGroup>
+            <MenuItemGroupLabel>Zoom</MenuItemGroupLabel>
+            <MenuItem value="zoom-in">
+              <FiZoomIn className="mr-2 h-4 w-4" />
+              <span>Zoom In</span>
+            </MenuItem>
+            <MenuItem value="zoom-out">
+              <FiZoomOut className="mr-2 h-4 w-4" />
+              <span>Zoom Out</span>
+            </MenuItem>
+          </MenuItemGroup>
+          <MenuItemGroup>
+            <MenuItemGroupLabel>Edit</MenuItemGroupLabel>
+            <MenuItem value="copy">
+              <FiCopy className="mr-2 h-4 w-4" />
+              <span>Copy</span>
+            </MenuItem>
+            <MenuItem value="cut">
+              <FiScissors className="mr-2 h-4 w-4" />
+              <span>Cut</span>
+            </MenuItem>
+          </MenuItemGroup>
+        </MenuContent>
+      </MenuPositioner>
+    </MenuRoot>
+  </Tab>
+  <Tab value="With Separator">
+    <MenuRoot>
+      <MenuTrigger asChild>
+        <Button variant="outline">Actions</Button>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuItem value="edit">
+            <FiEdit className="mr-2 h-4 w-4" />
+            <span>Edit</span>
+          </MenuItem>
+          <MenuSeparator />
+          <MenuItemGroup>
+            <MenuItemGroupLabel>Actions</MenuItemGroupLabel>
+            <MenuItem value="copy">
+              <FiCopy className="mr-2 h-4 w-4" />
+              <span>Copy</span>
+            </MenuItem>
+            <MenuItem value="cut">
+              <FiScissors className="mr-2 h-4 w-4" />
+              <span>Cut</span>
+            </MenuItem>
+          </MenuItemGroup>
+        </MenuContent>
+      </MenuPositioner>
+    </MenuRoot>
+  </Tab>
+</Tabs>
+
+#### Advanced Menu
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <MenuRoot>
+      <MenuTrigger asChild>
+        <Button variant="outline">Settings</Button>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent className="w-56">
+          <MenuItemGroup>
+            <MenuItemGroupLabel>Layout</MenuItemGroupLabel>
+            <MenuCheckboxItem value="sidebar" defaultChecked>
+              <MenuItemIndicator>
+                <FiCheck className="h-4 w-4" />
+              </MenuItemIndicator>
+              <MenuItemText>Show Sidebar</MenuItemText>
+            </MenuCheckboxItem>
+            <MenuCheckboxItem value="toolbar" defaultChecked>
+              <MenuItemIndicator>
+                <FiCheck className="h-4 w-4" />
+              </MenuItemIndicator>
+              <MenuItemText>Show Toolbar</MenuItemText>
+            </MenuCheckboxItem>
+          </MenuItemGroup>
+          <MenuSeparator />
+          <MenuItemGroup>
+            <MenuItemGroupLabel>Theme</MenuItemGroupLabel>
+            <MenuRadioItemGroup value="light">
+              <MenuRadioItem value="light">
+                <MenuItemIndicator>
+                  <FiCheck className="h-4 w-4" />
+                </MenuItemIndicator>
+                <MenuItemText>Light</MenuItemText>
+              </MenuRadioItem>
+              <MenuRadioItem value="dark">
+                <MenuItemIndicator>
+                  <FiCheck className="h-4 w-4" />
+                </MenuItemIndicator>
+                <MenuItemText>Dark</MenuItemText>
+              </MenuRadioItem>
+              <MenuRadioItem value="system">
+                <MenuItemIndicator>
+                  <FiCheck className="h-4 w-4" />
+                </MenuItemIndicator>
+                <MenuItemText>System</MenuItemText>
+              </MenuRadioItem>
+            </MenuRadioItemGroup>
+          </MenuItemGroup>
+        </MenuContent>
+      </MenuPositioner>
+    </MenuRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { FiCheck } from "react-icons/fi";
+    import {
+      MenuRoot,
+      MenuTrigger,
+      MenuPositioner,
+      MenuContent,
+      MenuItemGroup,
+      MenuItemGroupLabel,
+      MenuCheckboxItem,
+      MenuItemIndicator,
+      MenuItemText,
+      MenuSeparator,
+      MenuRadioItemGroup,
+      MenuRadioItem
+    } from "@/components/ui/menu";
+    import { Button } from "@/components/ui/button";
+
+    const AdvancedMenu = () => (
+      <MenuRoot>
+        <MenuTrigger asChild>
+          <Button variant="outline">Settings</Button>
+        </MenuTrigger>
+        <MenuPositioner>
+          <MenuContent className="w-56">
+            <MenuItemGroup>
+              <MenuItemGroupLabel>Layout</MenuItemGroupLabel>
+              <MenuCheckboxItem value="sidebar" defaultChecked>
+                <MenuItemIndicator>
+                  <FiCheck className="h-4 w-4" />
+                </MenuItemIndicator>
+                <MenuItemText>Show Sidebar</MenuItemText>
+              </MenuCheckboxItem>
+              <MenuCheckboxItem value="toolbar" defaultChecked>
+                <MenuItemIndicator>
+                  <FiCheck className="h-4 w-4" />
+                </MenuItemIndicator>
+                <MenuItemText>Show Toolbar</MenuItemText>
+              </MenuCheckboxItem>
+            </MenuItemGroup>
+            <MenuSeparator />
+            <MenuItemGroup>
+              <MenuItemGroupLabel>Theme</MenuItemGroupLabel>
+              <MenuRadioItemGroup value="light">
+                <MenuRadioItem value="light">
+                  <MenuItemIndicator>
+                    <FiCheck className="h-4 w-4" />
+                  </MenuItemIndicator>
+                  <MenuItemText>Light</MenuItemText>
+                </MenuRadioItem>
+                <MenuRadioItem value="dark">
+                  <MenuItemIndicator>
+                    <FiCheck className="h-4 w-4" />
+                  </MenuItemIndicator>
+                  <MenuItemText>Dark</MenuItemText>
+                </MenuRadioItem>
+                <MenuRadioItem value="system">
+                  <MenuItemIndicator>
+                    <FiCheck className="h-4 w-4" />
+                  </MenuItemIndicator>
+                  <MenuItemText>System</MenuItemText>
+                </MenuRadioItem>
+              </MenuRadioItemGroup>
+            </MenuItemGroup>
+          </MenuContent>
+        </MenuPositioner>
+      </MenuRoot>
+    );
+    ```
+  </Tab>
+</Tabs>

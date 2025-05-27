@@ -1,48 +1,185 @@
 ---
 title: Alert
-description: Alert component
+description: Displays a callout for user attention with status variants for different scenarios.
 ---
 
-<div className="flex flex-col gap-4">
-    <Alert
-        icon={<FiDownload />}
-        title="Update available"
-        description="For the best experience, update to the latest version."
-    />
+import { FiInfo, FiCheck } from "react-icons/fi";
+import { IoWarningOutline } from "react-icons/io5";
+import { BiErrorAlt } from "react-icons/bi";
 
-    <Alert
-        variant="info"
-        icon={<FiInfo />}
-        title="Info"
-        description="Did you know platypuses are venomous?"
-    />
+import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/registry/thornberry/components/alert";
 
-    <Alert
-        variant="success"
-        icon={<FiCheck />}
-        title="Success"
-        description="It was a great success!"
-    />
+<AlertRoot variant="info" className="mb-8">
+  <AlertIcon>
+    <FiInfo />
+  </AlertIcon>
+  <AlertTitle>Alert</AlertTitle>
+  <AlertDescription>
+    This is an alert component for important messages.
+  </AlertDescription>
+</AlertRoot>
 
-    <Alert
-        variant="warning"
-        icon={<IoWarningOutline />}
-        title="Warning"
-        description="Beware of animals running towards you."
-    />
+## Installation
 
-    <Alert
-        variant="error"
-        icon={<BiErrorAlt />}
-        title="Error"
-        description="segfault"
-    />
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/alert.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/alert.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/alert.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/alert.json
+    ```
+  </Tab>
+</Tabs>
 
+## Usage
+
+```tsx
+import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components/ui/alert";
+```
+
+```tsx
+<AlertRoot>
+  <AlertIcon>
+    <YourIcon />
+  </AlertIcon>
+  <AlertTitle>Title</AlertTitle>
+  <AlertDescription>Description</AlertDescription>
+</AlertRoot>
+```
+
+## Examples
+
+<br />
+
+#### Variants
+
+<Tabs items={["Default", "Info", "Success", "Warning", "Error"]} className="mt-4">
+  <Tab value="Default">
     <AlertRoot>
-        <AlertIcon>
-            <FiInfo />
-        </AlertIcon>
-        <AlertTitle>Primitives</AlertTitle>
-        <AlertDescription>This alert was built with primitives.</AlertDescription>
+      <AlertIcon>
+        <FiInfo />
+      </AlertIcon>
+      <AlertTitle>Default</AlertTitle>
+      <AlertDescription>
+        For the best experience, update to the latest version.
+      </AlertDescription>
     </AlertRoot>
-</div>
+
+    ```tsx
+    <AlertRoot>
+      <AlertIcon>
+        <FiInfo />
+      </AlertIcon>
+      <AlertTitle>Default</AlertTitle>
+      <AlertDescription>
+        For the best experience, update to the latest version.
+      </AlertDescription>
+    </AlertRoot>
+    ```
+  </Tab>
+  <Tab value="Info">
+    <AlertRoot variant="info">
+      <AlertIcon>
+        <FiInfo />
+      </AlertIcon>
+      <AlertTitle>Information</AlertTitle>
+      <AlertDescription>
+        Did you know platypuses are venomous?
+      </AlertDescription>
+    </AlertRoot>
+
+    ```tsx
+    <AlertRoot variant="info">
+      <AlertIcon>
+        <FiInfo />
+      </AlertIcon>
+      <AlertTitle>Information</AlertTitle>
+      <AlertDescription>
+        Did you know platypuses are venomous?
+      </AlertDescription>
+    </AlertRoot>
+    ```
+  </Tab>
+  <Tab value="Success">
+    <AlertRoot variant="success">
+      <AlertIcon>
+        <FiCheck />
+      </AlertIcon>
+      <AlertTitle>Success</AlertTitle>
+      <AlertDescription>
+        Your profile has been updated successfully.
+      </AlertDescription>
+    </AlertRoot>
+
+    ```tsx
+    <AlertRoot variant="success">
+      <AlertIcon>
+        <FiCheck />
+      </AlertIcon>
+      <AlertTitle>Success</AlertTitle>
+      <AlertDescription>
+        Your profile has been updated successfully.
+      </AlertDescription>
+    </AlertRoot>
+    ```
+  </Tab>
+  <Tab value="Warning">
+    <AlertRoot variant="warning">
+      <AlertIcon>
+        <IoWarningOutline />
+      </AlertIcon>
+      <AlertTitle>Warning</AlertTitle>
+      <AlertDescription>
+        Your storage is almost full. Please free up some space.
+      </AlertDescription>
+    </AlertRoot>
+
+    ```tsx
+    <AlertRoot variant="warning">
+      <AlertIcon>
+        <IoWarningOutline />
+      </AlertIcon>
+      <AlertTitle>Warning</AlertTitle>
+      <AlertDescription>
+        Your storage is almost full. Please free up some space.
+      </AlertDescription>
+    </AlertRoot>
+    ```
+  </Tab>
+  <Tab value="Error">
+    <AlertRoot variant="error">
+      <AlertIcon>
+        <BiErrorAlt />
+      </AlertIcon>
+      <AlertTitle>Error</AlertTitle>
+      <AlertDescription>
+        There was a problem processing your request.
+      </AlertDescription>
+    </AlertRoot>
+
+    ```tsx
+    <AlertRoot variant="error">
+      <AlertIcon>
+        <BiErrorAlt />
+      </AlertIcon>
+      <AlertTitle>Error</AlertTitle>
+      <AlertDescription>
+        There was a problem processing your request.
+      </AlertDescription>
+    </AlertRoot>
+    ```
+  </Tab>
+</Tabs>

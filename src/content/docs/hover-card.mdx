@@ -1,0 +1,208 @@
+---
+title: Hover Card
+description: A card that appears when hovering over a trigger element, providing additional information.
+---
+
+import { FiUser, FiMail, FiMapPin } from "react-icons/fi";
+import { Badge } from "@/registry/thornberry/components/badge";
+import { HoverCardRoot, HoverCardTrigger, HoverCardContent, HoverCardPositioner, HoverCardArrow, HoverCardArrowTip } from "@/registry/thornberry/components/hover-card";
+
+<HoverCardRoot>
+  <HoverCardTrigger className="mb-8">
+    <Badge variant="outline">Hover me</Badge>
+  </HoverCardTrigger>
+  <HoverCardPositioner>
+    <HoverCardContent>
+      <HoverCardArrow>
+        <HoverCardArrowTip />
+      </HoverCardArrow>
+      <p>Here is the hover card content</p>
+    </HoverCardContent>
+  </HoverCardPositioner>
+</HoverCardRoot>
+
+## Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/hover-card.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/hover-card.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/hover-card.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/hover-card.json
+    ```
+  </Tab>
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  HoverCardRoot,
+  HoverCardTrigger,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardArrow,
+  HoverCardArrowTip
+} from "@/components/ui/hover-card";
+```
+
+```tsx
+<HoverCardRoot>
+  <HoverCardTrigger>
+    Hover me
+  </HoverCardTrigger>
+  <HoverCardPositioner>
+    <HoverCardContent>
+      <HoverCardArrow>
+        <HoverCardArrowTip />
+      </HoverCardArrow>
+      Hover card content
+    </HoverCardContent>
+  </HoverCardPositioner>
+</HoverCardRoot>
+```
+
+## Examples
+
+<br />
+
+#### Basic Examples
+
+<Tabs items={["Default", "With Delay", "Without Arrow"]} className="mt-4">
+  <Tab value="Default">
+    <HoverCardRoot>
+      <HoverCardTrigger>
+        <Badge>Default Hover Card</Badge>
+      </HoverCardTrigger>
+      <HoverCardPositioner>
+        <HoverCardContent>
+          <HoverCardArrow>
+            <HoverCardArrowTip />
+          </HoverCardArrow>
+          <p>This is a basic hover card with default settings.</p>
+        </HoverCardContent>
+      </HoverCardPositioner>
+    </HoverCardRoot>
+  </Tab>
+  <Tab value="With Delay">
+    <HoverCardRoot openDelay={300} closeDelay={200}>
+      <HoverCardTrigger>
+        <Badge variant="outline">Delayed Hover Card</Badge>
+      </HoverCardTrigger>
+      <HoverCardPositioner>
+        <HoverCardContent>
+          <HoverCardArrow>
+            <HoverCardArrowTip />
+          </HoverCardArrow>
+          <p>This hover card has a 300ms delay before opening and 200ms delay before closing.</p>
+        </HoverCardContent>
+      </HoverCardPositioner>
+    </HoverCardRoot>
+  </Tab>
+  <Tab value="Without Arrow">
+    <HoverCardRoot>
+      <HoverCardTrigger>
+        <Badge variant="subtle">No Arrow</Badge>
+      </HoverCardTrigger>
+      <HoverCardPositioner>
+        <HoverCardContent>
+          <p>This hover card has no arrow pointer.</p>
+        </HoverCardContent>
+      </HoverCardPositioner>
+    </HoverCardRoot>
+  </Tab>
+</Tabs>
+
+#### User Profile Card
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <HoverCardRoot openDelay={100} closeDelay={150}>
+      <HoverCardTrigger>
+        <span className="text-primary underline cursor-pointer">John Doe</span>
+      </HoverCardTrigger>
+      <HoverCardPositioner>
+        <HoverCardContent className="w-80">
+          <HoverCardArrow>
+            <HoverCardArrowTip />
+          </HoverCardArrow>
+          <div className="flex justify-between space-x-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted">
+              <FiUser className="h-6 w-6" />
+            </div>
+            <div className="space-y-1">
+              <h4 className="text-sm font-semibold">John Doe</h4>
+              <p className="text-sm text-muted-foreground">Full-stack developer and UI/UX enthusiast</p>
+              <div className="flex items-center pt-2">
+                <FiMail className="mr-2 h-4 w-4 opacity-70" />
+                <span className="text-xs text-muted-foreground">john.doe@example.com</span>
+              </div>
+              <div className="flex items-center">
+                <FiMapPin className="mr-2 h-4 w-4 opacity-70" />
+                <span className="text-xs text-muted-foreground">San Francisco, CA</span>
+              </div>
+            </div>
+          </div>
+        </HoverCardContent>
+      </HoverCardPositioner>
+    </HoverCardRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { FiUser, FiMail, FiMapPin } from "react-icons/fi";
+    import {
+      HoverCardRoot,
+      HoverCardTrigger,
+      HoverCardContent,
+      HoverCardPositioner,
+      HoverCardArrow,
+      HoverCardArrowTip
+    } from "@/components/ui/hover-card";
+
+    const UserProfileCard = () => (
+      <HoverCardRoot openDelay={100} closeDelay={150}>
+        <HoverCardTrigger>
+          <span className="text-primary underline cursor-pointer">John Doe</span>
+        </HoverCardTrigger>
+        <HoverCardPositioner>
+          <HoverCardContent className="w-80">
+            <HoverCardArrow>
+              <HoverCardArrowTip />
+            </HoverCardArrow>
+            <div className="flex justify-between space-x-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted">
+                <FiUser className="h-6 w-6" />
+              </div>
+              <div className="space-y-1">
+                <h4 className="text-sm font-semibold">John Doe</h4>
+                <p className="text-sm text-muted-foreground">Full-stack developer and UI/UX enthusiast</p>
+                <div className="flex items-center pt-2">
+                  <FiMail className="mr-2 h-4 w-4 opacity-70" />
+                  <span className="text-xs text-muted-foreground">john.doe@example.com</span>
+                </div>
+                <div className="flex items-center">
+                  <FiMapPin className="mr-2 h-4 w-4 opacity-70" />
+                  <span className="text-xs text-muted-foreground">San Francisco, CA</span>
+                </div>
+              </div>
+            </div>
+          </HoverCardContent>
+        </HoverCardPositioner>
+      </HoverCardRoot>
+    );
+    ```
+  </Tab>
+</Tabs>

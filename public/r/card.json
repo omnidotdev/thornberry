@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card",
+  "type": "registry:ui",
+  "title": "Card",
+  "description": "A card component",
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/card.tsx",
+      "content": "import { ark } from \"@ark-ui/react\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst CardRoot = ({ className, ...rest }: ComponentProps<typeof ark.div>) => (\n  <ark.div\n    className={cn(\n      \"rounded-xl border bg-card text-card-foreground shadow\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst CardHeader = ({ className, ...rest }: ComponentProps<typeof ark.div>) => (\n  <ark.div className={cn(\"flex flex-col gap-1.5 p-6\", className)} {...rest} />\n);\n\nconst CardTitle = ({ className, ...rest }: ComponentProps<typeof ark.div>) => (\n  <ark.div\n    className={cn(\"font-semibold leading-none tracking-tight\", className)}\n    {...rest}\n  />\n);\n\nconst CardDescription = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ark.div>) => (\n  <ark.div\n    className={cn(\"text-muted-foreground text-sm\", className)}\n    {...rest}\n  />\n);\n\nconst CardContent = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ark.div>) => (\n  <ark.div className={cn(\"p-6 pt-0\", className)} {...rest} />\n);\n\nconst CardFooter = ({ className, ...rest }: ComponentProps<typeof ark.div>) => (\n  <ark.div className={cn(\"flex items-center p-6 pt-0\", className)} {...rest} />\n);\n\nexport {\n  CardRoot,\n  CardHeader,\n  CardFooter,\n  CardTitle,\n  CardDescription,\n  CardContent,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+---
+title: Pagination
+description: A component for navigating through multiple pages of content.
+---
+
+import { FiChevronLeft, FiChevronRight, FiMoreHorizontal } from "react-icons/fi";
+import { PaginationRoot, PaginationItem, PaginationEllipsis, PaginationPrevTrigger, PaginationNextTrigger } from "@/registry/thornberry/components/pagination";
+
+<PaginationRoot count={10} className="mb-8">
+  <div className="flex items-center gap-1">
+    <PaginationPrevTrigger />
+    <PaginationItem value={1}>1</PaginationItem>
+    <PaginationItem value={2}>2</PaginationItem>
+    <PaginationItem value={3}>3</PaginationItem>
+    <PaginationEllipsis index={0} />
+    <PaginationItem value={10}>10</PaginationItem>
+    <PaginationNextTrigger />
+  </div>
+</PaginationRoot>
+
+## Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/pagination.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/pagination.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/pagination.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/pagination.json
+    ```
+  </Tab>
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  PaginationRoot,
+  PaginationItem,
+  PaginationEllipsis,
+  PaginationPrevTrigger,
+  PaginationNextTrigger
+} from "@/components/ui/pagination";
+```
+
+```tsx
+<PaginationRoot count={10}>
+  <div className="flex items-center gap-1">
+    <PaginationPrevTrigger />
+    <PaginationItem value={1}>1</PaginationItem>
+    <PaginationItem value={2}>2</PaginationItem>
+    <PaginationItem value={3}>3</PaginationItem>
+    <PaginationEllipsis index={0} />
+    <PaginationItem value={10}>10</PaginationItem>
+    <PaginationNextTrigger />
+  </div>
+</PaginationRoot>
+```
+
+## Examples
+
+<br />
+
+#### Basic Pagination
+
+<Tabs items={["Default", "Current Page", "Compact"]} className="mt-4">
+  <Tab value="Default">
+    <PaginationRoot count={10}>
+      <div className="flex items-center gap-1">
+        <PaginationPrevTrigger />
+        <PaginationItem value={1}>1</PaginationItem>
+        <PaginationItem value={2}>2</PaginationItem>
+        <PaginationItem value={3}>3</PaginationItem>
+        <PaginationEllipsis index={0} />
+        <PaginationItem value={10}>10</PaginationItem>
+        <PaginationNextTrigger />
+      </div>
+    </PaginationRoot>
+  </Tab>
+  <Tab value="Current Page">
+    <PaginationRoot count={10} page={5}>
+      <div className="flex items-center gap-1">
+        <PaginationPrevTrigger />
+        <PaginationItem value={1}>1</PaginationItem>
+        <PaginationEllipsis index={0} />
+        <PaginationItem value={4}>4</PaginationItem>
+        <PaginationItem value={5}>5</PaginationItem>
+        <PaginationItem value={6}>6</PaginationItem>
+        <PaginationEllipsis index={1} />
+        <PaginationItem value={10}>10</PaginationItem>
+        <PaginationNextTrigger />
+      </div>
+    </PaginationRoot>
+  </Tab>
+  <Tab value="Compact">
+    <PaginationRoot count={5}>
+      <div className="flex items-center gap-1">
+        <PaginationPrevTrigger />
+        <PaginationItem value={1}>1</PaginationItem>
+        <PaginationItem value={2}>2</PaginationItem>
+        <PaginationItem value={3}>3</PaginationItem>
+        <PaginationItem value={4}>4</PaginationItem>
+        <PaginationItem value={5}>5</PaginationItem>
+        <PaginationNextTrigger />
+      </div>
+    </PaginationRoot>
+  </Tab>
+</Tabs>
+
+#### With Page Size Selector
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <div className="text-sm text-muted-foreground">
+          Showing 1-10 of 100 items
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium">Items per page:</span>
+          <select className="h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+      </div>
+      <PaginationRoot count={10}>
+        <div className="flex items-center justify-center gap-1">
+          <PaginationPrevTrigger />
+          <PaginationItem value={1}>1</PaginationItem>
+          <PaginationItem value={2}>2</PaginationItem>
+          <PaginationItem value={3}>3</PaginationItem>
+          <PaginationEllipsis index={0} />
+          <PaginationItem value={10}>10</PaginationItem>
+          <PaginationNextTrigger />
+        </div>
+      </PaginationRoot>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import {
+      PaginationRoot,
+      PaginationItem,
+      PaginationEllipsis,
+      PaginationPrevTrigger,
+      PaginationNextTrigger
+    } from "@/components/ui/pagination";
+
+    const PaginationWithPageSize = () => (
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <div className="text-sm text-muted-foreground">
+            Showing 1-10 of 100 items
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium">Items per page:</span>
+            <select className="h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none">
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+        </div>
+        <PaginationRoot count={10}>
+          <div className="flex items-center justify-center gap-1">
+            <PaginationPrevTrigger />
+            <PaginationItem value={1}>1</PaginationItem>
+            <PaginationItem value={2}>2</PaginationItem>
+            <PaginationItem value={3}>3</PaginationItem>
+            <PaginationEllipsis index={0} />
+            <PaginationItem value={10}>10</PaginationItem>
+            <PaginationNextTrigger />
+          </div>
+        </PaginationRoot>
+      </div>
+    );
+    ```
+  </Tab>
+</Tabs>
