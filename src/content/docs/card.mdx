@@ -129,12 +129,12 @@ import {
 
 <Tabs items={["Preview", "Code"]} className="mt-4">
   <Tab value="Preview">
-    <CardRoot className="border-primary/50">
+    <CardRoot className="border-primary/50 overflow-hidden">
       <CardHeader className="bg-muted/50">
         <CardTitle className="text-primary">Custom Styled Card</CardTitle>
         <CardDescription>With custom styling applied to each part</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="py-4 space-y-2">
         <p>You can customize each part of the card independently for complete control.</p>
         <p>Add any content you need here.</p>
       </CardContent>
@@ -158,12 +158,12 @@ import {
 
     export const CustomStyledCard = () => {
       return (
-        <CardRoot className="border-primary/50">
+        <CardRoot className="border-primary/50 overflow-hidden">
           <CardHeader className="bg-muted/50">
             <CardTitle className="text-primary">Custom Styled Card</CardTitle>
             <CardDescription>With custom styling applied to each part</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className="py-4 space-y-2">
             <p>You can customize each part of the card independently for complete control.</p>
             <p>Add any content you need here.</p>
           </CardContent>
