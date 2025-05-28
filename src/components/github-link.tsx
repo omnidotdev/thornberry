@@ -2,8 +2,8 @@
 
 import Link from "fumadocs-core/link";
 
-import { buttonVariants } from "@/registry/thornberry/components/button";
 import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/registry/thornberry/components/button";
 
 interface Props {
   url: string;

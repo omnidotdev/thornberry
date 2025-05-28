@@ -6,7 +6,7 @@ import {
 } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
 
-import { getMDXComponents, GitHubLink } from "@/components";
+import { GitHubLink, getMDXComponents } from "@/components";
 import { app } from "@/lib/config";
 import { source } from "@/providers";
 
