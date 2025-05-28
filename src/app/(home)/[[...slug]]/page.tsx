@@ -1,3 +1,4 @@
+import { getGithubLastEdit } from "fumadocs-core/server";
 import {
   DocsBody,
   DocsDescription,
@@ -39,7 +40,14 @@ const Page = async (props: {
   const MDX = page.data.body;
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
+    <DocsPage
+      toc={page.data.toc}
+      full={page.data.full}
+      tableOfContent={{
+        style: "clerk",
+        single: false,
+      }}
+    >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
