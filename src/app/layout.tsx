@@ -13,7 +13,6 @@ const assistant = Assistant({
 });
 
 const RootLayout = ({ children }: PropsWithChildren) => (
-  // TODO: check if necessary for Fumadocs - docs install shows this in layout
   <html lang="en" suppressHydrationWarning>
     <body className={`${assistant.variable} antialiased`}>
       <main>
