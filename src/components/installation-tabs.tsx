@@ -18,7 +18,7 @@ const InstallationTabs = ({ filename }: Props) => {
   ];
 
   return (
-    <Tabs items={packageManagers.map((pm) => pm.name)} className="mt-4">
+    <Tabs items={packageManagers.map((pm) => pm.name)} className="mt-4 mb-8">
       {packageManagers.map(({ name, command }) => (
         <Tab key={name} value={name}>
           <CodeBlock className="px-4">
