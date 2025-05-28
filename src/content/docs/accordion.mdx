@@ -1,0 +1,91 @@
+---
+title: Accordion
+description: A vertically stacked set of interactive headings that each reveal a section of content.
+---
+
+import { AccordionRoot, AccordionItem, AccordionItemTrigger, AccordionItemIndicator, AccordionItemContent } from "@/registry/thornberry/components/accordion";
+
+<AccordionRoot
+  multiple
+  defaultValue={['React']}
+  className="mb-8"
+>
+  <AccordionItem value="React">
+    <AccordionItemTrigger>React</AccordionItemTrigger>
+    <AccordionItemContent>this is the content for React</AccordionItemContent>
+  </AccordionItem>
+
+  <AccordionItem value="Vue">
+    <AccordionItemTrigger>Vue</AccordionItemTrigger>
+    <AccordionItemContent>this is the content for Vue</AccordionItemContent>
+  </AccordionItem>
+
+  <AccordionItem value="Solid" disabled>
+    <AccordionItemTrigger>Solid</AccordionItemTrigger>
+    <AccordionItemContent>this is the content for Solid</AccordionItemContent>
+  </AccordionItem>
+</AccordionRoot>
+
+## Installation
+
+<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
+  <Tab value="bun">
+    ```
+    bunx --bun shadcn@latest add http://localhost:3000/r/accordion.json
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```
+    pnpm dlx shadcn@latest add http://localhost:3000/r/accordion.json
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/accordion.json
+    ```
+  </Tab>
+  <Tab value="npm">
+    ```
+    npx shadcn@latest add http://localhost:3000/r/accordion.json
+    ```
+  </Tab>
+</Tabs>
+
+## Usage
+
+```tsx
+import { AccordionRoot, AccordionItem, AccordionItemTrigger, AccordionItemIndicator, AccordionItemContent } from "@/components/ui/accordion";
+```
+
+```tsx
+ <AccordionRoot
+  multiple
+  defaultValue={['React']}
+>
+  <AccordionItem value="React">
+    <AccordionItemTrigger>React</AccordionItemTrigger>
+    <AccordionItemContent>this is the content for React</AccordionItemContent>
+  </AccordionItem>
+
+  <AccordionItem value="Vue">
+    <AccordionItemTrigger>Vue</AccordionItemTrigger>
+    <AccordionItemContent>this is the content for Vue</AccordionItemContent>
+  </AccordionItem>
+
+  <AccordionItem value="Solid" disabled>
+    <AccordionItemTrigger>Solid</AccordionItemTrigger>
+    <AccordionItemContent>this is the content for Solid</AccordionItemContent>
+  </AccordionItem>
+</AccordionRoot>
+```
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+import { buttonVariants } from 'fumadocs-ui/components/ui/button';
+
+<br />
+
+## References
+
+<div>
+    <AutoTypeTable path="./src/content/docs/types.ts" name="AccordionProps" />
+</div>

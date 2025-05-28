@@ -85,6 +85,7 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   --color-fd-secondary: var(--muted);
+  --color-fd-secondary-foreground: var(--foreground);
 }
 
 html .prose {
@@ -165,7 +166,6 @@ html .prose {
   --sidebar-accent-foreground: var(--base-800);
   --sidebar-border: var(--base-200);
   --sidebar-ring: var(--primary-400);
-
   --display-family: var(--font-sans);
   --display-weight: 400;
   --text-family: var(--font-sans);

@@ -1,8 +1,8 @@
+import { docs } from "@/../.source";
+import { app } from "@/lib/config";
 import { loader } from "fumadocs-core/source";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import { RootProvider } from "fumadocs-ui/provider";
-
-import { docs } from "@/../.source";
 
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import type { ReactNode } from "react";
@@ -14,9 +14,9 @@ export const source = loader({
 
 const baseOptions: BaseLayoutProps = {
   nav: {
-    title: "Thornberry",
+    title: app.name,
   },
-  githubUrl: "https://github.com/omnidotdev/thornberry",
+  githubUrl: app.githubUrl,
 };
 
 interface Props {

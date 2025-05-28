@@ -4,6 +4,18 @@
   "homepage": "https://github.com/omnidotdev/thornberry",
   "items": [
     {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "A accordion component",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "alert",
       "type": "registry:ui",
       "title": "Alert",
