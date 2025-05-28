@@ -1,4 +1,3 @@
-import { getGithubLastEdit } from "fumadocs-core/server";
 import {
   DocsBody,
   DocsDescription,
