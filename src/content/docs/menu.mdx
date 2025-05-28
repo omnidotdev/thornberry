@@ -23,28 +23,9 @@ import { Button } from "@/registry/thornberry/components/button";
 
 ## Installation
 
-<Tabs items={["bun", "pnpm", "yarn", "npm"]} className="mt-4">
-  <Tab value="bun">
-    ```
-    bunx --bun shadcn@latest add http://localhost:3000/r/menu.json
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```
-    pnpm dlx shadcn@latest add http://localhost:3000/r/menu.json
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```
-    npx shadcn@latest add http://localhost:3000/r/menu.json
-    ```
-  </Tab>
-  <Tab value="npm">
-    ```
-    npx shadcn@latest add http://localhost:3000/r/menu.json
-    ```
-  </Tab>
-</Tabs>
+import { InstallationTabs } from "@/components";
+
+<InstallationTabs filename="menu.json" />
 
 ## Usage
 
