@@ -26,7 +26,7 @@ import type { ComponentProps } from "react";
 
 export type AccordionProps = Omit<
   ComponentProps<typeof AccordionRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type AlertProps = Omit<
@@ -56,37 +56,37 @@ export type CardProps = Omit<
 
 export type CarouselProps = Omit<
   ComponentProps<typeof CarouselRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type CheckboxProps = Omit<
   ComponentProps<typeof CheckboxRoot>,
-  keyof ComponentProps<"label">
+  keyof ComponentProps<"label"> | "ids"
 >;
 
 export type CollapsibleProps = Omit<
   ComponentProps<typeof CollapsibleRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type ComboboxProps = Omit<
   ComponentProps<typeof ComboboxRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type DatePickerProps = Omit<
   ComponentProps<typeof DatePickerRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type DialogProps = Omit<
   ComponentProps<typeof DialogRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type HoverCardProps = Omit<
   ComponentProps<typeof HoverCardRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type InputProps = Omit<
@@ -96,50 +96,50 @@ export type InputProps = Omit<
 
 export type MenuProps = Omit<
   ComponentProps<typeof MenuRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type NumberInputProps = Omit<
   ComponentProps<typeof NumberInputRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type PaginationProps = Omit<
   ComponentProps<typeof PaginationRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type PinInputProps = Omit<
   ComponentProps<typeof PinInputRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type PopoverProps = Omit<
   ComponentProps<typeof PopoverRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type RatingGroupProps = Omit<
   ComponentProps<typeof RatingGroupRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type SliderProps = Omit<
   ComponentProps<typeof SliderRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type SwitchProps = Omit<
   ComponentProps<typeof SwitchRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type TabsProps = Omit<
   ComponentProps<typeof TabsRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;
 
 export type TooltipProps = Omit<
   ComponentProps<typeof TooltipRoot>,
-  keyof ComponentProps<"div">
+  keyof ComponentProps<"div"> | "ids"
 >;

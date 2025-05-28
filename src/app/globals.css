@@ -85,6 +85,7 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   --color-fd-secondary: var(--muted);
+  --color-fd-secondary-foreground: var(--foreground);
 }
 
 html .prose {
@@ -169,7 +170,6 @@ html .prose {
   --display-weight: 400;
   --text-family: var(--font-sans);
   --text-weight: 400;
-  --color-fd-secondary-foreground: var(--base-800);
 
   .prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     @apply mt-0 mb-0;
@@ -233,7 +233,6 @@ html .prose {
   --sidebar-accent-foreground: var(--base-200);
   --sidebar-border: var(--base-800);
   --sidebar-ring: var(--primary-400);
-  --color-fd-secondary-foreground: var(--base-200);
 }
 
 @layer base {
