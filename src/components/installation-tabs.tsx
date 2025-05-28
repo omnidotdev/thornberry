@@ -1,3 +1,4 @@
+import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
@@ -20,7 +21,9 @@ const InstallationTabs = ({ filename }: Props) => {
     <Tabs items={packageManagers.map((pm) => pm.name)} className="mt-4">
       {packageManagers.map(({ name, command }) => (
         <Tab key={name} value={name}>
-          {command}
+          <CodeBlock className="px-4">
+            <Pre>{command}</Pre>
+          </CodeBlock>
         </Tab>
       ))}
     </Tabs>
