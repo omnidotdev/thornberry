@@ -1,6 +1,10 @@
 const app = {
   name: "Thornberry",
-  githubUrl: "https://github.com/omnidotdev/thornberry",
+  github: {
+    owner: "omnidotdev",
+    repo: "thornberry",
+    url: "https://github.com/omnidotdev/thornberry",
+  },
 };
 
 export default app;
