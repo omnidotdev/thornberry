@@ -124,6 +124,18 @@
       ]
     },
     {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "description": "A component that allows users to select a date from a calendar interface",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/date-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
@@ -131,6 +143,18 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "Hover Card",
+      "description": "A card that appears when the user hovers over an element, providing additional information or actions",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/hover-card.tsx",
           "type": "registry:ui"
         }
       ]
@@ -184,6 +208,18 @@
       ]
     },
     {
+      "name": "pin-input",
+      "type": "registry:ui",
+      "title": "Pin Input",
+      "description": "A component that allows users to input a sequence of characters, typically used for entering PIN codes or short passwords",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/pin-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "popover",
       "type": "registry:ui",
       "title": "Popover",
@@ -191,6 +227,18 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/popover.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rating-group",
+      "type": "registry:ui",
+      "title": "Rating Group",
+      "description": "A component that allows users to rate items using a star or other rating system",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/rating-group.tsx",
           "type": "registry:ui"
         }
       ]

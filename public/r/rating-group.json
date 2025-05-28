@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rating-group",
+  "type": "registry:ui",
+  "title": "Rating Group",
+  "description": "A component that allows users to rate items using a star or other rating system",
+  "dependencies": [
+    "@ark-ui/react",
+    "react-icons",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/rating-group.tsx",
+      "content": "import { RatingGroup as ArkRatingGroup } from \"@ark-ui/react/rating-group\";\nimport { FiStar } from \"react-icons/fi\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst RatingGroupProvider = ArkRatingGroup.RootProvider;\nconst RatingGroupContext = ArkRatingGroup.Context;\n\nconst RatingGroupRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkRatingGroup.Root>) => (\n  <ArkRatingGroup.Root\n    className={cn(\"inline-flex flex-col\", className)}\n    {...rest}\n  />\n);\n\nconst RatingGroupLabel = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkRatingGroup.Label>) => (\n  <ArkRatingGroup.Label\n    className={cn(\"mb-1.5 block font-medium text-foreground\", className)}\n    {...rest}\n  />\n);\n\nconst RatingGroupControl = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkRatingGroup.Control>) => (\n  <ArkRatingGroup.Control className={cn(\"inline-flex\", className)} {...rest} />\n);\n\nconst RatingGroupItem = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkRatingGroup.Item>) => (\n  <ArkRatingGroup.Item\n    className={cn(\n      \"inline-flex cursor-pointer p-1 text-base-400 outline-none\",\n      \"data-highlighted:text-amber-500\",\n      \"data-checked:text-amber-500\",\n      \"focus-visible:ring-2 focus-visible:ring-primary\",\n      className,\n    )}\n    {...rest}\n  >\n    <FiStar className=\"h-5 w-5 fill-current\" />\n  </ArkRatingGroup.Item>\n);\n\nconst RatingGroupHiddenInput = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkRatingGroup.HiddenInput>) => (\n  <ArkRatingGroup.HiddenInput className={cn(className)} {...rest} />\n);\n\nexport {\n  RatingGroupRoot,\n  RatingGroupLabel,\n  RatingGroupControl,\n  RatingGroupItem,\n  RatingGroupHiddenInput,\n  RatingGroupProvider,\n  RatingGroupContext,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}
