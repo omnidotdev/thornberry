@@ -7,7 +7,7 @@ import type { MDXComponents } from "mdx/types";
 
 const generator = createGenerator();
 
-export const getMDXComponents = (components?: MDXComponents): MDXComponents => {
+const getMDXComponents = (components?: MDXComponents): MDXComponents => {
   return {
     ...defaultMdxComponents,
     AutoTypeTable: (props) => (
@@ -17,3 +17,5 @@ export const getMDXComponents = (components?: MDXComponents): MDXComponents => {
     ...components,
   };
 };
+
+export default getMDXComponents;
