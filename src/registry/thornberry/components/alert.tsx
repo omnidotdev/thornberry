@@ -1,31 +1,30 @@
 import { ark } from "@ark-ui/react";
-import { cva } from "class-variance-authority";
+import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
 
-import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
+import type { VariantProps } from "tailwind-variants";
 
-const alertVariants = cva(
-  "relative w-full rounded-lg border px-4 py-5 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:top-4 [&>svg]:left-4 [&>svg]:text-foreground [&>svg~*]:pl-7",
-  {
-    variants: {
-      variant: {
-        default: "bg-background text-foreground",
-        error:
-          "border-destructive/50 bg-destructive/5 text-destructive dark:border-destructive [&>svg]:text-destructive",
-        info: "border-blue-500/50 bg-blue-500/5 text-blue-500 dark:border-blue-500 [&>svg]:text-blue-500",
-        warning:
-          "border-yellow-500/50 bg-yellow-500/5 text-yellow-500 dark:border-yellow-500 [&>svg]:text-yellow-500",
-        success:
-          "border-green-500/50 bg-green-500/5 text-green-500 dark:border-green-500 [&>svg]:text-green-500",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
+// TODO: add slots
+const alertVariants = tv({
+  base: "relative w-full rounded-lg border px-4 py-5 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:top-4 [&>svg]:left-4 [&>svg]:text-foreground [&>svg~*]:pl-7",
+  variants: {
+    variant: {
+      default: "bg-background text-foreground",
+      error:
+        "border-destructive/50 bg-destructive/5 text-destructive dark:border-destructive [&>svg]:text-destructive",
+      info: "border-blue-500/50 bg-blue-500/5 text-blue-500 dark:border-blue-500 [&>svg]:text-blue-500",
+      warning:
+        "border-yellow-500/50 bg-yellow-500/5 text-yellow-500 dark:border-yellow-500 [&>svg]:text-yellow-500",
+      success:
+        "border-green-500/50 bg-green-500/5 text-green-500 dark:border-green-500 [&>svg]:text-green-500",
     },
   },
-);
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 const AlertRoot = ({
   className,

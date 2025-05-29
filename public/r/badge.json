@@ -6,14 +6,14 @@
   "description": "A badge component",
   "dependencies": [
     "@ark-ui/react",
-    "class-variance-authority",
+    "tailwind-variants",
     "clsx",
     "tailwind-merge"
   ],
   "files": [
     {
       "path": "src/registry/thornberry/components/badge.tsx",
-      "content": "import { ark } from \"@ark-ui/react\";\nimport { cva } from \"class-variance-authority\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { VariantProps } from \"class-variance-authority\";\nimport type { ComponentProps } from \"react\";\n\nconst badgeVariants = cva(\n  \"inline-flex select-none items-center whitespace-nowrap rounded-md border font-medium transition-colors\",\n  {\n    variants: {\n      variant: {\n        solid: \"border-transparent bg-primary text-primary-foreground\",\n        subtle:\n          \"border-transparent bg-primary-200/20 text-foreground dark:bg-primary-900/20\",\n        outline: \"text-foreground\",\n      },\n      size: {\n        sm: \"h-5 gap-1 px-2 text-xs [&_svg]:size-3\",\n        md: \"h-6 gap-1 px-2.5 text-xs [&_svg]:size-4\",\n        lg: \"h-7 gap-1 px-3 text-sm [&_svg]:size-4\",\n      },\n    },\n    defaultVariants: {\n      variant: \"solid\",\n      size: \"md\",\n    },\n  },\n);\n\nconst Badge = ({\n  className,\n  variant,\n  size,\n  ...rest\n}: ComponentProps<typeof ark.div> & VariantProps<typeof badgeVariants>) => (\n  <ark.div\n    className={cn(badgeVariants({ className, variant, size }))}\n    {...rest}\n  />\n);\n\nexport { Badge, badgeVariants };\n",
+      "content": "import { ark } from \"@ark-ui/react\";\nimport { tv } from \"tailwind-variants\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\nimport type { VariantProps } from \"tailwind-variants\";\n\nconst badgeVariants = tv({\n  base: \"inline-flex select-none items-center whitespace-nowrap rounded-md border font-medium transition-colors\",\n  variants: {\n    variant: {\n      solid: \"border-transparent bg-primary text-primary-foreground\",\n      subtle:\n        \"border-transparent bg-primary-200/20 text-foreground dark:bg-primary-900/20\",\n      outline: \"text-foreground\",\n    },\n    size: {\n      sm: \"h-5 gap-1 px-2 text-xs [&_svg]:size-3\",\n      md: \"h-6 gap-1 px-2.5 text-xs [&_svg]:size-4\",\n      lg: \"h-7 gap-1 px-3 text-sm [&_svg]:size-4\",\n    },\n  },\n  defaultVariants: {\n    variant: \"solid\",\n    size: \"md\",\n  },\n});\n\nconst Badge = ({\n  className,\n  variant,\n  size,\n  ...rest\n}: ComponentProps<typeof ark.div> & VariantProps<typeof badgeVariants>) => (\n  <ark.div\n    className={cn(badgeVariants({ className, variant, size }))}\n    {...rest}\n  />\n);\n\nexport { Badge, badgeVariants };\n",
       "type": "registry:ui"
     },
     {
