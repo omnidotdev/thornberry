@@ -84,6 +84,10 @@
         {
           "path": "src/registry/thornberry/components/carousel.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/thornberry/components/button.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -120,6 +124,10 @@
         {
           "path": "src/registry/thornberry/components/combobox.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/thornberry/components/button.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -131,6 +139,10 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/date-picker.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/thornberry/components/button.tsx",
           "type": "registry:ui"
         }
       ]
@@ -192,6 +204,10 @@
         {
           "path": "src/registry/thornberry/components/number-input.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/thornberry/components/button.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -203,6 +219,10 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/pagination.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/thornberry/components/button.tsx",
           "type": "registry:ui"
         }
       ]
