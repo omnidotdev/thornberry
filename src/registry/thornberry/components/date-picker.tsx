@@ -2,11 +2,49 @@
 
 import { DatePicker as ArkDatePicker } from "@ark-ui/react/date-picker";
 import { FiCalendar, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
 
 import type { ComponentProps } from "react";
+
+const datePickerVariants = tv({
+  slots: {
+    root: "flex flex-col gap-1.5",
+    label: "font-medium text-sm",
+    control: "flex items-center gap-2",
+    input:
+      "flex h-10 w-full rounded-md border border-base-300 bg-transparent px-3 py-2 text-sm placeholder:text-base-500 focus:outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50",
+    trigger: "ml-2 h-10 w-10",
+    clearTrigger: "h-auto px-2 text-xs",
+    content:
+      "z-10 flex w-[344px] min-w-fit flex-col gap-3 rounded-md border bg-base-50 p-4 shadow-lg dark:bg-base-950",
+    viewControl: "flex items-center justify-between",
+    viewTrigger:
+      "flex items-center justify-center rounded-md px-2 py-1 font-medium text-sm",
+    table: "-m-1 w-full border-separate border-spacing-1",
+    tableHeader: "h-10 font-semibold text-sm",
+    tableCell: "text-center",
+    tableCellTrigger: "h-full w-fu cursor-pointer",
+  },
+});
+
+const {
+  root,
+  label,
+  control,
+  input,
+  trigger,
+  clearTrigger,
+  content,
+  viewControl,
+  viewTrigger,
+  table,
+  tableHeader,
+  tableCell,
+  tableCellTrigger,
+} = datePickerVariants();
 
 const DatePickerProvider = ArkDatePicker.RootProvider;
 const DatePickerContext = ArkDatePicker.Context;
@@ -21,43 +59,28 @@ const DatePickerRoot = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkDatePicker.Root>) => (
-  <ArkDatePicker.Root
-    className={cn("flex flex-col gap-1.5", className)}
-    {...rest}
-  />
+  <ArkDatePicker.Root className={cn(root(), className)} {...rest} />
 );
 
 const DatePickerLabel = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkDatePicker.Label>) => (
-  <ArkDatePicker.Label
-    className={cn("font-medium text-sm", className)}
-    {...rest}
-  />
+  <ArkDatePicker.Label className={cn(label(), className)} {...rest} />
 );
 
 const DatePickerControl = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkDatePicker.Control>) => (
-  <ArkDatePicker.Control
-    className={cn("flex items-center gap-2", className)}
-    {...rest}
-  />
+  <ArkDatePicker.Control className={cn(control(), className)} {...rest} />
 );
 
 const DatePickerInput = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkDatePicker.Input>) => (
-  <ArkDatePicker.Input
-    className={cn(
-      "flex h-10 w-full rounded-md border border-base-300 bg-transparent px-3 py-2 text-sm placeholder:text-base-500 focus:outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50",
-      className,
-    )}
-    {...rest}
-  />
+  <ArkDatePicker.Input className={cn(input(), className)} {...rest} />
 );
 
 const DatePickerTrigger = ({
@@ -65,11 +88,7 @@ const DatePickerTrigger = ({
   ...rest
 }: ComponentProps<typeof ArkDatePicker.Trigger>) => (
   <ArkDatePicker.Trigger asChild {...rest}>
-    <Button
-      variant="outline"
-      size="icon"
-      className={cn("ml-2 h-10 w-10", className)}
-    >
+    <Button variant="outline" size="icon" className={cn(trigger(), className)}>
       <FiCalendar className="h-4 w-4" />
     </Button>
   </ArkDatePicker.Trigger>
@@ -80,11 +99,7 @@ const DatePickerClearTrigger = ({
   ...rest
 }: ComponentProps<typeof ArkDatePicker.ClearTrigger>) => (
   <ArkDatePicker.ClearTrigger asChild {...rest}>
-    <Button
-      variant="ghost"
-      size="sm"
-      className={cn("h-auto px-2 text-xs", className)}
-    >
+    <Button variant="ghost" size="sm" className={cn(clearTrigger(), className)}>
       Clear
     </Button>
   </ArkDatePicker.ClearTrigger>
@@ -94,13 +109,7 @@ const DatePickerContent = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkDatePicker.Content>) => (
-  <ArkDatePicker.Content
-    className={cn(
-      "z-10 flex w-[344px] min-w-fit flex-col gap-3 rounded-md border bg-base-50 p-4 shadow-lg dark:bg-base-950",
-      className,
-    )}
-    {...rest}
-  />
+  <ArkDatePicker.Content className={cn(content(), className)} {...rest} />
 );
 
 const DatePickerViewControl = ({
@@ -108,7 +117,7 @@ const DatePickerViewControl = ({
   ...rest
 }: ComponentProps<typeof ArkDatePicker.ViewControl>) => (
   <ArkDatePicker.ViewControl
-    className={cn("flex items-center justify-between", className)}
+    className={cn(viewControl(), className)}
     {...rest}
   />
 );
@@ -118,10 +127,7 @@ const DatePickerViewTrigger = ({
   ...rest
 }: ComponentProps<typeof ArkDatePicker.ViewTrigger>) => (
   <ArkDatePicker.ViewTrigger
-    className={cn(
-      "flex items-center justify-center rounded-md px-2 py-1 font-medium text-sm",
-      className,
-    )}
+    className={cn(viewTrigger(), className)}
     {...rest}
   />
 );
@@ -152,10 +158,7 @@ const DatePickerTable = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkDatePicker.Table>) => (
-  <ArkDatePicker.Table
-    className={cn("-m-1 w-full border-separate border-spacing-1", className)}
-    {...rest}
-  />
+  <ArkDatePicker.Table className={cn(table(), className)} {...rest} />
 );
 
 const DatePickerTableHeader = ({
@@ -163,7 +166,7 @@ const DatePickerTableHeader = ({
   ...rest
 }: ComponentProps<typeof ArkDatePicker.TableHeader>) => (
   <ArkDatePicker.TableHeader
-    className={cn("h-10 font-semibold text-sm", className)}
+    className={cn(tableHeader(), className)}
     {...rest}
   />
 );
@@ -172,7 +175,7 @@ const DatePickerTableCell = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkDatePicker.TableCell>) => (
-  <ArkDatePicker.TableCell className={cn("text-center", className)} {...rest} />
+  <ArkDatePicker.TableCell className={cn(tableCell(), className)} {...rest} />
 );
 
 const DatePickerTableCellTrigger = ({
@@ -180,7 +183,7 @@ const DatePickerTableCellTrigger = ({
   ...rest
 }: ComponentProps<typeof ArkDatePicker.TableCellTrigger>) => (
   <ArkDatePicker.TableCellTrigger
-    className={cn("h-full w-fu cursor-pointer", className)}
+    className={cn(tableCellTrigger(), className)}
     {...rest}
   />
 );

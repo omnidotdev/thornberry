@@ -1,9 +1,25 @@
 import { Popover as ArkPopover } from "@ark-ui/react/popover";
 import { FiX } from "react-icons/fi";
+import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
 
 import type { ComponentProps } from "react";
+
+const popoverVariants = tv({
+  slots: {
+    trigger: "inline-flex items-center justify-center",
+    content:
+      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+    positioner: "",
+    arrowTip: "border-t-[1px] border-l-[1px]",
+    closeTrigger:
+      "absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none",
+  },
+});
+
+const { trigger, content, positioner, arrowTip, closeTrigger } =
+  popoverVariants();
 
 const PopoverProvider = ArkPopover.RootProvider;
 const PopoverContext = ArkPopover.Context;
@@ -14,40 +30,28 @@ const PopoverTrigger = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkPopover.Trigger>) => (
-  <ArkPopover.Trigger
-    className={cn("inline-flex items-center justify-center", className)}
-    {...rest}
-  />
+  <ArkPopover.Trigger className={cn(trigger(), className)} {...rest} />
 );
 
 const PopoverContent = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkPopover.Content>) => (
-  <ArkPopover.Content
-    className={cn(
-      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
-      className,
-    )}
-    {...rest}
-  />
+  <ArkPopover.Content className={cn(content(), className)} {...rest} />
 );
 
 const PopoverPositioner = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkPopover.Positioner>) => (
-  <ArkPopover.Positioner className={cn("", className)} {...rest} />
+  <ArkPopover.Positioner className={cn(positioner(), className)} {...rest} />
 );
 
 const PopoverArrowTip = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkPopover.ArrowTip>) => (
-  <ArkPopover.ArrowTip
-    className={cn("border-t-[1px] border-l-[1px]", className)}
-    {...rest}
-  />
+  <ArkPopover.ArrowTip className={cn(arrowTip(), className)} {...rest} />
 );
 
 const PopoverCloseTrigger = ({
@@ -60,10 +64,7 @@ const PopoverCloseTrigger = ({
   if (!children) {
     return (
       <ArkPopover.CloseTrigger
-        className={cn(
-          "absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none",
-          className,
-        )}
+        className={cn(closeTrigger(), className)}
         {...rest}
       >
         <FiX className="h-4 w-4" />
