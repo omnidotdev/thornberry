@@ -33,7 +33,7 @@
     "@biomejs/biome": "1.9.4",
     "@tailwindcss/postcss": "^4.1.7",
     "@types/mdx": "^2.0.13",
-    "@types/node": "22.15.21",
+    "@types/node": "24.0.3",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "husky": "^9.1.7",
