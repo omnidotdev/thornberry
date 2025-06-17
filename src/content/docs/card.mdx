@@ -4,26 +4,33 @@ description: Surface container for grouping related content and actions.
 ---
 
 import { Button } from "@/registry/thornberry/components/button";
-import { CardRoot, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/registry/thornberry/components/card";
+import { Card, CardRoot, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/registry/thornberry/components/card";
 
-<CardRoot className="mb-8">
-  <CardHeader>
-    <CardTitle>Card Title</CardTitle>
-    <CardDescription>This is the card description.</CardDescription>
-  </CardHeader>
-  <CardContent>
-    This card uses the primitives for maximum flexibility.
-  </CardContent>
-  <CardFooter>
-    <Button>Save</Button>
-  </CardFooter>
-</CardRoot>
+<Card title="Card Title" description="Card Description" footer={<Button>Save</Button>} className="mb-8">
+  This is the content area of the card, where the main information is displayed.
+</Card>
 
 ## Installation
 
 <InstallationTabs filename="card.json" />
 
 ## Usage
+
+For simplicity, we provide a pre-built component that you can use out of the box.
+
+```tsx
+import { Card } from "@/components/ui/card";
+```
+
+```tsx
+<Card title="Card Title" description="Card Description" footer={<Button>Save</Button>}>
+  This is the content area of the card, where the main information is displayed.
+</Card>
+```
+
+### Primitives
+
+If you need more control over the card component, you can use the primitives.
 
 ```tsx
 import {
@@ -43,10 +50,10 @@ import {
     <CardDescription>Card Description</CardDescription>
   </CardHeader>
   <CardContent>
-    Card Content
+    This is the content area of the card, where the main information is displayed.
   </CardContent>
   <CardFooter>
-    <Button>Action</Button>
+    <Button>Save</Button>
   </CardFooter>
 </CardRoot>
 ```
@@ -54,55 +61,6 @@ import {
 ## Examples
 
 <br />
-
-#### Basic Card
-
-<Tabs items={["Preview", "Code"]} className="mt-4">
-  <Tab value="Preview">
-    <CardRoot>
-      <CardHeader>
-        <CardTitle>Basic Card</CardTitle>
-        <CardDescription>A simple card example</CardDescription>
-      </CardHeader>
-      <CardContent>
-        This is the content area of the card, where the main information is displayed.
-      </CardContent>
-      <CardFooter>
-        <Button>Save</Button>
-      </CardFooter>
-    </CardRoot>
-  </Tab>
-  <Tab value="Code">
-    ```tsx
-    import {
-      CardRoot,
-      CardHeader,
-      CardTitle,
-      CardDescription,
-      CardContent,
-      CardFooter
-    } from "@/components/ui/card"
-    import { Button } from "@/components/ui/button"
-
-    export const BasicCard = () => {
-      return (
-        <CardRoot>
-          <CardHeader>
-            <CardTitle>Basic Card</CardTitle>
-            <CardDescription>A simple card example</CardDescription>
-          </CardHeader>
-          <CardContent>
-            This is the content area of the card, where the main information is displayed.
-          </CardContent>
-          <CardFooter>
-            <Button>Save</Button>
-          </CardFooter>
-        </CardRoot>
-      )
-    }
-    ```
-  </Tab>
-</Tabs>
 
 #### Custom Styled Card
 

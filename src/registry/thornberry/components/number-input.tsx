@@ -1,10 +1,26 @@
 import { NumberInput as ArkNumberInput } from "@ark-ui/react/number-input";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
 
 import type { ComponentProps } from "react";
+
+const numberInputVariants = tv({
+  slots: {
+    root: "flex w-full flex-col",
+    label: "block font-medium text-sm",
+    control: "flex h-10 items-center rounded-md border",
+    input:
+      "h-full w-full bg-transparent px-3 py-2 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50",
+    decrementTrigger: "flex-1 rounded-none",
+    incrementTrigger: "flex-1 rounded-none",
+  },
+});
+
+const { root, label, control, input, decrementTrigger, incrementTrigger } =
+  numberInputVariants();
 
 const NumberInputProvider = ArkNumberInput.RootProvider;
 const NumberInputContext = ArkNumberInput.Context;
@@ -13,44 +29,28 @@ const NumberInputRoot = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkNumberInput.Root>) => (
-  <ArkNumberInput.Root
-    className={cn("flex w-full flex-col", className)}
-    {...rest}
-  />
+  <ArkNumberInput.Root className={cn(root(), className)} {...rest} />
 );
 
 const NumberInputLabel = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkNumberInput.Label>) => (
-  <ArkNumberInput.Label
-    className={cn("block font-medium text-sm", className)}
-    {...rest}
-  />
+  <ArkNumberInput.Label className={cn(label(), className)} {...rest} />
 );
 
 const NumberInputControl = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkNumberInput.Control>) => (
-  <ArkNumberInput.Control
-    className={cn("flex h-10 items-center rounded-md border", className)}
-    {...rest}
-  />
+  <ArkNumberInput.Control className={cn(control(), className)} {...rest} />
 );
 
 const NumberInputInput = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkNumberInput.Input>) => (
-  <ArkNumberInput.Input
-    className={cn(
-      "h-full w-full bg-transparent px-3 py-2 text-sm outline-none",
-      "disabled:cursor-not-allowed disabled:opacity-50",
-      className,
-    )}
-    {...rest}
-  />
+  <ArkNumberInput.Input className={cn(input(), className)} {...rest} />
 );
 
 const NumberInputDecrementTrigger = ({
@@ -61,7 +61,7 @@ const NumberInputDecrementTrigger = ({
     <Button
       variant="ghost"
       size="icon"
-      className={cn("flex-1 rounded-none", className)}
+      className={cn(decrementTrigger(), className)}
     >
       <FiChevronDown className="h-4 w-4" />
     </Button>
@@ -76,7 +76,7 @@ const NumberInputIncrementTrigger = ({
     <Button
       variant="ghost"
       size="icon"
-      className={cn("flex-1 rounded-none", className)}
+      className={cn(incrementTrigger(), className)}
     >
       <FiChevronUp className="h-4 w-4" />
     </Button>
