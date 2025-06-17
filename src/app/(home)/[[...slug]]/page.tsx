@@ -52,12 +52,15 @@ const Page = async ({ params }: Props) => {
       }}
     >
       <DocsTitle>{page.data.title}</DocsTitle>
+
       <DocsDescription className="mb-0">
         {page.data.description}
       </DocsDescription>
+
       <GitHubLink
         url={`https://github.com/${app.github.owner}/${app.github.repo}/blob/master/${path}`}
       />
+
       <DocsBody>
         <MDX components={getMDXComponents()} />
       </DocsBody>

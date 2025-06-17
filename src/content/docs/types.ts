@@ -1,5 +1,6 @@
 import type { AccordionRoot } from "@/registry/thornberry/components/accordion";
 import type { AlertProps as RegistryAlertProps } from "@/registry/thornberry/components/alert";
+import type { AngleSliderRoot } from "@/registry/thornberry/components/angle-slider";
 import type { AvatarProps as RegistryAvatarProps } from "@/registry/thornberry/components/avatar";
 import type { Badge } from "@/registry/thornberry/components/badge";
 import type { Button } from "@/registry/thornberry/components/button";
@@ -33,6 +34,11 @@ export interface AlertProps
   extends Omit<RegistryAlertProps, keyof ComponentProps<"div">> {
   title: string;
 }
+
+export type AngleSliderProps = Omit<
+  ComponentProps<typeof AngleSliderRoot>,
+  keyof ComponentProps<"div">
+>;
 
 export type AvatarProps = Omit<
   RegistryAvatarProps,
