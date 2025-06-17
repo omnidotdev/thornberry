@@ -9,7 +9,7 @@ const hoverCardVariants = tv({
   slots: {
     trigger: "inline-block",
     content:
-      "z-50 w-64 rounded-md border bg-background p-4 shadow-md outline-none data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:animate-out",
+      "data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 z-50 w-64 rounded-md border bg-background p-4 shadow-md outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
     arrow: "fill-base-100 stroke-base-200",
     arrowTip: "",
     positioner: "",

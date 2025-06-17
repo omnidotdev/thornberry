@@ -1,3 +1,4 @@
+import type { ComponentProps } from "react";
 import type { AccordionRoot } from "@/registry/thornberry/components/accordion";
 import type { AlertProps as RegistryAlertProps } from "@/registry/thornberry/components/alert";
 import type { AngleSliderRoot } from "@/registry/thornberry/components/angle-slider";
@@ -23,7 +24,6 @@ import type { SliderRoot } from "@/registry/thornberry/components/slider";
 import type { SwitchRoot } from "@/registry/thornberry/components/switch";
 import type { TabsRoot } from "@/registry/thornberry/components/tabs";
 import type { TooltipRoot } from "@/registry/thornberry/components/tooltip";
-import type { ComponentProps } from "react";
 
 export type AccordionProps = Omit<
   ComponentProps<typeof AccordionRoot>,

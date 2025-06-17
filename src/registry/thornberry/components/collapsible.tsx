@@ -10,7 +10,7 @@ const collapsibleVariants = tv({
   slots: {
     root: "w-full",
     trigger:
-      "flex w-full items-center justify-between rounded-md px-4 py-2 font-medium text-sm transition-all bg-background hover:bg-muted/50 data-[state=open]:bg-muted/50 data-[state=open]:rounded-b-none [&[data-state=open]>svg]:rotate-180",
+      "flex w-full items-center justify-between rounded-md bg-background px-4 py-2 font-medium text-sm transition-all hover:bg-muted/50 data-[state=open]:rounded-b-none data-[state=open]:bg-muted/50 [&[data-state=open]>svg]:rotate-180",
     content: "overflow-hidden",
   },
 });

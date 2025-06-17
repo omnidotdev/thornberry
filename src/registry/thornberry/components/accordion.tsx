@@ -15,7 +15,7 @@ import type { ElementType } from "react";
 const accordionVariants = tv({
   slots: {
     root: "flex flex-col border-t data-[orientation=horizontal]:flex-row data-[orientation=horizontal]:gap-4 data-[orientation=horizontal]:border-none",
-    item: "group flex flex-col border-b px-2 data-disabled:opacity-50 data-[orientation=horizontal]:w-full data-[orientation=horizontal]:border-none",
+    item: "group flex flex-col border-b px-2 data-[orientation=horizontal]:w-full data-[orientation=horizontal]:border-none data-disabled:opacity-50",
     itemTrigger:
       "flex flex-1 cursor-pointer items-center justify-between py-4 text-left font-medium text-sm transition-all disabled:cursor-not-allowed data-[orientation=horizontal]:items-start [&[data-state=open]>svg]:rotate-180",
     itemTriggerIcon: "size-4 transition-transform",
