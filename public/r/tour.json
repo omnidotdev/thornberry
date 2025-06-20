@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tour",
+  "type": "registry:ui",
+  "title": "Tour",
+  "description": "A guided tour component that highlights elements on the page and provides instructions or information",
+  "dependencies": [
+    "@ark-ui/react",
+    "react-icons",
+    "tailwind-variants",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/tour.tsx",
+      "content": "import { Tour as ArkTour } from \"@ark-ui/react/tour\";\nimport { FiX } from \"react-icons/fi\";\nimport { tv } from \"tailwind-variants\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst tourVariants = tv({\n  slots: {\n    backdrop: \"fixed inset-0 z-50 backdrop-blur-sm bg-background/80 data-[state=open]:animate-[backdrop-in] data-[state=closed]:animate-[backdrop-out]\",\n    spotlight: \"fixed inset-0 z-45\",\n    positioner: \"z-50 flex items-center justify-center data-[type=dialog]:fixed data-[type=dialog]:inset-0 data-[type=tooltip]:absolute data-[type=floating]:absolute data-[type=floating]:bottom-6 data-[type=floating]:right-6\",\n    progressText: \"text-muted-foreground text-sm\",\n    content: \"relative z-50 grid w-full max-w-lg gap-4 border bg-background p-6 shadow-lg sm:rounded-lg data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[state=open]:slide-in-from-top-[2%] data-[state=closed]:slide-out-to-top-[2%] duration-200 data-[state=closed]:animate-out data-[state=open]:animate-in\",\n    title: \"text-foreground text-lg font-semibold data-[type=dialog]:text-center\",\n    description: \"text-foreground text-sm data-[type=dialog]:text-center\",\n    closeTrigger: \"absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none\",\n    control: \"flex items-center justify-end gap-3 mt-6\",\n  }\n})\n\nconst { backdrop,\n  spotlight,\n  positioner,\n  content,\n  title,\n  description,\n  closeTrigger,\n  control,\n  progressText\n } = tourVariants();\n\nconst TourContext = ArkTour.Context;\nconst TourRoot = ArkTour.Root;\nconst TourActions = ArkTour.Actions;\nconst TourActionTrigger = ArkTour.ActionTrigger;\n\nconst TourBackdrop = ({className, ...rest}: ComponentProps<typeof ArkTour.Backdrop>) => (\n  <ArkTour.Backdrop\n    className={cn(backdrop(), className)}\n    {...rest}\n  />\n);\n\nconst TourSpotlight = ({className, ...rest}: ComponentProps<typeof ArkTour.Spotlight>) => (\n  <ArkTour.Spotlight\n    className={cn(spotlight(), className)}\n    {...rest}\n  />\n);\n\nconst TourPositioner = ({className, ...rest}: ComponentProps<typeof ArkTour.Positioner>) => (\n  <ArkTour.Positioner\n    className={cn(positioner(),\n      className)}\n    {...rest}\n  />\n);\n\nconst TourContent = ({className, ...rest}: ComponentProps<typeof ArkTour.Content>) => (\n  <ArkTour.Content\n    className={cn(content(), className)}\n    {...rest}\n  />\n);\n\nconst TourProgressText = ({className, ...rest}: ComponentProps<typeof ArkTour.ProgressText>) => (\n  <ArkTour.ProgressText\n    className={cn(progressText(), className)}\n    {...rest}\n  />\n);\n\nconst TourTitle = ({className, ...rest}: ComponentProps<typeof ArkTour.Title>) => (\n  <ArkTour.Title\n    className={cn(title(), className)}\n    {...rest}\n  />\n);\n\nconst TourDescription = ({className, ...rest}: ComponentProps<typeof ArkTour.Description>) => (\n  <ArkTour.Description\n    className={cn(description(), className)}\n    {...rest}\n  />\n);\n\nconst TourCloseTrigger = ({className, ...rest}: ComponentProps<typeof ArkTour.CloseTrigger>) => (\n  <ArkTour.CloseTrigger\n    className={cn(closeTrigger(), className)}\n    {...rest}\n  >\n    <FiX className=\"h-4 w-4\" />\n    <span className=\"sr-only\">Close</span>\n  </ArkTour.CloseTrigger>\n);\n\nconst TourControl = ({className, ...rest}: ComponentProps<typeof ArkTour.Control>) => (\n  <ArkTour.Control\n    className={cn(control(), className)}\n    {...rest}\n  />\n);\n\nexport {\n  TourContext,\n  TourRoot,\n  TourBackdrop,\n  TourSpotlight,\n  TourPositioner,\n  TourContent,\n  TourTitle,\n  TourDescription,\n  TourProgressText,\n  TourCloseTrigger,\n  TourControl,\n  TourActions,\n  TourActionTrigger,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

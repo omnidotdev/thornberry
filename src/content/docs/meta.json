@@ -28,6 +28,7 @@
     "slider",
     "switch",
     "tabs",
-    "tooltip"
+    "tooltip",
+    "tour"
   ]
 }

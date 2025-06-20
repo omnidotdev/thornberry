@@ -322,6 +322,18 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "tour",
+      "type": "registry:ui",
+      "title": "Tour",
+      "description": "A guided tour component that highlights elements on the page and provides instructions or information",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/tour.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

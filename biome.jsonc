@@ -53,6 +53,9 @@
             "attributes": ["className"],
             "functions": ["cn", "tv"]
           }
+        },
+        "useUniqueElementIds": {
+          "level": "warn"
         }
       }
     }

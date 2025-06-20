@@ -12,18 +12,9 @@ import {
   AngleSliderValueText,
 } from "@/registry/thornberry/components/angle-slider"
 
+import { AngleSlider} from "@/components"
 
- <AngleSliderRoot defaultValue={90} className="mb-4">
-    <AngleSliderControl>
-      <AngleSliderThumb />
-      <AngleSliderMarkerGroup>
-        {[0, 45, 90, 135, 180, 225, 270, 315].map((value) => (
-          <AngleSliderMarker key={value} value={value} />
-        ))}
-      </AngleSliderMarkerGroup>
-    </AngleSliderControl>
-    <AngleSliderValueText />
-  </AngleSliderRoot>
+<AngleSlider />
 
 ## Installation
 
@@ -43,16 +34,26 @@ import {
 ```
 
 ```tsx
-<AngleSliderRoot>
-   <AngleSliderControl>
-     <AngleSliderMarkerGroup>
-       {[0, 45, 90, 135, 180, 225, 270, 315].map((value) => (
-         <AngleSliderMarker key={value} value={value} />
-       ))}
-     </AngleSliderMarkerGroup>
-   </AngleSliderControl>
-   <AngleSliderValueText />
- </AngleSliderRoot>
+const Example = () => {
+  const [angle, setAngle] = useState(90);
+
+  return (
+    <AngleSliderRoot
+      value={angle}
+      onValueChange={({ value }) => setAngle(value)}
+      >
+      <AngleSliderControl>
+          <AngleSliderThumb />
+        <AngleSliderMarkerGroup>
+          {[0, 45, 90, 135, 180, 225, 270, 315].map((value) => (
+            <AngleSliderMarker key={value} value={value} />
+          ))}
+        </AngleSliderMarkerGroup>
+      </AngleSliderControl>
+      <AngleSliderValueText>{angle} ºC</AngleSliderValueText>
+    </AngleSliderRoot>
+  )
+}
 ```
 
 ## References
