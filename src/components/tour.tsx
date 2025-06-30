@@ -84,11 +84,7 @@ const Tour = () => {
       </div>
 
       {/* Example target element — replace with your own. */}
-      <Button
-        id="step-1"
-        className="my-4"
-        disabled={tour.stepIndex !== 1}
-      >
+      <Button id="step-1" className="my-4" disabled={tour.stepIndex !== 1}>
         Step 1
       </Button>
 

@@ -1,0 +1,96 @@
+---
+title: Sheet
+description: A sheet component that slides in from the side, typically used for dialogs or side panels.
+---
+
+import { 
+  ArkSheetRoot,
+  ArkSheetTrigger,
+  ArkSheetBackdrop,
+  ArkSheetPositioner,
+  ArkSheetContent,
+  ArkSheetTitle,
+  ArkSheetDescription,
+  ArkSheetCloseTrigger,
+} from "@/registry/thornberry/components/sheet";
+import { Button } from "@/registry/thornberry/components/button";
+import { FiX } from "react-icons/fi";
+
+
+<ArkSheetRoot>
+  <ArkSheetTrigger asChild className="mb-8">
+    <Button>Open Sheet</Button>
+  </ArkSheetTrigger>
+  <ArkSheetBackdrop />
+  <ArkSheetPositioner>
+    <ArkSheetContent side="left" className="p-4">
+      <ArkSheetCloseTrigger />
+      <div className="flex flex-col gap-1.5">
+         <ArkSheetTitle>Sheet Title</ArkSheetTitle>
+         <ArkSheetDescription>This is a description of the sheet's purpose.</ArkSheetDescription>
+      </div>
+
+      <div className="py-4">This is the main content of the sheet.</div>
+
+      <div className="flex justify-end gap-2">
+        <ArkSheetCloseTrigger asChild>
+          <Button variant="outline">Cancel</Button>
+        </ArkSheetCloseTrigger>
+        <Button>Save</Button>
+      </div>
+    </ArkSheetContent>
+  </ArkSheetPositioner>
+</ArkSheetRoot>
+
+## Installation
+
+<InstallationTabs filename="sheet.json" />
+
+## Usage
+
+```tsx
+import { 
+  ArkSheetRoot,
+  ArkSheetTrigger,
+  ArkSheetBackdrop,
+  ArkSheetPositioner,
+  ArkSheetContent,
+  ArkSheetTitle,
+  ArkSheetDescription,
+  ArkSheetCloseTrigger,
+} from "@/registry/thornberry/components/sheet";
+import { Button } from "@/registry/thornberry/components/button";
+import { FiX } from "react-icons/fi";```
+
+```tsx
+ <ArkSheetRoot>
+  <ArkSheetTrigger asChild className="mb-8">
+    <Button>Open Sheet</Button>
+  </ArkSheetTrigger>
+  <ArkSheetBackdrop />
+  <ArkSheetPositioner>
+    <ArkSheetContent side="left" className="p-4">
+      <ArkSheetCloseTrigger />
+      <div className="flex flex-col gap-1.5">
+         <ArkSheetTitle>Sheet Title</ArkSheetTitle>
+         <ArkSheetDescription>This is a description of the sheet's purpose.</ArkSheetDescription>
+      </div>
+
+      <div className="py-4">This is the main content of the sheet.</div>
+
+      <div className="flex justify-end gap-2">
+        <ArkSheetCloseTrigger asChild>
+          <Button variant="outline">Cancel</Button>
+        </ArkSheetCloseTrigger>
+        <Button>Save</Button>
+      </div>
+    </ArkSheetContent>
+  </ArkSheetPositioner>
+</ArkSheetRoot>
+```
+
+## References
+
+<div>
+    <AutoTypeTable path="./src/content/docs/types.ts" name="SheetProps" />
+</div>

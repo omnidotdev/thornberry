@@ -130,6 +130,11 @@ export type RatingGroupProps = Omit<
   keyof ComponentProps<"div"> | "ids"
 >;
 
+export type SheetProps = Omit<
+  ComponentProps<typeof DialogRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
 export type SliderProps = Omit<
   ComponentProps<typeof SliderRoot>,
   keyof ComponentProps<"div"> | "ids"
