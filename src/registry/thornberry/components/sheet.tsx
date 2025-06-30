@@ -30,25 +30,25 @@ const {
   closeTrigger,
 } = ArkSheetVariants();
 
-const ArkSheetProvider = ArkSheet.RootProvider;
-const ArkSheetContext = ArkSheet.Context;
-const ArkSheetRoot = ArkSheet.Root;
+const SheetProvider = ArkSheet.RootProvider;
+const SheetContext = ArkSheet.Context;
+const SheetRoot = ArkSheet.Root;
 
-const ArkSheetTrigger = ({
+const SheetTrigger = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Trigger>) => (
   <ArkSheet.Trigger className={cn(trigger(), className)} {...rest} />
 );
 
-const ArkSheetBackdrop = ({
+const SheetBackdrop = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Backdrop>) => (
   <ArkSheet.Backdrop className={cn(backdrop(), className)} {...rest} />
 );
 
-const ArkSheetPositioner = ({
+const SheetPositioner = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Positioner>) => (
@@ -59,7 +59,7 @@ interface ArkSheetContentProps extends ComponentProps<typeof ArkSheet.Content> {
   side?: "top" | "right" | "bottom" | "left";
 }
 
-const ArkSheetContent = ({
+const SheetContent = ({
   className,
   side = "left",
   ...rest
@@ -81,21 +81,21 @@ const ArkSheetContent = ({
   />
 );
 
-const ArkSheetTitle = ({
+const SheetTitle = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Title>) => (
   <ArkSheet.Title className={cn(title(), className)} {...rest} />
 );
 
-const ArkSheetDescription = ({
+const SheetDescription = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Description>) => (
   <ArkSheet.Description className={cn(description(), className)} {...rest} />
 );
 
-const ArkSheetCloseTrigger = ({
+const SheetCloseTrigger = ({
   className,
   children,
   asChild,
@@ -128,14 +128,14 @@ const ArkSheetCloseTrigger = ({
 };
 
 export {
-  ArkSheetRoot,
-  ArkSheetTrigger,
-  ArkSheetBackdrop,
-  ArkSheetPositioner,
-  ArkSheetContent,
-  ArkSheetTitle,
-  ArkSheetDescription,
-  ArkSheetCloseTrigger,
-  ArkSheetProvider,
-  ArkSheetContext,
+  SheetRoot,
+  SheetTrigger,
+  SheetBackdrop,
+  SheetPositioner,
+  SheetContent,
+  SheetTitle,
+  SheetDescription,
+  SheetCloseTrigger,
+  SheetProvider,
+  SheetContext,
 };

@@ -4,43 +4,42 @@ description: A sheet component that slides in from the side, typically used for 
 ---
 
 import { 
-  ArkSheetRoot,
-  ArkSheetTrigger,
-  ArkSheetBackdrop,
-  ArkSheetPositioner,
-  ArkSheetContent,
-  ArkSheetTitle,
-  ArkSheetDescription,
-  ArkSheetCloseTrigger,
+  SheetRoot,
+  SheetTrigger,
+  SheetBackdrop,
+  SheetPositioner,
+  SheetContent,
+  SheetTitle,
+  SheetDescription,
+  SheetCloseTrigger,
 } from "@/registry/thornberry/components/sheet";
 import { Button } from "@/registry/thornberry/components/button";
 import { FiX } from "react-icons/fi";
 
-
-<ArkSheetRoot>
-  <ArkSheetTrigger asChild className="mb-8">
+<SheetRoot>
+  <SheetTrigger asChild className="mb-8">
     <Button>Open Sheet</Button>
-  </ArkSheetTrigger>
-  <ArkSheetBackdrop />
-  <ArkSheetPositioner>
-    <ArkSheetContent side="left" className="p-4">
-      <ArkSheetCloseTrigger />
+  </SheetTrigger>
+  <SheetBackdrop />
+  <SheetPositioner>
+    <SheetContent side="left" className="p-4">
+      <SheetCloseTrigger />
       <div className="flex flex-col gap-1.5">
-         <ArkSheetTitle>Sheet Title</ArkSheetTitle>
-         <ArkSheetDescription>This is a description of the sheet's purpose.</ArkSheetDescription>
+         <SheetTitle>Sheet Title</SheetTitle>
+         <SheetDescription>This is a description of the sheet's purpose.</SheetDescription>
       </div>
 
       <div className="py-4">This is the main content of the sheet.</div>
 
       <div className="flex justify-end gap-2">
-        <ArkSheetCloseTrigger asChild>
+        <SheetCloseTrigger asChild>
           <Button variant="outline">Cancel</Button>
-        </ArkSheetCloseTrigger>
+        </SheetCloseTrigger>
         <Button>Save</Button>
       </div>
-    </ArkSheetContent>
-  </ArkSheetPositioner>
-</ArkSheetRoot>
+    </SheetContent>
+  </SheetPositioner>
+</SheetRoot>
 
 ## Installation
 
@@ -50,43 +49,44 @@ import { FiX } from "react-icons/fi";
 
 ```tsx
 import { 
-  ArkSheetRoot,
-  ArkSheetTrigger,
-  ArkSheetBackdrop,
-  ArkSheetPositioner,
-  ArkSheetContent,
-  ArkSheetTitle,
-  ArkSheetDescription,
-  ArkSheetCloseTrigger,
+  SheetRoot,
+  SheetTrigger,
+  SheetBackdrop,
+  SheetPositioner,
+  SheetContent,
+  SheetTitle,
+  SheetDescription,
+  SheetCloseTrigger,
 } from "@/registry/thornberry/components/sheet";
 import { Button } from "@/registry/thornberry/components/button";
-import { FiX } from "react-icons/fi";```
+import { FiX } from "react-icons/fi";
+```
 
 ```tsx
- <ArkSheetRoot>
-  <ArkSheetTrigger asChild className="mb-8">
+<SheetRoot>
+  <SheetTrigger asChild className="mb-8">
     <Button>Open Sheet</Button>
-  </ArkSheetTrigger>
-  <ArkSheetBackdrop />
-  <ArkSheetPositioner>
-    <ArkSheetContent side="left" className="p-4">
-      <ArkSheetCloseTrigger />
+  </SheetTrigger>
+  <SheetBackdrop />
+  <SheetPositioner>
+    <SheetContent side="left" className="p-4">
+      <SheetCloseTrigger />
       <div className="flex flex-col gap-1.5">
-         <ArkSheetTitle>Sheet Title</ArkSheetTitle>
-         <ArkSheetDescription>This is a description of the sheet's purpose.</ArkSheetDescription>
+         <SheetTitle>Sheet Title</SheetTitle>
+         <SheetDescription>This is a description of the sheet's purpose.</SheetDescription>
       </div>
 
       <div className="py-4">This is the main content of the sheet.</div>
 
       <div className="flex justify-end gap-2">
-        <ArkSheetCloseTrigger asChild>
+        <SheetCloseTrigger asChild>
           <Button variant="outline">Cancel</Button>
-        </ArkSheetCloseTrigger>
+        </SheetCloseTrigger>
         <Button>Save</Button>
       </div>
-    </ArkSheetContent>
-  </ArkSheetPositioner>
-</ArkSheetRoot>
+    </SheetContent>
+  </SheetPositioner>
+</SheetRoot>
 ```
 
 ## References
