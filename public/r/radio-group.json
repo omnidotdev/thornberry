@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-group",
+  "type": "registry:ui",
+  "title": "Radio Group",
+  "description": "A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time",
+  "dependencies": [
+    "@ark-ui/react",
+    "tailwind-variants",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/radio-group.tsx",
+      "content": "import { RadioGroup as ArkRadioGroup } from \"@ark-ui/react/radio-group\";\nimport { tv } from \"tailwind-variants\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps, ReactNode } from \"react\";\n\nconst radioGroupVariants = tv({\n  slots: {\n    root: \"space-y-3\",\n    label: \"font-medium text-sm leading-none\",\n    indicator: \"\",\n    item: \"flex cursor-pointer items-center space-x-2\",\n    itemText:\n      \"font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\",\n    itemControl:\n      \"flex size-3 cursor-pointer items-center justify-center rounded-full shadow ring-1 ring-ring ring-offset-2 ring-offset-background transition-normal disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground\",\n    itemHiddenInput: \"peer\",\n  },\n});\n\nconst { root, label, indicator, item, itemText, itemControl, itemHiddenInput } =\n  radioGroupVariants();\n\nconst RadioGroupProvider = ArkRadioGroup.RootProvider;\nconst RadioGroupContext = ArkRadioGroup.Context;\n\nconst RadioGroupRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkRadioGroup.Root>) => (\n  <ArkRadioGroup.Root className={cn(root(), className)} {...rest} />\n);\n\nconst RadioGroupLabel = ({ children }: { children: ReactNode }) => (\n  <ArkRadioGroup.Label className={label()}>{children}</ArkRadioGroup.Label>\n);\n\nconst RadioGroupIndicator = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkRadioGroup.Indicator>) => (\n  <ArkRadioGroup.Indicator className={cn(indicator(), className)} {...rest} />\n);\n\nconst RadioGroupItem = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkRadioGroup.Item>) => (\n  <ArkRadioGroup.Item className={cn(item(), className)} {...rest} />\n);\n\nconst RadioGroupItemText = ({ children }: { children: ReactNode }) => (\n  <ArkRadioGroup.ItemText className={itemText()}>\n    {children}\n  </ArkRadioGroup.ItemText>\n);\n\nconst RadioGroupItemControl = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkRadioGroup.ItemControl>) => (\n  <ArkRadioGroup.ItemControl className={cn(itemControl(), className)} {...rest}>\n    <div className=\"size-2 rounded-full bg-current opacity-0 transition-opacity data-[state=checked]:opacity-100\" />\n  </ArkRadioGroup.ItemControl>\n);\n\nconst RadioGroupItemHiddenInput = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkRadioGroup.ItemHiddenInput>) => (\n  <ArkRadioGroup.ItemHiddenInput\n    className={cn(itemHiddenInput(), className)}\n    {...rest}\n  />\n);\n\nexport {\n  RadioGroupProvider,\n  RadioGroupContext,\n  RadioGroupRoot,\n  RadioGroupLabel,\n  RadioGroupIndicator,\n  RadioGroupItem,\n  RadioGroupItemText,\n  RadioGroupItemControl,\n  RadioGroupItemHiddenInput,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

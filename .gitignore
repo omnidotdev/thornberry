@@ -9,6 +9,9 @@
 
 # editor
 .vscode
+.zed
+.claude
+CLAUDE.md
 
 # testing
 /coverage

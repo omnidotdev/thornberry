@@ -1,0 +1,265 @@
+---
+title: Radio Group
+description: A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
+---
+
+import {
+  RadioGroupRoot,
+  RadioGroupLabel,
+  RadioGroupIndicator,
+  RadioGroupItem,
+  RadioGroupItemText,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput
+} from "@/registry/thornberry/components/radio-group";
+
+<RadioGroupRoot className="mb-8" defaultValue="option1">
+  <RadioGroupLabel>Choose an option</RadioGroupLabel>
+  <RadioGroupIndicator />
+  <RadioGroupItem value="option1">
+    <RadioGroupItemControl />
+    <RadioGroupItemText>Option 1</RadioGroupItemText>
+    <RadioGroupItemHiddenInput />
+  </RadioGroupItem>
+  <RadioGroupItem value="option2">
+    <RadioGroupItemControl />
+    <RadioGroupItemText>Option 2</RadioGroupItemText>
+    <RadioGroupItemHiddenInput />
+  </RadioGroupItem>
+  <RadioGroupItem value="option3">
+    <RadioGroupItemControl />
+    <RadioGroupItemText>Option 3</RadioGroupItemText>
+    <RadioGroupItemHiddenInput />
+  </RadioGroupItem>
+</RadioGroupRoot>
+
+## Installation
+
+<InstallationTabs filename="radio-group.json" />
+
+## Usage
+
+```tsx
+import {
+  RadioGroupRoot,
+  RadioGroupLabel,
+  RadioGroupIndicator,
+  RadioGroupItem,
+  RadioGroupItemText,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput
+} from "@/components/ui/radio-group";
+```
+
+```tsx
+<RadioGroupRoot defaultValue="option1">
+  <RadioGroupLabel>Choose an option</RadioGroupLabel>
+  <RadioGroupIndicator />
+  <RadioGroupItem value="option1">
+    <RadioGroupItemControl />
+    <RadioGroupItemText>Option 1</RadioGroupItemText>
+    <RadioGroupItemHiddenInput />
+  </RadioGroupItem>
+  <RadioGroupItem value="option2">
+    <RadioGroupItemControl />
+    <RadioGroupItemText>Option 2</RadioGroupItemText>
+    <RadioGroupItemHiddenInput />
+  </RadioGroupItem>
+  <RadioGroupItem value="option3">
+    <RadioGroupItemControl />
+    <RadioGroupItemText>Option 3</RadioGroupItemText>
+    <RadioGroupItemHiddenInput />
+  </RadioGroupItem>
+</RadioGroupRoot>
+```
+
+## Examples
+
+<br />
+
+#### Basic Radio Group
+
+<Tabs items={["Default", "Preselected", "Disabled"]} className="mt-4">
+  <Tab value="Default">
+    <RadioGroupRoot>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
+      <RadioGroupIndicator />
+      <RadioGroupItem value="react">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>React</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+      <RadioGroupItem value="vue">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>Vue</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+      <RadioGroupItem value="svelte">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>Svelte</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+    </RadioGroupRoot>
+
+    ```tsx
+    <RadioGroupRoot>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
+      <RadioGroupIndicator />
+      <RadioGroupItem value="react">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>React</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+      <RadioGroupItem value="vue">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>Vue</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+      <RadioGroupItem value="svelte">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>Svelte</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+    </RadioGroupRoot>
+    ```
+  </Tab>
+  <Tab value="Preselected">
+    <RadioGroupRoot defaultValue="vue">
+      <RadioGroupLabel>Framework</RadioGroupLabel>
+      <RadioGroupIndicator />
+      <RadioGroupItem value="react">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>React</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+      <RadioGroupItem value="vue">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>Vue</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+      <RadioGroupItem value="svelte">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>Svelte</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+    </RadioGroupRoot>
+
+    ```tsx
+    <RadioGroupRoot defaultValue="vue">
+      <RadioGroupLabel>Framework</RadioGroupLabel>
+      <RadioGroupIndicator />
+      <RadioGroupItem value="react">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>React</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+      <RadioGroupItem value="vue">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>Vue</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+      <RadioGroupItem value="svelte">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>Svelte</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+    </RadioGroupRoot>
+    ```
+  </Tab>
+  <Tab value="Disabled">
+    <RadioGroupRoot disabled defaultValue="react">
+      <RadioGroupLabel>Framework</RadioGroupLabel>
+      <RadioGroupIndicator />
+      <RadioGroupItem value="react">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>React</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+      <RadioGroupItem value="vue">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>Vue</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+      <RadioGroupItem value="svelte">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>Svelte</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+    </RadioGroupRoot>
+
+    ```tsx
+    <RadioGroupRoot disabled defaultValue="react">
+      <RadioGroupLabel>Framework</RadioGroupLabel>
+      <RadioGroupIndicator />
+      <RadioGroupItem value="react">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>React</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+      <RadioGroupItem value="vue">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>Vue</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+      <RadioGroupItem value="svelte">
+        <RadioGroupItemControl />
+        <RadioGroupItemText>Svelte</RadioGroupItemText>
+        <RadioGroupItemHiddenInput />
+      </RadioGroupItem>
+    </RadioGroupRoot>
+    ```
+  </Tab>
+</Tabs>
+
+#### Horizontal Orientation
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <RadioGroupRoot orientation="horizontal" defaultValue="small">
+      <RadioGroupLabel>Size</RadioGroupLabel>
+      <RadioGroupIndicator />
+      <div className="flex space-x-4">
+        <RadioGroupItem value="small">
+          <RadioGroupItemControl />
+          <RadioGroupItemText>Small</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
+        <RadioGroupItem value="medium">
+          <RadioGroupItemControl />
+          <RadioGroupItemText>Medium</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
+        <RadioGroupItem value="large">
+          <RadioGroupItemControl />
+          <RadioGroupItemText>Large</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
+      </div>
+    </RadioGroupRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <RadioGroupRoot orientation="horizontal" defaultValue="small">
+      <RadioGroupLabel>Size</RadioGroupLabel>
+      <RadioGroupIndicator />
+      <div className="flex space-x-4">
+        <RadioGroupItem value="small">
+          <RadioGroupItemControl />
+          <RadioGroupItemText>Small</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
+        <RadioGroupItem value="medium">
+          <RadioGroupItemControl />
+          <RadioGroupItemText>Medium</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
+        <RadioGroupItem value="large">
+          <RadioGroupItemControl />
+          <RadioGroupItemText>Large</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
+      </div>
+    </RadioGroupRoot>
+    ```
+  </Tab>
+</Tabs>

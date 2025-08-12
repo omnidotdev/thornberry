@@ -276,6 +276,18 @@
       ]
     },
     {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "sheet",
       "type": "registry:ui",
       "title": "Sheet",
@@ -331,6 +343,30 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "file-upload",
+      "type": "registry:ui",
+      "title": "File Upload",
+      "description": "A file upload component with drag and drop support for selecting and uploading files",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/file-upload.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "timer",
+      "type": "registry:ui",
+      "title": "Timer",
+      "description": "A timer component that can record elapsed time or countdown from a target time",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/timer.tsx",
           "type": "registry:ui"
         }
       ]
