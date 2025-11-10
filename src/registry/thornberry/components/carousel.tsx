@@ -1,5 +1,5 @@
 import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
@@ -16,7 +16,7 @@ const carouselVariants = tv({
     prevTrigger: " z-10 size-7 rounded-full",
     indicatorGroup: "flex items-center justify-center gap-2",
     indicator:
-      "size-5 rounded-full border bg-secondary transition-colors data-[current]:bg-primary",
+      "size-5 rounded-full border bg-muted transition-colors data-[current]:bg-primary",
     control: "mt-3 flex items-center justify-center gap-2",
   },
 });
@@ -67,7 +67,7 @@ const CarouselNextTrigger = ({
       size="icon"
       className={cn(nextTrigger(), className)}
     >
-      <FiChevronRight className="h-4 w-4" />
+      <ChevronRight className="h-4 w-4" />
     </Button>
   </ArkCarousel.NextTrigger>
 );
@@ -82,7 +82,7 @@ const CarouselPrevTrigger = ({
       size="icon"
       className={cn(prevTrigger(), className)}
     >
-      <FiChevronLeft className="h-4 w-4" />
+      <ChevronLeft className="h-4 w-4" />
     </Button>
   </ArkCarousel.PrevTrigger>
 );

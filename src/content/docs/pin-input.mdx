@@ -3,7 +3,7 @@ title: Pin Input
 description: A component that allows users to input a sequence of characters, typically used for verification codes or passwords.
 ---
 
-import { FiLock, FiShield, FiKey } from "react-icons/fi";
+import { Shield } from 'lucide-react';
 import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/registry/thornberry/components/pin-input";
 
 <PinInputRoot length={4} className="mb-8">
@@ -121,7 +121,7 @@ import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/c
     <div className="p-6 border rounded-lg bg-muted/30">
       <div className="flex justify-center mb-6">
         <div className="bg-primary/10 text-primary p-3 rounded-full">
-          <FiShield className="h-8 w-8" />
+          <Shield className="h-8 w-8" />
         </div>
       </div>
       <h3 className="text-lg font-medium text-center mb-2">Two-Factor Authentication</h3>
@@ -143,14 +143,14 @@ import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/c
   </Tab>
   <Tab value="Code">
     ```tsx
-    import { FiShield } from "react-icons/fi";
+    import { Shield } from 'lucide-react';
     import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/components/ui/pin-input";
 
     const TwoFactorAuthForm = () => (
       <div className="p-6 border rounded-lg bg-muted/30 max-w-md">
         <div className="flex justify-center mb-6">
           <div className="bg-primary/10 text-primary p-3 rounded-full">
-            <FiShield className="h-8 w-8" />
+            <Shield className="h-8 w-8" />
           </div>
         </div>
         <h3 className="text-lg font-medium text-center mb-2">Two-Factor Authentication</h3>

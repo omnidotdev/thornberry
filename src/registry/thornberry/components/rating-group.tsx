@@ -1,5 +1,5 @@
 import { RatingGroup as ArkRatingGroup } from "@ark-ui/react/rating-group";
-import { FiStar } from "react-icons/fi";
+import { Star } from "lucide-react";
 import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
@@ -47,7 +47,7 @@ const RatingGroupItem = ({
   ...rest
 }: ComponentProps<typeof ArkRatingGroup.Item>) => (
   <ArkRatingGroup.Item className={cn(item(), className)} {...rest}>
-    <FiStar className="h-5 w-5 fill-current" />
+    <Star className="h-5 w-5 fill-current" />
   </ArkRatingGroup.Item>
 );
 

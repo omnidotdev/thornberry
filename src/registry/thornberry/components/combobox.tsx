@@ -1,5 +1,5 @@
 import { Combobox as ArkCombobox } from "@ark-ui/react/combobox";
-import { FiCheck, FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
@@ -81,8 +81,8 @@ const ComboboxTrigger = ({
   <ArkCombobox.Trigger asChild {...rest}>
     <Button variant="ghost" size="icon" className={cn(trigger(), className)}>
       <div className="flex flex-col">
-        <FiChevronUp className="-mb-0.5 h-2 w-4" />
-        <FiChevronDown className="-mt-0.5 h-2 w-4" />
+        <ChevronUp className="-mb-0.5 h-2 w-4" />
+        <ChevronDown className="-mt-0.5 h-2 w-4" />
       </div>
     </Button>
   </ArkCombobox.Trigger>
@@ -120,7 +120,7 @@ const ComboboxItem = ({
   <ArkCombobox.Item className={cn(item(), className)} {...rest}>
     <span className={itemIndicator()}>
       <ArkCombobox.ItemIndicator>
-        <FiCheck className="h-4 w-4" />
+        <Check className="h-4 w-4" />
       </ArkCombobox.ItemIndicator>
     </span>
     <ArkCombobox.ItemText>{children}</ArkCombobox.ItemText>

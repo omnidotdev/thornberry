@@ -1,5 +1,5 @@
 import { Accordion as ArkAccordion } from "@ark-ui/react";
-import { FiChevronDown } from "react-icons/fi";
+import { ChevronDown } from "lucide-react";
 import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
@@ -45,7 +45,7 @@ const AccordionItemTrigger = ({
   icon,
   ...rest
 }: ItemTriggerProps) => {
-  const Icon = icon ?? FiChevronDown;
+  const Icon = icon ?? ChevronDown;
 
   return (
     <ArkAccordion.ItemTrigger

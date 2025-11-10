@@ -1,5 +1,5 @@
 import { Dialog as ArkDialog } from "@ark-ui/react/dialog";
-import { FiX } from "react-icons/fi";
+import { X } from "lucide-react";
 import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
@@ -90,7 +90,7 @@ const DialogCloseTrigger = ({
         className={cn(closeTrigger(), className)}
         {...rest}
       >
-        <FiX className="h-4 w-4" />
+        <X className="h-4 w-4" />
         <span className="sr-only">Close</span>
       </ArkDialog.CloseTrigger>
     );

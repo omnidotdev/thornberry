@@ -2,7 +2,7 @@
 title: Avatar
 description: An image element with a fallback for representing the user.
 ---
-import { FiUser } from "react-icons/fi";
+import { User } from 'lucide-react';
 
 import { Avatar, AvatarRoot, AvatarFallback, AvatarImage } from "@/registry/thornberry/components/avatar";
 
@@ -63,14 +63,14 @@ import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
     ```
   </Tab>
   <Tab value="With Custom Fallback">
-    <Avatar src="/non-existent-image.jpg" alt="John Doe" fallback={<FiUser />} className="bg-blue-100 text-blue-800" />
+    <Avatar src="/non-existent-image.jpg" alt="John Doe" fallback={<User />} className="bg-blue-100 text-blue-800" />
 
     ```tsx
-    import { FiUser } from 'react-icons/fi';
+    import { User } from 'lucide-react';
 
     import { Avatar } from '@/components/ui/avatar';
 
-    <Avatar src="/non-existent-image.jpg" alt="John Doe" fallback={<FiUser />} className="bg-blue-100 text-blue-800" />
+    <Avatar src="/non-existent-image.jpg" alt="John Doe" fallback={<User />} className="bg-blue-100 text-blue-800" />
     ```
   </Tab>
 </Tabs>

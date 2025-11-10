@@ -1,5 +1,5 @@
 import { Menu as ArkMenu } from "@ark-ui/react/menu";
-import { FiChevronRight } from "react-icons/fi";
+import { ChevronRight } from "lucide-react";
 import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
@@ -171,7 +171,7 @@ const MenuTriggerItem = ({
 }: ComponentProps<typeof ArkMenu.TriggerItem>) => (
   <ArkMenu.TriggerItem className={cn(triggerItem(), className)} {...rest}>
     {children}
-    <FiChevronRight className="ml-auto h-4 w-4" />
+    <ChevronRight className="ml-auto h-4 w-4" />
   </ArkMenu.TriggerItem>
 );
 

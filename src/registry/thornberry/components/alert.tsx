@@ -1,7 +1,5 @@
 import { ark } from "@ark-ui/react";
-import { BiErrorAlt } from "react-icons/bi";
-import { FiCheck, FiInfo } from "react-icons/fi";
-import { IoWarningOutline } from "react-icons/io5";
+import { Check, CircleAlert, OctagonAlert, TriangleAlert } from "lucide-react";
 import { tv } from "tailwind-variants";
 import { match } from "ts-pattern";
 
@@ -127,11 +125,11 @@ const Alert = ({
   ...rest
 }: AlertProps) => {
   const FallbackIcon = match(variant)
-    .with("default", () => FiInfo)
-    .with("success", () => FiCheck)
-    .with("warning", () => IoWarningOutline)
-    .with("error", () => BiErrorAlt)
-    .otherwise(() => FiInfo);
+    .with("default", () => CircleAlert)
+    .with("success", () => Check)
+    .with("warning", () => TriangleAlert)
+    .with("error", () => OctagonAlert)
+    .otherwise(() => CircleAlert);
 
   return (
     <AlertRoot className={cn(root({ variant }), className)} {...rest}>

@@ -1,5 +1,5 @@
 import { NumberInput as ArkNumberInput } from "@ark-ui/react/number-input";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
@@ -63,7 +63,7 @@ const NumberInputDecrementTrigger = ({
       size="icon"
       className={cn(decrementTrigger(), className)}
     >
-      <FiChevronDown className="h-4 w-4" />
+      <ChevronDown className="h-4 w-4" />
     </Button>
   </ArkNumberInput.DecrementTrigger>
 );
@@ -78,7 +78,7 @@ const NumberInputIncrementTrigger = ({
       size="icon"
       className={cn(incrementTrigger(), className)}
     >
-      <FiChevronUp className="h-4 w-4" />
+      <ChevronUp className="h-4 w-4" />
     </Button>
   </ArkNumberInput.IncrementTrigger>
 );

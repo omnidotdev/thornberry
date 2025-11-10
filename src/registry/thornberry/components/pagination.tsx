@@ -1,9 +1,5 @@
 import { Pagination as ArkPagination } from "@ark-ui/react/pagination";
-import {
-  FiChevronLeft,
-  FiChevronRight,
-  FiMoreHorizontal,
-} from "react-icons/fi";
+import { ChevronLeft, ChevronRight, Ellipsis } from "lucide-react";
 import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
@@ -42,7 +38,7 @@ const PaginationEllipsis = ({
     className={cn(ellipsis(), className)}
     {...rest}
   >
-    <FiMoreHorizontal className="h-4 w-4" />
+    <Ellipsis className="h-4 w-4" />
   </ArkPagination.Ellipsis>
 );
 
@@ -60,7 +56,7 @@ const PaginationPrevTrigger = ({
 }: ComponentProps<typeof ArkPagination.PrevTrigger>) => (
   <ArkPagination.PrevTrigger asChild {...rest}>
     <Button variant="outline" size="icon" className={cn(trigger(), className)}>
-      <FiChevronLeft className="h-4 w-4" />
+      <ChevronLeft className="h-4 w-4" />
     </Button>
   </ArkPagination.PrevTrigger>
 );
@@ -71,7 +67,7 @@ const PaginationNextTrigger = ({
 }: ComponentProps<typeof ArkPagination.NextTrigger>) => (
   <ArkPagination.NextTrigger asChild {...rest}>
     <Button variant="outline" size="icon" className={cn(trigger(), className)}>
-      <FiChevronRight className="h-4 w-4" />
+      <ChevronRight className="h-4 w-4" />
     </Button>
   </ArkPagination.NextTrigger>
 );

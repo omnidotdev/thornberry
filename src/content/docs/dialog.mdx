@@ -3,7 +3,7 @@ title: Dialog
 description: A window overlaid on the primary window that interrupts the user with important content.
 ---
 
-import { FiX, FiAlertTriangle, FiCheck } from "react-icons/fi";
+import { X, TriangleAlert, Check } from "lucide-react";
 import { Button } from "@/registry/thornberry/components/button";
 import { DialogRoot, DialogTrigger, DialogBackdrop, DialogPositioner, DialogContent, DialogTitle, DialogDescription, DialogCloseTrigger } from "@/registry/thornberry/components/dialog";
 
@@ -15,7 +15,7 @@ import { DialogRoot, DialogTrigger, DialogBackdrop, DialogPositioner, DialogCont
   <DialogPositioner>
     <DialogContent>
       <DialogCloseTrigger className="absolute top-4 right-4 rounded-full p-1 hover:bg-gray-100">
-        <FiX className="size-4" />
+        <X className="size-4" />
       </DialogCloseTrigger>
       <DialogTitle>Dialog Title</DialogTitle>
       <DialogDescription>This is a description of the dialog's purpose.</DialogDescription>
@@ -37,7 +37,7 @@ import { DialogRoot, DialogTrigger, DialogBackdrop, DialogPositioner, DialogCont
 ## Usage
 
 ```tsx
-import { FiX } from "react-icons/fi";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DialogRoot,
@@ -60,7 +60,7 @@ import {
   <DialogPositioner>
     <DialogContent>
       <DialogCloseTrigger className="absolute top-4 right-4 rounded-full p-1 hover:bg-gray-100">
-        <FiX className="size-4" />
+        <X className="size-4" />
       </DialogCloseTrigger>
       <DialogTitle>Dialog Title</DialogTitle>
       <DialogDescription>
@@ -94,7 +94,7 @@ import {
       <DialogPositioner>
         <DialogContent>
           <DialogCloseTrigger className="absolute top-4 right-4 rounded-full p-1 hover:bg-gray-100">
-            <FiX className="size-4" />
+            <X className="size-4" />
           </DialogCloseTrigger>
           <DialogTitle>Confirm Deletion</DialogTitle>
           <DialogDescription>
@@ -119,7 +119,7 @@ import {
       <DialogPositioner>
         <DialogContent className="sm:max-w-[425px]">
           <DialogCloseTrigger className="absolute top-4 right-4 rounded-full p-1 hover:bg-gray-100">
-            <FiX className="size-4" />
+            <X className="size-4" />
           </DialogCloseTrigger>
           <DialogTitle>Edit Profile</DialogTitle>
           <DialogDescription>
@@ -158,11 +158,11 @@ import {
       <DialogPositioner>
         <DialogContent className="max-w-sm">
           <DialogCloseTrigger className="absolute top-4 right-4 rounded-full p-1 hover:bg-gray-100">
-            <FiX className="size-4" />
+            <X className="size-4" />
           </DialogCloseTrigger>
           <div className="flex items-center gap-4">
             <div className="rounded-full bg-yellow-100 p-2 text-yellow-600">
-              <FiAlertTriangle className="size-6" />
+              <TriangleAlert className="size-6" />
             </div>
             <div>
               <DialogTitle>Connection Error</DialogTitle>
@@ -202,15 +202,15 @@ import {
           <div className="p-4 text-neutral-800">
             <div className="-space-y-4">
               <div className="flex items-center gap-3">
-                <FiCheck className="size-5 text-blue-500" />
+                <Check className="size-5 text-blue-500" />
                 <p>Unlimited access to all content</p>
               </div>
               <div className="flex items-center gap-3">
-                <FiCheck className="size-5 text-blue-500" />
+                <Check className="size-5 text-blue-500" />
                 <p>Early access to new features</p>
               </div>
               <div className="flex items-center gap-3">
-                <FiCheck className="size-5 text-blue-500" />
+                <Check className="size-5 text-blue-500" />
                 <p>Priority customer support</p>
               </div>
             </div>
@@ -222,7 +222,7 @@ import {
             </div>
           </div>
           <DialogCloseTrigger className="absolute top-4 right-4 text-white hover:bg-blue-700/50 rounded-full p-1">
-            <FiX className="size-4" />
+            <X className="size-4" />
           </DialogCloseTrigger>
         </DialogContent>
       </DialogPositioner>
@@ -230,7 +230,7 @@ import {
   </Tab>
   <Tab value="Code">
     ```tsx
-    import { FiX, FiAlertTriangle, FiCheck } from "react-icons/fi";
+    import { X, Check } from "lucide-react";
     import { Button } from "@/components/ui/button";
     import {
       DialogRoot,
@@ -260,15 +260,15 @@ import {
             <div className="p-6">
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <FiCheck className="size-5 text-blue-500" />
+                  <Check className="size-5 text-blue-500" />
                   <div>Unlimited access to all content</div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <FiCheck className="size-5 text-blue-500" />
+                  <Check className="size-5 text-blue-500" />
                   <div>Early access to new features</div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <FiCheck className="size-5 text-blue-500" />
+                  <Check className="size-5 text-blue-500" />
                   <div>Priority customer support</div>
                 </div>
               </div>
@@ -280,7 +280,7 @@ import {
               </div>
             </div>
             <DialogCloseTrigger className="absolute top-4 right-4 text-white hover:bg-blue-700/50 rounded-full p-1">
-              <FiX className="size-4" />
+              <X className="size-4" />
             </DialogCloseTrigger>
           </DialogContent>
         </DialogPositioner>

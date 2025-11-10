@@ -3,7 +3,7 @@ title: Number Input
 description: A form control that allows users to input numeric values with increment and decrement buttons.
 ---
 
-import { FiChevronDown, FiChevronUp, FiUser, FiDollarSign, FiPercent } from "react-icons/fi";
+import { User, DollarSign, Percent } from "lucide-react";
 import { NumberInputRoot, NumberInputLabel, NumberInputControl, NumberInputInput, NumberInputIncrementTrigger, NumberInputDecrementTrigger } from "@/registry/thornberry/components/number-input";
 
 <NumberInputRoot className="mb-8">
@@ -120,7 +120,7 @@ import {
       <NumberInputLabel>Price</NumberInputLabel>
       <NumberInputControl>
         <div className="flex h-full border-y items-center border-l rounded-l-md pl-3 text-muted-foreground">
-          <FiDollarSign className="size-3" />
+          <DollarSign className="size-3" />
         </div>
         <NumberInputInput className="border-l-0 rounded-l-none" />
         <div className="flex flex-col h-10 border-l-0 border rounded-r-md">
@@ -141,7 +141,7 @@ import {
         <div className="flex items-center justify-between">
           <NumberInputLabel>Number of guests</NumberInputLabel>
           <div className="flex h-6 items-center text-sm text-muted-foreground">
-            <FiUser className="mr-1 h-4 w-4" />
+            <User className="mr-1 h-4 w-4" />
             <span>per room</span>
           </div>
         </div>
@@ -164,7 +164,7 @@ import {
         <NumberInputControl className="mt-1.5">
           <NumberInputInput className="border-r-0 rounded-r-none" />
           <div className="flex items-center px-3 border border-l-0 h-full text-muted-foreground">
-            <FiPercent className="h-4 w-4" />
+            <Percent className="h-4 w-4" />
           </div>
           <div className="flex flex-col h-10 border-l-0 border rounded-r-md">
             <NumberInputIncrementTrigger />
@@ -176,7 +176,7 @@ import {
   </Tab>
   <Tab value="Code">
     ```tsx
-    import { FiUser, FiPercent } from "react-icons/fi";
+    import { User, Percent } from "lucide-react";
     import {
       NumberInputRoot,
       NumberInputLabel,
@@ -192,7 +192,7 @@ import {
           <div className="flex items-center justify-between">
             <NumberInputLabel>Number of guests</NumberInputLabel>
             <div className="flex h-6 items-center text-sm text-muted-foreground">
-              <FiUser className="mr-1 h-4 w-4" />
+              <User className="mr-1 h-4 w-4" />
               <span>per room</span>
             </div>
           </div>
@@ -215,7 +215,7 @@ import {
           <NumberInputControl className="mt-1.5">
             <NumberInputInput />
             <div className="flex items-center pr-3 text-muted-foreground">
-              <FiPercent className="h-4 w-4" />
+              <Percent className="h-4 w-4" />
             </div>
             <div className="flex flex-col border-l">
               <NumberInputIncrementTrigger />

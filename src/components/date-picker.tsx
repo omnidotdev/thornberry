@@ -1,6 +1,6 @@
 "use client";
 
-import { FiCalendar, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Button } from "@/registry/thornberry/components/button";
 import {
@@ -39,7 +39,7 @@ const DatePicker = () => (
 
       <DatePickerTrigger asChild>
         <Button variant="outline" aria-label="Open date picker">
-          <FiCalendar />
+          <Calendar />
         </Button>
       </DatePickerTrigger>
     </DatePickerControl>
@@ -53,7 +53,7 @@ const DatePicker = () => (
                 <DatePickerViewControl>
                   <DatePickerPrevTrigger asChild>
                     <Button variant="ghost" size="sm">
-                      <FiChevronLeft />
+                      <ChevronLeft />
                     </Button>
                   </DatePickerPrevTrigger>
 
@@ -65,7 +65,7 @@ const DatePicker = () => (
 
                   <DatePickerNextTrigger asChild>
                     <Button variant="ghost" size="sm">
-                      <FiChevronRight />
+                      <ChevronRight />
                     </Button>
                   </DatePickerNextTrigger>
                 </DatePickerViewControl>
@@ -109,7 +109,7 @@ const DatePicker = () => (
                 <DatePickerViewControl>
                   <DatePickerPrevTrigger asChild>
                     <Button variant="ghost" size="sm">
-                      <FiChevronLeft />
+                      <ChevronLeft />
                     </Button>
                   </DatePickerPrevTrigger>
 
@@ -121,7 +121,7 @@ const DatePicker = () => (
 
                   <DatePickerNextTrigger asChild>
                     <Button variant="ghost" size="sm">
-                      <FiChevronRight />
+                      <ChevronRight />
                     </Button>
                   </DatePickerNextTrigger>
                 </DatePickerViewControl>
@@ -157,7 +157,7 @@ const DatePicker = () => (
                 <DatePickerViewControl>
                   <DatePickerPrevTrigger asChild>
                     <Button variant="ghost" size="sm">
-                      <FiChevronLeft />
+                      <ChevronLeft />
                     </Button>
                   </DatePickerPrevTrigger>
 
@@ -169,7 +169,7 @@ const DatePicker = () => (
 
                   <DatePickerNextTrigger asChild>
                     <Button variant="ghost" size="sm">
-                      <FiChevronRight />
+                      <ChevronRight />
                     </Button>
                   </DatePickerNextTrigger>
                 </DatePickerViewControl>

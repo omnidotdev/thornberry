@@ -1,6 +1,6 @@
 "use client";
 
-import { FaEyeDropper } from "react-icons/fa";
+import { Pipette } from "lucide-react";
 
 import {
   ColorPickerArea,
@@ -68,7 +68,7 @@ const ColorPicker = () => {
 
             <div className="flex w-full items-center gap-4">
               <ColorPickerEyeDropperTrigger>
-                <FaEyeDropper size={12} />
+                <Pipette size={12} />
               </ColorPickerEyeDropperTrigger>
 
               <div className="flex h-10 w-full flex-col items-center justify-center gap-2">

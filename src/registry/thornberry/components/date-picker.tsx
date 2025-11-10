@@ -1,7 +1,7 @@
 "use client";
 
 import { DatePicker as ArkDatePicker } from "@ark-ui/react/date-picker";
-import { FiCalendar, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
@@ -91,7 +91,7 @@ const DatePickerTrigger = ({
 }: ComponentProps<typeof ArkDatePicker.Trigger>) => (
   <ArkDatePicker.Trigger asChild {...rest}>
     <Button variant="outline" size="icon" className={cn(trigger(), className)}>
-      <FiCalendar className="h-4 w-4" />
+      <Calendar className="h-4 w-4" />
     </Button>
   </ArkDatePicker.Trigger>
 );
@@ -140,7 +140,7 @@ const DatePickerPrevTrigger = ({
 }: ComponentProps<typeof ArkDatePicker.PrevTrigger>) => (
   <ArkDatePicker.PrevTrigger asChild {...rest}>
     <Button variant="ghost" size="icon" className={cn(className)}>
-      <FiChevronLeft className="h-4 w-4" />
+      <ChevronLeft className="h-4 w-4" />
     </Button>
   </ArkDatePicker.PrevTrigger>
 );
@@ -151,7 +151,7 @@ const DatePickerNextTrigger = ({
 }: ComponentProps<typeof ArkDatePicker.NextTrigger>) => (
   <ArkDatePicker.NextTrigger asChild {...rest}>
     <Button variant="ghost" size="icon" className={cn(className)}>
-      <FiChevronRight className="h-4 w-4" />
+      <ChevronRight className="h-4 w-4" />
     </Button>
   </ArkDatePicker.NextTrigger>
 );

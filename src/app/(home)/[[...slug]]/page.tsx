@@ -40,7 +40,7 @@ const Page = async ({ params }: Props) => {
 
   const MDX = page.data.body;
 
-  const path = `src/content/docs/${page.file.path}`;
+  const path = `src/content/docs/${page.path}`;
 
   return (
     <DocsPage

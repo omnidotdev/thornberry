@@ -3,7 +3,7 @@ title: Tabs
 description: A set of layered sections of content that display one panel at a time.
 ---
 
-import { FiUser, FiLock, FiSettings, FiHome, FiBookmark, FiFileText } from "react-icons/fi";
+import { User, Lock, Settings, House, Bookmark, FileText } from "lucide-react";
 import { TabsRoot, TabsList, TabsTrigger, TabsContent, TabsIndicator } from "@/registry/thornberry/components/tabs";
 
 <TabsRoot defaultValue="account" className="mb-8">
@@ -101,15 +101,15 @@ import {
     <TabsRoot defaultValue="account">
       <TabsList>
         <TabsTrigger value="account" className="flex items-center gap-2">
-          <FiUser className="h-4 w-4" />
+          <User className="h-4 w-4" />
           <span>Account</span>
         </TabsTrigger>
         <TabsTrigger value="password" className="flex items-center gap-2">
-          <FiLock className="h-4 w-4" />
+          <Lock className="h-4 w-4" />
           <span>Password</span>
         </TabsTrigger>
         <TabsTrigger value="settings" className="flex items-center gap-2">
-          <FiSettings className="h-4 w-4" />
+          <Settings className="h-4 w-4" />
           <span>Settings</span>
         </TabsTrigger>
       </TabsList>
@@ -183,19 +183,19 @@ import {
       <TabsRoot defaultValue="dashboard" orientation="vertical" className="flex">
         <TabsList className="h-auto w-[200px] flex-col items-start border p-0 mr-6">
           <TabsTrigger value="dashboard" className="w-full justify-start">
-            <FiHome className="mr-2 h-4 w-4" />
+            <House className="mr-2 h-4 w-4" />
             Dashboard
           </TabsTrigger>
           <TabsTrigger value="bookmarks" className="w-full justify-start">
-            <FiBookmark className="mr-2 h-4 w-4" />
+            <Bookmark className="mr-2 h-4 w-4" />
             Bookmarks
           </TabsTrigger>
           <TabsTrigger value="documents" className="w-full justify-start">
-            <FiFileText className="mr-2 h-4 w-4" />
+            <FileText className="mr-2 h-4 w-4" />
             Documents
           </TabsTrigger>
           <TabsTrigger value="settings" className="w-full justify-start">
-            <FiSettings className="mr-2 h-4 w-4" />
+            <Settings className="mr-2 h-4 w-4" />
             Settings
           </TabsTrigger>
         </TabsList>
@@ -238,7 +238,7 @@ import {
   </Tab>
   <Tab value="Code">
     ```tsx
-    import { FiHome, FiBookmark, FiFileText, FiSettings } from "react-icons/fi";
+    import { House, Bookmark, FileText, Settings } from "lucide-react";
     import {
       TabsRoot,
       TabsList,
@@ -251,19 +251,19 @@ import {
         <TabsRoot defaultValue="dashboard" orientation="vertical" className="flex">
           <TabsList className="h-auto w-[200px] flex-col items-start border-r p-0 mr-6">
             <TabsTrigger value="dashboard" className="w-full justify-start pl-4">
-              <FiHome className="mr-2 h-4 w-4" />
+              <House className="mr-2 h-4 w-4" />
               Dashboard
             </TabsTrigger>
             <TabsTrigger value="bookmarks" className="w-full justify-start pl-4">
-              <FiBookmark className="mr-2 h-4 w-4" />
+              <Bookmark className="mr-2 h-4 w-4" />
               Bookmarks
             </TabsTrigger>
             <TabsTrigger value="documents" className="w-full justify-start pl-4">
-              <FiFileText className="mr-2 h-4 w-4" />
+              <FileText className="mr-2 h-4 w-4" />
               Documents
             </TabsTrigger>
             <TabsTrigger value="settings" className="w-full justify-start pl-4">
-              <FiSettings className="mr-2 h-4 w-4" />
+              <Settings className="mr-2 h-4 w-4" />
               Settings
             </TabsTrigger>
           </TabsList>

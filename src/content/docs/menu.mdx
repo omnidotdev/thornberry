@@ -3,7 +3,7 @@ title: Menu
 description: A dropdown menu that displays a list of options.
 ---
 
-import { FiChevronRight, FiCheck, FiEdit, FiCopy, FiScissors, FiZoomIn, FiZoomOut } from "react-icons/fi";
+import { Check, SquarePen, Copy, Scissors, ZoomIn, ZoomOut } from "lucide-react";
 
 import { MenuRoot, MenuTrigger, MenuPositioner, MenuContent, MenuItem, MenuItemGroup, MenuItemGroupLabel, MenuSeparator, MenuCheckboxItem, MenuItemIndicator, MenuItemText, MenuRadioItem, MenuRadioItemGroup } from "@/registry/thornberry/components/menu";
 import { Button } from "@/registry/thornberry/components/button";
@@ -68,15 +68,15 @@ import { Button } from "@/components/ui/button";
       <MenuPositioner>
         <MenuContent>
           <MenuItem value="edit">
-            <FiEdit className="mr-2 h-4 w-4" />
+            <SquarePen className="mr-2 h-4 w-4" />
             <span>Edit</span>
           </MenuItem>
           <MenuItem value="copy">
-            <FiCopy className="mr-2 h-4 w-4" />
+            <Copy className="mr-2 h-4 w-4" />
             <span>Copy</span>
           </MenuItem>
           <MenuItem value="cut">
-            <FiScissors className="mr-2 h-4 w-4" />
+            <Scissors className="mr-2 h-4 w-4" />
             <span>Cut</span>
           </MenuItem>
         </MenuContent>
@@ -93,22 +93,22 @@ import { Button } from "@/components/ui/button";
           <MenuItemGroup>
             <MenuItemGroupLabel>Zoom</MenuItemGroupLabel>
             <MenuItem value="zoom-in">
-              <FiZoomIn className="mr-2 h-4 w-4" />
+              <ZoomIn className="mr-2 h-4 w-4" />
               <span>Zoom In</span>
             </MenuItem>
             <MenuItem value="zoom-out">
-              <FiZoomOut className="mr-2 h-4 w-4" />
+              <ZoomOut className="mr-2 h-4 w-4" />
               <span>Zoom Out</span>
             </MenuItem>
           </MenuItemGroup>
           <MenuItemGroup>
             <MenuItemGroupLabel>Edit</MenuItemGroupLabel>
             <MenuItem value="copy">
-              <FiCopy className="mr-2 h-4 w-4" />
+              <Copy className="mr-2 h-4 w-4" />
               <span>Copy</span>
             </MenuItem>
             <MenuItem value="cut">
-              <FiScissors className="mr-2 h-4 w-4" />
+              <Scissors className="mr-2 h-4 w-4" />
               <span>Cut</span>
             </MenuItem>
           </MenuItemGroup>
@@ -124,18 +124,18 @@ import { Button } from "@/components/ui/button";
       <MenuPositioner>
         <MenuContent>
           <MenuItem value="edit">
-            <FiEdit className="mr-2 h-4 w-4" />
+            <SquarePen className="mr-2 h-4 w-4" />
             <span>Edit</span>
           </MenuItem>
           <MenuSeparator />
           <MenuItemGroup>
             <MenuItemGroupLabel>Actions</MenuItemGroupLabel>
             <MenuItem value="copy">
-              <FiCopy className="mr-2 h-4 w-4" />
+              <Copy className="mr-2 h-4 w-4" />
               <span>Copy</span>
             </MenuItem>
             <MenuItem value="cut">
-              <FiScissors className="mr-2 h-4 w-4" />
+              <Scissors className="mr-2 h-4 w-4" />
               <span>Cut</span>
             </MenuItem>
           </MenuItemGroup>
@@ -159,13 +159,13 @@ import { Button } from "@/components/ui/button";
             <MenuItemGroupLabel>Layout</MenuItemGroupLabel>
             <MenuCheckboxItem value="sidebar" defaultChecked>
               <MenuItemIndicator>
-                <FiCheck className="h-4 w-4" />
+                <Check className="h-4 w-4" />
               </MenuItemIndicator>
               <MenuItemText>Show Sidebar</MenuItemText>
             </MenuCheckboxItem>
             <MenuCheckboxItem value="toolbar" defaultChecked>
               <MenuItemIndicator>
-                <FiCheck className="h-4 w-4" />
+                <Check className="h-4 w-4" />
               </MenuItemIndicator>
               <MenuItemText>Show Toolbar</MenuItemText>
             </MenuCheckboxItem>
@@ -176,19 +176,19 @@ import { Button } from "@/components/ui/button";
             <MenuRadioItemGroup value="light">
               <MenuRadioItem value="light">
                 <MenuItemIndicator>
-                  <FiCheck className="h-4 w-4" />
+                  <Check className="h-4 w-4" />
                 </MenuItemIndicator>
                 <MenuItemText>Light</MenuItemText>
               </MenuRadioItem>
               <MenuRadioItem value="dark">
                 <MenuItemIndicator>
-                  <FiCheck className="h-4 w-4" />
+                  <Check className="h-4 w-4" />
                 </MenuItemIndicator>
                 <MenuItemText>Dark</MenuItemText>
               </MenuRadioItem>
               <MenuRadioItem value="system">
                 <MenuItemIndicator>
-                  <FiCheck className="h-4 w-4" />
+                  <Check className="h-4 w-4" />
                 </MenuItemIndicator>
                 <MenuItemText>System</MenuItemText>
               </MenuRadioItem>
@@ -200,7 +200,7 @@ import { Button } from "@/components/ui/button";
   </Tab>
   <Tab value="Code">
     ```tsx
-    import { FiCheck } from "react-icons/fi";
+    import { Check } from "lucide-react;
     import {
       MenuRoot,
       MenuTrigger,
@@ -228,13 +228,13 @@ import { Button } from "@/components/ui/button";
               <MenuItemGroupLabel>Layout</MenuItemGroupLabel>
               <MenuCheckboxItem value="sidebar" defaultChecked>
                 <MenuItemIndicator>
-                  <FiCheck className="h-4 w-4" />
+                  <Check className="h-4 w-4" />
                 </MenuItemIndicator>
                 <MenuItemText>Show Sidebar</MenuItemText>
               </MenuCheckboxItem>
               <MenuCheckboxItem value="toolbar" defaultChecked>
                 <MenuItemIndicator>
-                  <FiCheck className="h-4 w-4" />
+                  <Check className="h-4 w-4" />
                 </MenuItemIndicator>
                 <MenuItemText>Show Toolbar</MenuItemText>
               </MenuCheckboxItem>
@@ -245,19 +245,19 @@ import { Button } from "@/components/ui/button";
               <MenuRadioItemGroup value="light">
                 <MenuRadioItem value="light">
                   <MenuItemIndicator>
-                    <FiCheck className="h-4 w-4" />
+                    <Check className="h-4 w-4" />
                   </MenuItemIndicator>
                   <MenuItemText>Light</MenuItemText>
                 </MenuRadioItem>
                 <MenuRadioItem value="dark">
                   <MenuItemIndicator>
-                    <FiCheck className="h-4 w-4" />
+                    <Check className="h-4 w-4" />
                   </MenuItemIndicator>
                   <MenuItemText>Dark</MenuItemText>
                 </MenuRadioItem>
                 <MenuRadioItem value="system">
                   <MenuItemIndicator>
-                    <FiCheck className="h-4 w-4" />
+                    <Check className="h-4 w-4" />
                   </MenuItemIndicator>
                   <MenuItemText>System</MenuItemText>
                 </MenuRadioItem>

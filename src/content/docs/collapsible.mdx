@@ -3,7 +3,7 @@ title: Collapsible
 description: An interactive component that can be opened and closed to reveal or hide content
 ---
 
-import { FiChevronDown, FiSettings, FiInfo } from "react-icons/fi";
+import { Settings } from "lucide-react";
 import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "@/registry/thornberry/components/collapsible";
 
 <CollapsibleRoot className="mb-8">
@@ -61,7 +61,7 @@ import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "@/compo
     <CollapsibleRoot>
       <CollapsibleTrigger className="flex justify-between items-center">
         <span className="flex items-center gap-2">
-          <FiSettings className="size-4" />
+          <Settings className="size-4" />
           <span>Settings</span>
         </span>
       </CollapsibleTrigger>

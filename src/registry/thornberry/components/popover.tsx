@@ -1,5 +1,5 @@
 import { Popover as ArkPopover } from "@ark-ui/react/popover";
-import { FiX } from "react-icons/fi";
+import { X } from "lucide-react";
 import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
@@ -67,7 +67,7 @@ const PopoverCloseTrigger = ({
         className={cn(closeTrigger(), className)}
         {...rest}
       >
-        <FiX className="h-4 w-4" />
+        <X className="h-4 w-4" />
         <span className="sr-only">Close</span>
       </ArkPopover.CloseTrigger>
     );

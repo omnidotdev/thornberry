@@ -1,5 +1,5 @@
 import { Tour as ArkTour } from "@ark-ui/react/tour";
-import { FiX } from "react-icons/fi";
+import { X } from "lucide-react";
 import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
@@ -96,7 +96,7 @@ const TourCloseTrigger = ({
   ...rest
 }: ComponentProps<typeof ArkTour.CloseTrigger>) => (
   <ArkTour.CloseTrigger className={cn(closeTrigger(), className)} {...rest}>
-    <FiX className="h-4 w-4" />
+    <X className="h-4 w-4" />
     <span className="sr-only">Close</span>
   </ArkTour.CloseTrigger>
 );
