@@ -8,10 +8,10 @@ import type { ComponentProps } from "react";
 const pinInputVariants = tv({
   slots: {
     root: "inline-block",
-    label: "mb-1.5 block font-medium text-base-950",
+    label: "mb-1.5 block font-medium",
     control: "flex items-center gap-2",
     input:
-      "flex h-12 w-12 items-center justify-center rounded-md border border-base-300/20 bg-transparent text-center text-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50",
+      "flex h-12 w-12 items-center justify-center rounded-md border bg-transparent text-center text-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50",
     hiddenInput: "",
   },
 });

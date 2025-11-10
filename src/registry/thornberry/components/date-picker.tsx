@@ -15,18 +15,20 @@ const datePickerVariants = tv({
     label: "font-medium text-sm",
     control: "flex items-center gap-2",
     input:
-      "flex h-10 w-full rounded-md border border-base-300 bg-transparent px-3 py-2 text-sm placeholder:text-base-500 focus:outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50",
+      "flex h-10 w-full rounded-md border bg-transparent px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50",
     trigger: "ml-2 h-10 w-10",
     clearTrigger: "h-auto px-2 text-xs",
     content:
-      "z-10 flex w-[344px] min-w-fit flex-col gap-3 rounded-md border bg-base-50 p-4 shadow-lg dark:bg-base-950",
+      "z-10 flex w-[344px] min-w-fit flex-col rounded-md border bg-background p-4 shadow-lg",
     viewControl: "flex items-center justify-between",
     viewTrigger:
-      "flex items-center justify-center rounded-md px-2 py-1 font-medium text-sm",
-    table: "-m-1 w-full border-separate border-spacing-1",
-    tableHeader: "h-10 font-semibold text-sm",
-    tableCell: "text-center",
-    tableCellTrigger: "h-full w-fu cursor-pointer",
+      "flex items-center justify-center rounded-md font-medium text-sm",
+    table: "mt-0 mb-4 w-full border-spacing-[2px]",
+    tableHeader:
+      "h-10 w-10 border-0 bg-transparent text-center font-semibold text-sm",
+    tableCell: "h-8 w-8 rounded border-0 p-0 text-center hover:bg-accent",
+    tableCellTrigger:
+      "h-full w-full cursor-pointer rounded p-2 data-[selected]:bg-accent data-[selected]:text-primary",
   },
 });
 

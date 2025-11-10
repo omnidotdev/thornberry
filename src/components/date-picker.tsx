@@ -29,7 +29,7 @@ import {
 import { Input } from "@/registry/thornberry/components/input";
 
 const DatePicker = () => (
-  <DatePickerRoot positioning={{ sameWidth: true }} className="mb-8">
+  <DatePickerRoot positioning={{ sameWidth: true }}>
     <DatePickerLabel>Select a date</DatePickerLabel>
 
     <DatePickerControl>
@@ -45,7 +45,7 @@ const DatePicker = () => (
     </DatePickerControl>
 
     <DatePickerPositioner>
-      <DatePickerContent>
+      <DatePickerContent className="pb-0">
         <DatePickerView className="flex flex-col gap-3" view="day">
           <DatePickerContext>
             {(datePicker) => (

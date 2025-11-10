@@ -11,11 +11,11 @@ const numberInputVariants = tv({
   slots: {
     root: "flex w-full flex-col",
     label: "block font-medium text-sm",
-    control: "flex h-10 items-center rounded-md border",
+    control: "flex h-10 items-center",
     input:
-      "h-full w-full bg-transparent px-3 py-2 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50",
-    decrementTrigger: "flex-1 rounded-none",
-    incrementTrigger: "flex-1 rounded-none",
+      "h-full w-full rounded-l-md border bg-transparent px-3 py-2 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50",
+    decrementTrigger: "h-4 flex-1 rounded-none rounded-br-md",
+    incrementTrigger: "h-4 flex-1 rounded-none rounded-tr-md",
   },
 });
 

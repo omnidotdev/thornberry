@@ -14,6 +14,7 @@
     "carousel",
     "checkbox",
     "collapsible",
+    "color-picker",
     "combobox",
     "date-picker",
     "dialog",
@@ -33,6 +34,7 @@
     "switch",
     "tabs",
     "timer",
+    "tags-input",
     "tooltip",
     "tour"
   ]

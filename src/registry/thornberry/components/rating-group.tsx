@@ -11,7 +11,7 @@ const ratingGroupVariants = tv({
     root: "inline-flex flex-col",
     label: "mb-1.5 block font-medium text-foreground",
     control: "inline-flex",
-    item: "inline-flex cursor-pointer p-1 text-base-400 outline-none focus-visible:ring-2 focus-visible:ring-primary data-checked:text-amber-500 data-highlighted:text-amber-500",
+    item: "inline-flex cursor-pointer p-1 outline-none focus-visible:ring-2 focus-visible:ring-primary data-checked:text-amber-500 data-highlighted:text-amber-500",
     hiddenInput: "",
   },
 });

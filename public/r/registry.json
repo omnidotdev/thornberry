@@ -128,6 +128,18 @@
       ]
     },
     {
+      "name": "color-picker",
+      "type": "registry:ui",
+      "title": "Color Picker",
+      "description": "A component that allows users to select a color from a palette or spectrum",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/color-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "combobox",
       "type": "registry:ui",
       "title": "Combobox",
@@ -331,6 +343,18 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tags-input",
+      "type": "registry:ui",
+      "title": "Tags Input",
+      "description": "A component that allows users to input and manage a list of tags or keywords",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/tags-input.tsx",
           "type": "registry:ui"
         }
       ]

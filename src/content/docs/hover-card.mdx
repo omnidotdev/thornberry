@@ -5,17 +5,14 @@ description: A card that appears when hovering over a trigger element, providing
 
 import { FiUser, FiMail, FiMapPin } from "react-icons/fi";
 import { Badge } from "@/registry/thornberry/components/badge";
-import { HoverCardRoot, HoverCardTrigger, HoverCardContent, HoverCardPositioner, HoverCardArrow, HoverCardArrowTip } from "@/registry/thornberry/components/hover-card";
+import { HoverCardRoot, HoverCardTrigger, HoverCardContent, HoverCardPositioner } from "@/registry/thornberry/components/hover-card";
 
 <HoverCardRoot>
   <HoverCardTrigger className="mb-8">
-    <Badge variant="outline">Hover me</Badge>
+    <Badge variant="outline" size="lg">Hover me</Badge>
   </HoverCardTrigger>
   <HoverCardPositioner>
     <HoverCardContent>
-      <HoverCardArrow>
-        <HoverCardArrowTip />
-      </HoverCardArrow>
       <p>Here is the hover card content</p>
     </HoverCardContent>
   </HoverCardPositioner>
@@ -33,8 +30,6 @@ import {
   HoverCardTrigger,
   HoverCardContent,
   HoverCardPositioner,
-  HoverCardArrow,
-  HoverCardArrowTip
 } from "@/components/ui/hover-card";
 ```
 
@@ -45,9 +40,6 @@ import {
   </HoverCardTrigger>
   <HoverCardPositioner>
     <HoverCardContent>
-      <HoverCardArrow>
-        <HoverCardArrowTip />
-      </HoverCardArrow>
       Hover card content
     </HoverCardContent>
   </HoverCardPositioner>
@@ -60,7 +52,7 @@ import {
 
 #### Basic Examples
 
-<Tabs items={["Default", "With Delay", "Without Arrow"]} className="mt-4">
+<Tabs items={["Default", "With Delay"]} className="mt-4">
   <Tab value="Default">
     <HoverCardRoot>
       <HoverCardTrigger>
@@ -68,9 +60,6 @@ import {
       </HoverCardTrigger>
       <HoverCardPositioner>
         <HoverCardContent>
-          <HoverCardArrow>
-            <HoverCardArrowTip />
-          </HoverCardArrow>
           <p>This is a basic hover card with default settings.</p>
         </HoverCardContent>
       </HoverCardPositioner>
@@ -83,22 +72,7 @@ import {
       </HoverCardTrigger>
       <HoverCardPositioner>
         <HoverCardContent>
-          <HoverCardArrow>
-            <HoverCardArrowTip />
-          </HoverCardArrow>
           <p>This hover card has a 300ms delay before opening and 200ms delay before closing.</p>
-        </HoverCardContent>
-      </HoverCardPositioner>
-    </HoverCardRoot>
-  </Tab>
-  <Tab value="Without Arrow">
-    <HoverCardRoot>
-      <HoverCardTrigger>
-        <Badge variant="subtle">No Arrow</Badge>
-      </HoverCardTrigger>
-      <HoverCardPositioner>
-        <HoverCardContent>
-          <p>This hover card has no arrow pointer.</p>
         </HoverCardContent>
       </HoverCardPositioner>
     </HoverCardRoot>
@@ -115,9 +89,6 @@ import {
       </HoverCardTrigger>
       <HoverCardPositioner>
         <HoverCardContent className="w-80">
-          <HoverCardArrow>
-            <HoverCardArrowTip />
-          </HoverCardArrow>
           <div className="flex justify-between space-x-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted">
               <FiUser className="h-6 w-6" />
@@ -158,9 +129,6 @@ import {
         </HoverCardTrigger>
         <HoverCardPositioner>
           <HoverCardContent className="w-80">
-            <HoverCardArrow>
-              <HoverCardArrowTip />
-            </HoverCardArrow>
             <div className="flex justify-between space-x-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted">
                 <FiUser className="h-6 w-6" />

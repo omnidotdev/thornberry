@@ -23,6 +23,7 @@ import type { RatingGroupRoot } from "@/registry/thornberry/components/rating-gr
 import type { SliderRoot } from "@/registry/thornberry/components/slider";
 import type { SwitchRoot } from "@/registry/thornberry/components/switch";
 import type { TabsRoot } from "@/registry/thornberry/components/tabs";
+import type { TagsInputRoot } from "@/registry/thornberry/components/tags-input";
 import type { TooltipRoot } from "@/registry/thornberry/components/tooltip";
 
 export type AccordionProps = Omit<
@@ -152,5 +153,10 @@ export type TabsProps = Omit<
 
 export type TooltipProps = Omit<
   ComponentProps<typeof TooltipRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type TagsInputProps = Omit<
+  ComponentProps<typeof TagsInputRoot>,
   keyof ComponentProps<"div"> | "ids"
 >;

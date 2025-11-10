@@ -10,13 +10,11 @@ const hoverCardVariants = tv({
     trigger: "inline-block",
     content:
       "data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 z-50 w-64 rounded-md border bg-background p-4 shadow-md outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
-    arrow: "fill-base-100 stroke-base-200",
-    arrowTip: "",
     positioner: "",
   },
 });
 
-const { trigger, content, arrow, arrowTip, positioner } = hoverCardVariants();
+const { trigger, content, positioner } = hoverCardVariants();
 
 const HoverCardProvider = ArkHoverCard.RootProvider;
 const HoverCardContext = ArkHoverCard.Context;
@@ -36,20 +34,6 @@ const HoverCardContent = ({
   <ArkHoverCard.Content className={cn(content(), className)} {...rest} />
 );
 
-const HoverCardArrow = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ArkHoverCard.Arrow>) => (
-  <ArkHoverCard.Arrow className={cn(arrow(), className)} {...rest} />
-);
-
-const HoverCardArrowTip = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ArkHoverCard.ArrowTip>) => (
-  <ArkHoverCard.ArrowTip className={cn(arrowTip(), className)} {...rest} />
-);
-
 const HoverCardPositioner = ({
   className,
   ...rest
@@ -61,8 +45,6 @@ export {
   HoverCardRoot,
   HoverCardTrigger,
   HoverCardContent,
-  HoverCardArrow,
-  HoverCardArrowTip,
   HoverCardPositioner,
   HoverCardProvider,
   HoverCardContext,

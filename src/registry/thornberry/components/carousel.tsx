@@ -10,14 +10,14 @@ import type { ComponentProps } from "react";
 const carouselVariants = tv({
   slots: {
     root: "relative",
-    itemGroup: "flex",
-    item: "flex-shrink-0 flex-grow-0 basis-full",
-    nextTrigger: "-translate-y-1/2 absolute top-1/2 right-2 z-10 rounded-full",
-    prevTrigger: "-translate-y-1/2 absolute top-1/2 left-2 z-10 rounded-full",
-    indicatorGroup: "mt-3 flex justify-center gap-1",
+    itemGroup: "z-10 flex",
+    item: "relative z-0 flex-shrink-0 flex-grow-0 basis-full",
+    nextTrigger: "z-10 size-7 rounded-full",
+    prevTrigger: " z-10 size-7 rounded-full",
+    indicatorGroup: "flex items-center justify-center gap-2",
     indicator:
-      "size-3 rounded-full bg-base-600 transition-colors data-[current]:bg-primary",
-    control: "flex items-center justify-between",
+      "size-5 rounded-full border bg-secondary transition-colors data-[current]:bg-primary",
+    control: "mt-3 flex items-center justify-center gap-2",
   },
 });
 
@@ -39,7 +39,7 @@ const CarouselRoot = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkCarousel.Root>) => (
-  <ArkCarousel.Root className={cn(root(), className)} {...rest} />
+  <ArkCarousel.Root spacing="8px" className={cn(root(), className)} {...rest} />
 );
 
 const CarouselItemGroup = ({

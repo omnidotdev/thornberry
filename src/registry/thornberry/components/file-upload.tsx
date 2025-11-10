@@ -18,7 +18,7 @@ const fileUploadVariants = tv({
     itemName: "font-medium text-sm",
     itemSize: "text-muted-foreground text-xs",
     itemDeleteTrigger:
-      "inline-flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm text-muted-foreground transition-colors hover:bg-destructive hover:text-destructive-foreground",
+      "w-6 cursor-pointer items-center justify-center text-muted-foreground transition-colors hover:text-foreground",
     label: "font-medium text-sm",
   },
   variants: {

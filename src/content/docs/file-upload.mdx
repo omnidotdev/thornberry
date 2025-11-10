@@ -4,6 +4,7 @@ description: A file upload component with drag and drop support for selecting an
 ---
 
 import { FileUpload } from "@/components";
+import { FiX } from "react-icons/fi";
 
 <FileUpload />
 
@@ -45,7 +46,9 @@ import {
               <FileUploadItemName />
               <FileUploadItemSizeText />
             </div>
-            <FileUploadItemDeleteTrigger>×</FileUploadItemDeleteTrigger>
+            <FileUploadItemDeleteTrigger>
+             x
+            </FileUploadItemDeleteTrigger>
           </FileUploadItem>
         ))
       }

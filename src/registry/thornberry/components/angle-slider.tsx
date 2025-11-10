@@ -22,7 +22,7 @@ const angleSliderVariants = tv({
     thumb:
       "group pointer-events-none absolute top-0 right-0 bottom-0 left-[calc(50%-1.5px)] z-20 flex h-full w-[3px] items-start justify-center focus-visible:outline-none",
     thumbIcon:
-      "h-4 w-4 flex-shrink-0 scale-125 rounded-full bg-primary-500 ring ring-primary-600 ring-offset-1",
+      "h-4 w-4 flex-shrink-0 scale-125 rounded-full bg-primary ring ring-primary/60 ring-offset-1 ring-offset-background",
     markerGroup: "absolute inset-4 rounded-full bg-background",
     marker: "",
     valueText:
@@ -55,7 +55,8 @@ const AngleSliderControl = ({
 
 const AngleSliderThumb = ({ className, ...rest }: AngleSliderThumbProps) => (
   <div className="rounded-full">
-    <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,_var(--primary-200)_var(--angle,_0deg),_var(--border)_var(--angle,_0deg))]" />
+    <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,_var(--primary)_var(--angle,_0deg),_var(--border)_var(--angle,_0deg))]" />
+    {/* <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,_var(--primary-200)_var(--angle,_0deg),_var(--border)_var(--angle,_0deg))]" /> */}
 
     <ArkAngleSlider.Thumb className={cn(thumb(), className)} {...rest}>
       <span className={thumbIcon()} />
