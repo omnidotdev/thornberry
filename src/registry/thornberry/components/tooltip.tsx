@@ -1,21 +1,8 @@
 import { Tooltip as ArkTooltip } from "@ark-ui/react/tooltip";
-import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
 
 import type { ComponentProps } from "react";
-
-const tooltipVariants = tv({
-  slots: {
-    trigger: "",
-    positioner: "",
-    content:
-      "fade-in-0 zoom-in-95 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 animate-in overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-popover-foreground text-sm shadow-md data-[state=closed]:animate-out",
-    arrowTip: "border-t-[1px] border-l-[1px]",
-  },
-});
-
-const { trigger, positioner, content, arrowTip } = tooltipVariants();
 
 const TooltipProvider = ArkTooltip.RootProvider;
 const TooltipRoot = ArkTooltip.Root;
@@ -25,28 +12,37 @@ const TooltipTrigger = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkTooltip.Trigger>) => (
-  <ArkTooltip.Trigger className={cn(trigger(), className)} {...rest} />
+  <ArkTooltip.Trigger className={cn(className)} {...rest} />
 );
 
 const TooltipPositioner = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkTooltip.Positioner>) => (
-  <ArkTooltip.Positioner className={cn(positioner(), className)} {...rest} />
+  <ArkTooltip.Positioner className={cn(className)} {...rest} />
 );
 
 const TooltipContent = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkTooltip.Content>) => (
-  <ArkTooltip.Content className={cn(content(), className)} {...rest} />
+  <ArkTooltip.Content
+    className={cn(
+      "fade-in-0 zoom-in-95 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 animate-in overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-popover-foreground text-sm shadow-md data-[state=closed]:animate-out",
+      className,
+    )}
+    {...rest}
+  />
 );
 
 const TooltipArrowTip = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkTooltip.ArrowTip>) => (
-  <ArkTooltip.ArrowTip className={cn(arrowTip(), className)} {...rest} />
+  <ArkTooltip.ArrowTip
+    className={cn("border-t-[1px] border-l-[1px]", className)}
+    {...rest}
+  />
 );
 
 export {

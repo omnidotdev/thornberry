@@ -1,34 +1,9 @@
 import { Dialog as ArkSheet } from "@ark-ui/react/dialog";
 import { X } from "lucide-react";
-import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
 
 import type { ComponentProps } from "react";
-
-const ArkSheetVariants = tv({
-  slots: {
-    trigger: "",
-    backdrop: "",
-    positioner: "",
-    content:
-      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed z-50 bg-background data-[state=closed]:animate-out data-[state=open]:animate-in",
-    title: "font-semibold text-lg leading-none tracking-tight",
-    description: "text-muted-foreground text-sm",
-    closeTrigger:
-      "absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none",
-  },
-});
-
-const {
-  trigger,
-  backdrop,
-  positioner,
-  content,
-  title,
-  description,
-  closeTrigger,
-} = ArkSheetVariants();
 
 const SheetProvider = ArkSheet.RootProvider;
 const SheetContext = ArkSheet.Context;
@@ -38,21 +13,21 @@ const SheetTrigger = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Trigger>) => (
-  <ArkSheet.Trigger className={cn(trigger(), className)} {...rest} />
+  <ArkSheet.Trigger className={cn(className)} {...rest} />
 );
 
 const SheetBackdrop = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Backdrop>) => (
-  <ArkSheet.Backdrop className={cn(backdrop(), className)} {...rest} />
+  <ArkSheet.Backdrop className={cn(className)} {...rest} />
 );
 
 const SheetPositioner = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Positioner>) => (
-  <ArkSheet.Positioner className={cn(positioner(), className)} {...rest} />
+  <ArkSheet.Positioner className={cn(className)} {...rest} />
 );
 
 interface ArkSheetContentProps extends ComponentProps<typeof ArkSheet.Content> {
@@ -66,7 +41,7 @@ const SheetContent = ({
 }: ArkSheetContentProps) => (
   <ArkSheet.Content
     className={cn(
-      content(),
+      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed z-50 bg-background data-[state=closed]:animate-out data-[state=open]:animate-in",
       side === "right" &&
         "data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm",
       side === "left" &&
@@ -85,14 +60,23 @@ const SheetTitle = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Title>) => (
-  <ArkSheet.Title className={cn(title(), className)} {...rest} />
+  <ArkSheet.Title
+    className={cn(
+      "font-semibold text-lg leading-none tracking-tight",
+      className,
+    )}
+    {...rest}
+  />
 );
 
 const SheetDescription = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Description>) => (
-  <ArkSheet.Description className={cn(description(), className)} {...rest} />
+  <ArkSheet.Description
+    className={cn("text-muted-foreground text-sm", className)}
+    {...rest}
+  />
 );
 
 const SheetCloseTrigger = ({
@@ -105,7 +89,10 @@ const SheetCloseTrigger = ({
   if (!children) {
     return (
       <ArkSheet.CloseTrigger
-        className={cn(closeTrigger(), className)}
+        className={cn(
+          "absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none",
+          className,
+        )}
         {...rest}
       >
         <X className="h-4 w-4" />

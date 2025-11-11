@@ -1,26 +1,8 @@
 import { RadioGroup as ArkRadioGroup } from "@ark-ui/react/radio-group";
-import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
 
 import type { ComponentProps, ReactNode } from "react";
-
-const radioGroupVariants = tv({
-  slots: {
-    root: "space-y-3",
-    label: "font-medium text-sm leading-none",
-    indicator: "",
-    item: "flex cursor-pointer items-center space-x-2",
-    itemText:
-      "font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
-    itemControl:
-      "flex size-3 cursor-pointer items-center justify-center rounded-full shadow ring-1 ring-ring ring-offset-2 ring-offset-background transition-normal disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
-    itemHiddenInput: "peer",
-  },
-});
-
-const { root, label, indicator, item, itemText, itemControl, itemHiddenInput } =
-  radioGroupVariants();
 
 const RadioGroupProvider = ArkRadioGroup.RootProvider;
 const RadioGroupContext = ArkRadioGroup.Context;
@@ -29,29 +11,53 @@ const RadioGroupRoot = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkRadioGroup.Root>) => (
-  <ArkRadioGroup.Root className={cn(root(), className)} {...rest} />
+  <ArkRadioGroup.Root className={cn("space-y-3", className)} {...rest} />
 );
 
-const RadioGroupLabel = ({ children }: { children: ReactNode }) => (
-  <ArkRadioGroup.Label className={label()}>{children}</ArkRadioGroup.Label>
+const RadioGroupLabel = ({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className: string;
+}) => (
+  <ArkRadioGroup.Label
+    className={cn("font-medium text-sm leading-none", className)}
+  >
+    {children}
+  </ArkRadioGroup.Label>
 );
 
 const RadioGroupIndicator = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkRadioGroup.Indicator>) => (
-  <ArkRadioGroup.Indicator className={cn(indicator(), className)} {...rest} />
+  <ArkRadioGroup.Indicator className={cn(className)} {...rest} />
 );
 
 const RadioGroupItem = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkRadioGroup.Item>) => (
-  <ArkRadioGroup.Item className={cn(item(), className)} {...rest} />
+  <ArkRadioGroup.Item
+    className={cn("flex cursor-pointer items-center space-x-2", className)}
+    {...rest}
+  />
 );
 
-const RadioGroupItemText = ({ children }: { children: ReactNode }) => (
-  <ArkRadioGroup.ItemText className={itemText()}>
+const RadioGroupItemText = ({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className: string;
+}) => (
+  <ArkRadioGroup.ItemText
+    className={cn(
+      "font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+      className,
+    )}
+  >
     {children}
   </ArkRadioGroup.ItemText>
 );
@@ -60,7 +66,13 @@ const RadioGroupItemControl = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkRadioGroup.ItemControl>) => (
-  <ArkRadioGroup.ItemControl className={cn(itemControl(), className)} {...rest}>
+  <ArkRadioGroup.ItemControl
+    className={cn(
+      "flex size-3 cursor-pointer items-center justify-center rounded-full shadow ring-1 ring-ring ring-offset-2 ring-offset-background transition-normal disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
+      className,
+    )}
+    {...rest}
+  >
     <div className="size-2 rounded-full bg-current opacity-0 transition-opacity data-[state=checked]:opacity-100" />
   </ArkRadioGroup.ItemControl>
 );
@@ -69,10 +81,7 @@ const RadioGroupItemHiddenInput = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkRadioGroup.ItemHiddenInput>) => (
-  <ArkRadioGroup.ItemHiddenInput
-    className={cn(itemHiddenInput(), className)}
-    {...rest}
-  />
+  <ArkRadioGroup.ItemHiddenInput className={cn("peer", className)} {...rest} />
 );
 
 export {
