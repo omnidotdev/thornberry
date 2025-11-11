@@ -17,7 +17,7 @@
     "@ark-ui/react": "^5.15.1",
     "clsx": "^2.1.1",
     "fumadocs-core": "^15.3.4",
-    "fumadocs-mdx": "^11.6.5",
+    "fumadocs-mdx": "^13.0.0",
     "fumadocs-typescript": "^4.0.5",
     "fumadocs-ui": "^15.3.4",
     "next": "^15.3.2",
