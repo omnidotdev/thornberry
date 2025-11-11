@@ -34,10 +34,7 @@ const CarouselItem = ({
 }: ComponentProps<typeof ArkCarousel.Item>) => (
   <ArkCarousel.Item
     index={index}
-    className={cn(
-      "relative z-0 flex-shrink-0 flex-grow-0 basis-full",
-      className,
-    )}
+    className={cn("relative z-0 shrink-0 grow-0 basis-full", className)}
     {...rest}
   />
 );
@@ -90,7 +87,7 @@ const CarouselIndicator = ({
   <ArkCarousel.Indicator
     index={index}
     className={cn(
-      "size-5 rounded-full border bg-muted transition-colors data-[current]:bg-primary",
+      "size-5 rounded-full border bg-muted transition-colors data-current:bg-primary",
       className,
     )}
     {...rest}

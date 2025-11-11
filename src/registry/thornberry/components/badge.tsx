@@ -7,13 +7,14 @@ import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 
 const badgeVariants = cva(
-  "inline-flex select-none items-center whitespace-nowrap rounded-md border font-medium transition-colors",
+  "inline-flex select-none items-center whitespace-nowrap rounded-md border font-semibold",
   {
     variants: {
       variant: {
-        solid: "border-transparent bg-primary text-primary-foreground",
+        solid:
+          "border-transparent bg-primary text-primary-foreground shadow-sm",
         subtle:
-          "border-transparent bg-primary-200/20 text-foreground dark:bg-primary-900/20",
+          "border-transparent bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300 shadow-sm",
         outline: "text-foreground",
       },
       size: {

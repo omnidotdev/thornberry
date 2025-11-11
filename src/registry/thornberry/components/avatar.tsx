@@ -66,7 +66,7 @@ const AvatarImage = ({
   ...rest
 }: ComponentProps<typeof ArkAvatar.Image>) => (
   <ArkAvatar.Image
-    className={cn("size-full object-cover", className)}
+    className={cn("aspect-square size-full", className)}
     alt="Avatar"
     {...rest}
   />

@@ -33,18 +33,20 @@ const AngleSliderControl = ({
 
 const AngleSliderThumb = ({ className, ...rest }: AngleSliderThumbProps) => (
   <div className="rounded-full">
-    <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,_var(--primary)_var(--angle,_0deg),_var(--border)_var(--angle,_0deg))]" />
+    <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,var(--primary)_var(--angle,0deg),var(--border)_var(--angle,0deg))] opacity-50" />
 
     <ArkAngleSlider.Thumb
+      tabIndex={-1}
       className={cn(
         "group pointer-events-none absolute top-0 right-0 bottom-0 left-[calc(50%-1.5px)] z-20 flex h-full w-[3px] items-start justify-center focus-visible:outline-none",
         className,
       )}
       {...rest}
     >
-      <span
+      <button
+        type="button"
         className={
-          "h-4 w-4 flex-shrink-0 scale-125 rounded-full bg-primary ring ring-primary/60 ring-offset-1 ring-offset-background"
+          "h-4 w-4 shrink-0 scale-125 rounded-full bg-primary ring ring-primary/60 ring-offset-1 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         }
       />
     </ArkAngleSlider.Thumb>
@@ -66,11 +68,7 @@ const AngleSliderMarker = ({
   value,
   ...rest
 }: AngleSliderMarkerProps) => (
-  <ArkAngleSlider.Marker
-    value={value}
-    className={cn("", className)}
-    {...rest}
-  />
+  <ArkAngleSlider.Marker value={value} className={cn(className)} {...rest} />
 );
 
 const AngleSliderValueText = ({
@@ -90,7 +88,7 @@ const AngleSliderHiddenInput = ({
   className,
   ...rest
 }: AngleSliderHiddenInputProps) => (
-  <ArkAngleSlider.HiddenInput className={cn("", className)} {...rest} />
+  <ArkAngleSlider.HiddenInput className={cn(className)} {...rest} />
 );
 
 export {

@@ -14,7 +14,7 @@ import type { ElementType } from "react";
 const AccordionRoot = ({ className, ...rest }: AccordionRootProps) => (
   <ArkAccordion.Root
     className={cn(
-      "flex flex-col border-t data-[orientation=horizontal]:flex-row data-[orientation=horizontal]:gap-4 data-[orientation=horizontal]:border-none",
+      "flex flex-col data-[orientation=horizontal]:flex-row data-[orientation=horizontal]:gap-4 data-[orientation=horizontal]:border-none",
       className,
     )}
     {...rest}
@@ -24,7 +24,7 @@ const AccordionRoot = ({ className, ...rest }: AccordionRootProps) => (
 const AccordionItem = ({ className, ...rest }: AccordionItemProps) => (
   <ArkAccordion.Item
     className={cn(
-      "group flex flex-col border-b px-2 data-[orientation=horizontal]:w-full data-[orientation=horizontal]:border-none data-disabled:opacity-50",
+      "group flex flex-col border-b data-[orientation=horizontal]:w-full data-[orientation=horizontal]:border-none data-disabled:opacity-50",
       className,
     )}
     {...rest}
@@ -46,13 +46,13 @@ const AccordionItemTrigger = ({
   return (
     <ArkAccordion.ItemTrigger
       className={cn(
-        "flex flex-1 cursor-pointer items-center justify-between py-4 text-left font-medium text-sm transition-all disabled:cursor-not-allowed data-[orientation=horizontal]:items-start [&[data-state=open]>svg]:rotate-180",
+        "flex flex-1 cursor-pointer items-center justify-between rounded-md px-2 py-4 text-left font-medium text-sm transition-all disabled:cursor-not-allowed data-[orientation=horizontal]:items-start [&[data-state=open]>svg]:rotate-180",
         className,
       )}
       {...rest}
     >
       {children}
-      <Icon className={"size-4 transition-transform"} />
+      <Icon className="size-4 transition-transform" />
     </ArkAccordion.ItemTrigger>
   );
 };
@@ -64,7 +64,7 @@ const AccordionItemContent = ({
 }: AccordionItemContentProps) => (
   <ArkAccordion.ItemContent
     className={
-      "overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+      "overflow-hidden px-2 text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
     }
     {...rest}
   >

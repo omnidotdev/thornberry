@@ -1,5 +1,5 @@
 import { Collapsible as ArkCollapsible } from "@ark-ui/react/collapsible";
-import { ChevronDown } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -22,13 +22,13 @@ const CollapsibleTrigger = ({
 }: ComponentProps<typeof ArkCollapsible.Trigger>) => (
   <ArkCollapsible.Trigger
     className={cn(
-      "flex w-full items-center justify-between rounded-md bg-background px-4 py-2 font-medium text-sm transition-all hover:bg-muted/50 data-[state=open]:rounded-b-none data-[state=open]:bg-muted/50 [&[data-state=open]>svg]:rotate-180",
+      "transform] flex w-full cursor-pointer items-center justify-between rounded-md px-3 py-3 font-medium text-sm outline-none transition-[color,box-shadow,transition] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background [&[data-state=open]>svg]:rotate-90",
       className,
     )}
     {...rest}
   >
     {children}
-    <ChevronDown className="h-4 w-4 transition-transform" />
+    <ChevronRight className="h-4 w-4 transition-transform" />
   </ArkCollapsible.Trigger>
 );
 

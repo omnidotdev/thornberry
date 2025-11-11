@@ -6,7 +6,7 @@ description: A component that displays content in a rotating cycle with navigati
 import { CarouselRoot, CarouselControl, CarouselItemGroup, CarouselItem, CarouselPrevTrigger, CarouselNextTrigger, CarouselIndicatorGroup, CarouselIndicator } from "@/registry/thornberry/components/carousel";
 
 <CarouselRoot slideCount={3} loop className="mb-8">
-  <CarouselItemGroup className="overflow-hidden">
+  <CarouselItemGroup className="overflow-hidden" tabIndex={-1}>
     <CarouselItem index={0}>
       <div className="h-64 bg-accent flex items-center justify-center rounded-md">
         <span className="text-2xl font-bold text-accent-foreground">Slide 1</span>

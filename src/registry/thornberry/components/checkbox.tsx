@@ -27,7 +27,10 @@ const CheckboxControl = ({
 }: ComponentProps<typeof ArkCheckbox.Control>) => (
   <ArkCheckbox.Control
     className={cn(
-      "flex size-5 cursor-pointer items-center justify-center rounded-sm border border-primary shadow transition-normal focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed peer-disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
+      "flex size-5 items-center justify-center rounded-sm border border-primary shadow transition-normal",
+      "disabled:cursor-not-allowed peer-disabled:opacity-50",
+      "data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
+      "ring-offset-background peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2",
       className,
     )}
     {...rest}
@@ -46,7 +49,7 @@ const CheckboxHiddenInput = ({
   ...rest
 }: ComponentProps<typeof ArkCheckbox.HiddenInput>) => (
   <ArkCheckbox.HiddenInput
-    className={cn("peer shrink-0", className)}
+    className={cn("peer sr-only", className)}
     {...rest}
   />
 );
