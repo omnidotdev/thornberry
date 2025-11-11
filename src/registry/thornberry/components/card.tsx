@@ -1,72 +1,49 @@
 import { ark } from "@ark-ui/react";
-import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
 
 import type { ComponentProps, ReactNode } from "react";
-import type { VariantProps } from "tailwind-variants";
 
-const cardVariants = tv({
-  slots: {
-    root: "rounded-xl border bg-card text-card-foreground shadow",
-    header: "flex flex-col gap-1.5 p-6",
-    title: "font-semibold leading-none tracking-tight",
-    description: "text-muted-foreground text-sm",
-    content: "p-6 pt-0",
-    footer: "flex items-center p-6 pt-0",
-  },
-});
-
-const {
-  root,
-  header,
-  title: titleVariants,
-  description: descriptionVariants,
-  content,
-  footer,
-} = cardVariants();
-
-const CardRoot = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ark.div> & VariantProps<typeof root>) => (
-  <ark.div className={cn(root(), className)} {...rest} />
+const CardRoot = ({ className, ...rest }: ComponentProps<typeof ark.div>) => (
+  <ark.div
+    className={cn(
+      "rounded-xl border bg-card text-card-foreground shadow",
+      className,
+    )}
+    {...rest}
+  />
 );
 
-const CardHeader = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ark.div> & VariantProps<typeof header>) => (
-  <ark.div className={cn(header(), className)} {...rest} />
+const CardHeader = ({ className, ...rest }: ComponentProps<typeof ark.div>) => (
+  <ark.div className={cn("flex flex-col gap-1.5 p-6", className)} {...rest} />
 );
 
-const CardTitle = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ark.div> & VariantProps<typeof titleVariants>) => (
-  <ark.div className={cn(titleVariants(), className)} {...rest} />
+const CardTitle = ({ className, ...rest }: ComponentProps<typeof ark.div>) => (
+  <ark.div
+    className={cn("font-semibold leading-none tracking-tight", className)}
+    {...rest}
+  />
 );
 
 const CardDescription = ({
   className,
   ...rest
-}: ComponentProps<typeof ark.div> &
-  VariantProps<typeof descriptionVariants>) => (
-  <ark.div className={cn(descriptionVariants(), className)} {...rest} />
+}: ComponentProps<typeof ark.div>) => (
+  <ark.div
+    className={cn("text-muted-foreground text-sm", className)}
+    {...rest}
+  />
 );
 
 const CardContent = ({
   className,
   ...rest
-}: ComponentProps<typeof ark.div> & VariantProps<typeof content>) => (
-  <ark.div className={cn(content(), className)} {...rest} />
+}: ComponentProps<typeof ark.div>) => (
+  <ark.div className={cn("p-6 pt-0", className)} {...rest} />
 );
 
-const CardFooter = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ark.div> & VariantProps<typeof footer>) => (
-  <ark.div className={cn(footer(), className)} {...rest} />
+const CardFooter = ({ className, ...rest }: ComponentProps<typeof ark.div>) => (
+  <ark.div className={cn("flex items-center p-6 pt-0", className)} {...rest} />
 );
 
 interface CardProps extends ComponentProps<typeof CardRoot> {
@@ -131,6 +108,5 @@ export {
   CardTitle,
   CardDescription,
   CardContent,
-  cardVariants,
   type CardProps,
 };

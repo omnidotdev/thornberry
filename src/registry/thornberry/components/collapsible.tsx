@@ -1,22 +1,9 @@
 import { Collapsible as ArkCollapsible } from "@ark-ui/react/collapsible";
 import { ChevronDown } from "lucide-react";
-import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
 
 import type { ComponentProps } from "react";
-
-const collapsibleVariants = tv({
-  slots: {
-    root: "w-full",
-    trigger:
-      "flex w-full items-center justify-between rounded-md bg-background px-4 py-2 font-medium text-sm transition-all hover:bg-muted/50 data-[state=open]:rounded-b-none data-[state=open]:bg-muted/50 [&[data-state=open]>svg]:rotate-180",
-    content:
-      "overflow-hidden rounded-b-md border border-muted/50 border-t-0 px-4",
-  },
-});
-
-const { root, trigger, content } = collapsibleVariants();
 
 const CollapsibleProvider = ArkCollapsible.RootProvider;
 const CollapsibleContext = ArkCollapsible.Context;
@@ -25,7 +12,7 @@ const CollapsibleRoot = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkCollapsible.Root>) => (
-  <ArkCollapsible.Root className={cn(root(), className)} {...rest} />
+  <ArkCollapsible.Root className={cn("w-full", className)} {...rest} />
 );
 
 const CollapsibleTrigger = ({
@@ -33,7 +20,13 @@ const CollapsibleTrigger = ({
   children,
   ...rest
 }: ComponentProps<typeof ArkCollapsible.Trigger>) => (
-  <ArkCollapsible.Trigger className={cn(trigger(), className)} {...rest}>
+  <ArkCollapsible.Trigger
+    className={cn(
+      "flex w-full items-center justify-between rounded-md bg-background px-4 py-2 font-medium text-sm transition-all hover:bg-muted/50 data-[state=open]:rounded-b-none data-[state=open]:bg-muted/50 [&[data-state=open]>svg]:rotate-180",
+      className,
+    )}
+    {...rest}
+  >
     {children}
     <ChevronDown className="h-4 w-4 transition-transform" />
   </ArkCollapsible.Trigger>
@@ -43,7 +36,13 @@ const CollapsibleContent = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkCollapsible.Content>) => (
-  <ArkCollapsible.Content className={cn(content(), className)} {...rest} />
+  <ArkCollapsible.Content
+    className={cn(
+      "overflow-hidden rounded-b-md border border-muted/50 border-t-0 px-4",
+      className,
+    )}
+    {...rest}
+  />
 );
 
 export {

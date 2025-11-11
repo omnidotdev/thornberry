@@ -1,36 +1,10 @@
 import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
 
 import type { ComponentProps } from "react";
-
-const carouselVariants = tv({
-  slots: {
-    root: "relative",
-    itemGroup: "z-10 flex",
-    item: "relative z-0 flex-shrink-0 flex-grow-0 basis-full",
-    nextTrigger: "z-10 size-7 rounded-full",
-    prevTrigger: " z-10 size-7 rounded-full",
-    indicatorGroup: "flex items-center justify-center gap-2",
-    indicator:
-      "size-5 rounded-full border bg-muted transition-colors data-[current]:bg-primary",
-    control: "mt-3 flex items-center justify-center gap-2",
-  },
-});
-
-const {
-  root,
-  itemGroup,
-  item,
-  nextTrigger,
-  prevTrigger,
-  indicatorGroup,
-  indicator,
-  control,
-} = carouselVariants();
 
 const CarouselProvider = ArkCarousel.RootProvider;
 const CarouselContext = ArkCarousel.Context;
@@ -39,14 +13,18 @@ const CarouselRoot = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkCarousel.Root>) => (
-  <ArkCarousel.Root spacing="8px" className={cn(root(), className)} {...rest} />
+  <ArkCarousel.Root
+    spacing="8px"
+    className={cn("relative", className)}
+    {...rest}
+  />
 );
 
 const CarouselItemGroup = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkCarousel.ItemGroup>) => (
-  <ArkCarousel.ItemGroup className={cn(itemGroup(), className)} {...rest} />
+  <ArkCarousel.ItemGroup className={cn("z-10 flex", className)} {...rest} />
 );
 
 const CarouselItem = ({
@@ -54,7 +32,14 @@ const CarouselItem = ({
   index = 0,
   ...rest
 }: ComponentProps<typeof ArkCarousel.Item>) => (
-  <ArkCarousel.Item index={index} className={cn(item(), className)} {...rest} />
+  <ArkCarousel.Item
+    index={index}
+    className={cn(
+      "relative z-0 flex-shrink-0 flex-grow-0 basis-full",
+      className,
+    )}
+    {...rest}
+  />
 );
 
 const CarouselNextTrigger = ({
@@ -65,7 +50,7 @@ const CarouselNextTrigger = ({
     <Button
       variant="outline"
       size="icon"
-      className={cn(nextTrigger(), className)}
+      className={cn("z-10 size-7 rounded-full", className)}
     >
       <ChevronRight className="h-4 w-4" />
     </Button>
@@ -80,7 +65,7 @@ const CarouselPrevTrigger = ({
     <Button
       variant="outline"
       size="icon"
-      className={cn(prevTrigger(), className)}
+      className={cn("z-10 size-7 rounded-full", className)}
     >
       <ChevronLeft className="h-4 w-4" />
     </Button>
@@ -92,7 +77,7 @@ const CarouselIndicatorGroup = ({
   ...rest
 }: ComponentProps<typeof ArkCarousel.IndicatorGroup>) => (
   <ArkCarousel.IndicatorGroup
-    className={cn(indicatorGroup(), className)}
+    className={cn("flex items-center justify-center gap-2", className)}
     {...rest}
   />
 );
@@ -104,7 +89,10 @@ const CarouselIndicator = ({
 }: ComponentProps<typeof ArkCarousel.Indicator>) => (
   <ArkCarousel.Indicator
     index={index}
-    className={cn(indicator(), className)}
+    className={cn(
+      "size-5 rounded-full border bg-muted transition-colors data-[current]:bg-primary",
+      className,
+    )}
     {...rest}
   />
 );
@@ -113,7 +101,10 @@ const CarouselControl = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkCarousel.Control>) => (
-  <ArkCarousel.Control className={cn(control(), className)} {...rest} />
+  <ArkCarousel.Control
+    className={cn("mt-3 flex items-center justify-center gap-2", className)}
+    {...rest}
+  />
 );
 
 export {

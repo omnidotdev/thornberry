@@ -1,6 +1,5 @@
 import { Accordion as ArkAccordion } from "@ark-ui/react";
 import { ChevronDown } from "lucide-react";
-import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
 
@@ -12,27 +11,24 @@ import type {
 } from "@ark-ui/react";
 import type { ElementType } from "react";
 
-const accordionVariants = tv({
-  slots: {
-    root: "flex flex-col border-t data-[orientation=horizontal]:flex-row data-[orientation=horizontal]:gap-4 data-[orientation=horizontal]:border-none",
-    item: "group flex flex-col border-b px-2 data-[orientation=horizontal]:w-full data-[orientation=horizontal]:border-none data-disabled:opacity-50",
-    itemTrigger:
-      "flex flex-1 cursor-pointer items-center justify-between py-4 text-left font-medium text-sm transition-all disabled:cursor-not-allowed data-[orientation=horizontal]:items-start [&[data-state=open]>svg]:rotate-180",
-    itemTriggerIcon: "size-4 transition-transform",
-    itemContent:
-      "overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
-  },
-});
-
-const { root, item, itemTrigger, itemTriggerIcon, itemContent } =
-  accordionVariants();
-
 const AccordionRoot = ({ className, ...rest }: AccordionRootProps) => (
-  <ArkAccordion.Root className={cn(root(), className)} {...rest} />
+  <ArkAccordion.Root
+    className={cn(
+      "flex flex-col border-t data-[orientation=horizontal]:flex-row data-[orientation=horizontal]:gap-4 data-[orientation=horizontal]:border-none",
+      className,
+    )}
+    {...rest}
+  />
 );
 
 const AccordionItem = ({ className, ...rest }: AccordionItemProps) => (
-  <ArkAccordion.Item className={cn(item(), className)} {...rest} />
+  <ArkAccordion.Item
+    className={cn(
+      "group flex flex-col border-b px-2 data-[orientation=horizontal]:w-full data-[orientation=horizontal]:border-none data-disabled:opacity-50",
+      className,
+    )}
+    {...rest}
+  />
 );
 
 interface ItemTriggerProps extends AccordionItemTriggerProps {
@@ -49,11 +45,14 @@ const AccordionItemTrigger = ({
 
   return (
     <ArkAccordion.ItemTrigger
-      className={cn(itemTrigger(), className)}
+      className={cn(
+        "flex flex-1 cursor-pointer items-center justify-between py-4 text-left font-medium text-sm transition-all disabled:cursor-not-allowed data-[orientation=horizontal]:items-start [&[data-state=open]>svg]:rotate-180",
+        className,
+      )}
       {...rest}
     >
       {children}
-      <Icon className={itemTriggerIcon()} />
+      <Icon className={"size-4 transition-transform"} />
     </ArkAccordion.ItemTrigger>
   );
 };
@@ -63,7 +62,12 @@ const AccordionItemContent = ({
   children,
   ...rest
 }: AccordionItemContentProps) => (
-  <ArkAccordion.ItemContent className={itemContent()} {...rest}>
+  <ArkAccordion.ItemContent
+    className={
+      "overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+    }
+    {...rest}
+  >
     <div className={cn("pt-0 pb-4", className)}>{children}</div>
   </ArkAccordion.ItemContent>
 );
