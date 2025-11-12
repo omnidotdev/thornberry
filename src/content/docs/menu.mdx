@@ -3,23 +3,10 @@ title: Menu
 description: A dropdown menu that displays a list of options.
 ---
 
-import { Check, SquarePen, Copy, Scissors, ZoomIn, ZoomOut } from "lucide-react";
-
-import { MenuRoot, MenuTrigger, MenuPositioner, MenuContent, MenuItem, MenuItemGroup, MenuItemGroupLabel, MenuSeparator, MenuCheckboxItem, MenuItemIndicator, MenuItemText, MenuRadioItem, MenuRadioItemGroup } from "@/registry/thornberry/components/menu";
 import { Button } from "@/registry/thornberry/components/button";
+import { CheckboxMenu, DemoMenu, NestedMenu, RadioGroupMenu } from "@/components";
 
-<MenuRoot>
-  <MenuTrigger asChild className="mb-8">
-    <Button variant="outline">Open Menu</Button>
-  </MenuTrigger>
-  <MenuPositioner>
-    <MenuContent>
-      <MenuItem value="copy">Copy</MenuItem>
-      <MenuItem value="paste">Paste</MenuItem>
-      <MenuItem value="cut">Cut</MenuItem>
-    </MenuContent>
-  </MenuPositioner>
-</MenuRoot>
+<DemoMenu />
 
 ## Installation
 
@@ -28,26 +15,69 @@ import { Button } from "@/registry/thornberry/components/button";
 ## Usage
 
 ```tsx
-import {
-  MenuRoot,
-  MenuTrigger,
-  MenuPositioner,
-  MenuContent,
-  MenuItem
-} from "@/components/ui/menu";
 import { Button } from "@/components/ui/button";
+import {
+  MenuContent,
+  MenuItem,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuItemShortcut,
+  MenuItemText,
+  MenuPositioner,
+  MenuRoot,
+  MenuSeparator,
+  MenuTrigger,
+} from "@/components/ui/menu";
 ```
 
 ```tsx
 <MenuRoot>
-  <MenuTrigger asChild>
-    <Button>Open Menu</Button>
+  <MenuTrigger asChild className="my-8">
+    <Button variant="outline">Open Menu</Button>
   </MenuTrigger>
   <MenuPositioner>
-    <MenuContent>
-      <MenuItem value="copy">Copy</MenuItem>
-      <MenuItem value="paste">Paste</MenuItem>
-      <MenuItem value="cut">Cut</MenuItem>
+    <MenuContent className="w-48">
+      <MenuItemGroup>
+        <MenuItemGroupLabel>My Account</MenuItemGroupLabel>
+        <MenuItem value="profile">
+          <MenuItemText>Profile</MenuItemText>
+        </MenuItem>
+        <MenuItem value="billing">
+          <MenuItemText>Billing</MenuItemText>
+          <MenuItemShortcut>⌘B</MenuItemShortcut>
+        </MenuItem>
+        <MenuItem value="settings">
+          <MenuItemText>Settings</MenuItemText>
+          <MenuItemShortcut>⌘S</MenuItemShortcut>
+        </MenuItem>
+      </MenuItemGroup>
+
+      <MenuSeparator />
+      <MenuItemGroup>
+        <MenuItemGroupLabel>My Team</MenuItemGroupLabel>
+        <MenuItem value="members" asChild>
+          <a
+            href="https://reactjs.org"
+            className="cursor-pointer font-normal no-underline"
+          >
+            <MenuItemText>Team Members</MenuItemText>
+            <MenuItemShortcut>↗</MenuItemShortcut>
+          </a>
+        </MenuItem>
+        <MenuItem value="invites">
+          <MenuItemText>Invitations</MenuItemText>
+        </MenuItem>
+        <MenuItem value="permissions">
+          <MenuItemText>Permissions</MenuItemText>
+        </MenuItem>
+      </MenuItemGroup>
+      <MenuSeparator />
+      <MenuItemGroup>
+        <MenuItem value="logout">
+          <MenuItemText>Log out</MenuItemText>
+          <MenuItemShortcut>⇧⌘Q</MenuItemShortcut>
+        </MenuItem>
+      </MenuItemGroup>
     </MenuContent>
   </MenuPositioner>
 </MenuRoot>
@@ -55,218 +85,220 @@ import { Button } from "@/components/ui/button";
 
 ## Examples
 
-<br />
-
-#### Basic Menu
-
-<Tabs items={["Simple Menu", "With Groups", "With Separator"]} className="mt-4">
-  <Tab value="Simple Menu">
-    <MenuRoot>
-      <MenuTrigger asChild>
-        <Button variant="outline">Edit Options</Button>
-      </MenuTrigger>
-      <MenuPositioner>
-        <MenuContent>
-          <MenuItem value="edit">
-            <SquarePen className="mr-2 h-4 w-4" />
-            <span>Edit</span>
-          </MenuItem>
-          <MenuItem value="copy">
-            <Copy className="mr-2 h-4 w-4" />
-            <span>Copy</span>
-          </MenuItem>
-          <MenuItem value="cut">
-            <Scissors className="mr-2 h-4 w-4" />
-            <span>Cut</span>
-          </MenuItem>
-        </MenuContent>
-      </MenuPositioner>
-    </MenuRoot>
-  </Tab>
-  <Tab value="With Groups">
-    <MenuRoot>
-      <MenuTrigger asChild>
-        <Button variant="outline">View Options</Button>
-      </MenuTrigger>
-      <MenuPositioner>
-        <MenuContent>
-          <MenuItemGroup>
-            <MenuItemGroupLabel>Zoom</MenuItemGroupLabel>
-            <MenuItem value="zoom-in">
-              <ZoomIn className="mr-2 h-4 w-4" />
-              <span>Zoom In</span>
-            </MenuItem>
-            <MenuItem value="zoom-out">
-              <ZoomOut className="mr-2 h-4 w-4" />
-              <span>Zoom Out</span>
-            </MenuItem>
-          </MenuItemGroup>
-          <MenuItemGroup>
-            <MenuItemGroupLabel>Edit</MenuItemGroupLabel>
-            <MenuItem value="copy">
-              <Copy className="mr-2 h-4 w-4" />
-              <span>Copy</span>
-            </MenuItem>
-            <MenuItem value="cut">
-              <Scissors className="mr-2 h-4 w-4" />
-              <span>Cut</span>
-            </MenuItem>
-          </MenuItemGroup>
-        </MenuContent>
-      </MenuPositioner>
-    </MenuRoot>
-  </Tab>
-  <Tab value="With Separator">
-    <MenuRoot>
-      <MenuTrigger asChild>
-        <Button variant="outline">Actions</Button>
-      </MenuTrigger>
-      <MenuPositioner>
-        <MenuContent>
-          <MenuItem value="edit">
-            <SquarePen className="mr-2 h-4 w-4" />
-            <span>Edit</span>
-          </MenuItem>
-          <MenuSeparator />
-          <MenuItemGroup>
-            <MenuItemGroupLabel>Actions</MenuItemGroupLabel>
-            <MenuItem value="copy">
-              <Copy className="mr-2 h-4 w-4" />
-              <span>Copy</span>
-            </MenuItem>
-            <MenuItem value="cut">
-              <Scissors className="mr-2 h-4 w-4" />
-              <span>Cut</span>
-            </MenuItem>
-          </MenuItemGroup>
-        </MenuContent>
-      </MenuPositioner>
-    </MenuRoot>
-  </Tab>
-</Tabs>
-
-#### Advanced Menu
+#### Checkbox Menu
 
 <Tabs items={["Preview", "Code"]} className="mt-4">
   <Tab value="Preview">
-    <MenuRoot>
-      <MenuTrigger asChild>
-        <Button variant="outline">Settings</Button>
-      </MenuTrigger>
-      <MenuPositioner>
-        <MenuContent className="w-56">
-          <MenuItemGroup>
-            <MenuItemGroupLabel>Layout</MenuItemGroupLabel>
-            <MenuCheckboxItem value="sidebar" defaultChecked>
-              <MenuItemIndicator>
-                <Check className="h-4 w-4" />
-              </MenuItemIndicator>
-              <MenuItemText>Show Sidebar</MenuItemText>
-            </MenuCheckboxItem>
-            <MenuCheckboxItem value="toolbar" defaultChecked>
-              <MenuItemIndicator>
-                <Check className="h-4 w-4" />
-              </MenuItemIndicator>
-              <MenuItemText>Show Toolbar</MenuItemText>
-            </MenuCheckboxItem>
-          </MenuItemGroup>
-          <MenuSeparator />
-          <MenuItemGroup>
-            <MenuItemGroupLabel>Theme</MenuItemGroupLabel>
-            <MenuRadioItemGroup value="light">
-              <MenuRadioItem value="light">
-                <MenuItemIndicator>
-                  <Check className="h-4 w-4" />
-                </MenuItemIndicator>
-                <MenuItemText>Light</MenuItemText>
-              </MenuRadioItem>
-              <MenuRadioItem value="dark">
-                <MenuItemIndicator>
-                  <Check className="h-4 w-4" />
-                </MenuItemIndicator>
-                <MenuItemText>Dark</MenuItemText>
-              </MenuRadioItem>
-              <MenuRadioItem value="system">
-                <MenuItemIndicator>
-                  <Check className="h-4 w-4" />
-                </MenuItemIndicator>
-                <MenuItemText>System</MenuItemText>
-              </MenuRadioItem>
-            </MenuRadioItemGroup>
-          </MenuItemGroup>
-        </MenuContent>
-      </MenuPositioner>
-    </MenuRoot>
+     <CheckboxMenu />
   </Tab>
   <Tab value="Code">
     ```tsx
-    import { Check } from "lucide-react;
+    import { useState } from "react";
+
+    import { Button } from "@/components/ui/button";
     import {
-      MenuRoot,
-      MenuTrigger,
-      MenuPositioner,
+      MenuCheckboxItem,
       MenuContent,
       MenuItemGroup,
       MenuItemGroupLabel,
-      MenuCheckboxItem,
       MenuItemIndicator,
       MenuItemText,
-      MenuSeparator,
-      MenuRadioItemGroup,
-      MenuRadioItem
+      MenuPositioner,
+      MenuRoot,
+      MenuTrigger,
     } from "@/components/ui/menu";
-    import { Button } from "@/components/ui/button";
 
-    const AdvancedMenu = () => (
+    const CheckboxMenu = () => {
+      const [checkedOptions, setCheckedOptions] = useState<string[]>([]);
+      const checkboxOptions = [
+        { label: "Enable notifications", value: "notifications" },
+        { label: "Dark mode", value: "darkMode" },
+        { label: "Auto-save drafts", value: "autoSave" },
+        { label: "Receive weekly emails", value: "weeklyEmails" },
+        { label: "Beta features", value: "betaFeatures" },
+      ];
+
+      return (
+        <MenuRoot>
+          <MenuTrigger asChild>
+            <Button variant="outline">Open Menu</Button>
+          </MenuTrigger>
+          <MenuPositioner>
+            <MenuContent className="w-60">
+              <MenuItemGroup className="space-y-1">
+                <MenuItemGroupLabel>Preferences</MenuItemGroupLabel>
+                {checkboxOptions.map((option) => (
+                  <MenuCheckboxItem
+                    key={option.value}
+                    closeOnSelect={false}
+                    checked={checkedOptions.includes(option.value)}
+                    onCheckedChange={(checked) =>
+                      setCheckedOptions((prev: string[]) =>
+                        checked
+                          ? [...prev, option.value]
+                          : prev.filter((v) => v !== option.value),
+                      )
+                    }
+                    value={option.value}
+                  >
+                    <MenuItemText className="flex items-center gap-2">
+                      {option.label}
+                    </MenuItemText>
+                    <MenuItemIndicator />
+                  </MenuCheckboxItem>
+                ))}
+              </MenuItemGroup>
+            </MenuContent>
+          </MenuPositioner>
+        </MenuRoot>
+      );
+    };
+    ```
+  </Tab>
+</Tabs>
+
+#### Radio Menu
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+     <RadioGroupMenu />
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { Circle } from "lucide-react";
+    import { useState } from "react";
+
+    import { Button } from "@/components/ui/button";
+    import {
+      MenuContent,
+      MenuItemGroupLabel,
+      MenuItemText,
+      MenuPositioner,
+      MenuRoot,
+      MenuTrigger,
+    } from "@/components/ui/menu";
+
+    const RadioGroupMenu = () => {
+      const [value, setValue] = useState("React");
+      const radioOptions = ["Apollo", "Voyager", "Artemis", "Odyssey"];
+
+      return (
+        <MenuRoot>
+          <MenuTrigger asChild>
+            <Button variant="outline">Open Menu</Button>
+          </MenuTrigger>
+          <MenuPositioner>
+            <MenuContent className="w-60">
+              <MenuRadioItemGroup
+                value={value}
+                onValueChange={(e) => setValue(e.value)}
+              >
+               <MenuItemGroupLabel>Space Programs</MenuItemGroupLabel>
+                {radioOptions.map((program) => (
+                  <MenuRadioItem key={program} value={program}>
+                    <span className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
+                      <PrimitiveMenuIndicator>
+                        <Circle className="size-2 fill-current" />
+                      </PrimitiveMenuIndicator>
+                    </span>
+
+                    <MenuItemText>{program}</MenuItemText>
+                  </MenuRadioItem>
+                ))}
+              </MenuRadioItemGroup>
+            </MenuContent>
+          </MenuPositioner>
+        </MenuRoot>
+      );
+    };
+    ```
+  </Tab>
+</Tabs>
+
+#### Nested Menu
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <NestedMenu />
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+   import { Button } from "@/components/ui/button";
+    import {
+      MenuContent,
+      MenuItem,
+      MenuItemGroup,
+      MenuItemGroupLabel,
+      MenuItemShortcut,
+      MenuItemText,
+      MenuPositioner,
+      MenuRoot,
+      MenuSeparator,
+      MenuTrigger,
+      MenuTriggerItem,
+    } from "@/components/ui/menu";
+
+
+    const NestedMenu = () => (
       <MenuRoot>
         <MenuTrigger asChild>
-          <Button variant="outline">Settings</Button>
+          <Button variant="outline">Open Menu</Button>
         </MenuTrigger>
         <MenuPositioner>
-          <MenuContent className="w-56">
+          <MenuContent className="w-48">
             <MenuItemGroup>
-              <MenuItemGroupLabel>Layout</MenuItemGroupLabel>
-              <MenuCheckboxItem value="sidebar" defaultChecked>
-                <MenuItemIndicator>
-                  <Check className="h-4 w-4" />
-                </MenuItemIndicator>
-                <MenuItemText>Show Sidebar</MenuItemText>
-              </MenuCheckboxItem>
-              <MenuCheckboxItem value="toolbar" defaultChecked>
-                <MenuItemIndicator>
-                  <Check className="h-4 w-4" />
-                </MenuItemIndicator>
-                <MenuItemText>Show Toolbar</MenuItemText>
-              </MenuCheckboxItem>
-            </MenuItemGroup>
-            <MenuSeparator />
-            <MenuItemGroup>
-              <MenuItemGroupLabel>Theme</MenuItemGroupLabel>
-              <MenuRadioItemGroup value="light">
-                <MenuRadioItem value="light">
-                  <MenuItemIndicator>
-                    <Check className="h-4 w-4" />
-                  </MenuItemIndicator>
-                  <MenuItemText>Light</MenuItemText>
-                </MenuRadioItem>
-                <MenuRadioItem value="dark">
-                  <MenuItemIndicator>
-                    <Check className="h-4 w-4" />
-                  </MenuItemIndicator>
-                  <MenuItemText>Dark</MenuItemText>
-                </MenuRadioItem>
-                <MenuRadioItem value="system">
-                  <MenuItemIndicator>
-                    <Check className="h-4 w-4" />
-                  </MenuItemIndicator>
-                  <MenuItemText>System</MenuItemText>
-                </MenuRadioItem>
-              </MenuRadioItemGroup>
-            </MenuItemGroup>
-          </MenuContent>
-        </MenuPositioner>
-      </MenuRoot>
-    );
+              <MenuItemGroupLabel>Organization</MenuItemGroupLabel>
+              <MenuRoot>
+                <MenuTriggerItem>Members</MenuTriggerItem>
+                <MenuPositioner>
+                  <MenuContent className="w-48">
+                    <MenuItemGroup>
+                      <MenuItem value="alpha">
+                        <MenuItemText>Alpha</MenuItemText>
+                      </MenuItem>
+                      <MenuItem value="beta">
+                        <MenuItemText>Beta</MenuItemText>
+                      </MenuItem>
+                      <MenuItem value="gamma">
+                        <MenuItemText>Gamma</MenuItemText>
+                      </MenuItem>
+                    </MenuItemGroup>
+                    <MenuSeparator />
+                    <MenuItem value="invite">
+                      <MenuItemText>Invite member</MenuItemText>
+                      <MenuItemShortcut>⌘+M</MenuItemShortcut>
+                    </MenuItem>
+                  </MenuContent>
+                </MenuPositioner>
+              </MenuRoot>
+              <MenuRoot>
+                <MenuTriggerItem>Teams</MenuTriggerItem>
+                <MenuPositioner>
+                  <MenuContent className="w-48">
+                    <MenuItemGroup>
+                      <MenuItem value="alpha">
+                        <MenuItemText>Alpha</MenuItemText>
+                      </MenuItem>
+                      <MenuItem value="beta">
+                        <MenuItemText>Beta</MenuItemText>
+                      </MenuItem>
+                      <MenuItem value="gamma">
+                        <MenuItemText>Gamma</MenuItemText>
+                      </MenuItem>
+                    </MenuItemGroup>
+                    <MenuSeparator />
+                    <MenuItem value="create">
+                      <MenuItemText>Create team</MenuItemText>
+                      <MenuItemShortcut>⌘+T</MenuItemShortcut>
+                    </MenuItem>
+                  </MenuContent>
+                </MenuPositioner>
+              </MenuRoot>
+              </MenuItemGroup>
+            </MenuContent>
+          </MenuPositioner>
+        </MenuRoot>
+      );
     ```
   </Tab>
 </Tabs>
@@ -274,5 +306,5 @@ import { Button } from "@/components/ui/button";
 ## References
 
 <div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="MenuProps" />
+  <AutoTypeTable path="./src/content/docs/types.ts" name="MenuProps" />
 </div>

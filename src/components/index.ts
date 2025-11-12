@@ -6,5 +6,6 @@ export { default as FileUpload } from "./file-upload";
 export { default as GitHubLink } from "./github-link";
 export { default as InstallationTabs } from "./installation-tabs";
 export { default as getMDXComponents } from "./mdx-components";
+export { CheckboxMenu, DemoMenu, NestedMenu, RadioGroupMenu } from "./menus";
 export { default as TagsInput } from "./tags-input";
 export { default as Tour } from "./tour";
