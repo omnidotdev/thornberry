@@ -89,7 +89,7 @@ const DialogCloseTrigger = ({
     return (
       <ArkDialog.CloseTrigger
         className={cn(
-          "absolute top-4 right-4 opacity-70 outline-none ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none",
+          "absolute top-4 right-4 cursor-pointer rounded opacity-70 outline-none ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:pointer-events-none",
           className,
         )}
         {...rest}
@@ -103,11 +103,7 @@ const DialogCloseTrigger = ({
   // If children are provided, use them inside the CloseTrigger
   // This is useful for creating buttons that close the dialog
   return (
-    <ArkDialog.CloseTrigger
-      className={cn(className)}
-      asChild={asChild}
-      {...rest}
-    >
+    <ArkDialog.CloseTrigger className={className} asChild={asChild} {...rest}>
       {children}
     </ArkDialog.CloseTrigger>
   );

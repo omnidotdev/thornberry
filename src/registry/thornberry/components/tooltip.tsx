@@ -12,14 +12,14 @@ const TooltipTrigger = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkTooltip.Trigger>) => (
-  <ArkTooltip.Trigger className={cn(className)} {...rest} />
+  <ArkTooltip.Trigger className={className} {...rest} />
 );
 
 const TooltipPositioner = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkTooltip.Positioner>) => (
-  <ArkTooltip.Positioner className={cn(className)} {...rest} />
+  <ArkTooltip.Positioner className={className} {...rest} />
 );
 
 const TooltipContent = ({
@@ -40,7 +40,7 @@ const TooltipArrowTip = ({
   ...rest
 }: ComponentProps<typeof ArkTooltip.ArrowTip>) => (
   <ArkTooltip.ArrowTip
-    className={cn("border-t-[1px] border-l-[1px]", className)}
+    className={cn("border-t border-l", className)}
     {...rest}
   />
 );

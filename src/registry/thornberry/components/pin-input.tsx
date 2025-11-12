@@ -51,7 +51,7 @@ const PinInputHiddenInput = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkPinInput.HiddenInput>) => (
-  <ArkPinInput.HiddenInput className={cn(className)} {...rest} />
+  <ArkPinInput.HiddenInput className={className} {...rest} />
 );
 
 export {

@@ -60,7 +60,7 @@ const SwitchHiddenInput = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSwitch.HiddenInput>) => (
-  <ArkSwitch.HiddenInput className={cn(className)} {...rest} />
+  <ArkSwitch.HiddenInput className={className} {...rest} />
 );
 
 export {

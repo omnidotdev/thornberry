@@ -13,21 +13,21 @@ const SheetTrigger = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Trigger>) => (
-  <ArkSheet.Trigger className={cn(className)} {...rest} />
+  <ArkSheet.Trigger className={className} {...rest} />
 );
 
 const SheetBackdrop = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Backdrop>) => (
-  <ArkSheet.Backdrop className={cn(className)} {...rest} />
+  <ArkSheet.Backdrop className={className} {...rest} />
 );
 
 const SheetPositioner = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Positioner>) => (
-  <ArkSheet.Positioner className={cn(className)} {...rest} />
+  <ArkSheet.Positioner className={className} {...rest} />
 );
 
 interface ArkSheetContentProps extends ComponentProps<typeof ArkSheet.Content> {
@@ -104,11 +104,7 @@ const SheetCloseTrigger = ({
   // If children are provided, use them inside the CloseTrigger
   // This is useful for creating buttons that close the ArkSheet
   return (
-    <ArkSheet.CloseTrigger
-      className={cn(className)}
-      asChild={asChild}
-      {...rest}
-    >
+    <ArkSheet.CloseTrigger className={className} asChild={asChild} {...rest}>
       {children}
     </ArkSheet.CloseTrigger>
   );

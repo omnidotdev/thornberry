@@ -107,7 +107,7 @@ const TagsInputItemDeleteTrigger = ({
 
   return (
     <ArkTagsInput.ItemDeleteTrigger
-      className={cn(className)}
+      className={className}
       asChild={asChild}
       {...rest}
     >
@@ -138,7 +138,7 @@ const TagsInputClearTrigger = ({
 
   return (
     <ArkTagsInput.ClearTrigger
-      className={cn(className)}
+      className={className}
       asChild={asChild}
       {...rest}
     >

@@ -32,7 +32,7 @@ const RadioGroupIndicator = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkRadioGroup.Indicator>) => (
-  <ArkRadioGroup.Indicator className={cn(className)} {...rest} />
+  <ArkRadioGroup.Indicator className={className} {...rest} />
 );
 
 const RadioGroupItem = ({

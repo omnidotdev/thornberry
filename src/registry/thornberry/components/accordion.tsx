@@ -46,7 +46,7 @@ const AccordionItemTrigger = ({
   return (
     <ArkAccordion.ItemTrigger
       className={cn(
-        "flex flex-1 cursor-pointer items-center justify-between rounded-md px-2 py-4 text-left font-medium text-sm transition-all disabled:cursor-not-allowed data-[orientation=horizontal]:items-start [&[data-state=open]>svg]:rotate-180",
+        "flex flex-1 cursor-pointer items-center justify-between rounded-md px-2 py-4 text-left font-medium text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed data-[orientation=horizontal]:items-start [&[data-state=open]>svg]:rotate-180",
         className,
       )}
       {...rest}

@@ -19,7 +19,7 @@ const FileUploadDropzone = ({
 }: ComponentProps<typeof FileUpload.Dropzone>) => (
   <FileUpload.Dropzone
     className={cn(
-      "flex flex-col items-center justify-center rounded-lg border-2 border-dashed bg-background p-6 text-center transition-colors hover:border-muted-foreground/50 hover:bg-accent/50",
+      "flex flex-col items-center justify-center rounded-lg border-2 border-dashed bg-background p-6 text-center outline-none transition-colors hover:border-primary hover:bg-accent/50 focus-visible:border-primary focus-visible:border-dashed focus-visible:bg-accent/50",
       className,
     )}
     {...rest}
@@ -32,7 +32,7 @@ const FileUploadTrigger = ({
 }: ComponentProps<typeof FileUpload.Trigger>) => (
   <FileUpload.Trigger
     className={cn(
-      "inline-flex h-9 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground text-sm shadow-xs outline-none transition-all hover:bg-primary/90 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50",
+      "inline-flex h-9 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground text-sm shadow-xs outline-none transition-all hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
       className,
     )}
     {...rest}

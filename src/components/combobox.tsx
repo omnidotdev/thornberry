@@ -1,20 +1,5 @@
----
-title: Combobox
-description: A searchable dropdown select component that allows users to filter through a list of options.
----
+"use client";
 
-import { ComboboxRoot, ComboboxLabel, ComboboxControl, ComboboxInput, ComboboxTrigger, ComboboxPositioner, ComboboxContent, ComboboxItem, ComboboxItemGroup, ComboboxItemGroupLabel } from "@/registry/thornberry/components/combobox";
-import { Combobox } from "@/components"
-
-<Combobox />
-
-## Installation
-
-<InstallationTabs filename="combobox.json" />
-
-## Usage
-
-```tsx
 import { useListCollection } from "@ark-ui/react/combobox";
 import { useFilter } from "@ark-ui/react/locale";
 
@@ -31,13 +16,11 @@ import {
   ComboboxPositioner,
   ComboboxRoot,
   ComboboxTrigger,
-} from "@/components/ui/combobox";
+} from "@/registry/thornberry/components/combobox";
 
-import type { ComboboxProps } from "@/components/ui/combobox";
-```
+import type { ComboboxProps } from "@/registry/thornberry/components/combobox";
 
-```tsx
-const Example = () => {
+const Combobox = () => {
   const { contains } = useFilter({ sensitivity: "base" });
 
   const { collection, filter } = useListCollection({
@@ -55,7 +38,9 @@ const Example = () => {
     filter: contains,
   });
 
-  const handleInputChange = (details: ComboboxProps.InputValueChangeDetails) => {
+  const handleInputChange = (
+    details: ComboboxProps.InputValueChangeDetails,
+  ) => {
     filter(details.inputValue);
   };
 
@@ -86,14 +71,5 @@ const Example = () => {
     </ComboboxRoot>
   );
 };
-```
 
-## Examples
-
-<p className="py-4">Coming Soon</p>
-
-## References
-
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="ComboboxProps" />
-</div>
+export default Combobox;

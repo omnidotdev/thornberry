@@ -6,6 +6,7 @@ description: A window overlaid on the primary window that interrupts the user wi
 import { X, TriangleAlert, Check } from "lucide-react";
 import { Button } from "@/registry/thornberry/components/button";
 import { DialogRoot, DialogTrigger, DialogBackdrop, DialogPositioner, DialogContent, DialogTitle, DialogDescription, DialogCloseTrigger } from "@/registry/thornberry/components/dialog";
+import { Input } from "@/registry/thornberry/components/input";
 
 <DialogRoot>
   <DialogTrigger asChild className="mb-8">
@@ -15,7 +16,7 @@ import { DialogRoot, DialogTrigger, DialogBackdrop, DialogPositioner, DialogCont
   <DialogPositioner>
     <DialogContent>
       <DialogCloseTrigger />
-      <DialogTitle>Dialog Title</DialogTitle>
+      <DialogTitle className="-mt-2">Dialog Title</DialogTitle>
       <DialogDescription>This is a description of the dialog's purpose.</DialogDescription>
       <div className="py-4">This is the main content of the dialog.</div>
       <div className="flex justify-end gap-2">
@@ -60,7 +61,7 @@ import {
       <DialogCloseTrigger className="absolute top-4 right-4 rounded-full p-1 hover:bg-gray-100">
         <X className="size-4" />
       </DialogCloseTrigger>
-      <DialogTitle>Dialog Title</DialogTitle>
+      <DialogTitle className="-mt-2">Dialog Title</DialogTitle>
       <DialogDescription>
         This is a description of the dialog's purpose.
       </DialogDescription>
@@ -78,10 +79,7 @@ import {
 
 ## Examples
 
-<br />
-
-#### Basic Examples
-
+{/* TODO: Add code to copy */}
 <Tabs items={["Confirmation", "Form", "Alert"]} className="mt-4">
   <Tab value="Confirmation">
     <DialogRoot>
@@ -91,10 +89,8 @@ import {
       <DialogBackdrop />
       <DialogPositioner>
         <DialogContent>
-          <DialogCloseTrigger className="absolute top-4 right-4 rounded-full p-1 hover:bg-gray-100">
-            <X className="size-4" />
-          </DialogCloseTrigger>
-          <DialogTitle>Confirm Deletion</DialogTitle>
+          <DialogCloseTrigger />
+          <DialogTitle className="-mt-2">Confirm Deletion</DialogTitle>
           <DialogDescription>
             Are you sure you want to delete this item? This action cannot be undone.
           </DialogDescription>
@@ -102,7 +98,7 @@ import {
             <DialogCloseTrigger asChild>
               <Button variant="outline">Cancel</Button>
             </DialogCloseTrigger>
-            <Button variant="ghost" className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Delete</Button>
+            <Button variant="destructive">Delete</Button>
           </div>
         </DialogContent>
       </DialogPositioner>
@@ -116,26 +112,20 @@ import {
       <DialogBackdrop />
       <DialogPositioner>
         <DialogContent className="sm:max-w-[425px]">
-          <DialogCloseTrigger className="absolute top-4 right-4 rounded-full p-1 hover:bg-gray-100">
-            <X className="size-4" />
-          </DialogCloseTrigger>
-          <DialogTitle>Edit Profile</DialogTitle>
+          <DialogCloseTrigger />
+          <DialogTitle className="-mt-2">Edit Profile</DialogTitle>
           <DialogDescription>
             Make changes to your profile here. Click save when you're done.
           </DialogDescription>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <label htmlFor="name" className="text-right text-sm font-medium">
-                Name
-              </label>
-              <input id="name" className="col-span-3 h-10 rounded-md border px-3 py-2" defaultValue="John Doe" />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <label htmlFor="username" className="text-right text-sm font-medium">
-                Username
-              </label>
-              <input id="username" className="col-span-3 h-10 rounded-md border px-3 py-2" defaultValue="@johndoe" />
-            </div>
+          <div className="space-y-0">
+            <label htmlFor="name" className="text-sm font-medium">
+              Name
+            </label>
+            <Input id="name" defaultValue="John Doe" />
+            <label htmlFor="username" className="text-sm font-medium">
+              Username
+            </label>
+            <Input id="username" defaultValue="@johndoe" />
           </div>
           <div className="flex justify-end gap-2">
             <DialogCloseTrigger asChild>
@@ -155,9 +145,7 @@ import {
       <DialogBackdrop />
       <DialogPositioner>
         <DialogContent className="max-w-sm">
-          <DialogCloseTrigger className="absolute top-4 right-4 rounded-full p-1 hover:bg-gray-100">
-            <X className="size-4" />
-          </DialogCloseTrigger>
+          <DialogCloseTrigger />
           <div className="flex items-center gap-4">
             <div className="rounded-full bg-yellow-100 p-2 text-yellow-600">
               <TriangleAlert className="size-6" />
@@ -177,114 +165,6 @@ import {
         </DialogContent>
       </DialogPositioner>
     </DialogRoot>
-  </Tab>
-</Tabs>
-
-#### Custom Dialog
-
-<Tabs items={["Preview", "Code"]} className="mt-4">
-  <Tab value="Preview">
-    <DialogRoot>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="border-blue-500 text-blue-500 hover:bg-blue-50">Subscribe</Button>
-      </DialogTrigger>
-      <DialogBackdrop className="bg-black/70 backdrop-blur-sm" />
-      <DialogPositioner>
-        <DialogContent className="border border-blue-100 shadow-lg sm:rounded-3xl bg-gradient-to-br from-blue-100 to-purple-300 p-0 overflow-hidden">
-          <div className="bg-blue-600 p-6">
-            <DialogTitle className="text-2xl font-bold">Join Premium</DialogTitle>
-            <DialogDescription className="text-blue-100 mt-2">
-              Get access to all premium features and content.
-            </DialogDescription>
-          </div>
-          <div className="p-4 text-neutral-800">
-            <div className="-space-y-4">
-              <div className="flex items-center gap-3">
-                <Check className="size-5 text-blue-500" />
-                <p>Unlimited access to all content</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <Check className="size-5 text-blue-500" />
-                <p>Early access to new features</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <Check className="size-5 text-blue-500" />
-                <p>Priority customer support</p>
-              </div>
-            </div>
-            <div className="mt-8 flex flex-col sm:flex-row gap-2 justify-end">
-              <DialogCloseTrigger asChild>
-                <Button variant="ghost">Maybe Later</Button>
-              </DialogCloseTrigger>
-              <Button className="bg-blue-600 hover:bg-blue-700">Subscribe Now</Button>
-            </div>
-          </div>
-          <DialogCloseTrigger className="absolute top-4 right-4 text-white hover:bg-blue-700/50 rounded-full p-1">
-            <X className="size-4" />
-          </DialogCloseTrigger>
-        </DialogContent>
-      </DialogPositioner>
-    </DialogRoot>
-  </Tab>
-  <Tab value="Code">
-    ```tsx
-    import { X, Check } from "lucide-react";
-    import { Button } from "@/components/ui/button";
-    import {
-      DialogRoot,
-      DialogTrigger,
-      DialogBackdrop,
-      DialogPositioner,
-      DialogContent,
-      DialogTitle,
-      DialogDescription,
-      DialogCloseTrigger
-    } from "@/components/ui/dialog";
-
-    const CustomDialog = () => (
-      <DialogRoot>
-        <DialogTrigger asChild>
-          <Button variant="outline" className="border-blue-500 text-blue-500 hover:bg-blue-50">Subscribe</Button>
-        </DialogTrigger>
-        <DialogBackdrop className="bg-black/70 backdrop-blur-sm" />
-        <DialogPositioner>
-          <DialogContent className="border-0 shadow-lg sm:rounded-3xl bg-gradient-to-br from-blue-50 to-indigo-50 p-0 overflow-hidden">
-            <div className="bg-blue-600 p-6 text-white">
-              <DialogTitle className="text-2xl font-bold">Join Premium</DialogTitle>
-              <DialogDescription className="text-blue-100 mt-2">
-                Get access to all premium features and content.
-              </DialogDescription>
-            </div>
-            <div className="p-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Check className="size-5 text-blue-500" />
-                  <div>Unlimited access to all content</div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="size-5 text-blue-500" />
-                  <div>Early access to new features</div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Check className="size-5 text-blue-500" />
-                  <div>Priority customer support</div>
-                </div>
-              </div>
-              <div className="mt-8 flex flex-col sm:flex-row gap-2 justify-end">
-                <DialogCloseTrigger asChild>
-                  <Button variant="ghost">Maybe Later</Button>
-                </DialogCloseTrigger>
-                <Button className="bg-blue-600 hover:bg-blue-700">Subscribe Now</Button>
-              </div>
-            </div>
-            <DialogCloseTrigger className="absolute top-4 right-4 text-white hover:bg-blue-700/50 rounded-full p-1">
-              <X className="size-4" />
-            </DialogCloseTrigger>
-          </DialogContent>
-        </DialogPositioner>
-      </DialogRoot>
-    );
-    ```
   </Tab>
 </Tabs>
 

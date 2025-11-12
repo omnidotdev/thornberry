@@ -12,17 +12,14 @@ const MenuTrigger = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkMenu.Trigger>) => (
-  <ArkMenu.Trigger
-    className={cn("inline-flex items-center justify-center", className)}
-    {...rest}
-  />
+  <ArkMenu.Trigger className={className} {...rest} />
 );
 
 const MenuPositioner = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkMenu.Positioner>) => (
-  <ArkMenu.Positioner className={cn(className)} {...rest} />
+  <ArkMenu.Positioner className={className} {...rest} />
 );
 
 const MenuContent = ({
@@ -31,7 +28,7 @@ const MenuContent = ({
 }: ComponentProps<typeof ArkMenu.Content>) => (
   <ArkMenu.Content
     className={cn(
-      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=closed]:animate-out data-[state=open]:animate-in",
+      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-32 overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=closed]:animate-out data-[state=open]:animate-in",
       className,
     )}
     {...rest}
@@ -59,7 +56,7 @@ const MenuItem = ({
 }: ComponentProps<typeof ArkMenu.Item>) => (
   <ArkMenu.Item
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:opacity-50",
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-highlighted:bg-accent data-highlighted:text-accent-foreground data-disabled:opacity-50",
       className,
     )}
     {...rest}
@@ -75,7 +72,7 @@ const MenuCheckboxItem = ({
 }: ComponentProps<typeof ArkMenu.CheckboxItem>) => (
   <ArkMenu.CheckboxItem
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50",
       className,
     )}
     {...rest}
@@ -111,7 +108,7 @@ const MenuItemText = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkMenu.ItemText>) => (
-  <ArkMenu.ItemText className={cn(className)} {...rest} />
+  <ArkMenu.ItemText className={className} {...rest} />
 );
 
 const MenuItemIndicator = ({
@@ -131,7 +128,7 @@ const MenuRadioItem = ({
 }: ComponentProps<typeof ArkMenu.RadioItem>) => (
   <ArkMenu.RadioItem
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:opacity-50",
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-highlighted:bg-accent data-highlighted:text-accent-foreground data-disabled:opacity-50",
       className,
     )}
     {...rest}
@@ -144,7 +141,7 @@ const MenuRadioItemGroup = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkMenu.RadioItemGroup>) => (
-  <ArkMenu.RadioItemGroup className={cn(className)} {...rest} />
+  <ArkMenu.RadioItemGroup className={className} {...rest} />
 );
 
 const MenuSeparator = ({
@@ -164,7 +161,7 @@ const MenuTriggerItem = ({
 }: ComponentProps<typeof ArkMenu.TriggerItem>) => (
   <ArkMenu.TriggerItem
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50",
       className,
     )}
     {...rest}

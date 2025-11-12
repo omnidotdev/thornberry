@@ -18,7 +18,8 @@ import { Badge } from "@/components/ui/badge";
 ```
 
 ```tsx
-<Badge variant="outline">Badge</Badge>
+<Badge variant="default | outline | secondary | destructive">Badge</Badge>
+
 ```
 
 ## Examples
@@ -27,19 +28,12 @@ import { Badge } from "@/components/ui/badge";
 
 #### Variants
 
-<Tabs items={["Solid", "Subtle", "Outline"]} className="mt-4">
+<Tabs items={["Solid", "Outline", "Secondary", "Destructive"]} className="mt-4">
   <Tab value="Solid">
     <Badge>Solid</Badge>
 
     ```tsx
     <Badge>Solid</Badge>
-    ```
-  </Tab>
-  <Tab value="Subtle">
-    <Badge variant="subtle">Subtle</Badge>
-
-    ```tsx
-    <Badge variant="subtle">Subtle</Badge>
     ```
   </Tab>
   <Tab value="Outline">
@@ -49,30 +43,18 @@ import { Badge } from "@/components/ui/badge";
     <Badge variant="outline">Outline</Badge>
     ```
   </Tab>
-</Tabs>
-
-#### Sizes
-
-<Tabs items={["Small", "Medium", "Large"]} className="mt-4">
-  <Tab value="Small">
-    <Badge size="sm">Small</Badge>
+  <Tab value="Secondary">
+    <Badge variant="secondary">Secondary</Badge>
 
     ```tsx
-    <Badge size="sm">Small</Badge>
+    <Badge variant="secondary">Secondary</Badge>
     ```
   </Tab>
-  <Tab value="Medium">
-    <Badge size="md">Medium</Badge>
+  <Tab value="Destructive">
+    <Badge variant="destructive">Destructive</Badge>
 
     ```tsx
-    <Badge size="md">Medium</Badge>
-    ```
-  </Tab>
-  <Tab value="Large">
-    <Badge size="lg">Large</Badge>
-
-    ```tsx
-    <Badge size="lg">Large</Badge>
+    <Badge variant="destructive">Destructive</Badge>
     ```
   </Tab>
 </Tabs>

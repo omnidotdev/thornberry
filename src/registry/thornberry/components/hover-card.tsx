@@ -12,7 +12,13 @@ const HoverCardTrigger = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkHoverCard.Trigger>) => (
-  <ArkHoverCard.Trigger className={cn("inline-block", className)} {...rest} />
+  <ArkHoverCard.Trigger
+    className={cn(
+      "rounded-md outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+      className,
+    )}
+    {...rest}
+  />
 );
 
 const HoverCardContent = ({

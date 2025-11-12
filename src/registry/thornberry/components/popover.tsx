@@ -37,7 +37,7 @@ const PopoverPositioner = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkPopover.Positioner>) => (
-  <ArkPopover.Positioner className={cn(className)} {...rest} />
+  <ArkPopover.Positioner className={className} {...rest} />
 );
 
 const PopoverArrowTip = ({
@@ -45,7 +45,7 @@ const PopoverArrowTip = ({
   ...rest
 }: ComponentProps<typeof ArkPopover.ArrowTip>) => (
   <ArkPopover.ArrowTip
-    className={cn("border-t-[1px] border-l-[1px]", className)}
+    className={cn("border-t border-l", className)}
     {...rest}
   />
 );
@@ -75,11 +75,7 @@ const PopoverCloseTrigger = ({
   // If children are provided, use them inside the CloseTrigger
   // This is useful for creating buttons that close the dialog
   return (
-    <ArkPopover.CloseTrigger
-      className={cn(className)}
-      asChild={asChild}
-      {...rest}
-    >
+    <ArkPopover.CloseTrigger className={className} asChild={asChild} {...rest}>
       {children}
     </ArkPopover.CloseTrigger>
   );

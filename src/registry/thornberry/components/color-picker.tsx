@@ -43,7 +43,7 @@ const ColorPickerChannelInput = ({
 }: ComponentProps<typeof ArkColorPicker.ChannelInput>) => (
   <ArkColorPicker.ChannelInput
     className={cn(
-      "text- flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 shadow-sm transition-colors file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+      "text- flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50",
       className,
     )}
     {...rest}
@@ -66,7 +66,7 @@ const ColorPickerTrigger = ({
 }: ComponentProps<typeof ArkColorPicker.Trigger>) => (
   <ArkColorPicker.Trigger
     className={cn(
-      "relative h-9 w-9 shrink-0 cursor-pointer overflow-hidden rounded-md border border-input",
+      "relative h-9 w-9 shrink-0 cursor-pointer overflow-hidden rounded-md border border-input outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       className,
     )}
     {...rest}

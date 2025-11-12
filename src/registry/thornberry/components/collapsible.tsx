@@ -22,7 +22,7 @@ const CollapsibleTrigger = ({
 }: ComponentProps<typeof ArkCollapsible.Trigger>) => (
   <ArkCollapsible.Trigger
     className={cn(
-      "transform] flex w-full cursor-pointer items-center justify-between rounded-md px-3 py-3 font-medium text-sm outline-none transition-[color,box-shadow,transition] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background [&[data-state=open]>svg]:rotate-90",
+      "transform] flex w-full cursor-pointer items-center justify-between rounded-md px-3 py-3 font-medium text-sm outline-none transition-[color,box-shadow,transition] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background [&[data-state=open]>svg]:rotate-90",
       className,
     )}
     {...rest}

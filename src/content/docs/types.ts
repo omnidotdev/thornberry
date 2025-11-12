@@ -12,6 +12,7 @@ import type { CollapsibleRoot } from "@/registry/thornberry/components/collapsib
 import type { ComboboxRoot } from "@/registry/thornberry/components/combobox";
 import type { DatePickerRoot } from "@/registry/thornberry/components/date-picker";
 import type { DialogRoot } from "@/registry/thornberry/components/dialog";
+import type { FileUpload } from "@/registry/thornberry/components/file-upload";
 import type { HoverCardRoot } from "@/registry/thornberry/components/hover-card";
 import type { Input } from "@/registry/thornberry/components/input";
 import type { MenuRoot } from "@/registry/thornberry/components/menu";
@@ -158,5 +159,10 @@ export type TooltipProps = Omit<
 
 export type TagsInputProps = Omit<
   ComponentProps<typeof TagsInputRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type FileUploadProps = Omit<
+  ComponentProps<typeof FileUpload>,
   keyof ComponentProps<"div"> | "ids"
 >;

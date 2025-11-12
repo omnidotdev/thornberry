@@ -26,16 +26,13 @@ import {
   DatePickerViewControl,
   DatePickerViewTrigger,
 } from "@/registry/thornberry/components/date-picker";
-import { Input } from "@/registry/thornberry/components/input";
 
 const DatePicker = () => (
   <DatePickerRoot positioning={{ sameWidth: true }}>
     <DatePickerLabel>Select a date</DatePickerLabel>
 
     <DatePickerControl>
-      <DatePickerInput asChild>
-        <Input className="border-input" />
-      </DatePickerInput>
+      <DatePickerInput />
 
       <DatePickerTrigger asChild>
         <Button variant="outline" aria-label="Open date picker">

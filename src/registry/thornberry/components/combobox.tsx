@@ -4,15 +4,16 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
 
+import type {
+  Combobox as ComboboxProps,
+  ComboboxRootProps,
+} from "@ark-ui/react/combobox";
 import type { ComponentProps } from "react";
 
 const ComboboxProvider = ArkCombobox.RootProvider;
 const ComboboxContext = ArkCombobox.Context;
 
-const ComboboxRoot = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ArkCombobox.Root>) => (
+const ComboboxRoot = <T,>({ className, ...rest }: ComboboxRootProps<T>) => (
   <ArkCombobox.Root
     className={cn("flex w-full flex-col gap-1.5", className)}
     {...rest}
@@ -45,7 +46,7 @@ const ComboboxInput = ({
 }: ComponentProps<typeof ArkCombobox.Input>) => (
   <ArkCombobox.Input
     className={cn(
-      "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+      "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
       className,
     )}
     {...rest}
@@ -88,7 +89,7 @@ const ComboboxPositioner = ({
   ...rest
 }: ComponentProps<typeof ArkCombobox.Positioner>) => (
   <ArkCombobox.Positioner
-    className={cn("z-50 w-full min-w-[8rem]", className)}
+    className={cn("z-50 w-full min-w-32", className)}
     {...rest}
   />
 );
@@ -113,17 +114,12 @@ const ComboboxItem = ({
 }: ComponentProps<typeof ArkCombobox.Item>) => (
   <ArkCombobox.Item
     className={cn(
-      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pr-2 pl-8 text-sm outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:opacity-50",
+      "flex w-full cursor-default select-none items-center justify-between rounded-sm px-2 py-1.5 pr-2 text-sm outline-none data-disabled:pointer-events-none data-[state=checked]:bg-accent data-highlighted:bg-accent data-[state=checked]:text-accent-foreground data-highlighted:text-accent-foreground data-disabled:opacity-50",
       className,
     )}
     {...rest}
   >
-    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-      <ArkCombobox.ItemIndicator>
-        <Check className="h-4 w-4" />
-      </ArkCombobox.ItemIndicator>
-    </span>
-    <ArkCombobox.ItemText>{children}</ArkCombobox.ItemText>
+    {children}
   </ArkCombobox.Item>
 );
 
@@ -147,6 +143,28 @@ const ComboboxItemGroupLabel = ({
   />
 );
 
+const ComboboxItemIndicator = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkCombobox.ItemIndicator>) => (
+  <ArkCombobox.ItemIndicator
+    className={cn(
+      "ml-auto flex h-3.5 w-3.5 items-center justify-center",
+      className,
+    )}
+    {...rest}
+  >
+    <Check className="size-4" />
+  </ArkCombobox.ItemIndicator>
+);
+
+const ComboboxItemText = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkCombobox.ItemText>) => (
+  <ArkCombobox.ItemText className={className} {...rest} />
+);
+
 export {
   ComboboxRoot,
   ComboboxLabel,
@@ -161,4 +179,7 @@ export {
   ComboboxItemGroupLabel,
   ComboboxProvider,
   ComboboxContext,
+  ComboboxItemIndicator,
+  ComboboxItemText,
+  type ComboboxProps,
 };

@@ -30,7 +30,7 @@ const CheckboxControl = ({
       "flex size-5 items-center justify-center rounded-sm border border-primary shadow transition-normal",
       "disabled:cursor-not-allowed peer-disabled:opacity-50",
       "data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
-      "ring-offset-background peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2",
+      "ring-offset-background peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2",
       className,
     )}
     {...rest}

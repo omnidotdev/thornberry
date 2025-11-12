@@ -96,7 +96,7 @@ const DatePickerContent = ({
 }: ComponentProps<typeof ArkDatePicker.Content>) => (
   <ArkDatePicker.Content
     className={cn(
-      "z-10 flex w-[344px] min-w-fit flex-col rounded-md border bg-background p-4 shadow-lg",
+      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 z-10 flex w-[344px] min-w-fit origin-(--transform-origin) flex-col rounded-md border bg-background p-4 shadow-lg duration-300 data-[state=closed]:animate-out data-[state=open]:animate-in",
       className,
     )}
     {...rest}
@@ -119,7 +119,7 @@ const DatePickerViewTrigger = ({
 }: ComponentProps<typeof ArkDatePicker.ViewTrigger>) => (
   <ArkDatePicker.ViewTrigger
     className={cn(
-      "flex items-center justify-center rounded-md font-medium text-sm",
+      "flex items-center justify-center rounded-md px-2 py-1 font-medium text-sm",
       className,
     )}
     {...rest}
@@ -131,7 +131,7 @@ const DatePickerPrevTrigger = ({
   ...rest
 }: ComponentProps<typeof ArkDatePicker.PrevTrigger>) => (
   <ArkDatePicker.PrevTrigger asChild {...rest}>
-    <Button variant="ghost" size="icon" className={cn(className)}>
+    <Button variant="ghost" size="icon" className={className}>
       <ChevronLeft className="h-4 w-4" />
     </Button>
   </ArkDatePicker.PrevTrigger>
@@ -142,7 +142,7 @@ const DatePickerNextTrigger = ({
   ...rest
 }: ComponentProps<typeof ArkDatePicker.NextTrigger>) => (
   <ArkDatePicker.NextTrigger asChild {...rest}>
-    <Button variant="ghost" size="icon" className={cn(className)}>
+    <Button variant="ghost" size="icon" className={className}>
       <ChevronRight className="h-4 w-4" />
     </Button>
   </ArkDatePicker.NextTrigger>
@@ -153,7 +153,10 @@ const DatePickerTable = ({
   ...rest
 }: ComponentProps<typeof ArkDatePicker.Table>) => (
   <ArkDatePicker.Table
-    className={cn("mt-0 mb-4 w-full rounded-md border", className)}
+    className={cn(
+      "mt-0 mb-4 w-full border-spacing-0.5 rounded-md border",
+      className,
+    )}
     {...rest}
   />
 );
@@ -164,7 +167,7 @@ const DatePickerTableHeader = ({
 }: ComponentProps<typeof ArkDatePicker.TableHeader>) => (
   <ArkDatePicker.TableHeader
     className={cn(
-      "h-10 w-10 bg-transparent text-center font-semibold text-sm",
+      "h-10 w-10 border-0 bg-transparent text-center font-semibold text-sm",
       className,
     )}
     {...rest}
@@ -177,7 +180,7 @@ const DatePickerTableCell = ({
 }: ComponentProps<typeof ArkDatePicker.TableCell>) => (
   <ArkDatePicker.TableCell
     className={cn(
-      "h-8 w-8 p-0 text-center outline-none hover:bg-accent",
+      "h-8 w-8 rounded-md border-0 p-0 text-center outline-none hover:bg-accent",
       className,
     )}
     {...rest}
@@ -190,7 +193,8 @@ const DatePickerTableCellTrigger = ({
 }: ComponentProps<typeof ArkDatePicker.TableCellTrigger>) => (
   <ArkDatePicker.TableCellTrigger
     className={cn(
-      "h-full w-full cursor-pointer p-2 data-[selected]:bg-accent data-[selected]:text-primary",
+      "h-full w-full cursor-pointer rounded-md p-2 outline-none focus-visible:bg-accent data-disabled:cursor-not-allowed data-selected:bg-primary data-disabled:text-muted-foreground data-selected:text-black data-disabled:hover:bg-background",
+
       className,
     )}
     {...rest}

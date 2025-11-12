@@ -54,7 +54,7 @@ const RatingGroupHiddenInput = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkRatingGroup.HiddenInput>) => (
-  <ArkRatingGroup.HiddenInput className={cn(className)} {...rest} />
+  <ArkRatingGroup.HiddenInput className={className} {...rest} />
 );
 
 export {
