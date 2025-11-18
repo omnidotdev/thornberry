@@ -4,6 +4,7 @@ export { default as Combobox } from "./combobox";
 export { default as DatePicker } from "./date-picker";
 export { default as FileUpload } from "./file-upload";
 export { default as GitHubLink } from "./github-link";
+export { default as HalfStarRatingGroup } from "./half-star-rating-group";
 export { default as InstallationTabs } from "./installation-tabs";
 export { default as getMDXComponents } from "./mdx-components";
 export { CheckboxMenu, DemoMenu, NestedMenu, RadioGroupMenu } from "./menus";

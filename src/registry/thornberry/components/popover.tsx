@@ -14,10 +14,7 @@ const PopoverTrigger = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkPopover.Trigger>) => (
-  <ArkPopover.Trigger
-    className={cn("inline-flex items-center justify-center", className)}
-    {...rest}
-  />
+  <ArkPopover.Trigger className={cn(className)} {...rest} />
 );
 
 const PopoverContent = ({
@@ -61,7 +58,7 @@ const PopoverCloseTrigger = ({
     return (
       <ArkPopover.CloseTrigger
         className={cn(
-          "absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none",
+          "opacity] absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-[color,box-shadow, hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none",
           className,
         )}
         {...rest}
@@ -81,6 +78,26 @@ const PopoverCloseTrigger = ({
   );
 };
 
+const PopoverTitle = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkPopover.Title>) => (
+  <ArkPopover.Title
+    className={cn("font-semibold text-lg", className)}
+    {...rest}
+  />
+);
+
+const PopoverDescription = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkPopover.Description>) => (
+  <ArkPopover.Description
+    className={cn("text-muted-foreground text-sm", className)}
+    {...rest}
+  />
+);
+
 export {
   PopoverRoot,
   PopoverTrigger,
@@ -91,4 +108,6 @@ export {
   PopoverCloseTrigger,
   PopoverProvider,
   PopoverContext,
+  PopoverTitle,
+  PopoverDescription,
 };

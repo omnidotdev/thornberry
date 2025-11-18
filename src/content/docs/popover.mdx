@@ -4,20 +4,20 @@ description: A small floating content display that appears when a user interacts
 ---
 
 import { CircleAlert, Settings, User } from "lucide-react";
-import { PopoverRoot, PopoverTrigger, PopoverPositioner, PopoverContent, PopoverCloseTrigger, PopoverArrow, PopoverArrowTip } from "@/registry/thornberry/components/popover";
+import { PopoverRoot, PopoverDescription, PopoverTitle, PopoverTrigger, PopoverPositioner, PopoverContent, PopoverCloseTrigger, PopoverArrow, PopoverArrowTip } from "@/registry/thornberry/components/popover";
 import { Button } from "@/registry/thornberry/components/button";
 import { Input } from "@/registry/thornberry/components/input";
 
+<div className="flex justify-center my-8">
 <PopoverRoot>
-  <PopoverTrigger asChild className="mb-8">
+  <PopoverTrigger asChild>
     <Button>Open Popover</Button>
   </PopoverTrigger>
   <PopoverPositioner>
-    <PopoverContent>
-      <div className="space-y-2">
-        <h4 className="font-medium leading-none">Dimensions</h4>
-        <div className="text-sm text-muted-foreground">Set the dimensions for the object.</div>
-        <div className="flex gap-2">
+    <PopoverContent className="space-y-2">
+        <PopoverTitle>Dimensions</PopoverTitle>
+        <PopoverDescription>Set the dimensions for the object.</PopoverDescription>
+        <div className="space-y-4 mt-4">
           <div className="grid gap-1">
             <label htmlFor="width" className="text-xs">Width</label>
             <Input id="width" defaultValue="100%" className="h-8" />
@@ -27,10 +27,10 @@ import { Input } from "@/registry/thornberry/components/input";
             <Input id="height" defaultValue="25px" className="h-8" />
           </div>
         </div>
-      </div>
     </PopoverContent>
   </PopoverPositioner>
 </PopoverRoot>
+</div>
 
 ## Installation
 
@@ -43,7 +43,9 @@ import {
   PopoverRoot,
   PopoverTrigger,
   PopoverPositioner,
-  PopoverContent
+  PopoverContent,
+  PopoverTitle,
+  PopoverDescription
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 ```
@@ -55,7 +57,8 @@ import { Button } from "@/components/ui/button";
   </PopoverTrigger>
   <PopoverPositioner>
     <PopoverContent>
-      <h4 className="font-medium">Title</h4>
+      <PopoverTitle>Title</PopoverTitle>
+      <PopoverDescription>Description</PopoverDescription>
       <p>Popover content goes here.</p>
     </PopoverContent>
   </PopoverPositioner>

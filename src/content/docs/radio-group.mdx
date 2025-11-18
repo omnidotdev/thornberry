@@ -6,32 +6,31 @@ description: A set of checkable buttons—known as radio buttons—where no more
 import {
   RadioGroupRoot,
   RadioGroupLabel,
-  RadioGroupIndicator,
   RadioGroupItem,
   RadioGroupItemText,
   RadioGroupItemControl,
   RadioGroupItemHiddenInput
 } from "@/registry/thornberry/components/radio-group";
 
-<RadioGroupRoot className="mb-8" defaultValue="option1">
-  <RadioGroupLabel>Choose an option</RadioGroupLabel>
-  <RadioGroupIndicator />
-  <RadioGroupItem value="option1">
-    <RadioGroupItemControl />
-    <RadioGroupItemText>Option 1</RadioGroupItemText>
-    <RadioGroupItemHiddenInput />
-  </RadioGroupItem>
-  <RadioGroupItem value="option2">
-    <RadioGroupItemControl />
-    <RadioGroupItemText>Option 2</RadioGroupItemText>
-    <RadioGroupItemHiddenInput />
-  </RadioGroupItem>
-  <RadioGroupItem value="option3">
-    <RadioGroupItemControl />
-    <RadioGroupItemText>Option 3</RadioGroupItemText>
-    <RadioGroupItemHiddenInput />
-  </RadioGroupItem>
-</RadioGroupRoot>
+<div className="flex justify-center">
+  <RadioGroupRoot className="mb-8" defaultValue="option1">
+    <RadioGroupItem value="option1">
+      <RadioGroupItemHiddenInput />
+      <RadioGroupItemControl />
+      <RadioGroupItemText>Option 1</RadioGroupItemText>
+    </RadioGroupItem>
+    <RadioGroupItem value="option2">
+      <RadioGroupItemHiddenInput />
+      <RadioGroupItemControl />
+      <RadioGroupItemText>Option 2</RadioGroupItemText>
+    </RadioGroupItem>
+    <RadioGroupItem value="option3">
+      <RadioGroupItemHiddenInput />
+      <RadioGroupItemControl />
+      <RadioGroupItemText>Option 3</RadioGroupItemText>
+    </RadioGroupItem>
+  </RadioGroupRoot>
+</div>
 
 ## Installation
 
@@ -54,21 +53,20 @@ import {
 ```tsx
 <RadioGroupRoot defaultValue="option1">
   <RadioGroupLabel>Choose an option</RadioGroupLabel>
-  <RadioGroupIndicator />
   <RadioGroupItem value="option1">
+    <RadioGroupItemHiddenInput />
     <RadioGroupItemControl />
     <RadioGroupItemText>Option 1</RadioGroupItemText>
-    <RadioGroupItemHiddenInput />
   </RadioGroupItem>
   <RadioGroupItem value="option2">
+    <RadioGroupItemHiddenInput />
     <RadioGroupItemControl />
     <RadioGroupItemText>Option 2</RadioGroupItemText>
-    <RadioGroupItemHiddenInput />
   </RadioGroupItem>
   <RadioGroupItem value="option3">
+    <RadioGroupItemHiddenInput />
     <RadioGroupItemControl />
     <RadioGroupItemText>Option 3</RadioGroupItemText>
-    <RadioGroupItemHiddenInput />
   </RadioGroupItem>
 </RadioGroupRoot>
 ```
@@ -83,42 +81,40 @@ import {
   <Tab value="Default">
     <RadioGroupRoot>
       <RadioGroupLabel>Framework</RadioGroupLabel>
-      <RadioGroupIndicator />
       <RadioGroupItem value="react">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>React</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
       <RadioGroupItem value="vue">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>Vue</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
       <RadioGroupItem value="svelte">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>Svelte</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
     </RadioGroupRoot>
 
     ```tsx
     <RadioGroupRoot>
       <RadioGroupLabel>Framework</RadioGroupLabel>
-      <RadioGroupIndicator />
       <RadioGroupItem value="react">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>React</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
       <RadioGroupItem value="vue">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>Vue</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
       <RadioGroupItem value="svelte">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>Svelte</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
     </RadioGroupRoot>
     ```
@@ -126,42 +122,40 @@ import {
   <Tab value="Preselected">
     <RadioGroupRoot defaultValue="vue">
       <RadioGroupLabel>Framework</RadioGroupLabel>
-      <RadioGroupIndicator />
       <RadioGroupItem value="react">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>React</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
       <RadioGroupItem value="vue">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>Vue</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
       <RadioGroupItem value="svelte">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>Svelte</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
     </RadioGroupRoot>
 
     ```tsx
     <RadioGroupRoot defaultValue="vue">
       <RadioGroupLabel>Framework</RadioGroupLabel>
-      <RadioGroupIndicator />
       <RadioGroupItem value="react">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>React</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
       <RadioGroupItem value="vue">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>Vue</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
       <RadioGroupItem value="svelte">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>Svelte</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
     </RadioGroupRoot>
     ```
@@ -169,42 +163,40 @@ import {
   <Tab value="Disabled">
     <RadioGroupRoot disabled defaultValue="react">
       <RadioGroupLabel>Framework</RadioGroupLabel>
-      <RadioGroupIndicator />
       <RadioGroupItem value="react">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>React</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
       <RadioGroupItem value="vue">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>Vue</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
       <RadioGroupItem value="svelte">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>Svelte</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
     </RadioGroupRoot>
 
     ```tsx
     <RadioGroupRoot disabled defaultValue="react">
       <RadioGroupLabel>Framework</RadioGroupLabel>
-      <RadioGroupIndicator />
       <RadioGroupItem value="react">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>React</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
       <RadioGroupItem value="vue">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>Vue</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
       <RadioGroupItem value="svelte">
+        <RadioGroupItemHiddenInput />
         <RadioGroupItemControl />
         <RadioGroupItemText>Svelte</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
       </RadioGroupItem>
     </RadioGroupRoot>
     ```
@@ -217,22 +209,21 @@ import {
   <Tab value="Preview">
     <RadioGroupRoot orientation="horizontal" defaultValue="small">
       <RadioGroupLabel>Size</RadioGroupLabel>
-      <RadioGroupIndicator />
       <div className="flex space-x-4">
         <RadioGroupItem value="small">
+          <RadioGroupItemHiddenInput />
           <RadioGroupItemControl />
           <RadioGroupItemText>Small</RadioGroupItemText>
-          <RadioGroupItemHiddenInput />
         </RadioGroupItem>
         <RadioGroupItem value="medium">
+          <RadioGroupItemHiddenInput />
           <RadioGroupItemControl />
           <RadioGroupItemText>Medium</RadioGroupItemText>
-          <RadioGroupItemHiddenInput />
         </RadioGroupItem>
         <RadioGroupItem value="large">
+          <RadioGroupItemHiddenInput />
           <RadioGroupItemControl />
           <RadioGroupItemText>Large</RadioGroupItemText>
-          <RadioGroupItemHiddenInput />
         </RadioGroupItem>
       </div>
     </RadioGroupRoot>
@@ -241,22 +232,21 @@ import {
     ```tsx
     <RadioGroupRoot orientation="horizontal" defaultValue="small">
       <RadioGroupLabel>Size</RadioGroupLabel>
-      <RadioGroupIndicator />
       <div className="flex space-x-4">
         <RadioGroupItem value="small">
+          <RadioGroupItemHiddenInput />
           <RadioGroupItemControl />
           <RadioGroupItemText>Small</RadioGroupItemText>
-          <RadioGroupItemHiddenInput />
         </RadioGroupItem>
         <RadioGroupItem value="medium">
+          <RadioGroupItemHiddenInput />
           <RadioGroupItemControl />
           <RadioGroupItemText>Medium</RadioGroupItemText>
-          <RadioGroupItemHiddenInput />
         </RadioGroupItem>
         <RadioGroupItem value="large">
+          <RadioGroupItemHiddenInput />
           <RadioGroupItemControl />
           <RadioGroupItemText>Large</RadioGroupItemText>
-          <RadioGroupItemHiddenInput />
         </RadioGroupItem>
       </div>
     </RadioGroupRoot>

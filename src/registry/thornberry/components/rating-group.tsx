@@ -1,5 +1,4 @@
 import { RatingGroup as ArkRatingGroup } from "@ark-ui/react/rating-group";
-import { Star } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -7,6 +6,7 @@ import type { ComponentProps } from "react";
 
 const RatingGroupProvider = ArkRatingGroup.RootProvider;
 const RatingGroupContext = ArkRatingGroup.Context;
+const RatingGroupItemContext = ArkRatingGroup.ItemContext;
 
 const RatingGroupRoot = ({
   className,
@@ -41,13 +41,11 @@ const RatingGroupItem = ({
 }: ComponentProps<typeof ArkRatingGroup.Item>) => (
   <ArkRatingGroup.Item
     className={cn(
-      "inline-flex cursor-pointer p-1 outline-none focus-visible:ring-2 focus-visible:ring-primary data-checked:text-amber-500 data-highlighted:text-amber-500",
+      "inline-flex cursor-pointer p-1 outline-none data-checked:text-amber-500 data-highlighted:text-amber-500",
       className,
     )}
     {...rest}
-  >
-    <Star className="h-5 w-5 fill-current" />
-  </ArkRatingGroup.Item>
+  />
 );
 
 const RatingGroupHiddenInput = ({
@@ -65,4 +63,5 @@ export {
   RatingGroupHiddenInput,
   RatingGroupProvider,
   RatingGroupContext,
+  RatingGroupItemContext,
 };

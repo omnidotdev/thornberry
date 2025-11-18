@@ -2,37 +2,23 @@ import { RadioGroup as ArkRadioGroup } from "@ark-ui/react/radio-group";
 
 import { cn } from "@/lib/utils";
 
-import type { ComponentProps, ReactNode } from "react";
-
-const RadioGroupProvider = ArkRadioGroup.RootProvider;
-const RadioGroupContext = ArkRadioGroup.Context;
+import type { ComponentProps } from "react";
 
 const RadioGroupRoot = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkRadioGroup.Root>) => (
-  <ArkRadioGroup.Root className={cn("space-y-3", className)} {...rest} />
+  <ArkRadioGroup.Root
+    className={cn("flex w-fit flex-col gap-4", className)}
+    {...rest}
+  />
 );
 
 const RadioGroupLabel = ({
   children,
   className,
-}: {
-  children: ReactNode;
-  className: string;
-}) => (
-  <ArkRadioGroup.Label
-    className={cn("font-medium text-sm leading-none", className)}
-  >
-    {children}
-  </ArkRadioGroup.Label>
-);
-
-const RadioGroupIndicator = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ArkRadioGroup.Indicator>) => (
-  <ArkRadioGroup.Indicator className={className} {...rest} />
+}: ComponentProps<typeof ArkRadioGroup.Label>) => (
+  <ArkRadioGroup.Label className={className}>{children}</ArkRadioGroup.Label>
 );
 
 const RadioGroupItem = ({
@@ -45,13 +31,44 @@ const RadioGroupItem = ({
   />
 );
 
+const RadioGroupItemHiddenInput = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkRadioGroup.ItemHiddenInput>) => (
+  <ArkRadioGroup.ItemHiddenInput
+    className={cn(
+      "peer sr-only focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      className,
+    )}
+    {...rest}
+  />
+);
+
+const RadioGroupItemControl = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkRadioGroup.ItemControl>) => (
+  <ArkRadioGroup.ItemControl
+    className={cn(
+      "flex size-3 items-center justify-center rounded-full shadow ring-1 ring-ring ring-offset-2 ring-offset-background transition-normal",
+      "peer-focus:ring-2 peer-focus:ring-primary peer-focus:ring-offset-2 peer-focus:ring-offset-background",
+      "data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
+      className,
+    )}
+    {...rest}
+  >
+    <div
+      className={cn(
+        "size-2 rounded-full bg-current opacity-0 transition-opacity data-[state=checked]:opacity-100",
+      )}
+    />
+  </ArkRadioGroup.ItemControl>
+);
+
 const RadioGroupItemText = ({
   children,
   className,
-}: {
-  children: ReactNode;
-  className: string;
-}) => (
+}: ComponentProps<typeof ArkRadioGroup.ItemText>) => (
   <ArkRadioGroup.ItemText
     className={cn(
       "font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
@@ -62,36 +79,11 @@ const RadioGroupItemText = ({
   </ArkRadioGroup.ItemText>
 );
 
-const RadioGroupItemControl = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ArkRadioGroup.ItemControl>) => (
-  <ArkRadioGroup.ItemControl
-    className={cn(
-      "flex size-3 cursor-pointer items-center justify-center rounded-full shadow ring-1 ring-ring ring-offset-2 ring-offset-background transition-normal disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
-      className,
-    )}
-    {...rest}
-  >
-    <div className="size-2 rounded-full bg-current opacity-0 transition-opacity data-[state=checked]:opacity-100" />
-  </ArkRadioGroup.ItemControl>
-);
-
-const RadioGroupItemHiddenInput = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ArkRadioGroup.ItemHiddenInput>) => (
-  <ArkRadioGroup.ItemHiddenInput className={cn("peer", className)} {...rest} />
-);
-
 export {
-  RadioGroupProvider,
-  RadioGroupContext,
   RadioGroupRoot,
   RadioGroupLabel,
-  RadioGroupIndicator,
   RadioGroupItem,
-  RadioGroupItemText,
-  RadioGroupItemControl,
   RadioGroupItemHiddenInput,
+  RadioGroupItemControl,
+  RadioGroupItemText,
 };

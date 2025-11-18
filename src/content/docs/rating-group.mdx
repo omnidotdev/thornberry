@@ -3,18 +3,22 @@ title: Rating Group
 description: A component that allows users to rate items using stars or other symbols.
 ---
 
-import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem } from "@/registry/thornberry/components/rating-group";
+import { Star } from "lucide-react";
+import { RatingGroupItem, RatingGroupControl, RatingGroupLabel, RatingGroupRoot } from "@/registry/thornberry/components/rating-group";
+import { HalfStarRatingGroup } from "@/components";
 
-<RatingGroupRoot className="mb-8">
+<div className="flex justify-center">
+<RatingGroupRoot defaultValue={2} className="mb-8">
   <RatingGroupLabel>Rate this product</RatingGroupLabel>
   <RatingGroupControl>
-    <RatingGroupItem index={0} />
-    <RatingGroupItem index={1} />
-    <RatingGroupItem index={2} />
-    <RatingGroupItem index={3} />
-    <RatingGroupItem index={4} />
+    {Array.from({ length: 5 }).map((_, index) => (
+      <RatingGroupItem key={index} index={index} >
+        <Star className="fill-current" />
+      </RatingGroupItem>
+    ))}
   </RatingGroupControl>
 </RatingGroupRoot>
+</div>
 
 ## Installation
 
@@ -23,167 +27,67 @@ import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem 
 ## Usage
 
 ```tsx
+import { Star } from "lucide-react";
 import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem } from "@/components/ui/rating-group";
 ```
 
 ```tsx
-<RatingGroupRoot>
+<RatingGroupRoot defaultValue={2} className="mb-8">
   <RatingGroupLabel>Rate this product</RatingGroupLabel>
   <RatingGroupControl>
-    <RatingGroupItem index={0} />
-    <RatingGroupItem index={1} />
-    <RatingGroupItem index={2} />
-    <RatingGroupItem index={3} />
-    <RatingGroupItem index={4} />
+    {Array.from({ length: 5 }).map((_, index) => (
+      <RatingGroupItem key={index} index={index} >
+        <Star className="h-5 w-5 fill-current" />
+      </RatingGroupItem>
+    ))}
   </RatingGroupControl>
 </RatingGroupRoot>
 ```
 
 ## Examples
 
-<br />
-
-#### Basic Examples
-
-<Tabs items={["Default", "With Initial Value", "10-Point Scale"]} className="mt-4">
-  <Tab value="Default">
-    <RatingGroupRoot>
-      <RatingGroupLabel>Rate this product</RatingGroupLabel>
-      <RatingGroupControl>
-        <RatingGroupItem index={0} />
-        <RatingGroupItem index={1} />
-        <RatingGroupItem index={2} />
-        <RatingGroupItem index={3} />
-        <RatingGroupItem index={4} />
-      </RatingGroupControl>
-    </RatingGroupRoot>
-  </Tab>
-  <Tab value="With Initial Value">
-    <RatingGroupRoot defaultValue={3}>
-      <RatingGroupLabel>Pre-rated product</RatingGroupLabel>
-      <RatingGroupControl>
-        <RatingGroupItem index={0} />
-        <RatingGroupItem index={1} />
-        <RatingGroupItem index={2} />
-        <RatingGroupItem index={3} />
-        <RatingGroupItem index={4} />
-      </RatingGroupControl>
-    </RatingGroupRoot>
-  </Tab>
-  <Tab value="10-Point Scale">
-    <RatingGroupRoot>
-      <RatingGroupLabel>Rate on a scale of 1-10</RatingGroupLabel>
-      <RatingGroupControl className="flex-wrap">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <RatingGroupItem key={index} index={index} />
-        ))}
-      </RatingGroupControl>
-    </RatingGroupRoot>
-  </Tab>
-</Tabs>
-
-#### Advanced Usage
-
-<Tabs items={["Preview", "Code"]} className="mt-4">
-  <Tab value="Preview">
-    <div className="p-6 border rounded-lg">
-      <h3 className="text-lg font-medium mb-4">Product Feedback</h3>
-      <div className="space-y-6">
-        <RatingGroupRoot defaultValue={4}>
-          <RatingGroupLabel className="font-medium">Overall Rating</RatingGroupLabel>
-          <div className="flex items-center gap-4">
-            <RatingGroupControl>
-              <RatingGroupItem index={0} />
-              <RatingGroupItem index={1} />
-              <RatingGroupItem index={2} />
-              <RatingGroupItem index={3} />
-              <RatingGroupItem index={4} />
-            </RatingGroupControl>
-            <span className="text-sm text-muted-foreground">4 out of 5</span>
-          </div>
-        </RatingGroupRoot>
-
-        <div className="grid grid-cols-2 gap-6">
-          <RatingGroupRoot>
-            <RatingGroupLabel className="font-medium">Ease of Use</RatingGroupLabel>
-            <RatingGroupControl>
-              <RatingGroupItem index={0} />
-              <RatingGroupItem index={1} />
-              <RatingGroupItem index={2} />
-              <RatingGroupItem index={3} />
-              <RatingGroupItem index={4} />
-            </RatingGroupControl>
-          </RatingGroupRoot>
-
-          <RatingGroupRoot>
-            <RatingGroupLabel className="font-medium">Value for Money</RatingGroupLabel>
-            <RatingGroupControl>
-              <RatingGroupItem index={0} />
-              <RatingGroupItem index={1} />
-              <RatingGroupItem index={2} />
-              <RatingGroupItem index={3} />
-              <RatingGroupItem index={4} />
-            </RatingGroupControl>
-          </RatingGroupRoot>
-        </div>
-
-        <div className="pt-4 border-t">
-          <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90">Submit Feedback</button>
-        </div>
-      </div>
-    </div>
+<Tabs items={["Half Star", "Code"]} className="mt-4">
+  <Tab value="Half Star">
+    <HalfStarRatingGroup />
   </Tab>
   <Tab value="Code">
     ```tsx
-    import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem } from "@/components/ui/rating-group";
+    import { StarHalfIcon, StarIcon } from "lucide-react";
 
-    const ProductFeedback = () => (
-      <div className="p-6 border rounded-lg">
-        <h3 className="text-lg font-medium mb-4">Product Feedback</h3>
-        <div className="space-y-6">
-          <RatingGroupRoot defaultValue={4}>
-            <RatingGroupLabel className="font-medium">Overall Rating</RatingGroupLabel>
-            <div className="flex items-center gap-4">
-              <RatingGroupControl>
-                <RatingGroupItem index={0} />
-                <RatingGroupItem index={1} />
-                <RatingGroupItem index={2} />
-                <RatingGroupItem index={3} />
-                <RatingGroupItem index={4} />
-              </RatingGroupControl>
-              <span className="text-sm text-muted-foreground">4 out of 5</span>
-            </div>
-          </RatingGroupRoot>
+    import {
+      RatingGroupContext,
+      RatingGroupControl,
+      RatingGroupHiddenInput,
+      RatingGroupItem,
+      RatingGroupItemContext,
+      RatingGroupLabel,
+      RatingGroupRoot,
+    } from "@/components/ui/rating-group";
 
-          <div className="grid grid-cols-2 gap-6">
-            <RatingGroupRoot>
-              <RatingGroupLabel className="font-medium">Ease of Use</RatingGroupLabel>
-              <RatingGroupControl>
-                <RatingGroupItem index={0} />
-                <RatingGroupItem index={1} />
-                <RatingGroupItem index={2} />
-                <RatingGroupItem index={3} />
-                <RatingGroupItem index={4} />
-              </RatingGroupControl>
-            </RatingGroupRoot>
-
-            <RatingGroupRoot>
-              <RatingGroupLabel className="font-medium">Value for Money</RatingGroupLabel>
-              <RatingGroupControl>
-                <RatingGroupItem index={0} />
-                <RatingGroupItem index={1} />
-                <RatingGroupItem index={2} />
-                <RatingGroupItem index={3} />
-                <RatingGroupItem index={4} />
-              </RatingGroupControl>
-            </RatingGroupRoot>
-          </div>
-
-          <div className="pt-4 border-t">
-            <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90">Submit Feedback</button>
-          </div>
-        </div>
-      </div>
+   const Example = () => (
+      <RatingGroupRoot count={5} defaultValue={3} allowHalf>
+        <RatingGroupLabel>Half Star Example</RatingGroupLabel>
+        <RatingGroupControl>
+          <RatingGroupContext>
+            {({ items }) =>
+              items.map((item) => (
+                <RatingGroupItem key={item} index={item}>
+                  <RatingGroupItemContext>
+                    {({ half, highlighted }) => {
+                      if (half)
+                        return <StarHalfIcon className="fill-amber-500" />;
+                      if (highlighted)
+                        return <StarIcon className="fill-amber-500" />;
+                      return <StarIcon />;
+                    }}
+                  </RatingGroupItemContext>
+                </RatingGroupItem>
+              ))
+            }
+          </RatingGroupContext>
+          <RatingGroupHiddenInput />
+        </RatingGroupControl>
+      </RatingGroupRoot>
     );
     ```
   </Tab>

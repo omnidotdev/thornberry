@@ -45,7 +45,7 @@ const NumberInputInput = ({
 }: ComponentProps<typeof ArkNumberInput.Input>) => (
   <ArkNumberInput.Input
     className={cn(
-      "h-full w-full rounded-l-md border bg-transparent px-3 py-2 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50",
+      "h-full w-full rounded-l-md border bg-transparent px-3 py-2 text-sm focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50",
       className,
     )}
     {...rest}
@@ -56,11 +56,14 @@ const NumberInputDecrementTrigger = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkNumberInput.DecrementTrigger>) => (
-  <ArkNumberInput.DecrementTrigger asChild {...rest}>
+  <ArkNumberInput.DecrementTrigger asChild tabIndex={0} {...rest}>
     <Button
       variant="ghost"
       size="icon"
-      className={cn("h-4 flex-1 rounded-none rounded-br-md", className)}
+      className={cn(
+        "h-4 flex-1 rounded-none rounded-br-md focus-visible:bg-primary/20 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:dark:bg-primary/40",
+        className,
+      )}
     >
       <ChevronDown className="h-4 w-4" />
     </Button>
@@ -71,11 +74,14 @@ const NumberInputIncrementTrigger = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkNumberInput.IncrementTrigger>) => (
-  <ArkNumberInput.IncrementTrigger asChild {...rest}>
+  <ArkNumberInput.IncrementTrigger asChild tabIndex={0} {...rest}>
     <Button
       variant="ghost"
       size="icon"
-      className={cn("h-4 flex-1 rounded-none rounded-tr-md", className)}
+      className={cn(
+        "h-4 flex-1 rounded-none rounded-tr-md focus-visible:bg-primary/20 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:dark:bg-primary/40",
+        className,
+      )}
     >
       <ChevronUp className="h-4 w-4" />
     </Button>
