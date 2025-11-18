@@ -69,124 +69,69 @@ import { Button } from "@/components/ui/button";
 
 <br />
 
-#### Basic Examples
-
-<Tabs items={["Basic", "With Close Button", "With Arrow"]} className="mt-4">
-  <Tab value="Basic">
-    <PopoverRoot>
-      <PopoverTrigger asChild>
-        <Button variant="outline">Basic Popover</Button>
-      </PopoverTrigger>
-      <PopoverPositioner>
-        <PopoverContent>
-          <h4 className="font-medium">Settings</h4>
-          <p className="text-sm text-muted-foreground mt-1">Manage your account settings and preferences.</p>
-          <div className="flex gap-2 mt-4">
-            <Button size="sm">Save</Button>
-          </div>
-        </PopoverContent>
-      </PopoverPositioner>
-    </PopoverRoot>
-  </Tab>
-  <Tab value="With Close Button">
-    <PopoverRoot>
-      <PopoverTrigger asChild>
-        <Button variant="outline">With Close Button</Button>
-      </PopoverTrigger>
-      <PopoverPositioner>
-        <PopoverContent>
-          <PopoverCloseTrigger />
-          <h4 className="font-medium">Notifications</h4>
-          <p className="text-sm text-muted-foreground mt-1">You have 3 unread notifications.</p>
-          <div className="flex gap-2 mt-4">
-            <Button size="sm" variant="outline">Mark as Read</Button>
-          </div>
-        </PopoverContent>
-      </PopoverPositioner>
-    </PopoverRoot>
-  </Tab>
-  <Tab value="With Arrow">
-    <PopoverRoot>
-      <PopoverTrigger asChild>
-        <Button variant="outline">With Arrow</Button>
-      </PopoverTrigger>
-      <PopoverPositioner>
-        <PopoverContent>
-          <PopoverArrow>
-            <PopoverArrowTip />
-          </PopoverArrow>
-          <h4 className="font-medium">Tooltip Style</h4>
-          <p className="text-sm text-muted-foreground mt-1">This popover includes a pointing arrow.</p>
-        </PopoverContent>
-      </PopoverPositioner>
-    </PopoverRoot>
-  </Tab>
-</Tabs>
-
 #### Positioning
 
-<Tabs items={["Top", "Right", "Bottom", "Left"]} className="mt-4">
-  <Tab value="Top">
-    <PopoverRoot positioning={{ placement: "top" }}>
-      <PopoverTrigger asChild>
-        <Button variant="outline">Top Placement</Button>
-      </PopoverTrigger>
-      <PopoverPositioner placement="top">
-        <PopoverContent>
-          <PopoverArrow>
-            <PopoverArrowTip />
-          </PopoverArrow>
-          <p className="text-sm">This popover appears on top</p>
-        </PopoverContent>
-      </PopoverPositioner>
-    </PopoverRoot>
-  </Tab>
-  <Tab value="Right">
-    <PopoverRoot positioning={{ placement: "right" }}>
-      <PopoverTrigger asChild>
-        <Button variant="outline">Right Placement</Button>
-      </PopoverTrigger>
-      <PopoverPositioner placement="right">
-        <PopoverContent>
-          <PopoverArrow>
-            <PopoverArrowTip />
-          </PopoverArrow>
-          <p className="text-sm">This popover appears on the right</p>
-        </PopoverContent>
-      </PopoverPositioner>
-    </PopoverRoot>
-  </Tab>
-  <Tab value="Bottom">
-    <PopoverRoot positioning={{ placement: "bottom" }}>
-      <PopoverTrigger asChild>
-        <Button variant="outline">Bottom Placement</Button>
-      </PopoverTrigger>
-      <PopoverPositioner placement="bottom">
-        <PopoverContent>
-          <PopoverArrow>
-            <PopoverArrowTip />
-          </PopoverArrow>
-          <p className="text-sm">This popover appears on the bottom</p>
-        </PopoverContent>
-      </PopoverPositioner>
-    </PopoverRoot>
-  </Tab>
-  <Tab value="Left">
-    <PopoverRoot positioning={{ placement: "left" }}>
-      <PopoverTrigger asChild>
-        <Button variant="outline">Left Placement</Button>
-      </PopoverTrigger>
-      <PopoverPositioner placement="left">
-        <PopoverContent>
-          <PopoverArrow>
-            <PopoverArrowTip />
-          </PopoverArrow>
-          <p className="text-sm">This popover appears on the left</p>
-        </PopoverContent>
-      </PopoverPositioner>
-    </PopoverRoot>
-  </Tab>
-</Tabs>
+<div className="flex gap-2">
+  <PopoverRoot positioning={{ placement: "left" }}>
+    <PopoverTrigger asChild>
+      <Button variant="outline">Left Placement</Button>
+    </PopoverTrigger>
+    <PopoverPositioner>
+      <PopoverContent>
+        <PopoverArrow>
+          <PopoverArrowTip />
+        </PopoverArrow>
+        <p className="text-sm">This popover appears on top</p>
+      </PopoverContent>
+    </PopoverPositioner>
+  </PopoverRoot>
+
+  <PopoverRoot positioning={{ placement: "right" }}>
+    <PopoverTrigger asChild>
+      <Button variant="outline">Right Placement</Button>
+    </PopoverTrigger>
+    <PopoverPositioner >
+      <PopoverContent>
+        <PopoverArrow>
+          <PopoverArrowTip />
+        </PopoverArrow>
+        <p className="text-sm">This popover appears on the right</p>
+      </PopoverContent>
+    </PopoverPositioner>
+  </PopoverRoot>
+
+  <PopoverRoot positioning={{ placement: "top" }}>
+    <PopoverTrigger asChild>
+      <Button variant="outline">Top Placement</Button>
+    </PopoverTrigger>
+    <PopoverPositioner>
+      <PopoverContent>
+        <PopoverArrow>
+          <PopoverArrowTip />
+        </PopoverArrow>
+        <p className="text-sm">This popover appears on the bottom</p>
+      </PopoverContent>
+    </PopoverPositioner>
+  </PopoverRoot>
+  
+  <PopoverRoot positioning={{ placement: "bottom" }}>
+    <PopoverTrigger asChild>
+      <Button variant="outline">Bottom Placement</Button>
+    </PopoverTrigger>
+    <PopoverPositioner>
+      <PopoverContent>
+        <PopoverArrow>
+          <PopoverArrowTip />
+        </PopoverArrow>
+        <p className="text-sm">This popover appears on the left</p>
+      </PopoverContent>
+    </PopoverPositioner>
+  </PopoverRoot>
+</div>
+
+```tsx
+ <PopoverRoot positioning={{ placement: "left | right | top | bottom" }} />
+```
 
 #### Advanced Usage
 
