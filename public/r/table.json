@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "table",
+  "type": "registry:ui",
+  "title": "Table",
+  "description": "A component for displaying tabular data with customizable styles",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/table.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\ninterface TableProps extends ComponentProps<\"table\"> {\n  containerProps?: string;\n}\n\nconst Table = ({ containerProps, className, ...rest }: TableProps) => (\n  <div\n    data-slot=\"table-container\"\n    className={cn(\"no-scrollbar relative w-full overflow-auto\", containerProps)}\n  >\n    <table\n      data-slot=\"table\"\n      className={cn(\"w-full caption-bottom text-sm\", className)}\n      {...rest}\n    />\n  </div>\n);\n\nconst TableHeader = ({ className, ...rest }: ComponentProps<\"thead\">) => (\n  <thead\n    data-slot=\"table-header\"\n    className={cn(\"h-8 [&_tr]:border-b\", className)}\n    {...rest}\n  />\n);\n\nconst TableBody = ({ className, ...rest }: ComponentProps<\"tbody\">) => (\n  <tbody\n    data-slot=\"table-body\"\n    className={cn(\"[&_tr:last-child]:border-0\", className)}\n    {...rest}\n  />\n);\n\nconst TableFooter = ({ className, ...rest }: ComponentProps<\"tfoot\">) => (\n  <tfoot\n    data-slot=\"table-footer\"\n    className={cn(\"border-t bg-muted/50 [&>tr]:last:border-b-0\", className)}\n    {...rest}\n  />\n);\n\nconst TableRow = ({ className, ...rest }: ComponentProps<\"tr\">) => (\n  <tr\n    data-slot=\"table-row\"\n    className={cn(\n      \"border-b hover:bg-accent data-[state=selected]:bg-accent\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst TableHead = ({ className, ...rest }: ComponentProps<\"th\">) => (\n  <th\n    data-slot=\"table-head\"\n    className={cn(\n      \"whitespace-nowrap p-1 text-left align-middle font-medium text-foreground [&:has([role=checkbox])]:pr-0 *:[[role=checkbox]]:translate-y-0.5\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst TableCell = ({ className, ...rest }: ComponentProps<\"td\">) => (\n  <td\n    data-slot=\"table-cell\"\n    className={cn(\n      \"select-none whitespace-nowrap align-middle font-light [&:has([role=checkbox])]:pr-0 *:[[role=checkbox]]:translate-y-0.5\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst TableCaption = ({ className, ...rest }: ComponentProps<\"caption\">) => (\n  <caption\n    data-slot=\"table-caption\"\n    className={cn(\"mt-4 text-muted-foreground text-sm\", className)}\n    {...rest}\n  />\n);\n\nexport {\n  Table,\n  TableHeader,\n  TableBody,\n  TableFooter,\n  TableHead,\n  TableRow,\n  TableCell,\n  TableCaption,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}
