@@ -21,6 +21,7 @@ import type { PaginationRoot } from "@/registry/thornberry/components/pagination
 import type { PinInputRoot } from "@/registry/thornberry/components/pin-input";
 import type { PopoverRoot } from "@/registry/thornberry/components/popover";
 import type { RatingGroupRoot } from "@/registry/thornberry/components/rating-group";
+import type { SelectRoot } from "@/registry/thornberry/components/select";
 import type { SliderRoot } from "@/registry/thornberry/components/slider";
 import type { SwitchRoot } from "@/registry/thornberry/components/switch";
 import type { TabsRoot } from "@/registry/thornberry/components/tabs";
@@ -164,5 +165,10 @@ export type TagsInputProps = Omit<
 
 export type FileUploadProps = Omit<
   ComponentProps<typeof FileUpload>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type SelectProps = Omit<
+  ComponentProps<typeof SelectRoot>,
   keyof ComponentProps<"div"> | "ids"
 >;

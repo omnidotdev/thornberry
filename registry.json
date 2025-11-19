@@ -418,6 +418,18 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "A customizable select dropdown component for choosing options from a list",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/select.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

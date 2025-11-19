@@ -8,5 +8,6 @@ export { default as HalfStarRatingGroup } from "./half-star-rating-group";
 export { default as InstallationTabs } from "./installation-tabs";
 export { default as getMDXComponents } from "./mdx-components";
 export { CheckboxMenu, DemoMenu, NestedMenu, RadioGroupMenu } from "./menus";
+export { default as SelectExample } from "./select";
 export { default as TagsInput } from "./tags-input";
 export { default as Tour } from "./tour";
