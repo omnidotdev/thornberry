@@ -12,7 +12,11 @@ const SwitchRoot = ({
   ...rest
 }: ComponentProps<typeof ArkSwitch.Root>) => (
   <ArkSwitch.Root
-    className={cn("flex items-center gap-2", className)}
+    className={cn(
+      "inline-flex items-center gap-2 rounded-full outline-none",
+      "focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-background",
+      className,
+    )}
     {...rest}
   />
 );
@@ -23,7 +27,8 @@ const SwitchControl = ({
 }: ComponentProps<typeof ArkSwitch.Control>) => (
   <ArkSwitch.Control
     className={cn(
-      "peer inline-flex h-[24px] w-[44px] shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input",
+      "inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors",
+      "data-[state=checked]:bg-primary data-[state=unchecked]:bg-input",
       className,
     )}
     {...rest}
@@ -36,9 +41,20 @@ const SwitchThumb = ({
 }: ComponentProps<typeof ArkSwitch.Thumb>) => (
   <ArkSwitch.Thumb
     className={cn(
-      "pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0",
+      "block h-5 w-5 rounded-full bg-background shadow-lg transition-transform",
+      "data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0",
       className,
     )}
+    {...rest}
+  />
+);
+
+const SwitchHiddenInput = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkSwitch.HiddenInput>) => (
+  <ArkSwitch.HiddenInput
+    className={cn("pointer-events-none absolute h-0 w-0 opacity-0", className)}
     {...rest}
   />
 );
@@ -54,13 +70,6 @@ const SwitchLabel = ({
     )}
     {...rest}
   />
-);
-
-const SwitchHiddenInput = ({
-  className,
-  ...rest
-}: ComponentProps<typeof ArkSwitch.HiddenInput>) => (
-  <ArkSwitch.HiddenInput className={className} {...rest} />
 );
 
 export {

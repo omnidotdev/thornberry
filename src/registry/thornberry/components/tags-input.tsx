@@ -126,7 +126,7 @@ const TagsInputClearTrigger = ({
     return (
       <ArkTagsInput.ClearTrigger
         className={cn(
-          "mt-2 inline-flex h-10 w-full items-center justify-center rounded-md border px-4 py-2 font-medium text-sm ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+          "mt-2 inline-flex h-10 w-full items-center justify-center rounded-md border px-4 py-2 font-medium text-sm ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
           className,
         )}
         {...rest}

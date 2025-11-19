@@ -6,12 +6,15 @@ description: A control that allows the user to toggle between checked and unchec
 import { Moon, Wifi, Bluetooth, Bell } from "lucide-react";
 import { SwitchRoot, SwitchHiddenInput, SwitchControl, SwitchThumb, SwitchLabel } from "@/registry/thornberry/components/switch";
 
-<SwitchRoot className="mb-8">
-  <SwitchHiddenInput />
-  <SwitchControl>
-    <SwitchThumb />
-  </SwitchControl>
-</SwitchRoot>
+<div className="flex justify-center">
+  <SwitchRoot className="mb-8">
+    <SwitchControl>
+      <SwitchThumb />
+    </SwitchControl>
+    <SwitchLabel>Toggle</SwitchLabel>
+    <SwitchHiddenInput />
+  </SwitchRoot>
+</div>
 
 ## Installation
 
@@ -29,205 +32,14 @@ import {
 ```
 
 ```tsx
-<SwitchRoot>
-  <SwitchHiddenInput />
-  <SwitchControl>
-    <SwitchThumb />
-  </SwitchControl>
-</SwitchRoot>
+ <SwitchRoot>
+    <SwitchControl>
+      <SwitchThumb />
+    </SwitchControl>
+    <SwitchLabel>Toggle</SwitchLabel>
+    <SwitchHiddenInput />
+  </SwitchRoot>
 ```
-
-## Examples
-
-<br />
-
-#### Basic Examples
-
-<Tabs items={["Default", "With Label", "Checked"]} className="mt-4">
-  <Tab value="Default">
-    <SwitchRoot>
-      <SwitchHiddenInput />
-      <SwitchControl>
-        <SwitchThumb />
-      </SwitchControl>
-    </SwitchRoot>
-  </Tab>
-  <Tab value="With Label">
-    <SwitchRoot>
-      <SwitchHiddenInput />
-      <SwitchControl>
-        <SwitchThumb />
-      </SwitchControl>
-      <SwitchLabel>Airplane Mode</SwitchLabel>
-    </SwitchRoot>
-  </Tab>
-  <Tab value="Checked">
-    <SwitchRoot defaultChecked>
-      <SwitchHiddenInput />
-      <SwitchControl>
-        <SwitchThumb />
-      </SwitchControl>
-      <SwitchLabel>Enabled</SwitchLabel>
-    </SwitchRoot>
-  </Tab>
-</Tabs>
-
-#### Settings Panel Example
-
-<Tabs items={["Preview", "Code"]} className="mt-4">
-  <Tab value="Preview">
-    <div className="w-full p-6 border rounded-lg shadow-sm">
-      <h3 className="text-lg font-medium mb-4">Settings</h3>
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Wifi className="h-5 w-5 text-primary" />
-            <div>
-              <div className="font-medium">Wi-Fi</div>
-              <div className="text-sm text-muted-foreground">Enables wireless networking</div>
-            </div>
-          </div>
-          <SwitchRoot defaultChecked>
-            <SwitchHiddenInput />
-            <SwitchControl>
-              <SwitchThumb />
-            </SwitchControl>
-          </SwitchRoot>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Bluetooth className="h-5 w-5 text-primary" />
-            <div>
-              <div className="font-medium">Bluetooth</div>
-              <div className="text-sm text-muted-foreground">Connects to nearby devices</div>
-            </div>
-          </div>
-          <SwitchRoot>
-            <SwitchHiddenInput />
-            <SwitchControl>
-              <SwitchThumb />
-            </SwitchControl>
-          </SwitchRoot>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Bell className="h-5 w-5 text-primary" />
-            <div>
-              <div className="font-medium">Notifications</div>
-              <div className="text-sm text-muted-foreground">Receive app notifications</div>
-            </div>
-          </div>
-          <SwitchRoot defaultChecked>
-            <SwitchHiddenInput />
-            <SwitchControl>
-              <SwitchThumb />
-            </SwitchControl>
-          </SwitchRoot>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Moon className="h-5 w-5 text-primary" />
-            <div>
-              <div className="font-medium">Dark Mode</div>
-              <div className="text-sm text-muted-foreground">Use dark theme</div>
-            </div>
-          </div>
-          <SwitchRoot>
-            <SwitchHiddenInput />
-            <SwitchControl>
-              <SwitchThumb />
-            </SwitchControl>
-          </SwitchRoot>
-        </div>
-      </div>
-    </div>
-  </Tab>
-  <Tab value="Code">
-    ```tsx
-    import { Wifi, Bluetooth, Bell, Moon } from "lucide-react";
-    import {
-      SwitchRoot,
-      SwitchHiddenInput,
-      SwitchControl,
-      SwitchThumb
-    } from "@/components/ui/switch";
-
-    const SettingsPanel = () => (
-      <div className="w-full p-6 border rounded-lg shadow-sm">
-        <h3 className="text-lg font-medium mb-4">Settings</h3>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Wifi className="h-5 w-5 text-primary" />
-              <div>
-                <div className="font-medium">Wi-Fi</div>
-                <div className="text-sm text-muted-foreground">Enables wireless networking</div>
-              </div>
-            </div>
-            <SwitchRoot defaultChecked>
-              <SwitchHiddenInput />
-              <SwitchControl>
-                <SwitchThumb />
-              </SwitchControl>
-            </SwitchRoot>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Bluetooth className="h-5 w-5 text-primary" />
-              <div>
-                <div className="font-medium">Bluetooth</div>
-                <div className="text-sm text-muted-foreground">Connects to nearby devices</div>
-              </div>
-            </div>
-            <SwitchRoot>
-              <SwitchHiddenInput />
-              <SwitchControl>
-                <SwitchThumb />
-              </SwitchControl>
-            </SwitchRoot>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Bell className="h-5 w-5 text-primary" />
-              <div>
-                <div className="font-medium">Notifications</div>
-                <div className="text-sm text-muted-foreground">Receive app notifications</div>
-              </div>
-            </div>
-            <SwitchRoot defaultChecked>
-              <SwitchHiddenInput />
-              <SwitchControl>
-                <SwitchThumb />
-              </SwitchControl>
-            </SwitchRoot>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Moon className="h-5 w-5 text-primary" />
-              <div>
-                <div className="font-medium">Dark Mode</div>
-                <div className="text-sm text-muted-foreground">Use dark theme</div>
-              </div>
-            </div>
-            <SwitchRoot>
-              <SwitchHiddenInput />
-              <SwitchControl>
-                <SwitchThumb />
-              </SwitchControl>
-            </SwitchRoot>
-          </div>
-        </div>
-      </div>
-    );
-    ```
-  </Tab>
-</Tabs>
 
 ## References
 

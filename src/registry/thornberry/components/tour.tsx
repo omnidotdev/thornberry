@@ -116,7 +116,7 @@ const TourControl = ({
   ...rest
 }: ComponentProps<typeof ArkTour.Control>) => (
   <ArkTour.Control
-    className={cn("gap- mt-6 flex items-center justify-end", className)}
+    className={cn("mt-6 flex items-center justify-end gap-4", className)}
     {...rest}
   />
 );
