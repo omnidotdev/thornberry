@@ -3,6 +3,7 @@
   "style": "default",
   "rsc": true,
   "tsx": true,
+  "iconLibrary": "lucide",
   "tailwind": {
     "config": "",
     "css": "src/app/globals.css",
@@ -17,5 +18,8 @@
     "lib": "@/lib",
     "hooks": "@/lib/hooks"
   },
-  "iconLibrary": "lucide"
+   "registries": {
+    "@dev-components": "https://localhost:3001/r/{name}.json",
+    "@thornberry": "https://thornberry.com/r/{name}.json"
+  }
 }

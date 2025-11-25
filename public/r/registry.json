@@ -430,6 +430,30 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "A skeleton component for displaying loading placeholders",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "A collapsible sidebar component with customizable content and responsive design.",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

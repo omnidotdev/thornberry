@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "type": "registry:ui",
+  "title": "Skeleton",
+  "description": "A skeleton component for displaying loading placeholders",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/skeleton.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst Skeleton = ({ className, ...props }: ComponentProps<\"div\">) => (\n  <div\n    data-slot=\"skeleton\"\n    className={cn(\"animate-pulse rounded-md bg-accent\", className)}\n    {...props}\n  />\n);\n\nexport { Skeleton };\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

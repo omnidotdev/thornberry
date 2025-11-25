@@ -442,6 +442,18 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "A collapsible sidebar component with customizable content and responsive design.",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

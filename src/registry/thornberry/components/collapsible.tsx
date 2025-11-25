@@ -1,5 +1,4 @@
 import { Collapsible as ArkCollapsible } from "@ark-ui/react/collapsible";
-import { ChevronRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -28,7 +27,6 @@ const CollapsibleTrigger = ({
     {...rest}
   >
     {children}
-    <ChevronRight className="h-4 w-4 transition-transform" />
   </ArkCollapsible.Trigger>
 );
 
