@@ -283,6 +283,7 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
             {data.navMain.map((item) => (
               <MenuRoot key={item.title} defaultOpen={item.isActive}>
                 <MenuTrigger asChild>
+                  {/* TODO: Fix tooltip positioning */}
                   <SidebarMenuButton tooltip={item.title} className="relative">
                     {item.icon && <item.icon className="rotate-none!" />}
                     <span>{item.title}</span>
