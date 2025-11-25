@@ -95,6 +95,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
   useSidebar,
+  SidebarGroupAction
 } from "@/components/ui/sidebar";
 
 import type { ComponentProps, ReactNode } from "react";
@@ -298,7 +299,12 @@ export const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) =
 
       <SidebarContent className="py-1">
         <SidebarGroup>
-          <SidebarGroupLabel>Platform</SidebarGroupLabel>
+          <SidebarGroupLabel>
+            Platform
+            <SidebarGroupAction className="ml-auto">
+              <Plus />
+            </SidebarGroupAction>
+          </SidebarGroupLabel>
           <SidebarMenu className="hidden group-data-[collapsible=icon]:flex">
             {data.navMain.map((item) => (
               <MenuRoot key={item.title} defaultOpen={item.isActive}>
@@ -357,7 +363,12 @@ export const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) =
         </SidebarGroup>
 
         <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-          <SidebarGroupLabel>Projects</SidebarGroupLabel>
+          <SidebarGroupLabel>
+            Projects
+            <SidebarGroupAction className="ml-auto">
+              <Plus />
+            </SidebarGroupAction>
+          </SidebarGroupLabel>
           <SidebarMenu>
             {data.projects.map((item) => (
               <SidebarMenuItem key={item.name}>

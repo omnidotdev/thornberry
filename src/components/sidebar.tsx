@@ -48,6 +48,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupAction,
   SidebarGroupLabel,
   SidebarHeader,
   SidebarInset,
@@ -272,12 +273,17 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
 
       <SidebarContent className="py-1">
         <SidebarGroup>
-          <SidebarGroupLabel>Platform</SidebarGroupLabel>
+          <SidebarGroupLabel>
+            Platform
+            <SidebarGroupAction className="ml-auto">
+              <Plus />
+            </SidebarGroupAction>
+          </SidebarGroupLabel>
           <SidebarMenu className="hidden group-data-[collapsible=icon]:flex">
             {data.navMain.map((item) => (
               <MenuRoot key={item.title} defaultOpen={item.isActive}>
                 <MenuTrigger asChild>
-                  <SidebarMenuButton tooltip={item.title}>
+                  <SidebarMenuButton tooltip={item.title} className="relative">
                     {item.icon && <item.icon className="rotate-none!" />}
                     <span>{item.title}</span>
                     <ChevronRight className="ml-auto transition-transform duration-200" />
@@ -309,7 +315,7 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
                   <SidebarMenuButton tooltip={item.title}>
                     {item.icon && <item.icon className="rotate-none!" />}
                     <span>{item.title}</span>
-                    <ChevronRight className="ml-auto transition-transform duration-200" />
+                    <ChevronRight className="ml-auto size-3! transition-transform duration-200" />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="-mx-2 animate-none border-none">
@@ -331,7 +337,12 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
         </SidebarGroup>
 
         <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-          <SidebarGroupLabel>Projects</SidebarGroupLabel>
+          <SidebarGroupLabel>
+            Projects
+            <SidebarGroupAction className="ml-auto">
+              <Plus />
+            </SidebarGroupAction>
+          </SidebarGroupLabel>
           <SidebarMenu>
             {data.projects.map((item) => (
               <SidebarMenuItem key={item.name}>

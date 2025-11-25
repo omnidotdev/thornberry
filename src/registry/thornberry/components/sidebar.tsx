@@ -377,7 +377,7 @@ const SidebarRail = ({
 
       <Portal>
         <TooltipPositioner>
-          <TooltipContent className="flex w-full flex-col gap-1 border bg-background text-foreground">
+          <TooltipContent className="flex h-fit w-full flex-col gap-1 border bg-background text-foreground">
             <span>Drag to resize</span>
             <div className="inline-flex">
               Click to {isCollapsed ? "expand" : "collapse"}{" "}
