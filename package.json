@@ -20,7 +20,7 @@
     "fumadocs-mdx": "^11.6.5",
     "fumadocs-typescript": "^4.0.5",
     "fumadocs-ui": "^15.3.4",
-    "next": "^15.3.2",
+    "next": "^16.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
