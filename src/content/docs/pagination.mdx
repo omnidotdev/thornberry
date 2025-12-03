@@ -4,18 +4,9 @@ description: A component for navigating through multiple pages of content.
 ---
 
 import { PaginationRoot, PaginationItem, PaginationEllipsis, PaginationPrevTrigger, PaginationNextTrigger } from "@/registry/thornberry/components/pagination";
+import { Pagination } from "@/components"
 
-<PaginationRoot count={10} className="mb-8">
-  <div className="flex items-center gap-1">
-    <PaginationPrevTrigger />
-    <PaginationItem value={1}>1</PaginationItem>
-    <PaginationItem value={2}>2</PaginationItem>
-    <PaginationItem value={3}>3</PaginationItem>
-    <PaginationEllipsis index={0} />
-    <PaginationItem value={10}>10</PaginationItem>
-    <PaginationNextTrigger />
-  </div>
-</PaginationRoot>
+<Pagination />
 
 ## Installation
 
