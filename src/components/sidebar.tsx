@@ -27,7 +27,6 @@ import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 import {
-  Avatar,
   AvatarFallback,
   AvatarImage,
   AvatarRoot,
@@ -449,11 +448,10 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
               <MenuPositioner>
                 <MenuContent className="min-w-56 rounded-lg">
                   <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <Avatar
-                      src="/img/elon-musk.jpg"
-                      alt="Elon Musk"
-                      fallback="EM"
-                    />
+                    <AvatarRoot>
+                      <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+                      <AvatarFallback>EM</AvatarFallback>
+                    </AvatarRoot>
 
                     <div className="grid flex-1 text-left text-sm leading-tight">
                       <span className="truncate font-medium">Elon Musk</span>

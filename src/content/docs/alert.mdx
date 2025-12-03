@@ -4,7 +4,7 @@ description: Displays a callout for user attention with status variants for diff
 ---
 
 import { CircleAlert, Info, Check, TriangleAlert, OctagonAlert } from "lucide-react";
-import { Alert, AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/registry/thornberry/components/alert";
+import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/registry/thornberry/components/alert";
 
 <AlertRoot className="mb-8">
   <AlertIcon>
@@ -19,22 +19,6 @@ import { Alert, AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/reg
 <InstallationTabs filename="alert.json" />
 
 ## Usage
-
-For simplicity, we provide a pre-built component that you can use out of the box.
-
-```tsx
-import { Alert } from "@/components/ui/alert";
-```
-
-```tsx
-<Alert title="Alert" description="This is an alert component for important messages." />
-```
-
-<br />
-
-### Primitives
-
-If you need more control over the alert component, you can use the primitives.
 
 ```tsx
 import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components/ui/alert";

@@ -4,7 +4,7 @@ import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 import type { VariantProps } from "class-variance-authority";
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const avatarVariants = cva(
   "relative flex shrink-0 items-center justify-center overflow-hidden rounded-full",
@@ -72,26 +72,4 @@ const AvatarImage = ({
   />
 );
 
-interface AvatarProps extends ComponentProps<typeof AvatarRoot> {
-  src: string | Blob | undefined;
-  alt: string | undefined;
-  fallback: ReactNode;
-}
-
-const Avatar = ({ src, alt, fallback, size, ...rest }: AvatarProps) => (
-  <AvatarRoot size={size} {...rest}>
-    <AvatarFallback>{fallback}</AvatarFallback>
-
-    <AvatarImage src={src} alt={alt} />
-  </AvatarRoot>
-);
-
-export {
-  Avatar,
-  AvatarRoot,
-  AvatarFallback,
-  AvatarImage,
-  AvatarProvider,
-  useAvatar,
-  type AvatarProps,
-};
+export { AvatarRoot, AvatarFallback, AvatarImage, AvatarProvider, useAvatar };
