@@ -69,7 +69,7 @@ const TableCell = ({ className, ...rest }: ComponentProps<"td">) => (
   <td
     data-slot="table-cell"
     className={cn(
-      "select-none whitespace-nowrap align-middle font-light [&:has([role=checkbox])]:pr-0 *:[[role=checkbox]]:translate-y-0.5",
+      "select-none whitespace-nowrap p-2 align-middle font-light [&:has([role=checkbox])]:pr-0 *:[[role=checkbox]]:translate-y-0.5",
       className,
     )}
     {...rest}

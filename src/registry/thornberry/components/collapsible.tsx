@@ -36,7 +36,7 @@ const CollapsibleContent = ({
 }: ComponentProps<typeof ArkCollapsible.Content>) => (
   <ArkCollapsible.Content
     className={cn(
-      "overflow-hidden rounded-b-md border border-muted/50 border-t-0 px-4",
+      "overflow-hidden rounded-b-md border border-muted/50 border-t-0 p-4",
       className,
     )}
     {...rest}

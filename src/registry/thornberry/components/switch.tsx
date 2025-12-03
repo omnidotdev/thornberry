@@ -14,7 +14,6 @@ const SwitchRoot = ({
   <ArkSwitch.Root
     className={cn(
       "inline-flex items-center gap-2 rounded-full outline-none",
-      "focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-background",
       className,
     )}
     {...rest}
