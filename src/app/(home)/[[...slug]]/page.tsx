@@ -61,7 +61,7 @@ const Page = async ({ params }: Props) => {
         url={`https://github.com/${app.github.owner}/${app.github.repo}/blob/master/${path}`}
       />
 
-      <DocsBody>
+      <DocsBody className="not-prose">
         <MDX components={getMDXComponents()} />
       </DocsBody>
     </DocsPage>
