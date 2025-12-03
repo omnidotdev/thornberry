@@ -18,8 +18,4 @@
     "lib": "@/lib",
     "hooks": "@/lib/hooks"
   },
-   "registries": {
-    "@dev-components": "https://localhost:3001/r/{name}.json",
-    "@thornberry": "https://thornberry.com/r/{name}.json"
-  }
 }
