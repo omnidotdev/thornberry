@@ -342,7 +342,7 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
                     <ChevronRight className="ml-auto size-3! transition-transform duration-200" />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
-                <CollapsibleContent className="-mx-2 animate-none border-none">
+                <CollapsibleContent className="-mx-2 animate-none border-none py-0">
                   <SidebarMenu className="my-1 ml-3 border-l px-2">
                     {item.items?.map((subItem) => (
                       <SidebarMenuItem key={subItem.title}>

@@ -1,18 +1,10 @@
 import { ark } from "@ark-ui/react";
 import { cva } from "class-variance-authority";
-import {
-  Check,
-  CircleAlert,
-  Info,
-  OctagonAlert,
-  TriangleAlert,
-} from "lucide-react";
-import { match } from "ts-pattern";
 
 import { cn } from "@/lib/utils";
 
 import type { VariantProps } from "class-variance-authority";
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 const alertVariants = cva(
   "relative w-full rounded-lg border px-4 py-5 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:top-4 [&>svg]:left-4 [&>svg]:text-foreground [&>svg~*]:pl-7",
@@ -71,77 +63,4 @@ const AlertDescription = ({
   />
 );
 
-interface AlertProps extends ComponentProps<typeof AlertRoot> {
-  title: string;
-  description?: string;
-  icon?: ReactNode;
-  /**
-   * @remarks `ComponentProps<typeof AlertIcon>`
-   */
-  iconProps?: ComponentProps<typeof AlertIcon>;
-  /**
-   * @remarks `ComponentProps<typeof AlertTitle>`
-   */
-  titleProps?: ComponentProps<typeof AlertTitle>;
-  /**
-   * @remarks `ComponentProps<typeof AlertDescription>`
-   */
-  descriptionProps?: ComponentProps<typeof AlertDescription>;
-  /**
-   * @default true
-   */
-  showIcon?: boolean;
-}
-
-const Alert = ({
-  className,
-  variant,
-  title,
-  titleProps,
-  description,
-  descriptionProps,
-  icon,
-  iconProps,
-  showIcon = true,
-  ...rest
-}: AlertProps) => {
-  const FallbackIcon = match(variant)
-    .with("info", () => Info)
-    .with("success", () => Check)
-    .with("warning", () => TriangleAlert)
-    .with("error", () => OctagonAlert)
-    .otherwise(() => CircleAlert);
-
-  return (
-    <AlertRoot className={cn(alertVariants({ variant }), className)} {...rest}>
-      {showIcon && (
-        <AlertIcon {...iconProps} className={cn(iconProps?.className)}>
-          {icon ?? <FallbackIcon />}
-        </AlertIcon>
-      )}
-
-      <AlertTitle {...titleProps} className={cn(titleProps?.className)}>
-        {title}
-      </AlertTitle>
-
-      {description && (
-        <AlertDescription
-          {...descriptionProps}
-          className={cn(descriptionProps?.className)}
-        >
-          {description}
-        </AlertDescription>
-      )}
-    </AlertRoot>
-  );
-};
-
-export {
-  Alert,
-  AlertRoot,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  alertVariants,
-  type AlertProps,
-};
+export { AlertRoot, AlertIcon, AlertTitle, AlertDescription, alertVariants };
