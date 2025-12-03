@@ -1,7 +1,15 @@
 export { default as AngleSlider } from "./angle-slider";
+export { default as ColorPicker } from "./color-picker";
+export { default as Combobox } from "./combobox";
 export { default as DatePicker } from "./date-picker";
 export { default as FileUpload } from "./file-upload";
 export { default as GitHubLink } from "./github-link";
+export { default as HalfStarRatingGroup } from "./half-star-rating-group";
 export { default as InstallationTabs } from "./installation-tabs";
 export { default as getMDXComponents } from "./mdx-components";
+export { CheckboxMenu, DemoMenu, NestedMenu, RadioGroupMenu } from "./menus";
+export { default as Pagination } from "./pagination";
+export { default as SelectExample } from "./select";
+export { SidebarExample } from "./sidebar";
+export { default as TagsInput } from "./tags-input";
 export { default as Tour } from "./tour";

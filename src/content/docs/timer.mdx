@@ -5,18 +5,20 @@ description: A timer component that can record elapsed time or countdown from a 
 
 import { Timer, TimerArea, TimerItem, TimerSeparator, TimerControl, TimerActionTrigger } from "@/registry/thornberry/components/timer";
 
-<Timer targetMs={60000} className="mb-8">
-  <TimerArea>
-    <TimerItem type="minutes" />
-    <TimerSeparator>:</TimerSeparator>
-    <TimerItem type="seconds" />
-  </TimerArea>
-  <TimerControl>
-    <TimerActionTrigger action="start">Start</TimerActionTrigger>
-    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
-    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>
-  </TimerControl>
-</Timer>
+<div className="flex justify-center">
+  <Timer targetMs={60000} className="mb-8">
+    <TimerArea>
+      <TimerItem type="minutes" />
+      <TimerSeparator>:</TimerSeparator>
+      <TimerItem type="seconds" />
+    </TimerArea>
+    <TimerControl className="justify-center">
+      <TimerActionTrigger action="start">Start</TimerActionTrigger>
+      <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
+      <TimerActionTrigger action="resume">Resume</TimerActionTrigger>
+    </TimerControl>
+  </Timer>
+</div>
 
 ## Installation
 
@@ -29,186 +31,25 @@ import { Timer, TimerArea, TimerItem, TimerSeparator, TimerControl, TimerActionT
 ```
 
 ```tsx
-<Timer targetMs={60000}>
-  <TimerArea>
-    <TimerItem type="minutes" />
-    <TimerSeparator>:</TimerSeparator>
-    <TimerItem type="seconds" />
-  </TimerArea>
-  <TimerControl>
-    <TimerActionTrigger action="start">Start</TimerActionTrigger>
-    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
-  </TimerControl>
-</Timer>
+  <Timer targetMs={60000}>
+    <TimerArea>
+      <TimerItem type="minutes" />
+      <TimerSeparator>:</TimerSeparator>
+      <TimerItem type="seconds" />
+    </TimerArea>
+    <TimerControl className="justify-center">
+      <TimerActionTrigger action="start">Start</TimerActionTrigger>
+      <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
+      <TimerActionTrigger action="resume">Resume</TimerActionTrigger>
+    </TimerControl>
+  </Timer>
 ```
 
 ## Examples
 
-<br />
-
-#### Sizes
-
-<Tabs items={["Small", "Medium", "Large"]} className="mt-4">
-  <Tab value="Small">
-    <Timer size="sm" targetMs={30000}>
-      <TimerArea>
-        <TimerItem type="minutes" />
-        <TimerSeparator>:</TimerSeparator>
-        <TimerItem type="seconds" />
-      </TimerArea>
-      <TimerControl>
-        <TimerActionTrigger action="start">Start</TimerActionTrigger>
-      </TimerControl>
-    </Timer>
-
-    ```tsx
-    <Timer size="sm" targetMs={30000}>
-      <TimerArea>
-        <TimerItem type="minutes" />
-        <TimerSeparator>:</TimerSeparator>
-        <TimerItem type="seconds" />
-      </TimerArea>
-      <TimerControl>
-        <TimerActionTrigger action="start">Start</TimerActionTrigger>
-      </TimerControl>
-    </Timer>
-    ```
-  </Tab>
-  <Tab value="Medium">
-    <Timer size="md" targetMs={30000}>
-      <TimerArea>
-        <TimerItem type="minutes" />
-        <TimerSeparator>:</TimerSeparator>
-        <TimerItem type="seconds" />
-      </TimerArea>
-      <TimerControl>
-        <TimerActionTrigger action="start">Start</TimerActionTrigger>
-      </TimerControl>
-    </Timer>
-
-    ```tsx
-    <Timer size="md" targetMs={30000}>
-      <TimerArea>
-        <TimerItem type="minutes" />
-        <TimerSeparator>:</TimerSeparator>
-        <TimerItem type="seconds" />
-      </TimerArea>
-      <TimerControl>
-        <TimerActionTrigger action="start">Start</TimerActionTrigger>
-      </TimerControl>
-    </Timer>
-    ```
-  </Tab>
-  <Tab value="Large">
-    <Timer size="lg" targetMs={30000}>
-      <TimerArea>
-        <TimerItem type="minutes" />
-        <TimerSeparator>:</TimerSeparator>
-        <TimerItem type="seconds" />
-      </TimerArea>
-      <TimerControl>
-        <TimerActionTrigger action="start">Start</TimerActionTrigger>
-      </TimerControl>
-    </Timer>
-
-    ```tsx
-    <Timer size="lg" targetMs={30000}>
-      <TimerArea>
-        <TimerItem type="minutes" />
-        <TimerSeparator>:</TimerSeparator>
-        <TimerItem type="seconds" />
-      </TimerArea>
-      <TimerControl>
-        <TimerActionTrigger action="start">Start</TimerActionTrigger>
-      </TimerControl>
-    </Timer>
-    ```
-  </Tab>
-</Tabs>
-
-#### Variants
-
-<Tabs items={["Default", "Outlined", "Minimal"]} className="mt-4">
-  <Tab value="Default">
-    <Timer variant="default" targetMs={45000}>
-      <TimerArea>
-        <TimerItem type="minutes" />
-        <TimerSeparator>:</TimerSeparator>
-        <TimerItem type="seconds" />
-      </TimerArea>
-      <TimerControl>
-        <TimerActionTrigger action="start">Start</TimerActionTrigger>
-      </TimerControl>
-    </Timer>
-
-    ```tsx
-    <Timer variant="default" targetMs={45000}>
-      <TimerArea>
-        <TimerItem type="minutes" />
-        <TimerSeparator>:</TimerSeparator>
-        <TimerItem type="seconds" />
-      </TimerArea>
-      <TimerControl>
-        <TimerActionTrigger action="start">Start</TimerActionTrigger>
-      </TimerControl>
-    </Timer>
-    ```
-  </Tab>
-  <Tab value="Outlined">
-    <Timer variant="outlined" targetMs={45000}>
-      <TimerArea>
-        <TimerItem type="minutes" />
-        <TimerSeparator>:</TimerSeparator>
-        <TimerItem type="seconds" />
-      </TimerArea>
-      <TimerControl>
-        <TimerActionTrigger action="start">Start</TimerActionTrigger>
-      </TimerControl>
-    </Timer>
-
-    ```tsx
-    <Timer variant="outlined" targetMs={45000}>
-      <TimerArea>
-        <TimerItem type="minutes" />
-        <TimerSeparator>:</TimerSeparator>
-        <TimerItem type="seconds" />
-      </TimerArea>
-      <TimerControl>
-        <TimerActionTrigger action="start">Start</TimerActionTrigger>
-      </TimerControl>
-    </Timer>
-    ```
-  </Tab>
-  <Tab value="Minimal">
-    <Timer variant="minimal" targetMs={45000}>
-      <TimerArea>
-        <TimerItem type="minutes" />
-        <TimerSeparator>:</TimerSeparator>
-        <TimerItem type="seconds" />
-      </TimerArea>
-      <TimerControl>
-        <TimerActionTrigger action="start">Start</TimerActionTrigger>
-      </TimerControl>
-    </Timer>
-
-    ```tsx
-    <Timer variant="minimal" targetMs={45000}>
-      <TimerArea>
-        <TimerItem type="minutes" />
-        <TimerSeparator>:</TimerSeparator>
-        <TimerItem type="seconds" />
-      </TimerArea>
-      <TimerControl>
-        <TimerActionTrigger action="start">Start</TimerActionTrigger>
-      </TimerControl>
-    </Timer>
-    ```
-  </Tab>
-</Tabs>
-
 #### Countdown Timer
 
-<Timer countdown targetMs={120000} className="mt-4">
+<Timer countdown startMs={60 * 60 * 500} className="mt-4">
   <TimerArea>
     <TimerItem type="minutes" />
     <TimerSeparator>:</TimerSeparator>
@@ -217,6 +58,7 @@ import { Timer, TimerArea, TimerItem, TimerSeparator, TimerControl, TimerActionT
   <TimerControl>
     <TimerActionTrigger action="start">Start Countdown</TimerActionTrigger>
     <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
+    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>
   </TimerControl>
 </Timer>
 
@@ -230,6 +72,7 @@ import { Timer, TimerArea, TimerItem, TimerSeparator, TimerControl, TimerActionT
   <TimerControl>
     <TimerActionTrigger action="start">Start Countdown</TimerActionTrigger>
     <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
+    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>
   </TimerControl>
 </Timer>
 ```
@@ -238,6 +81,8 @@ import { Timer, TimerArea, TimerItem, TimerSeparator, TimerControl, TimerActionT
 
 <Timer targetMs={3661000} className="mt-4">
   <TimerArea>
+    <TimerItem type="days" />
+    <TimerSeparator>:</TimerSeparator>
     <TimerItem type="hours" />
     <TimerSeparator>:</TimerSeparator>
     <TimerItem type="minutes" />
@@ -254,6 +99,8 @@ import { Timer, TimerArea, TimerItem, TimerSeparator, TimerControl, TimerActionT
 ```tsx
 <Timer targetMs={3661000}>
   <TimerArea>
+    <TimerItem type="days" />
+    <TimerSeparator>:</TimerSeparator>
     <TimerItem type="hours" />
     <TimerSeparator>:</TimerSeparator>
     <TimerItem type="minutes" />

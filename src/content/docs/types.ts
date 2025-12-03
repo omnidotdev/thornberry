@@ -12,6 +12,7 @@ import type { CollapsibleRoot } from "@/registry/thornberry/components/collapsib
 import type { ComboboxRoot } from "@/registry/thornberry/components/combobox";
 import type { DatePickerRoot } from "@/registry/thornberry/components/date-picker";
 import type { DialogRoot } from "@/registry/thornberry/components/dialog";
+import type { FileUpload } from "@/registry/thornberry/components/file-upload";
 import type { HoverCardRoot } from "@/registry/thornberry/components/hover-card";
 import type { Input } from "@/registry/thornberry/components/input";
 import type { MenuRoot } from "@/registry/thornberry/components/menu";
@@ -20,9 +21,11 @@ import type { PaginationRoot } from "@/registry/thornberry/components/pagination
 import type { PinInputRoot } from "@/registry/thornberry/components/pin-input";
 import type { PopoverRoot } from "@/registry/thornberry/components/popover";
 import type { RatingGroupRoot } from "@/registry/thornberry/components/rating-group";
+import type { SelectRoot } from "@/registry/thornberry/components/select";
 import type { SliderRoot } from "@/registry/thornberry/components/slider";
 import type { SwitchRoot } from "@/registry/thornberry/components/switch";
 import type { TabsRoot } from "@/registry/thornberry/components/tabs";
+import type { TagsInputRoot } from "@/registry/thornberry/components/tags-input";
 import type { TooltipRoot } from "@/registry/thornberry/components/tooltip";
 
 export type AccordionProps = Omit<
@@ -152,5 +155,20 @@ export type TabsProps = Omit<
 
 export type TooltipProps = Omit<
   ComponentProps<typeof TooltipRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type TagsInputProps = Omit<
+  ComponentProps<typeof TagsInputRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type FileUploadProps = Omit<
+  ComponentProps<typeof FileUpload>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type SelectProps = Omit<
+  ComponentProps<typeof SelectRoot>,
   keyof ComponentProps<"div"> | "ids"
 >;

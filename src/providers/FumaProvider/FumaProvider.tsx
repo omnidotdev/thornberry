@@ -1,6 +1,6 @@
 import { loader } from "fumadocs-core/source";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
-import { RootProvider } from "fumadocs-ui/provider";
+import { RootProvider } from "fumadocs-ui/provider/next";
 
 import { docs } from "@/../.source";
 import { app } from "@/lib/config";

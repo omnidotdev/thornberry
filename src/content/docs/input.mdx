@@ -3,7 +3,7 @@ title: Input
 description: A form field for collecting user input.
 ---
 
-import { FiMail, FiLock, FiSearch, FiUser, FiCalendar } from "react-icons/fi";
+import { Mail, Lock, Search } from "lucide-react";
 import { Input } from "@/registry/thornberry/components/input";
 
 <Input placeholder="Please enter text..." className="mb-8" />
@@ -69,37 +69,37 @@ import { Input } from "@/components/ui/input";
   <Tab value="Preview">
     <div className="grid gap-4 py-4">
       <div className="relative">
-        <FiMail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input className="pl-10" placeholder="Email" />
       </div>
       <div className="relative">
-        <FiLock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input className="pl-10" type="password" placeholder="Password" />
       </div>
       <div className="relative">
         <Input className="pr-10" placeholder="Search..." />
-        <FiSearch className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
       </div>
     </div>
   </Tab>
   <Tab value="Code">
     ```tsx
-    import { FiMail, FiLock, FiSearch } from "react-icons/fi";
+    import { Mail, Lock, Search } from "lucide-react";
     import { Input } from "@/components/ui/input";
 
     const InputWithIcons = () => (
       <div className="grid gap-4 py-4">
         <div className="relative">
-          <FiMail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input className="pl-10" placeholder="Email" />
         </div>
         <div className="relative">
-          <FiLock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input className="pl-10" type="password" placeholder="Password" />
         </div>
         <div className="relative">
           <Input className="pr-10" placeholder="Search..." />
-          <FiSearch className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         </div>
       </div>
     );

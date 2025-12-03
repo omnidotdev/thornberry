@@ -40,7 +40,7 @@ const Page = async ({ params }: Props) => {
 
   const MDX = page.data.body;
 
-  const path = `src/content/docs/${page.file.path}`;
+  const path = `src/content/docs/${page.path}`;
 
   return (
     <DocsPage
@@ -61,7 +61,7 @@ const Page = async ({ params }: Props) => {
         url={`https://github.com/${app.github.owner}/${app.github.repo}/blob/master/${path}`}
       />
 
-      <DocsBody>
+      <DocsBody className="not-prose">
         <MDX components={getMDXComponents()} />
       </DocsBody>
     </DocsPage>

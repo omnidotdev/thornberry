@@ -1,7 +1,6 @@
 "use client";
 
 import { AngleSlider as ArkAngleSlider } from "@ark-ui/react/angle-slider";
-import { tv } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
 
@@ -15,50 +14,41 @@ import type {
   AngleSliderValueTextProps,
 } from "@ark-ui/react";
 
-const angleSliderVariants = tv({
-  slots: {
-    root: "relative aspect-square w-[200px]",
-    control: "absolute inset-0 rounded-full",
-    thumb:
-      "group pointer-events-none absolute top-0 right-0 bottom-0 left-[calc(50%-1.5px)] z-20 flex h-full w-[3px] items-start justify-center focus-visible:outline-none",
-    thumbIcon:
-      "h-4 w-4 flex-shrink-0 scale-125 rounded-full bg-primary-500 ring ring-primary-600 ring-offset-1",
-    markerGroup: "absolute inset-4 rounded-full bg-background",
-    marker: "",
-    valueText:
-      "pointer-events-none absolute inset-0 z-30 flex items-center justify-center text-center font-bold text-2xl text-foreground",
-    hiddenInput: "",
-  },
-});
-
-const {
-  root,
-  control,
-  thumb,
-  thumbIcon,
-  markerGroup,
-  marker,
-  valueText,
-  hiddenInput,
-} = angleSliderVariants();
-
 const AngleSliderRoot = ({ className, ...rest }: AngleSliderRootProps) => (
-  <ArkAngleSlider.Root className={cn(root(), className)} {...rest} />
+  <ArkAngleSlider.Root
+    className={cn("relative aspect-square w-[200px]", className)}
+    {...rest}
+  />
 );
 
 const AngleSliderControl = ({
   className,
   ...rest
 }: AngleSliderControlProps) => (
-  <ArkAngleSlider.Control className={cn(control(), className)} {...rest} />
+  <ArkAngleSlider.Control
+    className={cn("absolute inset-0 rounded-full", className)}
+    {...rest}
+  />
 );
 
 const AngleSliderThumb = ({ className, ...rest }: AngleSliderThumbProps) => (
   <div className="rounded-full">
-    <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,_var(--primary-200)_var(--angle,_0deg),_var(--border)_var(--angle,_0deg))]" />
+    <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,var(--primary)_var(--angle,0deg),var(--border)_var(--angle,0deg))] opacity-50" />
 
-    <ArkAngleSlider.Thumb className={cn(thumb(), className)} {...rest}>
-      <span className={thumbIcon()} />
+    <ArkAngleSlider.Thumb
+      tabIndex={-1}
+      className={cn(
+        "group pointer-events-none absolute top-0 right-0 bottom-0 left-[calc(50%-1.5px)] z-20 flex h-full w-[3px] items-start justify-center focus-visible:outline-none",
+        className,
+      )}
+      {...rest}
+    >
+      <button
+        type="button"
+        className={
+          "h-4 w-4 shrink-0 scale-125 rounded-full bg-primary ring ring-primary/60 ring-offset-1 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        }
+      />
     </ArkAngleSlider.Thumb>
   </div>
 );
@@ -68,7 +58,7 @@ const AngleSliderMarkerGroup = ({
   ...rest
 }: AngleSliderMarkerGroupProps) => (
   <ArkAngleSlider.MarkerGroup
-    className={cn(markerGroup(), className)}
+    className={cn("absolute inset-4 rounded-full bg-background", className)}
     {...rest}
   />
 );
@@ -78,28 +68,27 @@ const AngleSliderMarker = ({
   value,
   ...rest
 }: AngleSliderMarkerProps) => (
-  <ArkAngleSlider.Marker
-    value={value}
-    className={cn(marker(), className)}
-    {...rest}
-  />
+  <ArkAngleSlider.Marker value={value} className={className} {...rest} />
 );
 
 const AngleSliderValueText = ({
   className,
   ...rest
 }: AngleSliderValueTextProps) => (
-  <ArkAngleSlider.ValueText className={cn(valueText(), className)} {...rest} />
+  <ArkAngleSlider.ValueText
+    className={cn(
+      "pointer-events-none absolute inset-0 z-30 flex items-center justify-center text-center font-bold text-2xl text-foreground",
+      className,
+    )}
+    {...rest}
+  />
 );
 
 const AngleSliderHiddenInput = ({
   className,
   ...rest
 }: AngleSliderHiddenInputProps) => (
-  <ArkAngleSlider.HiddenInput
-    className={cn(hiddenInput(), className)}
-    {...rest}
-  />
+  <ArkAngleSlider.HiddenInput className={className} {...rest} />
 );
 
 export {

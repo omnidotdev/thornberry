@@ -14,7 +14,7 @@ import {
   SheetCloseTrigger,
 } from "@/registry/thornberry/components/sheet";
 import { Button } from "@/registry/thornberry/components/button";
-import { FiX } from "react-icons/fi";
+import { X } from "lucide-react";
 
 <SheetRoot>
   <SheetTrigger asChild className="mb-8">
@@ -59,7 +59,7 @@ import {
   SheetCloseTrigger,
 } from "@/registry/thornberry/components/sheet";
 import { Button } from "@/registry/thornberry/components/button";
-import { FiX } from "react-icons/fi";
+import { X } from "lucide-react";
 ```
 
 ```tsx
@@ -87,6 +87,80 @@ import { FiX } from "react-icons/fi";
     </SheetContent>
   </SheetPositioner>
 </SheetRoot>
+```
+
+## Examples
+
+#### Positioning
+
+<div className="flex gap-2">
+  <SheetRoot>
+    <SheetTrigger asChild className="mb-8">
+      <Button>Open Left</Button>
+    </SheetTrigger>
+    <SheetBackdrop />
+    <SheetPositioner>
+      <SheetContent side="left" className="p-4">
+        <SheetCloseTrigger />
+        <div className="flex flex-col gap-1.5">
+          <SheetTitle>Sheet Title</SheetTitle>
+          <SheetDescription>This is a description of the sheet's purpose.</SheetDescription>
+        </div>
+      </SheetContent>
+    </SheetPositioner>
+  </SheetRoot>
+
+  <SheetRoot>
+    <SheetTrigger asChild className="mb-8">
+      <Button>Open Right</Button>
+    </SheetTrigger>
+    <SheetBackdrop />
+    <SheetPositioner>
+      <SheetContent side="right" className="p-4">
+        <SheetCloseTrigger />
+        <div className="flex flex-col gap-1.5">
+          <SheetTitle>Sheet Title</SheetTitle>
+          <SheetDescription>This is a description of the sheet's purpose.</SheetDescription>
+        </div>
+      </SheetContent>
+    </SheetPositioner>
+  </SheetRoot>
+
+  <SheetRoot>
+    <SheetTrigger asChild className="mb-8">
+      <Button>Open Top</Button>
+    </SheetTrigger>
+    <SheetBackdrop />
+    <SheetPositioner>
+      <SheetContent side="top" className="p-4">
+        <SheetCloseTrigger />
+        <div className="flex flex-col gap-1.5">
+          <SheetTitle>Sheet Title</SheetTitle>
+          <SheetDescription>This is a description of the sheet's purpose.</SheetDescription>
+        </div>
+      </SheetContent>
+    </SheetPositioner>
+  </SheetRoot>
+
+  <SheetRoot>
+    <SheetTrigger asChild className="mb-8">
+      <Button>Open Bottom</Button>
+    </SheetTrigger>
+    <SheetBackdrop />
+    <SheetPositioner>
+      <SheetContent side="bottom" className="p-4">
+        <SheetCloseTrigger />
+        <div className="flex flex-col gap-1.5">
+          <SheetTitle>Sheet Title</SheetTitle>
+          <SheetDescription>This is a description of the sheet's purpose.</SheetDescription>
+        </div>
+      </SheetContent>
+    </SheetPositioner>
+  </SheetRoot>
+</div>
+
+```tsx
+  <SheetContent side="left | right | top | bottom" />
 ```
 
 ## References

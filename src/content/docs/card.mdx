@@ -4,33 +4,26 @@ description: Surface container for grouping related content and actions.
 ---
 
 import { Button } from "@/registry/thornberry/components/button";
-import { Card, CardRoot, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/registry/thornberry/components/card";
+import { CardRoot, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/registry/thornberry/components/card";
 
-<Card title="Card Title" description="Card Description" footer={<Button>Save</Button>} className="mb-8">
-  This is the content area of the card, where the main information is displayed.
-</Card>
+<CardRoot className="mb-8">
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card Description</CardDescription>
+  </CardHeader>
+  <CardContent>
+    This is the content area of the card, where the main information is displayed.
+  </CardContent>
+  <CardFooter>
+    <Button>Save</Button>
+  </CardFooter>
+</CardRoot>
 
 ## Installation
 
 <InstallationTabs filename="card.json" />
 
 ## Usage
-
-For simplicity, we provide a pre-built component that you can use out of the box.
-
-```tsx
-import { Card } from "@/components/ui/card";
-```
-
-```tsx
-<Card title="Card Title" description="Card Description" footer={<Button>Save</Button>}>
-  This is the content area of the card, where the main information is displayed.
-</Card>
-```
-
-### Primitives
-
-If you need more control over the card component, you can use the primitives.
 
 ```tsx
 import {
@@ -66,7 +59,7 @@ import {
 
 <Tabs items={["Preview", "Code"]} className="mt-4">
   <Tab value="Preview">
-    <CardRoot className="border-primary/50 overflow-hidden">
+    <CardRoot className="border border-primary-500 overflow-hidden">
       <CardHeader className="bg-muted/50">
         <CardTitle className="text-primary">Custom Styled Card</CardTitle>
         <CardDescription>With custom styling applied to each part</CardDescription>
@@ -95,7 +88,7 @@ import {
 
     export const CustomStyledCard = () => {
       return (
-        <CardRoot className="border-primary/50 overflow-hidden">
+        <CardRoot className="border-primary-500 overflow-hidden">
           <CardHeader className="bg-muted/50">
             <CardTitle className="text-primary">Custom Styled Card</CardTitle>
             <CardDescription>With custom styling applied to each part</CardDescription>

@@ -3,35 +3,22 @@ title: Alert
 description: Displays a callout for user attention with status variants for different scenarios.
 ---
 
-import { FiInfo, FiCheck } from "react-icons/fi";
-import { IoWarningOutline } from "react-icons/io5";
-import { BiErrorAlt } from "react-icons/bi";
+import { CircleAlert, Info, Check, TriangleAlert, OctagonAlert } from "lucide-react";
+import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/registry/thornberry/components/alert";
 
-import { Alert, AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/registry/thornberry/components/alert";
-
-<Alert title="Alert" description="This is an alert component for important messages." className="mb-8" />
+<AlertRoot className="mb-8">
+  <AlertIcon>
+    <CircleAlert />
+  </AlertIcon>
+  <AlertTitle>Alert</AlertTitle>
+  <AlertDescription>This is an alert component for important messages.</AlertDescription>
+</AlertRoot>
 
 ## Installation
 
 <InstallationTabs filename="alert.json" />
 
 ## Usage
-
-For simplicity, we provide a pre-built component that you can use out of the box.
-
-```tsx
-import { Alert } from "@/components/ui/alert";
-```
-
-```tsx
-<Alert title="Alert" description="This is an alert component for important messages." />
-```
-
-<br />
-
-### Primitives
-
-If you need more control over the alert component, you can use the primitives.
 
 ```tsx
 import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components/ui/alert";
@@ -57,33 +44,93 @@ import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components
 
 <Tabs items={["Default", "Info", "Success", "Warning", "Error"]} className="mt-4">
   <Tab value="Default">
-    <Alert title="Alert" description="This is an alert component for important messages." />
+    <AlertRoot>
+      <AlertIcon>
+        <CircleAlert />
+      </AlertIcon>
+      <AlertTitle>Alert</AlertTitle>
+      <AlertDescription>This is an alert component for important messages.</AlertDescription>
+    </AlertRoot>
     ```tsx
-    <Alert title="Alert" description="This is an alert component for important messages." />
+     <AlertRoot>
+      <AlertIcon>
+        <CircleAlert />
+      </AlertIcon>
+      <AlertTitle>Alert</AlertTitle>
+      <AlertDescription>This is an alert component for important messages.</AlertDescription>
+    </AlertRoot>
     ```
   </Tab>
   <Tab value="Info">
-    <Alert variant="info" title="Information" description="Did you know platypuses are venomous?" />
+    <AlertRoot variant="info">
+      <AlertIcon>
+        <Info />
+      </AlertIcon>
+      <AlertTitle>Information</AlertTitle>
+      <AlertDescription>Did you know platypuses are venomous?</AlertDescription>
+    </AlertRoot>
     ```tsx
-    <Alert variant="info" title="Information" description="Did you know platypuses are venomous?" />
+    <AlertRoot variant="info">
+      <AlertIcon>
+        <Info />
+      </AlertIcon>
+      <AlertTitle>Information</AlertTitle>
+      <AlertDescription>Did you know platypuses are venomous?</AlertDescription>
+    </AlertRoot>
     ```
   </Tab>
   <Tab value="Success">
-    <Alert variant="success" title="Success" description="Your profile has been updated successfully." />
+    <AlertRoot variant="success">
+      <AlertIcon>
+        <Check />
+      </AlertIcon>
+      <AlertTitle>Success</AlertTitle>
+      <AlertDescription>Your profile has been updated successfully.</AlertDescription>
+    </AlertRoot>
     ```tsx
-    <Alert variant="success" title="Success" description="Your profile has been updated successfully." />
+     <AlertRoot variant="success">
+      <AlertIcon>
+        <Check />
+      </AlertIcon>
+      <AlertTitle>Success</AlertTitle>
+      <AlertDescription>Your profile has been updated successfully.</AlertDescription>
+    </AlertRoot>
     ```
   </Tab>
   <Tab value="Warning">
-    <Alert variant="warning" title="Warning" description="Your storage is almost full. Please free up some space." />
+    <AlertRoot variant="warning">
+      <AlertIcon>
+        <TriangleAlert />
+      </AlertIcon>
+      <AlertTitle>Warning</AlertTitle>
+      <AlertDescription>Your storage is almost full. Please free up some space.</AlertDescription>
+    </AlertRoot>
     ```tsx
-    <Alert variant="warning" title="Warning" description="Your storage is almost full. Please free up some space." />
+    <AlertRoot variant="warning">
+      <AlertIcon>
+        <TriangleAlert />
+      </AlertIcon>
+      <AlertTitle>Warning</AlertTitle>
+      <AlertDescription>Your storage is almost full. Please free up some space.</AlertDescription>
+    </AlertRoot>
     ```
   </Tab>
   <Tab value="Error">
-    <Alert variant="error" title="Error" description="An error occurred while processing your request." />
+    <AlertRoot variant="error">
+      <AlertIcon>
+        <OctagonAlert />
+      </AlertIcon>
+      <AlertTitle>Error</AlertTitle>
+      <AlertDescription>An error occurred while processing your request.</AlertDescription>
+    </AlertRoot>
     ```tsx
-    <Alert variant="error" title="Error" description="An error occurred while processing your request." />
+     <AlertRoot variant="error">
+      <AlertIcon>
+        <OctagonAlert />
+      </AlertIcon>
+      <AlertTitle>Error</AlertTitle>
+      <AlertDescription>An error occurred while processing your request.</AlertDescription>
+    </AlertRoot>
     ```
   </Tab>
 </Tabs>

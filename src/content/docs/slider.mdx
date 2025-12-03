@@ -3,7 +3,7 @@ title: Slider
 description: A control that allows users to select a value or range from a given range.
 ---
 
-import { FiVolume2, FiSun, FiMoon, FiThermometer } from "react-icons/fi";
+import { Volume2, Thermometer } from "lucide-react";
 import { SliderRoot, SliderControl, SliderTrack, SliderRange, SliderThumb, SliderLabel, SliderValueText, SliderMarker } from "@/registry/thornberry/components/slider";
 
 <SliderRoot defaultValue={[50]} className="mb-8">
@@ -137,7 +137,7 @@ import {
   <Tab value="Preview">
     <div className="flex flex-col gap-4 pb-8">
       <div className="flex items-center gap-4">
-        <FiVolume2 className="h-5 w-5 text-muted-foreground" />
+        <Volume2 className="h-5 w-5 text-muted-foreground" />
         <SliderRoot defaultValue={[60]}>
           <SliderControl>
             <SliderTrack className="bg-muted">
@@ -152,7 +152,7 @@ import {
         <SliderRoot min={15} max={35} step={0.5} defaultValue={[22.5]}>
           <div className="flex items-center gap-2 mb-3">
             <SliderLabel className="flex items-center gap-1 mb-0">
-              <FiThermometer className="size-4 text-red-500" />
+              <Thermometer className="size-4 text-red-500" />
               <p className="text-muted-foreground">Temperature</p>
             </SliderLabel>
             <SliderValueText className="bg-primary/10 px-2 py-0.5 rounded text-xs mt-0" />
@@ -172,7 +172,7 @@ import {
   </Tab>
   <Tab value="Code">
     ```tsx
-    import { FiVolume2, FiSun, FiMoon, FiThermometer } from "react-icons/fi";
+    import { Volume2, Thermometer } from "lucide-react";
     import {
       SliderRoot,
       SliderControl,
@@ -187,7 +187,7 @@ import {
     const StyledSliders = () => (
     <div className="flex flex-col gap-4 pb-8">
       <div className="flex items-center gap-4">
-        <FiVolume2 className="h-5 w-5 text-muted-foreground" />
+        <Volume2 className="h-5 w-5 text-muted-foreground" />
         <SliderRoot defaultValue={[60]}>
           <SliderControl>
             <SliderTrack className="bg-muted">
@@ -202,7 +202,7 @@ import {
         <SliderRoot min={15} max={35} step={0.5} defaultValue={[22.5]}>
           <div className="flex items-center gap-2 mb-3">
             <SliderLabel className="flex items-center gap-1 mb-0">
-              <FiThermometer className="size-4 text-red-500" />
+              <Thermometer className="size-4 text-red-500" />
               <p className="text-muted-foreground">Temperature</p>
             </SliderLabel>
             <SliderValueText className="bg-primary/10 px-2 py-0.5 rounded text-xs mt-0" />

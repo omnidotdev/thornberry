@@ -3,20 +3,22 @@ title: Tooltip
 description: A popup that displays information related to an element when it receives focus or is hovered over.
 ---
 
-import { FiInfo, FiAlertCircle, FiHelpCircle, FiSettings } from "react-icons/fi";
+import { Info, CircleAlert, CircleQuestionMark } from "lucide-react";
 import { TooltipRoot, TooltipTrigger, TooltipPositioner, TooltipContent, TooltipArrow, TooltipArrowTip } from "@/registry/thornberry/components/tooltip";
 import { Button } from "@/registry/thornberry/components/button";
 
-<TooltipRoot>
-  <TooltipTrigger asChild className="mb-8">
-    <Button variant="outline">Hover Me</Button>
-  </TooltipTrigger>
-  <TooltipPositioner>
-    <TooltipContent>
-      This is a tooltip
-    </TooltipContent>
-  </TooltipPositioner>
-</TooltipRoot>
+<div className="flex justify-center">
+  <TooltipRoot positioning={{ placement: "top" }}>
+    <TooltipTrigger asChild className="mb-8">
+      <Button variant="outline">Hover Me</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        This is a tooltip
+      </TooltipContent>
+    </TooltipPositioner>
+  </TooltipRoot>
+</div>
 
 ## Installation
 
@@ -53,152 +55,55 @@ import { Button } from "@/components/ui/button";
 
 #### Placements
 
-<Tabs items={["Top", "Right", "Bottom", "Left"]} className="mt-4">
-  <Tab value="Top">
-    <TooltipRoot positioning={{ placement: "top" }}>
-      <TooltipTrigger asChild>
-        <Button variant="outline">Top Tooltip</Button>
-      </TooltipTrigger>
-      <TooltipPositioner>
-        <TooltipContent>
-          This tooltip appears on top
-        </TooltipContent>
-      </TooltipPositioner>
-    </TooltipRoot>
-  </Tab>
-  <Tab value="Right">
-    <TooltipRoot positioning={{ placement: "right" }}>
-      <TooltipTrigger asChild>
-        <Button variant="outline">Right Tooltip</Button>
-      </TooltipTrigger>
-      <TooltipPositioner>
-        <TooltipContent>
-          This tooltip appears on the right
-        </TooltipContent>
-      </TooltipPositioner>
-    </TooltipRoot>
-  </Tab>
-  <Tab value="Bottom">
-    <TooltipRoot positioning={{ placement: "bottom" }}>
-      <TooltipTrigger asChild>
-        <Button variant="outline">Bottom Tooltip</Button>
-      </TooltipTrigger>
-      <TooltipPositioner placement="bottom">
-        <TooltipContent>
-          This tooltip appears on the bottom
-        </TooltipContent>
-      </TooltipPositioner>
-    </TooltipRoot>
-  </Tab>
-  <Tab value="Left">
-    <TooltipRoot positioning={{ placement: "left" }}>
-      <TooltipTrigger asChild>
-        <Button variant="outline">Left Tooltip</Button>
-      </TooltipTrigger>
-      <TooltipPositioner>
-        <TooltipContent>
-          This tooltip appears on the left
-        </TooltipContent>
-      </TooltipPositioner>
-    </TooltipRoot>
-  </Tab>
-</Tabs>
+<div className="flex gap-2">
+  <TooltipRoot positioning={{ placement: "left" }}>
+    <TooltipTrigger asChild>
+      <Button>Left Tooltip</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        This tooltip appears on left
+      </TooltipContent>
+    </TooltipPositioner>
+  </TooltipRoot>
 
-#### With Arrow and Delays
+  <TooltipRoot positioning={{ placement: "right" }}>
+    <TooltipTrigger asChild>
+      <Button>Right Tooltip</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        This tooltip appears on the right
+      </TooltipContent>
+    </TooltipPositioner>
+  </TooltipRoot>
 
-<Tabs items={["With Arrow", "Custom Delays", "Icon Tooltips"]} className="mt-4">
-  <Tab value="With Arrow">
-    <TooltipRoot>
-      <TooltipTrigger asChild>
-        <Button variant="outline">With Arrow</Button>
-      </TooltipTrigger>
-      <TooltipPositioner>
-        <TooltipContent>
-          <TooltipArrow>
-            <TooltipArrowTip />
-          </TooltipArrow>
-          This tooltip has an arrow pointer
-        </TooltipContent>
-      </TooltipPositioner>
-    </TooltipRoot>
-  </Tab>
-  <Tab value="Custom Delays">
-    <div className="flex gap-4">
-      <TooltipRoot openDelay={500} closeDelay={100}>
-        <TooltipTrigger asChild>
-          <Button variant="outline">Slow Open</Button>
-        </TooltipTrigger>
-        <TooltipPositioner>
-          <TooltipContent>
-            <TooltipArrow>
-              <TooltipArrowTip />
-            </TooltipArrow>
-            Opens after 500ms, closes after 100ms
-          </TooltipContent>
-        </TooltipPositioner>
-      </TooltipRoot>
+  <TooltipRoot positioning={{ placement: "top" }}>
+    <TooltipTrigger asChild>
+      <Button>Top Tooltip</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        This tooltip appears on the top
+      </TooltipContent>
+    </TooltipPositioner>
+  </TooltipRoot>
 
-      <TooltipRoot openDelay={100} closeDelay={1000}>
-        <TooltipTrigger asChild>
-          <Button variant="outline">Slow Close</Button>
-        </TooltipTrigger>
-        <TooltipPositioner>
-          <TooltipContent>
-            <TooltipArrow>
-              <TooltipArrowTip />
-            </TooltipArrow>
-            Opens after 100ms, closes after 1000ms
-          </TooltipContent>
-        </TooltipPositioner>
-      </TooltipRoot>
-    </div>
-  </Tab>
-  <Tab value="Icon Tooltips">
-    <div className="flex gap-4">
-      <TooltipRoot>
-        <TooltipTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <FiInfo className="h-4 w-4" />
-            <span className="sr-only">Info</span>
-          </Button>
-        </TooltipTrigger>
-        <TooltipPositioner>
-          <TooltipContent>
-            Important information
-          </TooltipContent>
-        </TooltipPositioner>
-      </TooltipRoot>
+  <TooltipRoot positioning={{ placement: "bottom" }}>
+    <TooltipTrigger asChild>
+      <Button>Bottom Tooltip</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        This tooltip appears on the bottom
+      </TooltipContent>
+    </TooltipPositioner>
+  </TooltipRoot>
+</div>
 
-      <TooltipRoot>
-        <TooltipTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <FiAlertCircle className="h-4 w-4 text-amber-500" />
-            <span className="sr-only">Warning</span>
-          </Button>
-        </TooltipTrigger>
-        <TooltipPositioner>
-          <TooltipContent>
-            Warning notification
-          </TooltipContent>
-        </TooltipPositioner>
-      </TooltipRoot>
-
-      <TooltipRoot>
-        <TooltipTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <FiHelpCircle className="h-4 w-4 text-blue-500" />
-            <span className="sr-only">Help</span>
-          </Button>
-        </TooltipTrigger>
-        <TooltipPositioner>
-          <TooltipContent>
-            Need help? Click for more information
-          </TooltipContent>
-        </TooltipPositioner>
-      </TooltipRoot>
-    </div>
-  </Tab>
-</Tabs>
+```tsx
+  <TooltipRoot positioning={{ placement: "left | right | top | bottom" }} />
+```
 
 ## References
 

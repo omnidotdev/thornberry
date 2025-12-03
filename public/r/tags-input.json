@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tags-input",
+  "type": "registry:ui",
+  "title": "Tags Input",
+  "description": "A component that allows users to input and manage a list of tags or keywords",
+  "dependencies": [
+    "@ark-ui/react",
+    "lucide-react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/tags-input.tsx",
+      "content": "import { TagsInput as ArkTagsInput } from \"@ark-ui/react/tags-input\";\nimport { X } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst TagsInputItemPreview = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTagsInput.ItemPreview>) => (\n  <ArkTagsInput.ItemPreview\n    className={cn(\"flex items-center gap-2\", className)}\n    {...rest}\n  />\n);\n\nconst TagsInputLabel = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTagsInput.Label>) => (\n  <ArkTagsInput.Label\n    className={cn(\"font-medium text-foreground text-sm\", className)}\n    {...rest}\n  />\n);\n\nconst TagsInputControl = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTagsInput.Control>) => (\n  <ArkTagsInput.Control\n    className={cn(\n      \"flex flex-wrap gap-2 rounded-md bg-background px-3 py-2 text-sm ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst TagsInputInput = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTagsInput.Input>) => (\n  <ArkTagsInput.Input\n    className={cn(\n      \"h-9 flex-1 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst TagsInputItem = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTagsInput.Item>) => (\n  <ArkTagsInput.Item\n    className={cn(\n      \"flex w-fit items-center justify-center gap-1 rounded-md border bg-transparent px-3 font-medium text-foreground text-sm\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst TagsInputItemText = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTagsInput.ItemText>) => (\n  <ArkTagsInput.ItemText className={cn(\"px-2 py-0.5\", className)} {...rest} />\n);\n\nconst TagsInputItemInput = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTagsInput.ItemInput>) => (\n  <ArkTagsInput.ItemInput\n    className={cn(\n      \"w-full bg-transparent px-2 py-0.5 text-foreground outline-none\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst TagsInputItemDeleteTrigger = ({\n  className,\n  children,\n  asChild,\n  ...rest\n}: ComponentProps<typeof ArkTagsInput.ItemDeleteTrigger>) => {\n  if (!children) {\n    return (\n      <ArkTagsInput.ItemDeleteTrigger\n        className={cn(\n          \"bg-transparent text-foreground hover:text-red-500\",\n          className,\n        )}\n        {...rest}\n      >\n        <X className=\"h-4 w-4\" />\n        <span className=\"sr-only\">Delete</span>\n      </ArkTagsInput.ItemDeleteTrigger>\n    );\n  }\n\n  return (\n    <ArkTagsInput.ItemDeleteTrigger\n      className={className}\n      asChild={asChild}\n      {...rest}\n    >\n      {children}\n    </ArkTagsInput.ItemDeleteTrigger>\n  );\n};\n\nconst TagsInputClearTrigger = ({\n  className,\n  children,\n  asChild,\n  ...rest\n}: ComponentProps<typeof ArkTagsInput.ClearTrigger>) => {\n  if (!children) {\n    return (\n      <ArkTagsInput.ClearTrigger\n        className={cn(\n          \"mt-2 inline-flex h-10 w-full items-center justify-center rounded-md border px-4 py-2 font-medium text-sm ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50\",\n          className,\n        )}\n        {...rest}\n      >\n        Clear\n      </ArkTagsInput.ClearTrigger>\n    );\n  }\n\n  return (\n    <ArkTagsInput.ClearTrigger\n      className={className}\n      asChild={asChild}\n      {...rest}\n    >\n      {children}\n    </ArkTagsInput.ClearTrigger>\n  );\n};\n\nconst TagsInputContext = ArkTagsInput.Context;\nconst TagsInputRoot = ArkTagsInput.Root;\n\nexport {\n  TagsInputClearTrigger,\n  TagsInputControl,\n  TagsInputContext,\n  TagsInputInput,\n  TagsInputItem,\n  TagsInputItemDeleteTrigger,\n  TagsInputItemInput,\n  TagsInputItemText,\n  TagsInputLabel,\n  TagsInputRoot,\n  TagsInputItemPreview,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

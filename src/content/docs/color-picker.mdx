@@ -1,0 +1,128 @@
+---
+title: Color Picker
+description: A component that allows users to select a color using various input methods.
+---
+
+import { ColorPicker } from "@/components";
+
+<ColorPicker />
+
+## Installation
+
+<InstallationTabs filename="color-picker.json" />
+
+## Usage
+
+
+```tsx
+import { Pipette } from 'lucide-react';
+
+import {
+  ColorPickerArea,
+  ColorPickerAreaBackground,
+  ColorPickerAreaThumb,
+  ColorPickerChannelInput,
+  ColorPickerChannelSlider,
+  ColorPickerChannelSliderThumb,
+  ColorPickerChannelSliderTrack,
+  ColorPickerContent,
+  ColorPickerControl,
+  ColorPickerEyeDropperTrigger,
+  ColorPickerHiddenInput,
+  ColorPickerLabel,
+  ColorPickerPositioner,
+  ColorPickerRoot,
+  ColorPickerSwatch,
+  ColorPickerSwatchGroup,
+  ColorPickerSwatchIndicator,
+  ColorPickerSwatchTrigger,
+  ColorPickerTransparencyGrid,
+  ColorPickerTrigger,
+  ColorPickerValueSwatch,
+  ColorPickerView,
+  parseColor,
+} from "@/registry/thornberry/components/color-picker";
+
+const ColorPicker = () => {
+  const colors = [
+    "red",
+    "pink",
+    "orange",
+    "yellow",
+    "green",
+    "teal",
+    "blue",
+    "indigo",
+    "purple",
+    "violet",
+    "brown",
+    "gray",
+    "black",
+    "white",
+  ];
+
+  return (
+    <div className="max-w-[280px]">
+      <ColorPickerRoot defaultValue={parseColor("#1a73e8")} className="mb-8">
+        <ColorPickerLabel>Color</ColorPickerLabel>
+        <ColorPickerControl>
+          <ColorPickerChannelInput channel="hex" />
+
+          <ColorPickerTrigger>
+            <ColorPickerTransparencyGrid />
+            <ColorPickerValueSwatch />
+          </ColorPickerTrigger>
+        </ColorPickerControl>
+
+        <ColorPickerPositioner>
+          <ColorPickerContent>
+            <ColorPickerArea>
+              <ColorPickerAreaBackground />
+              <ColorPickerAreaThumb />
+            </ColorPickerArea>
+
+            <div className="flex w-full items-center gap-4">
+              <ColorPickerEyeDropperTrigger>
+                <Pipette size={12} />
+              </ColorPickerEyeDropperTrigger>
+
+              <div className="flex h-10 w-full flex-col items-center justify-center gap-2">
+                <ColorPickerChannelSlider channel="hue">
+                  <ColorPickerChannelSliderTrack />
+                  <ColorPickerChannelSliderThumb />
+                </ColorPickerChannelSlider>
+
+                <ColorPickerChannelSlider channel="alpha">
+                  <ColorPickerTransparencyGrid />
+                  <ColorPickerChannelSliderTrack />
+                  <ColorPickerChannelSliderThumb />
+                </ColorPickerChannelSlider>
+              </div>
+            </div>
+
+            <ColorPickerView format="rgba">
+              <ColorPickerChannelInput channel="hex" className="h-7 text-xs" />
+              <ColorPickerChannelInput
+                channel="alpha"
+                className="h-7 text-xs"
+              />
+            </ColorPickerView>
+
+            <ColorPickerSwatchGroup>
+              {colors.map((color) => (
+                <ColorPickerSwatchTrigger key={color} value={color}>
+                  <ColorPickerSwatch value={color}>
+                    <ColorPickerSwatchIndicator>✓</ColorPickerSwatchIndicator>
+                  </ColorPickerSwatch>
+                </ColorPickerSwatchTrigger>
+              ))}
+            </ColorPickerSwatchGroup>
+          </ColorPickerContent>
+        </ColorPickerPositioner>
+        <ColorPickerHiddenInput />
+      </ColorPickerRoot>
+    </div>
+  );
+};
+
+```

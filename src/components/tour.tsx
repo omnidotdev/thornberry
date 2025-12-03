@@ -79,7 +79,7 @@ const Tour = () => {
 
   return (
     <>
-      <div className="mb-4 flex justify-center rounded-lg bg-muted p-8">
+      <div className="mb-4 flex justify-center rounded-lg bg-accent p-8">
         <Button onClick={() => tour.start()}>Start Tour</Button>
       </div>
 

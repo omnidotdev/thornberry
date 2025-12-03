@@ -3,34 +3,35 @@ title: Carousel
 description: A component that displays content in a rotating cycle with navigation controls.
 ---
 
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { CarouselRoot, CarouselItemGroup, CarouselItem, CarouselPrevTrigger, CarouselNextTrigger, CarouselIndicatorGroup, CarouselIndicator } from "@/registry/thornberry/components/carousel";
+import { CarouselRoot, CarouselControl, CarouselItemGroup, CarouselItem, CarouselPrevTrigger, CarouselNextTrigger, CarouselIndicatorGroup, CarouselIndicator } from "@/registry/thornberry/components/carousel";
 
 <CarouselRoot slideCount={3} loop className="mb-8">
-  <CarouselItemGroup className="overflow-hidden">
+  <CarouselItemGroup className="overflow-hidden rounded-md">
     <CarouselItem index={0}>
-      <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold text-base-950">Slide 1</span>
+      <div className="h-64 bg-accent flex items-center justify-center">
+        <span className="text-2xl font-bold text-accent-foreground">Slide 1</span>
       </div>
     </CarouselItem>
     <CarouselItem index={1}>
-      <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold text-base-950">Slide 2</span>
+      <div className="h-64 bg-accent flex items-center justify-center rounded-md">
+        <span className="text-2xl font-bold text-accent-foreground">Slide 2</span>
       </div>
     </CarouselItem>
     <CarouselItem index={2}>
-      <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold text-base-950">Slide 3</span>
+      <div className="h-64 bg-accent flex items-center justify-center rounded-md">
+        <span className="text-2xl font-bold text-accent-foreground">Slide 3</span>
       </div>
     </CarouselItem>
   </CarouselItemGroup>
-  <CarouselPrevTrigger />
-  <CarouselNextTrigger />
-  <CarouselIndicatorGroup>
-    <CarouselIndicator index={0} />
-    <CarouselIndicator index={1} />
-    <CarouselIndicator index={2} />
-  </CarouselIndicatorGroup>
+  <CarouselControl>
+    <CarouselPrevTrigger />
+    <CarouselIndicatorGroup>
+      <CarouselIndicator index={0} />
+      <CarouselIndicator index={1} />
+      <CarouselIndicator index={2} />
+    </CarouselIndicatorGroup>
+    <CarouselNextTrigger />
+    </CarouselControl>
 </CarouselRoot>
 
 ## Installation
@@ -60,11 +61,15 @@ import {
   </CarouselItemGroup>
   <CarouselPrevTrigger />
   <CarouselNextTrigger />
-  <CarouselIndicatorGroup>
-    <CarouselIndicator index={0} />
-    <CarouselIndicator index={1} />
-    <CarouselIndicator index={2} />
-  </CarouselIndicatorGroup>
+  <CarouselControl>
+    <CarouselPrevTrigger />
+    <CarouselIndicatorGroup>
+      <CarouselIndicator index={0} />
+      <CarouselIndicator index={1} />
+      <CarouselIndicator index={2} />
+    </CarouselIndicatorGroup>
+    <CarouselNextTrigger />
+  </CarouselControl>
 </CarouselRoot>
 ```
 
@@ -79,77 +84,84 @@ import {
     <CarouselRoot slideCount={3} loop>
       <CarouselItemGroup className="overflow-hidden">
         <CarouselItem index={0}>
-          <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-            <span className="text-2xl font-bold text-base-950">Slide 1</span>
+          <div className="h-64 bg-accent flex items-center justify-center rounded-md">
+            <span className="text-2xl font-bold text-accent-foreground">Slide 1</span>
           </div>
         </CarouselItem>
         <CarouselItem index={1}>
-          <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-            <span className="text-2xl font-bold text-base-950">Slide 2</span>
+          <div className="h-64 bg-accent flex items-center justify-center rounded-md">
+            <span className="text-2xl font-bold text-accent-foreground">Slide 2</span>
           </div>
         </CarouselItem>
         <CarouselItem index={2}>
-          <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-            <span className="text-2xl font-bold text-base-950">Slide 3</span>
+          <div className="h-64 bg-accent flex items-center justify-center rounded-md">
+            <span className="text-2xl font-bold text-accent-foreground">Slide 3</span>
           </div>
         </CarouselItem>
       </CarouselItemGroup>
-      <CarouselPrevTrigger />
-      <CarouselNextTrigger />
-      <CarouselIndicatorGroup>
-        <CarouselIndicator index={0} />
-        <CarouselIndicator index={1} />
-        <CarouselIndicator index={2} />
-      </CarouselIndicatorGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger />
+        <CarouselIndicatorGroup>
+          <CarouselIndicator index={0} />
+          <CarouselIndicator index={1} />
+          <CarouselIndicator index={2} />
+        </CarouselIndicatorGroup>
+        <CarouselNextTrigger />
+      </CarouselControl>
     </CarouselRoot>
   </Tab>
   <Tab value="Without Controls">
     <CarouselRoot slideCount={3} loop>
       <CarouselItemGroup className="overflow-hidden">
         <CarouselItem index={0}>
-          <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-            <span className="text-2xl font-bold text-base-950">Slide 1</span>
+          <div className="h-64 bg-accent flex items-center justify-center rounded-md">
+            <span className="text-2xl font-bold text-accent-foreground">Slide 1</span>
           </div>
         </CarouselItem>
         <CarouselItem index={1}>
-          <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-            <span className="text-2xl font-bold text-base-950">Slide 2</span>
+          <div className="h-64 bg-accent flex items-center justify-center rounded-md">
+            <span className="text-2xl font-bold text-accent-foreground">Slide 2</span>
           </div>
         </CarouselItem>
         <CarouselItem index={2}>
-          <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-            <span className="text-2xl font-bold text-base-950">Slide 3</span>
+          <div className="h-64 bg-accent flex items-center justify-center rounded-md">
+            <span className="text-2xl font-bold text-accent-foreground">Slide 3</span>
           </div>
         </CarouselItem>
       </CarouselItemGroup>
-      <CarouselIndicatorGroup>
-        <CarouselIndicator index={0} />
-        <CarouselIndicator index={1} />
-        <CarouselIndicator index={2} />
-      </CarouselIndicatorGroup>
+      <CarouselControl>
+        <CarouselIndicatorGroup>
+          <CarouselIndicator index={0} />
+          <CarouselIndicator index={1} />
+          <CarouselIndicator index={2} />
+        </CarouselIndicatorGroup>
+      </CarouselControl>
     </CarouselRoot>
   </Tab>
+
   <Tab value="Without Indicators">
     <CarouselRoot slideCount={3} loop>
       <CarouselItemGroup className="overflow-hidden">
         <CarouselItem index={0}>
-          <div className="h-64 bg-slate-200 flex items-center justify-center rounded-md">
-            <span className="text-2xl font-bold text-base-950">Slide 1</span>
+          <div className="h-64 bg-accent flex items-center justify-center rounded-md">
+            <span className="text-2xl font-bold text-accent-foreground">Slide 1</span>
           </div>
         </CarouselItem>
         <CarouselItem index={1}>
-          <div className="h-64 bg-slate-300 flex items-center justify-center rounded-md">
-            <span className="text-2xl font-bold text-base-950">Slide 2</span>
+          <div className="h-64 bg-accent flex items-center justify-center rounded-md">
+            <span className="text-2xl font-bold text-accent-foreground">Slide 2</span>
           </div>
         </CarouselItem>
         <CarouselItem index={2}>
-          <div className="h-64 bg-slate-400 flex items-center justify-center rounded-md">
-            <span className="text-2xl font-bold text-base-950">Slide 3</span>
+          <div className="h-64 bg-accent flex items-center justify-center rounded-md">
+            <span className="text-2xl font-bold text-accent-foreground">Slide 3</span>
           </div>
         </CarouselItem>
       </CarouselItemGroup>
-      <CarouselPrevTrigger />
-      <CarouselNextTrigger />
+      <CarouselControl>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
     </CarouselRoot>
   </Tab>
 </Tabs>
@@ -180,18 +192,19 @@ import {
           </div>
         </CarouselItem>
       </CarouselItemGroup>
-      <CarouselPrevTrigger />
-      <CarouselNextTrigger />
-      <CarouselIndicatorGroup>
-        <CarouselIndicator index={0} />
-        <CarouselIndicator index={1} />
-        <CarouselIndicator index={2} />
-      </CarouselIndicatorGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger />
+        <CarouselIndicatorGroup>
+          <CarouselIndicator index={0} />
+          <CarouselIndicator index={1} />
+          <CarouselIndicator index={2} />
+        </CarouselIndicatorGroup>
+        <CarouselNextTrigger />
+      </CarouselControl>
     </CarouselRoot>
   </Tab>
   <Tab value="Code">
     ```tsx
-    import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
     import {
       CarouselRoot,
       CarouselItemGroup,

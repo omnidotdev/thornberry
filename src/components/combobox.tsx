@@ -1,0 +1,75 @@
+"use client";
+
+import { useListCollection } from "@ark-ui/react/combobox";
+import { useFilter } from "@ark-ui/react/locale";
+
+import {
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemGroup,
+  ComboboxItemGroupLabel,
+  ComboboxItemIndicator,
+  ComboboxItemText,
+  ComboboxLabel,
+  ComboboxPositioner,
+  ComboboxRoot,
+  ComboboxTrigger,
+} from "@/registry/thornberry/components/combobox";
+
+import type { ComboboxProps } from "@/registry/thornberry/components/combobox";
+
+const Combobox = () => {
+  const { contains } = useFilter({ sensitivity: "base" });
+
+  const { collection, filter } = useListCollection({
+    initialItems: [
+      { label: "Mercury", value: "mercury" },
+      { label: "Venus", value: "venus" },
+      { label: "Earth", value: "earth" },
+      { label: "Mars", value: "mars" },
+      { label: "Jupiter", value: "jupiter" },
+      { label: "Saturn", value: "saturn" },
+      { label: "Uranus", value: "uranus" },
+      { label: "Neptune", value: "neptune" },
+      { label: "Pluto", value: "pluto", disabled: true },
+    ],
+    filter: contains,
+  });
+
+  const handleInputChange = (
+    details: ComboboxProps.InputValueChangeDetails,
+  ) => {
+    filter(details.inputValue);
+  };
+
+  return (
+    <ComboboxRoot
+      collection={collection}
+      onInputValueChange={handleInputChange}
+      className="mb-8"
+    >
+      <ComboboxLabel>Choose a planet</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="Select a planet..." />
+        <ComboboxTrigger />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent>
+          <ComboboxItemGroup>
+            <ComboboxItemGroupLabel>Planets</ComboboxItemGroupLabel>
+            {collection.items.map((item) => (
+              <ComboboxItem key={item.value} item={item}>
+                <ComboboxItemText>{item.label}</ComboboxItemText>
+                <ComboboxItemIndicator />
+              </ComboboxItem>
+            ))}
+          </ComboboxItemGroup>
+        </ComboboxContent>
+      </ComboboxPositioner>
+    </ComboboxRoot>
+  );
+};
+
+export default Combobox;
