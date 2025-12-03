@@ -78,18 +78,11 @@ interface AvatarProps extends ComponentProps<typeof AvatarRoot> {
   fallback: ReactNode;
 }
 
-const Avatar = ({
-  src,
-  alt,
-  fallback,
-  className,
-  size,
-  ...rest
-}: AvatarProps) => (
-  <AvatarRoot size={size} className={className} {...rest}>
-    <AvatarFallback className={className}>{fallback}</AvatarFallback>
+const Avatar = ({ src, alt, fallback, size, ...rest }: AvatarProps) => (
+  <AvatarRoot size={size} {...rest}>
+    <AvatarFallback>{fallback}</AvatarFallback>
 
-    <AvatarImage src={src} alt={alt} className={className} />
+    <AvatarImage src={src} alt={alt} />
   </AvatarRoot>
 );
 
