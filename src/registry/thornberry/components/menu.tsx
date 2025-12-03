@@ -102,7 +102,7 @@ const MenuItemGroupLabel = ({
 }: ComponentProps<typeof ArkMenu.ItemGroupLabel>) => (
   <ArkMenu.ItemGroupLabel
     className={cn(
-      "flex w-full items-center justify-between p-2 font-medium text-foreground text-sm",
+      "flex w-full cursor-default items-center justify-between p-2 font-medium text-foreground text-sm",
       className,
     )}
     {...rest}

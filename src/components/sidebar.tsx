@@ -26,7 +26,12 @@ import {
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
-import { Avatar } from "@/registry/thornberry/components/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  AvatarRoot,
+} from "@/registry/thornberry/components/avatar";
 import {
   CollapsibleContent,
   CollapsibleRoot,
@@ -61,15 +66,16 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/registry/thornberry/components/sidebar";
+import {
+  TooltipContent,
+  TooltipPositioner,
+  TooltipRoot,
+  TooltipTrigger,
+} from "@/registry/thornberry/components/tooltip";
 
 import type { ComponentProps, ReactNode } from "react";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   teams: [
     {
       name: "Acme Inc",
@@ -218,7 +224,7 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
           <SidebarMenuItem>
             <MenuRoot>
               <MenuTrigger asChild>
-                <SidebarMenuButton className="h-12 bg-sidebar-accent focus-visible:ring-offset-background">
+                <SidebarMenuButton className="h-12 bg-sidebar-accent">
                   <activeTeam.logo
                     className={cn(
                       "rotate-none!",
@@ -273,23 +279,39 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
 
       <SidebarContent className="py-1">
         <SidebarGroup>
-          <SidebarGroupLabel>
-            Platform
-            <SidebarGroupAction className="ml-auto">
-              <Plus />
-            </SidebarGroupAction>
-          </SidebarGroupLabel>
+          <SidebarGroupLabel>Platform</SidebarGroupLabel>
+
+          {/* Show on collapsed */}
           <SidebarMenu className="hidden group-data-[collapsible=icon]:flex">
             {data.navMain.map((item) => (
-              <MenuRoot key={item.title} defaultOpen={item.isActive}>
-                <MenuTrigger asChild>
-                  {/* TODO: Fix tooltip positioning */}
-                  <SidebarMenuButton tooltip={item.title} className="relative">
-                    {item.icon && <item.icon className="rotate-none!" />}
-                    <span>{item.title}</span>
-                    <ChevronRight className="ml-auto transition-transform duration-200" />
-                  </SidebarMenuButton>
-                </MenuTrigger>
+              <MenuRoot
+                key={item.title}
+                defaultOpen={item.isActive}
+                ids={{ trigger: item.title }}
+              >
+                <TooltipRoot
+                  positioning={{
+                    placement: "right",
+                    offset: { mainAxis: 8 },
+                  }}
+                  disabled={isMobile || state === "expanded"}
+                  ids={{ trigger: item.title }}
+                >
+                  <TooltipTrigger asChild>
+                    <MenuTrigger asChild>
+                      <SidebarMenuButton>
+                        {item.icon && <item.icon className="rotate-none!" />}
+                        <span>{item.title}</span>
+                        <ChevronRight className="ml-auto transition-transform duration-200" />
+                      </SidebarMenuButton>
+                    </MenuTrigger>
+                  </TooltipTrigger>
+
+                  <TooltipPositioner>
+                    <TooltipContent>{item.title}</TooltipContent>
+                  </TooltipPositioner>
+                </TooltipRoot>
+
                 <MenuPositioner>
                   <MenuContent>
                     {item.items?.map((subItem) => (
@@ -309,6 +331,7 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
             ))}
           </SidebarMenu>
 
+          {/* Show on expanded */}
           <SidebarMenu className="group-data-[collapsible=icon]:hidden">
             {data.navMain.map((item) => (
               <CollapsibleRoot key={item.title} defaultOpen={item.isActive}>
@@ -340,9 +363,21 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
         <SidebarGroup className="group-data-[collapsible=icon]:hidden">
           <SidebarGroupLabel>
             Projects
-            <SidebarGroupAction className="ml-auto">
-              <Plus />
-            </SidebarGroupAction>
+            <TooltipRoot
+              positioning={{
+                placement: "right",
+                offset: { mainAxis: 8 },
+              }}
+            >
+              <TooltipTrigger asChild>
+                <SidebarGroupAction className="ml-auto">
+                  <Plus />
+                </SidebarGroupAction>
+              </TooltipTrigger>
+              <TooltipPositioner>
+                <TooltipContent>Add Project</TooltipContent>
+              </TooltipPositioner>
+            </TooltipRoot>
           </SidebarGroupLabel>
           <SidebarMenu>
             {data.projects.map((item) => (
@@ -392,25 +427,23 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <MenuRoot
-              positioning={{
-                strategy: "fixed",
-                placement: isMobile ? "bottom-end" : "right-start",
-              }}
-            >
+            <MenuRoot>
               <MenuTrigger asChild>
-                {/* TODO: fix avatar when sidebar is collapsed */}
-                <SidebarMenuButton className="h-12 bg-sidebar-accent focus-visible:ring-offset-background">
-                  <Avatar
-                    src="/img/elon-musk.jpg"
-                    alt="Elon Musk"
-                    fallback="EM"
-                  />
+                <SidebarMenuButton className="h-12 bg-sidebar-accent group-data-[collapsible=icon]:p-1!">
+                  <AvatarRoot
+                    className={cn(
+                      "rounded-sm",
+                      state === "expanded" ? "size-10" : "size-6",
+                    )}
+                  >
+                    <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+                    <AvatarFallback>EM</AvatarFallback>
+                  </AvatarRoot>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-medium">Elon Musk</span>
                     <span className="truncate text-xs">emusk@x.com</span>
                   </div>
-                  <ChevronsUpDown className="ml-auto size-4 rotate-none!" />
+                  <ChevronsUpDown className="ml-auto rotate-none!" />
                 </SidebarMenuButton>
               </MenuTrigger>
               <MenuPositioner>

@@ -12,7 +12,11 @@ const TooltipTrigger = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkTooltip.Trigger>) => (
-  <ArkTooltip.Trigger className={className} {...rest} />
+  <ArkTooltip.Trigger
+    data-slot="tooltip-trigger"
+    className={className}
+    {...rest}
+  />
 );
 
 const TooltipPositioner = ({
@@ -27,6 +31,7 @@ const TooltipContent = ({
   ...rest
 }: ComponentProps<typeof ArkTooltip.Content>) => (
   <ArkTooltip.Content
+    data-slot="tooltip-content"
     className={cn(
       "fade-in-0 zoom-in-95 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 flex h-10 animate-in items-center overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-popover-foreground text-sm shadow-md data-[state=closed]:animate-out",
       className,

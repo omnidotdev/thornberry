@@ -1,5 +1,4 @@
 import { ark } from "@ark-ui/react/factory";
-import { Portal } from "@ark-ui/react/portal";
 import { TooltipContext } from "@ark-ui/react/tooltip";
 import { PanelLeftIcon } from "lucide-react";
 import {
@@ -186,7 +185,7 @@ const Sidebar = ({
       <div
         data-slot="sidebar"
         className={cn(
-          "flex h-full w-(--sidebar-width) flex-col bg-background text-sidebar-foreground",
+          "flex h-full w-(--sidebar-width) flex-col bg-red-500 text-sidebar-foreground",
           className,
         )}
         {...rest}
@@ -375,19 +374,17 @@ const SidebarRail = ({
         )}
       </TooltipContext>
 
-      <Portal>
-        <TooltipPositioner>
-          <TooltipContent className="flex h-fit w-full flex-col gap-1 border bg-background text-foreground">
-            <span>Drag to resize</span>
-            <div className="inline-flex">
-              Click to {isCollapsed ? "expand" : "collapse"}{" "}
-              <div className="ml-2 flex items-center gap-0.5">
-                <SidebarMenuShortcut>B</SidebarMenuShortcut>
-              </div>
+      <TooltipPositioner>
+        <TooltipContent className="flex h-fit w-full flex-col gap-1 border bg-background text-foreground">
+          <span>Drag to resize</span>
+          <div className="inline-flex">
+            Click to {isCollapsed ? "expand" : "collapse"}{" "}
+            <div className="ml-2 flex items-center gap-0.5">
+              <SidebarMenuShortcut>B</SidebarMenuShortcut>
             </div>
-          </TooltipContent>
-        </TooltipPositioner>
-      </Portal>
+          </div>
+        </TooltipContent>
+      </TooltipPositioner>
     </TooltipRoot>
   );
 };
@@ -569,7 +566,7 @@ const SidebarMenuButton = ({
         // Hover styles
         "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
         // Focus styles
-        "outline-hidden focus-visible:text-sidebar-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring! focus-visible:ring-offset-2!",
+        "outline-hidden focus-visible:text-sidebar-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring! focus-visible:ring-offset-2! focus-visible:ring-offset-background",
         // Active styles
         "active:text-sidebar-accent-foreground",
         // Disabled and aria-disabled styles
@@ -598,34 +595,28 @@ const SidebarMenuButton = ({
     <TooltipRoot
       positioning={{
         placement: "right",
-        offset: {
-          mainAxis: 8,
-        },
+        offset: { mainAxis: 8 },
+        gutter: 4,
       }}
       closeDelay={0}
-      openDelay={300}
+      openDelay={200}
       disabled={isMobile || state === "expanded"}
-      {...rest}
     >
       <TooltipTrigger asChild>{button}</TooltipTrigger>
-      <Portal>
-        <TooltipPositioner>
-          <TooltipContent
-            className={cn("border bg-background text-foreground", className)}
-          >
-            <div className="flex items-center gap-2">
-              {tooltip}
-              {shortcut && (
-                <div className="ml-2 flex items-center gap-0.5">
-                  <SidebarMenuShortcut>
-                    {shortcut?.toUpperCase()}
-                  </SidebarMenuShortcut>
-                </div>
-              )}
-            </div>
-          </TooltipContent>
-        </TooltipPositioner>
-      </Portal>
+      <TooltipPositioner>
+        <TooltipContent className="border bg-background text-foreground">
+          <div className="flex items-center gap-2">
+            {tooltip}
+            {shortcut && (
+              <div className="ml-2 flex items-center gap-0.5">
+                <SidebarMenuShortcut className="w-fit px-1">
+                  {shortcut}
+                </SidebarMenuShortcut>
+              </div>
+            )}
+          </div>
+        </TooltipContent>
+      </TooltipPositioner>
     </TooltipRoot>
   );
 };
