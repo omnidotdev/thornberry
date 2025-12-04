@@ -1,11 +1,11 @@
 import type { ComponentProps } from "react";
 import type { AccordionRoot } from "@/registry/thornberry/components/accordion";
-import type { AlertProps as RegistryAlertProps } from "@/registry/thornberry/components/alert";
+import type { AlertRoot } from "@/registry/thornberry/components/alert";
 import type { AngleSliderRoot } from "@/registry/thornberry/components/angle-slider";
-import type { AvatarProps as RegistryAvatarProps } from "@/registry/thornberry/components/avatar";
+import type { AvatarRoot } from "@/registry/thornberry/components/avatar";
 import type { Badge } from "@/registry/thornberry/components/badge";
 import type { Button } from "@/registry/thornberry/components/button";
-import type { CardProps as RegistryCardProps } from "@/registry/thornberry/components/card";
+import type { CardRoot } from "@/registry/thornberry/components/card";
 import type { CarouselRoot } from "@/registry/thornberry/components/carousel";
 import type { CheckboxRoot } from "@/registry/thornberry/components/checkbox";
 import type { CollapsibleRoot } from "@/registry/thornberry/components/collapsible";
@@ -34,7 +34,7 @@ export type AccordionProps = Omit<
 >;
 
 export interface AlertProps
-  extends Omit<RegistryAlertProps, keyof ComponentProps<"div">> {
+  extends Omit<ComponentProps<typeof AlertRoot>, keyof ComponentProps<"div">> {
   title: string;
 }
 
@@ -44,7 +44,7 @@ export type AngleSliderProps = Omit<
 >;
 
 export type AvatarProps = Omit<
-  RegistryAvatarProps,
+  ComponentProps<typeof AvatarRoot>,
   keyof ComponentProps<"div"> | "ids"
 >;
 
@@ -59,7 +59,7 @@ export type ButtonProps = Omit<
 >;
 
 export interface CardProps
-  extends Omit<RegistryCardProps, keyof ComponentProps<"div">> {
+  extends Omit<ComponentProps<typeof CardRoot>, keyof ComponentProps<"div">> {
   title?: string;
 }
 
