@@ -1,0 +1,173 @@
+---
+title: Listbox
+description: A listbox component for selecting items from a list with keyboard navigation support.
+---
+
+import { ListboxDemo } from "@/components/listbox-demo";
+
+<ListboxDemo />
+
+## Installation
+
+<InstallationTabs filename="listbox.json" />
+
+## Usage
+
+The listbox component requires client-side state. Import from `@/components/listbox` which includes the `"use client"` directive:
+
+```tsx
+import {
+  ListboxRoot,
+  ListboxLabel,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemText,
+  ListboxItemIndicator,
+  createListCollection,
+} from "@/components/listbox";
+```
+
+```tsx
+const collection = createListCollection({ 
+  items: ['Option 1', 'Option 2', 'Option 3'] 
+});
+
+<ListboxRoot collection={collection}>
+  <ListboxLabel>Select an option</ListboxLabel>
+  <ListboxContent>
+    {collection.items.map((item) => (
+      <ListboxItem key={item} item={item}>
+        <ListboxItemText>{item}</ListboxItemText>
+        <ListboxItemIndicator />
+      </ListboxItem>
+    ))}
+  </ListboxContent>
+</ListboxRoot>
+```
+
+## Examples
+
+<Tabs items={["Basic", "Multiple Selection", "With Groups"]} className="mt-4">
+  <Tab value="Basic">
+    ```tsx
+    import {
+      ListboxRoot,
+      ListboxLabel,
+      ListboxContent,
+      ListboxItem,
+      ListboxItemText,
+      ListboxItemIndicator,
+      createListCollection,
+    } from "@/components/listbox";
+
+    export function BasicListbox() {
+      const collection = createListCollection({ 
+        items: ['React', 'Vue', 'Svelte', 'Solid'] 
+      });
+
+      return (
+        <ListboxRoot collection={collection}>
+          <ListboxLabel>Select Framework</ListboxLabel>
+          <ListboxContent>
+            {collection.items.map((item) => (
+              <ListboxItem key={item} item={item}>
+                <ListboxItemText>{item}</ListboxItemText>
+                <ListboxItemIndicator />
+              </ListboxItem>
+            ))}
+          </ListboxContent>
+        </ListboxRoot>
+      );
+    }
+    ```
+  </Tab>
+  <Tab value="Multiple Selection">
+    ```tsx
+    import {
+      ListboxRoot,
+      ListboxLabel,
+      ListboxContent,
+      ListboxItem,
+      ListboxItemText,
+      ListboxItemIndicator,
+      createListCollection,
+    } from "@/components/listbox";
+
+    export function MultipleListbox() {
+      const collection = createListCollection({ 
+        items: ['TypeScript', 'JavaScript', 'Python', 'Rust'] 
+      });
+
+      return (
+        <ListboxRoot collection={collection} multiple>
+          <ListboxLabel>Select Languages (multiple)</ListboxLabel>
+          <ListboxContent>
+            {collection.items.map((item) => (
+              <ListboxItem key={item} item={item}>
+                <ListboxItemText>{item}</ListboxItemText>
+                <ListboxItemIndicator />
+              </ListboxItem>
+            ))}
+          </ListboxContent>
+        </ListboxRoot>
+      );
+    }
+    ```
+  </Tab>
+  <Tab value="With Groups">
+    ```tsx
+    import {
+      ListboxRoot,
+      ListboxLabel,
+      ListboxContent,
+      ListboxItem,
+      ListboxItemText,
+      ListboxItemIndicator,
+      ListboxItemGroup,
+      ListboxItemGroupLabel,
+      createListCollection,
+    } from "@/components/listbox";
+
+    export function GroupedListbox() {
+      const frontendFrameworks = createListCollection({ 
+        items: ['React', 'Vue', 'Svelte'] 
+      });
+      const backendFrameworks = createListCollection({ 
+        items: ['Express', 'Fastify', 'Hono'] 
+      });
+
+      return (
+        <ListboxRoot>
+          <ListboxLabel>Select Framework</ListboxLabel>
+          <ListboxContent>
+            <ListboxItemGroup>
+              <ListboxItemGroupLabel>Frontend</ListboxItemGroupLabel>
+              {frontendFrameworks.items.map((item) => (
+                <ListboxItem key={item} item={item}>
+                  <ListboxItemText>{item}</ListboxItemText>
+                  <ListboxItemIndicator />
+                </ListboxItem>
+              ))}
+            </ListboxItemGroup>
+            <ListboxItemGroup>
+              <ListboxItemGroupLabel>Backend</ListboxItemGroupLabel>
+              {backendFrameworks.items.map((item) => (
+                <ListboxItem key={item} item={item}>
+                  <ListboxItemText>{item}</ListboxItemText>
+                  <ListboxItemIndicator />
+                </ListboxItem>
+              ))}
+            </ListboxItemGroup>
+          </ListboxContent>
+        </ListboxRoot>
+      );
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## References
+
+<div>
+  <AutoTypeTable path="./src/content/docs/types.ts" name="ListboxProps" />
+</div>

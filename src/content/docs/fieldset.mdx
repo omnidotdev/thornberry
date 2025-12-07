@@ -1,0 +1,157 @@
+---
+title: Fieldset
+description: A form fieldset wrapper for grouping related form fields.
+---
+
+import { FieldsetRoot, FieldsetLegend, FieldsetHelperText, FieldsetErrorText } from "@/registry/thornberry/components/fieldset";
+import { FieldRoot, FieldLabel, FieldInput } from "@/registry/thornberry/components/field";
+
+<FieldsetRoot className="mb-8">
+  <FieldsetLegend>Personal Information</FieldsetLegend>
+  <FieldsetHelperText>Please provide your details</FieldsetHelperText>
+  <div className="space-y-4">
+    <FieldRoot>
+      <FieldLabel>First Name</FieldLabel>
+      <FieldInput placeholder="John" />
+    </FieldRoot>
+    <FieldRoot>
+      <FieldLabel>Last Name</FieldLabel>
+      <FieldInput placeholder="Doe" />
+    </FieldRoot>
+  </div>
+</FieldsetRoot>
+
+## Installation
+
+<InstallationTabs filename="fieldset.json" />
+
+## Usage
+
+```tsx
+import {
+  FieldsetRoot,
+  FieldsetLegend,
+  FieldsetHelperText,
+  FieldsetErrorText
+} from "@/components/ui/fieldset";
+```
+
+```tsx
+<FieldsetRoot>
+  <FieldsetLegend>Legend</FieldsetLegend>
+  <FieldsetHelperText>Helper text</FieldsetHelperText>
+  {/* Fields */}
+</FieldsetRoot>
+```
+
+## Examples
+
+<Tabs items={["Basic", "With Error", "Disabled"]} className="mt-4">
+  <Tab value="Basic">
+    <FieldsetRoot>
+      <FieldsetLegend>Contact Information</FieldsetLegend>
+      <FieldsetHelperText>We'll use this to contact you</FieldsetHelperText>
+      <div className="space-y-4">
+        <FieldRoot>
+          <FieldLabel>Email</FieldLabel>
+          <FieldInput type="email" placeholder="email@example.com" />
+        </FieldRoot>
+        <FieldRoot>
+          <FieldLabel>Phone</FieldLabel>
+          <FieldInput type="tel" placeholder="+1 (555) 000-0000" />
+        </FieldRoot>
+      </div>
+    </FieldsetRoot>
+
+    ```tsx
+    <FieldsetRoot>
+      <FieldsetLegend>Contact Information</FieldsetLegend>
+      <FieldsetHelperText>We'll use this to contact you</FieldsetHelperText>
+      <div className="space-y-4">
+        <FieldRoot>
+          <FieldLabel>Email</FieldLabel>
+          <FieldInput type="email" placeholder="email@example.com" />
+        </FieldRoot>
+        <FieldRoot>
+          <FieldLabel>Phone</FieldLabel>
+          <FieldInput type="tel" placeholder="+1 (555) 000-0000" />
+        </FieldRoot>
+      </div>
+    </FieldsetRoot>
+    ```
+  </Tab>
+  <Tab value="With Error">
+    <FieldsetRoot invalid>
+      <FieldsetLegend>Shipping Address</FieldsetLegend>
+      <FieldsetErrorText>Please complete all required fields</FieldsetErrorText>
+      <div className="space-y-4">
+        <FieldRoot invalid>
+          <FieldLabel>Street Address</FieldLabel>
+          <FieldInput placeholder="123 Main St" />
+        </FieldRoot>
+        <FieldRoot>
+          <FieldLabel>City</FieldLabel>
+          <FieldInput placeholder="New York" />
+        </FieldRoot>
+      </div>
+    </FieldsetRoot>
+
+    ```tsx
+    import { FieldsetErrorText } from "@/components/ui/fieldset";
+
+    <FieldsetRoot invalid>
+      <FieldsetLegend>Shipping Address</FieldsetLegend>
+      <FieldsetErrorText>Please complete all required fields</FieldsetErrorText>
+      <div className="space-y-4">
+        <FieldRoot invalid>
+          <FieldLabel>Street Address</FieldLabel>
+          <FieldInput placeholder="123 Main St" />
+        </FieldRoot>
+        <FieldRoot>
+          <FieldLabel>City</FieldLabel>
+          <FieldInput placeholder="New York" />
+        </FieldRoot>
+      </div>
+    </FieldsetRoot>
+    ```
+  </Tab>
+  <Tab value="Disabled">
+    <FieldsetRoot disabled>
+      <FieldsetLegend>Payment Details</FieldsetLegend>
+      <FieldsetHelperText>Payment processing is currently disabled</FieldsetHelperText>
+      <div className="space-y-4">
+        <FieldRoot>
+          <FieldLabel>Card Number</FieldLabel>
+          <FieldInput placeholder="1234 5678 9012 3456" />
+        </FieldRoot>
+        <FieldRoot>
+          <FieldLabel>CVV</FieldLabel>
+          <FieldInput placeholder="123" />
+        </FieldRoot>
+      </div>
+    </FieldsetRoot>
+
+    ```tsx
+    <FieldsetRoot disabled>
+      <FieldsetLegend>Payment Details</FieldsetLegend>
+      <FieldsetHelperText>Payment processing is currently disabled</FieldsetHelperText>
+      <div className="space-y-4">
+        <FieldRoot>
+          <FieldLabel>Card Number</FieldLabel>
+          <FieldInput placeholder="1234 5678 9012 3456" />
+        </FieldRoot>
+        <FieldRoot>
+          <FieldLabel>CVV</FieldLabel>
+          <FieldInput placeholder="123" />
+        </FieldRoot>
+      </div>
+    </FieldsetRoot>
+    ```
+  </Tab>
+</Tabs>
+
+## References
+
+<div>
+  <AutoTypeTable path="./src/content/docs/types.ts" name="FieldsetProps" />
+</div>

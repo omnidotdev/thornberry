@@ -1,0 +1,97 @@
+---
+title: Splitter
+description: Resizable split panels with adjustable layout, supporting both horizontal and vertical orientations.
+---
+
+import { SplitterRoot, SplitterPanel, SplitterResizeTrigger } from "@/registry/thornberry/components/splitter";
+
+<SplitterRoot panels={[{ id: "a" }, { id: "b" }]} className="h-64 w-full rounded-md border">
+  <SplitterPanel id="a" className="flex items-center justify-center bg-muted/50">
+    <p className="text-muted-foreground text-sm">Panel A</p>
+  </SplitterPanel>
+  <SplitterResizeTrigger id="a:b" />
+  <SplitterPanel id="b" className="flex items-center justify-center bg-muted/30">
+    <p className="text-muted-foreground text-sm">Panel B</p>
+  </SplitterPanel>
+</SplitterRoot>
+
+## Installation
+
+<InstallationTabs filename="splitter.json" />
+
+## Usage
+
+```tsx
+import {
+  SplitterRoot,
+  SplitterPanel,
+  SplitterResizeTrigger
+} from "@/components/ui/splitter";
+```
+
+```tsx
+<SplitterRoot panels={[{ id: "a" }, { id: "b" }]}>
+  <SplitterPanel id="a">
+    Panel A content
+  </SplitterPanel>
+  <SplitterResizeTrigger id="a:b" />
+  <SplitterPanel id="b">
+    Panel B content
+  </SplitterPanel>
+</SplitterRoot>
+```
+
+## Examples
+
+<Tabs items={["Horizontal", "Vertical", "Three Panels"]} className="mt-4">
+  <Tab value="Horizontal">
+    <SplitterRoot panels={[{ id: "left" }, { id: "right" }]} className="h-64 w-full rounded-md border">
+      <SplitterPanel id="left" className="flex items-center justify-center bg-muted/50">
+        <p className="text-muted-foreground text-sm">Left Panel</p>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="left:right" />
+      <SplitterPanel id="right" className="flex items-center justify-center bg-muted/30">
+        <p className="text-muted-foreground text-sm">Right Panel</p>
+      </SplitterPanel>
+    </SplitterRoot>
+  </Tab>
+  <Tab value="Vertical">
+    <SplitterRoot 
+      panels={[{ id: "top" }, { id: "bottom" }]} 
+      orientation="vertical"
+      className="h-64 w-full rounded-md border"
+    >
+      <SplitterPanel id="top" className="flex items-center justify-center bg-muted/50">
+        <p className="text-muted-foreground text-sm">Top Panel</p>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="top:bottom" />
+      <SplitterPanel id="bottom" className="flex items-center justify-center bg-muted/30">
+        <p className="text-muted-foreground text-sm">Bottom Panel</p>
+      </SplitterPanel>
+    </SplitterRoot>
+  </Tab>
+  <Tab value="Three Panels">
+    <SplitterRoot 
+      panels={[{ id: "1" }, { id: "2" }, { id: "3" }]}
+      className="h-64 w-full rounded-md border"
+    >
+      <SplitterPanel id="1" className="flex items-center justify-center bg-muted/50">
+        <p className="text-muted-foreground text-sm">Panel 1</p>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="1:2" />
+      <SplitterPanel id="2" className="flex items-center justify-center bg-muted/30">
+        <p className="text-muted-foreground text-sm">Panel 2</p>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="2:3" />
+      <SplitterPanel id="3" className="flex items-center justify-center bg-muted/20">
+        <p className="text-muted-foreground text-sm">Panel 3</p>
+      </SplitterPanel>
+    </SplitterRoot>
+  </Tab>
+</Tabs>
+
+## References
+
+<div>
+  <AutoTypeTable path="./src/content/docs/types.ts" name="SplitterProps" />
+</div>

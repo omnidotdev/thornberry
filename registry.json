@@ -64,6 +64,18 @@
       ]
     },
     {
+      "name": "bottom-sheet",
+      "type": "registry:ui",
+      "title": "Bottom Sheet",
+      "description": "A mobile-friendly bottom sheet that slides up from the bottom of the screen",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/bottom-sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
@@ -111,6 +123,18 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "clipboard",
+      "type": "registry:ui",
+      "title": "Clipboard",
+      "description": "A component for copying text to the clipboard with visual feedback",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/clipboard.tsx",
           "type": "registry:ui"
         }
       ]
@@ -184,6 +208,90 @@
       ]
     },
     {
+      "name": "download-trigger",
+      "type": "registry:ui",
+      "title": "Download Trigger",
+      "description": "A component that triggers file downloads",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/download-trigger.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "editable",
+      "type": "registry:ui",
+      "title": "Editable",
+      "description": "An inline text editing component with edit, save, and cancel controls",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/editable.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "A form field wrapper with label, input, and error message support",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/field.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "fieldset",
+      "type": "registry:ui",
+      "title": "Fieldset",
+      "description": "A form fieldset wrapper for grouping related fields",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/fieldset.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "file-upload",
+      "type": "registry:ui",
+      "title": "File Upload",
+      "description": "A file upload component with drag and drop support for selecting and uploading files",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/file-upload.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "floating-panel",
+      "type": "registry:ui",
+      "title": "Floating Panel",
+      "description": "A draggable and resizable floating panel component",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/floating-panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "highlight",
+      "type": "registry:ui",
+      "title": "Highlight",
+      "description": "A text highlighting component for search results and emphasis",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/highlight.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "hover-card",
       "type": "registry:ui",
       "title": "Hover Card",
@@ -203,6 +311,42 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "json-tree-view",
+      "type": "registry:ui",
+      "title": "JSON Tree View",
+      "description": "A component for visualizing JSON data in a collapsible tree structure",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/json-tree-view.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "listbox",
+      "type": "registry:ui",
+      "title": "Listbox",
+      "description": "A listbox component for selecting items from a list with keyboard navigation support",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/listbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "marquee",
+      "type": "registry:ui",
+      "title": "Marquee",
+      "description": "A scrolling content component with pause on hover support",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/marquee.tsx",
           "type": "registry:ui"
         }
       ]
@@ -252,6 +396,18 @@
       ]
     },
     {
+      "name": "password-input",
+      "type": "registry:ui",
+      "title": "Password Input",
+      "description": "A password input field with show/hide toggle functionality",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/password-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "pin-input",
       "type": "registry:ui",
       "title": "Pin Input",
@@ -276,6 +432,30 @@
       ]
     },
     {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "A progress indicator component for displaying task completion",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "qr-code",
+      "type": "registry:ui",
+      "title": "QR Code",
+      "description": "A QR code generator component for encoding URLs and text",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/qr-code.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "rating-group",
       "type": "registry:ui",
       "title": "Rating Group",
@@ -295,6 +475,30 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "A customizable scrollable area with styled scrollbars",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "segment-group",
+      "type": "registry:ui",
+      "title": "Segment Group",
+      "description": "A segmented control component for selecting between multiple options",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/segment-group.tsx",
           "type": "registry:ui"
         }
       ]
@@ -396,6 +600,30 @@
       ]
     },
     {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "A notification component for displaying temporary messages to users",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/toast.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "A toggle button component with pressed state",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "tour",
       "type": "registry:ui",
       "title": "Tour",
@@ -451,6 +679,79 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "signature-pad",
+      "type": "registry:ui",
+      "title": "Signature Pad",
+      "description": "A digital signature canvas component with clear and save functionality",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/signature-pad.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "splitter",
+      "type": "registry:ui",
+      "title": "Splitter",
+      "description": "A resizable split panel component for creating adjustable layouts",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/splitter.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "steps",
+      "type": "registry:ui",
+      "title": "Steps",
+      "description": "A step indicator component for multi-step processes and wizards",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/steps.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "A toggle button component with pressed state",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "A group of toggle buttons for single or multiple selection",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tree-view",
+      "type": "registry:ui",
+      "title": "Tree View",
+      "description": "A hierarchical tree structure component with expand/collapse functionality",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/tree-view.tsx",
           "type": "registry:ui"
         }
       ]

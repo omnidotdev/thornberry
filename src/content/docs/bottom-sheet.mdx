@@ -1,0 +1,134 @@
+---
+title: Bottom Sheet
+description: A mobile-friendly bottom sheet component that slides up from the bottom of the screen.
+---
+
+import { BottomSheetRoot, BottomSheetTrigger, BottomSheetBackdrop, BottomSheetContent, BottomSheetGrabber, BottomSheetGrabberIndicator, BottomSheetTitle, BottomSheetCloseTrigger } from "@/registry/thornberry/components/bottom-sheet";
+import { Button } from "@/registry/thornberry/components/button";
+
+<BottomSheetRoot>
+  <BottomSheetTrigger asChild>
+    <Button>Open Bottom Sheet</Button>
+  </BottomSheetTrigger>
+  <BottomSheetBackdrop />
+  <BottomSheetContent>
+    <BottomSheetGrabber>
+      <BottomSheetGrabberIndicator />
+    </BottomSheetGrabber>
+    <BottomSheetCloseTrigger />
+    <BottomSheetTitle>Bottom Sheet Title</BottomSheetTitle>
+    <div className="mt-4">
+      <p className="text-muted-foreground text-sm">
+        This is a bottom sheet that slides up from the bottom of the screen.
+        You can drag it down to close or use the close button.
+      </p>
+    </div>
+  </BottomSheetContent>
+</BottomSheetRoot>
+
+## Installation
+
+<InstallationTabs filename="bottom-sheet.json" />
+
+## Usage
+
+```tsx
+import {
+  BottomSheetRoot,
+  BottomSheetTrigger,
+  BottomSheetBackdrop,
+  BottomSheetContent,
+  BottomSheetGrabber,
+  BottomSheetGrabberIndicator,
+  BottomSheetTitle,
+  BottomSheetCloseTrigger
+} from "@/components/ui/bottom-sheet";
+import { Button } from "@/components/ui/button";
+```
+
+```tsx
+<BottomSheetRoot>
+  <BottomSheetTrigger asChild>
+    <Button>Open Bottom Sheet</Button>
+  </BottomSheetTrigger>
+  <BottomSheetBackdrop />
+  <BottomSheetContent>
+    <BottomSheetGrabber>
+      <BottomSheetGrabberIndicator />
+    </BottomSheetGrabber>
+    <BottomSheetTitle>Title</BottomSheetTitle>
+    <p>Content goes here.</p>
+  </BottomSheetContent>
+</BottomSheetRoot>
+```
+
+## Examples
+
+<Tabs items={["Basic", "Scrollable", "Snap Points"]} className="mt-4">
+  <Tab value="Basic">
+    <BottomSheetRoot>
+      <BottomSheetTrigger asChild>
+        <Button variant="outline">Basic Sheet</Button>
+      </BottomSheetTrigger>
+      <BottomSheetBackdrop />
+      <BottomSheetContent>
+        <BottomSheetGrabber>
+          <BottomSheetGrabberIndicator />
+        </BottomSheetGrabber>
+        <BottomSheetCloseTrigger />
+        <BottomSheetTitle>Simple Bottom Sheet</BottomSheetTitle>
+        <div className="mt-4 space-y-2">
+          <p className="text-sm">This is a basic bottom sheet.</p>
+        </div>
+      </BottomSheetContent>
+    </BottomSheetRoot>
+  </Tab>
+  <Tab value="Scrollable">
+    <BottomSheetRoot>
+      <BottomSheetTrigger asChild>
+        <Button variant="outline">Scrollable Sheet</Button>
+      </BottomSheetTrigger>
+      <BottomSheetBackdrop />
+      <BottomSheetContent className="max-h-[80vh] overflow-y-auto">
+        <BottomSheetGrabber>
+          <BottomSheetGrabberIndicator />
+        </BottomSheetGrabber>
+        <BottomSheetCloseTrigger />
+        <BottomSheetTitle>Scrollable Content</BottomSheetTitle>
+        <div className="mt-4 space-y-4">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <p key={i} className="text-sm">
+              Item {i + 1}: This bottom sheet contains scrollable content.
+            </p>
+          ))}
+        </div>
+      </BottomSheetContent>
+    </BottomSheetRoot>
+  </Tab>
+  <Tab value="Snap Points">
+    <BottomSheetRoot snapPoints={[0.5, 1]}>
+      <BottomSheetTrigger asChild>
+        <Button variant="outline">Snap Points</Button>
+      </BottomSheetTrigger>
+      <BottomSheetBackdrop />
+      <BottomSheetContent>
+        <BottomSheetGrabber>
+          <BottomSheetGrabberIndicator />
+        </BottomSheetGrabber>
+        <BottomSheetCloseTrigger />
+        <BottomSheetTitle>Snap Points</BottomSheetTitle>
+        <div className="mt-4">
+          <p className="text-sm">
+            This sheet snaps to 50% and 100% of the screen height.
+          </p>
+        </div>
+      </BottomSheetContent>
+    </BottomSheetRoot>
+  </Tab>
+</Tabs>
+
+## References
+
+<div>
+  <AutoTypeTable path="./src/content/docs/types.ts" name="BottomSheetProps" />
+</div>

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tree-view",
+  "type": "registry:ui",
+  "title": "Tree View",
+  "description": "A hierarchical tree structure component with expand/collapse functionality",
+  "dependencies": [
+    "@ark-ui/react",
+    "lucide-react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/tree-view.tsx",
+      "content": "\"use client\";\n\nimport { TreeView as ArkTreeView } from \"@ark-ui/react/tree-view\";\nimport { ChevronRight } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst TreeViewProvider = ArkTreeView.RootProvider;\nconst TreeViewContext = ArkTreeView.Context;\nconst TreeViewNodeProvider = ArkTreeView.NodeProvider;\nconst TreeViewBranchIndentGuide = ArkTreeView.BranchIndentGuide;\n\nconst TreeViewRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTreeView.Root>) => (\n  <ArkTreeView.Root\n    className={cn(\"flex flex-col gap-1.5\", className)}\n    {...rest}\n  />\n);\n\nconst TreeViewLabel = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTreeView.Label>) => (\n  <ArkTreeView.Label\n    className={cn(\"font-medium text-sm\", className)}\n    {...rest}\n  />\n);\n\nconst TreeViewTree = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTreeView.Tree>) => (\n  <ArkTreeView.Tree\n    className={cn(\"flex flex-col gap-0.5 rounded-md border p-2\", className)}\n    {...rest}\n  />\n);\n\nconst TreeViewBranch = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTreeView.Branch>) => (\n  <ArkTreeView.Branch className={cn(\"flex flex-col\", className)} {...rest} />\n);\n\nconst TreeViewBranchControl = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTreeView.BranchControl>) => (\n  <ArkTreeView.BranchControl\n    className={cn(\n      \"flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1.5 text-sm outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-primary data-[state=open]:bg-accent\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst TreeViewBranchContent = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTreeView.BranchContent>) => (\n  <ArkTreeView.BranchContent\n    className={cn(\"ml-4 flex flex-col gap-0.5 border-l pl-2\", className)}\n    {...rest}\n  />\n);\n\nconst TreeViewBranchText = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTreeView.BranchText>) => (\n  <ArkTreeView.BranchText\n    className={cn(\"flex flex-1 items-center gap-1.5\", className)}\n    {...rest}\n  />\n);\n\nconst TreeViewBranchIndicator = ({\n  className,\n  children,\n  ...rest\n}: ComponentProps<typeof ArkTreeView.BranchIndicator>) => (\n  <ArkTreeView.BranchIndicator\n    className={cn(\n      \"transition-transform duration-200 data-[state=open]:rotate-90\",\n      className,\n    )}\n    {...rest}\n  >\n    {children || <ChevronRight className=\"h-4 w-4\" />}\n  </ArkTreeView.BranchIndicator>\n);\n\nconst TreeViewBranchTrigger = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTreeView.BranchTrigger>) => (\n  <ArkTreeView.BranchTrigger\n    className={cn(\n      \"flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1.5 text-sm outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-primary\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst TreeViewItem = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTreeView.Item>) => (\n  <ArkTreeView.Item\n    className={cn(\n      \"flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1.5 text-sm outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-primary data-[selected]:bg-primary data-[selected]:text-primary-foreground\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst TreeViewItemText = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTreeView.ItemText>) => (\n  <ArkTreeView.ItemText\n    className={cn(\"flex flex-1 items-center gap-1.5\", className)}\n    {...rest}\n  />\n);\n\nconst TreeViewItemIndicator = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkTreeView.ItemIndicator>) => (\n  <ArkTreeView.ItemIndicator\n    className={cn(\"flex h-4 w-4 items-center justify-center\", className)}\n    {...rest}\n  />\n);\n\nexport {\n  TreeViewRoot,\n  TreeViewLabel,\n  TreeViewTree,\n  TreeViewBranch,\n  TreeViewBranchControl,\n  TreeViewBranchContent,\n  TreeViewBranchText,\n  TreeViewBranchIndicator,\n  TreeViewBranchTrigger,\n  TreeViewBranchIndentGuide,\n  TreeViewItem,\n  TreeViewItemText,\n  TreeViewItemIndicator,\n  TreeViewProvider,\n  TreeViewContext,\n  TreeViewNodeProvider,\n};\n\n// Re-export createTreeCollection for convenience\nexport { createTreeCollection } from \"@ark-ui/react/tree-view\";\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

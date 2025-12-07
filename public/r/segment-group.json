@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "segment-group",
+  "type": "registry:ui",
+  "title": "Segment Group",
+  "description": "A segmented control component for selecting between multiple options",
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/segment-group.tsx",
+      "content": "import { SegmentGroup as ArkSegmentGroup } from \"@ark-ui/react/segment-group\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst SegmentGroupProvider = ArkSegmentGroup.RootProvider;\nconst SegmentGroupContext = ArkSegmentGroup.Context;\n\nconst SegmentGroupRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkSegmentGroup.Root>) => (\n  <ArkSegmentGroup.Root\n    className={cn(\n      \"relative inline-flex items-center rounded-lg bg-muted p-1\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst SegmentGroupIndicator = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkSegmentGroup.Indicator>) => (\n  <ArkSegmentGroup.Indicator\n    className={cn(\n      \"absolute rounded-md bg-background shadow-sm transition-all\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst SegmentGroupItem = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkSegmentGroup.Item>) => (\n  <ArkSegmentGroup.Item\n    className={cn(\n      \"relative inline-flex cursor-pointer items-center justify-center whitespace-nowrap px-3 py-1.5 font-medium text-sm transition-colors\",\n      \"hover:text-foreground\",\n      \"disabled:pointer-events-none disabled:opacity-50\",\n      \"data-[state=checked]:text-foreground\",\n      \"z-10\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst SegmentGroupItemText = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkSegmentGroup.ItemText>) => (\n  <ArkSegmentGroup.ItemText\n    className={cn(\"relative z-20\", className)}\n    {...rest}\n  />\n);\n\nconst SegmentGroupItemControl = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkSegmentGroup.ItemControl>) => (\n  <ArkSegmentGroup.ItemControl className={cn(\"sr-only\", className)} {...rest} />\n);\n\nconst SegmentGroupItemHiddenInput = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkSegmentGroup.ItemHiddenInput>) => (\n  <ArkSegmentGroup.ItemHiddenInput\n    className={cn(\"sr-only\", className)}\n    {...rest}\n  />\n);\n\nconst SegmentGroupLabel = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkSegmentGroup.Label>) => (\n  <ArkSegmentGroup.Label\n    className={cn(\"mb-2 font-medium text-sm\", className)}\n    {...rest}\n  />\n);\n\nexport {\n  SegmentGroupRoot,\n  SegmentGroupIndicator,\n  SegmentGroupItem,\n  SegmentGroupItemText,\n  SegmentGroupItemControl,\n  SegmentGroupItemHiddenInput,\n  SegmentGroupLabel,\n  SegmentGroupProvider,\n  SegmentGroupContext,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

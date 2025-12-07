@@ -1,0 +1,158 @@
+---
+title: Editable
+description: An inline text editing component with edit/save controls.
+---
+
+import { EditableRoot, EditableLabel, EditableArea, EditableInput, EditablePreview, EditableControl, EditableEditTrigger, EditableSubmitTrigger, EditableCancelTrigger } from "@/registry/thornberry/components/editable";
+
+<EditableRoot placeholder="Enter text..." defaultValue="Click to edit" className="mb-8">
+  <EditableLabel>Editable Text</EditableLabel>
+  <EditableArea>
+    <EditableInput />
+    <EditablePreview />
+  </EditableArea>
+  <EditableControl>
+    <EditableEditTrigger />
+    <EditableSubmitTrigger />
+    <EditableCancelTrigger />
+  </EditableControl>
+</EditableRoot>
+
+## Installation
+
+<InstallationTabs filename="editable.json" />
+
+## Usage
+
+```tsx
+import {
+  EditableRoot,
+  EditableLabel,
+  EditableArea,
+  EditableInput,
+  EditablePreview,
+  EditableControl,
+  EditableEditTrigger,
+  EditableSubmitTrigger,
+  EditableCancelTrigger
+} from "@/components/ui/editable";
+```
+
+```tsx
+<EditableRoot>
+  <EditableLabel>Label</EditableLabel>
+  <EditableArea>
+    <EditableInput />
+    <EditablePreview />
+  </EditableArea>
+  <EditableControl>
+    <EditableEditTrigger />
+    <EditableSubmitTrigger />
+    <EditableCancelTrigger />
+  </EditableControl>
+</EditableRoot>
+```
+
+## Examples
+
+<Tabs items={["Basic", "Double Click", "Custom Controls"]} className="mt-4">
+  <Tab value="Basic">
+    <EditableRoot placeholder="Enter text..." defaultValue="Click to edit">
+      <EditableLabel>Title</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControl>
+        <EditableEditTrigger />
+        <EditableSubmitTrigger />
+        <EditableCancelTrigger />
+      </EditableControl>
+    </EditableRoot>
+
+    ```tsx
+    <EditableRoot placeholder="Enter text..." defaultValue="Click to edit">
+      <EditableLabel>Title</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControl>
+        <EditableEditTrigger />
+        <EditableSubmitTrigger />
+        <EditableCancelTrigger />
+      </EditableControl>
+    </EditableRoot>
+    ```
+  </Tab>
+  <Tab value="Double Click">
+    <EditableRoot 
+      placeholder="Double click to edit..." 
+      defaultValue="Double click me"
+      activationMode="dblclick"
+    >
+      <EditableLabel>Description</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControl>
+        <EditableSubmitTrigger />
+        <EditableCancelTrigger />
+      </EditableControl>
+    </EditableRoot>
+
+    ```tsx
+    <EditableRoot 
+      placeholder="Double click to edit..." 
+      defaultValue="Double click me"
+      activationMode="dblclick"
+    >
+      <EditableLabel>Description</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControl>
+        <EditableSubmitTrigger />
+        <EditableCancelTrigger />
+      </EditableControl>
+    </EditableRoot>
+    ```
+  </Tab>
+  <Tab value="Custom Controls">
+    <EditableRoot placeholder="Enter text..." defaultValue="Custom controls">
+      <EditableLabel>Name</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControl>
+        <EditableEditTrigger>Edit</EditableEditTrigger>
+        <EditableSubmitTrigger>Save</EditableSubmitTrigger>
+        <EditableCancelTrigger>Cancel</EditableCancelTrigger>
+      </EditableControl>
+    </EditableRoot>
+
+    ```tsx
+    <EditableRoot placeholder="Enter text..." defaultValue="Custom controls">
+      <EditableLabel>Name</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControl>
+        <EditableEditTrigger>Edit</EditableEditTrigger>
+        <EditableSubmitTrigger>Save</EditableSubmitTrigger>
+        <EditableCancelTrigger>Cancel</EditableCancelTrigger>
+      </EditableControl>
+    </EditableRoot>
+    ```
+  </Tab>
+</Tabs>
+
+## References
+
+<div>
+  <AutoTypeTable path="./src/content/docs/types.ts" name="EditableProps" />
+</div>

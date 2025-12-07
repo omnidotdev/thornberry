@@ -1,0 +1,212 @@
+---
+title: Segment Group
+description: A segmented control component for selecting a single option from a group.
+---
+
+import { SegmentGroupRoot, SegmentGroupIndicator, SegmentGroupItem, SegmentGroupItemText, SegmentGroupItemControl, SegmentGroupItemHiddenInput, SegmentGroupLabel } from "@/registry/thornberry/components/segment-group";
+
+<SegmentGroupRoot defaultValue="react">
+  <SegmentGroupIndicator />
+  {["React", "Vue", "Svelte"].map((framework) => (
+    <SegmentGroupItem key={framework} value={framework.toLowerCase()}>
+      <SegmentGroupItemText>{framework}</SegmentGroupItemText>
+      <SegmentGroupItemControl />
+      <SegmentGroupItemHiddenInput />
+    </SegmentGroupItem>
+  ))}
+</SegmentGroupRoot>
+
+## Installation
+
+<InstallationTabs filename="segment-group.json" />
+
+## Usage
+
+```tsx
+import {
+  SegmentGroupRoot,
+  SegmentGroupIndicator,
+  SegmentGroupItem,
+  SegmentGroupItemText,
+  SegmentGroupItemControl,
+  SegmentGroupItemHiddenInput
+} from "@/components/ui/segment-group";
+```
+
+```tsx
+<SegmentGroupRoot defaultValue="react">
+  <SegmentGroupIndicator />
+  {["React", "Vue", "Svelte"].map((framework) => (
+    <SegmentGroupItem key={framework} value={framework.toLowerCase()}>
+      <SegmentGroupItemText>{framework}</SegmentGroupItemText>
+      <SegmentGroupItemControl />
+      <SegmentGroupItemHiddenInput />
+    </SegmentGroupItem>
+  ))}
+</SegmentGroupRoot>
+```
+
+## Examples
+
+<br />
+
+#### Basic Examples
+
+<Tabs items={["Default", "With Label", "Disabled"]} className="mt-4">
+  <Tab value="Default">
+    <SegmentGroupRoot defaultValue="center">
+      <SegmentGroupIndicator />
+      {["Left", "Center", "Right"].map((align) => (
+        <SegmentGroupItem key={align} value={align.toLowerCase()}>
+          <SegmentGroupItemText>{align}</SegmentGroupItemText>
+          <SegmentGroupItemControl />
+          <SegmentGroupItemHiddenInput />
+        </SegmentGroupItem>
+      ))}
+    </SegmentGroupRoot>
+  </Tab>
+  <Tab value="With Label">
+    <div>
+      <SegmentGroupRoot defaultValue="month">
+        <SegmentGroupLabel>View</SegmentGroupLabel>
+        <div className="inline-flex items-center rounded-lg bg-muted p-1">
+          <SegmentGroupIndicator />
+          {["Day", "Week", "Month", "Year"].map((view) => (
+            <SegmentGroupItem key={view} value={view.toLowerCase()}>
+              <SegmentGroupItemText>{view}</SegmentGroupItemText>
+              <SegmentGroupItemControl />
+              <SegmentGroupItemHiddenInput />
+            </SegmentGroupItem>
+          ))}
+        </div>
+      </SegmentGroupRoot>
+    </div>
+  </Tab>
+  <Tab value="Disabled">
+    <SegmentGroupRoot defaultValue="option1" disabled>
+      <SegmentGroupIndicator />
+      {["Option 1", "Option 2", "Option 3"].map((option) => (
+        <SegmentGroupItem key={option} value={option.toLowerCase().replace(' ', '')}>
+          <SegmentGroupItemText>{option}</SegmentGroupItemText>
+          <SegmentGroupItemControl />
+          <SegmentGroupItemHiddenInput />
+        </SegmentGroupItem>
+      ))}
+    </SegmentGroupRoot>
+  </Tab>
+</Tabs>
+
+#### Different Sizes
+
+<Tabs items={["Small", "Medium", "Large"]} className="mt-4">
+  <Tab value="Small">
+    <SegmentGroupRoot defaultValue="tab1" className="p-0.5">
+      <SegmentGroupIndicator />
+      {["Tab 1", "Tab 2", "Tab 3"].map((tab) => (
+        <SegmentGroupItem key={tab} value={tab.toLowerCase().replace(' ', '')} className="px-2 py-1 text-xs">
+          <SegmentGroupItemText>{tab}</SegmentGroupItemText>
+          <SegmentGroupItemControl />
+          <SegmentGroupItemHiddenInput />
+        </SegmentGroupItem>
+      ))}
+    </SegmentGroupRoot>
+  </Tab>
+  <Tab value="Medium">
+    <SegmentGroupRoot defaultValue="tab1">
+      <SegmentGroupIndicator />
+      {["Tab 1", "Tab 2", "Tab 3"].map((tab) => (
+        <SegmentGroupItem key={tab} value={tab.toLowerCase().replace(' ', '')}>
+          <SegmentGroupItemText>{tab}</SegmentGroupItemText>
+          <SegmentGroupItemControl />
+          <SegmentGroupItemHiddenInput />
+        </SegmentGroupItem>
+      ))}
+    </SegmentGroupRoot>
+  </Tab>
+  <Tab value="Large">
+    <SegmentGroupRoot defaultValue="tab1" className="p-1.5">
+      <SegmentGroupIndicator />
+      {["Tab 1", "Tab 2", "Tab 3"].map((tab) => (
+        <SegmentGroupItem key={tab} value={tab.toLowerCase().replace(' ', '')} className="px-4 py-2">
+          <SegmentGroupItemText>{tab}</SegmentGroupItemText>
+          <SegmentGroupItemControl />
+          <SegmentGroupItemHiddenInput />
+        </SegmentGroupItem>
+      ))}
+    </SegmentGroupRoot>
+  </Tab>
+</Tabs>
+
+#### Styled Examples
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="flex flex-col gap-4">
+      <SegmentGroupRoot defaultValue="all" className="w-fit">
+        <SegmentGroupIndicator />
+        {["All", "Active", "Completed"].map((status) => (
+          <SegmentGroupItem key={status} value={status.toLowerCase()}>
+            <SegmentGroupItemText>{status}</SegmentGroupItemText>
+            <SegmentGroupItemControl />
+            <SegmentGroupItemHiddenInput />
+          </SegmentGroupItem>
+        ))}
+      </SegmentGroupRoot>
+
+      <SegmentGroupRoot defaultValue="grid" className="w-fit">
+        <SegmentGroupIndicator />
+        {["List", "Grid", "Kanban"].map((view) => (
+          <SegmentGroupItem key={view} value={view.toLowerCase()}>
+            <SegmentGroupItemText className="font-medium">{view}</SegmentGroupItemText>
+            <SegmentGroupItemControl />
+            <SegmentGroupItemHiddenInput />
+          </SegmentGroupItem>
+        ))}
+      </SegmentGroupRoot>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import {
+      SegmentGroupRoot,
+      SegmentGroupIndicator,
+      SegmentGroupItem,
+      SegmentGroupItemText,
+      SegmentGroupItemControl,
+      SegmentGroupItemHiddenInput
+    } from "@/components/ui/segment-group";
+
+    const StyledSegmentGroup = () => (
+      <div className="flex flex-col gap-4">
+        <SegmentGroupRoot defaultValue="all" className="w-fit">
+          <SegmentGroupIndicator />
+          {["All", "Active", "Completed"].map((status) => (
+            <SegmentGroupItem key={status} value={status.toLowerCase()}>
+              <SegmentGroupItemText>{status}</SegmentGroupItemText>
+              <SegmentGroupItemControl />
+              <SegmentGroupItemHiddenInput />
+            </SegmentGroupItem>
+          ))}
+        </SegmentGroupRoot>
+
+        <SegmentGroupRoot defaultValue="grid" className="w-fit">
+          <SegmentGroupIndicator />
+          {["List", "Grid", "Kanban"].map((view) => (
+            <SegmentGroupItem key={view} value={view.toLowerCase()}>
+              <SegmentGroupItemText className="font-medium">{view}</SegmentGroupItemText>
+              <SegmentGroupItemControl />
+              <SegmentGroupItemHiddenInput />
+            </SegmentGroupItem>
+          ))}
+        </SegmentGroupRoot>
+      </div>
+    );
+    ```
+  </Tab>
+</Tabs>
+
+## References
+
+<div>
+  <AutoTypeTable path="./src/content/docs/types.ts" name="SegmentGroupProps" />
+</div>

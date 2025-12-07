@@ -1,0 +1,187 @@
+---
+title: Highlight
+description: Highlight matching text within a string for search results and text filtering.
+---
+
+import { Highlight } from "@/components/highlight";
+
+<Highlight
+  query="ipsum"
+  text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt"
+/>
+
+## Installation
+
+<InstallationTabs filename="highlight.json" />
+
+## Usage
+
+```tsx
+import { Highlight } from "@/components/ui/highlight";
+```
+
+```tsx
+<Highlight
+  query="search"
+  text="Highlight matching text in a search result"
+/>
+```
+
+## Examples
+
+<br />
+
+#### Basic Examples
+
+<Tabs items={["Single Match", "Multiple Matches", "Case Insensitive"]} className="mt-4">
+  <Tab value="Single Match">
+    <Highlight
+      query="React"
+      text="React is a JavaScript library for building user interfaces."
+    />
+  </Tab>
+  <Tab value="Multiple Matches">
+    <Highlight
+      query="the"
+      text="The quick brown fox jumps over the lazy dog. The fox is fast."
+      matchAll
+    />
+  </Tab>
+  <Tab value="Case Insensitive">
+    <Highlight
+      query="JAVASCRIPT"
+      text="JavaScript is the programming language of the Web. javascript is everywhere."
+      ignoreCase
+      matchAll
+    />
+  </Tab>
+</Tabs>
+
+#### Advanced Examples
+
+<Tabs items={["Multiple Queries", "Exact Match", "In Context"]} className="mt-4">
+  <Tab value="Multiple Queries">
+    <Highlight
+      query={["React", "Vue", "Svelte"]}
+      text="React, Vue, and Svelte are popular frontend frameworks. React is developed by Meta."
+      matchAll
+    />
+  </Tab>
+  <Tab value="Exact Match">
+    <div className="space-y-4">
+      <div>
+        <p className="font-medium text-sm mb-2">Without exact match:</p>
+        <Highlight
+          query="cat"
+          text="The cat categorically caught the scattered treats."
+          matchAll
+        />
+      </div>
+      <div>
+        <p className="font-medium text-sm mb-2">With exact match:</p>
+        <Highlight
+          query="cat"
+          text="The cat categorically caught the scattered treats."
+          exactMatch
+          matchAll
+        />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="In Context">
+    <div className="space-y-4 border rounded-lg p-4">
+      <h3 className="font-semibold">Search Results</h3>
+      <div className="space-y-2">
+        <div className="p-3 border rounded-md">
+          <Highlight
+            query="component"
+            text="Build reusable components for your UI library"
+            className="text-sm"
+            matchAll
+          />
+        </div>
+        <div className="p-3 border rounded-md">
+          <Highlight
+            query="component"
+            text="Components are the building blocks of React applications"
+            className="text-sm"
+            matchAll
+          />
+        </div>
+        <div className="p-3 border rounded-md">
+          <Highlight
+            query="component"
+            text="Each component can have its own state and props"
+            className="text-sm"
+            matchAll
+          />
+        </div>
+      </div>
+    </div>
+  </Tab>
+</Tabs>
+
+#### Styled Examples
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="space-y-4">
+      <Highlight
+        query="important"
+        text="This is an important message about important updates."
+        className="[&_mark]:bg-yellow-200 [&_mark]:text-yellow-900 [&_mark]:font-semibold"
+        matchAll
+      />
+      
+      <Highlight
+        query="error"
+        text="An error occurred while processing the error message."
+        className="[&_mark]:bg-red-100 [&_mark]:text-red-700 [&_mark]:border [&_mark]:border-red-300"
+        matchAll
+      />
+      
+      <Highlight
+        query="success"
+        text="The operation completed successfully! Success rate: 100%"
+        className="[&_mark]:bg-green-100 [&_mark]:text-green-700 [&_mark]:px-1"
+        matchAll
+      />
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { Highlight } from "@/components/ui/highlight";
+
+    const StyledHighlight = () => (
+      <div className="space-y-4">
+        <Highlight
+          query="important"
+          text="This is an important message about important updates."
+          className="[&_mark]:bg-yellow-200 [&_mark]:text-yellow-900 [&_mark]:font-semibold"
+          matchAll
+        />
+        
+        <Highlight
+          query="error"
+          text="An error occurred while processing the error message."
+          className="[&_mark]:bg-red-100 [&_mark]:text-red-700 [&_mark]:border [&_mark]:border-red-300"
+          matchAll
+        />
+        
+        <Highlight
+          query="success"
+          text="The operation completed successfully! Success rate: 100%"
+          className="[&_mark]:bg-green-100 [&_mark]:text-green-700 [&_mark]:px-1"
+          matchAll
+        />
+      </div>
+    );
+    ```
+  </Tab>
+</Tabs>
+
+## References
+
+<div>
+  <AutoTypeTable path="./src/content/docs/types.ts" name="HighlightProps" />
+</div>

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "field",
+  "type": "registry:ui",
+  "title": "Field",
+  "description": "A form field wrapper with label, input, and error message support",
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/field.tsx",
+      "content": "import { Field as ArkField } from \"@ark-ui/react/field\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst FieldProvider = ArkField.RootProvider;\nconst FieldContext = ArkField.Context;\n\nconst FieldRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkField.Root>) => (\n  <ArkField.Root className={cn(\"space-y-2\", className)} {...rest} />\n);\n\nconst FieldLabel = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkField.Label>) => (\n  <ArkField.Label\n    className={cn(\"font-medium text-sm leading-none\", className)}\n    {...rest}\n  />\n);\n\nconst FieldInput = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkField.Input>) => (\n  <ArkField.Input\n    className={cn(\n      \"flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background\",\n      \"file:border-0 file:bg-transparent file:font-medium file:text-sm\",\n      \"placeholder:text-muted-foreground\",\n      \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2\",\n      \"disabled:cursor-not-allowed disabled:opacity-50\",\n      \"data-[invalid]:border-destructive\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst FieldTextarea = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkField.Textarea>) => (\n  <ArkField.Textarea\n    className={cn(\n      \"flex min-h-20 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background\",\n      \"placeholder:text-muted-foreground\",\n      \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2\",\n      \"disabled:cursor-not-allowed disabled:opacity-50\",\n      \"data-[invalid]:border-destructive\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst FieldSelect = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkField.Select>) => (\n  <ArkField.Select\n    className={cn(\n      \"flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background\",\n      \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2\",\n      \"disabled:cursor-not-allowed disabled:opacity-50\",\n      \"data-[invalid]:border-destructive\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst FieldHelperText = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkField.HelperText>) => (\n  <ArkField.HelperText\n    className={cn(\"text-muted-foreground text-sm\", className)}\n    {...rest}\n  />\n);\n\nconst FieldErrorText = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkField.ErrorText>) => (\n  <ArkField.ErrorText\n    className={cn(\"font-medium text-destructive text-sm\", className)}\n    {...rest}\n  />\n);\n\nconst FieldRequiredIndicator = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkField.RequiredIndicator>) => (\n  <ArkField.RequiredIndicator\n    className={cn(\"text-destructive\", className)}\n    {...rest}\n  />\n);\n\nexport {\n  FieldProvider,\n  FieldContext,\n  FieldRoot,\n  FieldLabel,\n  FieldInput,\n  FieldTextarea,\n  FieldSelect,\n  FieldHelperText,\n  FieldErrorText,\n  FieldRequiredIndicator,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

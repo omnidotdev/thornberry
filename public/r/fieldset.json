@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "fieldset",
+  "type": "registry:ui",
+  "title": "Fieldset",
+  "description": "A form fieldset wrapper for grouping related fields",
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/fieldset.tsx",
+      "content": "import { Fieldset as ArkFieldset } from \"@ark-ui/react/fieldset\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst FieldsetProvider = ArkFieldset.RootProvider;\nconst FieldsetContext = ArkFieldset.Context;\n\nconst FieldsetRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkFieldset.Root>) => (\n  <ArkFieldset.Root\n    className={cn(\n      \"space-y-4 rounded-lg border border-border p-6\",\n      \"data-[disabled]:opacity-50\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst FieldsetLegend = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkFieldset.Legend>) => (\n  <ArkFieldset.Legend\n    className={cn(\"font-semibold text-lg\", className)}\n    {...rest}\n  />\n);\n\nconst FieldsetHelperText = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkFieldset.HelperText>) => (\n  <ArkFieldset.HelperText\n    className={cn(\"text-muted-foreground text-sm\", className)}\n    {...rest}\n  />\n);\n\nconst FieldsetErrorText = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkFieldset.ErrorText>) => (\n  <ArkFieldset.ErrorText\n    className={cn(\"font-medium text-destructive text-sm\", className)}\n    {...rest}\n  />\n);\n\nexport {\n  FieldsetProvider,\n  FieldsetContext,\n  FieldsetRoot,\n  FieldsetLegend,\n  FieldsetHelperText,\n  FieldsetErrorText,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

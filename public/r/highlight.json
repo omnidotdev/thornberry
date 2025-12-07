@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "highlight",
+  "type": "registry:ui",
+  "title": "Highlight",
+  "description": "A text highlighting component for search results and emphasis",
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/highlight.tsx",
+      "content": "import { Highlight as ArkHighlight } from \"@ark-ui/react/highlight\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst Highlight = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkHighlight>) => (\n  <ArkHighlight\n    className={cn(\n      \"[&_mark]:bg-primary/20 [&_mark]:text-foreground [&_mark]:rounded [&_mark]:px-0.5\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nexport { Highlight };\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

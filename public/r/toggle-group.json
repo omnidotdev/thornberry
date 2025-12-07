@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-group",
+  "type": "registry:ui",
+  "title": "Toggle Group",
+  "description": "A group of toggle buttons for single or multiple selection",
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/toggle-group.tsx",
+      "content": "import { ToggleGroup as ArkToggleGroup } from \"@ark-ui/react/toggle-group\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst ToggleGroupProvider = ArkToggleGroup.RootProvider;\nconst ToggleGroupContext = ArkToggleGroup.Context;\n\nconst ToggleGroupRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkToggleGroup.Root>) => (\n  <ArkToggleGroup.Root\n    className={cn(\n      \"inline-flex items-center justify-center rounded-md bg-muted p-1\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst ToggleGroupItem = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkToggleGroup.Item>) => (\n  <ArkToggleGroup.Item\n    className={cn(\n      \"inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 font-medium text-sm ring-offset-background transition-all\",\n      \"hover:text-muted-foreground\",\n      \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2\",\n      \"disabled:pointer-events-none disabled:opacity-50\",\n      \"data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nexport {\n  ToggleGroupRoot,\n  ToggleGroupItem,\n  ToggleGroupProvider,\n  ToggleGroupContext,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

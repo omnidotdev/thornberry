@@ -1,0 +1,122 @@
+---
+title: Scroll Area
+description: A custom scrollbar container with styled scrollbars for better visual consistency.
+---
+
+import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaContent, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaCorner } from "@/registry/thornberry/components/scroll-area";
+
+<ScrollAreaRoot className="h-72 w-full rounded-md border">
+  <ScrollAreaViewport>
+    <ScrollAreaContent className="p-4">
+      <h4 className="mb-4 font-medium text-sm leading-none">Tags</h4>
+      {Array.from({ length: 50 }).map((_, i) => (
+        <div key={i} className="text-sm">
+          Tag {i + 1}
+        </div>
+      ))}
+    </ScrollAreaContent>
+  </ScrollAreaViewport>
+  <ScrollAreaScrollbar orientation="vertical">
+    <ScrollAreaThumb />
+  </ScrollAreaScrollbar>
+  <ScrollAreaCorner />
+</ScrollAreaRoot>
+
+## Installation
+
+<InstallationTabs filename="scroll-area.json" />
+
+## Usage
+
+```tsx
+import {
+  ScrollAreaRoot,
+  ScrollAreaViewport,
+  ScrollAreaContent,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaCorner
+} from "@/components/ui/scroll-area";
+```
+
+```tsx
+<ScrollAreaRoot className="h-72 w-full rounded-md border">
+  <ScrollAreaViewport>
+    <ScrollAreaContent className="p-4">
+      {/* Your content */}
+    </ScrollAreaContent>
+  </ScrollAreaViewport>
+  <ScrollAreaScrollbar orientation="vertical">
+    <ScrollAreaThumb />
+  </ScrollAreaScrollbar>
+  <ScrollAreaCorner />
+</ScrollAreaRoot>
+```
+
+## Examples
+
+<Tabs items={["Vertical", "Horizontal", "Both"]} className="mt-4">
+  <Tab value="Vertical">
+    <ScrollAreaRoot className="h-72 w-full rounded-md border">
+      <ScrollAreaViewport>
+        <ScrollAreaContent className="p-4">
+          {Array.from({ length: 50 }).map((_, i) => (
+            <div key={i} className="text-sm">
+              Item {i + 1}
+            </div>
+          ))}
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar orientation="vertical">
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
+    </ScrollAreaRoot>
+  </Tab>
+  <Tab value="Horizontal">
+    <ScrollAreaRoot className="w-full rounded-md border">
+      <ScrollAreaViewport>
+        <ScrollAreaContent className="p-4">
+          <div className="flex gap-4" style={{ width: "150%" }}>
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div key={i} className="shrink-0 text-sm">
+                Item {i + 1}
+              </div>
+            ))}
+          </div>
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar orientation="horizontal">
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+    </ScrollAreaRoot>
+  </Tab>
+  <Tab value="Both">
+    <ScrollAreaRoot className="h-72 w-full rounded-md border">
+      <ScrollAreaViewport>
+        <ScrollAreaContent className="p-4">
+          <div style={{ width: "150%" }}>
+            {Array.from({ length: 50 }).map((_, i) => (
+              <div key={i} className="text-sm">
+                Long item {i + 1} with extra content to enable horizontal scrolling
+              </div>
+            ))}
+          </div>
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar orientation="vertical">
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaScrollbar orientation="horizontal">
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
+    </ScrollAreaRoot>
+  </Tab>
+</Tabs>
+
+## References
+
+<div>
+  <AutoTypeTable path="./src/content/docs/types.ts" name="ScrollAreaProps" />
+</div>

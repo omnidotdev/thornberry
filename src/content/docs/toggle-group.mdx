@@ -1,0 +1,141 @@
+---
+title: Toggle Group
+description: A set of two-state buttons that can be toggled on or off.
+---
+
+import { Bold, Italic, Underline } from "lucide-react";
+import { ToggleGroupRoot, ToggleGroupItem } from "@/registry/thornberry/components/toggle-group";
+
+<ToggleGroupRoot>
+  <ToggleGroupItem value="bold">
+    <Bold className="size-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="italic">
+    <Italic className="size-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="underline">
+    <Underline className="size-4" />
+  </ToggleGroupItem>
+</ToggleGroupRoot>
+
+## Installation
+
+<InstallationTabs filename="toggle-group.json" />
+
+## Usage
+
+```tsx
+import { ToggleGroupRoot, ToggleGroupItem } from "@/components/ui/toggle-group";
+```
+
+```tsx
+<ToggleGroupRoot>
+  <ToggleGroupItem value="bold">
+    <Bold className="size-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="italic">
+    <Italic className="size-4" />
+  </ToggleGroupItem>
+</ToggleGroupRoot>
+```
+
+## Examples
+
+<br />
+
+#### Basic Examples
+
+<Tabs items={["Single", "Multiple", "With Text"]} className="mt-4">
+  <Tab value="Single">
+    <ToggleGroupRoot defaultValue={["bold"]}>
+      <ToggleGroupItem value="bold">
+        <Bold className="size-4" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic">
+        <Italic className="size-4" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="underline">
+        <Underline className="size-4" />
+      </ToggleGroupItem>
+    </ToggleGroupRoot>
+  </Tab>
+  <Tab value="Multiple">
+    <ToggleGroupRoot multiple defaultValue={["bold", "italic"]}>
+      <ToggleGroupItem value="bold">
+        <Bold className="size-4" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic">
+        <Italic className="size-4" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="underline">
+        <Underline className="size-4" />
+      </ToggleGroupItem>
+    </ToggleGroupRoot>
+  </Tab>
+  <Tab value="With Text">
+    <ToggleGroupRoot>
+      <ToggleGroupItem value="left">Left</ToggleGroupItem>
+      <ToggleGroupItem value="center">Center</ToggleGroupItem>
+      <ToggleGroupItem value="right">Right</ToggleGroupItem>
+    </ToggleGroupRoot>
+  </Tab>
+</Tabs>
+
+#### Styled Examples
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="flex flex-col gap-4">
+      <ToggleGroupRoot className="justify-start">
+        <ToggleGroupItem value="sm" className="h-8 px-2 text-xs">
+          Small
+        </ToggleGroupItem>
+        <ToggleGroupItem value="md" className="h-8 px-2 text-xs">
+          Medium
+        </ToggleGroupItem>
+        <ToggleGroupItem value="lg" className="h-8 px-2 text-xs">
+          Large
+        </ToggleGroupItem>
+      </ToggleGroupRoot>
+      
+      <ToggleGroupRoot defaultValue={["react"]}>
+        <ToggleGroupItem value="react">React</ToggleGroupItem>
+        <ToggleGroupItem value="vue">Vue</ToggleGroupItem>
+        <ToggleGroupItem value="svelte">Svelte</ToggleGroupItem>
+      </ToggleGroupRoot>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { ToggleGroupRoot, ToggleGroupItem } from "@/components/ui/toggle-group";
+
+    const StyledToggleGroup = () => (
+      <div className="flex flex-col gap-4">
+        <ToggleGroupRoot className="justify-start">
+          <ToggleGroupItem value="sm" className="h-8 px-2 text-xs">
+            Small
+          </ToggleGroupItem>
+          <ToggleGroupItem value="md" className="h-8 px-2 text-xs">
+            Medium
+          </ToggleGroupItem>
+          <ToggleGroupItem value="lg" className="h-8 px-2 text-xs">
+            Large
+          </ToggleGroupItem>
+        </ToggleGroupRoot>
+        
+        <ToggleGroupRoot defaultValue={["react"]}>
+          <ToggleGroupItem value="react">React</ToggleGroupItem>
+          <ToggleGroupItem value="vue">Vue</ToggleGroupItem>
+          <ToggleGroupItem value="svelte">Svelte</ToggleGroupItem>
+        </ToggleGroupRoot>
+      </div>
+    );
+    ```
+  </Tab>
+</Tabs>
+
+## References
+
+<div>
+  <AutoTypeTable path="./src/content/docs/types.ts" name="ToggleGroupProps" />
+</div>

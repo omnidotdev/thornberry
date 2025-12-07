@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle",
+  "type": "registry:ui",
+  "title": "Toggle",
+  "description": "A toggle button component with pressed state",
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/toggle.tsx",
+      "content": "import { Toggle as ArkToggle } from \"@ark-ui/react/toggle\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst ToggleRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkToggle.Root>) => (\n  <ArkToggle.Root\n    className={cn(\n      \"inline-flex items-center justify-center rounded-md font-medium text-sm ring-offset-background transition-colors\",\n      \"hover:bg-muted hover:text-muted-foreground\",\n      \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2\",\n      \"disabled:pointer-events-none disabled:opacity-50\",\n      \"data-[state=on]:bg-accent data-[state=on]:text-accent-foreground\",\n      \"h-10 px-3\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst ToggleIndicator = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkToggle.Indicator>) => (\n  <ArkToggle.Indicator className={cn(\"\", className)} {...rest} />\n);\n\nexport { ToggleRoot, ToggleIndicator };\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+---
+title: Toggle
+description: A two-state button that can be either on or off.
+---
+
+import { Bold, Italic, Underline } from "lucide-react";
+import { ToggleRoot } from "@/registry/thornberry/components/toggle";
+
+<ToggleRoot>
+  <Bold className="size-4" />
+</ToggleRoot>
+
+## Installation
+
+<InstallationTabs filename="toggle.json" />
+
+## Usage
+
+```tsx
+import { ToggleRoot } from "@/components/ui/toggle";
+```
+
+```tsx
+<ToggleRoot>
+  <Bold className="size-4" />
+</ToggleRoot>
+```
+
+## Examples
+
+<br />
+
+#### Basic Examples
+
+<Tabs items={["Default", "With Text", "Disabled"]} className="mt-4">
+  <Tab value="Default">
+    <div className="flex gap-2">
+      <ToggleRoot>
+        <Bold className="size-4" />
+      </ToggleRoot>
+      <ToggleRoot>
+        <Italic className="size-4" />
+      </ToggleRoot>
+      <ToggleRoot>
+        <Underline className="size-4" />
+      </ToggleRoot>
+    </div>
+  </Tab>
+  <Tab value="With Text">
+    <div className="flex gap-2">
+      <ToggleRoot>
+        <Bold className="mr-2 size-4" />
+        Bold
+      </ToggleRoot>
+      <ToggleRoot>
+        <Italic className="mr-2 size-4" />
+        Italic
+      </ToggleRoot>
+    </div>
+  </Tab>
+  <Tab value="Disabled">
+    <ToggleRoot disabled>
+      <Bold className="size-4" />
+    </ToggleRoot>
+  </Tab>
+</Tabs>
+
+#### Variants
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="flex gap-2">
+      <ToggleRoot className="h-8 px-2">
+        <Bold className="size-3" />
+      </ToggleRoot>
+      <ToggleRoot>
+        <Bold className="size-4" />
+      </ToggleRoot>
+      <ToggleRoot className="h-12 px-4">
+        <Bold className="size-5" />
+      </ToggleRoot>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { Bold } from "lucide-react";
+    import { ToggleRoot } from "@/components/ui/toggle";
+
+    const ToggleVariants = () => (
+      <div className="flex gap-2">
+        <ToggleRoot className="h-8 px-2">
+          <Bold className="size-3" />
+        </ToggleRoot>
+        <ToggleRoot>
+          <Bold className="size-4" />
+        </ToggleRoot>
+        <ToggleRoot className="h-12 px-4">
+          <Bold className="size-5" />
+        </ToggleRoot>
+      </div>
+    );
+    ```
+  </Tab>
+</Tabs>
+
+## References
+
+<div>
+  <AutoTypeTable path="./src/content/docs/types.ts" name="ToggleProps" />
+</div>

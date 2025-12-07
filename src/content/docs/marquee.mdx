@@ -1,0 +1,88 @@
+---
+title: Marquee
+description: A scrolling content component with pause on hover functionality.
+---
+
+import { MarqueeRoot, MarqueeViewport, MarqueeContent, MarqueeItem } from "@/registry/thornberry/components/marquee";
+
+<MarqueeRoot>
+  <MarqueeViewport>
+    <MarqueeContent>
+      {["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape"].map((item, i) => (
+        <MarqueeItem key={i} className="px-8">
+          {item}
+        </MarqueeItem>
+      ))}
+    </MarqueeContent>
+  </MarqueeViewport>
+</MarqueeRoot>
+
+## Installation
+
+<InstallationTabs filename="marquee.json" />
+
+## Usage
+
+```tsx
+import {
+  MarqueeRoot,
+  MarqueeViewport,
+  MarqueeContent,
+  MarqueeItem,
+} from "@/components/ui/marquee";
+```
+
+```tsx
+const items = ["Item 1", "Item 2", "Item 3", "Item 4"];
+
+const Example = () => (
+  <MarqueeRoot>
+    <MarqueeViewport>
+      <MarqueeContent>
+        {items.map((item, i) => (
+          <MarqueeItem key={i} className="px-8">
+            {item}
+          </MarqueeItem>
+        ))}
+      </MarqueeContent>
+    </MarqueeViewport>
+  </MarqueeRoot>
+);
+```
+
+## Examples
+
+<Tabs items={["Basic", "Pause on Hover"]} className="mt-4">
+  <Tab value="Basic">
+    <MarqueeRoot>
+      <MarqueeViewport>
+        <MarqueeContent>
+          {["React", "Vue", "Angular", "Svelte", "Solid"].map((item, i) => (
+            <MarqueeItem key={i} className="px-8 font-semibold">
+              {item}
+            </MarqueeItem>
+          ))}
+        </MarqueeContent>
+      </MarqueeViewport>
+    </MarqueeRoot>
+  </Tab>
+  <Tab value="Pause on Hover">
+    <MarqueeRoot pauseOnHover>
+      <MarqueeViewport>
+        <MarqueeContent>
+          {["Hover to pause", "Scrolling content", "Smooth animation"].map((item, i) => (
+            <MarqueeItem key={i} className="px-8">
+              {item}
+            </MarqueeItem>
+          ))}
+        </MarqueeContent>
+      </MarqueeViewport>
+    </MarqueeRoot>
+  </Tab>
+</Tabs>
+
+## References
+
+<div>
+  <AutoTypeTable path="./src/content/docs/types.ts" name="MarqueeProps" />
+</div>

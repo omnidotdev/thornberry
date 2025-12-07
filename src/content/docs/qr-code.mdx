@@ -1,0 +1,71 @@
+---
+title: QR Code
+description: A component that generates and displays QR codes with download functionality.
+---
+
+import { QrCodeRoot, QrCodeFrame, QrCodePattern, QrCodeDownloadTrigger } from "@/registry/thornberry/components/qr-code";
+
+<QrCodeRoot defaultValue="https://thornberry.omnidev.io">
+  <QrCodeFrame>
+    <QrCodePattern />
+  </QrCodeFrame>
+  <QrCodeDownloadTrigger fileName="qr-code.png" mimeType="image/png">
+    Download QR Code
+  </QrCodeDownloadTrigger>
+</QrCodeRoot>
+
+## Installation
+
+<InstallationTabs filename="qr-code.json" />
+
+## Usage
+
+```tsx
+import {
+  QrCodeRoot,
+  QrCodeFrame,
+  QrCodePattern,
+  QrCodeDownloadTrigger,
+} from "@/components/ui/qr-code";
+```
+
+```tsx
+const Example = () => (
+  <QrCodeRoot defaultValue="https://example.com">
+    <QrCodeFrame>
+      <QrCodePattern />
+    </QrCodeFrame>
+    <QrCodeDownloadTrigger fileName="qr-code.png" mimeType="image/png">
+      Download
+    </QrCodeDownloadTrigger>
+  </QrCodeRoot>
+);
+```
+
+## Examples
+
+<Tabs items={["Basic", "With Overlay"]} className="mt-4">
+  <Tab value="Basic">
+    <QrCodeRoot defaultValue="https://thornberry.omnidev.io">
+      <QrCodeFrame>
+        <QrCodePattern />
+      </QrCodeFrame>
+      <QrCodeDownloadTrigger fileName="qr-code.png" mimeType="image/png">
+        Download
+      </QrCodeDownloadTrigger>
+    </QrCodeRoot>
+  </Tab>
+  <Tab value="With Overlay">
+    <QrCodeRoot defaultValue="https://ark-ui.com">
+      <QrCodeFrame>
+        <QrCodePattern />
+      </QrCodeFrame>
+    </QrCodeRoot>
+  </Tab>
+</Tabs>
+
+## References
+
+<div>
+  <AutoTypeTable path="./src/content/docs/types.ts" name="QrCodeProps" />
+</div>

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "clipboard",
+  "type": "registry:ui",
+  "title": "Clipboard",
+  "description": "A component for copying text to the clipboard with visual feedback",
+  "dependencies": [
+    "@ark-ui/react",
+    "lucide-react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/clipboard.tsx",
+      "content": "import { Clipboard as ArkClipboard } from \"@ark-ui/react/clipboard\";\nimport { Check, Copy } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst ClipboardProvider = ArkClipboard.RootProvider;\nconst ClipboardContext = ArkClipboard.Context;\n\nconst ClipboardRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkClipboard.Root>) => (\n  <ArkClipboard.Root className={cn(\"space-y-2\", className)} {...rest} />\n);\n\nconst ClipboardLabel = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkClipboard.Label>) => (\n  <ArkClipboard.Label\n    className={cn(\"font-medium text-sm leading-none\", className)}\n    {...rest}\n  />\n);\n\nconst ClipboardControl = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkClipboard.Control>) => (\n  <ArkClipboard.Control\n    className={cn(\"relative flex items-center\", className)}\n    {...rest}\n  />\n);\n\nconst ClipboardInput = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkClipboard.Input>) => (\n  <ArkClipboard.Input\n    className={cn(\n      \"flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 pr-10 text-sm ring-offset-background\",\n      \"placeholder:text-muted-foreground\",\n      \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2\",\n      \"disabled:cursor-not-allowed disabled:opacity-50\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst ClipboardTrigger = ({\n  className,\n  children,\n  ...rest\n}: ComponentProps<typeof ArkClipboard.Trigger>) => {\n  if (!children) {\n    return (\n      <ArkClipboard.Trigger\n        className={cn(\n          \"absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors\",\n          \"hover:text-foreground\",\n          \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2\",\n          \"disabled:pointer-events-none disabled:opacity-50\",\n          className,\n        )}\n        {...rest}\n      >\n        <ArkClipboard.Indicator copied={<Check className=\"size-4\" />}>\n          <Copy className=\"size-4\" />\n        </ArkClipboard.Indicator>\n      </ArkClipboard.Trigger>\n    );\n  }\n\n  return (\n    <ArkClipboard.Trigger className={className} {...rest}>\n      {children}\n    </ArkClipboard.Trigger>\n  );\n};\n\nconst ClipboardIndicator = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkClipboard.Indicator>) => (\n  <ArkClipboard.Indicator className={cn(className)} {...rest} />\n);\n\nconst ClipboardValueText = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkClipboard.ValueText>) => (\n  <ArkClipboard.ValueText className={cn(\"text-sm\", className)} {...rest} />\n);\n\nexport {\n  ClipboardProvider,\n  ClipboardContext,\n  ClipboardRoot,\n  ClipboardLabel,\n  ClipboardControl,\n  ClipboardInput,\n  ClipboardTrigger,\n  ClipboardIndicator,\n  ClipboardValueText,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

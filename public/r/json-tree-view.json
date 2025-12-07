@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "json-tree-view",
+  "type": "registry:ui",
+  "title": "JSON Tree View",
+  "description": "A component for visualizing JSON data in a collapsible tree structure",
+  "dependencies": [
+    "@ark-ui/react",
+    "lucide-react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/json-tree-view.tsx",
+      "content": "\"use client\";\n\nimport { JsonTreeView as ArkJsonTreeView } from \"@ark-ui/react/json-tree-view\";\nimport { ChevronRight } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst JsonTreeViewProvider = ArkJsonTreeView.RootProvider;\n\nconst JsonTreeViewRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkJsonTreeView.Root>) => (\n  <ArkJsonTreeView.Root\n    className={cn(\n      \"overflow-auto rounded-md border bg-background p-4 font-mono text-sm\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst JsonTreeViewTree = ({\n  className,\n  arrow,\n  ...rest\n}: ComponentProps<typeof ArkJsonTreeView.Tree>) => (\n  <ArkJsonTreeView.Tree\n    className={cn(\"flex flex-col gap-0.5\", className)}\n    arrow={arrow || <ChevronRight className=\"h-4 w-4\" />}\n    {...rest}\n  />\n);\n\nexport { JsonTreeViewRoot, JsonTreeViewTree, JsonTreeViewProvider };\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}
