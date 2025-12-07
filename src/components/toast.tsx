@@ -1,11 +1,11 @@
 "use client";
 
 import {
+  ToastActionTrigger,
+  ToastCloseTrigger,
+  ToastDescription,
   ToastRoot,
   ToastTitle,
-  ToastDescription,
-  ToastCloseTrigger,
-  ToastActionTrigger,
   Toaster,
   createToaster,
 } from "@/registry/thornberry/components/toast";

@@ -10,7 +10,7 @@ const Highlight = ({
 }: ComponentProps<typeof ArkHighlight>) => (
   <ArkHighlight
     className={cn(
-      "[&_mark]:bg-primary/20 [&_mark]:text-foreground [&_mark]:rounded [&_mark]:px-0.5",
+      "[&_mark]:rounded [&_mark]:bg-primary/20 [&_mark]:px-0.5 [&_mark]:text-foreground",
       className,
     )}
     {...rest}

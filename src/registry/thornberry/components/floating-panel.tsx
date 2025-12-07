@@ -35,7 +35,7 @@ const FloatingPanelContent = ({
 }: ComponentProps<typeof ArkFloatingPanel.Content>) => (
   <ArkFloatingPanel.Content
     className={cn(
-      "flex flex-col rounded-lg border bg-background shadow-lg data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 flex flex-col rounded-lg border bg-background shadow-lg data-[state=closed]:animate-out data-[state=open]:animate-in",
       className,
     )}
     {...rest}

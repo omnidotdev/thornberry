@@ -55,7 +55,7 @@ const ProgressValueText = ({
   ...rest
 }: ComponentProps<typeof ArkProgress.ValueText>) => (
   <ArkProgress.ValueText
-    className={cn("mt-2 text-center text-sm text-muted-foreground", className)}
+    className={cn("mt-2 text-center text-muted-foreground text-sm", className)}
     {...rest}
   />
 );

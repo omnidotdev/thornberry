@@ -1,16 +1,16 @@
 "use client";
 
 import {
-  ListboxRoot,
-  ListboxLabel,
   ListboxContent,
-  ListboxItem,
-  ListboxItemText,
-  ListboxItemIndicator,
-  ListboxItemGroup,
-  ListboxItemGroupLabel,
   ListboxEmpty,
   ListboxInput,
+  ListboxItem,
+  ListboxItemGroup,
+  ListboxItemGroupLabel,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+  ListboxRoot,
   ListboxValueText,
   createListCollection,
 } from "@/registry/thornberry/components/listbox";

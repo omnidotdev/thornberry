@@ -60,7 +60,7 @@ const ClipboardTrigger = ({
     return (
       <ArkClipboard.Trigger
         className={cn(
-          "absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors",
+          "-translate-y-1/2 absolute top-1/2 right-3 text-muted-foreground transition-colors",
           "hover:text-foreground",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
           "disabled:pointer-events-none disabled:opacity-50",

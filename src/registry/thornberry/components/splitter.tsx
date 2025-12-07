@@ -32,7 +32,7 @@ const SplitterResizeTrigger = ({
     {...rest}
   >
     {children || (
-      <div className="data-[orientation=horizontal]:rotate-90 z-10 flex h-4 w-3 items-center justify-center rounded-sm border bg-border">
+      <div className="z-10 flex h-4 w-3 items-center justify-center rounded-sm border bg-border data-[orientation=horizontal]:rotate-90">
         <GripVertical className="h-2.5 w-2.5" />
       </div>
     )}

@@ -11,7 +11,7 @@ const ToastRoot = ({
 }: ComponentProps<typeof ArkToast.Root>) => (
   <ArkToast.Root
     className={cn(
-      "group pointer-events-auto relative flex w-full items-center justify-between gap-4 overflow-hidden rounded-md border p-4 pr-6 shadow-lg transition-all data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:fade-out-80 data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full data-[type=error]:border-destructive data-[type=error]:bg-destructive data-[type=error]:text-destructive-foreground data-[type=success]:border-green-500 data-[type=success]:bg-green-50 data-[type=success]:text-green-900 data-[type=warning]:border-yellow-500 data-[type=warning]:bg-yellow-50 data-[type=warning]:text-yellow-900 data-[type=info]:bg-background",
+      "group data-[state=closed]:fade-out-80 data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full pointer-events-auto relative flex w-full items-center justify-between gap-4 overflow-hidden rounded-md border p-4 pr-6 shadow-lg transition-all data-[state=closed]:animate-out data-[state=open]:animate-in data-[type=error]:border-destructive data-[type=success]:border-green-500 data-[type=warning]:border-yellow-500 data-[type=error]:bg-destructive data-[type=info]:bg-background data-[type=success]:bg-green-50 data-[type=warning]:bg-yellow-50 data-[type=error]:text-destructive-foreground data-[type=success]:text-green-900 data-[type=warning]:text-yellow-900",
       className,
     )}
     {...rest}

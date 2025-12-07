@@ -1,12 +1,12 @@
 "use client";
 
 import {
-  ListboxRoot,
-  ListboxLabel,
   ListboxContent,
   ListboxItem,
-  ListboxItemText,
   ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+  ListboxRoot,
   createListCollection,
 } from "@/components/listbox";
 
