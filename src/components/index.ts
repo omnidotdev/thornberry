@@ -1,6 +1,7 @@
 export { default as AngleSlider } from "./angle-slider";
 export { default as ColorPicker } from "./color-picker";
 export { default as Combobox } from "./combobox";
+export { ComponentPreview } from "./component-preview";
 export { default as DatePicker } from "./date-picker";
 export { default as FileUpload } from "./file-upload";
 export { default as GitHubLink } from "./github-link";

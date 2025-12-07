@@ -12,20 +12,22 @@ export const items = [
   { value: 'third', title: 'Step 3', description: 'Confirmation' },
 ];
 
-<StepsRoot count={items.length} defaultStep={0}>
-  <StepsList>
-    {items.map((item, index) => (
-      <StepsItem key={index} index={index}>
-        <StepsTrigger>
-          <StepsIndicator>
-            {index + 1}
-          </StepsIndicator>
-        </StepsTrigger>
-        <StepsSeparator />
-      </StepsItem>
-    ))}
-  </StepsList>
-</StepsRoot>
+<ComponentPreview>
+  <StepsRoot count={items.length} defaultStep={0}>
+    <StepsList>
+      {items.map((item, index) => (
+        <StepsItem key={index} index={index}>
+          <StepsTrigger>
+            <StepsIndicator>
+              {index + 1}
+            </StepsIndicator>
+          </StepsTrigger>
+          <StepsSeparator />
+        </StepsItem>
+      ))}
+    </StepsList>
+  </StepsRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -71,7 +73,7 @@ const items = [
 
 #### Basic Examples
 
-<Tabs items={["Simple", "With Content", "With Navigation"]} className="mt-4">
+<Tabs items={["Simple", "With Content", "With Navigation"]}>
   <Tab value="Simple">
     <StepsRoot count={items.length} defaultStep={1}>
       <StepsList>
@@ -142,7 +144,7 @@ const items = [
 
 #### Styled Examples
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <StepsRoot count={items.length} defaultStep={1}>
       <StepsList>
@@ -209,6 +211,4 @@ const items = [
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="StepsProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="StepsProps" />

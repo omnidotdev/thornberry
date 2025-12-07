@@ -3,7 +3,7 @@ import { AutoTypeTable } from "fumadocs-typescript/ui";
 import * as TabsComponents from "fumadocs-ui/components/tabs";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 
-import { InstallationTabs } from "@/components";
+import { ComponentPreview, InstallationTabs } from "@/components";
 
 import type { MDXComponents } from "mdx/types";
 
@@ -15,6 +15,7 @@ const getMDXComponents = (components?: MDXComponents): MDXComponents => {
     AutoTypeTable: (props) => (
       <AutoTypeTable {...props} generator={generator} />
     ),
+    ComponentPreview,
     InstallationTabs,
     ...TabsComponents,
     ...components,

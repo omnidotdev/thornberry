@@ -5,13 +5,15 @@ description: A component for copying text to clipboard with visual feedback.
 
 import { ClipboardRoot, ClipboardLabel, ClipboardControl, ClipboardInput, ClipboardTrigger } from "@/registry/thornberry/components/clipboard";
 
-<ClipboardRoot value="https://thornberry-ui.dev" className="mb-8">
-  <ClipboardLabel>Copy this link</ClipboardLabel>
-  <ClipboardControl>
-    <ClipboardInput />
-    <ClipboardTrigger />
-  </ClipboardControl>
-</ClipboardRoot>
+<ComponentPreview>
+  <ClipboardRoot value="https://thornberry-ui.dev">
+    <ClipboardLabel>Copy this link</ClipboardLabel>
+    <ClipboardControl>
+      <ClipboardInput />
+      <ClipboardTrigger />
+    </ClipboardControl>
+  </ClipboardRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -41,7 +43,7 @@ import {
 
 ## Examples
 
-<Tabs items={["Basic", "Custom Timeout", "Custom Trigger"]} className="mt-4">
+<Tabs items={["Basic", "Custom Timeout", "Custom Trigger"]}>
   <Tab value="Basic">
     <ClipboardRoot value="https://example.com">
       <ClipboardLabel>Share this link</ClipboardLabel>
@@ -111,6 +113,4 @@ import {
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="ClipboardProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="ClipboardProps" />

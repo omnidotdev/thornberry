@@ -5,12 +5,13 @@ description: A button component that triggers file downloads.
 
 import { DownloadTrigger } from "@/registry/thornberry/components/download-trigger";
 
-<DownloadTrigger 
-  data="Hello, World!" 
-  fileName="example.txt" 
-  mimeType="text/plain"
-  className="mb-8"
-/>
+<ComponentPreview>
+  <DownloadTrigger 
+    data="Hello, World!" 
+    fileName="example.txt" 
+    mimeType="text/plain"
+  />
+</ComponentPreview>
 
 ## Installation
 
@@ -32,7 +33,7 @@ import { DownloadTrigger } from "@/components/ui/download-trigger";
 
 ## Examples
 
-<Tabs items={["Text File", "JSON File", "CSV File", "Custom Button"]} className="mt-4">
+<Tabs items={["Text File", "JSON File", "CSV File", "Custom Button"]}>
   <Tab value="Text File">
     <DownloadTrigger 
       data="This is a sample text file content." 
@@ -103,6 +104,4 @@ import { DownloadTrigger } from "@/components/ui/download-trigger";
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="DownloadTriggerProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="DownloadTriggerProps" />

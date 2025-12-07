@@ -5,26 +5,28 @@ description: A vertically stacked set of interactive headings that each reveal a
 
 import { AccordionRoot, AccordionItem, AccordionItemTrigger, AccordionItemIndicator, AccordionItemContent } from "@/registry/thornberry/components/accordion";
 
-<AccordionRoot
-  multiple
-  defaultValue={['React']}
-  className="mb-8"
->
-  <AccordionItem value="React">
-    <AccordionItemTrigger>React</AccordionItemTrigger>
-    <AccordionItemContent>this is the content for React</AccordionItemContent>
-  </AccordionItem>
+<ComponentPreview>
+  <AccordionRoot
+    multiple
+    defaultValue={['React']}
+    className="w-full max-w-md"
+  >
+    <AccordionItem value="React">
+      <AccordionItemTrigger>React</AccordionItemTrigger>
+      <AccordionItemContent>this is the content for React</AccordionItemContent>
+    </AccordionItem>
 
-  <AccordionItem value="Vue">
-    <AccordionItemTrigger>Vue</AccordionItemTrigger>
-    <AccordionItemContent>this is the content for Vue</AccordionItemContent>
-  </AccordionItem>
+    <AccordionItem value="Vue">
+      <AccordionItemTrigger>Vue</AccordionItemTrigger>
+      <AccordionItemContent>this is the content for Vue</AccordionItemContent>
+    </AccordionItem>
 
-  <AccordionItem value="Solid" disabled>
-    <AccordionItemTrigger>Solid</AccordionItemTrigger>
-    <AccordionItemContent>this is the content for Solid</AccordionItemContent>
-  </AccordionItem>
-</AccordionRoot>
+    <AccordionItem value="Solid" disabled>
+      <AccordionItemTrigger>Solid</AccordionItemTrigger>
+      <AccordionItemContent>this is the content for Solid</AccordionItemContent>
+    </AccordionItem>
+  </AccordionRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -60,6 +62,4 @@ import { AccordionRoot, AccordionItem, AccordionItemTrigger, AccordionItemIndica
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="AccordionProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="AccordionProps" />

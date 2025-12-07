@@ -6,20 +6,22 @@ description: A form fieldset wrapper for grouping related form fields.
 import { FieldsetRoot, FieldsetLegend, FieldsetHelperText, FieldsetErrorText } from "@/registry/thornberry/components/fieldset";
 import { FieldRoot, FieldLabel, FieldInput } from "@/registry/thornberry/components/field";
 
-<FieldsetRoot className="mb-8">
-  <FieldsetLegend>Personal Information</FieldsetLegend>
-  <FieldsetHelperText>Please provide your details</FieldsetHelperText>
-  <div className="space-y-4">
-    <FieldRoot>
-      <FieldLabel>First Name</FieldLabel>
-      <FieldInput placeholder="John" />
-    </FieldRoot>
-    <FieldRoot>
-      <FieldLabel>Last Name</FieldLabel>
-      <FieldInput placeholder="Doe" />
-    </FieldRoot>
-  </div>
-</FieldsetRoot>
+<ComponentPreview>
+  <FieldsetRoot>
+    <FieldsetLegend>Personal Information</FieldsetLegend>
+    <FieldsetHelperText>Please provide your details</FieldsetHelperText>
+    <div className="space-y-4">
+      <FieldRoot>
+        <FieldLabel>First Name</FieldLabel>
+        <FieldInput placeholder="John" />
+      </FieldRoot>
+      <FieldRoot>
+        <FieldLabel>Last Name</FieldLabel>
+        <FieldInput placeholder="Doe" />
+      </FieldRoot>
+    </div>
+  </FieldsetRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -46,7 +48,7 @@ import {
 
 ## Examples
 
-<Tabs items={["Basic", "With Error", "Disabled"]} className="mt-4">
+<Tabs items={["Basic", "With Error", "Disabled"]}>
   <Tab value="Basic">
     <FieldsetRoot>
       <FieldsetLegend>Contact Information</FieldsetLegend>
@@ -152,6 +154,4 @@ import {
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="FieldsetProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="FieldsetProps" />

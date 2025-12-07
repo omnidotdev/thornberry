@@ -6,10 +6,12 @@ import { User } from 'lucide-react';
 
 import { AvatarRoot, AvatarFallback, AvatarImage } from "@/registry/thornberry/components/avatar";
 
-<AvatarRoot className="mb-8">
-  <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
-  <AvatarFallback>EM</AvatarFallback>
-</AvatarRoot>
+<ComponentPreview>
+  <AvatarRoot>
+    <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
+    <AvatarFallback>EM</AvatarFallback>
+  </AvatarRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -34,7 +36,7 @@ import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 #### Basic Avatar
 
-<Tabs items={["With Image", "With Fallback", "With Custom Fallback"]} className="mt-4">
+<Tabs items={["With Image", "With Fallback", "With Custom Fallback"]}>
   <Tab value="With Image">
     <AvatarRoot>
       <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
@@ -80,7 +82,7 @@ import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 #### Sizes
 
-<Tabs items={["Extra Small", "Small", "Medium", "Large", "Extra Large"]} className="mt-4">
+<Tabs items={["Extra Small", "Small", "Medium", "Large", "Extra Large"]}>
   <Tab value="Extra Small">
     <AvatarRoot size="xs">
       <AvatarImage src="/img/elon-musk.jpg" alt="Elon Musk" />
@@ -145,6 +147,4 @@ import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="AvatarProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="AvatarProps" />

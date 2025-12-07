@@ -5,10 +5,12 @@ description: Highlight matching text within a string for search results and text
 
 import { Highlight } from "@/components/highlight";
 
-<Highlight
-  query="ipsum"
-  text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt"
-/>
+<ComponentPreview>
+  <Highlight
+    query="ipsum"
+    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt"
+  />
+</ComponentPreview>
 
 ## Installation
 
@@ -33,7 +35,7 @@ import { Highlight } from "@/components/ui/highlight";
 
 #### Basic Examples
 
-<Tabs items={["Single Match", "Multiple Matches", "Case Insensitive"]} className="mt-4">
+<Tabs items={["Single Match", "Multiple Matches", "Case Insensitive"]}>
   <Tab value="Single Match">
     <Highlight
       query="React"
@@ -59,7 +61,7 @@ import { Highlight } from "@/components/ui/highlight";
 
 #### Advanced Examples
 
-<Tabs items={["Multiple Queries", "Exact Match", "In Context"]} className="mt-4">
+<Tabs items={["Multiple Queries", "Exact Match", "In Context"]}>
   <Tab value="Multiple Queries">
     <Highlight
       query={["React", "Vue", "Svelte"]}
@@ -123,7 +125,7 @@ import { Highlight } from "@/components/ui/highlight";
 
 #### Styled Examples
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <div className="space-y-4">
       <Highlight
@@ -182,6 +184,4 @@ import { Highlight } from "@/components/ui/highlight";
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="HighlightProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="HighlightProps" />

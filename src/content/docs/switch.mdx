@@ -6,15 +6,15 @@ description: A control that allows the user to toggle between checked and unchec
 import { Moon, Wifi, Bluetooth, Bell } from "lucide-react";
 import { SwitchRoot, SwitchHiddenInput, SwitchControl, SwitchThumb, SwitchLabel } from "@/registry/thornberry/components/switch";
 
-<div className="flex justify-center">
-  <SwitchRoot className="mb-8">
+<ComponentPreview>
+  <SwitchRoot>
     <SwitchControl>
       <SwitchThumb />
     </SwitchControl>
     <SwitchLabel>Toggle</SwitchLabel>
     <SwitchHiddenInput />
   </SwitchRoot>
-</div>
+</ComponentPreview>
 
 ## Installation
 
@@ -43,6 +43,4 @@ import {
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="SwitchProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="SwitchProps" />

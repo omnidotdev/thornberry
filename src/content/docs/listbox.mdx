@@ -5,7 +5,9 @@ description: A listbox component for selecting items from a list with keyboard n
 
 import { ListboxDemo } from "@/components/listbox-demo";
 
-<ListboxDemo />
+<ComponentPreview>
+  <ListboxDemo />
+</ComponentPreview>
 
 ## Installation
 
@@ -47,7 +49,7 @@ const collection = createListCollection({
 
 ## Examples
 
-<Tabs items={["Basic", "Multiple Selection", "With Groups"]} className="mt-4">
+<Tabs items={["Basic", "Multiple Selection", "With Groups"]}>
   <Tab value="Basic">
     ```tsx
     import {
@@ -168,6 +170,4 @@ const collection = createListCollection({
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="ListboxProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="ListboxProps" />

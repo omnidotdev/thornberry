@@ -6,7 +6,9 @@ import { Plus } from 'lucide-react';
 
 import { Button } from "@/registry/thornberry/components/button";
 
-<Button className="mb-8">Button</Button>
+<ComponentPreview>
+  <Button>Button</Button>
+</ComponentPreview>
 
 ## Installation
 
@@ -28,37 +30,47 @@ import { Button } from "@/components/ui/button";
 
 #### Variants
 
-<Tabs items={["Solid", "Outline", "Muted", "Ghost", "Link"]} className="mt-4">
+<Tabs items={["Solid", "Outline", "Muted", "Ghost", "Link"]}>
   <Tab value="Solid">
-    <Button variant="solid">Solid</Button>
+    <ComponentPreview>
+      <Button variant="solid">Solid</Button>
+    </ComponentPreview>
 
     ```tsx
     <Button variant="solid">Solid</Button>
     ```
   </Tab>
   <Tab value="Outline">
-    <Button variant="outline">Outline</Button>
+    <ComponentPreview>
+      <Button variant="outline">Outline</Button>
+    </ComponentPreview>
 
     ```tsx
     <Button variant="outline">Outline</Button>
     ```
   </Tab>
   <Tab value="Muted">
-    <Button variant="muted">Muted</Button>
+    <ComponentPreview>
+      <Button variant="muted">Muted</Button>
+    </ComponentPreview>
 
     ```tsx
     <Button variant="muted">Muted</Button>
     ```
   </Tab>
   <Tab value="Ghost">
-    <Button variant="ghost">Ghost</Button>
+    <ComponentPreview>
+      <Button variant="ghost">Ghost</Button>
+    </ComponentPreview>
 
     ```tsx
     <Button variant="ghost">Ghost</Button>
     ```
   </Tab>
   <Tab value="Link">
-    <Button variant="link">Link</Button>
+    <ComponentPreview>
+      <Button variant="link">Link</Button>
+    </ComponentPreview>
 
     ```tsx
     <Button variant="link">Link</Button>
@@ -68,32 +80,40 @@ import { Button } from "@/components/ui/button";
 
 #### Sizes
 
-<Tabs items={["Small", "Medium", "Large", "Icon"]} className="mt-4">
+<Tabs items={["Small", "Medium", "Large", "Icon"]}>
   <Tab value="Small">
-    <Button size="sm">Small</Button>
+    <ComponentPreview>
+      <Button size="sm">Small</Button>
+    </ComponentPreview>
 
     ```tsx
     <Button size="sm">Small</Button>
     ```
   </Tab>
   <Tab value="Medium">
-    <Button size="md">Medium</Button>
+    <ComponentPreview>
+      <Button size="md">Medium</Button>
+    </ComponentPreview>
 
     ```tsx
     <Button size="md">Medium</Button>
     ```
   </Tab>
   <Tab value="Large">
-    <Button size="lg">Large</Button>
+    <ComponentPreview>
+      <Button size="lg">Large</Button>
+    </ComponentPreview>
 
     ```tsx
     <Button size="lg">Large</Button>
     ```
   </Tab>
   <Tab value="Icon">
-    <Button size="icon">
-      <Plus />
-    </Button>
+    <ComponentPreview>
+      <Button size="icon">
+        <Plus />
+      </Button>
+    </ComponentPreview>
 
     ```tsx
     <Button size="icon">
@@ -105,6 +125,4 @@ import { Button } from "@/components/ui/button";
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="ButtonProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="ButtonProps" />

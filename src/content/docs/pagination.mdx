@@ -6,7 +6,9 @@ description: A component for navigating through multiple pages of content.
 import { PaginationRoot, PaginationItem, PaginationEllipsis, PaginationPrevTrigger, PaginationNextTrigger } from "@/registry/thornberry/components/pagination";
 import { Pagination } from "@/components"
 
-<Pagination />
+<ComponentPreview>
+  <Pagination />
+</ComponentPreview>
 
 ## Installation
 
@@ -44,7 +46,7 @@ import {
 
 #### Basic Pagination
 
-<Tabs items={["Default", "Current Page", "Compact"]} className="mt-4">
+<Tabs items={["Default", "Current Page", "Compact"]}>
   <Tab value="Default">
     <PaginationRoot count={10}>
       <div className="flex items-center gap-1">
@@ -90,7 +92,7 @@ import {
 
 #### With Page Size Selector
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
@@ -165,6 +167,4 @@ import {
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="PaginationProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="PaginationProps" />

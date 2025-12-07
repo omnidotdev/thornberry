@@ -5,11 +5,13 @@ description: Display progress for a task that takes a long time or consists of s
 
 import { ProgressRoot, ProgressTrack, ProgressRange, ProgressLabel, ProgressValueText, ProgressCircle, ProgressCircleTrack, ProgressCircleRange } from "@/registry/thornberry/components/progress";
 
-<ProgressRoot value={65}>
-  <ProgressTrack>
-    <ProgressRange />
-  </ProgressTrack>
-</ProgressRoot>
+<ComponentPreview>
+  <ProgressRoot value={65}>
+    <ProgressTrack>
+      <ProgressRange />
+    </ProgressTrack>
+  </ProgressRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -39,7 +41,7 @@ import {
 
 #### Basic Examples
 
-<Tabs items={["Simple", "With Label", "With Value"]} className="mt-4">
+<Tabs items={["Simple", "With Label", "With Value"]}>
   <Tab value="Simple">
     <ProgressRoot value={45}>
       <ProgressTrack>
@@ -70,7 +72,7 @@ import {
 
 #### Progress States
 
-<Tabs items={["Different Values", "Circular", "Custom Sizes"]} className="mt-4">
+<Tabs items={["Different Values", "Circular", "Custom Sizes"]}>
   <Tab value="Different Values">
     <div className="flex flex-col gap-4">
       <ProgressRoot value={25}>
@@ -100,7 +102,7 @@ import {
     </div>
   </Tab>
   <Tab value="Circular">
-    <div className="flex gap-4 items-center">
+    <div className="flex flex-wrap gap-4 items-center">
       <ProgressRoot value={25}>
         <ProgressCircle>
           <ProgressCircleTrack />
@@ -140,7 +142,7 @@ import {
 
 #### Styled Examples
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <div className="flex flex-col gap-4">
       <ProgressRoot value={70}>
@@ -203,6 +205,4 @@ import {
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="ProgressProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="ProgressProps" />

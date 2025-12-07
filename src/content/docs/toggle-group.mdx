@@ -6,17 +6,19 @@ description: A set of two-state buttons that can be toggled on or off.
 import { Bold, Italic, Underline } from "lucide-react";
 import { ToggleGroupRoot, ToggleGroupItem } from "@/registry/thornberry/components/toggle-group";
 
-<ToggleGroupRoot>
-  <ToggleGroupItem value="bold">
-    <Bold className="size-4" />
-  </ToggleGroupItem>
-  <ToggleGroupItem value="italic">
-    <Italic className="size-4" />
-  </ToggleGroupItem>
-  <ToggleGroupItem value="underline">
-    <Underline className="size-4" />
-  </ToggleGroupItem>
-</ToggleGroupRoot>
+<ComponentPreview>
+  <ToggleGroupRoot>
+    <ToggleGroupItem value="bold">
+      <Bold className="size-4" />
+    </ToggleGroupItem>
+    <ToggleGroupItem value="italic">
+      <Italic className="size-4" />
+    </ToggleGroupItem>
+    <ToggleGroupItem value="underline">
+      <Underline className="size-4" />
+    </ToggleGroupItem>
+  </ToggleGroupRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -45,7 +47,7 @@ import { ToggleGroupRoot, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 #### Basic Examples
 
-<Tabs items={["Single", "Multiple", "With Text"]} className="mt-4">
+<Tabs items={["Single", "Multiple", "With Text"]}>
   <Tab value="Single">
     <ToggleGroupRoot defaultValue={["bold"]}>
       <ToggleGroupItem value="bold">
@@ -83,7 +85,7 @@ import { ToggleGroupRoot, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 #### Styled Examples
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <div className="flex flex-col gap-4">
       <ToggleGroupRoot className="justify-start">
@@ -136,6 +138,4 @@ import { ToggleGroupRoot, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="ToggleGroupProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="ToggleGroupProps" />

@@ -6,7 +6,9 @@ description: A form field for collecting user input.
 import { Mail, Lock, Search } from "lucide-react";
 import { Input } from "@/registry/thornberry/components/input";
 
-<Input placeholder="Please enter text..." className="mb-8" />
+<ComponentPreview>
+  <Input placeholder="Please enter text..." />
+</ComponentPreview>
 
 ## Installation
 
@@ -28,7 +30,7 @@ import { Input } from "@/components/ui/input";
 
 #### Input Types
 
-<Tabs items={["Text", "Email", "Password", "Number", "Search"]} className="mt-4">
+<Tabs items={["Text", "Email", "Password", "Number", "Search"]}>
   <Tab value="Text">
     <Input type="text" placeholder="Text input" />
   </Tab>
@@ -48,7 +50,7 @@ import { Input } from "@/components/ui/input";
 
 #### Input States
 
-<Tabs items={["Default", "Disabled", "With Label"]} className="mt-4">
+<Tabs items={["Default", "Disabled", "With Label"]}>
   <Tab value="Default">
     <Input placeholder="Default input" />
   </Tab>
@@ -65,7 +67,7 @@ import { Input } from "@/components/ui/input";
 
 #### Input with Icons
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <div className="grid gap-4 py-4">
       <div className="relative">
@@ -109,6 +111,4 @@ import { Input } from "@/components/ui/input";
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="InputProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="InputProps" />

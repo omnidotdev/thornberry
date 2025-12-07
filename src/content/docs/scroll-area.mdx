@@ -5,22 +5,24 @@ description: A custom scrollbar container with styled scrollbars for better visu
 
 import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaContent, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaCorner } from "@/registry/thornberry/components/scroll-area";
 
-<ScrollAreaRoot className="h-72 w-full rounded-md border">
-  <ScrollAreaViewport>
-    <ScrollAreaContent className="p-4">
-      <h4 className="mb-4 font-medium text-sm leading-none">Tags</h4>
-      {Array.from({ length: 50 }).map((_, i) => (
-        <div key={i} className="text-sm">
-          Tag {i + 1}
-        </div>
-      ))}
-    </ScrollAreaContent>
-  </ScrollAreaViewport>
-  <ScrollAreaScrollbar orientation="vertical">
-    <ScrollAreaThumb />
-  </ScrollAreaScrollbar>
-  <ScrollAreaCorner />
-</ScrollAreaRoot>
+<ComponentPreview>
+  <ScrollAreaRoot className="h-72 w-full rounded-md border">
+    <ScrollAreaViewport>
+      <ScrollAreaContent className="p-4">
+        <h4 className="mb-4 font-medium text-sm leading-none">Tags</h4>
+        {Array.from({ length: 50 }).map((_, i) => (
+          <div key={i} className="text-sm">
+            Tag {i + 1}
+          </div>
+        ))}
+      </ScrollAreaContent>
+    </ScrollAreaViewport>
+    <ScrollAreaScrollbar orientation="vertical">
+      <ScrollAreaThumb />
+    </ScrollAreaScrollbar>
+    <ScrollAreaCorner />
+  </ScrollAreaRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -55,7 +57,7 @@ import {
 
 ## Examples
 
-<Tabs items={["Vertical", "Horizontal", "Both"]} className="mt-4">
+<Tabs items={["Vertical", "Horizontal", "Both"]}>
   <Tab value="Vertical">
     <ScrollAreaRoot className="h-72 w-full rounded-md border">
       <ScrollAreaViewport>
@@ -117,6 +119,4 @@ import {
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="ScrollAreaProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="ScrollAreaProps" />

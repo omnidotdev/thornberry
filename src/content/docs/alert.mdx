@@ -6,13 +6,15 @@ description: Displays a callout for user attention with status variants for diff
 import { CircleAlert, Info, Check, TriangleAlert, OctagonAlert } from "lucide-react";
 import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/registry/thornberry/components/alert";
 
-<AlertRoot className="mb-8">
-  <AlertIcon>
-    <CircleAlert />
-  </AlertIcon>
-  <AlertTitle>Alert</AlertTitle>
-  <AlertDescription>This is an alert component for important messages.</AlertDescription>
-</AlertRoot>
+<ComponentPreview>
+  <AlertRoot>
+    <AlertIcon>
+      <CircleAlert />
+    </AlertIcon>
+    <AlertTitle>Alert</AlertTitle>
+    <AlertDescription>This is an alert component for important messages.</AlertDescription>
+  </AlertRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -42,7 +44,7 @@ import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components
 
 #### Variants
 
-<Tabs items={["Default", "Info", "Success", "Warning", "Error"]} className="mt-4">
+<Tabs items={["Default", "Info", "Success", "Warning", "Error"]}>
   <Tab value="Default">
     <AlertRoot>
       <AlertIcon>
@@ -137,6 +139,4 @@ import { AlertRoot, AlertIcon, AlertTitle, AlertDescription } from "@/components
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="AlertProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="AlertProps" />

@@ -6,39 +6,41 @@ description: A draggable and resizable floating panel component that can be mini
 import { FloatingPanelRoot, FloatingPanelTrigger, FloatingPanelPositioner, FloatingPanelContent, FloatingPanelDragTrigger, FloatingPanelHeader, FloatingPanelTitle, FloatingPanelControl, FloatingPanelStageTrigger, FloatingPanelCloseTrigger, FloatingPanelBody, FloatingPanelResizeTrigger } from "@/registry/thornberry/components/floating-panel";
 import { Button } from "@/registry/thornberry/components/button";
 
-<FloatingPanelRoot>
-  <FloatingPanelTrigger asChild>
-    <Button>Open Panel</Button>
-  </FloatingPanelTrigger>
-  <FloatingPanelPositioner>
-    <FloatingPanelContent>
-      <FloatingPanelDragTrigger>
-        <FloatingPanelHeader>
-          <FloatingPanelTitle>Floating Panel</FloatingPanelTitle>
-          <FloatingPanelControl>
-            <FloatingPanelStageTrigger stage="minimized" />
-            <FloatingPanelStageTrigger stage="maximized" />
-            <FloatingPanelStageTrigger stage="default" />
-            <FloatingPanelCloseTrigger />
-          </FloatingPanelControl>
-        </FloatingPanelHeader>
-      </FloatingPanelDragTrigger>
-      <FloatingPanelBody>
-        <p className="text-sm">
-          This is a floating panel that can be dragged, resized, minimized, maximized, and closed.
-        </p>
-      </FloatingPanelBody>
-      <FloatingPanelResizeTrigger axis="n" />
-      <FloatingPanelResizeTrigger axis="e" />
-      <FloatingPanelResizeTrigger axis="w" />
-      <FloatingPanelResizeTrigger axis="s" />
-      <FloatingPanelResizeTrigger axis="ne" />
-      <FloatingPanelResizeTrigger axis="se" />
-      <FloatingPanelResizeTrigger axis="sw" />
-      <FloatingPanelResizeTrigger axis="nw" />
-    </FloatingPanelContent>
-  </FloatingPanelPositioner>
-</FloatingPanelRoot>
+<ComponentPreview>
+  <FloatingPanelRoot>
+    <FloatingPanelTrigger asChild>
+      <Button>Open Panel</Button>
+    </FloatingPanelTrigger>
+    <FloatingPanelPositioner>
+      <FloatingPanelContent>
+        <FloatingPanelDragTrigger>
+          <FloatingPanelHeader>
+            <FloatingPanelTitle>Floating Panel</FloatingPanelTitle>
+            <FloatingPanelControl>
+              <FloatingPanelStageTrigger stage="minimized" />
+              <FloatingPanelStageTrigger stage="maximized" />
+              <FloatingPanelStageTrigger stage="default" />
+              <FloatingPanelCloseTrigger />
+            </FloatingPanelControl>
+          </FloatingPanelHeader>
+        </FloatingPanelDragTrigger>
+        <FloatingPanelBody>
+          <p className="text-sm">
+            This is a floating panel that can be dragged, resized, minimized, maximized, and closed.
+          </p>
+        </FloatingPanelBody>
+        <FloatingPanelResizeTrigger axis="n" />
+        <FloatingPanelResizeTrigger axis="e" />
+        <FloatingPanelResizeTrigger axis="w" />
+        <FloatingPanelResizeTrigger axis="s" />
+        <FloatingPanelResizeTrigger axis="ne" />
+        <FloatingPanelResizeTrigger axis="se" />
+        <FloatingPanelResizeTrigger axis="sw" />
+        <FloatingPanelResizeTrigger axis="nw" />
+      </FloatingPanelContent>
+    </FloatingPanelPositioner>
+  </FloatingPanelRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -92,7 +94,7 @@ import { Button } from "@/components/ui/button";
 
 ## Examples
 
-<Tabs items={["Basic", "With Content"]} className="mt-4">
+<Tabs items={["Basic", "With Content"]}>
   <Tab value="Basic">
     <FloatingPanelRoot>
       <FloatingPanelTrigger asChild>
@@ -151,6 +153,4 @@ import { Button } from "@/components/ui/button";
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="FloatingPanelProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="FloatingPanelProps" />

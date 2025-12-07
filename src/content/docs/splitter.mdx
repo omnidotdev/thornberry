@@ -5,15 +5,17 @@ description: Resizable split panels with adjustable layout, supporting both hori
 
 import { SplitterRoot, SplitterPanel, SplitterResizeTrigger } from "@/registry/thornberry/components/splitter";
 
-<SplitterRoot panels={[{ id: "a" }, { id: "b" }]} className="h-64 w-full rounded-md border">
-  <SplitterPanel id="a" className="flex items-center justify-center bg-muted/50">
-    <p className="text-muted-foreground text-sm">Panel A</p>
-  </SplitterPanel>
-  <SplitterResizeTrigger id="a:b" />
-  <SplitterPanel id="b" className="flex items-center justify-center bg-muted/30">
-    <p className="text-muted-foreground text-sm">Panel B</p>
-  </SplitterPanel>
-</SplitterRoot>
+<ComponentPreview>
+  <SplitterRoot panels={[{ id: "a" }, { id: "b" }]} className="h-64 w-full rounded-md border">
+    <SplitterPanel id="a" className="flex items-center justify-center bg-muted/50">
+      <p className="text-muted-foreground text-sm">Panel A</p>
+    </SplitterPanel>
+    <SplitterResizeTrigger id="a:b" />
+    <SplitterPanel id="b" className="flex items-center justify-center bg-muted/30">
+      <p className="text-muted-foreground text-sm">Panel B</p>
+    </SplitterPanel>
+  </SplitterRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -43,7 +45,7 @@ import {
 
 ## Examples
 
-<Tabs items={["Horizontal", "Vertical", "Three Panels"]} className="mt-4">
+<Tabs items={["Horizontal", "Vertical", "Three Panels"]}>
   <Tab value="Horizontal">
     <SplitterRoot panels={[{ id: "left" }, { id: "right" }]} className="h-64 w-full rounded-md border">
       <SplitterPanel id="left" className="flex items-center justify-center bg-muted/50">
@@ -92,6 +94,4 @@ import {
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="SplitterProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="SplitterProps" />

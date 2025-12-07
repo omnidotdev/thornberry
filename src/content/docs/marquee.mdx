@@ -5,17 +5,19 @@ description: A scrolling content component with pause on hover functionality.
 
 import { MarqueeRoot, MarqueeViewport, MarqueeContent, MarqueeItem } from "@/registry/thornberry/components/marquee";
 
-<MarqueeRoot>
-  <MarqueeViewport>
-    <MarqueeContent>
-      {["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape"].map((item, i) => (
-        <MarqueeItem key={i} className="px-8">
-          {item}
-        </MarqueeItem>
-      ))}
-    </MarqueeContent>
-  </MarqueeViewport>
-</MarqueeRoot>
+<ComponentPreview>
+  <MarqueeRoot>
+    <MarqueeViewport>
+      <MarqueeContent>
+        {["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape"].map((item, i) => (
+          <MarqueeItem key={i} className="px-8">
+            {item}
+          </MarqueeItem>
+        ))}
+      </MarqueeContent>
+    </MarqueeViewport>
+  </MarqueeRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -52,7 +54,7 @@ const Example = () => (
 
 ## Examples
 
-<Tabs items={["Basic", "Pause on Hover"]} className="mt-4">
+<Tabs items={["Basic", "Pause on Hover"]}>
   <Tab value="Basic">
     <MarqueeRoot>
       <MarqueeViewport>
@@ -83,6 +85,4 @@ const Example = () => (
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="MarqueeProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="MarqueeProps" />

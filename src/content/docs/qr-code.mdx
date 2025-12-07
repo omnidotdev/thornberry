@@ -5,14 +5,16 @@ description: A component that generates and displays QR codes with download func
 
 import { QrCodeRoot, QrCodeFrame, QrCodePattern, QrCodeDownloadTrigger } from "@/registry/thornberry/components/qr-code";
 
-<QrCodeRoot defaultValue="https://thornberry.omnidev.io">
-  <QrCodeFrame>
-    <QrCodePattern />
-  </QrCodeFrame>
-  <QrCodeDownloadTrigger fileName="qr-code.png" mimeType="image/png">
-    Download QR Code
-  </QrCodeDownloadTrigger>
-</QrCodeRoot>
+<ComponentPreview>
+  <QrCodeRoot defaultValue="https://thornberry.omnidev.io">
+    <QrCodeFrame>
+      <QrCodePattern />
+    </QrCodeFrame>
+    <QrCodeDownloadTrigger fileName="qr-code.png" mimeType="image/png">
+      Download QR Code
+    </QrCodeDownloadTrigger>
+  </QrCodeRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -44,7 +46,7 @@ const Example = () => (
 
 ## Examples
 
-<Tabs items={["Basic", "With Overlay"]} className="mt-4">
+<Tabs items={["Basic", "With Overlay"]}>
   <Tab value="Basic">
     <QrCodeRoot defaultValue="https://thornberry.omnidev.io">
       <QrCodeFrame>
@@ -66,6 +68,4 @@ const Example = () => (
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="QrCodeProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="QrCodeProps" />

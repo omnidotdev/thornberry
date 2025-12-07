@@ -5,14 +5,16 @@ description: A digital signature canvas component with clear and save functional
 
 import { SignaturePadRoot, SignaturePadLabel, SignaturePadControl, SignaturePadSegment, SignaturePadGuide, SignaturePadClearTrigger } from "@/registry/thornberry/components/signature-pad";
 
-<SignaturePadRoot>
-  <SignaturePadLabel>Sign below</SignaturePadLabel>
-  <SignaturePadControl>
-    <SignaturePadSegment />
-    <SignaturePadGuide />
-  </SignaturePadControl>
-  <SignaturePadClearTrigger>Clear</SignaturePadClearTrigger>
-</SignaturePadRoot>
+<ComponentPreview>
+  <SignaturePadRoot>
+    <SignaturePadLabel>Sign below</SignaturePadLabel>
+    <SignaturePadControl>
+      <SignaturePadSegment />
+      <SignaturePadGuide />
+    </SignaturePadControl>
+    <SignaturePadClearTrigger>Clear</SignaturePadClearTrigger>
+  </SignaturePadRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -46,7 +48,7 @@ const Example = () => (
 
 ## Examples
 
-<Tabs items={["Basic", "With Field"]} className="mt-4">
+<Tabs items={["Basic", "With Field"]}>
   <Tab value="Basic">
     <SignaturePadRoot>
       <SignaturePadLabel>Sign here</SignaturePadLabel>
@@ -73,6 +75,4 @@ const Example = () => (
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="SignaturePadProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="SignaturePadProps" />

@@ -5,7 +5,9 @@ description: A component that allows users to select a color using various input
 
 import { ColorPicker } from "@/components";
 
-<ColorPicker />
+<ComponentPreview>
+  <ColorPicker />
+</ComponentPreview>
 
 ## Installation
 
@@ -63,7 +65,7 @@ const ColorPicker = () => {
 
   return (
     <div className="max-w-[280px]">
-      <ColorPickerRoot defaultValue={parseColor("#1a73e8")} className="mb-8">
+      <ColorPickerRoot defaultValue={parseColor("#1a73e8")}>
         <ColorPickerLabel>Color</ColorPickerLabel>
         <ColorPickerControl>
           <ColorPickerChannelInput channel="hex" />

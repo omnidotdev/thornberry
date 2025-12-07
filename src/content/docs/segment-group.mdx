@@ -5,16 +5,18 @@ description: A segmented control component for selecting a single option from a 
 
 import { SegmentGroupRoot, SegmentGroupIndicator, SegmentGroupItem, SegmentGroupItemText, SegmentGroupItemControl, SegmentGroupItemHiddenInput, SegmentGroupLabel } from "@/registry/thornberry/components/segment-group";
 
-<SegmentGroupRoot defaultValue="react">
-  <SegmentGroupIndicator />
-  {["React", "Vue", "Svelte"].map((framework) => (
-    <SegmentGroupItem key={framework} value={framework.toLowerCase()}>
-      <SegmentGroupItemText>{framework}</SegmentGroupItemText>
-      <SegmentGroupItemControl />
-      <SegmentGroupItemHiddenInput />
-    </SegmentGroupItem>
-  ))}
-</SegmentGroupRoot>
+<ComponentPreview>
+  <SegmentGroupRoot defaultValue="react">
+    <SegmentGroupIndicator />
+    {["React", "Vue", "Svelte"].map((framework) => (
+      <SegmentGroupItem key={framework} value={framework.toLowerCase()}>
+        <SegmentGroupItemText>{framework}</SegmentGroupItemText>
+        <SegmentGroupItemControl />
+        <SegmentGroupItemHiddenInput />
+      </SegmentGroupItem>
+    ))}
+  </SegmentGroupRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -52,7 +54,7 @@ import {
 
 #### Basic Examples
 
-<Tabs items={["Default", "With Label", "Disabled"]} className="mt-4">
+<Tabs items={["Default", "With Label", "Disabled"]}>
   <Tab value="Default">
     <SegmentGroupRoot defaultValue="center">
       <SegmentGroupIndicator />
@@ -98,7 +100,7 @@ import {
 
 #### Different Sizes
 
-<Tabs items={["Small", "Medium", "Large"]} className="mt-4">
+<Tabs items={["Small", "Medium", "Large"]}>
   <Tab value="Small">
     <SegmentGroupRoot defaultValue="tab1" className="p-0.5">
       <SegmentGroupIndicator />
@@ -139,7 +141,7 @@ import {
 
 #### Styled Examples
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <div className="flex flex-col gap-4">
       <SegmentGroupRoot defaultValue="all" className="w-fit">
@@ -207,6 +209,4 @@ import {
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="SegmentGroupProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="SegmentGroupProps" />

@@ -6,7 +6,9 @@ description: A searchable dropdown select component that allows users to filter 
 import { ComboboxRoot, ComboboxLabel, ComboboxControl, ComboboxInput, ComboboxTrigger, ComboboxPositioner, ComboboxContent, ComboboxItem, ComboboxItemGroup, ComboboxItemGroupLabel } from "@/registry/thornberry/components/combobox";
 import { Combobox } from "@/components"
 
-<Combobox />
+<ComponentPreview>
+  <Combobox />
+</ComponentPreview>
 
 ## Installation
 
@@ -63,7 +65,6 @@ const Example = () => {
     <ComboboxRoot
       collection={collection}
       onInputValueChange={handleInputChange}
-      className="mb-8"
     >
       <ComboboxLabel>Choose a planet</ComboboxLabel>
       <ComboboxControl>
@@ -94,6 +95,4 @@ const Example = () => {
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="ComboboxProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="ComboboxProps" />

@@ -5,22 +5,24 @@ description: A JSON data visualizer component with collapsible nodes.
 
 import { JsonTreeViewRoot, JsonTreeViewTree } from "@/registry/thornberry/components/json-tree-view";
 
-<JsonTreeViewRoot
-  data={{
-    name: "John Doe",
-    age: 30,
-    email: "john.doe@example.com",
-    tags: ["developer", "designer"],
-    address: {
-      street: "123 Main St",
-      city: "Anytown",
-      state: "CA",
-      zip: "12345",
-    },
-  }}
->
-  <JsonTreeViewTree />
-</JsonTreeViewRoot>
+<ComponentPreview>
+  <JsonTreeViewRoot
+    data={{
+      name: "John Doe",
+      age: 30,
+      email: "john.doe@example.com",
+      tags: ["developer", "designer"],
+      address: {
+        street: "123 Main St",
+        city: "Anytown",
+        state: "CA",
+        zip: "12345",
+      },
+    }}
+  >
+    <JsonTreeViewTree />
+  </JsonTreeViewRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -51,7 +53,7 @@ const Example = () => (
 
 ## Examples
 
-<Tabs items={["Basic", "Array Data"]} className="mt-4">
+<Tabs items={["Basic", "Array Data"]}>
   <Tab value="Basic">
     <JsonTreeViewRoot
       data={{
@@ -81,6 +83,4 @@ const Example = () => (
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="JsonTreeViewProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="JsonTreeViewProps" />

@@ -5,11 +5,13 @@ description: A form field wrapper with label, input, and error message support.
 
 import { FieldRoot, FieldLabel, FieldInput, FieldHelperText, FieldErrorText, FieldRequiredIndicator, FieldTextarea } from "@/registry/thornberry/components/field";
 
-<FieldRoot className="mb-8">
-  <FieldLabel>Email</FieldLabel>
-  <FieldInput placeholder="Enter your email" />
-  <FieldHelperText>We'll never share your email.</FieldHelperText>
-</FieldRoot>
+<ComponentPreview>
+  <FieldRoot>
+    <FieldLabel>Email</FieldLabel>
+    <FieldInput placeholder="Enter your email" />
+    <FieldHelperText>We'll never share your email.</FieldHelperText>
+  </FieldRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -38,7 +40,7 @@ import {
 
 ## Examples
 
-<Tabs items={["Basic", "With Error", "Required", "Textarea"]} className="mt-4">
+<Tabs items={["Basic", "With Error", "Required", "Textarea"]}>
   <Tab value="Basic">
     <FieldRoot>
       <FieldLabel>Email</FieldLabel>
@@ -109,6 +111,4 @@ import {
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="FieldProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="FieldProps" />

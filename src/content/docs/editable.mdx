@@ -5,18 +5,20 @@ description: An inline text editing component with edit/save controls.
 
 import { EditableRoot, EditableLabel, EditableArea, EditableInput, EditablePreview, EditableControl, EditableEditTrigger, EditableSubmitTrigger, EditableCancelTrigger } from "@/registry/thornberry/components/editable";
 
-<EditableRoot placeholder="Enter text..." defaultValue="Click to edit" className="mb-8">
-  <EditableLabel>Editable Text</EditableLabel>
-  <EditableArea>
-    <EditableInput />
-    <EditablePreview />
-  </EditableArea>
-  <EditableControl>
-    <EditableEditTrigger />
-    <EditableSubmitTrigger />
-    <EditableCancelTrigger />
-  </EditableControl>
-</EditableRoot>
+<ComponentPreview>
+  <EditableRoot placeholder="Enter text..." defaultValue="Click to edit">
+    <EditableLabel>Editable Text</EditableLabel>
+    <EditableArea>
+      <EditableInput />
+      <EditablePreview />
+    </EditableArea>
+    <EditableControl>
+      <EditableEditTrigger />
+      <EditableSubmitTrigger />
+      <EditableCancelTrigger />
+    </EditableControl>
+  </EditableRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -55,7 +57,7 @@ import {
 
 ## Examples
 
-<Tabs items={["Basic", "Double Click", "Custom Controls"]} className="mt-4">
+<Tabs items={["Basic", "Double Click", "Custom Controls"]}>
   <Tab value="Basic">
     <EditableRoot placeholder="Enter text..." defaultValue="Click to edit">
       <EditableLabel>Title</EditableLabel>
@@ -153,6 +155,4 @@ import {
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="EditableProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="EditableProps" />

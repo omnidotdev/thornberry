@@ -12,8 +12,8 @@ import {
   RadioGroupItemHiddenInput
 } from "@/registry/thornberry/components/radio-group";
 
-<div className="flex justify-center">
-  <RadioGroupRoot className="mb-8" defaultValue="option1">
+<ComponentPreview>
+  <RadioGroupRoot defaultValue="option1">
     <RadioGroupItem value="option1">
       <RadioGroupItemHiddenInput />
       <RadioGroupItemControl />
@@ -30,7 +30,7 @@ import {
       <RadioGroupItemText>Option 3</RadioGroupItemText>
     </RadioGroupItem>
   </RadioGroupRoot>
-</div>
+</ComponentPreview>
 
 ## Installation
 
@@ -77,7 +77,7 @@ import {
 
 #### Basic Radio Group
 
-<Tabs items={["Default", "Preselected", "Disabled"]} className="mt-4">
+<Tabs items={["Default", "Preselected", "Disabled"]}>
   <Tab value="Default">
     <RadioGroupRoot>
       <RadioGroupLabel>Framework</RadioGroupLabel>
@@ -205,7 +205,7 @@ import {
 
 #### Horizontal Orientation
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <RadioGroupRoot orientation="horizontal" defaultValue="small">
       <RadioGroupLabel>Size</RadioGroupLabel>
