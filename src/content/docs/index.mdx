@@ -3,23 +3,304 @@ title: Overview
 description: Welcome to the Omni Thornberry Registry! This registry showcases the Omni design system, featuring our custom-built component registry powered by Ark UI and styled with Tailwind CSS. It provides a comprehensive, living guide to the components, hooks, and utilities in our UI library and toolkit. Use this reference to explore implementation patterns, accessibility-first design practices, and the visual language that defines Omni.
 ---
 
+## Introduction
+
+Thornberry is a modern, accessible component library built on top of [Ark UI](https://ark-ui.com/) and styled with [Tailwind CSS](https://tailwindcss.com/). It implements the Omni design system and provides a comprehensive set of reusable components for building web applications.
+
+### Key Features
+
+- **Accessibility First**: Built on Ark UI, ensuring ARIA-compliant, keyboard-navigable components
+- **Fully Typed**: Written in TypeScript with comprehensive type definitions
+- **Customizable**: Leverages Tailwind CSS and class-variance-authority for flexible styling
+- **Copy & Paste**: Components are designed to be copied into your project, not installed as a dependency
+- **Framework**: Built with Next.js 16 and React 19
+
 ## Getting Started
 
-<p className="py-4">Coming Soon</p>
+Thornberry uses the [shadcn](https://ui.shadcn.com/) registry system, allowing you to add components to your project on-demand.
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js**: Version 18 or higher
+- **Bun** or **npm/pnpm/yarn**: Package manager of your choice
+- **React**: Version 19 or higher
+- **Next.js**: Version 16 or higher (if using Next.js)
+- **Tailwind CSS**: Version 4 or higher
+
+### Installation
+
+1. **Install Tailwind CSS** in your project if you haven't already:
+
+```bash
+npm install tailwindcss @tailwindcss/postcss
+```
+
+2. **Install shadcn CLI** to manage components:
+
+```bash
+npx shadcn@latest init
+```
+
+3. **Configure your project** to use the Thornberry registry. Update your `components.json`:
+
+```json
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "default",
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "src/app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui"
+  }
+}
+```
+
+4. **Add components** to your project using the shadcn CLI:
+
+```bash
+npx shadcn@latest add button
+```
+
+### Quick Start Example
+
+After adding a component, you can import and use it in your application:
+
+```tsx
+import { Button } from "@/components/ui/button";
+
+export default function Home() {
+  return (
+    <div>
+      <Button variant="solid">Click me</Button>
+    </div>
+  );
+}
+```
 
 ## Requirements
 
-<p className="py-4">Coming Soon</p>
+### Runtime Dependencies
+
+Thornberry components require the following packages:
+
+- **@ark-ui/react** (^5.15.1): Headless UI components
+- **class-variance-authority** (^0.7.1): CVA for variant-based styling
+- **clsx** (^2.1.1): Conditional className utility
+- **tailwind-merge** (^3.3.1): Merge Tailwind classes without conflicts
+- **lucide-react** (^0.553.0): Icon library (optional, for icon components)
+
+### Peer Dependencies
+
+- **react** (^19.1.0)
+- **react-dom** (^19.1.0)
+- **tailwindcss** (^4.1.7)
+
+These dependencies are automatically installed when you add components through the shadcn CLI.
 
 ## Theming
 
-<p className="py-4">Coming Soon</p>
+Thornberry uses CSS variables for theming, making it easy to customize the look and feel of your application.
+
+### Color System
+
+The design system uses a semantic color scale based on Tailwind's neutral palette. Colors are defined as CSS variables in your `globals.css`:
+
+```css
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+  }
+}
+```
+
+### Customizing Theme
+
+To customize the theme, modify the CSS variables in your `globals.css`. You can adjust colors, border radius, and other design tokens to match your brand.
+
+### Dark Mode
+
+Thornberry supports dark mode out of the box. Use the `.dark` class on a parent element to enable dark mode:
+
+```tsx
+<html className="dark">
+  {/* Your app */}
+</html>
+```
+
+Or use a theme provider like `next-themes` for dynamic theme switching.
 
 ## Typography
 
-<p className="py-4">Coming Soon</p>
+Thornberry doesn't enforce a specific typography system, giving you the flexibility to use any font family and scale that fits your design.
+
+### Recommended Setup
+
+For consistency with the Omni design system, consider using a modern sans-serif font stack:
+
+```css
+@layer base {
+  body {
+    @apply font-sans antialiased;
+  }
+}
+```
+
+### Font Configuration
+
+Configure your fonts in `tailwind.config.ts`:
+
+```ts
+import type { Config } from "tailwindcss";
+
+export default {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "monospace"],
+      },
+    },
+  },
+} satisfies Config;
+```
+
+### Using Next.js Fonts
+
+If you're using Next.js, leverage the built-in font optimization:
+
+```tsx
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+## Component Architecture
+
+### Design Principles
+
+Thornberry components follow these core principles:
+
+1. **Composition**: Components are built from smaller, composable primitives
+2. **Flexibility**: Use props and variants to customize appearance and behavior
+3. **Accessibility**: ARIA attributes and keyboard navigation built-in
+4. **Type Safety**: Full TypeScript support with exported prop types
+
+### Component Structure
+
+Most components follow this pattern:
+
+- **Root Component**: The main wrapper component
+- **Sub-components**: Composable parts (e.g., `AccordionItem`, `AccordionItemTrigger`)
+- **Props Interface**: Exported TypeScript interface for all props
+- **Variants**: Styling variants using class-variance-authority
+
+### Usage Pattern
+
+```tsx
+import { ComponentRoot, ComponentItem } from "@/components/ui/component";
+
+<ComponentRoot>
+  <ComponentItem>
+    {/* Content */}
+  </ComponentItem>
+</ComponentRoot>
+```
+
+## Utilities
+
+### cn() Helper
+
+Thornberry includes a `cn()` utility function for merging Tailwind classes:
+
+```ts
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+This utility combines `clsx` for conditional classes and `tailwind-merge` to prevent class conflicts.
+
+### Usage
+
+```tsx
+import { cn } from "@/lib/utils";
+
+<div className={cn("base-class", isActive && "active-class", className)} />
+```
 
 ## Acknowledgments
 
-{/* TODO: include reference / callouts to appropriate API documentation like Ark UI here */}
-<p className="py-4">Coming Soon</p>
+Thornberry is built on the shoulders of giants. Special thanks to:
+
+- **[Ark UI](https://ark-ui.com/)**: For providing accessible, headless UI components that form the foundation of Thornberry
+- **[shadcn/ui](https://ui.shadcn.com/)**: For pioneering the component registry pattern and CLI tooling
+- **[Tailwind CSS](https://tailwindcss.com/)**: For the utility-first CSS framework
+- **[Radix UI](https://www.radix-ui.com/)**: For inspiring accessible component design patterns
+- **[Fumadocs](https://fumadocs.vercel.app/)**: For the documentation framework powering this site
+
+## Support & Contributing
+
+For questions, issues, or contributions, please refer to the Omni development team. This is an internal component library maintained by Omni LLC.
+
+## License
+
+The code in this repository is licensed under MIT, &copy; Omni LLC.
