@@ -5,8 +5,8 @@ import { useTour } from "@ark-ui/react/tour";
 
 import { Button } from "@/registry/thornberry/components/button";
 import {
-  TourActions,
   TourActionTrigger,
+  TourActions,
   TourBackdrop,
   TourCloseTrigger,
   TourContent,
