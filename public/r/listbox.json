@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "listbox",
+  "type": "registry:ui",
+  "title": "Listbox",
+  "description": "A listbox component for selecting items from a list with keyboard navigation support",
+  "dependencies": [
+    "@ark-ui/react",
+    "lucide-react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/listbox.tsx",
+      "content": "import {\n  Listbox as ArkListbox,\n  createListCollection,\n} from \"@ark-ui/react/listbox\";\nimport { Check } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst ListboxRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkListbox.Root>) => (\n  <ArkListbox.Root className={cn(\"\", className)} {...rest} />\n);\n\nconst ListboxLabel = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkListbox.Label>) => (\n  <ArkListbox.Label\n    className={cn(\"font-medium text-sm leading-none\", className)}\n    {...rest}\n  />\n);\n\nconst ListboxContent = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkListbox.Content>) => (\n  <ArkListbox.Content\n    className={cn(\n      \"w-full rounded-md border bg-popover p-1 text-popover-foreground shadow-md\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst ListboxItem = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkListbox.Item>) => (\n  <ArkListbox.Item\n    className={cn(\n      \"relative flex cursor-pointer select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:opacity-50\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst ListboxItemText = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkListbox.ItemText>) => (\n  <ArkListbox.ItemText className={cn(\"flex-1\", className)} {...rest} />\n);\n\nconst ListboxItemIndicator = ({\n  className,\n  children,\n  ...rest\n}: ComponentProps<typeof ArkListbox.ItemIndicator>) => (\n  <ArkListbox.ItemIndicator\n    className={cn(\"flex h-4 w-4 items-center justify-center\", className)}\n    {...rest}\n  >\n    {children || <Check className=\"h-4 w-4\" />}\n  </ArkListbox.ItemIndicator>\n);\n\nconst ListboxItemGroup = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkListbox.ItemGroup>) => (\n  <ArkListbox.ItemGroup className={cn(\"\", className)} {...rest} />\n);\n\nconst ListboxItemGroupLabel = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkListbox.ItemGroupLabel>) => (\n  <ArkListbox.ItemGroupLabel\n    className={cn(\n      \"px-2 py-1.5 font-semibold text-muted-foreground text-sm\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst ListboxEmpty = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkListbox.Empty>) => (\n  <ArkListbox.Empty\n    className={cn(\n      \"px-2 py-3 text-center text-muted-foreground text-sm\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst ListboxInput = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkListbox.Input>) => (\n  <ArkListbox.Input\n    className={cn(\n      \"flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst ListboxValueText = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkListbox.ValueText>) => (\n  <ArkListbox.ValueText className={cn(\"\", className)} {...rest} />\n);\n\nexport {\n  ListboxRoot,\n  ListboxLabel,\n  ListboxContent,\n  ListboxItem,\n  ListboxItemText,\n  ListboxItemIndicator,\n  ListboxItemGroup,\n  ListboxItemGroupLabel,\n  ListboxEmpty,\n  ListboxInput,\n  ListboxValueText,\n  createListCollection,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

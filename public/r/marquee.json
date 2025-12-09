@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "marquee",
+  "type": "registry:ui",
+  "title": "Marquee",
+  "description": "A scrolling content component with pause on hover support",
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/marquee.tsx",
+      "content": "\"use client\";\n\nimport { Marquee as ArkMarquee } from \"@ark-ui/react/marquee\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst MarqueeProvider = ArkMarquee.RootProvider;\nconst MarqueeContext = ArkMarquee.Context;\nconst MarqueeEdge = ArkMarquee.Edge;\n\nconst MarqueeRoot = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkMarquee.Root>) => (\n  <ArkMarquee.Root\n    className={cn(\"w-full overflow-hidden\", className)}\n    {...rest}\n  />\n);\n\nconst MarqueeViewport = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkMarquee.Viewport>) => (\n  <ArkMarquee.Viewport\n    className={cn(\"w-full overflow-hidden\", className)}\n    {...rest}\n  />\n);\n\nconst MarqueeContent = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkMarquee.Content>) => (\n  <ArkMarquee.Content className={cn(\"flex w-max gap-4\", className)} {...rest} />\n);\n\nconst MarqueeItem = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkMarquee.Item>) => (\n  <ArkMarquee.Item className={cn(\"flex-shrink-0\", className)} {...rest} />\n);\n\nexport {\n  MarqueeRoot,\n  MarqueeViewport,\n  MarqueeContent,\n  MarqueeItem,\n  MarqueeEdge,\n  MarqueeProvider,\n  MarqueeContext,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

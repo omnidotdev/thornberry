@@ -1,0 +1,208 @@
+---
+title: Progress
+description: Display progress for a task that takes a long time or consists of several steps.
+---
+
+import { ProgressRoot, ProgressTrack, ProgressRange, ProgressLabel, ProgressValueText, ProgressCircle, ProgressCircleTrack, ProgressCircleRange } from "@/registry/thornberry/components/progress";
+
+<ComponentPreview>
+  <ProgressRoot value={65}>
+    <ProgressTrack>
+      <ProgressRange />
+    </ProgressTrack>
+  </ProgressRoot>
+</ComponentPreview>
+
+## Installation
+
+<InstallationTabs filename="progress.json" />
+
+## Usage
+
+```tsx
+import {
+  ProgressRoot,
+  ProgressTrack,
+  ProgressRange
+} from "@/components/ui/progress";
+```
+
+```tsx
+<ProgressRoot value={65}>
+  <ProgressTrack>
+    <ProgressRange />
+  </ProgressTrack>
+</ProgressRoot>
+```
+
+## Examples
+
+<br />
+
+#### Basic Examples
+
+<Tabs items={["Simple", "With Label", "With Value"]}>
+  <Tab value="Simple">
+    <ProgressRoot value={45}>
+      <ProgressTrack>
+        <ProgressRange />
+      </ProgressTrack>
+    </ProgressRoot>
+  </Tab>
+  <Tab value="With Label">
+    <ProgressRoot value={60}>
+      <ProgressLabel>Uploading...</ProgressLabel>
+      <ProgressTrack>
+        <ProgressRange />
+      </ProgressTrack>
+    </ProgressRoot>
+  </Tab>
+  <Tab value="With Value">
+    <ProgressRoot value={75}>
+      <div className="flex justify-between items-center mb-2">
+        <ProgressLabel className="mb-0">Loading</ProgressLabel>
+        <ProgressValueText />
+      </div>
+      <ProgressTrack>
+        <ProgressRange />
+      </ProgressTrack>
+    </ProgressRoot>
+  </Tab>
+</Tabs>
+
+#### Progress States
+
+<Tabs items={["Different Values", "Circular", "Custom Sizes"]}>
+  <Tab value="Different Values">
+    <div className="flex flex-col gap-4">
+      <ProgressRoot value={25}>
+        <ProgressLabel>25%</ProgressLabel>
+        <ProgressTrack>
+          <ProgressRange />
+        </ProgressTrack>
+      </ProgressRoot>
+      <ProgressRoot value={50}>
+        <ProgressLabel>50%</ProgressLabel>
+        <ProgressTrack>
+          <ProgressRange />
+        </ProgressTrack>
+      </ProgressRoot>
+      <ProgressRoot value={75}>
+        <ProgressLabel>75%</ProgressLabel>
+        <ProgressTrack>
+          <ProgressRange />
+        </ProgressTrack>
+      </ProgressRoot>
+      <ProgressRoot value={100}>
+        <ProgressLabel>Complete</ProgressLabel>
+        <ProgressTrack>
+          <ProgressRange />
+        </ProgressTrack>
+      </ProgressRoot>
+    </div>
+  </Tab>
+  <Tab value="Circular">
+    <div className="flex flex-wrap gap-4 items-center">
+      <ProgressRoot value={25}>
+        <ProgressCircle>
+          <ProgressCircleTrack />
+          <ProgressCircleRange />
+        </ProgressCircle>
+        <ProgressValueText className="absolute inset-0 flex items-center justify-center" />
+      </ProgressRoot>
+      <ProgressRoot value={60}>
+        <ProgressCircle>
+          <ProgressCircleTrack />
+          <ProgressCircleRange />
+        </ProgressCircle>
+        <ProgressValueText className="absolute inset-0 flex items-center justify-center" />
+      </ProgressRoot>
+    </div>
+  </Tab>
+  <Tab value="Custom Sizes">
+    <div className="flex flex-col gap-4">
+      <ProgressRoot value={65}>
+        <ProgressTrack className="h-2">
+          <ProgressRange />
+        </ProgressTrack>
+      </ProgressRoot>
+      <ProgressRoot value={65}>
+        <ProgressTrack className="h-4">
+          <ProgressRange />
+        </ProgressTrack>
+      </ProgressRoot>
+      <ProgressRoot value={65}>
+        <ProgressTrack className="h-6">
+          <ProgressRange />
+        </ProgressTrack>
+      </ProgressRoot>
+    </div>
+  </Tab>
+</Tabs>
+
+#### Styled Examples
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <div className="flex flex-col gap-4">
+      <ProgressRoot value={70}>
+        <div className="flex justify-between items-center mb-2">
+          <ProgressLabel className="mb-0 text-xs">Download Progress</ProgressLabel>
+          <ProgressValueText className="text-xs text-muted-foreground" />
+        </div>
+        <ProgressTrack className="h-3">
+          <ProgressRange className="bg-gradient-to-r from-blue-500 to-purple-500" />
+        </ProgressTrack>
+      </ProgressRoot>
+
+      <ProgressRoot value={85}>
+        <div className="flex justify-between items-center mb-2">
+          <ProgressLabel className="mb-0 text-xs">Installation</ProgressLabel>
+          <ProgressValueText className="text-xs font-medium" />
+        </div>
+        <ProgressTrack className="h-2 bg-green-100">
+          <ProgressRange className="bg-green-500" />
+        </ProgressTrack>
+      </ProgressRoot>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import {
+      ProgressRoot,
+      ProgressTrack,
+      ProgressRange,
+      ProgressLabel,
+      ProgressValueText
+    } from "@/components/ui/progress";
+
+    const StyledProgress = () => (
+      <div className="flex flex-col gap-4">
+        <ProgressRoot value={70}>
+          <div className="flex justify-between items-center mb-2">
+            <ProgressLabel className="mb-0 text-xs">Download Progress</ProgressLabel>
+            <ProgressValueText className="text-xs text-muted-foreground" />
+          </div>
+          <ProgressTrack className="h-3">
+            <ProgressRange className="bg-gradient-to-r from-blue-500 to-purple-500" />
+          </ProgressTrack>
+        </ProgressRoot>
+
+        <ProgressRoot value={85}>
+          <div className="flex justify-between items-center mb-2">
+            <ProgressLabel className="mb-0 text-xs">Installation</ProgressLabel>
+            <ProgressValueText className="text-xs font-medium" />
+          </div>
+          <ProgressTrack className="h-2 bg-green-100">
+            <ProgressRange className="bg-green-500" />
+          </ProgressTrack>
+        </ProgressRoot>
+      </div>
+    );
+    ```
+  </Tab>
+</Tabs>
+
+## References
+
+<AutoTypeTable path="./src/content/docs/types.ts" name="ProgressProps" />

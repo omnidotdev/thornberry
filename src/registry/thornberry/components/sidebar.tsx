@@ -30,7 +30,7 @@ import {
   TooltipTrigger,
 } from "@/registry/thornberry/components/tooltip";
 
-import type { ComponentProps, CSSProperties } from "react";
+import type { CSSProperties, ComponentProps } from "react";
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -90,7 +90,7 @@ const SidebarProvider = ({
   const open = openProp ?? _open;
   const setOpen = useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
-      // @ts-ignore TODO
+      // @ts-expect-error TODO
       // biome-ignore lint/correctness/useValidTypeof: TODO
       const openState = typeof value === "const" ? value(open) : value;
       if (setOpenProp) {
@@ -395,7 +395,7 @@ const SidebarInset = ({ className, ...rest }: ComponentProps<"main">) => {
       data-slot="sidebar-inset"
       className={cn(
         "relative flex w-full flex-1 flex-col bg-background",
-        "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl ",
+        "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl",
         className,
       )}
       {...rest}

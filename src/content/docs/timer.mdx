@@ -5,8 +5,8 @@ description: A timer component that can record elapsed time or countdown from a 
 
 import { Timer, TimerArea, TimerItem, TimerSeparator, TimerControl, TimerActionTrigger } from "@/registry/thornberry/components/timer";
 
-<div className="flex justify-center">
-  <Timer targetMs={60000} className="mb-8">
+<ComponentPreview>
+  <Timer targetMs={60000}>
     <TimerArea>
       <TimerItem type="minutes" />
       <TimerSeparator>:</TimerSeparator>
@@ -18,7 +18,7 @@ import { Timer, TimerArea, TimerItem, TimerSeparator, TimerControl, TimerActionT
       <TimerActionTrigger action="resume">Resume</TimerActionTrigger>
     </TimerControl>
   </Timer>
-</div>
+</ComponentPreview>
 
 ## Installation
 
@@ -49,18 +49,20 @@ import { Timer, TimerArea, TimerItem, TimerSeparator, TimerControl, TimerActionT
 
 #### Countdown Timer
 
-<Timer countdown startMs={60 * 60 * 500} className="mt-4">
-  <TimerArea>
-    <TimerItem type="minutes" />
-    <TimerSeparator>:</TimerSeparator>
-    <TimerItem type="seconds" />
-  </TimerArea>
-  <TimerControl>
-    <TimerActionTrigger action="start">Start Countdown</TimerActionTrigger>
-    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
-    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>
-  </TimerControl>
-</Timer>
+<ComponentPreview>
+  <Timer countdown startMs={60 * 60 * 500}>
+    <TimerArea>
+      <TimerItem type="minutes" />
+      <TimerSeparator>:</TimerSeparator>
+      <TimerItem type="seconds" />
+    </TimerArea>
+    <TimerControl>
+      <TimerActionTrigger action="start">Start Countdown</TimerActionTrigger>
+      <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
+      <TimerActionTrigger action="resume">Resume</TimerActionTrigger>
+    </TimerControl>
+  </Timer>
+</ComponentPreview>
 
 ```tsx
 <Timer countdown targetMs={120000}>
@@ -79,22 +81,24 @@ import { Timer, TimerArea, TimerItem, TimerSeparator, TimerControl, TimerActionT
 
 #### Full Time Format
 
-<Timer targetMs={3661000} className="mt-4">
-  <TimerArea>
-    <TimerItem type="days" />
-    <TimerSeparator>:</TimerSeparator>
-    <TimerItem type="hours" />
-    <TimerSeparator>:</TimerSeparator>
-    <TimerItem type="minutes" />
-    <TimerSeparator>:</TimerSeparator>
-    <TimerItem type="seconds" />
-  </TimerArea>
-  <TimerControl>
-    <TimerActionTrigger action="start">Start</TimerActionTrigger>
-    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
-    <TimerActionTrigger action="resume">Resume</TimerActionTrigger>
-  </TimerControl>
-</Timer>
+<ComponentPreview>
+  <Timer targetMs={3661000}>
+    <TimerArea>
+      <TimerItem type="days" />
+      <TimerSeparator>:</TimerSeparator>
+      <TimerItem type="hours" />
+      <TimerSeparator>:</TimerSeparator>
+      <TimerItem type="minutes" />
+      <TimerSeparator>:</TimerSeparator>
+      <TimerItem type="seconds" />
+    </TimerArea>
+    <TimerControl>
+      <TimerActionTrigger action="start">Start</TimerActionTrigger>
+      <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
+      <TimerActionTrigger action="resume">Resume</TimerActionTrigger>
+    </TimerControl>
+  </Timer>
+</ComponentPreview>
 
 ```tsx
 <Timer targetMs={3661000}>

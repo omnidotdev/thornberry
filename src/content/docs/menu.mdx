@@ -6,7 +6,9 @@ description: A dropdown menu that displays a list of options.
 import { Button } from "@/registry/thornberry/components/button";
 import { CheckboxMenu, DemoMenu, NestedMenu, RadioGroupMenu } from "@/components";
 
-<DemoMenu />
+<ComponentPreview>
+  <DemoMenu />
+</ComponentPreview>
 
 ## Installation
 
@@ -87,9 +89,9 @@ import {
 
 #### Checkbox Menu
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
-     <CheckboxMenu />
+    <CheckboxMenu />
   </Tab>
   <Tab value="Code">
     ```tsx
@@ -159,9 +161,9 @@ import {
 
 #### Radio Menu
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
-     <RadioGroupMenu />
+    <RadioGroupMenu />
   </Tab>
   <Tab value="Code">
     ```tsx
@@ -217,7 +219,7 @@ import {
 
 #### Nested Menu
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <NestedMenu />
   </Tab>
@@ -305,6 +307,4 @@ import {
 
 ## References
 
-<div>
-  <AutoTypeTable path="./src/content/docs/types.ts" name="MenuProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="MenuProps" />

@@ -1,0 +1,107 @@
+---
+title: Download Trigger
+description: A button component that triggers file downloads.
+---
+
+import { DownloadTrigger } from "@/registry/thornberry/components/download-trigger";
+
+<ComponentPreview>
+  <DownloadTrigger 
+    data="Hello, World!" 
+    fileName="example.txt" 
+    mimeType="text/plain"
+  />
+</ComponentPreview>
+
+## Installation
+
+<InstallationTabs filename="download-trigger.json" />
+
+## Usage
+
+```tsx
+import { DownloadTrigger } from "@/components/ui/download-trigger";
+```
+
+```tsx
+<DownloadTrigger 
+  data="File content" 
+  fileName="file.txt" 
+  mimeType="text/plain"
+/>
+```
+
+## Examples
+
+<Tabs items={["Text File", "JSON File", "CSV File", "Custom Button"]}>
+  <Tab value="Text File">
+    <DownloadTrigger 
+      data="This is a sample text file content." 
+      fileName="sample.txt" 
+      mimeType="text/plain"
+    />
+
+    ```tsx
+    <DownloadTrigger 
+      data="This is a sample text file content." 
+      fileName="sample.txt" 
+      mimeType="text/plain"
+    />
+    ```
+  </Tab>
+  <Tab value="JSON File">
+    <DownloadTrigger 
+      data={JSON.stringify({ name: "John Doe", age: 30 }, null, 2)} 
+      fileName="data.json" 
+      mimeType="application/json"
+    />
+
+    ```tsx
+    <DownloadTrigger 
+      data={JSON.stringify({ name: "John Doe", age: 30 }, null, 2)} 
+      fileName="data.json" 
+      mimeType="application/json"
+    />
+    ```
+  </Tab>
+  <Tab value="CSV File">
+    <DownloadTrigger 
+      data="Name,Email,Age\nJohn Doe,john@example.com,30\nJane Smith,jane@example.com,25" 
+      fileName="users.csv" 
+      mimeType="text/csv"
+    />
+
+    ```tsx
+    <DownloadTrigger 
+      data="Name,Email,Age\nJohn Doe,john@example.com,30\nJane Smith,jane@example.com,25" 
+      fileName="users.csv" 
+      mimeType="text/csv"
+    />
+    ```
+  </Tab>
+  <Tab value="Custom Button">
+    <DownloadTrigger 
+      data="Custom styled download button" 
+      fileName="custom.txt" 
+      mimeType="text/plain"
+      className="bg-blue-600 hover:bg-blue-700"
+    >
+      Download Custom File
+    </DownloadTrigger>
+
+    ```tsx
+    <DownloadTrigger 
+      data="Custom styled download button" 
+      fileName="custom.txt" 
+      mimeType="text/plain"
+      className="bg-blue-600 hover:bg-blue-700"
+    >
+      Download Custom File
+    </DownloadTrigger>
+    ```
+  </Tab>
+</Tabs>
+
+## References
+
+<AutoTypeTable path="./src/content/docs/types.ts" name="DownloadTriggerProps" />

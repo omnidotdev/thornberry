@@ -6,14 +6,16 @@ description: A control that allows users to select a value or range from a given
 import { Volume2, Thermometer } from "lucide-react";
 import { SliderRoot, SliderControl, SliderTrack, SliderRange, SliderThumb, SliderLabel, SliderValueText, SliderMarker } from "@/registry/thornberry/components/slider";
 
-<SliderRoot defaultValue={[50]} className="mb-8">
-  <SliderControl>
-    <SliderTrack>
-      <SliderRange />
-    </SliderTrack>
-    <SliderThumb index={0} />
-  </SliderControl>
-</SliderRoot>
+<ComponentPreview>
+  <SliderRoot defaultValue={[50]}>
+    <SliderControl>
+      <SliderTrack>
+        <SliderRange />
+      </SliderTrack>
+      <SliderThumb index={0} />
+    </SliderControl>
+  </SliderRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -48,7 +50,7 @@ import {
 
 #### Basic Examples
 
-<Tabs items={["Simple", "With Label", "With Value"]} className="mt-4">
+<Tabs items={["Simple", "With Label", "With Value"]}>
   <Tab value="Simple">
     <SliderRoot defaultValue={[50]}>
       <SliderControl>
@@ -86,7 +88,7 @@ import {
 
 #### Advanced Configuration
 
-<Tabs items={["With Markers", "Custom Range", "Range Slider"]} className="mt-4">
+<Tabs items={["With Markers", "Custom Range", "Range Slider"]}>
   <Tab value="With Markers">
     <SliderRoot min={0} max={100} step={25} defaultValue={[50]}>
       <SliderLabel>Speed</SliderLabel>
@@ -133,7 +135,7 @@ import {
 
 #### Styled Examples
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <div className="flex flex-col gap-4 pb-8">
       <div className="flex items-center gap-4">
@@ -226,6 +228,4 @@ import {
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="SliderProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="SliderProps" />

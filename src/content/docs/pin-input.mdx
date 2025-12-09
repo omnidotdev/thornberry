@@ -6,15 +6,17 @@ description: A component that allows users to input a sequence of characters, ty
 import { Shield } from 'lucide-react';
 import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/registry/thornberry/components/pin-input";
 
-<PinInputRoot length={4} className="mb-8">
-  <PinInputLabel className="text-sm font-medium text-gray-900 dark:text-gray-300">Verification Code</PinInputLabel>
-  <PinInputControl>
-    <PinInputInput index={0} />
-    <PinInputInput index={1} />
-    <PinInputInput index={2} />
-    <PinInputInput index={3} />
-  </PinInputControl>
-</PinInputRoot>
+<ComponentPreview>
+  <PinInputRoot length={4}>
+    <PinInputLabel className="text-sm font-medium text-gray-900 dark:text-gray-300">Verification Code</PinInputLabel>
+    <PinInputControl>
+      <PinInputInput index={0} />
+      <PinInputInput index={1} />
+      <PinInputInput index={2} />
+      <PinInputInput index={3} />
+    </PinInputControl>
+  </PinInputRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -44,7 +46,7 @@ import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/c
 
 #### Basic Examples
 
-<Tabs items={["4-Digit", "6-Digit", "Masked"]} className="mt-4">
+<Tabs items={["4-Digit", "6-Digit", "Masked"]}>
   <Tab value="4-Digit">
     <PinInputRoot length={4}>
       <PinInputControl>
@@ -81,7 +83,7 @@ import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/c
 
 #### Custom Placeholders
 
-<Tabs items={["Dots", "X Marks", "Dashes"]} className="mt-4">
+<Tabs items={["Dots", "X Marks", "Dashes"]}>
   <Tab value="Dots">
     <PinInputRoot length={4}>
       <PinInputControl>
@@ -116,7 +118,7 @@ import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/c
 
 #### Advanced Usage
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <div className="p-6 border rounded-lg bg-muted/30">
       <div className="flex justify-center mb-6">
@@ -176,6 +178,4 @@ import { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput } from "@/c
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="PinInputProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="PinInputProps" />

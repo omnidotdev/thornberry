@@ -1,0 +1,173 @@
+---
+title: Toast
+description: A notification component for displaying temporary messages to users.
+---
+
+import { Button } from "@/registry/thornberry/components/button";
+
+## Installation
+
+<InstallationTabs filename="toast.json" />
+
+## Usage
+
+The toast component requires client-side state. Import from `@/components/toast` which includes the `"use client"` directive:
+
+```tsx
+import {
+  toaster,
+  Toaster,
+  ToastRoot,
+  ToastTitle,
+  ToastDescription,
+  ToastCloseTrigger,
+} from "@/components/toast";
+```
+
+Or create your own toaster instance:
+
+```tsx
+import { createToaster } from "@/components/toast";
+
+const toaster = createToaster({
+  placement: "top-end",
+  overlap: true,
+  gap: 16,
+  duration: 5000,
+});
+```
+
+Then, add the Toaster component to your app layout:
+
+```tsx
+<Toaster toaster={toaster}>
+  {(toast) => (
+    <ToastRoot key={toast.id}>
+      <ToastTitle>{toast.title}</ToastTitle>
+      <ToastDescription>{toast.description}</ToastDescription>
+      <ToastCloseTrigger />
+    </ToastRoot>
+  )}
+</Toaster>
+```
+
+Finally, use the toaster to create toasts:
+
+```tsx
+toaster.create({
+  title: "Success!",
+  description: "Your changes have been saved.",
+  type: "success",
+});
+```
+
+## Examples
+
+### Basic Example
+
+```tsx
+import { Button } from "@/components/ui/button";
+import {
+  toaster,
+  Toaster,
+  ToastRoot,
+  ToastTitle,
+  ToastDescription,
+  ToastCloseTrigger,
+} from "@/components/toast";
+
+export function ToastDemo() {
+  return (
+    <div>
+      <Button
+        onClick={() =>
+          toaster.create({
+            title: "Success",
+            description: "Operation completed successfully",
+            type: "success",
+          })
+        }
+      >
+        Show Toast
+      </Button>
+      <Toaster toaster={toaster}>
+        {(toast) => (
+          <ToastRoot key={toast.id}>
+            <ToastTitle>{toast.title}</ToastTitle>
+            <ToastDescription>{toast.description}</ToastDescription>
+            <ToastCloseTrigger />
+          </ToastRoot>
+        )}
+      </Toaster>
+    </div>
+  );
+}
+```
+
+### Toast Types
+
+```tsx
+// Info toast (default)
+toaster.create({
+  title: "Information",
+  description: "Here's some helpful information",
+  type: "info",
+});
+
+// Success toast
+toaster.create({
+  title: "Success",
+  description: "Operation completed successfully",
+  type: "success",
+});
+
+// Warning toast
+toaster.create({
+  title: "Warning",
+  description: "Please review your input",
+  type: "warning",
+});
+
+// Error toast
+toaster.create({
+  title: "Error",
+  description: "Something went wrong",
+  type: "error",
+});
+```
+
+### With Action Button
+
+```tsx
+import { toaster, ToastActionTrigger } from "@/components/toast";
+
+toaster.create({
+  title: "Confirmation Required",
+  description: "Are you sure you want to continue?",
+  type: "info",
+  action: {
+    label: "Confirm",
+    onClick: () => console.log("Confirmed"),
+  },
+});
+
+// In your Toaster render:
+<Toaster toaster={toaster}>
+  {(toast) => (
+    <ToastRoot key={toast.id}>
+      <ToastTitle>{toast.title}</ToastTitle>
+      <ToastDescription>{toast.description}</ToastDescription>
+      {toast.action && (
+        <ToastActionTrigger onClick={toast.action.onClick}>
+          {toast.action.label}
+        </ToastActionTrigger>
+      )}
+      <ToastCloseTrigger />
+    </ToastRoot>
+  )}
+</Toaster>
+```
+
+## References
+
+<AutoTypeTable path="./src/content/docs/types.ts" name="ToastProps" />

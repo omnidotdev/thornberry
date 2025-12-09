@@ -127,4 +127,195 @@
   .font-text {
     font-weight: var(--text-weight);
   }
+
+  /* Enhanced typography for docs */
+  article.prose {
+    @apply max-w-none;
+  }
+
+  article.prose h1 {
+    @apply scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl mb-6;
+  }
+
+  article.prose h2 {
+    @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mt-10 mb-4;
+  }
+
+  article.prose h3 {
+    @apply scroll-m-20 text-2xl font-semibold tracking-tight mt-8 mb-4;
+  }
+
+  article.prose h4 {
+    @apply scroll-m-20 text-xl font-semibold tracking-tight mt-6 mb-3;
+  }
+
+  article.prose p {
+    @apply leading-7 mt-0 mb-4;
+  }
+
+  article.prose ul {
+    @apply my-6 ml-6 list-disc;
+  }
+
+  article.prose ol {
+    @apply my-6 ml-6 list-decimal;
+  }
+
+  article.prose li {
+    @apply mt-2;
+  }
+
+  article.prose blockquote {
+    @apply mt-6 border-l-2 pl-6 italic;
+  }
+
+  article.prose code {
+    @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
+  }
+
+  article.prose pre {
+    @apply my-6 overflow-x-auto rounded-lg border bg-muted/50 p-4;
+  }
+
+  article.prose pre code {
+    @apply bg-transparent p-0 text-sm;
+  }
+
+  article.prose a {
+    @apply font-medium text-primary underline underline-offset-4 hover:text-primary/80;
+  }
+
+  article.prose table {
+    @apply w-full my-6;
+  }
+
+  article.prose th {
+    @apply border px-4 py-2 text-left font-bold;
+  }
+
+  article.prose td {
+    @apply border px-4 py-2;
+  }
+
+  article.prose hr {
+    @apply my-8 border-border;
+  }
+
+  /* Better spacing for code blocks in tabs */
+  article.prose [role="tabpanel"] > pre {
+    @apply mt-4;
+  }
+
+  /* Improve AutoTypeTable styling */
+  article.prose .fumadocs-type-table {
+    @apply my-6;
+  }
+
+  /* Exclude prose styles from all UI component content */
+  /* This ensures components don't inherit unwanted typography styles */
+  [data-scope="dialog"],
+  [data-scope="popover"],
+  [data-scope="tooltip"],
+  [data-scope="hover-card"],
+  [data-scope="menu"],
+  [data-scope="select"],
+  [data-scope="combobox"],
+  [data-scope="toast"],
+  [data-scope="date-picker"],
+  [data-scope="color-picker"],
+  [data-scope="bottom-sheet"],
+  [data-scope="floating-panel"],
+  [data-scope="tour"] {
+    /* Reset all prose typography styles */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply m-0 border-0 p-0 text-base font-normal tracking-normal;
+    }
+
+    p {
+      @apply m-0 leading-normal;
+    }
+
+    ul,
+    ol {
+      @apply m-0 ml-0 list-none;
+    }
+
+    li {
+      @apply m-0;
+    }
+
+    code {
+      @apply bg-transparent px-0 py-0 text-base font-normal;
+    }
+
+    pre {
+      @apply m-0 border-0 bg-transparent p-0;
+    }
+
+    a {
+      @apply font-normal no-underline;
+    }
+
+    blockquote {
+      @apply m-0 border-0 pl-0 not-italic;
+    }
+  }
+
+  /* Additional resets for non-portaled components that might be affected */
+  [data-scope="accordion"],
+  [data-scope="tabs"],
+  [data-scope="collapsible"],
+  [data-scope="carousel"],
+  [data-scope="slider"],
+  [data-scope="steps"],
+  [data-scope="rating-group"],
+  [data-scope="radio-group"],
+  [data-scope="checkbox"],
+  [data-scope="switch"],
+  [data-scope="segment-group"],
+  [data-scope="toggle-group"],
+  [data-scope="file-upload"],
+  [data-scope="editable"],
+  [data-scope="number-input"],
+  [data-scope="pin-input"],
+  [data-scope="tags-input"],
+  [data-scope="pagination"],
+  [data-scope="signature-pad"],
+  [data-scope="tree-view"],
+  [data-scope="splitter"] {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply m-0 border-0 p-0 text-base font-normal tracking-normal;
+    }
+
+    p {
+      @apply m-0 leading-normal;
+    }
+
+    ul,
+    ol {
+      @apply m-0 ml-0 list-none;
+    }
+
+    li {
+      @apply m-0;
+    }
+
+    code {
+      @apply bg-transparent px-0 py-0 text-base font-normal;
+    }
+
+    a {
+      @apply font-normal no-underline;
+    }
+  }
 }

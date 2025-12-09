@@ -7,18 +7,20 @@ import { User, Mail, MapPin } from "lucide-react";
 import { Badge } from "@/registry/thornberry/components/badge";
 import { HoverCardRoot, HoverCardTrigger, HoverCardContent, HoverCardPositioner } from "@/registry/thornberry/components/hover-card";
 
-<div className="bg-accent w-full h-48 mb-8 rounded-md flex items-center justify-center">
-  <HoverCardRoot>
-    <HoverCardTrigger className="hover:underline h-8 flex items-center px-3 py-2">
-      Hover me
-    </HoverCardTrigger>
-    <HoverCardPositioner>
-      <HoverCardContent>
-        <p>Here is the hover card content</p>
-      </HoverCardContent>
-    </HoverCardPositioner>
-  </HoverCardRoot>
-</div>
+<ComponentPreview>
+  <div className="bg-accent w-full h-48 rounded-md flex items-center justify-center">
+    <HoverCardRoot>
+      <HoverCardTrigger className="hover:underline h-8 flex items-center px-3 py-2">
+        Hover me
+      </HoverCardTrigger>
+      <HoverCardPositioner>
+        <HoverCardContent>
+          <p>Here is the hover card content</p>
+        </HoverCardContent>
+      </HoverCardPositioner>
+    </HoverCardRoot>
+  </div>
+</ComponentPreview>
 
 ## Installation
 
@@ -56,7 +58,7 @@ import {
 
 #### Basic Examples
 
-<Tabs items={["Default", "With Delay"]} className="mt-4">
+<Tabs items={["Default", "With Delay"]}>
   <Tab value="Default">
     <HoverCardRoot>
       <HoverCardTrigger>
@@ -85,7 +87,7 @@ import {
 
 #### User Profile Card
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <HoverCardRoot openDelay={100} closeDelay={150}>
       <HoverCardTrigger>
@@ -160,6 +162,4 @@ import {
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="HoverCardProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="HoverCardProps" />

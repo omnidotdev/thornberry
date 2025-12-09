@@ -5,7 +5,9 @@ description: Small status descriptors for UI elements.
 
 import { Badge } from "@/registry/thornberry/components/badge";
 
-<Badge className="mb-8">Badge</Badge>
+<ComponentPreview>
+  <Badge>Badge</Badge>
+</ComponentPreview>
 
 ## Installation
 
@@ -28,7 +30,7 @@ import { Badge } from "@/components/ui/badge";
 
 #### Variants
 
-<Tabs items={["Solid", "Outline", "Secondary", "Destructive"]} className="mt-4">
+<Tabs items={["Solid", "Outline", "Secondary", "Destructive"]}>
   <Tab value="Solid">
     <Badge>Solid</Badge>
 
@@ -61,6 +63,4 @@ import { Badge } from "@/components/ui/badge";
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="BadgeProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="BadgeProps" />

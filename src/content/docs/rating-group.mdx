@@ -7,18 +7,18 @@ import { Star } from "lucide-react";
 import { RatingGroupItem, RatingGroupControl, RatingGroupLabel, RatingGroupRoot } from "@/registry/thornberry/components/rating-group";
 import { HalfStarRatingGroup } from "@/components";
 
-<div className="flex justify-center">
-<RatingGroupRoot defaultValue={2} className="mb-8">
-  <RatingGroupLabel>Rate this product</RatingGroupLabel>
-  <RatingGroupControl>
-    {Array.from({ length: 5 }).map((_, index) => (
-      <RatingGroupItem key={index} index={index} >
-        <Star className="fill-current" />
-      </RatingGroupItem>
-    ))}
-  </RatingGroupControl>
-</RatingGroupRoot>
-</div>
+<ComponentPreview>
+  <RatingGroupRoot defaultValue={2}>
+    <RatingGroupLabel>Rate this product</RatingGroupLabel>
+    <RatingGroupControl>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <RatingGroupItem key={index} index={index} >
+          <Star className="fill-current" />
+        </RatingGroupItem>
+      ))}
+    </RatingGroupControl>
+  </RatingGroupRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -32,7 +32,7 @@ import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem 
 ```
 
 ```tsx
-<RatingGroupRoot defaultValue={2} className="mb-8">
+<RatingGroupRoot defaultValue={2}>
   <RatingGroupLabel>Rate this product</RatingGroupLabel>
   <RatingGroupControl>
     {Array.from({ length: 5 }).map((_, index) => (
@@ -47,7 +47,7 @@ import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem 
 ## Examples
 
 #### Half Star
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <HalfStarRatingGroup />
   </Tab>
@@ -96,6 +96,4 @@ import { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem 
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="RatingGroupProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="RatingGroupProps" />

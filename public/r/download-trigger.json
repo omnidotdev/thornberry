@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "download-trigger",
+  "type": "registry:ui",
+  "title": "Download Trigger",
+  "description": "A component that triggers file downloads",
+  "dependencies": [
+    "@ark-ui/react",
+    "lucide-react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/download-trigger.tsx",
+      "content": "import { DownloadTrigger as ArkDownloadTrigger } from \"@ark-ui/react/download-trigger\";\nimport { Download } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst DownloadTrigger = ({\n  className,\n  children,\n  ...rest\n}: ComponentProps<typeof ArkDownloadTrigger>) => {\n  if (!children) {\n    return (\n      <ArkDownloadTrigger\n        className={cn(\n          \"inline-flex h-10 items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground text-sm ring-offset-background transition-colors\",\n          \"hover:bg-primary/90\",\n          \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2\",\n          \"disabled:pointer-events-none disabled:opacity-50\",\n          className,\n        )}\n        {...rest}\n      >\n        <Download className=\"size-4\" />\n        Download\n      </ArkDownloadTrigger>\n    );\n  }\n\n  return (\n    <ArkDownloadTrigger className={className} {...rest}>\n      {children}\n    </ArkDownloadTrigger>\n  );\n};\n\nexport { DownloadTrigger };\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

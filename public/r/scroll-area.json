@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-area",
+  "type": "registry:ui",
+  "title": "Scroll Area",
+  "description": "A customizable scrollable area with styled scrollbars",
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/scroll-area.tsx",
+      "content": "import { ScrollArea as ArkScrollArea } from \"@ark-ui/react/scroll-area\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst ScrollAreaProvider = ArkScrollArea.RootProvider;\nconst ScrollAreaContext = ArkScrollArea.Context;\nconst ScrollAreaRoot = ArkScrollArea.Root;\n\nconst ScrollAreaViewport = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkScrollArea.Viewport>) => (\n  <ArkScrollArea.Viewport\n    className={cn(\"h-full w-full\", className)}\n    {...rest}\n  />\n);\n\nconst ScrollAreaContent = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkScrollArea.Content>) => (\n  <ArkScrollArea.Content className={cn(\"\", className)} {...rest} />\n);\n\nconst ScrollAreaScrollbar = ({\n  className,\n  orientation = \"vertical\",\n  ...rest\n}: ComponentProps<typeof ArkScrollArea.Scrollbar>) => (\n  <ArkScrollArea.Scrollbar\n    orientation={orientation}\n    className={cn(\n      \"flex touch-none select-none transition-colors data-[orientation=horizontal]:h-2.5 data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst ScrollAreaThumb = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkScrollArea.Thumb>) => (\n  <ArkScrollArea.Thumb\n    className={cn(\n      \"relative flex-1 rounded-full bg-border transition-colors hover:bg-muted-foreground/50\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst ScrollAreaCorner = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkScrollArea.Corner>) => (\n  <ArkScrollArea.Corner className={cn(\"bg-background\", className)} {...rest} />\n);\n\nexport {\n  ScrollAreaRoot,\n  ScrollAreaViewport,\n  ScrollAreaContent,\n  ScrollAreaScrollbar,\n  ScrollAreaThumb,\n  ScrollAreaCorner,\n  ScrollAreaProvider,\n  ScrollAreaContext,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

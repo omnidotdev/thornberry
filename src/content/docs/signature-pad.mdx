@@ -1,0 +1,78 @@
+---
+title: Signature Pad
+description: A digital signature canvas component with clear and save functionality.
+---
+
+import { SignaturePadRoot, SignaturePadLabel, SignaturePadControl, SignaturePadSegment, SignaturePadGuide, SignaturePadClearTrigger } from "@/registry/thornberry/components/signature-pad";
+
+<ComponentPreview>
+  <SignaturePadRoot>
+    <SignaturePadLabel>Sign below</SignaturePadLabel>
+    <SignaturePadControl>
+      <SignaturePadSegment />
+      <SignaturePadGuide />
+    </SignaturePadControl>
+    <SignaturePadClearTrigger>Clear</SignaturePadClearTrigger>
+  </SignaturePadRoot>
+</ComponentPreview>
+
+## Installation
+
+<InstallationTabs filename="signature-pad.json" />
+
+## Usage
+
+```tsx
+import {
+  SignaturePadRoot,
+  SignaturePadLabel,
+  SignaturePadControl,
+  SignaturePadSegment,
+  SignaturePadGuide,
+  SignaturePadClearTrigger,
+} from "@/components/ui/signature-pad";
+```
+
+```tsx
+const Example = () => (
+  <SignaturePadRoot>
+    <SignaturePadLabel>Signature</SignaturePadLabel>
+    <SignaturePadControl>
+      <SignaturePadSegment />
+      <SignaturePadGuide />
+    </SignaturePadControl>
+    <SignaturePadClearTrigger>Clear</SignaturePadClearTrigger>
+  </SignaturePadRoot>
+);
+```
+
+## Examples
+
+<Tabs items={["Basic", "With Field"]}>
+  <Tab value="Basic">
+    <SignaturePadRoot>
+      <SignaturePadLabel>Sign here</SignaturePadLabel>
+      <SignaturePadControl>
+        <SignaturePadSegment />
+        <SignaturePadGuide />
+      </SignaturePadControl>
+      <SignaturePadClearTrigger>Clear Signature</SignaturePadClearTrigger>
+    </SignaturePadRoot>
+  </Tab>
+  <Tab value="With Field">
+    <SignaturePadRoot>
+      <SignaturePadLabel>Digital Signature</SignaturePadLabel>
+      <SignaturePadControl>
+        <SignaturePadSegment />
+        <SignaturePadGuide />
+      </SignaturePadControl>
+      <div className="flex gap-2">
+        <SignaturePadClearTrigger>Clear</SignaturePadClearTrigger>
+      </div>
+    </SignaturePadRoot>
+  </Tab>
+</Tabs>
+
+## References
+
+<AutoTypeTable path="./src/content/docs/types.ts" name="SignaturePadProps" />

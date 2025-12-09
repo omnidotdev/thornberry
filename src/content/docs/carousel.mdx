@@ -5,34 +5,36 @@ description: A component that displays content in a rotating cycle with navigati
 
 import { CarouselRoot, CarouselControl, CarouselItemGroup, CarouselItem, CarouselPrevTrigger, CarouselNextTrigger, CarouselIndicatorGroup, CarouselIndicator } from "@/registry/thornberry/components/carousel";
 
-<CarouselRoot slideCount={3} loop className="mb-8">
-  <CarouselItemGroup className="overflow-hidden rounded-md">
-    <CarouselItem index={0}>
-      <div className="h-64 bg-accent flex items-center justify-center">
-        <span className="text-2xl font-bold text-accent-foreground">Slide 1</span>
-      </div>
-    </CarouselItem>
-    <CarouselItem index={1}>
-      <div className="h-64 bg-accent flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold text-accent-foreground">Slide 2</span>
-      </div>
-    </CarouselItem>
-    <CarouselItem index={2}>
-      <div className="h-64 bg-accent flex items-center justify-center rounded-md">
-        <span className="text-2xl font-bold text-accent-foreground">Slide 3</span>
-      </div>
-    </CarouselItem>
-  </CarouselItemGroup>
-  <CarouselControl>
-    <CarouselPrevTrigger />
-    <CarouselIndicatorGroup>
-      <CarouselIndicator index={0} />
-      <CarouselIndicator index={1} />
-      <CarouselIndicator index={2} />
-    </CarouselIndicatorGroup>
-    <CarouselNextTrigger />
-    </CarouselControl>
-</CarouselRoot>
+<ComponentPreview>
+  <CarouselRoot slideCount={3} loop>
+    <CarouselItemGroup className="overflow-hidden rounded-md">
+      <CarouselItem index={0}>
+        <div className="h-64 bg-accent flex items-center justify-center">
+          <span className="text-2xl font-bold text-accent-foreground">Slide 1</span>
+        </div>
+      </CarouselItem>
+      <CarouselItem index={1}>
+        <div className="h-64 bg-accent flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold text-accent-foreground">Slide 2</span>
+        </div>
+      </CarouselItem>
+      <CarouselItem index={2}>
+        <div className="h-64 bg-accent flex items-center justify-center rounded-md">
+          <span className="text-2xl font-bold text-accent-foreground">Slide 3</span>
+        </div>
+      </CarouselItem>
+    </CarouselItemGroup>
+    <CarouselControl>
+      <CarouselPrevTrigger />
+      <CarouselIndicatorGroup>
+        <CarouselIndicator index={0} />
+        <CarouselIndicator index={1} />
+        <CarouselIndicator index={2} />
+      </CarouselIndicatorGroup>
+      <CarouselNextTrigger />
+      </CarouselControl>
+  </CarouselRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -79,7 +81,7 @@ import {
 
 #### Variants
 
-<Tabs items={["With Controls", "Without Controls", "Without Indicators"]} className="mt-4">
+<Tabs items={["With Controls", "Without Controls", "Without Indicators"]}>
   <Tab value="With Controls">
     <CarouselRoot slideCount={3} loop>
       <CarouselItemGroup className="overflow-hidden">
@@ -168,7 +170,7 @@ import {
 
 #### Custom Content
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <CarouselRoot slideCount={3} loop>
       <CarouselItemGroup className="overflow-hidden">
@@ -253,6 +255,4 @@ import {
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="CarouselProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="CarouselProps" />

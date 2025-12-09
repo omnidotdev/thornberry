@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bottom-sheet",
+  "type": "registry:ui",
+  "title": "Bottom Sheet",
+  "description": "A mobile-friendly bottom sheet that slides up from the bottom of the screen",
+  "dependencies": [
+    "@ark-ui/react",
+    "lucide-react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/bottom-sheet.tsx",
+      "content": "import { BottomSheet as ArkBottomSheet } from \"@ark-ui/react/bottom-sheet\";\nimport { X } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\nconst BottomSheetProvider = ArkBottomSheet.RootProvider;\nconst BottomSheetContext = ArkBottomSheet.Context;\nconst BottomSheetRoot = ArkBottomSheet.Root;\n\nconst BottomSheetTrigger = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkBottomSheet.Trigger>) => (\n  <ArkBottomSheet.Trigger className={cn(\"\", className)} {...rest} />\n);\n\nconst BottomSheetBackdrop = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkBottomSheet.Backdrop>) => (\n  <ArkBottomSheet.Backdrop\n    className={cn(\n      \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-background/80 backdrop-blur-sm data-[state=closed]:animate-out data-[state=open]:animate-in\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst BottomSheetContent = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkBottomSheet.Content>) => (\n  <ArkBottomSheet.Content\n    className={cn(\n      \"data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom fixed inset-x-0 bottom-0 z-50 max-h-[96vh] rounded-t-xl border bg-background p-6 shadow-lg duration-200 data-[state=closed]:animate-out data-[state=open]:animate-in\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst BottomSheetGrabber = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkBottomSheet.Grabber>) => (\n  <ArkBottomSheet.Grabber\n    className={cn(\"mx-auto mb-4 flex w-full justify-center\", className)}\n    {...rest}\n  />\n);\n\nconst BottomSheetGrabberIndicator = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkBottomSheet.GrabberIndicator>) => (\n  <ArkBottomSheet.GrabberIndicator\n    className={cn(\"h-1.5 w-12 rounded-full bg-muted-foreground/25\", className)}\n    {...rest}\n  />\n);\n\nconst BottomSheetTitle = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkBottomSheet.Title>) => (\n  <ArkBottomSheet.Title\n    className={cn(\n      \"font-semibold text-lg leading-none tracking-tight\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nconst BottomSheetCloseTrigger = ({\n  className,\n  children,\n  asChild,\n  ...rest\n}: ComponentProps<typeof ArkBottomSheet.CloseTrigger>) => {\n  if (!children) {\n    return (\n      <ArkBottomSheet.CloseTrigger\n        className={cn(\n          \"absolute top-4 right-4 cursor-pointer rounded opacity-70 outline-none ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:pointer-events-none\",\n          className,\n        )}\n        {...rest}\n      >\n        <X className=\"h-4 w-4\" />\n        <span className=\"sr-only\">Close</span>\n      </ArkBottomSheet.CloseTrigger>\n    );\n  }\n\n  return (\n    <ArkBottomSheet.CloseTrigger\n      className={className}\n      asChild={asChild}\n      {...rest}\n    >\n      {children}\n    </ArkBottomSheet.CloseTrigger>\n  );\n};\n\nexport {\n  BottomSheetRoot,\n  BottomSheetTrigger,\n  BottomSheetBackdrop,\n  BottomSheetContent,\n  BottomSheetGrabber,\n  BottomSheetGrabberIndicator,\n  BottomSheetTitle,\n  BottomSheetCloseTrigger,\n  BottomSheetProvider,\n  BottomSheetContext,\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ]
+}

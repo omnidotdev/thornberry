@@ -7,15 +7,17 @@ import { Check } from 'lucide-react';
 
 import { CheckboxRoot, CheckboxHiddenInput, CheckboxControl, CheckboxIndicator, CheckboxLabel } from "@/registry/thornberry/components/checkbox";
 
-<CheckboxRoot className="mb-8">
-  <CheckboxHiddenInput />
-  <CheckboxControl>
-    <CheckboxIndicator>
-      <Check />
-    </CheckboxIndicator>
-  </CheckboxControl>
-  <CheckboxLabel>Checkbox</CheckboxLabel>
-</CheckboxRoot>
+<ComponentPreview>
+  <CheckboxRoot>
+    <CheckboxHiddenInput />
+    <CheckboxControl>
+      <CheckboxIndicator>
+        <Check />
+      </CheckboxIndicator>
+    </CheckboxControl>
+    <CheckboxLabel>Checkbox</CheckboxLabel>
+  </CheckboxRoot>
+</ComponentPreview>
 
 ## Installation
 
@@ -51,7 +53,7 @@ import {
 
 #### Basic Checkbox
 
-<Tabs items={["Default", "Checked", "Custom Icon"]} className="mt-4">
+<Tabs items={["Default", "Checked", "Custom Icon"]}>
   <Tab value="Default">
     <CheckboxRoot>
       <CheckboxHiddenInput />
@@ -129,7 +131,7 @@ import {
 
 #### Checkbox Group
 
-<Tabs items={["Preview", "Code"]} className="mt-4">
+<Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <div className="space-y-2">
       <CheckboxRoot name="options" value="option1">
@@ -216,6 +218,4 @@ import {
 
 ## References
 
-<div>
-    <AutoTypeTable path="./src/content/docs/types.ts" name="CheckboxProps" />
-</div>
+<AutoTypeTable path="./src/content/docs/types.ts" name="CheckboxProps" />

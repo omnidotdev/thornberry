@@ -1,0 +1,114 @@
+---
+title: Field
+description: A form field wrapper with label, input, and error message support.
+---
+
+import { FieldRoot, FieldLabel, FieldInput, FieldHelperText, FieldErrorText, FieldRequiredIndicator, FieldTextarea } from "@/registry/thornberry/components/field";
+
+<ComponentPreview>
+  <FieldRoot>
+    <FieldLabel>Email</FieldLabel>
+    <FieldInput placeholder="Enter your email" />
+    <FieldHelperText>We'll never share your email.</FieldHelperText>
+  </FieldRoot>
+</ComponentPreview>
+
+## Installation
+
+<InstallationTabs filename="field.json" />
+
+## Usage
+
+```tsx
+import {
+  FieldRoot,
+  FieldLabel,
+  FieldInput,
+  FieldHelperText,
+  FieldErrorText
+} from "@/components/ui/field";
+```
+
+```tsx
+<FieldRoot>
+  <FieldLabel>Label</FieldLabel>
+  <FieldInput />
+  <FieldHelperText>Helper text</FieldHelperText>
+  <FieldErrorText>Error message</FieldErrorText>
+</FieldRoot>
+```
+
+## Examples
+
+<Tabs items={["Basic", "With Error", "Required", "Textarea"]}>
+  <Tab value="Basic">
+    <FieldRoot>
+      <FieldLabel>Email</FieldLabel>
+      <FieldInput type="email" placeholder="Enter your email" />
+      <FieldHelperText>We'll never share your email.</FieldHelperText>
+    </FieldRoot>
+
+    ```tsx
+    <FieldRoot>
+      <FieldLabel>Email</FieldLabel>
+      <FieldInput type="email" placeholder="Enter your email" />
+      <FieldHelperText>We'll never share your email.</FieldHelperText>
+    </FieldRoot>
+    ```
+  </Tab>
+  <Tab value="With Error">
+    <FieldRoot invalid>
+      <FieldLabel>Username</FieldLabel>
+      <FieldInput placeholder="Enter username" />
+      <FieldErrorText>Username is required</FieldErrorText>
+    </FieldRoot>
+
+    ```tsx
+    <FieldRoot invalid>
+      <FieldLabel>Username</FieldLabel>
+      <FieldInput placeholder="Enter username" />
+      <FieldErrorText>Username is required</FieldErrorText>
+    </FieldRoot>
+    ```
+  </Tab>
+  <Tab value="Required">
+    <FieldRoot required>
+      <FieldLabel>
+        Name <FieldRequiredIndicator>*</FieldRequiredIndicator>
+      </FieldLabel>
+      <FieldInput placeholder="Enter your name" />
+    </FieldRoot>
+
+    ```tsx
+    import { FieldRequiredIndicator } from "@/components/ui/field";
+
+    <FieldRoot required>
+      <FieldLabel>
+        Name <FieldRequiredIndicator>*</FieldRequiredIndicator>
+      </FieldLabel>
+      <FieldInput placeholder="Enter your name" />
+    </FieldRoot>
+    ```
+  </Tab>
+  <Tab value="Textarea">
+    <FieldRoot>
+      <FieldLabel>Message</FieldLabel>
+      <FieldTextarea placeholder="Enter your message" />
+      <FieldHelperText>Maximum 500 characters</FieldHelperText>
+    </FieldRoot>
+
+    ```tsx
+    import { FieldTextarea } from "@/components/ui/field";
+
+    <FieldRoot>
+      <FieldLabel>Message</FieldLabel>
+      <FieldTextarea placeholder="Enter your message" />
+      <FieldHelperText>Maximum 500 characters</FieldHelperText>
+    </FieldRoot>
+    ```
+  </Tab>
+</Tabs>
+
+## References
+
+<AutoTypeTable path="./src/content/docs/types.ts" name="FieldProps" />

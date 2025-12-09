@@ -4,29 +4,52 @@ import type { AlertRoot } from "@/registry/thornberry/components/alert";
 import type { AngleSliderRoot } from "@/registry/thornberry/components/angle-slider";
 import type { AvatarRoot } from "@/registry/thornberry/components/avatar";
 import type { Badge } from "@/registry/thornberry/components/badge";
+import type { BottomSheetRoot } from "@/registry/thornberry/components/bottom-sheet";
 import type { Button } from "@/registry/thornberry/components/button";
 import type { CardRoot } from "@/registry/thornberry/components/card";
 import type { CarouselRoot } from "@/registry/thornberry/components/carousel";
 import type { CheckboxRoot } from "@/registry/thornberry/components/checkbox";
+import type { ClipboardRoot } from "@/registry/thornberry/components/clipboard";
 import type { CollapsibleRoot } from "@/registry/thornberry/components/collapsible";
 import type { ComboboxRoot } from "@/registry/thornberry/components/combobox";
 import type { DatePickerRoot } from "@/registry/thornberry/components/date-picker";
 import type { DialogRoot } from "@/registry/thornberry/components/dialog";
+import type { DownloadTrigger } from "@/registry/thornberry/components/download-trigger";
+import type { EditableRoot } from "@/registry/thornberry/components/editable";
+import type { FieldRoot } from "@/registry/thornberry/components/field";
+import type { FieldsetRoot } from "@/registry/thornberry/components/fieldset";
 import type { FileUpload } from "@/registry/thornberry/components/file-upload";
+import type { FloatingPanelRoot } from "@/registry/thornberry/components/floating-panel";
+import type { Highlight } from "@/registry/thornberry/components/highlight";
 import type { HoverCardRoot } from "@/registry/thornberry/components/hover-card";
 import type { Input } from "@/registry/thornberry/components/input";
+import type { JsonTreeViewRoot } from "@/registry/thornberry/components/json-tree-view";
+import type { ListboxRoot } from "@/registry/thornberry/components/listbox";
+import type { MarqueeRoot } from "@/registry/thornberry/components/marquee";
 import type { MenuRoot } from "@/registry/thornberry/components/menu";
 import type { NumberInputRoot } from "@/registry/thornberry/components/number-input";
 import type { PaginationRoot } from "@/registry/thornberry/components/pagination";
+import type { PasswordInputRoot } from "@/registry/thornberry/components/password-input";
 import type { PinInputRoot } from "@/registry/thornberry/components/pin-input";
 import type { PopoverRoot } from "@/registry/thornberry/components/popover";
+import type { ProgressRoot } from "@/registry/thornberry/components/progress";
+import type { QrCodeRoot } from "@/registry/thornberry/components/qr-code";
 import type { RatingGroupRoot } from "@/registry/thornberry/components/rating-group";
+import type { ScrollAreaRoot } from "@/registry/thornberry/components/scroll-area";
+import type { SegmentGroupRoot } from "@/registry/thornberry/components/segment-group";
 import type { SelectRoot } from "@/registry/thornberry/components/select";
+import type { SignaturePadRoot } from "@/registry/thornberry/components/signature-pad";
 import type { SliderRoot } from "@/registry/thornberry/components/slider";
+import type { SplitterRoot } from "@/registry/thornberry/components/splitter";
+import type { StepsRoot } from "@/registry/thornberry/components/steps";
 import type { SwitchRoot } from "@/registry/thornberry/components/switch";
 import type { TabsRoot } from "@/registry/thornberry/components/tabs";
 import type { TagsInputRoot } from "@/registry/thornberry/components/tags-input";
+import type { ToastRoot } from "@/registry/thornberry/components/toast";
+import type { ToggleRoot } from "@/registry/thornberry/components/toggle";
+import type { ToggleGroupRoot } from "@/registry/thornberry/components/toggle-group";
 import type { TooltipRoot } from "@/registry/thornberry/components/tooltip";
+import type { TreeViewRoot } from "@/registry/thornberry/components/tree-view";
 
 export type AccordionProps = Omit<
   ComponentProps<typeof AccordionRoot>,
@@ -170,5 +193,120 @@ export type FileUploadProps = Omit<
 
 export type SelectProps = Omit<
   ComponentProps<typeof SelectRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type FieldProps = Omit<
+  ComponentProps<typeof FieldRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type FieldsetProps = Omit<
+  ComponentProps<typeof FieldsetRoot>,
+  keyof ComponentProps<"fieldset">
+>;
+
+export type PasswordInputProps = Omit<
+  ComponentProps<typeof PasswordInputRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type EditableProps = Omit<
+  ComponentProps<typeof EditableRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type ClipboardProps = Omit<
+  ComponentProps<typeof ClipboardRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type DownloadTriggerProps = Omit<
+  ComponentProps<typeof DownloadTrigger>,
+  keyof ComponentProps<"button">
+>;
+
+export type ToggleProps = Omit<
+  ComponentProps<typeof ToggleRoot>,
+  keyof ComponentProps<"button">
+>;
+
+export type ToggleGroupProps = Omit<
+  ComponentProps<typeof ToggleGroupRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type ProgressProps = Omit<
+  ComponentProps<typeof ProgressRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type StepsProps = Omit<
+  ComponentProps<typeof StepsRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type SegmentGroupProps = Omit<
+  ComponentProps<typeof SegmentGroupRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type HighlightProps = Omit<
+  ComponentProps<typeof Highlight>,
+  keyof ComponentProps<"div">
+>;
+
+export type ScrollAreaProps = Omit<
+  ComponentProps<typeof ScrollAreaRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type BottomSheetProps = Omit<
+  ComponentProps<typeof BottomSheetRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type SplitterProps = Omit<
+  ComponentProps<typeof SplitterRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type FloatingPanelProps = Omit<
+  ComponentProps<typeof FloatingPanelRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type QrCodeProps = Omit<
+  ComponentProps<typeof QrCodeRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type SignaturePadProps = Omit<
+  ComponentProps<typeof SignaturePadRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type TreeViewProps = Omit<
+  ComponentProps<typeof TreeViewRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type JsonTreeViewProps = Omit<
+  ComponentProps<typeof JsonTreeViewRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type MarqueeProps = Omit<
+  ComponentProps<typeof MarqueeRoot>,
+  keyof ComponentProps<"div"> | "ids"
+>;
+
+export type ToastProps = Omit<
+  ComponentProps<typeof ToastRoot>,
+  keyof ComponentProps<"div">
+>;
+
+export type ListboxProps = Omit<
+  ComponentProps<typeof ListboxRoot>,
   keyof ComponentProps<"div"> | "ids"
 >;

@@ -1,0 +1,86 @@
+---
+title: JSON Tree View
+description: A JSON data visualizer component with collapsible nodes.
+---
+
+import { JsonTreeViewRoot, JsonTreeViewTree } from "@/registry/thornberry/components/json-tree-view";
+
+<ComponentPreview>
+  <JsonTreeViewRoot
+    data={{
+      name: "John Doe",
+      age: 30,
+      email: "john.doe@example.com",
+      tags: ["developer", "designer"],
+      address: {
+        street: "123 Main St",
+        city: "Anytown",
+        state: "CA",
+        zip: "12345",
+      },
+    }}
+  >
+    <JsonTreeViewTree />
+  </JsonTreeViewRoot>
+</ComponentPreview>
+
+## Installation
+
+<InstallationTabs filename="json-tree-view.json" />
+
+## Usage
+
+```tsx
+import {
+  JsonTreeViewRoot,
+  JsonTreeViewTree,
+} from "@/components/ui/json-tree-view";
+```
+
+```tsx
+const Example = () => (
+  <JsonTreeViewRoot
+    data={{
+      name: "Jane Smith",
+      role: "Engineer",
+      skills: ["React", "TypeScript", "Node.js"],
+    }}
+  >
+    <JsonTreeViewTree />
+  </JsonTreeViewRoot>
+);
+```
+
+## Examples
+
+<Tabs items={["Basic", "Array Data"]}>
+  <Tab value="Basic">
+    <JsonTreeViewRoot
+      data={{
+        user: "admin",
+        permissions: ["read", "write", "delete"],
+        settings: {
+          theme: "dark",
+          notifications: true,
+        },
+      }}
+    >
+      <JsonTreeViewTree />
+    </JsonTreeViewRoot>
+  </Tab>
+  <Tab value="Array Data">
+    <JsonTreeViewRoot
+      data={[
+        { id: 1, name: "Item 1" },
+        { id: 2, name: "Item 2" },
+        { id: 3, name: "Item 3" },
+      ]}
+    >
+      <JsonTreeViewTree />
+    </JsonTreeViewRoot>
+  </Tab>
+</Tabs>
+
+## References
+
+<AutoTypeTable path="./src/content/docs/types.ts" name="JsonTreeViewProps" />

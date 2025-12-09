@@ -1,0 +1,116 @@
+---
+title: Clipboard
+description: A component for copying text to clipboard with visual feedback.
+---
+
+import { ClipboardRoot, ClipboardLabel, ClipboardControl, ClipboardInput, ClipboardTrigger } from "@/registry/thornberry/components/clipboard";
+
+<ComponentPreview>
+  <ClipboardRoot value="https://thornberry-ui.dev">
+    <ClipboardLabel>Copy this link</ClipboardLabel>
+    <ClipboardControl>
+      <ClipboardInput />
+      <ClipboardTrigger />
+    </ClipboardControl>
+  </ClipboardRoot>
+</ComponentPreview>
+
+## Installation
+
+<InstallationTabs filename="clipboard.json" />
+
+## Usage
+
+```tsx
+import {
+  ClipboardRoot,
+  ClipboardLabel,
+  ClipboardControl,
+  ClipboardInput,
+  ClipboardTrigger
+} from "@/components/ui/clipboard";
+```
+
+```tsx
+<ClipboardRoot value="Text to copy">
+  <ClipboardLabel>Label</ClipboardLabel>
+  <ClipboardControl>
+    <ClipboardInput />
+    <ClipboardTrigger />
+  </ClipboardControl>
+</ClipboardRoot>
+```
+
+## Examples
+
+<Tabs items={["Basic", "Custom Timeout", "Custom Trigger"]}>
+  <Tab value="Basic">
+    <ClipboardRoot value="https://example.com">
+      <ClipboardLabel>Share this link</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput />
+        <ClipboardTrigger />
+      </ClipboardControl>
+    </ClipboardRoot>
+
+    ```tsx
+    <ClipboardRoot value="https://example.com">
+      <ClipboardLabel>Share this link</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput />
+        <ClipboardTrigger />
+      </ClipboardControl>
+    </ClipboardRoot>
+    ```
+  </Tab>
+  <Tab value="Custom Timeout">
+    <ClipboardRoot value="npm install @thornberry/ui" timeout={5000}>
+      <ClipboardLabel>Install command</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput />
+        <ClipboardTrigger />
+      </ClipboardControl>
+    </ClipboardRoot>
+
+    ```tsx
+    <ClipboardRoot value="npm install @thornberry/ui" timeout={5000}>
+      <ClipboardLabel>Install command</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput />
+        <ClipboardTrigger />
+      </ClipboardControl>
+    </ClipboardRoot>
+    ```
+  </Tab>
+  <Tab value="Custom Trigger">
+    <ClipboardRoot value="Custom trigger example">
+      <ClipboardLabel>API Key</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput />
+        <ClipboardTrigger>
+          <button className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-primary-foreground text-sm hover:bg-primary/90">
+            Copy
+          </button>
+        </ClipboardTrigger>
+      </ClipboardControl>
+    </ClipboardRoot>
+
+    ```tsx
+    <ClipboardRoot value="Custom trigger example">
+      <ClipboardLabel>API Key</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput />
+        <ClipboardTrigger>
+          <button className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-primary-foreground text-sm hover:bg-primary/90">
+            Copy
+          </button>
+        </ClipboardTrigger>
+      </ClipboardControl>
+    </ClipboardRoot>
+    ```
+  </Tab>
+</Tabs>
+
+## References
+
+<AutoTypeTable path="./src/content/docs/types.ts" name="ClipboardProps" />
