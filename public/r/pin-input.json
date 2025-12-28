@@ -4,11 +4,7 @@
   "type": "registry:ui",
   "title": "Pin Input",
   "description": "A component that allows users to input a sequence of characters, typically used for entering PIN codes or short passwords",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/pin-input.tsx",

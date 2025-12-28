@@ -1,7 +1,7 @@
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
+const baseUrl = import.meta.env.VITE_BASE_URL ?? "http://localhost:3001";
 
 interface Props {
   filename: string;

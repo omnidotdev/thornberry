@@ -14,27 +14,27 @@ import * as mdxConfig from "./source.config";
  * @see https://vite.dev/config
  */
 const viteConfig = defineConfig({
-	server: {
-		port: 3001,
-		host: "0.0.0.0",
-	},
-	plugins: [
-		devtools(),
-		mdx(mdxConfig),
-		tailwindcss(),
-		tsConfigPaths({
-			projects: ["./tsconfig.json"],
-		}),
-		tanstackStart({
-			prerender: {
-				// TODO enable, build breaks
-				// enabled: true,
-			},
-		}),
-		react(),
-		// see https://tanstack.com/start/latest/docs/framework/react/guide/hosting for hosting config
-		nitro(),
-	],
+  server: {
+    port: 3001,
+    host: "0.0.0.0",
+  },
+  plugins: [
+    devtools(),
+    mdx(mdxConfig),
+    tailwindcss(),
+    tsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    tanstackStart({
+      prerender: {
+        // TODO enable, build breaks
+        // enabled: true,
+      },
+    }),
+    react(),
+    // see https://tanstack.com/start/latest/docs/framework/react/guide/hosting for hosting config
+    nitro(),
+  ],
 });
 
 export default viteConfig;

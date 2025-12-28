@@ -4,11 +4,7 @@
   "type": "registry:ui",
   "title": "Color Picker",
   "description": "A component that allows users to select a color from a palette or spectrum",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/color-picker.tsx",
