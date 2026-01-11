@@ -8,7 +8,7 @@ const knipConfig: KnipConfig = {
   entry: ["src/**/*.ts", "src/**/*.tsx", "content/**/*.ts"],
   project: ["src/**/*.{ts,tsx,css,mdx}", "content/**/*.{ts,mdx}"],
   ignore: ["src/registry/**/*.tsx"],
-  ignoreDependencies: ["ts-pattern"],
+  ignoreDependencies: ["server-only", "ts-pattern"],
   ignoreExportsUsedInFile: true,
   tags: ["-knipignore"],
 };
