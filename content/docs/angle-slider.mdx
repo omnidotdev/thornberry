@@ -1,0 +1,58 @@
+---
+title: Angle Slider
+description: A component for selecting a value within a circular range.
+---
+
+import {
+  AngleSliderRoot,
+  AngleSliderControl,
+  AngleSliderThumb,
+  AngleSliderMarkerGroup,
+  AngleSliderMarker,
+  AngleSliderValueText,
+} from "@/registry/thornberry/components/angle-slider"
+
+import { AngleSlider} from "@/components"
+
+<AngleSlider />
+
+## Installation
+
+<InstallationTabs filename="angle-slider.json" />
+
+## Usage
+
+```tsx
+import {
+  AngleSliderRoot,
+  AngleSliderControl,
+  AngleSliderThumb,
+  AngleSliderMarkerGroup,
+  AngleSliderMarker,
+  AngleSliderValueText,
+} from "@/registry/thornberry/components/angle-slider"
+```
+
+```tsx
+const Example = () => {
+  const [angle, setAngle] = useState(90);
+
+  return (
+    <AngleSliderRoot
+      value={angle}
+      onValueChange={({ value }) => setAngle(value)}
+      >
+      <AngleSliderControl>
+          <AngleSliderThumb />
+        <AngleSliderMarkerGroup>
+          {[0, 45, 90, 135, 180, 225, 270, 315].map((value) => (
+            <AngleSliderMarker key={value} value={value} />
+          ))}
+        </AngleSliderMarkerGroup>
+      </AngleSliderControl>
+      <AngleSliderValueText>{angle} ºC</AngleSliderValueText>
+    </AngleSliderRoot>
+  )
+}
+```
+

@@ -1,0 +1,84 @@
+---
+title: Collapsible
+description: An interactive component that can be opened and closed to reveal or hide content
+---
+
+import { Settings, ChevronRight } from "lucide-react";
+import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "@/registry/thornberry/components/collapsible";
+
+<CollapsibleRoot className="mb-8">
+  <CollapsibleTrigger>
+      Click to expand
+      <ChevronRight className="h-4 w-4 transition-transform" />
+  </CollapsibleTrigger>
+  <CollapsibleContent>
+    <p>This content can be expanded and collapsed with the click of a button.</p>
+  </CollapsibleContent>
+</CollapsibleRoot>
+
+## Installation
+
+<InstallationTabs filename="collapsible.json" />
+
+## Usage
+
+```tsx
+import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
+```
+
+```tsx
+<CollapsibleRoot>
+  <CollapsibleTrigger>
+    Click to expand
+    <ChevronRight className="h-4 w-4 transition-transform" />  
+  </CollapsibleTrigger>
+  <CollapsibleContent>
+    This content can be expanded and collapsed.
+  </CollapsibleContent>
+</CollapsibleRoot>
+```
+
+## Examples
+
+<br />
+
+#### Basic Examples
+
+<Tabs items={["Default", "Custom Trigger", "With Icon"]} className="mt-4">
+  <Tab value="Default">
+    <CollapsibleRoot>
+      <CollapsibleTrigger>
+        Default collapsible
+        <ChevronRight className="h-4 w-4 transition-transform" />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <p>This is the default collapsible component with standard styling.</p>
+      </CollapsibleContent>
+    </CollapsibleRoot>
+  </Tab>
+  <Tab value="Custom Trigger">
+    <CollapsibleRoot>
+      <CollapsibleTrigger className="bg-primary text-primary-foreground hover:bg-primary/90 data-[state=open]:bg-primary">
+        Custom styled trigger
+        <ChevronRight className="h-4 w-4 transition-transform" />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <p>You can customize the appearance of the trigger with your own styles.</p>
+      </CollapsibleContent>
+    </CollapsibleRoot>
+  </Tab>
+  <Tab value="With Icon">
+    <CollapsibleRoot>
+      <CollapsibleTrigger className="flex justify-between items-center">
+        <span className="flex items-center gap-2">
+          <Settings className="size-4" />
+          <span>Settings</span>
+        </span>
+        <ChevronRight className="h-4 w-4 transition-transform" />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <p>Adding custom icons can improve the user experience and make the purpose clearer.</p>
+      </CollapsibleContent>
+    </CollapsibleRoot>
+      </Tab>
+    </Tabs>

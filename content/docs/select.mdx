@@ -1,0 +1,91 @@
+---
+title: Select
+description: A customizable select dropdown component for choosing options from a list.
+---
+
+import { SelectExample } from "@/components"
+
+<div className="flex justify-center my-8">
+    <SelectExample />
+</div>
+
+## Installation
+
+<InstallationTabs filename="select.json" />
+
+## Usage
+
+```tsx
+import { ChevronsUpDown } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import {
+  createListCollection,
+  Select,
+  SelectContent,
+  SelectControl,
+  SelectIndicator,
+  SelectItem,
+  SelectItemGroup,
+  SelectItemIndicator,
+  SelectItemText,
+  SelectLabel,
+  SelectPositioner,
+  SelectTrigger,
+  SelectValueText,
+} from "@/components/ui/select";
+
+```
+
+```tsx
+const SelectExample = () => {
+  const priorityCollection = createListCollection({
+    items: [
+      { label: "Low", value: "low" },
+      { label: "Medium", value: "medium" },
+      { label: "High", value: "high" },
+    ],
+  });
+
+  return (
+    <Select
+      positioning={{
+        strategy: "fixed",
+        placement: "bottom-end",
+      }}
+      collection={priorityCollection}
+      loopFocus
+    >
+      <SelectLabel>Priority</SelectLabel>
+      <SelectControl>
+        <SelectTrigger asChild>
+          <Button variant="outline" className="w-48 hover:bg-transparent">
+            <SelectValueText placeholder="Select priority" />
+            <SelectIndicator>
+              <ChevronsUpDown />
+            </SelectIndicator>
+          </Button>
+        </SelectTrigger>
+      </SelectControl>
+
+      <SelectPositioner>
+        <SelectContent className="w-48 p-0">
+          <SelectItemGroup className="space-y-1 p-1">
+            {priorityCollection.items.map((priority) => (
+              <SelectItem key={priority.value} item={priority}>
+                <SelectItemText>{priority.label}</SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
+            ))}
+          </SelectItemGroup>
+        </SelectContent>
+      </SelectPositioner>
+    </Select>
+  );
+};
+```
+
+## Examples
+
+<p className="py-4">Coming Soon</p>
+

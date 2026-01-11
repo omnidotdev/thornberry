@@ -90,9 +90,7 @@ const SidebarProvider = ({
   const open = openProp ?? _open;
   const setOpen = useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
-      // @ts-expect-error TODO
-      // biome-ignore lint/correctness/useValidTypeof: TODO
-      const openState = typeof value === "const" ? value(open) : value;
+      const openState = typeof value === "function" ? value(open) : value;
       if (setOpenProp) {
         setOpenProp(openState);
       } else {

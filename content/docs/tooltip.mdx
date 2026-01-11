@@ -1,0 +1,107 @@
+---
+title: Tooltip
+description: A popup that displays information related to an element when it receives focus or is hovered over.
+---
+
+import { Info, CircleAlert, CircleQuestionMark } from "lucide-react";
+import { TooltipRoot, TooltipTrigger, TooltipPositioner, TooltipContent, TooltipArrow, TooltipArrowTip } from "@/registry/thornberry/components/tooltip";
+import { Button } from "@/registry/thornberry/components/button";
+
+<div className="flex justify-center">
+  <TooltipRoot positioning={{ placement: "top" }}>
+    <TooltipTrigger asChild className="mb-8">
+      <Button variant="outline">Hover Me</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        This is a tooltip
+      </TooltipContent>
+    </TooltipPositioner>
+  </TooltipRoot>
+</div>
+
+## Installation
+
+<InstallationTabs filename="tooltip.json" />
+
+## Usage
+
+```tsx
+import {
+  TooltipRoot,
+  TooltipTrigger,
+  TooltipPositioner,
+  TooltipContent
+} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+```
+
+```tsx
+<TooltipRoot>
+  <TooltipTrigger asChild>
+    <Button>Hover Me</Button>
+  </TooltipTrigger>
+  <TooltipPositioner>
+    <TooltipContent>
+      Tooltip content
+    </TooltipContent>
+  </TooltipPositioner>
+</TooltipRoot>
+```
+
+## Examples
+
+<br />
+
+#### Placements
+
+<div className="flex gap-2">
+  <TooltipRoot positioning={{ placement: "left" }}>
+    <TooltipTrigger asChild>
+      <Button>Left Tooltip</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        This tooltip appears on left
+      </TooltipContent>
+    </TooltipPositioner>
+  </TooltipRoot>
+
+  <TooltipRoot positioning={{ placement: "right" }}>
+    <TooltipTrigger asChild>
+      <Button>Right Tooltip</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        This tooltip appears on the right
+      </TooltipContent>
+    </TooltipPositioner>
+  </TooltipRoot>
+
+  <TooltipRoot positioning={{ placement: "top" }}>
+    <TooltipTrigger asChild>
+      <Button>Top Tooltip</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        This tooltip appears on the top
+      </TooltipContent>
+    </TooltipPositioner>
+  </TooltipRoot>
+
+  <TooltipRoot positioning={{ placement: "bottom" }}>
+    <TooltipTrigger asChild>
+      <Button>Bottom Tooltip</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        This tooltip appears on the bottom
+      </TooltipContent>
+    </TooltipPositioner>
+  </TooltipRoot>
+</div>
+
+```tsx
+  <TooltipRoot positioning={{ placement: "left | right | top | bottom" }} />
+```
+
