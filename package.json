@@ -11,7 +11,7 @@
     "format": "biome format --write",
     "lint": "biome lint",
     "registry:build": "shadcn registry:build",
-    "knip": "knip",
+    "knip": "knip-bun",
     "prepare": "husky"
   },
   "dependencies": {
