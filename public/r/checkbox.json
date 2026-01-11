@@ -4,11 +4,7 @@
   "type": "registry:ui",
   "title": "Checkbox",
   "description": "A checkbox component",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/checkbox.tsx",

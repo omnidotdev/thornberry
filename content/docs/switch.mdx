@@ -1,0 +1,43 @@
+---
+title: Switch
+description: A control that allows the user to toggle between checked and unchecked states.
+---
+
+import { Moon, Wifi, Bluetooth, Bell } from "lucide-react";
+import { SwitchRoot, SwitchHiddenInput, SwitchControl, SwitchThumb, SwitchLabel } from "@/registry/thornberry/components/switch";
+
+<div className="flex justify-center">
+  <SwitchRoot className="mb-8">
+    <SwitchControl>
+      <SwitchThumb />
+    </SwitchControl>
+    <SwitchLabel>Toggle</SwitchLabel>
+    <SwitchHiddenInput />
+  </SwitchRoot>
+</div>
+
+## Installation
+
+<InstallationTabs filename="switch.json" />
+
+## Usage
+
+```tsx
+import {
+  SwitchRoot,
+  SwitchHiddenInput,
+  SwitchControl,
+  SwitchThumb
+} from "@/components/ui/switch";
+```
+
+```tsx
+ <SwitchRoot>
+    <SwitchControl>
+      <SwitchThumb />
+    </SwitchControl>
+    <SwitchLabel>Toggle</SwitchLabel>
+    <SwitchHiddenInput />
+  </SwitchRoot>
+```
+

@@ -4,7 +4,6 @@ import { ChevronsUpDown } from "lucide-react";
 
 import { Button } from "@/registry/thornberry/components/button";
 import {
-  createListCollection,
   Select,
   SelectContent,
   SelectControl,
@@ -17,6 +16,7 @@ import {
   SelectPositioner,
   SelectTrigger,
   SelectValueText,
+  createListCollection,
 } from "@/registry/thornberry/components/select";
 
 const SelectExample = () => {

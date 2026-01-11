@@ -162,7 +162,7 @@ const ColorPickerChannelSliderThumb = ({
 }: ComponentProps<typeof ArkColorPicker.ChannelSliderThumb>) => (
   <ArkColorPicker.ChannelSliderThumb
     className={cn(
-      "-translate-y-1/2 -translate-x-1/2 absolute top-1/2 h-5 w-5 rounded-full border-2 border-white shadow-sm",
+      "absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-sm",
       className,
     )}
     {...rest}

@@ -1,0 +1,109 @@
+---
+title: Input
+description: A form field for collecting user input.
+---
+
+import { Mail, Lock, Search } from "lucide-react";
+import { Input } from "@/registry/thornberry/components/input";
+
+<Input placeholder="Please enter text..." className="mb-8" />
+
+## Installation
+
+<InstallationTabs filename="input.json" />
+
+## Usage
+
+```tsx
+import { Input } from "@/components/ui/input";
+```
+
+```tsx
+<Input placeholder="Please enter text..." />
+```
+
+## Examples
+
+<br />
+
+#### Input Types
+
+<Tabs items={["Text", "Email", "Password", "Number", "Search"]} className="mt-4">
+  <Tab value="Text">
+    <Input type="text" placeholder="Text input" />
+  </Tab>
+  <Tab value="Email">
+    <Input type="email" placeholder="Email input" />
+  </Tab>
+  <Tab value="Password">
+    <Input type="password" placeholder="Password input" />
+  </Tab>
+  <Tab value="Number">
+    <Input type="number" placeholder="Number input" />
+  </Tab>
+  <Tab value="Search">
+    <Input type="search" placeholder="Search input" />
+  </Tab>
+</Tabs>
+
+#### Input States
+
+<Tabs items={["Default", "Disabled", "With Label"]} className="mt-4">
+  <Tab value="Default">
+    <Input placeholder="Default input" />
+  </Tab>
+  <Tab value="Disabled">
+    <Input disabled placeholder="Disabled input" />
+  </Tab>
+  <Tab value="With Label">
+    <div className="grid w-full max-w-sm items-center gap-1.5">
+      <label htmlFor="email-with-label" className="text-sm font-medium">Email</label>
+      <Input id="email-with-label" placeholder="Enter your email" />
+    </div>
+  </Tab>
+</Tabs>
+
+#### Input with Icons
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="grid gap-4 py-4">
+      <div className="relative">
+        <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Input className="pl-10" placeholder="Email" />
+      </div>
+      <div className="relative">
+        <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Input className="pl-10" type="password" placeholder="Password" />
+      </div>
+      <div className="relative">
+        <Input className="pr-10" placeholder="Search..." />
+        <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+      </div>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { Mail, Lock, Search } from "lucide-react";
+    import { Input } from "@/components/ui/input";
+
+    const InputWithIcons = () => (
+      <div className="grid gap-4 py-4">
+        <div className="relative">
+          <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input className="pl-10" placeholder="Email" />
+        </div>
+        <div className="relative">
+          <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input className="pl-10" type="password" placeholder="Password" />
+        </div>
+        <div className="relative">
+          <Input className="pr-10" placeholder="Search..." />
+          <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        </div>
+      </div>
+    );
+    ```
+  </Tab>
+</Tabs>
+

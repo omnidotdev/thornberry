@@ -1,0 +1,240 @@
+---
+title: Popover
+description: A small floating content display that appears when a user interacts with a trigger element.
+---
+
+import { CircleAlert, Settings, User } from "lucide-react";
+import { PopoverRoot, PopoverDescription, PopoverTitle, PopoverTrigger, PopoverPositioner, PopoverContent, PopoverCloseTrigger, PopoverArrow, PopoverArrowTip } from "@/registry/thornberry/components/popover";
+import { Button } from "@/registry/thornberry/components/button";
+import { Input } from "@/registry/thornberry/components/input";
+
+<div className="flex justify-center my-8">
+<PopoverRoot>
+  <PopoverTrigger asChild>
+    <Button>Open Popover</Button>
+  </PopoverTrigger>
+  <PopoverPositioner>
+    <PopoverContent className="space-y-2">
+        <PopoverTitle>Dimensions</PopoverTitle>
+        <PopoverDescription>Set the dimensions for the object.</PopoverDescription>
+        <div className="space-y-4 mt-4">
+          <div className="grid gap-1">
+            <label htmlFor="width" className="text-xs">Width</label>
+            <Input id="width" defaultValue="100%" className="h-8" />
+          </div>
+          <div className="grid gap-1">
+            <label htmlFor="height" className="text-xs">Height</label>
+            <Input id="height" defaultValue="25px" className="h-8" />
+          </div>
+        </div>
+    </PopoverContent>
+  </PopoverPositioner>
+</PopoverRoot>
+</div>
+
+## Installation
+
+<InstallationTabs filename="popover.json" />
+
+## Usage
+
+```tsx
+import {
+  PopoverRoot,
+  PopoverTrigger,
+  PopoverPositioner,
+  PopoverContent,
+  PopoverTitle,
+  PopoverDescription
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+```
+
+```tsx
+<PopoverRoot>
+  <PopoverTrigger asChild>
+    <Button>Open Popover</Button>
+  </PopoverTrigger>
+  <PopoverPositioner>
+    <PopoverContent>
+      <PopoverTitle>Title</PopoverTitle>
+      <PopoverDescription>Description</PopoverDescription>
+      <p>Popover content goes here.</p>
+    </PopoverContent>
+  </PopoverPositioner>
+</PopoverRoot>
+```
+
+## Examples
+
+<br />
+
+#### Positioning
+
+<div className="flex gap-2">
+  <PopoverRoot positioning={{ placement: "left" }}>
+    <PopoverTrigger asChild>
+      <Button variant="outline">Left Placement</Button>
+    </PopoverTrigger>
+    <PopoverPositioner>
+      <PopoverContent>
+        <PopoverArrow>
+          <PopoverArrowTip />
+        </PopoverArrow>
+        <p className="text-sm">This popover appears on top</p>
+      </PopoverContent>
+    </PopoverPositioner>
+  </PopoverRoot>
+
+  <PopoverRoot positioning={{ placement: "right" }}>
+    <PopoverTrigger asChild>
+      <Button variant="outline">Right Placement</Button>
+    </PopoverTrigger>
+    <PopoverPositioner >
+      <PopoverContent>
+        <PopoverArrow>
+          <PopoverArrowTip />
+        </PopoverArrow>
+        <p className="text-sm">This popover appears on the right</p>
+      </PopoverContent>
+    </PopoverPositioner>
+  </PopoverRoot>
+
+  <PopoverRoot positioning={{ placement: "top" }}>
+    <PopoverTrigger asChild>
+      <Button variant="outline">Top Placement</Button>
+    </PopoverTrigger>
+    <PopoverPositioner>
+      <PopoverContent>
+        <PopoverArrow>
+          <PopoverArrowTip />
+        </PopoverArrow>
+        <p className="text-sm">This popover appears on the bottom</p>
+      </PopoverContent>
+    </PopoverPositioner>
+  </PopoverRoot>
+  
+  <PopoverRoot positioning={{ placement: "bottom" }}>
+    <PopoverTrigger asChild>
+      <Button variant="outline">Bottom Placement</Button>
+    </PopoverTrigger>
+    <PopoverPositioner>
+      <PopoverContent>
+        <PopoverArrow>
+          <PopoverArrowTip />
+        </PopoverArrow>
+        <p className="text-sm">This popover appears on the left</p>
+      </PopoverContent>
+    </PopoverPositioner>
+  </PopoverRoot>
+</div>
+
+```tsx
+ <PopoverRoot positioning={{ placement: "left | right | top | bottom" }} />
+```
+
+#### Advanced Usage
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <PopoverRoot>
+      <PopoverTrigger asChild>
+        <Button variant="outline" className="flex items-center gap-2">
+          <User className="h-4 w-4" />
+          <span>User Profile</span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent className="w-80 p-0">
+          <div className="border-b px-4 py-3 flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <User className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h4 className="font-medium">John Doe</h4>
+              <p className="text-xs text-muted-foreground">john.doe@example.com</p>
+            </div>
+            <PopoverCloseTrigger className="ml-auto" />
+          </div>
+          <div className="p-4">
+            <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-2">
+                <Button size="sm" variant="outline" className="justify-start">
+                  <Settings className="mr-2 h-4 w-4" />
+                  Settings
+                </Button>
+                <Button size="sm" variant="outline" className="justify-start">
+                  <CircleAlert className="mr-2 h-4 w-4" />
+                  Help
+                </Button>
+              </div>
+              <div className="pt-2 border-t">
+                <Button variant="ghost" size="sm" className="w-full justify-start text-destructive hover:text-destructive">
+                  Log out
+                </Button>
+              </div>
+            </div>
+          </div>
+        </PopoverContent>
+      </PopoverPositioner>
+    </PopoverRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { User, Settings, CircleAlert } from "lucide-react";
+    import {
+      PopoverRoot,
+      PopoverTrigger,
+      PopoverPositioner,
+      PopoverContent,
+      PopoverCloseTrigger
+    } from "@/components/ui/popover";
+    import { Button } from "@/components/ui/button";
+
+    const UserProfilePopover = () => (
+      <PopoverRoot>
+        <PopoverTrigger asChild>
+          <Button variant="outline" className="flex items-center gap-2">
+            <User className="h-4 w-4" />
+            <span>User Profile</span>
+          </Button>
+        </PopoverTrigger>
+        <PopoverPositioner>
+          <PopoverContent className="w-80 p-0">
+            <div className="border-b px-4 py-3 flex items-center gap-3">
+              <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                <User className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <h4 className="font-medium">John Doe</h4>
+                <p className="text-xs text-muted-foreground">john.doe@example.com</p>
+              </div>
+              <PopoverCloseTrigger className="ml-auto" />
+            </div>
+            <div className="p-4">
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-2">
+                  <Button size="sm" variant="outline" className="justify-start">
+                    <Settings className="mr-2 h-4 w-4" />
+                    Settings
+                  </Button>
+                  <Button size="sm" variant="outline" className="justify-start">
+                    <CircleAlert className="mr-2 h-4 w-4" />
+                    Help
+                  </Button>
+                </div>
+                <div className="pt-2 border-t">
+                  <Button variant="ghost" size="sm" className="w-full justify-start text-destructive hover:text-destructive">
+                    Log out
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </PopoverContent>
+        </PopoverPositioner>
+      </PopoverRoot>
+    );
+    ```
+  </Tab>
+</Tabs>
+

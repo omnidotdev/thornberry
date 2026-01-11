@@ -1,0 +1,61 @@
+---
+title: Badge
+description: Small status descriptors for UI elements.
+---
+
+import { Badge } from "@/registry/thornberry/components/badge";
+
+<Badge className="mb-8">Badge</Badge>
+
+## Installation
+
+<InstallationTabs filename="badge.json" />
+
+## Usage
+
+```tsx
+import { Badge } from "@/components/ui/badge";
+```
+
+```tsx
+<Badge variant="default | outline | secondary | destructive">Badge</Badge>
+
+```
+
+## Examples
+
+<br />
+
+#### Variants
+
+<Tabs items={["Solid", "Outline", "Secondary", "Destructive"]} className="mt-4">
+  <Tab value="Solid">
+    <Badge>Solid</Badge>
+
+    ```tsx
+    <Badge>Solid</Badge>
+    ```
+  </Tab>
+  <Tab value="Outline">
+    <Badge variant="outline">Outline</Badge>
+
+    ```tsx
+    <Badge variant="outline">Outline</Badge>
+    ```
+  </Tab>
+  <Tab value="Secondary">
+    <Badge variant="secondary">Secondary</Badge>
+
+    ```tsx
+    <Badge variant="secondary">Secondary</Badge>
+    ```
+  </Tab>
+  <Tab value="Destructive">
+    <Badge variant="destructive">Destructive</Badge>
+
+    ```tsx
+    <Badge variant="destructive">Destructive</Badge>
+    ```
+  </Tab>
+</Tabs>
+

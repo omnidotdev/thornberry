@@ -4,11 +4,7 @@
   "type": "registry:ui",
   "title": "Switch",
   "description": "A control that allows the user to toggle between checked and not checked",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/switch.tsx",

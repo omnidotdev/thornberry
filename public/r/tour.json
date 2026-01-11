@@ -4,12 +4,7 @@
   "type": "registry:ui",
   "title": "Tour",
   "description": "A guided tour component that highlights elements on the page and provides instructions or information",
-  "dependencies": [
-    "@ark-ui/react",
-    "lucide-react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "lucide-react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/tour.tsx",
