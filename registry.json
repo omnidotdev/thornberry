@@ -196,6 +196,18 @@
       ]
     },
     {
+      "name": "image",
+      "type": "registry:ui",
+      "title": "Image",
+      "description": "A responsive image component with automatic optimization",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/image.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "input",
       "type": "registry:ui",
       "title": "Input",

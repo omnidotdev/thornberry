@@ -1,10 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "tabs",
-  "type": "registry:ui",
   "title": "Tabs",
   "description": "A set of layered sections of content that display one panel of content at a time",
-  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
   "files": [
     {
       "path": "src/registry/thornberry/components/tabs.tsx",
@@ -17,5 +20,6 @@
       "type": "registry:lib",
       "target": ""
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

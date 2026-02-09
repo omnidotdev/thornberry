@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "combobox",
-  "type": "registry:ui",
   "title": "Combobox",
   "description": "A searchable dropdown select component that allows users to filter through a list of options",
   "dependencies": [
@@ -28,5 +27,6 @@
       "type": "registry:lib",
       "target": ""
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

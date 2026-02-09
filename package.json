@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "tsc --noEmit && vite build",
     "start": "node .output/server/index.mjs",
     "check": "fumadocs-mdx && biome check --diagnostic-level=error",
     "format": "biome format --write",
@@ -19,6 +19,7 @@
     "@tanstack/react-router": "^1.147.3",
     "@tanstack/react-router-devtools": "^1.147.3",
     "@tanstack/react-start": "^1.147.3",
+    "@unpic/react": "^1.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "fumadocs-core": "^16.4.6",
@@ -31,6 +32,7 @@
     "shadcn": "^3.6.3",
     "tailwind-merge": "^3.4.0",
     "ts-pattern": "^5.9.0",
+    "unleash-client": "^6.3.0",
     "vite": "^7.3.1",
     "zod": "^4.3.5"
   },

@@ -1,10 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "radio-group",
-  "type": "registry:ui",
   "title": "Radio Group",
   "description": "A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time",
-  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
   "files": [
     {
       "path": "src/registry/thornberry/components/radio-group.tsx",
@@ -17,5 +20,6 @@
       "type": "registry:lib",
       "target": ""
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

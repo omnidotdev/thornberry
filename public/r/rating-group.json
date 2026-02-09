@@ -1,10 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "rating-group",
-  "type": "registry:ui",
   "title": "Rating Group",
   "description": "A component that allows users to rate items using a star or other rating system",
-  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
   "files": [
     {
       "path": "src/registry/thornberry/components/rating-group.tsx",
@@ -17,5 +20,6 @@
       "type": "registry:lib",
       "target": ""
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

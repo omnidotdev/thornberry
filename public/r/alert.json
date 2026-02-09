@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "alert",
-  "type": "registry:ui",
   "title": "Alert",
   "description": "An alert component",
   "dependencies": [
@@ -22,5 +21,6 @@
       "type": "registry:lib",
       "target": ""
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

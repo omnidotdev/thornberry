@@ -1,0 +1,236 @@
+---
+title: Image
+description: A responsive image with automatic srcset, lazy loading, and CDN optimization.
+---
+import { Image, imageVariants } from "@/registry/thornberry/components/image";
+
+<Image
+  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+  width={800}
+  height={600}
+  alt="Mountain landscape"
+  rounded="lg"
+  className="mb-8"
+/>
+
+## Installation
+
+<InstallationTabs filename="image.json" />
+
+## Usage
+
+```tsx
+import { Image } from "@/components/ui/image";
+```
+
+```tsx
+<Image
+  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+  width={800}
+  height={600}
+  alt="Mountain landscape"
+/>
+```
+
+## Examples
+
+<br />
+
+#### Default
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+    />
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+    />
+    ```
+  </Tab>
+</Tabs>
+
+#### Rounded
+
+<Tabs items={["Small", "Medium", "Large", "Extra Large", "Full"]} className="mt-4">
+  <Tab value="Small">
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="sm"
+    />
+    ```tsx
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="sm"
+    />
+    ```
+  </Tab>
+  <Tab value="Medium">
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="md"
+    />
+    ```tsx
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="md"
+    />
+    ```
+  </Tab>
+  <Tab value="Large">
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="lg"
+    />
+    ```tsx
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="lg"
+    />
+    ```
+  </Tab>
+  <Tab value="Extra Large">
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="xl"
+    />
+    ```tsx
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="xl"
+    />
+    ```
+  </Tab>
+  <Tab value="Full">
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="full"
+    />
+    ```tsx
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="full"
+    />
+    ```
+  </Tab>
+</Tabs>
+
+#### Full Width
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      layout="fullWidth"
+      rounded="lg"
+    />
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      layout="fullWidth"
+      rounded="lg"
+    />
+    ```
+  </Tab>
+</Tabs>
+
+#### With Placeholder Background
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="lg"
+      background="auto"
+    />
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="lg"
+      background="auto"
+    />
+    ```
+  </Tab>
+</Tabs>
+
+#### Priority Loading
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="lg"
+      priority
+    />
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Image
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800"
+      width={800}
+      height={600}
+      alt="Mountain landscape"
+      rounded="lg"
+      priority
+    />
+    ```
+  </Tab>
+</Tabs>

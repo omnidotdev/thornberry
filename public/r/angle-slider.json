@@ -1,10 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "angle-slider",
-  "type": "registry:ui",
   "title": "Angle Slider",
   "description": "An angle slider component",
-  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+  "dependencies": [
+    "@ark-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
   "files": [
     {
       "path": "src/registry/thornberry/components/angle-slider.tsx",
@@ -17,5 +20,6 @@
       "type": "registry:lib",
       "target": ""
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

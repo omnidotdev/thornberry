@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "image",
+  "title": "Image",
+  "description": "A responsive image component with automatic optimization",
+  "dependencies": [
+    "@unpic/react",
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/image.tsx",
+      "content": "import { Image as UnpicImage } from \"@unpic/react\";\nimport { cva } from \"class-variance-authority\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { VariantProps } from \"class-variance-authority\";\nimport type { ComponentProps } from \"react\";\n\nconst imageVariants = cva(\"\", {\n  variants: {\n    rounded: {\n      none: \"rounded-none\",\n      sm: \"rounded-sm\",\n      md: \"rounded-md\",\n      lg: \"rounded-lg\",\n      xl: \"rounded-xl\",\n      \"2xl\": \"rounded-2xl\",\n      full: \"rounded-full\",\n    },\n  },\n});\n\ntype ImageProps = Omit<ComponentProps<typeof UnpicImage>, \"ref\"> &\n  VariantProps<typeof imageVariants>;\n\n/**\n * Responsive image with automatic srcset, lazy loading, and CDN optimization\n */\nconst Image = ({ className, rounded, ...rest }: ImageProps) => (\n  <UnpicImage className={cn(imageVariants({ rounded }), className)} {...rest} />\n);\n\nexport { Image, imageVariants };\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ],
+  "type": "registry:ui"
+}

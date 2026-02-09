@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "number-input",
-  "type": "registry:ui",
   "title": "Number Input",
   "description": "A form control that allows users to input numeric values with increment and decrement buttons",
   "dependencies": [
@@ -28,5 +27,6 @@
       "type": "registry:lib",
       "target": ""
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

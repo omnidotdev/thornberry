@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "carousel",
-  "type": "registry:ui",
   "title": "Carousel",
   "description": "A component that displays content in a rotating cycle with navigation controls",
   "dependencies": [
@@ -28,5 +27,6 @@
       "type": "registry:lib",
       "target": ""
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

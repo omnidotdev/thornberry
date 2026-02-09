@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "date-picker",
-  "type": "registry:ui",
   "title": "Date Picker",
   "description": "A component that allows users to select a date from a calendar interface",
   "dependencies": [
@@ -28,5 +27,6 @@
       "type": "registry:lib",
       "target": ""
     }
-  ]
+  ],
+  "type": "registry:ui"
 }
