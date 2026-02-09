@@ -3,29 +3,74 @@ import {
   HeadContent,
   Outlet,
   Scripts,
-  createRootRoute,
+  createRootRouteWithContext,
+  useRouteContext,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { createServerFn } from "@tanstack/react-start";
 import { RootProvider } from "fumadocs-ui/provider/tanstack";
 
 import app from "@/lib/config/app.config";
+import { isEnabled, FLAGS } from "@/lib/flags/flags";
 import appCss from "@/lib/styles/globals.css?url";
 
 import type { PropsWithChildren } from "react";
 
+const fetchMaintenanceMode = createServerFn({ method: "GET" }).handler(async () => {
+  const maintenanceMode = await isEnabled(FLAGS.MAINTENANCE_MODE, false);
+  return { isMaintenanceMode: maintenanceMode };
+});
+
+/**
+ * Maintenance page for production.
+ */
+function MaintenancePage() {
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-violet-900 to-violet-800 p-8 text-white">
+      <div className="text-center">
+        <div className="mb-6 text-9xl">🫐</div>
+        <h1 className="mb-4 text-4xl font-bold">Berry Good Things Coming</h1>
+        <p className="max-w-md text-lg text-violet-200">
+          We're picking the best. Thornberry will be ripe again soon.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 /**
  * Root component.
  */
-const RootComponent = () => (
-  <RootDocument>
-    <Outlet />
-  </RootDocument>
-);
+function RootComponent() {
+  const { isMaintenanceMode } = useRouteContext({ from: "__root__" });
+
+  // Show maintenance page when flag is enabled
+  if (isMaintenanceMode) {
+    return (
+      <RootDocument>
+        <MaintenancePage />
+      </RootDocument>
+    );
+  }
+
+  return (
+    <RootDocument>
+      <Outlet />
+    </RootDocument>
+  );
+}
 
 /**
  * Root route.
  */
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  isMaintenanceMode: boolean;
+}>()({
+  beforeLoad: async () => {
+    const { isMaintenanceMode } = await fetchMaintenanceMode();
+
+    return { isMaintenanceMode };
+  },
   head: () => ({
     meta: [
       {
