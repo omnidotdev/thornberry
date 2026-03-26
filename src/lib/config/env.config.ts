@@ -14,6 +14,11 @@ export const {
   VITE_FLAGS_CLIENT_KEY: FLAGS_CLIENT_KEY,
 } = env;
 
+// Startup warnings for optional integrations
+if (!FLAGS_API_HOST) console.warn("FLAGS_API_HOST not set, feature flags disabled");
+if (!FLAGS_CLIENT_KEY)
+  console.warn("FLAGS_CLIENT_KEY not set, feature flags disabled");
+
 // environment helpers
 /** @knipignore */
 export const isDevEnv = import.meta.env.DEV;
