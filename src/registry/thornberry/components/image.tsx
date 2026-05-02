@@ -27,7 +27,10 @@ type ImageProps = Omit<ComponentProps<typeof UnpicImage>, "ref"> &
  * Responsive image with automatic srcset, lazy loading, and CDN optimization
  */
 const Image = ({ className, rounded, ...rest }: ImageProps) => (
-  <UnpicImage className={cn(imageVariants({ rounded }), className)} {...rest} />
+  <UnpicImage
+    className={cn(imageVariants({ rounded }), className)}
+    {...(rest as ComponentProps<typeof UnpicImage>)}
+  />
 );
 
 export { Image, imageVariants };
