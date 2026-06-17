@@ -321,6 +321,7 @@ const MentionTypeahead = ({ items }: { items: MentionItem[] }) => {
                 {options.map((option, index) => (
                   <li
                     key={option.key}
+                    role="option"
                     aria-selected={selectedIndex === index}
                     className={cn(
                       "cursor-pointer rounded-sm px-2 py-1.5 text-sm",
