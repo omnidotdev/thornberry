@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kbd",
+  "title": "Kbd",
+  "description": "A keyboard-shortcut hint chip for surfacing shortcuts next to actions",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/kbd.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\n/**\n * Keyboard-shortcut hint. Renders a `<kbd>` chip used to surface a shortcut next\n * to an action (e.g. a \"C\" badge on a Create button, or in a tooltip/menu).\n */\nconst Kbd = ({ className, ...rest }: ComponentProps<\"kbd\">) => (\n  <kbd\n    data-slot=\"kbd\"\n    className={cn(\n      \"pointer-events-none inline-flex h-5 w-fit min-w-5 select-none items-center justify-center gap-0.5 rounded border bg-muted px-1 font-medium font-sans text-[0.625rem] text-muted-foreground uppercase leading-none\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nexport { Kbd };\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ],
+  "type": "registry:ui"
+}
