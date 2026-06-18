@@ -21,7 +21,7 @@
     "@lexical/list": "^0.39.0",
     "@lexical/react": "^0.39.0",
     "@lexical/rich-text": "^0.39.0",
-    "@omnidotdev/providers": "github:omnidotdev/providers#ddc7829",
+    "@omnidotdev/providers": "github:omnidotdev/providers#49f2fc4",
     "@tanstack/react-router": "^1.147.3",
     "@tanstack/react-router-devtools": "^1.147.3",
     "@tanstack/react-start": "^1.147.3",
