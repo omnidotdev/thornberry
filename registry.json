@@ -184,6 +184,18 @@
       ]
     },
     {
+      "name": "board",
+      "type": "registry:ui",
+      "title": "Board",
+      "description": "Presentational, drag-agnostic kanban/board primitives (columns, headers, cards) shared across apps",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/board.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "kbd",
       "type": "registry:ui",
       "title": "Kbd",
