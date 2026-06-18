@@ -69,8 +69,8 @@ export interface EditorApi {
   focus: () => void;
 }
 
-/** Node-class theme, mapped onto Sigil/Tailwind tokens. */
-const theme: EditorThemeClasses = {
+/** Default node-class theme, mapped onto Sigil/Tailwind tokens. Override via the `theme` prop. */
+const defaultTheme: EditorThemeClasses = {
   paragraph: "mb-2 last:mb-0",
   heading: {
     h1: "mt-4 mb-2 font-bold text-xl first:mt-0",
@@ -491,6 +491,10 @@ interface RichTextEditorProps
   extraNodes?: ReadonlyArray<Klass<LexicalNode>>;
   /** Extra Lexical plugins rendered inside the composer (e.g. image paste, code highlighting). */
   plugins?: ReactNode;
+  /** Override the node-class theme (e.g. to match an app's prose styling). */
+  theme?: EditorThemeClasses;
+  /** Class applied to the loading skeleton. */
+  skeletonClassName?: string;
   /** Class applied to the editor surface. */
   editorClassName?: string;
 }
@@ -512,6 +516,8 @@ const RichTextEditor = ({
   enableChecklist,
   extraNodes,
   plugins,
+  theme,
+  skeletonClassName,
   className,
   editorClassName,
   ...rest
@@ -524,13 +530,16 @@ const RichTextEditor = ({
 
   if (!mounted) {
     return (
-      <Skeleton className={cn("h-24 w-full rounded-md", className)} {...rest} />
+      <Skeleton
+        className={cn("h-24 w-full rounded-md", skeletonClassName ?? className)}
+        {...rest}
+      />
     );
   }
 
   const initialConfig = {
     namespace: "RichTextEditor",
-    theme,
+    theme: theme ?? defaultTheme,
     editable,
     onError: (error: Error) => console.error("Lexical error:", error),
     nodes: [
