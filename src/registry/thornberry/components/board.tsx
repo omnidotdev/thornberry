@@ -152,6 +152,7 @@ const Board = ({
   }
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: presentational drag-to-scroll surface; interactive content is the cards
     <div
       ref={scrollContainerRef}
       className={cn(boardSurface, "sm:cursor-grab sm:select-none", className)}
