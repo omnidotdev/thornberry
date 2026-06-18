@@ -144,8 +144,12 @@ interface BoardProps extends ComponentProps<"div"> {
 
 /** Horizontal board surface: columns scroll sideways on desktop, stack on mobile. */
 const Board = ({ className, enableDragScroll = true, ...rest }: BoardProps) => {
-  const { scrollContainerRef, handleMouseDown, handleMouseUp, handleMouseMove } =
-    useInertialScroll();
+  const {
+    scrollContainerRef,
+    handleMouseDown,
+    handleMouseUp,
+    handleMouseMove,
+  } = useInertialScroll();
 
   if (!enableDragScroll) {
     return <div className={cn(boardSurface, className)} {...rest} />;
