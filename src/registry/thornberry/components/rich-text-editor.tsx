@@ -6,11 +6,13 @@ import {
   TOGGLE_LINK_COMMAND,
 } from "@lexical/link";
 import {
+  INSERT_CHECK_LIST_COMMAND,
   INSERT_ORDERED_LIST_COMMAND,
   INSERT_UNORDERED_LIST_COMMAND,
   ListItemNode,
   ListNode,
 } from "@lexical/list";
+import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
@@ -40,6 +42,7 @@ import {
   Italic,
   Link as LinkIcon,
   List,
+  ListChecks,
   ListOrdered,
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -52,7 +55,9 @@ import { Skeleton } from "@/registry/thornberry/components/skeleton";
 import type {
   EditorState,
   EditorThemeClasses,
+  Klass,
   LexicalEditor,
+  LexicalNode,
   TextFormatType,
   TextNode,
 } from "lexical";
@@ -154,8 +159,8 @@ const ToolbarButton = ({
   </Button>
 );
 
-/** Minimal formatting toolbar: bold, italic, lists, link. */
-const Toolbar = () => {
+/** Minimal formatting toolbar: bold, italic, lists, link, optional checklist. */
+const Toolbar = ({ enableChecklist }: { enableChecklist?: boolean }) => {
   const [editor] = useLexicalComposerContext();
 
   const format = (type: TextFormatType) =>
@@ -190,6 +195,16 @@ const Toolbar = () => {
       >
         <ListOrdered />
       </ToolbarButton>
+      {enableChecklist && (
+        <ToolbarButton
+          label="Checklist"
+          onClick={() =>
+            editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined)
+          }
+        >
+          <ListChecks />
+        </ToolbarButton>
+      )}
       <ToolbarButton label="Link" onClick={insertLink}>
         <LinkIcon />
       </ToolbarButton>
@@ -470,6 +485,12 @@ interface RichTextEditorProps
   mentionItems?: MentionItem[];
   /** When provided, enables a `#`-issue-reference typeahead over these items. */
   issueReferenceItems?: IssueReferenceItem[];
+  /** Show a checklist (task list) button in the toolbar and enable the plugin. */
+  enableChecklist?: boolean;
+  /** Extra Lexical node classes to register (e.g. an app's image node). */
+  extraNodes?: ReadonlyArray<Klass<LexicalNode>>;
+  /** Extra Lexical plugins rendered inside the composer (e.g. image paste, code highlighting). */
+  plugins?: ReactNode;
   /** Class applied to the editor surface. */
   editorClassName?: string;
 }
@@ -488,6 +509,9 @@ const RichTextEditor = ({
   hideToolbar = false,
   mentionItems,
   issueReferenceItems,
+  enableChecklist,
+  extraNodes,
+  plugins,
   className,
   editorClassName,
   ...rest
@@ -516,6 +540,7 @@ const RichTextEditor = ({
       ListItemNode,
       LinkNode,
       AutoLinkNode,
+      ...(extraNodes ?? []),
     ],
   };
 
@@ -538,7 +563,9 @@ const RichTextEditor = ({
       {...rest}
     >
       <LexicalComposer initialConfig={initialConfig}>
-        {!hideToolbar && editable && <Toolbar />}
+        {!hideToolbar && editable && (
+          <Toolbar enableChecklist={enableChecklist} />
+        )}
 
         <div className="relative">
           <RichTextPlugin
@@ -562,6 +589,7 @@ const RichTextEditor = ({
           />
           <HistoryPlugin />
           <ListPlugin />
+          {enableChecklist && <CheckListPlugin />}
           <LinkPlugin />
           {mentionItems?.length ? (
             <MentionTypeahead items={mentionItems} />
@@ -569,6 +597,7 @@ const RichTextEditor = ({
           {issueReferenceItems?.length ? (
             <IssueReferenceTypeahead items={issueReferenceItems} />
           ) : null}
+          {plugins}
           <OnChangePlugin onChange={handleChange} />
           <EditablePlugin editable={editable} />
           <EditorApiPlugin
