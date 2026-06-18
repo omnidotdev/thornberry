@@ -184,6 +184,44 @@
       ]
     },
     {
+      "name": "board",
+      "type": "registry:ui",
+      "title": "Board",
+      "description": "Presentational, drag-agnostic kanban/board primitives (columns, headers, cards) shared across apps",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/board.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "A keyboard-shortcut hint chip for surfacing shortcuts next to actions",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/kbd.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "A command menu / palette (cmdk) for keyboard-driven navigation and actions, reusable across apps",
+      "dependencies": ["cmdk"],
+      "registryDependencies": ["dialog"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/command.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "hover-card",
       "type": "registry:ui",
       "title": "Hover Card",
