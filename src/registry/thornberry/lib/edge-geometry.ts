@@ -59,12 +59,19 @@ export function getBestConnectionPoints(
   const sourceSides = getNodeSideCenters(sourceRect);
   const targetSides = getNodeSideCenters(targetRect);
 
-  const positionPairs: {
+  type PositionPair = {
     sourcePos: Position;
     targetPos: Position;
     source: Point;
     target: Point;
-  }[] = [
+  };
+  // a fixed 4-tuple so positionPairs[0] is provably defined without a non-null assertion
+  const positionPairs: [
+    PositionPair,
+    PositionPair,
+    PositionPair,
+    PositionPair,
+  ] = [
     {
       sourcePos: Position.Bottom,
       targetPos: Position.Top,
@@ -91,7 +98,7 @@ export function getBestConnectionPoints(
     },
   ];
 
-  let bestPair = positionPairs[0]!;
+  let bestPair = positionPairs[0];
   let bestScore = Number.POSITIVE_INFINITY;
 
   for (const pair of positionPairs) {
