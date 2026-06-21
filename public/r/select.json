@@ -3,12 +3,7 @@
   "name": "select",
   "title": "Select",
   "description": "A customizable select dropdown component for choosing options from a list",
-  "dependencies": [
-    "@ark-ui/react",
-    "lucide-react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "lucide-react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/select.tsx",

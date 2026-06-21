@@ -3,11 +3,7 @@
   "name": "input",
   "title": "Input",
   "description": "An input component",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/input.tsx",

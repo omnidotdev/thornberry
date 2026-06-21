@@ -3,11 +3,7 @@
   "name": "rating-group",
   "title": "Rating Group",
   "description": "A component that allows users to rate items using a star or other rating system",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/rating-group.tsx",

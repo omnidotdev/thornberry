@@ -3,11 +3,7 @@
   "name": "file-upload",
   "title": "File Upload",
   "description": "A file upload component with drag and drop support for selecting and uploading files",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/file-upload.tsx",

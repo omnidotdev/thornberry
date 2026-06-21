@@ -93,9 +93,7 @@ const CommandList = ({
   />
 );
 
-const CommandEmpty = (
-  rest: ComponentProps<typeof CommandPrimitive.Empty>,
-) => (
+const CommandEmpty = (rest: ComponentProps<typeof CommandPrimitive.Empty>) => (
   <CommandPrimitive.Empty
     className="py-6 text-center text-muted-foreground text-sm"
     {...rest}

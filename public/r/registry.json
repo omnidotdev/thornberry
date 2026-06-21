@@ -526,6 +526,113 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "auto-layout",
+      "type": "registry:lib",
+      "title": "Auto Layout",
+      "description": "Pure elk-powered auto-layout for React Flow graphs, with dangling-edge and duplicate-id guards.",
+      "dependencies": ["elkjs", "@xyflow/react"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/lib/auto-layout.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "serialize",
+      "type": "registry:lib",
+      "title": "Serialize",
+      "description": "Versioned, JSON-serializable snapshot helpers for React Flow graphs that strip transient render state.",
+      "dependencies": ["@xyflow/react"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/lib/serialize.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "edge-geometry",
+      "type": "registry:lib",
+      "title": "Edge Geometry",
+      "description": "Pure geometry helpers that pick the best connection sides between two node rectangles.",
+      "dependencies": ["@xyflow/react"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/lib/edge-geometry.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "node-themes",
+      "type": "registry:lib",
+      "title": "Node Themes",
+      "description": "Semantic node themes driven by design-system tokens, plus a resolver for custom theme objects.",
+      "files": [
+        {
+          "path": "src/registry/thornberry/lib/node-themes.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "use-auto-layout",
+      "type": "registry:hook",
+      "title": "Use Auto Layout",
+      "description": "React Flow hook that runs auto-layout over the current nodes and edges, then fits the view.",
+      "dependencies": ["@xyflow/react"],
+      "registryDependencies": ["auto-layout"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/hooks/use-auto-layout.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "smart-edge",
+      "type": "registry:ui",
+      "title": "Smart Edge",
+      "description": "A React Flow v12 edge that auto-connects to the nearest sides of its source and target nodes.",
+      "dependencies": ["@xyflow/react"],
+      "registryDependencies": ["edge-geometry", "base-node"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/smart-edge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "base-node",
+      "type": "registry:ui",
+      "title": "Base Node",
+      "description": "A themed React Flow node component with header, body, footer, and connection handles, registrable as a node type.",
+      "dependencies": ["@xyflow/react", "lucide-react"],
+      "registryDependencies": ["node-themes"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/base-node.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "flow-canvas",
+      "type": "registry:ui",
+      "title": "Flow Canvas",
+      "description": "A themed React Flow wrapper that owns the provider and registers the built-in base node and smart edge types.",
+      "dependencies": ["@xyflow/react"],
+      "registryDependencies": ["base-node", "smart-edge"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/flow-canvas.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

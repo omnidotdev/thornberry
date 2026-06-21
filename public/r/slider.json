@@ -3,11 +3,7 @@
   "name": "slider",
   "title": "Slider",
   "description": "A control that allows users to select a value or range from a given range",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/slider.tsx",

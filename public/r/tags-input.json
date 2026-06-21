@@ -3,12 +3,7 @@
   "name": "tags-input",
   "title": "Tags Input",
   "description": "A component that allows users to input and manage a list of tags or keywords",
-  "dependencies": [
-    "@ark-ui/react",
-    "lucide-react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "lucide-react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/tags-input.tsx",

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-auto-layout",
+  "title": "Use Auto Layout",
+  "description": "React Flow hook that runs auto-layout over the current nodes and edges, then fits the view.",
+  "dependencies": ["@xyflow/react", "elkjs"],
+  "registryDependencies": ["auto-layout"],
+  "files": [
+    {
+      "path": "src/registry/thornberry/hooks/use-auto-layout.ts",
+      "content": "import { useReactFlow } from \"@xyflow/react\";\nimport { useCallback, useRef } from \"react\";\n\nimport { autoLayout } from \"@/registry/thornberry/lib/auto-layout\";\n\nimport type { AutoLayoutOptions } from \"@/registry/thornberry/lib/auto-layout\";\n\nexport const useAutoLayout = (opts?: AutoLayoutOptions) => {\n  const { getNodes, getEdges, setNodes, fitView } = useReactFlow();\n  const optsRef = useRef(opts);\n  optsRef.current = opts;\n  return useCallback(async () => {\n    const { nodes } = await autoLayout(getNodes(), getEdges(), optsRef.current);\n    setNodes(nodes);\n    // yield a microtask so setNodes commits before fitView reads the store\n    await Promise.resolve();\n    fitView();\n  }, [getNodes, getEdges, setNodes, fitView]);\n};\n",
+      "type": "registry:hook"
+    },
+    {
+      "path": "src/registry/thornberry/lib/auto-layout.ts",
+      "content": "import ELK from \"elkjs/lib/elk.bundled.js\";\n\nimport type { Edge, Node } from \"@xyflow/react\";\n\nconst elk = new ELK();\n\nexport interface AutoLayoutOptions {\n  /** elk layout algorithm */\n  algorithm?: \"layered\" | \"mrtree\" | \"force\" | \"stress\" | (string & {});\n  /** layout direction */\n  direction?: \"UP\" | \"DOWN\" | \"LEFT\" | \"RIGHT\";\n  /** spacing between adjacent nodes */\n  nodeSpacing?: number;\n  /** spacing between layers (applies to the layered algorithm) */\n  layerSpacing?: number;\n  /** override per-node sizing (defaults to measured width/height or 250x150) */\n  getNodeSize?: (node: Node) => { width: number; height: number };\n}\n\nexport const autoLayout = async (\n  nodes: Node[],\n  edges: Edge[],\n  opts: AutoLayoutOptions = {},\n): Promise<{ nodes: Node[]; edges: Edge[] }> => {\n  const {\n    algorithm = \"layered\",\n    direction = \"DOWN\",\n    nodeSpacing = 200,\n    layerSpacing = 200,\n    getNodeSize = (n) => ({\n      width: n.measured?.width ?? 250,\n      height: n.measured?.height ?? 150,\n    }),\n  } = opts;\n\n  // fail loud on duplicate ids rather than silently mis-positioning\n  const ids = new Set<string>();\n  for (const n of nodes) {\n    if (ids.has(n.id)) throw new Error(`autoLayout: duplicate node id ${n.id}`);\n    ids.add(n.id);\n  }\n\n  // drop dangling edges; elk throws if an edge references a missing shape\n  const validEdges = edges.filter(\n    (e) => ids.has(e.source) && ids.has(e.target),\n  );\n\n  const graph = {\n    id: \"root\",\n    layoutOptions: {\n      \"elk.algorithm\": algorithm,\n      \"elk.direction\": direction,\n      \"elk.spacing.nodeNode\": String(nodeSpacing),\n      \"elk.layered.spacing.nodeNodeBetweenLayers\": String(layerSpacing),\n      \"elk.layered.nodePlacement.strategy\": \"NETWORK_SIMPLEX\",\n    },\n    children: nodes.map((n) => ({ id: n.id, ...getNodeSize(n) })),\n    edges: validEdges.map((e) => ({\n      id: e.id,\n      sources: [e.source],\n      targets: [e.target],\n    })),\n  };\n\n  const laid = await elk.layout(graph);\n  const byId = new Map((laid.children ?? []).map((ch) => [ch.id, ch]));\n  const positioned = nodes.map((n) => {\n    const c = byId.get(n.id);\n    // origin is the fallback when elk returns no coordinate\n    return c ? { ...n, position: { x: c.x ?? 0, y: c.y ?? 0 } } : n;\n  });\n  return { nodes: positioned, edges };\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ],
+  "type": "registry:hook"
+}

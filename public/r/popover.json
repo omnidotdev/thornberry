@@ -3,12 +3,7 @@
   "name": "popover",
   "title": "Popover",
   "description": "A popup element that displays information related to an element when the element receives keyboard focus or the mouse hovers over it",
-  "dependencies": [
-    "@ark-ui/react",
-    "lucide-react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "lucide-react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/popover.tsx",

@@ -3,12 +3,7 @@
   "name": "dialog",
   "title": "Dialog",
   "description": "A modal dialog that interrupts the user with important content",
-  "dependencies": [
-    "@ark-ui/react",
-    "lucide-react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "lucide-react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/dialog.tsx",

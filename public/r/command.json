@@ -10,9 +10,7 @@
     "clsx",
     "tailwind-merge"
   ],
-  "registryDependencies": [
-    "dialog"
-  ],
+  "registryDependencies": ["dialog"],
   "files": [
     {
       "path": "src/registry/thornberry/components/command.tsx",

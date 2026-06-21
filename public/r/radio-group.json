@@ -3,11 +3,7 @@
   "name": "radio-group",
   "title": "Radio Group",
   "description": "A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/radio-group.tsx",

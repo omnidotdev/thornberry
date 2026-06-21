@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "serialize",
+  "title": "Serialize",
+  "description": "Versioned, JSON-serializable snapshot helpers for React Flow graphs that strip transient render state.",
+  "dependencies": ["@xyflow/react"],
+  "files": [
+    {
+      "path": "src/registry/thornberry/lib/serialize.ts",
+      "content": "import type { Edge, Node } from \"@xyflow/react\";\n\nexport const CANVAS_SCHEMA_VERSION = 1 as const;\n\n/** persisted node: only durable fields, transient render state stripped */\nexport interface SnapshotNode {\n  id: string;\n  type?: string;\n  position: { x: number; y: number };\n  data: Record<string, unknown>;\n  parentId?: string;\n}\n\n/** persisted edge */\nexport interface SnapshotEdge {\n  id: string;\n  source: string;\n  target: string;\n  type?: string;\n  label?: string;\n  data?: Record<string, unknown>;\n}\n\n/** versioned, JSON-serializable snapshot of a canvas graph */\nexport interface CanvasSnapshot {\n  version: typeof CANVAS_SCHEMA_VERSION;\n  nodes: SnapshotNode[];\n  edges: SnapshotEdge[];\n}\n\nexport const serialize = (nodes: Node[], edges: Edge[]): CanvasSnapshot => ({\n  version: CANVAS_SCHEMA_VERSION,\n  nodes: nodes.map((n) => ({\n    id: n.id,\n    type: n.type,\n    position: n.position,\n    data: (n.data ?? {}) as Record<string, unknown>,\n    parentId: n.parentId,\n  })),\n  edges: edges.map((e) => ({\n    id: e.id,\n    source: e.source,\n    target: e.target,\n    type: e.type,\n    // only string labels are durable; ReactNode labels are render-only and dropped\n    label: typeof e.label === \"string\" ? e.label : undefined,\n    data: e.data as Record<string, unknown> | undefined,\n  })),\n});\n\nexport const deserialize = (\n  snapshot: CanvasSnapshot,\n): { nodes: Node[]; edges: Edge[] } => {\n  if (snapshot?.version !== CANVAS_SCHEMA_VERSION) {\n    throw new Error(`Unsupported canvas schema version: ${snapshot?.version}`);\n  }\n  if (!Array.isArray(snapshot.nodes) || !Array.isArray(snapshot.edges)) {\n    throw new Error(\n      \"Malformed canvas snapshot: nodes and edges must be arrays\",\n    );\n  }\n  return {\n    nodes: snapshot.nodes as Node[],\n    edges: snapshot.edges as Edge[],\n  };\n};\n",
+      "type": "registry:lib"
+    }
+  ],
+  "type": "registry:lib"
+}

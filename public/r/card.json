@@ -3,11 +3,7 @@
   "name": "card",
   "title": "Card",
   "description": "A card component",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/card.tsx",

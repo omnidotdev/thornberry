@@ -3,11 +3,7 @@
   "name": "hover-card",
   "title": "Hover Card",
   "description": "A card that appears when the user hovers over an element, providing additional information or actions",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/hover-card.tsx",

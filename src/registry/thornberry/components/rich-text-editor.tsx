@@ -623,7 +623,7 @@ const RichTextEditor = ({
             contentEditable={
               <ContentEditable
                 className={cn(
-                  "min-h-20 px-3 py-2 outline-none",
+                  "min-h-20 px-3 py-2 text-base outline-none md:text-sm",
                   editorClassName,
                 )}
                 spellCheck

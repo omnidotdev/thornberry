@@ -3,12 +3,7 @@
   "name": "menu",
   "title": "Menu",
   "description": "A vertically stacked set of interactive menu items",
-  "dependencies": [
-    "@ark-ui/react",
-    "lucide-react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "lucide-react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/menu.tsx",

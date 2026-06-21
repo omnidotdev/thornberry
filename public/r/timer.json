@@ -3,11 +3,7 @@
   "name": "timer",
   "title": "Timer",
   "description": "A timer component that can record elapsed time or countdown from a target time",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/timer.tsx",

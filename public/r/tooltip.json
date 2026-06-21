@@ -3,11 +3,7 @@
   "name": "tooltip",
   "title": "Tooltip",
   "description": "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "files": [
     {
       "path": "src/registry/thornberry/components/tooltip.tsx",
