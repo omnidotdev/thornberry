@@ -11,7 +11,7 @@
     "format": "biome format --write",
     "lint": "biome lint",
     "registry:build": "shadcn registry:build",
-    "test": "bun test",
+    "test": "bun test --conditions development",
     "knip": "knip-bun",
     "prepare": "husky"
   },
