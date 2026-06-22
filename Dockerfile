@@ -14,12 +14,15 @@ COPY . .
 ENV NITRO_PRESET=node-server
 RUN bun run build
 
-# Bun doesn't properly resolve externalized Nitro packages (srvx, react-dom/server)
-FROM node:22-alpine AS runner
+# Bun doesn't properly resolve externalized Nitro packages (srvx, react-dom/server),
+# so run under node (slim, glibc to match the oven/bun builder) with the builder's
+# node_modules copied in for those externalized runtime deps
+FROM node:22-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
 COPY --from=builder /app/.output ./.output
+COPY --from=builder /app/node_modules ./node_modules
 
 EXPOSE 3000
 CMD ["node", ".output/server/index.mjs"]
