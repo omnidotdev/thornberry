@@ -5,9 +5,13 @@ WORKDIR /app
 
 # Build
 FROM base AS builder
+# Pin the Nitro preset to node-server so the output runs under the Node runner
+# below. Without this, Nitro auto-detects the bun preset when building in the
+# oven/bun image and emits Bun.serve, which crashes under node
 COPY package.json bun.lock .env.production ./
 RUN bun install --frozen-lockfile
 COPY . .
+ENV NITRO_PRESET=node-server
 RUN bun run build
 
 # Bun doesn't properly resolve externalized Nitro packages (srvx, react-dom/server)
