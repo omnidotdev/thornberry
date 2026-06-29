@@ -5,9 +5,48 @@ import { cleanup, render } from "@testing-library/react";
 import {
   RichTextContent,
   linkifyBareUrls,
+  linkifyMarkdownLinks,
 } from "@/registry/thornberry/components/rich-text-editor";
 
 afterEach(cleanup);
+
+test("collapses a markdown link into a labeled anchor", () => {
+  expect(linkifyMarkdownLinks("see [the docs](https://omni.dev) now")).toBe(
+    'see <a href="https://omni.dev">the docs</a> now',
+  );
+});
+
+test("supports mailto and relative targets in markdown links", () => {
+  expect(linkifyMarkdownLinks("[mail](mailto:a@b.com) and [post](/p/1)")).toBe(
+    '<a href="mailto:a@b.com">mail</a> and <a href="/p/1">post</a>',
+  );
+});
+
+test("ignores markdown-link syntax whose target is not a real link", () => {
+  expect(linkifyMarkdownLinks("a [label](not-a-url) here")).toBe(
+    "a [label](not-a-url) here",
+  );
+});
+
+test("does not rewrite markdown-link syntax already inside an anchor", () => {
+  const html = '<a href="https://omni.dev">[x](https://evil.com)</a>';
+  expect(linkifyMarkdownLinks(html)).toBe(html);
+});
+
+test("RichTextContent renders a pasted markdown link as a labeled link", () => {
+  // the exact shape stored for backfeed post #22: a pasted markdown link the
+  // keystroke-only MarkdownShortcutPlugin never converted
+  const { container } = render(
+    <RichTextContent html='<p><span style="white-space: pre-wrap;">a [system gesture](https://developer.apple.com/design/gestures).</span></p>' />,
+  );
+  const anchor = container.querySelector("a");
+  expect(anchor?.getAttribute("href")).toBe(
+    "https://developer.apple.com/design/gestures",
+  );
+  expect(anchor?.textContent).toBe("system gesture");
+  // the literal markdown brackets must not survive in the rendered text
+  expect(container.textContent).not.toContain("](");
+});
 
 test("linkifies a bare http URL in text", () => {
   expect(linkifyBareUrls("Visit https://example.com today")).toBe(
