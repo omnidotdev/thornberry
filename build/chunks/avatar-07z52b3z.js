@@ -16,7 +16,8 @@ var buttonVariants = cva("inline-flex shrink-0 cursor-pointer items-center justi
       muted: "bg-muted text-muted-foreground shadow-xs hover:bg-muted/80",
       ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
       link: "text-primary underline-offset-2 hover:underline",
-      destructive: "bg-destructive text-background shadow-xs hover:bg-destructive/90 focus-visible:ring-red-500 aria-invalid:ring-red-500/20 dark:aria-invalid:ring-red-500/40"
+      destructive: "bg-destructive text-background shadow-xs hover:bg-destructive/90 focus-visible:ring-red-500 aria-invalid:ring-red-500/20 dark:aria-invalid:ring-red-500/40",
+      unstyled: ""
     },
     size: {
       sm: "h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5",
