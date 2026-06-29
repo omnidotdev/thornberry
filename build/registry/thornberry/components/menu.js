@@ -8,6 +8,7 @@ import { Check, ChevronRight } from "lucide-react";
 import { jsxDEV } from "react/jsx-dev-runtime";
 var MenuProvider = ArkMenu.RootProvider;
 var MenuRoot = ArkMenu.Root;
+var MenuContextTrigger = ArkMenu.ContextTrigger;
 var PrimitiveMenuIndicator = ArkMenu.ItemIndicator;
 var MenuTrigger = ({
   className,
@@ -157,6 +158,7 @@ export {
   MenuItemGroupLabel,
   MenuItemGroup,
   MenuItem,
+  MenuContextTrigger,
   MenuContent,
   MenuCheckboxItem,
   MenuArrowTip,

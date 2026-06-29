@@ -3,6 +3,7 @@ import type { ark } from "@ark-ui/react";
 import type { ComponentProps } from "react";
 declare const MenuProvider: (props: ArkMenu.RootProviderProps) => import("react/jsx-runtime").JSX.Element;
 declare const MenuRoot: (props: ArkMenu.RootProps) => import("react/jsx-runtime").JSX.Element;
+declare const MenuContextTrigger: import("react").ForwardRefExoticComponent<ArkMenu.ContextTriggerProps & import("react").RefAttributes<HTMLButtonElement>>;
 declare const PrimitiveMenuIndicator: import("react").ForwardRefExoticComponent<ArkMenu.ItemIndicatorProps & import("react").RefAttributes<HTMLDivElement>>;
 declare const MenuTrigger: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Trigger>) => import("react/jsx-runtime").JSX.Element;
 declare const MenuPositioner: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Positioner>) => import("react/jsx-runtime").JSX.Element;
@@ -22,4 +23,4 @@ declare const MenuRadioItemGroup: ({ className, ...rest }: ComponentProps<typeof
 declare const MenuSeparator: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Separator>) => import("react/jsx-runtime").JSX.Element;
 declare const MenuTriggerItem: ({ className, children, ...rest }: ComponentProps<typeof ArkMenu.TriggerItem>) => import("react/jsx-runtime").JSX.Element;
 declare const MenuItemShortcut: ({ className, children, ...rest }: ComponentProps<typeof ark.span>) => import("react/jsx-runtime").JSX.Element;
-export { MenuArrow, MenuArrowTip, MenuContent, MenuItem, MenuItemGroup, MenuItemGroupLabel, MenuCheckboxItem, MenuRadioItem, MenuRadioItemGroup, MenuItemText, MenuItemIndicator, MenuPositioner, MenuProvider, MenuRoot, MenuSeparator, MenuTrigger, MenuTriggerItem, MenuItemShortcut, PrimitiveMenuIndicator, };
+export { MenuArrow, MenuArrowTip, MenuContent, MenuItem, MenuItemGroup, MenuItemGroupLabel, MenuCheckboxItem, MenuRadioItem, MenuRadioItemGroup, MenuItemText, MenuItemIndicator, MenuPositioner, MenuProvider, MenuRoot, MenuSeparator, MenuTrigger, MenuTriggerItem, MenuContextTrigger, MenuItemShortcut, PrimitiveMenuIndicator, };

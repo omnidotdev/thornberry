@@ -93,4 +93,5 @@ export {
   TableRow,
   TableCell,
   TableCaption,
+  type TableProps,
 };

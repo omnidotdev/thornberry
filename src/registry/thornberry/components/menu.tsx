@@ -8,6 +8,7 @@ import type { ComponentProps } from "react";
 
 const MenuProvider = ArkMenu.RootProvider;
 const MenuRoot = ArkMenu.Root;
+const MenuContextTrigger = ArkMenu.ContextTrigger;
 const PrimitiveMenuIndicator = ArkMenu.ItemIndicator;
 
 const MenuTrigger = ({
@@ -216,6 +217,7 @@ export {
   MenuSeparator,
   MenuTrigger,
   MenuTriggerItem,
+  MenuContextTrigger,
   MenuItemShortcut,
   PrimitiveMenuIndicator,
 };
