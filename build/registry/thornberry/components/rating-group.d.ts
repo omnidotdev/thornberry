@@ -1,0 +1,11 @@
+import { RatingGroup as ArkRatingGroup } from "@ark-ui/react/rating-group";
+import type { ComponentProps } from "react";
+declare const RatingGroupProvider: import("react").ForwardRefExoticComponent<ArkRatingGroup.RootProviderProps & import("react").RefAttributes<HTMLDivElement>>;
+declare const RatingGroupContext: (props: ArkRatingGroup.ContextProps) => import("react").ReactNode;
+declare const RatingGroupItemContext: (props: ArkRatingGroup.ItemContextProps) => import("react").ReactNode;
+declare const RatingGroupRoot: ({ className, ...rest }: ComponentProps<typeof ArkRatingGroup.Root>) => import("react/jsx-runtime").JSX.Element;
+declare const RatingGroupLabel: ({ className, ...rest }: ComponentProps<typeof ArkRatingGroup.Label>) => import("react/jsx-runtime").JSX.Element;
+declare const RatingGroupControl: ({ className, ...rest }: ComponentProps<typeof ArkRatingGroup.Control>) => import("react/jsx-runtime").JSX.Element;
+declare const RatingGroupItem: ({ className, ...rest }: ComponentProps<typeof ArkRatingGroup.Item>) => import("react/jsx-runtime").JSX.Element;
+declare const RatingGroupHiddenInput: ({ className, ...rest }: ComponentProps<typeof ArkRatingGroup.HiddenInput>) => import("react/jsx-runtime").JSX.Element;
+export { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem, RatingGroupHiddenInput, RatingGroupProvider, RatingGroupContext, RatingGroupItemContext, };

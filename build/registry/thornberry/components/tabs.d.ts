@@ -1,0 +1,10 @@
+import { Tabs as ArkTabs } from "@ark-ui/react/tabs";
+import type { ComponentProps } from "react";
+declare const TabsProvider: import("react").ForwardRefExoticComponent<ArkTabs.RootProviderProps & import("react").RefAttributes<HTMLDivElement>>;
+declare const TabsContext: (props: ArkTabs.ContextProps) => import("react").ReactNode;
+declare const TabsRoot: ({ className, ...rest }: ComponentProps<typeof ArkTabs.Root>) => import("react/jsx-runtime").JSX.Element;
+declare const TabsList: ({ className, ...rest }: ComponentProps<typeof ArkTabs.List>) => import("react/jsx-runtime").JSX.Element;
+declare const TabsTrigger: ({ className, ...rest }: ComponentProps<typeof ArkTabs.Trigger>) => import("react/jsx-runtime").JSX.Element;
+declare const TabsContent: ({ className, ...rest }: ComponentProps<typeof ArkTabs.Content>) => import("react/jsx-runtime").JSX.Element;
+declare const TabsIndicator: ({ className, ...rest }: ComponentProps<typeof ArkTabs.Indicator>) => import("react/jsx-runtime").JSX.Element;
+export { TabsRoot, TabsList, TabsTrigger, TabsContent, TabsIndicator, TabsProvider, TabsContext, };

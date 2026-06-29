@@ -1,0 +1,13 @@
+import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
+import type { ComponentProps } from "react";
+declare const CarouselProvider: import("react").ForwardRefExoticComponent<ArkCarousel.RootProviderProps & import("react").RefAttributes<HTMLDivElement>>;
+declare const CarouselContext: (props: ArkCarousel.ContextProps) => import("react").ReactNode;
+declare const CarouselRoot: ({ className, ...rest }: ComponentProps<typeof ArkCarousel.Root>) => import("react/jsx-runtime").JSX.Element;
+declare const CarouselItemGroup: ({ className, ...rest }: ComponentProps<typeof ArkCarousel.ItemGroup>) => import("react/jsx-runtime").JSX.Element;
+declare const CarouselItem: ({ className, index, ...rest }: ComponentProps<typeof ArkCarousel.Item>) => import("react/jsx-runtime").JSX.Element;
+declare const CarouselNextTrigger: ({ className, ...rest }: ComponentProps<typeof ArkCarousel.NextTrigger>) => import("react/jsx-runtime").JSX.Element;
+declare const CarouselPrevTrigger: ({ className, ...rest }: ComponentProps<typeof ArkCarousel.PrevTrigger>) => import("react/jsx-runtime").JSX.Element;
+declare const CarouselIndicatorGroup: ({ className, ...rest }: ComponentProps<typeof ArkCarousel.IndicatorGroup>) => import("react/jsx-runtime").JSX.Element;
+declare const CarouselIndicator: ({ className, index, ...rest }: ComponentProps<typeof ArkCarousel.Indicator>) => import("react/jsx-runtime").JSX.Element;
+declare const CarouselControl: ({ className, ...rest }: ComponentProps<typeof ArkCarousel.Control>) => import("react/jsx-runtime").JSX.Element;
+export { CarouselRoot, CarouselItemGroup, CarouselItem, CarouselNextTrigger, CarouselPrevTrigger, CarouselIndicatorGroup, CarouselIndicator, CarouselControl, CarouselProvider, CarouselContext, };

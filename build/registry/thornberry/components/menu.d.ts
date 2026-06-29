@@ -1,0 +1,25 @@
+import { Menu as ArkMenu } from "@ark-ui/react/menu";
+import type { ark } from "@ark-ui/react";
+import type { ComponentProps } from "react";
+declare const MenuProvider: (props: ArkMenu.RootProviderProps) => import("react/jsx-runtime").JSX.Element;
+declare const MenuRoot: (props: ArkMenu.RootProps) => import("react/jsx-runtime").JSX.Element;
+declare const PrimitiveMenuIndicator: import("react").ForwardRefExoticComponent<ArkMenu.ItemIndicatorProps & import("react").RefAttributes<HTMLDivElement>>;
+declare const MenuTrigger: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Trigger>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuPositioner: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Positioner>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuContent: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Content>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuArrow: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Arrow>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuArrowTip: ({ className, ...rest }: ComponentProps<typeof ArkMenu.ArrowTip>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuItem: ({ className, children, variant, ...rest }: ComponentProps<typeof ArkMenu.Item> & {
+    variant?: "default" | "destructive";
+}) => import("react/jsx-runtime").JSX.Element;
+declare const MenuCheckboxItem: ({ className, children, ...rest }: ComponentProps<typeof ArkMenu.CheckboxItem>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuItemGroup: ({ className, ...rest }: ComponentProps<typeof ArkMenu.ItemGroup>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuItemGroupLabel: ({ className, ...rest }: ComponentProps<typeof ArkMenu.ItemGroupLabel>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuItemText: ({ className, ...rest }: ComponentProps<typeof ArkMenu.ItemText>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuItemIndicator: ({ className, ...rest }: ComponentProps<typeof ArkMenu.ItemIndicator>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuRadioItem: ({ className, children, ...rest }: ComponentProps<typeof ArkMenu.RadioItem>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuRadioItemGroup: ({ className, ...rest }: ComponentProps<typeof ArkMenu.RadioItemGroup>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuSeparator: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Separator>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuTriggerItem: ({ className, children, ...rest }: ComponentProps<typeof ArkMenu.TriggerItem>) => import("react/jsx-runtime").JSX.Element;
+declare const MenuItemShortcut: ({ className, children, ...rest }: ComponentProps<typeof ark.span>) => import("react/jsx-runtime").JSX.Element;
+export { MenuArrow, MenuArrowTip, MenuContent, MenuItem, MenuItemGroup, MenuItemGroupLabel, MenuCheckboxItem, MenuRadioItem, MenuRadioItemGroup, MenuItemText, MenuItemIndicator, MenuPositioner, MenuProvider, MenuRoot, MenuSeparator, MenuTrigger, MenuTriggerItem, MenuItemShortcut, PrimitiveMenuIndicator, };

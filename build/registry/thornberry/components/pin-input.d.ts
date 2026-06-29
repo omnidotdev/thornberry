@@ -1,0 +1,10 @@
+import { PinInput as ArkPinInput } from "@ark-ui/react/pin-input";
+import type { ComponentProps } from "react";
+declare const PinInputProvider: import("react").ForwardRefExoticComponent<ArkPinInput.RootProviderProps & import("react").RefAttributes<HTMLDivElement>>;
+declare const PinInputContext: (props: ArkPinInput.ContextProps) => import("react").ReactNode;
+declare const PinInputRoot: ({ className, ...rest }: ComponentProps<typeof ArkPinInput.Root>) => import("react/jsx-runtime").JSX.Element;
+declare const PinInputLabel: ({ className, ...rest }: ComponentProps<typeof ArkPinInput.Label>) => import("react/jsx-runtime").JSX.Element;
+declare const PinInputControl: ({ className, ...rest }: ComponentProps<typeof ArkPinInput.Control>) => import("react/jsx-runtime").JSX.Element;
+declare const PinInputInput: ({ className, ...rest }: ComponentProps<typeof ArkPinInput.Input>) => import("react/jsx-runtime").JSX.Element;
+declare const PinInputHiddenInput: ({ className, ...rest }: ComponentProps<typeof ArkPinInput.HiddenInput>) => import("react/jsx-runtime").JSX.Element;
+export { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput, PinInputHiddenInput, PinInputProvider, PinInputContext, };

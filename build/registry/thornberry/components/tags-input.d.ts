@@ -1,0 +1,14 @@
+import { TagsInput as ArkTagsInput } from "@ark-ui/react/tags-input";
+import type { ComponentProps } from "react";
+declare const TagsInputItemPreview: ({ className, ...rest }: ComponentProps<typeof ArkTagsInput.ItemPreview>) => import("react/jsx-runtime").JSX.Element;
+declare const TagsInputLabel: ({ className, ...rest }: ComponentProps<typeof ArkTagsInput.Label>) => import("react/jsx-runtime").JSX.Element;
+declare const TagsInputControl: ({ className, ...rest }: ComponentProps<typeof ArkTagsInput.Control>) => import("react/jsx-runtime").JSX.Element;
+declare const TagsInputInput: ({ className, ...rest }: ComponentProps<typeof ArkTagsInput.Input>) => import("react/jsx-runtime").JSX.Element;
+declare const TagsInputItem: ({ className, ...rest }: ComponentProps<typeof ArkTagsInput.Item>) => import("react/jsx-runtime").JSX.Element;
+declare const TagsInputItemText: ({ className, ...rest }: ComponentProps<typeof ArkTagsInput.ItemText>) => import("react/jsx-runtime").JSX.Element;
+declare const TagsInputItemInput: ({ className, ...rest }: ComponentProps<typeof ArkTagsInput.ItemInput>) => import("react/jsx-runtime").JSX.Element;
+declare const TagsInputItemDeleteTrigger: ({ className, children, asChild, ...rest }: ComponentProps<typeof ArkTagsInput.ItemDeleteTrigger>) => import("react/jsx-runtime").JSX.Element;
+declare const TagsInputClearTrigger: ({ className, children, asChild, ...rest }: ComponentProps<typeof ArkTagsInput.ClearTrigger>) => import("react/jsx-runtime").JSX.Element;
+declare const TagsInputContext: (props: ArkTagsInput.ContextProps) => import("react").ReactNode;
+declare const TagsInputRoot: import("react").ForwardRefExoticComponent<ArkTagsInput.RootProps & import("react").RefAttributes<HTMLDivElement>>;
+export { TagsInputClearTrigger, TagsInputControl, TagsInputContext, TagsInputInput, TagsInputItem, TagsInputItemDeleteTrigger, TagsInputItemInput, TagsInputItemText, TagsInputLabel, TagsInputRoot, TagsInputItemPreview, };

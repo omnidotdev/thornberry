@@ -1,0 +1,14 @@
+import { FileUpload } from "@ark-ui/react";
+import type { ComponentProps } from "react";
+declare const FileUploadContext: (props: FileUpload.ContextProps) => import("react").ReactNode;
+declare const FileUploadRoot: ({ className, ...rest }: ComponentProps<typeof FileUpload.Root>) => import("react/jsx-runtime").JSX.Element;
+declare const FileUploadDropzone: ({ className, ...rest }: ComponentProps<typeof FileUpload.Dropzone>) => import("react/jsx-runtime").JSX.Element;
+declare const FileUploadTrigger: ({ className, ...rest }: ComponentProps<typeof FileUpload.Trigger>) => import("react/jsx-runtime").JSX.Element;
+declare const FileUploadItemGroup: ({ className, ...rest }: ComponentProps<typeof FileUpload.ItemGroup>) => import("react/jsx-runtime").JSX.Element;
+declare const FileUploadItem: ({ className, ...rest }: ComponentProps<typeof FileUpload.Item>) => import("react/jsx-runtime").JSX.Element;
+declare const FileUploadItemName: ({ className, ...rest }: ComponentProps<typeof FileUpload.ItemName>) => import("react/jsx-runtime").JSX.Element;
+declare const FileUploadItemSizeText: ({ className, ...rest }: ComponentProps<typeof FileUpload.ItemSizeText>) => import("react/jsx-runtime").JSX.Element;
+declare const FileUploadItemDeleteTrigger: ({ className, ...rest }: ComponentProps<typeof FileUpload.ItemDeleteTrigger>) => import("react/jsx-runtime").JSX.Element;
+declare const FileUploadLabel: ({ className, ...rest }: ComponentProps<typeof FileUpload.Label>) => import("react/jsx-runtime").JSX.Element;
+declare const FileUploadHiddenInput: ({ className, ...rest }: ComponentProps<typeof FileUpload.HiddenInput>) => import("react/jsx-runtime").JSX.Element;
+export { FileUploadContext, FileUploadRoot as FileUpload, FileUploadDropzone, FileUploadTrigger, FileUploadItemGroup, FileUploadItem, FileUploadItemName, FileUploadItemSizeText, FileUploadItemDeleteTrigger, FileUploadLabel, FileUploadHiddenInput, };

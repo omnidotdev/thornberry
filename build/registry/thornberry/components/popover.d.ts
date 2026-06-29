@@ -1,0 +1,14 @@
+import { Popover as ArkPopover } from "@ark-ui/react/popover";
+import type { ComponentProps } from "react";
+declare const PopoverProvider: (props: ArkPopover.RootProviderProps) => import("react/jsx-runtime").JSX.Element;
+declare const PopoverContext: (props: ArkPopover.ContextProps) => import("react").ReactNode;
+declare const PopoverRoot: (props: ArkPopover.RootProps) => import("react/jsx-runtime").JSX.Element;
+declare const PopoverArrow: import("react").ForwardRefExoticComponent<ArkPopover.ArrowProps & import("react").RefAttributes<HTMLDivElement>>;
+declare const PopoverTrigger: ({ className, ...rest }: ComponentProps<typeof ArkPopover.Trigger>) => import("react/jsx-runtime").JSX.Element;
+declare const PopoverContent: ({ className, ...rest }: ComponentProps<typeof ArkPopover.Content>) => import("react/jsx-runtime").JSX.Element;
+declare const PopoverPositioner: ({ className, ...rest }: ComponentProps<typeof ArkPopover.Positioner>) => import("react/jsx-runtime").JSX.Element;
+declare const PopoverArrowTip: ({ className, ...rest }: ComponentProps<typeof ArkPopover.ArrowTip>) => import("react/jsx-runtime").JSX.Element;
+declare const PopoverCloseTrigger: ({ className, children, asChild, ...rest }: ComponentProps<typeof ArkPopover.CloseTrigger>) => import("react/jsx-runtime").JSX.Element;
+declare const PopoverTitle: ({ className, ...rest }: ComponentProps<typeof ArkPopover.Title>) => import("react/jsx-runtime").JSX.Element;
+declare const PopoverDescription: ({ className, ...rest }: ComponentProps<typeof ArkPopover.Description>) => import("react/jsx-runtime").JSX.Element;
+export { PopoverRoot, PopoverTrigger, PopoverContent, PopoverPositioner, PopoverArrow, PopoverArrowTip, PopoverCloseTrigger, PopoverProvider, PopoverContext, PopoverTitle, PopoverDescription, };

@@ -21,7 +21,6 @@ CLAUDE.md
 next-env.d.ts
 
 # production
-/build
 
 # misc
 .DS_Store

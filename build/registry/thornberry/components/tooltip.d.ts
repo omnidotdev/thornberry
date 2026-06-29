@@ -1,0 +1,10 @@
+import { Tooltip as ArkTooltip } from "@ark-ui/react/tooltip";
+import type { ComponentProps } from "react";
+declare const TooltipProvider: (props: ArkTooltip.RootProviderProps) => import("react/jsx-runtime").JSX.Element;
+declare const TooltipRoot: (props: ArkTooltip.RootProps) => import("react/jsx-runtime").JSX.Element;
+declare const TooltipArrow: import("react").ForwardRefExoticComponent<ArkTooltip.ArrowProps & import("react").RefAttributes<HTMLDivElement>>;
+declare const TooltipTrigger: ({ className, ...rest }: ComponentProps<typeof ArkTooltip.Trigger>) => import("react/jsx-runtime").JSX.Element;
+declare const TooltipPositioner: ({ className, ...rest }: ComponentProps<typeof ArkTooltip.Positioner>) => import("react/jsx-runtime").JSX.Element;
+declare const TooltipContent: ({ className, ...rest }: ComponentProps<typeof ArkTooltip.Content>) => import("react/jsx-runtime").JSX.Element;
+declare const TooltipArrowTip: ({ className, ...rest }: ComponentProps<typeof ArkTooltip.ArrowTip>) => import("react/jsx-runtime").JSX.Element;
+export { TooltipArrow, TooltipArrowTip, TooltipContent, TooltipPositioner, TooltipProvider, TooltipRoot, TooltipTrigger, };

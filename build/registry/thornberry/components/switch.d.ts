@@ -1,0 +1,10 @@
+import { Switch as ArkSwitch } from "@ark-ui/react/switch";
+import type { ComponentProps } from "react";
+declare const SwitchProvider: import("react").ForwardRefExoticComponent<ArkSwitch.RootProviderProps & import("react").RefAttributes<HTMLLabelElement>>;
+declare const SwitchContext: (props: ArkSwitch.ContextProps) => import("react").ReactNode;
+declare const SwitchRoot: ({ className, ...rest }: ComponentProps<typeof ArkSwitch.Root>) => import("react/jsx-runtime").JSX.Element;
+declare const SwitchControl: ({ className, ...rest }: ComponentProps<typeof ArkSwitch.Control>) => import("react/jsx-runtime").JSX.Element;
+declare const SwitchThumb: ({ className, ...rest }: ComponentProps<typeof ArkSwitch.Thumb>) => import("react/jsx-runtime").JSX.Element;
+declare const SwitchHiddenInput: ({ className, ...rest }: ComponentProps<typeof ArkSwitch.HiddenInput>) => import("react/jsx-runtime").JSX.Element;
+declare const SwitchLabel: ({ className, ...rest }: ComponentProps<typeof ArkSwitch.Label>) => import("react/jsx-runtime").JSX.Element;
+export { SwitchRoot, SwitchControl, SwitchThumb, SwitchLabel, SwitchHiddenInput, SwitchProvider, SwitchContext, };

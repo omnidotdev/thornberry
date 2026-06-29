@@ -1,0 +1,11 @@
+import { NumberInput as ArkNumberInput } from "@ark-ui/react/number-input";
+import type { ComponentProps } from "react";
+declare const NumberInputProvider: import("react").ForwardRefExoticComponent<ArkNumberInput.RootProviderProps & import("react").RefAttributes<HTMLDivElement>>;
+declare const NumberInputContext: (props: ArkNumberInput.ContextProps) => import("react").ReactNode;
+declare const NumberInputRoot: ({ className, ...rest }: ComponentProps<typeof ArkNumberInput.Root>) => import("react/jsx-runtime").JSX.Element;
+declare const NumberInputLabel: ({ className, ...rest }: ComponentProps<typeof ArkNumberInput.Label>) => import("react/jsx-runtime").JSX.Element;
+declare const NumberInputControl: ({ className, ...rest }: ComponentProps<typeof ArkNumberInput.Control>) => import("react/jsx-runtime").JSX.Element;
+declare const NumberInputInput: ({ className, ...rest }: ComponentProps<typeof ArkNumberInput.Input>) => import("react/jsx-runtime").JSX.Element;
+declare const NumberInputDecrementTrigger: ({ className, ...rest }: ComponentProps<typeof ArkNumberInput.DecrementTrigger>) => import("react/jsx-runtime").JSX.Element;
+declare const NumberInputIncrementTrigger: ({ className, ...rest }: ComponentProps<typeof ArkNumberInput.IncrementTrigger>) => import("react/jsx-runtime").JSX.Element;
+export { NumberInputRoot, NumberInputLabel, NumberInputControl, NumberInputInput, NumberInputDecrementTrigger, NumberInputIncrementTrigger, NumberInputProvider, NumberInputContext, };

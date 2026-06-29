@@ -1,0 +1,16 @@
+import { Tour as ArkTour } from "@ark-ui/react/tour";
+import type { ComponentProps } from "react";
+declare const TourContext: (props: ArkTour.ContextProps) => import("react").ReactNode;
+declare const TourRoot: (props: ArkTour.RootProps) => import("react/jsx-runtime").JSX.Element;
+declare const TourActions: (props: ArkTour.ActionsProps) => import("react").ReactNode;
+declare const TourActionTrigger: import("react").ForwardRefExoticComponent<ArkTour.ActionTriggerProps & import("react").RefAttributes<HTMLButtonElement>>;
+declare const TourBackdrop: ({ className, ...rest }: ComponentProps<typeof ArkTour.Backdrop>) => import("react/jsx-runtime").JSX.Element;
+declare const TourSpotlight: ({ className, ...rest }: ComponentProps<typeof ArkTour.Spotlight>) => import("react/jsx-runtime").JSX.Element;
+declare const TourPositioner: ({ className, ...rest }: ComponentProps<typeof ArkTour.Positioner>) => import("react/jsx-runtime").JSX.Element;
+declare const TourContent: ({ className, ...rest }: ComponentProps<typeof ArkTour.Content>) => import("react/jsx-runtime").JSX.Element;
+declare const TourProgressText: ({ className, ...rest }: ComponentProps<typeof ArkTour.ProgressText>) => import("react/jsx-runtime").JSX.Element;
+declare const TourTitle: ({ className, ...rest }: ComponentProps<typeof ArkTour.Title>) => import("react/jsx-runtime").JSX.Element;
+declare const TourDescription: ({ className, ...rest }: ComponentProps<typeof ArkTour.Description>) => import("react/jsx-runtime").JSX.Element;
+declare const TourCloseTrigger: ({ className, ...rest }: ComponentProps<typeof ArkTour.CloseTrigger>) => import("react/jsx-runtime").JSX.Element;
+declare const TourControl: ({ className, ...rest }: ComponentProps<typeof ArkTour.Control>) => import("react/jsx-runtime").JSX.Element;
+export { TourContext, TourRoot, TourBackdrop, TourSpotlight, TourPositioner, TourContent, TourTitle, TourDescription, TourProgressText, TourCloseTrigger, TourControl, TourActions, TourActionTrigger, };

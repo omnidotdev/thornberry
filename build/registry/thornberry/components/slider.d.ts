@@ -1,0 +1,13 @@
+import { Slider as ArkSlider } from "@ark-ui/react/slider";
+import type { ComponentProps } from "react";
+declare const SliderProvider: import("react").ForwardRefExoticComponent<ArkSlider.RootProviderProps & import("react").RefAttributes<HTMLDivElement>>;
+declare const SliderContext: (props: ArkSlider.ContextProps) => import("react").ReactNode;
+declare const SliderRoot: ({ className, ...rest }: ComponentProps<typeof ArkSlider.Root>) => import("react/jsx-runtime").JSX.Element;
+declare const SliderLabel: ({ className, ...rest }: ComponentProps<typeof ArkSlider.Label>) => import("react/jsx-runtime").JSX.Element;
+declare const SliderControl: ({ className, ...rest }: ComponentProps<typeof ArkSlider.Control>) => import("react/jsx-runtime").JSX.Element;
+declare const SliderTrack: ({ className, ...rest }: ComponentProps<typeof ArkSlider.Track>) => import("react/jsx-runtime").JSX.Element;
+declare const SliderRange: ({ className, ...rest }: ComponentProps<typeof ArkSlider.Range>) => import("react/jsx-runtime").JSX.Element;
+declare const SliderThumb: ({ className, ...rest }: ComponentProps<typeof ArkSlider.Thumb>) => import("react/jsx-runtime").JSX.Element;
+declare const SliderMarker: ({ className, ...rest }: ComponentProps<typeof ArkSlider.Marker>) => import("react/jsx-runtime").JSX.Element;
+declare const SliderValueText: ({ className, ...rest }: ComponentProps<typeof ArkSlider.ValueText>) => import("react/jsx-runtime").JSX.Element;
+export { SliderRoot, SliderLabel, SliderControl, SliderTrack, SliderRange, SliderThumb, SliderMarker, SliderValueText, SliderProvider, SliderContext, };
