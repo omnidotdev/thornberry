@@ -4,11 +4,24 @@ import { cleanup, render } from "@testing-library/react";
 
 import {
   RichTextContent,
+  linkFromText,
   linkifyBareUrls,
   linkifyMarkdownLinks,
 } from "@/registry/thornberry/components/rich-text-editor";
 
 afterEach(cleanup);
+
+test("linkFromText treats a lone URL or email as a link href", () => {
+  expect(linkFromText("https://omni.dev")).toBe("https://omni.dev");
+  expect(linkFromText("  www.omni.dev  ")).toBe("https://www.omni.dev");
+  expect(linkFromText("hey@omni.dev")).toBe("mailto:hey@omni.dev");
+});
+
+test("linkFromText ignores multi-token or non-URL pastes", () => {
+  expect(linkFromText("see https://omni.dev now")).toBeNull();
+  expect(linkFromText("just some words")).toBeNull();
+  expect(linkFromText("")).toBeNull();
+});
 
 test("collapses a markdown link into a labeled anchor", () => {
   expect(linkifyMarkdownLinks("see [the docs](https://omni.dev) now")).toBe(

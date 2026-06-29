@@ -67,9 +67,14 @@ import {
   $createParagraphNode,
   $createTextNode,
   $getRoot,
+  $getSelection,
   $insertNodes,
+  $isRangeSelection,
   $setSelection,
-  FORMAT_TEXT_COMMAND
+  COMMAND_PRIORITY_LOW,
+  FORMAT_TEXT_COMMAND,
+  KEY_MODIFIER_COMMAND,
+  PASTE_COMMAND
 } from "lexical";
 import {
   Bold,
@@ -126,6 +131,18 @@ var AUTO_LINK_MATCHERS = [
   createLinkMatcherWithRegExp(URL_MATCHER, (text) => text.startsWith("http") ? text : `https://${text}`),
   createLinkMatcherWithRegExp(EMAIL_MATCHER, (text) => `mailto:${text}`)
 ];
+var linkFromText = (text) => {
+  const value = text.trim();
+  if (!value || /\s/.test(value))
+    return null;
+  if (/^https?:\/\/\S+$/i.test(value))
+    return value;
+  if (/^www\.\S+$/i.test(value))
+    return `https://${value}`;
+  if (/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(value))
+    return `mailto:${value}`;
+  return null;
+};
 var exportToHtml = (editor) => {
   let html = "";
   editor.getEditorState().read(() => {
@@ -222,6 +239,43 @@ var EditablePlugin = ({ editable }) => {
   useEffect(() => {
     editor.setEditable(editable);
   }, [editor, editable]);
+  return null;
+};
+var LinkShortcutsPlugin = () => {
+  const [editor] = useLexicalComposerContext();
+  useEffect(() => {
+    const unregisterPaste = editor.registerCommand(PASTE_COMMAND, (event) => {
+      const selection = $getSelection();
+      if (!$isRangeSelection(selection) || selection.isCollapsed()) {
+        return false;
+      }
+      const href = linkFromText(event.clipboardData?.getData("text/plain") ?? "");
+      if (!href)
+        return false;
+      event.preventDefault();
+      editor.dispatchCommand(TOGGLE_LINK_COMMAND, href);
+      return true;
+    }, COMMAND_PRIORITY_LOW);
+    const unregisterShortcut = editor.registerCommand(KEY_MODIFIER_COMMAND, (event) => {
+      const isLinkShortcut = (event.metaKey || event.ctrlKey) && !event.altKey && event.key.toLowerCase() === "k";
+      if (!isLinkShortcut)
+        return false;
+      const selection = $getSelection();
+      if (!$isRangeSelection(selection) || selection.isCollapsed()) {
+        return false;
+      }
+      event.preventDefault();
+      const url = window.prompt("Link URL");
+      if (url?.trim()) {
+        editor.dispatchCommand(TOGGLE_LINK_COMMAND, url.trim());
+      }
+      return true;
+    }, COMMAND_PRIORITY_LOW);
+    return () => {
+      unregisterPaste();
+      unregisterShortcut();
+    };
+  }, [editor]);
   return null;
 };
 var EditorApiPlugin = ({
@@ -446,6 +500,7 @@ var RichTextEditor = ({
               transformers: MARKDOWN_TRANSFORMERS
             }, undefined, false, undefined, this),
             /* @__PURE__ */ jsxDEV(LinkPlugin, {}, undefined, false, undefined, this),
+            /* @__PURE__ */ jsxDEV(LinkShortcutsPlugin, {}, undefined, false, undefined, this),
             /* @__PURE__ */ jsxDEV(AutoLinkPlugin, {
               matchers: AUTO_LINK_MATCHERS
             }, undefined, false, undefined, this),
@@ -567,6 +622,7 @@ var rich_text_editor_default = RichTextEditor;
 export {
   linkifyMarkdownLinks,
   linkifyBareUrls,
+  linkFromText,
   rich_text_editor_default as default,
   RichTextEditor,
   RichTextContent

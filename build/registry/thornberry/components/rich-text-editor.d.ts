@@ -5,6 +5,13 @@ export interface EditorApi {
     clearContent: () => void;
     focus: () => void;
 }
+/**
+ * Normalize a pasted token into a link href, or null when it is not a single
+ * URL/email. Drives "paste a URL over a selection to link it": only a lone
+ * token (no whitespace) that reads as a URL or email becomes a link, so pasting
+ * a sentence still replaces the selection as text.
+ */
+declare const linkFromText: (text: string) => string | null;
 /** A mentionable entity offered in the `@`-typeahead. */
 export interface MentionItem {
     /** Stable id (e.g. user id). */
@@ -91,5 +98,5 @@ interface RichTextContentProps extends ComponentProps<"div"> {
  * user-generated content safe. Mirrors the editor's node-class theme.
  */
 declare const RichTextContent: ({ html, fallback, className, ...rest }: RichTextContentProps) => import("react/jsx-runtime").JSX.Element;
-export { RichTextEditor, RichTextContent, linkifyBareUrls, linkifyMarkdownLinks, };
+export { RichTextEditor, RichTextContent, linkFromText, linkifyBareUrls, linkifyMarkdownLinks, };
 export default RichTextEditor;
