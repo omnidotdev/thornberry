@@ -47,6 +47,8 @@ interface RichTextEditorProps extends Omit<ComponentProps<"div">, "placeholder" 
     placeholder?: string;
     /** Hide the formatting toolbar. */
     hideToolbar?: boolean;
+    /** Class applied to the formatting toolbar (e.g. to tint its background). */
+    toolbarClassName?: string;
     /** When provided, enables an `@`-mention typeahead over these items. */
     mentionItems?: MentionItem[];
     /** When provided, enables a `#`-issue-reference typeahead over these items. */
@@ -69,7 +71,7 @@ interface RichTextEditorProps extends Omit<ComponentProps<"div">, "placeholder" 
  * via a minimal toolbar. Content is read out as sanitizable HTML through
  * `onUpdate`. Render stored HTML back with {@link RichTextContent}.
  */
-declare const RichTextEditor: ({ editorApi, onUpdate, defaultContent, editable, placeholder, hideToolbar, mentionItems, issueReferenceItems, enableChecklist, extraNodes, plugins, theme, skeletonClassName, className, editorClassName, ...rest }: RichTextEditorProps) => import("react/jsx-runtime").JSX.Element;
+declare const RichTextEditor: ({ editorApi, onUpdate, defaultContent, editable, placeholder, hideToolbar, toolbarClassName, mentionItems, issueReferenceItems, enableChecklist, extraNodes, plugins, theme, skeletonClassName, className, editorClassName, ...rest }: RichTextEditorProps) => import("react/jsx-runtime").JSX.Element;
 /**
  * Linkify bare URLs and email addresses in a rich-text HTML string so plain
  * links in stored content render as anchors. Splits on tags so matching only

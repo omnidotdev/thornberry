@@ -190,7 +190,10 @@ var ToolbarButton = ({
   ...rest,
   children
 }, undefined, false, undefined, this);
-var Toolbar = ({ enableChecklist }) => {
+var Toolbar = ({
+  enableChecklist,
+  className
+}) => {
   const [editor] = useLexicalComposerContext();
   const format = (type) => editor.dispatchCommand(FORMAT_TEXT_COMMAND, type);
   const insertLink = () => {
@@ -199,7 +202,7 @@ var Toolbar = ({ enableChecklist }) => {
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, url.trim());
   };
   return /* @__PURE__ */ jsxDEV("div", {
-    className: "flex items-center gap-0.5 border-input border-b px-1 py-1",
+    className: cn("flex items-center gap-0.5 border-input border-b px-1 py-1", className),
     children: [
       /* @__PURE__ */ jsxDEV(ToolbarButton, {
         label: "Bold",
@@ -425,6 +428,7 @@ var RichTextEditor = ({
   editable = true,
   placeholder,
   hideToolbar = false,
+  toolbarClassName,
   mentionItems,
   issueReferenceItems,
   enableChecklist,
@@ -476,7 +480,8 @@ var RichTextEditor = ({
       initialConfig,
       children: [
         !hideToolbar && editable && /* @__PURE__ */ jsxDEV(Toolbar, {
-          enableChecklist
+          enableChecklist,
+          className: toolbarClassName
         }, undefined, false, undefined, this),
         /* @__PURE__ */ jsxDEV("div", {
           className: "relative",

@@ -245,7 +245,13 @@ const ToolbarButton = ({
 );
 
 /** Minimal formatting toolbar: bold, italic, lists, link, optional checklist. */
-const Toolbar = ({ enableChecklist }: { enableChecklist?: boolean }) => {
+const Toolbar = ({
+  enableChecklist,
+  className,
+}: {
+  enableChecklist?: boolean;
+  className?: string;
+}) => {
   const [editor] = useLexicalComposerContext();
 
   const format = (type: TextFormatType) =>
@@ -257,7 +263,12 @@ const Toolbar = ({ enableChecklist }: { enableChecklist?: boolean }) => {
   };
 
   return (
-    <div className="flex items-center gap-0.5 border-input border-b px-1 py-1">
+    <div
+      className={cn(
+        "flex items-center gap-0.5 border-input border-b px-1 py-1",
+        className,
+      )}
+    >
       <ToolbarButton label="Bold" onClick={() => format("bold")}>
         <Bold />
       </ToolbarButton>
@@ -626,6 +637,8 @@ interface RichTextEditorProps
   placeholder?: string;
   /** Hide the formatting toolbar. */
   hideToolbar?: boolean;
+  /** Class applied to the formatting toolbar (e.g. to tint its background). */
+  toolbarClassName?: string;
   /** When provided, enables an `@`-mention typeahead over these items. */
   mentionItems?: MentionItem[];
   /** When provided, enables a `#`-issue-reference typeahead over these items. */
@@ -656,6 +669,7 @@ const RichTextEditor = ({
   editable = true,
   placeholder,
   hideToolbar = false,
+  toolbarClassName,
   mentionItems,
   issueReferenceItems,
   enableChecklist,
@@ -718,7 +732,10 @@ const RichTextEditor = ({
     >
       <LexicalComposer initialConfig={initialConfig}>
         {!hideToolbar && editable && (
-          <Toolbar enableChecklist={enableChecklist} />
+          <Toolbar
+            enableChecklist={enableChecklist}
+            className={toolbarClassName}
+          />
         )}
 
         <div className="relative">
