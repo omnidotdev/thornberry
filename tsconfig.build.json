@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "build",
+    "rootDir": "src",
+    "types": []
+  },
+  "include": [
+    "src/registry/thornberry/components/**/*.ts",
+    "src/registry/thornberry/components/**/*.tsx",
+    "src/lib/utils.ts",
+    "src/lib/hooks/**/*.ts",
+    "src/lib/hooks/**/*.tsx"
+  ],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"]
+}
