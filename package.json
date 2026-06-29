@@ -61,7 +61,7 @@
     "fumadocs-ui": "^16.4.6",
     "husky": "^9.1.7",
     "isomorphic-dompurify": "^3.17.0",
-    "knip": "^5.80.2",
+    "knip": "^6.0.0",
     "lexical": "^0.39.0",
     "lucide-react": "^0.562.0",
     "nitro": "3.0.1-alpha.1",
