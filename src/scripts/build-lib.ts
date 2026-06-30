@@ -72,6 +72,20 @@ const build = async () => {
     throw new Error("Bun.build failed");
   }
 
+  // Guard against publishing a development JSX build. Bun.build selects the JSX
+  // runtime from NODE_ENV; without NODE_ENV=production the bundle imports jsxDEV
+  // from react/jsx-dev-runtime, which consumers' production bundlers stub out,
+  // crashing every component with "jsxDEV is not a function". Fail loudly so a
+  // regression can never reach the committed build/ that consumers install.
+  // (grep exits non-zero when nothing matches: the catch is the success path.)
+  const devJsxHits = await $`grep -rl jsxDEV build`.text().catch(() => "");
+  if (devJsxHits.trim()) {
+    throw new Error(
+      `Development JSX runtime (jsxDEV) found in build output; rerun build:lib ` +
+        `with NODE_ENV=production. Offending files:\n${devJsxHits}`,
+    );
+  }
+
   console.warn("Emitting declarations...");
   await $`bunx tsc -p tsconfig.build.json`;
   await $`bunx tsc-alias -p tsconfig.build.json`;
