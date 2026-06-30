@@ -78,7 +78,7 @@ var ComboboxItem = ({
   children,
   ...rest
 }) => /* @__PURE__ */ jsx(ArkCombobox.Item, {
-  className: cn("flex w-full cursor-default select-none items-center justify-between rounded-sm px-2 py-1.5 pr-2 text-sm outline-none data-disabled:pointer-events-none data-[state=checked]:bg-accent data-highlighted:bg-accent data-[state=checked]:text-accent-foreground data-highlighted:text-accent-foreground data-disabled:opacity-50", className),
+  className: cn("flex w-full cursor-default select-none items-center justify-between rounded-sm px-2 py-1.5 pr-2 text-sm outline-none data-disabled:pointer-events-none data-[state=checked]:bg-muted data-highlighted:bg-muted data-disabled:opacity-50", className),
   ...rest,
   children
 });

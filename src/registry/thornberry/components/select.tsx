@@ -79,7 +79,7 @@ const SelectClearTrigger = ({
 }: ComponentProps<typeof ArkSelect.ClearTrigger>) => (
   <ArkSelect.ClearTrigger
     className={cn(
-      "w-full outline-none focus-visible:bg-accent focus-visible:outline-none",
+      "w-full outline-none focus-visible:bg-muted focus-visible:outline-none",
       className,
     )}
     {...rest}
@@ -136,7 +136,7 @@ const SelectItem = ({
 }: ComponentProps<typeof ArkSelect.Item>) => (
   <ArkSelect.Item
     className={cn(
-      "relative flex cursor-default select-none items-center gap-2 rounded px-2 py-1.5 text-sm outline-hidden hover:bg-accent focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-[state=checked]:bg-accent data-highlighted:bg-accent data-inset:pl-8 data-[state=checked]:text-accent-foreground data-highlighted:text-accent-foreground data-disabled:opacity-50 data-[state=checked]:hover:bg-sidebar-accent/80 [&[data-state=checked][data-highlighted]]:bg-sidebar-accent/80 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "relative flex cursor-default select-none items-center gap-2 rounded px-2 py-1.5 text-sm outline-hidden hover:bg-muted focus:bg-muted data-disabled:pointer-events-none data-[state=checked]:bg-muted data-highlighted:bg-muted data-inset:pl-8 data-disabled:opacity-50 data-[state=checked]:hover:bg-muted [&[data-state=checked][data-highlighted]]:bg-muted [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
       className,
     )}
     {...rest}
