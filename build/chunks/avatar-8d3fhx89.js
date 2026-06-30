@@ -1,7 +1,7 @@
 import {
   NODE_MIN_HEIGHT,
   NODE_WIDTH
-} from "./avatar-e0wn7nsj.js";
+} from "./avatar-sq2amekn.js";
 
 // src/registry/thornberry/components/smart-edge.tsx
 import { getSmoothStepPath, useStore } from "@xyflow/react";
@@ -85,7 +85,7 @@ function getBestConnectionPoints(sourceRect, targetRect) {
 }
 
 // src/registry/thornberry/components/smart-edge.tsx
-import { jsxDEV } from "react/jsx-dev-runtime";
+import { jsx, jsxs } from "react/jsx-runtime";
 "use client";
 var EDGE_STROKE_WIDTH = 3;
 var createEdgePositionsSelector = (sourceId, targetId) => {
@@ -167,24 +167,24 @@ var SmartEdge = memo(({
     });
   }
   const strokeColor = style.stroke || "currentColor";
-  return /* @__PURE__ */ jsxDEV("g", {
+  return /* @__PURE__ */ jsxs("g", {
     className: "react-flow__edge-smart",
     children: [
-      /* @__PURE__ */ jsxDEV("path", {
+      /* @__PURE__ */ jsx("path", {
         d: path,
         fill: "none",
         strokeWidth: 20,
         stroke: "transparent",
         className: "react-flow__edge-interaction"
-      }, undefined, false, undefined, this),
-      selected && /* @__PURE__ */ jsxDEV("path", {
+      }),
+      selected && /* @__PURE__ */ jsx("path", {
         d: path,
         fill: "none",
         strokeWidth: EDGE_STROKE_WIDTH + 6,
         stroke: strokeColor,
         strokeOpacity: 0.3
-      }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsxDEV("path", {
+      }),
+      /* @__PURE__ */ jsx("path", {
         id,
         className: "react-flow__edge-path",
         d: path,
@@ -195,15 +195,15 @@ var SmartEdge = memo(({
         strokeLinejoin: "round",
         style,
         markerEnd
-      }, undefined, false, undefined, this),
-      label && /* @__PURE__ */ jsxDEV("foreignObject", {
+      }),
+      label && /* @__PURE__ */ jsx("foreignObject", {
         width: 120,
         height: 32,
         x: labelX - 60,
         y: labelY - 16,
         className: "react-flow__edge-label",
         requiredExtensions: "http://www.w3.org/1999/xhtml",
-        children: /* @__PURE__ */ jsxDEV("div", {
+        children: /* @__PURE__ */ jsx("div", {
           style: {
             display: "flex",
             alignItems: "center",
@@ -212,7 +212,7 @@ var SmartEdge = memo(({
             height: "100%",
             pointerEvents: "none"
           },
-          children: /* @__PURE__ */ jsxDEV("div", {
+          children: /* @__PURE__ */ jsx("div", {
             style: {
               padding: "4px 10px",
               borderRadius: 6,
@@ -221,7 +221,7 @@ var SmartEdge = memo(({
               boxShadow: labelShowBg ? "0 2px 4px rgba(0, 0, 0, 0.1)" : "none",
               ...labelBgStyle
             },
-            children: /* @__PURE__ */ jsxDEV("span", {
+            children: /* @__PURE__ */ jsx("span", {
               style: {
                 fontSize: 11,
                 fontWeight: 600,
@@ -230,12 +230,12 @@ var SmartEdge = memo(({
                 ...labelStyle
               },
               children: label
-            }, undefined, false, undefined, this)
-          }, undefined, false, undefined, this)
-        }, undefined, false, undefined, this)
-      }, undefined, false, undefined, this)
+            })
+          })
+        })
+      })
     ]
-  }, undefined, true, undefined, this);
+  });
 });
 SmartEdge.displayName = "SmartEdge";
 

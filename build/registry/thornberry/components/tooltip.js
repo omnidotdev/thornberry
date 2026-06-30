@@ -6,7 +6,7 @@ import {
   TooltipProvider,
   TooltipRoot,
   TooltipTrigger
-} from "../../../chunks/avatar-5623n01g.js";
+} from "../../../chunks/avatar-rz6429x0.js";
 import"../../../chunks/avatar-yp1ewaxt.js";
 export {
   TooltipTrigger,

@@ -4,45 +4,45 @@ import {
 
 // src/registry/thornberry/components/rating-group.tsx
 import { RatingGroup as ArkRatingGroup } from "@ark-ui/react/rating-group";
-import { jsxDEV } from "react/jsx-dev-runtime";
+import { jsx } from "react/jsx-runtime";
 var RatingGroupProvider = ArkRatingGroup.RootProvider;
 var RatingGroupContext = ArkRatingGroup.Context;
 var RatingGroupItemContext = ArkRatingGroup.ItemContext;
 var RatingGroupRoot = ({
   className,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkRatingGroup.Root, {
+}) => /* @__PURE__ */ jsx(ArkRatingGroup.Root, {
   className: cn("inline-flex flex-col", className),
   ...rest
-}, undefined, false, undefined, this);
+});
 var RatingGroupLabel = ({
   className,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkRatingGroup.Label, {
+}) => /* @__PURE__ */ jsx(ArkRatingGroup.Label, {
   className: cn("mb-1.5 block font-medium text-foreground", className),
   ...rest
-}, undefined, false, undefined, this);
+});
 var RatingGroupControl = ({
   className,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkRatingGroup.Control, {
+}) => /* @__PURE__ */ jsx(ArkRatingGroup.Control, {
   className: cn("inline-flex", className),
   ...rest
-}, undefined, false, undefined, this);
+});
 var RatingGroupItem = ({
   className,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkRatingGroup.Item, {
+}) => /* @__PURE__ */ jsx(ArkRatingGroup.Item, {
   className: cn("inline-flex cursor-pointer p-1 outline-none data-checked:text-amber-500 data-highlighted:text-amber-500", className),
   ...rest
-}, undefined, false, undefined, this);
+});
 var RatingGroupHiddenInput = ({
   className,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkRatingGroup.HiddenInput, {
+}) => /* @__PURE__ */ jsx(ArkRatingGroup.HiddenInput, {
   className,
   ...rest
-}, undefined, false, undefined, this);
+});
 export {
   RatingGroupRoot,
   RatingGroupProvider,

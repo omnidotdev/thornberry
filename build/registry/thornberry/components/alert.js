@@ -7,7 +7,7 @@ import {
 
 // src/registry/thornberry/components/alert.tsx
 import { ark } from "@ark-ui/react";
-import { jsxDEV } from "react/jsx-dev-runtime";
+import { jsx } from "react/jsx-runtime";
 var alertVariants = cva("relative w-full rounded-lg border px-4 py-5 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:top-4 [&>svg]:left-4 [&>svg]:text-foreground [&>svg~*]:pl-7", {
   variants: {
     variant: {
@@ -26,27 +26,27 @@ var AlertRoot = ({
   className,
   variant,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ark.div, {
+}) => /* @__PURE__ */ jsx(ark.div, {
   role: "alert",
   className: cn(alertVariants({ variant }), className),
   ...rest
-}, undefined, false, undefined, this);
-var AlertIcon = ({ className, ...rest }) => /* @__PURE__ */ jsxDEV(ark.svg, {
+});
+var AlertIcon = ({ className, ...rest }) => /* @__PURE__ */ jsx(ark.svg, {
   className: cn("size-5 shrink-0", className),
   asChild: true,
   ...rest
-}, undefined, false, undefined, this);
-var AlertTitle = ({ className, ...rest }) => /* @__PURE__ */ jsxDEV(ark.div, {
+});
+var AlertTitle = ({ className, ...rest }) => /* @__PURE__ */ jsx(ark.div, {
   className: cn("mb-1 font-bold text-lg leading-none tracking-tight", className),
   ...rest
-}, undefined, false, undefined, this);
+});
 var AlertDescription = ({
   className,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ark.div, {
+}) => /* @__PURE__ */ jsx(ark.div, {
   className: cn("text-sm [&_p]:leading-relaxed", className),
   ...rest
-}, undefined, false, undefined, this);
+});
 export {
   alertVariants,
   AlertTitle,

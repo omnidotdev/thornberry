@@ -2,7 +2,7 @@ import {
   BaseNode,
   NODE_MIN_HEIGHT,
   NODE_WIDTH
-} from "../../../chunks/avatar-e0wn7nsj.js";
+} from "../../../chunks/avatar-sq2amekn.js";
 import"../../../chunks/avatar-yp1ewaxt.js";
 export {
   NODE_WIDTH,

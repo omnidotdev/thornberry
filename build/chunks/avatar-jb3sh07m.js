@@ -7,7 +7,7 @@ import {
 
 // src/registry/thornberry/components/button.tsx
 import { ark } from "@ark-ui/react";
-import { jsxDEV } from "react/jsx-dev-runtime";
+import { jsx } from "react/jsx-runtime";
 var buttonVariants = cva("inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap outline-none focus-visible:outline-none focus-visible:ring-offset-background focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md font-medium text-sm outline-hidden disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,box-shadow,transform]", {
   variants: {
     variant: {
@@ -36,9 +36,9 @@ var Button = ({
   variant,
   size,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ark.button, {
+}) => /* @__PURE__ */ jsx(ark.button, {
   type: "button",
   className: cn(buttonVariants({ variant, size }), className),
   ...rest
-}, undefined, false, undefined, this);
+});
 export { buttonVariants, Button };

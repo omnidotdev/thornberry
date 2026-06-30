@@ -64,7 +64,7 @@ var nodeThemes = {
 var resolveTheme = (theme) => typeof theme === "string" ? nodeThemes[theme] : theme;
 
 // src/registry/thornberry/components/base-node.tsx
-import { jsxDEV } from "react/jsx-dev-runtime";
+import { jsx, jsxs } from "react/jsx-runtime";
 "use client";
 var NODE_WIDTH = 300;
 var NODE_MIN_HEIGHT = 120;
@@ -82,7 +82,7 @@ var BaseNode = memo(({ data, selected }) => {
     onDelete
   } = data;
   const t = resolveTheme(theme);
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsxs("div", {
     className: cn("group relative rounded-xl border px-4 py-3", onClick && "cursor-pointer", t.border, t.bg, t.glow, selected && "ring-2 ring-ring ring-offset-2"),
     style: { width: NODE_WIDTH, minHeight: NODE_MIN_HEIGHT },
     role: onClick ? "button" : undefined,
@@ -95,7 +95,7 @@ var BaseNode = memo(({ data, selected }) => {
       }
     } : undefined,
     children: [
-      onDelete && /* @__PURE__ */ jsxDEV("button", {
+      onDelete && /* @__PURE__ */ jsx("button", {
         type: "button",
         "aria-label": "Delete node",
         className: "absolute -top-3 -right-3 flex h-6 w-6 items-center justify-center rounded-full border bg-card text-destructive opacity-0 shadow-md transition-opacity group-hover:opacity-100",
@@ -103,61 +103,61 @@ var BaseNode = memo(({ data, selected }) => {
           e.stopPropagation();
           onDelete();
         },
-        children: /* @__PURE__ */ jsxDEV("span", {
+        children: /* @__PURE__ */ jsx("span", {
           "aria-hidden": "true",
           children: "x"
-        }, undefined, false, undefined, this)
-      }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsxDEV("div", {
+        })
+      }),
+      /* @__PURE__ */ jsxs("div", {
         className: "flex min-w-0 items-center justify-between gap-3",
         children: [
-          /* @__PURE__ */ jsxDEV("div", {
+          /* @__PURE__ */ jsxs("div", {
             className: "flex min-w-0 flex-1 items-center gap-3",
             children: [
-              Icon && /* @__PURE__ */ jsxDEV("div", {
+              Icon && /* @__PURE__ */ jsx("div", {
                 className: cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-sm", t.iconBg),
-                children: /* @__PURE__ */ jsxDEV(Icon, {
+                children: /* @__PURE__ */ jsx(Icon, {
                   className: cn("h-5 w-5", t.iconText)
-                }, undefined, false, undefined, this)
-              }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsxDEV("div", {
+                })
+              }),
+              /* @__PURE__ */ jsxs("div", {
                 className: "flex min-w-0 flex-1 flex-col overflow-hidden",
                 children: [
-                  /* @__PURE__ */ jsxDEV("span", {
+                  /* @__PURE__ */ jsx("span", {
                     className: "truncate font-medium",
                     children: label
-                  }, undefined, false, undefined, this),
-                  description && /* @__PURE__ */ jsxDEV("span", {
+                  }),
+                  description && /* @__PURE__ */ jsx("span", {
                     className: "truncate text-xs opacity-70",
                     children: description
-                  }, undefined, false, undefined, this)
+                  })
                 ]
-              }, undefined, true, undefined, this)
+              })
             ]
-          }, undefined, true, undefined, this),
-          badge && /* @__PURE__ */ jsxDEV("span", {
+          }),
+          badge && /* @__PURE__ */ jsx("span", {
             className: cn("shrink-0 rounded-full px-2 py-0.5 text-xs", t.iconBg, t.iconText),
             children: badge
-          }, undefined, false, undefined, this)
+          })
         ]
-      }, undefined, true, undefined, this),
-      children && /* @__PURE__ */ jsxDEV("div", {
+      }),
+      children && /* @__PURE__ */ jsx("div", {
         className: "mt-3 space-y-2",
         children
-      }, undefined, false, undefined, this),
-      footer && /* @__PURE__ */ jsxDEV("div", {
+      }),
+      footer && /* @__PURE__ */ jsx("div", {
         className: "mt-3",
         children: footer
-      }, undefined, false, undefined, this),
-      handles.map((handle, index) => /* @__PURE__ */ jsxDEV(Handle, {
+      }),
+      handles.map((handle, index) => /* @__PURE__ */ jsx(Handle, {
         type: handle.type,
         position: handle.position,
         id: handle.id,
         className: cn("h-3 w-3", handle.className ?? t.handleColor),
         style: handle.style
-      }, handle.id ?? `${handle.type}-${handle.position}-${index}`, false, undefined, this))
+      }, handle.id ?? `${handle.type}-${handle.position}-${index}`))
     ]
-  }, undefined, true, undefined, this);
+  });
 });
 BaseNode.displayName = "BaseNode";
 

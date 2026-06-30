@@ -4,19 +4,19 @@ import {
   SheetRoot,
   SheetTitle,
   SheetTrigger
-} from "../../../chunks/avatar-44chqh8d.js";
+} from "../../../chunks/avatar-zw43tfjm.js";
 import {
   TooltipContent,
   TooltipPositioner,
   TooltipRoot,
   TooltipTrigger
-} from "../../../chunks/avatar-5623n01g.js";
+} from "../../../chunks/avatar-rz6429x0.js";
 import {
   Input
-} from "../../../chunks/avatar-w14gnk2a.js";
+} from "../../../chunks/avatar-nmmcnpth.js";
 import {
   Button
-} from "../../../chunks/avatar-07z52b3z.js";
+} from "../../../chunks/avatar-jb3sh07m.js";
 import"../../../chunks/avatar-zdtfvyzd.js";
 import {
   cn
@@ -279,7 +279,7 @@ function useSidebarResize({
 }
 
 // src/registry/thornberry/components/sidebar.tsx
-import { jsxDEV } from "react/jsx-dev-runtime";
+import { jsx, jsxs } from "react/jsx-runtime";
 var SIDEBAR_COOKIE_NAME = "sidebar:state";
 var SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 var SIDEBAR_WIDTH = "16rem";
@@ -346,9 +346,9 @@ var SidebarProvider = ({
     width,
     isDraggingRail
   ]);
-  return /* @__PURE__ */ jsxDEV(SidebarContext.Provider, {
+  return /* @__PURE__ */ jsx(SidebarContext.Provider, {
     value: contextValue,
-    children: /* @__PURE__ */ jsxDEV("div", {
+    children: /* @__PURE__ */ jsx("div", {
       "data-slot": "sidebar-wrapper",
       style: {
         "--sidebar-width": width,
@@ -358,8 +358,8 @@ var SidebarProvider = ({
       className: cn("group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar", className),
       ...rest,
       children
-    }, undefined, false, undefined, this)
-  }, undefined, false, undefined, this);
+    })
+  });
 };
 var Sidebar = ({
   side = "left",
@@ -371,58 +371,58 @@ var Sidebar = ({
 }) => {
   const { isMobile, state, openMobile, setOpenMobile, isDraggingRail } = useSidebar();
   if (collapsible === "none") {
-    return /* @__PURE__ */ jsxDEV("div", {
+    return /* @__PURE__ */ jsx("div", {
       "data-slot": "sidebar",
       className: cn("flex h-full w-(--sidebar-width) flex-col bg-red-500 text-sidebar-foreground", className),
       ...rest,
       children
-    }, undefined, false, undefined, this);
+    });
   }
   if (isMobile) {
-    return /* @__PURE__ */ jsxDEV(SheetRoot, {
+    return /* @__PURE__ */ jsxs(SheetRoot, {
       open: openMobile,
       onOpenChange: ({ open }) => setOpenMobile(open),
       children: [
-        /* @__PURE__ */ jsxDEV(SheetTrigger, {
+        /* @__PURE__ */ jsx(SheetTrigger, {
           asChild: true,
           className: "absolute top-2 right-2 z-50",
-          children: /* @__PURE__ */ jsxDEV(Button, {
+          children: /* @__PURE__ */ jsx(Button, {
             variant: "ghost",
             size: "icon",
             className: "h-10 w-10",
-            children: /* @__PURE__ */ jsxDEV(PanelLeftIcon, {
+            children: /* @__PURE__ */ jsx(PanelLeftIcon, {
               className: "size-5"
-            }, undefined, false, undefined, this)
-          }, undefined, false, undefined, this)
-        }, undefined, false, undefined, this),
-        /* @__PURE__ */ jsxDEV(SheetContent, {
+            })
+          })
+        }),
+        /* @__PURE__ */ jsxs(SheetContent, {
           "data-sidebar": "sidebar",
           "data-slot": "sidebar",
           "data-mobile": "true",
           className: "w-1/2 bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden",
           side,
           children: [
-            /* @__PURE__ */ jsxDEV("div", {
+            /* @__PURE__ */ jsxs("div", {
               className: "sr-only",
               children: [
-                /* @__PURE__ */ jsxDEV(SheetTitle, {
+                /* @__PURE__ */ jsx(SheetTitle, {
                   children: "Sidebar"
-                }, undefined, false, undefined, this),
-                /* @__PURE__ */ jsxDEV(SheetDescription, {
+                }),
+                /* @__PURE__ */ jsx(SheetDescription, {
                   children: "Displays the mobile sidebar."
-                }, undefined, false, undefined, this)
+                })
               ]
-            }, undefined, true, undefined, this),
-            /* @__PURE__ */ jsxDEV("div", {
+            }),
+            /* @__PURE__ */ jsx("div", {
               className: "flex h-full w-full flex-col",
               children
-            }, undefined, false, undefined, this)
+            })
           ]
-        }, undefined, true, undefined, this)
+        })
       ]
-    }, undefined, true, undefined, this);
+    });
   }
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsxs("div", {
     className: "group peer block text-sidebar-foreground",
     "data-state": state,
     "data-collapsible": state === "collapsed" ? collapsible : "",
@@ -431,23 +431,23 @@ var Sidebar = ({
     "data-slot": "sidebar",
     "data-dragging": isDraggingRail,
     children: [
-      /* @__PURE__ */ jsxDEV("div", {
+      /* @__PURE__ */ jsx("div", {
         "data-slot": "sidebar-gap",
         className: cn("relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear", "group-data-[collapsible=offcanvas]:w-0", "group-data-[side=right]:rotate-180", variant === "floating" || variant === "inset" ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]" : "group-data-[collapsible=icon]:w-(--sidebar-width-icon)", "group-data-[dragging=true]:duration-0! group-data-[dragging=true]_*:duration-0!")
-      }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsxDEV("div", {
+      }),
+      /* @__PURE__ */ jsx("div", {
         "data-slot": "sidebar-container",
         className: cn("fixed inset-y-0 z-50 flex h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear", side === "left" ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]" : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]", variant === "floating" || variant === "inset" ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]" : "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l", "group-data-[dragging=true]:duration-0! group-data-[dragging=true]_*:duration-0!", className),
         ...rest,
-        children: /* @__PURE__ */ jsxDEV("div", {
+        children: /* @__PURE__ */ jsx("div", {
           "data-sidebar": "sidebar",
           "data-slot": "sidebar-inner",
           className: "flex h-full w-full flex-col rounded-xl bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm",
           children
-        }, undefined, false, undefined, this)
-      }, undefined, false, undefined, this)
+        })
+      })
     ]
-  }, undefined, true, undefined, this);
+  });
 };
 var SidebarTrigger = ({
   className,
@@ -455,7 +455,7 @@ var SidebarTrigger = ({
   ...rest
 }) => {
   const { toggleSidebar } = useSidebar();
-  return /* @__PURE__ */ jsxDEV(Button, {
+  return /* @__PURE__ */ jsxs(Button, {
     "data-sidebar": "trigger",
     "data-slot": "sidebar-trigger",
     variant: "ghost",
@@ -467,13 +467,13 @@ var SidebarTrigger = ({
     },
     ...rest,
     children: [
-      /* @__PURE__ */ jsxDEV(PanelLeftIcon, {}, undefined, false, undefined, this),
-      /* @__PURE__ */ jsxDEV("span", {
+      /* @__PURE__ */ jsx(PanelLeftIcon, {}),
+      /* @__PURE__ */ jsx("span", {
         className: "sr-only",
         children: "Toggle Sidebar"
-      }, undefined, false, undefined, this)
+      })
     ]
-  }, undefined, true, undefined, this);
+  });
 };
 var SidebarRail = ({
   enableDrag = true,
@@ -497,7 +497,7 @@ var SidebarRail = ({
   const anchorRect = useRef2(null);
   const getAnchorRect = useCallback2(() => anchorRect.current, []);
   const isCollapsed = state === "collapsed";
-  return /* @__PURE__ */ jsxDEV(TooltipRoot, {
+  return /* @__PURE__ */ jsxs(TooltipRoot, {
     positioning: {
       placement: "right",
       getAnchorRect
@@ -505,14 +505,14 @@ var SidebarRail = ({
     closeDelay: 0,
     openDelay: 300,
     children: [
-      /* @__PURE__ */ jsxDEV(TooltipContext, {
-        children: (tootlip) => /* @__PURE__ */ jsxDEV(TooltipTrigger, {
+      /* @__PURE__ */ jsx(TooltipContext, {
+        children: (tootlip) => /* @__PURE__ */ jsx(TooltipTrigger, {
           asChild: true,
           onPointerMove: (e) => {
             anchorRect.current = new DOMRect(e.clientX, e.clientY, 1, 1);
             tootlip.reposition();
           },
-          children: /* @__PURE__ */ jsxDEV("button", {
+          children: /* @__PURE__ */ jsx("button", {
             ref: dragRef,
             "data-sidebar": "rail",
             "data-slot": "sidebar-rail",
@@ -521,135 +521,135 @@ var SidebarRail = ({
             onMouseDown: handleMouseDown,
             className: cn("absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear after:absolute after:inset-y-0 after:left-1/2 after:w-0.5 group-data-[side=left]:-right-4 group-data-[side=right]:left-0 sm:flex", "in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize", "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize", "group-data-[collapsible=offcanvas]:translate-x-0 hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:after:left-full", "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2", "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2", "[[data-side=left][data-state=expanded]_&]:cursor-col-resize", className),
             ...rest
-          }, undefined, false, undefined, this)
-        }, undefined, false, undefined, this)
-      }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsxDEV(TooltipPositioner, {
-        children: /* @__PURE__ */ jsxDEV(TooltipContent, {
+          })
+        })
+      }),
+      /* @__PURE__ */ jsx(TooltipPositioner, {
+        children: /* @__PURE__ */ jsxs(TooltipContent, {
           className: "flex h-fit w-full flex-col gap-1 border bg-background text-foreground",
           children: [
-            /* @__PURE__ */ jsxDEV("span", {
+            /* @__PURE__ */ jsx("span", {
               children: "Drag to resize"
-            }, undefined, false, undefined, this),
-            /* @__PURE__ */ jsxDEV("div", {
+            }),
+            /* @__PURE__ */ jsxs("div", {
               className: "inline-flex",
               children: [
                 "Click to ",
                 isCollapsed ? "expand" : "collapse",
                 " ",
-                /* @__PURE__ */ jsxDEV("div", {
+                /* @__PURE__ */ jsx("div", {
                   className: "ml-2 flex items-center gap-0.5",
-                  children: /* @__PURE__ */ jsxDEV(SidebarMenuShortcut, {
+                  children: /* @__PURE__ */ jsx(SidebarMenuShortcut, {
                     children: "B"
-                  }, undefined, false, undefined, this)
-                }, undefined, false, undefined, this)
+                  })
+                })
               ]
-            }, undefined, true, undefined, this)
+            })
           ]
-        }, undefined, true, undefined, this)
-      }, undefined, false, undefined, this)
+        })
+      })
     ]
-  }, undefined, true, undefined, this);
+  });
 };
 var SidebarInset = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsxDEV("main", {
+  return /* @__PURE__ */ jsx("main", {
     "data-slot": "sidebar-inset",
     className: cn("relative flex w-full flex-1 flex-col bg-background", "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarSeparator = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsx("div", {
     "data-slot": "sidebar-separator",
     className: cn("-mx-2 h-px bg-border py-0", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarInput = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsxDEV(Input, {
+  return /* @__PURE__ */ jsx(Input, {
     "data-slot": "sidebar-input",
     "data-sidebar": "input",
     className: cn("h-8 w-full bg-background shadow-none", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarHeader = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsx("div", {
     "data-slot": "sidebar-header",
     "data-sidebar": "header",
     className: cn("flex flex-col gap-2 p-2", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarFooter = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsx("div", {
     "data-slot": "sidebar-footer",
     "data-sidebar": "footer",
     className: cn("flex flex-col gap-2 p-2", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarContent = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsx("div", {
     "data-slot": "sidebar-content",
     "data-sidebar": "content",
     className: cn("no-scrollbar mb-2 flex min-h-0 flex-1 flex-col gap-4 overflow-auto group-data-[collapsible=icon]:overflow-hidden", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarGroup = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsx("div", {
     "data-slot": "sidebar-group",
     "data-sidebar": "group",
     className: cn("flex w-full flex-col gap-1 px-2", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarGroupLabel = ({
   className,
   ...rest
 }) => {
-  return /* @__PURE__ */ jsxDEV(ark.div, {
+  return /* @__PURE__ */ jsx(ark.div, {
     "data-slot": "sidebar-group-label",
     "data-sidebar": "group-label",
     className: cn("flex shrink-0 items-center rounded-md py-1 font-medium text-sidebar-foreground/70 text-xs outline-hidden ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0", "group-data-[collapsible=icon]:hidden group-data-[collapsible=icon]:opacity-0", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarGroupAction = ({
   className,
   ...rest
 }) => {
-  return /* @__PURE__ */ jsxDEV(ark.div, {
+  return /* @__PURE__ */ jsx(ark.div, {
     "data-slot": "sidebar-group-action",
     "data-sidebar": "group-action",
     className: cn("flex size-5 cursor-pointer items-center justify-center rounded-md p-0 text-base-400 outline-hidden ring-sidebar-ring transition-transform hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 [&>svg]:size-3 [&>svg]:shrink-0", "group-data-[collapsible=icon]:hidden", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarGroupContent = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsx("div", {
     "data-slot": "sidebar-group-content",
     "data-sidebar": "group-content",
     className: cn("w-full text-sm", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarMenu = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsx("div", {
     "data-slot": "sidebar-menu",
     "data-sidebar": "menu",
     className: cn("flex w-full min-w-0 flex-col gap-1", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarMenuItem = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsx("div", {
     "data-slot": "sidebar-menu-item",
     "data-sidebar": "menu-item",
     className: cn("group/menu-item relative cursor-pointer", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarMenuButton = ({
   isActive = false,
@@ -659,17 +659,17 @@ var SidebarMenuButton = ({
   ...rest
 }) => {
   const { isMobile, state } = useSidebar();
-  const button = /* @__PURE__ */ jsxDEV(ark.button, {
+  const button = /* @__PURE__ */ jsx(ark.button, {
     "data-slot": "sidebar-menu-button",
     "data-sidebar": "menu-button",
     "data-active": isActive,
     className: cn("peer/menu-button flex h-8 w-full items-center gap-2 overflow-hidden rounded-md px-2 text-left text-sm transition-[width,height,padding,color,box-shadow] [&[data-state=open]>svg]:rotate-90", "font-medium text-sidebar-foreground/70", "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground", "outline-hidden focus-visible:text-sidebar-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring! focus-visible:ring-offset-2! focus-visible:ring-offset-background", "active:text-sidebar-accent-foreground", "disabled:pointer-events-none disabled:opacity-50", "aria-disabled:pointer-events-none aria-disabled:opacity-50", "data-[active=true]:bg-sidebar-accent/80 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground", "data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground", "group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2!", "group-has-data-[sidebar=menu-action]/menu-item:pr-8", "[&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
   if (!tooltip) {
     return button;
   }
-  return /* @__PURE__ */ jsxDEV(TooltipRoot, {
+  return /* @__PURE__ */ jsxs(TooltipRoot, {
     positioning: {
       placement: "right",
       offset: { mainAxis: 8 },
@@ -679,30 +679,30 @@ var SidebarMenuButton = ({
     openDelay: 200,
     disabled: isMobile || state === "expanded",
     children: [
-      /* @__PURE__ */ jsxDEV(TooltipTrigger, {
+      /* @__PURE__ */ jsx(TooltipTrigger, {
         asChild: true,
         children: button
-      }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsxDEV(TooltipPositioner, {
-        children: /* @__PURE__ */ jsxDEV(TooltipContent, {
+      }),
+      /* @__PURE__ */ jsx(TooltipPositioner, {
+        children: /* @__PURE__ */ jsx(TooltipContent, {
           className: "border bg-background text-foreground",
-          children: /* @__PURE__ */ jsxDEV("div", {
+          children: /* @__PURE__ */ jsxs("div", {
             className: "flex items-center gap-2",
             children: [
               tooltip,
-              shortcut && /* @__PURE__ */ jsxDEV("div", {
+              shortcut && /* @__PURE__ */ jsx("div", {
                 className: "ml-2 flex items-center gap-0.5",
-                children: /* @__PURE__ */ jsxDEV(SidebarMenuShortcut, {
+                children: /* @__PURE__ */ jsx(SidebarMenuShortcut, {
                   className: "w-fit px-1",
                   children: shortcut
-                }, undefined, false, undefined, this)
-              }, undefined, false, undefined, this)
+                })
+              })
             ]
-          }, undefined, true, undefined, this)
-        }, undefined, false, undefined, this)
-      }, undefined, false, undefined, this)
+          })
+        })
+      })
     ]
-  }, undefined, true, undefined, this);
+  });
 };
 var SidebarMenuAction = ({
   isActive,
@@ -710,48 +710,48 @@ var SidebarMenuAction = ({
   showOnHover = false,
   ...rest
 }) => {
-  return /* @__PURE__ */ jsxDEV(ark.button, {
+  return /* @__PURE__ */ jsx(ark.button, {
     "data-slot": "sidebar-menu-action",
     "data-sidebar": "menu-action",
     "data-active": isActive,
     className: cn("absolute top-1.5 right-1 flex aspect-square w-5 cursor-pointer items-center justify-center rounded-md p-0 text-sidebar-foreground outline-none outline-hidden ring-sidebar-ring transition-[color,box-shadow] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring! focus-visible:ring-offset-2 peer-hover/menu-button:text-sidebar-accent-foreground data-[active=true]:text-sidebar-accent-foreground data-[active=true]:hover:bg-accent data-[active=true]:dark:hover:bg-base-700 [&>svg]:size-4 [&>svg]:shrink-0", "after:absolute after:-inset-2 md:after:hidden", "peer-data-[size=sm]/menu-button:top-1", "peer-data-[size=default]/menu-button:top-1.5", "peer-data-[size=lg]/menu-button:top-2.5", "group-data-[collapsible=icon]:hidden", showOnHover && "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground md:opacity-0", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarMenuBadge = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsx("div", {
     "data-slot": "sidebar-menu-badge",
     "data-sidebar": "menu-badge",
     className: cn("pointer-events-none absolute right-1 flex h-5 min-w-5 select-none items-center justify-center rounded-md px-1 font-medium text-sidebar-foreground text-xs tabular-nums", "peer-hover/menu-button:text-sidebar-accent-foreground peer-data-[active=true]/menu-button:text-sidebar-accent-foreground", "peer-data-[size=sm]/menu-button:top-1", "peer-data-[size=default]/menu-button:top-1.5", "peer-data-[size=lg]/menu-button:top-2.5", "group-data-[collapsible=icon]:hidden", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarMenuShortcut = ({
   className,
   ...rest
 }) => {
-  return /* @__PURE__ */ jsxDEV("span", {
+  return /* @__PURE__ */ jsx("span", {
     "data-slot": "sidebar-menu-shortcut",
     "data-sidebar": "menu-shortcut",
     className: cn("ml-auto flex size-5 items-center justify-center gap-0.5 rounded-md border bg-background font-medium text-[10px] text-foreground", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarMenuSub = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsxDEV("ul", {
+  return /* @__PURE__ */ jsx("ul", {
     "data-slot": "sidebar-menu-sub",
     "data-sidebar": "menu-sub",
     className: cn("mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-sidebar-border border-l px-2.5 py-0.5", "group-data-[collapsible=icon]:hidden", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarMenuSubItem = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsxDEV("li", {
+  return /* @__PURE__ */ jsx("li", {
     "data-slot": "sidebar-menu-sub-item",
     "data-sidebar": "menu-sub-item",
     className: cn("group/menu-sub-item relative", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var SidebarMenuSubButton = ({
   size = "md",
@@ -759,14 +759,14 @@ var SidebarMenuSubButton = ({
   className,
   ...rest
 }) => {
-  return /* @__PURE__ */ jsxDEV(ark.a, {
+  return /* @__PURE__ */ jsx(ark.a, {
     "data-slot": "sidebar-menu-sub-button",
     "data-sidebar": "menu-sub-button",
     "data-size": size,
     "data-active": isActive,
     className: cn("flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground outline-hidden ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground", "data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground", size === "sm" && "text-xs", size === "md" && "text-sm", "group-data-[collapsible=icon]:hidden", className),
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 export {
   useSidebar,

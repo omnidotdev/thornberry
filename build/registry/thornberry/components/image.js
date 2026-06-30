@@ -7,7 +7,7 @@ import {
 
 // src/registry/thornberry/components/image.tsx
 import { Image as UnpicImage } from "@unpic/react";
-import { jsxDEV } from "react/jsx-dev-runtime";
+import { jsx } from "react/jsx-runtime";
 var imageVariants = cva("", {
   variants: {
     rounded: {
@@ -21,10 +21,10 @@ var imageVariants = cva("", {
     }
   }
 });
-var Image = ({ className, rounded, ...rest }) => /* @__PURE__ */ jsxDEV(UnpicImage, {
+var Image = ({ className, rounded, ...rest }) => /* @__PURE__ */ jsx(UnpicImage, {
   className: cn(imageVariants({ rounded }), className),
   ...rest
-}, undefined, false, undefined, this);
+});
 export {
   imageVariants,
   Image

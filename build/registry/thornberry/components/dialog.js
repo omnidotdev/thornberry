@@ -9,7 +9,7 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger
-} from "../../../chunks/avatar-chvaergx.js";
+} from "../../../chunks/avatar-p3ac7628.js";
 import"../../../chunks/avatar-yp1ewaxt.js";
 export {
   DialogTrigger,

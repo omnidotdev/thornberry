@@ -4,7 +4,7 @@ import {
 
 // src/registry/thornberry/components/board.tsx
 import { useCallback, useEffect, useRef, useState } from "react";
-import { jsxDEV } from "react/jsx-dev-runtime";
+import { jsx, jsxs } from "react/jsx-runtime";
 var useInertialScroll = ({
   friction = 0.87,
   velocityMultiplier = 1.3,
@@ -102,12 +102,12 @@ var Board = ({ className, enableDragScroll = true, ...rest }) => {
     handleMouseMove
   } = useInertialScroll();
   if (!enableDragScroll) {
-    return /* @__PURE__ */ jsxDEV("div", {
+    return /* @__PURE__ */ jsx("div", {
       className: cn(boardSurface, className),
       ...rest
-    }, undefined, false, undefined, this);
+    });
   }
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsx("div", {
     ref: scrollContainerRef,
     className: cn(boardSurface, "sm:cursor-grab sm:select-none", className),
     onMouseDown: handleMouseDown,
@@ -115,12 +115,12 @@ var Board = ({ className, enableDragScroll = true, ...rest }) => {
     onMouseMove: handleMouseMove,
     onMouseLeave: handleMouseUp,
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
-var BoardColumn = ({ className, ...rest }) => /* @__PURE__ */ jsxDEV("div", {
+var BoardColumn = ({ className, ...rest }) => /* @__PURE__ */ jsx("div", {
   className: cn("flex w-full flex-col rounded-xl border bg-muted/40 sm:w-80 sm:shrink-0", className),
   ...rest
-}, undefined, false, undefined, this);
+});
 var BoardColumnHeader = ({
   title,
   color,
@@ -129,38 +129,38 @@ var BoardColumnHeader = ({
   className,
   children,
   ...rest
-}) => /* @__PURE__ */ jsxDEV("div", {
+}) => /* @__PURE__ */ jsxs("div", {
   className: cn("flex items-center justify-between gap-2 px-3 py-2.5", className),
   ...rest,
   children: [
-    /* @__PURE__ */ jsxDEV("div", {
+    /* @__PURE__ */ jsxs("div", {
       className: "flex min-w-0 items-center gap-2",
       children: [
-        icon ?? /* @__PURE__ */ jsxDEV("span", {
+        icon ?? /* @__PURE__ */ jsx("span", {
           className: "size-2.5 shrink-0 rounded-full",
           style: { backgroundColor: color ?? "var(--color-muted-foreground)" }
-        }, undefined, false, undefined, this),
-        /* @__PURE__ */ jsxDEV("span", {
+        }),
+        /* @__PURE__ */ jsx("span", {
           className: "truncate font-semibold text-foreground text-sm",
           children: title
-        }, undefined, false, undefined, this)
+        })
       ]
-    }, undefined, true, undefined, this),
-    count != null && /* @__PURE__ */ jsxDEV("span", {
+    }),
+    count != null && /* @__PURE__ */ jsx("span", {
       className: "shrink-0 rounded-full bg-card px-2 py-0.5 font-medium text-muted-foreground text-xs tabular-nums",
       children: count
-    }, undefined, false, undefined, this),
+    }),
     children
   ]
-}, undefined, true, undefined, this);
-var BoardColumnBody = ({ className, ...rest }) => /* @__PURE__ */ jsxDEV("div", {
+});
+var BoardColumnBody = ({ className, ...rest }) => /* @__PURE__ */ jsx("div", {
   className: cn("flex flex-col gap-2 px-2 pb-2", className),
   ...rest
-}, undefined, false, undefined, this);
-var BoardColumnEmpty = ({ className, ...rest }) => /* @__PURE__ */ jsxDEV("p", {
+});
+var BoardColumnEmpty = ({ className, ...rest }) => /* @__PURE__ */ jsx("p", {
   className: cn("rounded-lg border border-dashed px-3 py-8 text-center text-muted-foreground text-xs", className),
   ...rest
-}, undefined, false, undefined, this);
+});
 export {
   useInertialScroll,
   BoardColumnHeader,

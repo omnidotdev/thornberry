@@ -1,6 +1,6 @@
 import {
   Skeleton
-} from "../../../chunks/avatar-6znt0986.js";
+} from "../../../chunks/avatar-3rns3zjj.js";
 import"../../../chunks/avatar-yp1ewaxt.js";
 export {
   Skeleton

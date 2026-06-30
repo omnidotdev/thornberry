@@ -20,7 +20,7 @@
     "format": "biome format --write",
     "lint": "biome lint",
     "registry:build": "shadcn registry:build",
-    "build:lib": "bun src/scripts/build-lib.ts",
+    "build:lib": "NODE_ENV=production bun src/scripts/build-lib.ts",
     "test": "bun test --conditions development",
     "knip": "knip-bun",
     "prepare": "husky"

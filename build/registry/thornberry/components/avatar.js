@@ -7,7 +7,7 @@ import {
 
 // src/registry/thornberry/components/avatar.tsx
 import { Avatar as ArkAvatar, useAvatar as useArkAvatar } from "@ark-ui/react";
-import { jsxDEV } from "react/jsx-dev-runtime";
+import { jsx } from "react/jsx-runtime";
 var avatarVariants = cva("relative flex shrink-0 items-center justify-center overflow-hidden rounded-full", {
   variants: {
     size: {
@@ -25,33 +25,33 @@ var AvatarProvider = ({
   className,
   size,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkAvatar.RootProvider, {
+}) => /* @__PURE__ */ jsx(ArkAvatar.RootProvider, {
   className: cn(avatarVariants({ size, className })),
   ...rest
-}, undefined, false, undefined, this);
+});
 var AvatarRoot = ({
   className,
   size,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkAvatar.Root, {
+}) => /* @__PURE__ */ jsx(ArkAvatar.Root, {
   className: cn(avatarVariants({ size, className })),
   ...rest
-}, undefined, false, undefined, this);
+});
 var AvatarFallback = ({
   className,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkAvatar.Fallback, {
+}) => /* @__PURE__ */ jsx(ArkAvatar.Fallback, {
   className: cn("flex size-full items-center justify-center rounded-full bg-muted", className),
   ...rest
-}, undefined, false, undefined, this);
+});
 var AvatarImage = ({
   className,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkAvatar.Image, {
+}) => /* @__PURE__ */ jsx(ArkAvatar.Image, {
   className: cn("aspect-square size-full", className),
   alt: "Avatar",
   ...rest
-}, undefined, false, undefined, this);
+});
 export {
   useAvatar,
   AvatarRoot,

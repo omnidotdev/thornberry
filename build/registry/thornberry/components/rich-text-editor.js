@@ -1,9 +1,9 @@
 import {
   Skeleton
-} from "../../../chunks/avatar-6znt0986.js";
+} from "../../../chunks/avatar-3rns3zjj.js";
 import {
   Button
-} from "../../../chunks/avatar-07z52b3z.js";
+} from "../../../chunks/avatar-jb3sh07m.js";
 import"../../../chunks/avatar-zdtfvyzd.js";
 import {
   cn
@@ -86,7 +86,7 @@ import {
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { jsxDEV, Fragment } from "react/jsx-dev-runtime";
+import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 var defaultTheme = {
   paragraph: "mb-2 last:mb-0",
   heading: {
@@ -179,7 +179,7 @@ var ToolbarButton = ({
   children,
   className,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(Button, {
+}) => /* @__PURE__ */ jsx(Button, {
   type: "button",
   size: "icon",
   variant: "ghost",
@@ -189,7 +189,7 @@ var ToolbarButton = ({
   onMouseDown: (event) => event.preventDefault(),
   ...rest,
   children
-}, undefined, false, undefined, this);
+});
 var Toolbar = ({
   enableChecklist,
   className
@@ -201,41 +201,41 @@ var Toolbar = ({
     if (url)
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, url.trim());
   };
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsxs("div", {
     className: cn("flex items-center gap-0.5 border-input border-b px-1 py-1", className),
     children: [
-      /* @__PURE__ */ jsxDEV(ToolbarButton, {
+      /* @__PURE__ */ jsx(ToolbarButton, {
         label: "Bold",
         onClick: () => format("bold"),
-        children: /* @__PURE__ */ jsxDEV(Bold, {}, undefined, false, undefined, this)
-      }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsxDEV(ToolbarButton, {
+        children: /* @__PURE__ */ jsx(Bold, {})
+      }),
+      /* @__PURE__ */ jsx(ToolbarButton, {
         label: "Italic",
         onClick: () => format("italic"),
-        children: /* @__PURE__ */ jsxDEV(Italic, {}, undefined, false, undefined, this)
-      }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsxDEV(ToolbarButton, {
+        children: /* @__PURE__ */ jsx(Italic, {})
+      }),
+      /* @__PURE__ */ jsx(ToolbarButton, {
         label: "Bulleted list",
         onClick: () => editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined),
-        children: /* @__PURE__ */ jsxDEV(List, {}, undefined, false, undefined, this)
-      }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsxDEV(ToolbarButton, {
+        children: /* @__PURE__ */ jsx(List, {})
+      }),
+      /* @__PURE__ */ jsx(ToolbarButton, {
         label: "Numbered list",
         onClick: () => editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined),
-        children: /* @__PURE__ */ jsxDEV(ListOrdered, {}, undefined, false, undefined, this)
-      }, undefined, false, undefined, this),
-      enableChecklist && /* @__PURE__ */ jsxDEV(ToolbarButton, {
+        children: /* @__PURE__ */ jsx(ListOrdered, {})
+      }),
+      enableChecklist && /* @__PURE__ */ jsx(ToolbarButton, {
         label: "Checklist",
         onClick: () => editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined),
-        children: /* @__PURE__ */ jsxDEV(ListChecks, {}, undefined, false, undefined, this)
-      }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsxDEV(ToolbarButton, {
+        children: /* @__PURE__ */ jsx(ListChecks, {})
+      }),
+      /* @__PURE__ */ jsx(ToolbarButton, {
         label: "Link",
         onClick: insertLink,
-        children: /* @__PURE__ */ jsxDEV(LinkIcon, {}, undefined, false, undefined, this)
-      }, undefined, false, undefined, this)
+        children: /* @__PURE__ */ jsx(LinkIcon, {})
+      })
     ]
-  }, undefined, true, undefined, this);
+  });
 };
 var EditablePlugin = ({ editable }) => {
   const [editor] = useLexicalComposerContext();
@@ -339,14 +339,14 @@ var MentionTypeahead = ({ items }) => {
       closeMenu();
     });
   }, [editor]);
-  return /* @__PURE__ */ jsxDEV(LexicalTypeaheadMenuPlugin, {
+  return /* @__PURE__ */ jsx(LexicalTypeaheadMenuPlugin, {
     onQueryChange: setQuery,
     onSelectOption,
     triggerFn,
     options,
-    menuRenderFn: (anchorRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => anchorRef.current && options.length ? createPortal(/* @__PURE__ */ jsxDEV("ul", {
+    menuRenderFn: (anchorRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => anchorRef.current && options.length ? createPortal(/* @__PURE__ */ jsx("ul", {
       className: "z-50 max-h-56 min-w-44 overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
-      children: options.map((option, index) => /* @__PURE__ */ jsxDEV("li", {
+      children: options.map((option, index) => /* @__PURE__ */ jsxs("li", {
         className: cn("cursor-pointer rounded-sm px-2 py-1.5 text-sm", selectedIndex === index && "bg-muted"),
         onMouseEnter: () => setHighlightedIndex(index),
         onMouseDown: (event) => {
@@ -357,9 +357,9 @@ var MentionTypeahead = ({ items }) => {
           "@",
           option.item.label
         ]
-      }, option.key, true, undefined, this))
-    }, undefined, false, undefined, this), anchorRef.current) : null
-  }, undefined, false, undefined, this);
+      }, option.key))
+    }), anchorRef.current) : null
+  });
 };
 
 class IssueReferenceOption extends MenuOption {
@@ -390,14 +390,14 @@ var IssueReferenceTypeahead = ({
       closeMenu();
     });
   }, [editor]);
-  return /* @__PURE__ */ jsxDEV(LexicalTypeaheadMenuPlugin, {
+  return /* @__PURE__ */ jsx(LexicalTypeaheadMenuPlugin, {
     onQueryChange: setQuery,
     onSelectOption,
     triggerFn,
     options,
-    menuRenderFn: (anchorRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => anchorRef.current && options.length ? createPortal(/* @__PURE__ */ jsxDEV("ul", {
+    menuRenderFn: (anchorRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => anchorRef.current && options.length ? createPortal(/* @__PURE__ */ jsx("ul", {
       className: "z-50 max-h-56 min-w-56 max-w-72 overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
-      children: options.map((option, index) => /* @__PURE__ */ jsxDEV("li", {
+      children: options.map((option, index) => /* @__PURE__ */ jsxs("li", {
         className: cn("flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm", selectedIndex === index && "bg-muted"),
         onMouseEnter: () => setHighlightedIndex(index),
         onMouseDown: (event) => {
@@ -405,21 +405,21 @@ var IssueReferenceTypeahead = ({
           selectOptionAndCleanUp(option);
         },
         children: [
-          /* @__PURE__ */ jsxDEV("span", {
+          /* @__PURE__ */ jsxs("span", {
             className: "shrink-0 font-medium text-muted-foreground",
             children: [
               "#",
               option.item.number
             ]
-          }, undefined, true, undefined, this),
-          /* @__PURE__ */ jsxDEV("span", {
+          }),
+          /* @__PURE__ */ jsx("span", {
             className: "truncate",
             children: option.item.title
-          }, undefined, false, undefined, this)
+          })
         ]
-      }, option.key, true, undefined, this))
-    }, undefined, false, undefined, this), anchorRef.current) : null
-  }, undefined, false, undefined, this);
+      }, option.key))
+    }), anchorRef.current) : null
+  });
 };
 var RichTextEditor = ({
   editorApi,
@@ -444,10 +444,10 @@ var RichTextEditor = ({
   const [isEmpty, setIsEmpty] = useState(!defaultContent);
   useEffect(() => setMounted(true), []);
   if (!mounted) {
-    return /* @__PURE__ */ jsxDEV(Skeleton, {
+    return /* @__PURE__ */ jsx(Skeleton, {
       className: cn("h-24 w-full rounded-md", skeletonClassName ?? className),
       ...rest
-    }, undefined, false, undefined, this);
+    });
   }
   const initialConfig = {
     namespace: "RichTextEditor",
@@ -473,64 +473,64 @@ var RichTextEditor = ({
       isEmpty: empty
     });
   };
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsx("div", {
     className: cn("rounded-md border border-input bg-background text-sm focus-within:ring-1 focus-within:ring-ring", className),
     ...rest,
-    children: /* @__PURE__ */ jsxDEV(LexicalComposer, {
+    children: /* @__PURE__ */ jsxs(LexicalComposer, {
       initialConfig,
       children: [
-        !hideToolbar && editable && /* @__PURE__ */ jsxDEV(Toolbar, {
+        !hideToolbar && editable && /* @__PURE__ */ jsx(Toolbar, {
           enableChecklist,
           className: toolbarClassName
-        }, undefined, false, undefined, this),
-        /* @__PURE__ */ jsxDEV("div", {
+        }),
+        /* @__PURE__ */ jsxs("div", {
           className: "relative",
           children: [
-            /* @__PURE__ */ jsxDEV(RichTextPlugin, {
-              contentEditable: /* @__PURE__ */ jsxDEV(ContentEditable, {
+            /* @__PURE__ */ jsx(RichTextPlugin, {
+              contentEditable: /* @__PURE__ */ jsx(ContentEditable, {
                 className: cn("min-h-20 px-3 py-2 text-base outline-none md:text-sm", editorClassName),
                 spellCheck: true
-              }, undefined, false, undefined, this),
-              placeholder: placeholder && isEmpty ? /* @__PURE__ */ jsxDEV("div", {
+              }),
+              placeholder: placeholder && isEmpty ? /* @__PURE__ */ jsx("div", {
                 className: "pointer-events-none absolute top-2 left-3 select-none text-muted-foreground",
                 children: placeholder
-              }, undefined, false, undefined, this) : null,
+              }) : null,
               ErrorBoundary: LexicalErrorBoundary
-            }, undefined, false, undefined, this),
-            /* @__PURE__ */ jsxDEV(HistoryPlugin, {}, undefined, false, undefined, this),
-            /* @__PURE__ */ jsxDEV(ListPlugin, {}, undefined, false, undefined, this),
-            enableChecklist && /* @__PURE__ */ jsxDEV(CheckListPlugin, {}, undefined, false, undefined, this),
-            /* @__PURE__ */ jsxDEV(TabIndentationPlugin, {}, undefined, false, undefined, this),
-            /* @__PURE__ */ jsxDEV(MarkdownShortcutPlugin, {
+            }),
+            /* @__PURE__ */ jsx(HistoryPlugin, {}),
+            /* @__PURE__ */ jsx(ListPlugin, {}),
+            enableChecklist && /* @__PURE__ */ jsx(CheckListPlugin, {}),
+            /* @__PURE__ */ jsx(TabIndentationPlugin, {}),
+            /* @__PURE__ */ jsx(MarkdownShortcutPlugin, {
               transformers: MARKDOWN_TRANSFORMERS
-            }, undefined, false, undefined, this),
-            /* @__PURE__ */ jsxDEV(LinkPlugin, {}, undefined, false, undefined, this),
-            /* @__PURE__ */ jsxDEV(LinkShortcutsPlugin, {}, undefined, false, undefined, this),
-            /* @__PURE__ */ jsxDEV(AutoLinkPlugin, {
+            }),
+            /* @__PURE__ */ jsx(LinkPlugin, {}),
+            /* @__PURE__ */ jsx(LinkShortcutsPlugin, {}),
+            /* @__PURE__ */ jsx(AutoLinkPlugin, {
               matchers: AUTO_LINK_MATCHERS
-            }, undefined, false, undefined, this),
-            mentionItems?.length ? /* @__PURE__ */ jsxDEV(MentionTypeahead, {
+            }),
+            mentionItems?.length ? /* @__PURE__ */ jsx(MentionTypeahead, {
               items: mentionItems
-            }, undefined, false, undefined, this) : null,
-            issueReferenceItems?.length ? /* @__PURE__ */ jsxDEV(IssueReferenceTypeahead, {
+            }) : null,
+            issueReferenceItems?.length ? /* @__PURE__ */ jsx(IssueReferenceTypeahead, {
               items: issueReferenceItems
-            }, undefined, false, undefined, this) : null,
+            }) : null,
             plugins,
-            /* @__PURE__ */ jsxDEV(OnChangePlugin, {
+            /* @__PURE__ */ jsx(OnChangePlugin, {
               onChange: handleChange
-            }, undefined, false, undefined, this),
-            /* @__PURE__ */ jsxDEV(EditablePlugin, {
+            }),
+            /* @__PURE__ */ jsx(EditablePlugin, {
               editable
-            }, undefined, false, undefined, this),
-            /* @__PURE__ */ jsxDEV(EditorApiPlugin, {
+            }),
+            /* @__PURE__ */ jsx(EditorApiPlugin, {
               editorApi,
               defaultContent
-            }, undefined, false, undefined, this)
+            })
           ]
-        }, undefined, true, undefined, this)
+        })
       ]
-    }, undefined, true, undefined, this)
-  }, undefined, false, undefined, this);
+    })
+  });
 };
 var LINKIFY_PATTERN = /(?:https?:\/\/|www\.)[^\s<]+|[^\s<@]+@[^\s<@]+\.[a-z]{2,}/gi;
 var TRAILING_PUNCTUATION = /[.,!?;:)\]]+$/;
@@ -585,9 +585,9 @@ var RichTextContent = ({
   ...rest
 }) => {
   if (!html?.trim())
-    return /* @__PURE__ */ jsxDEV(Fragment, {
+    return /* @__PURE__ */ jsx(Fragment, {
       children: fallback
-    }, undefined, false, undefined, this);
+    });
   DOMPurify.addHook("afterSanitizeAttributes", openLinksInNewTab);
   const clean = DOMPurify.sanitize(linkifyBareUrls(linkifyMarkdownLinks(html)), {
     ALLOWED_TAGS: [
@@ -617,11 +617,11 @@ var RichTextContent = ({
     ALLOWED_ATTR: ["href", "target", "rel", "class"]
   });
   DOMPurify.removeHook("afterSanitizeAttributes");
-  return /* @__PURE__ */ jsxDEV("div", {
+  return /* @__PURE__ */ jsx("div", {
     className: cn("[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_blockquote]:my-2 [&_blockquote]:border-border [&_blockquote]:border-l-2 [&_blockquote]:pl-3 [&_blockquote]:text-muted-foreground [&_blockquote]:italic [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em] [&_h1]:font-bold [&_h1]:text-xl [&_h2]:font-bold [&_h2]:text-lg [&_h3]:font-semibold [&_h3]:text-base [&_ol]:ml-5 [&_ol]:list-decimal [&_ol_ol]:list-[lower-alpha] [&_p:last-child]:mb-0 [&_p]:mb-2 [&_ul]:ml-5 [&_ul]:list-disc [&_ul_ul]:list-[circle]", className),
     dangerouslySetInnerHTML: { __html: clean },
     ...rest
-  }, undefined, false, undefined, this);
+  });
 };
 var rich_text_editor_default = RichTextEditor;
 export {

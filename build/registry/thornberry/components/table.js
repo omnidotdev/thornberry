@@ -3,51 +3,51 @@ import {
 } from "../../../chunks/avatar-yp1ewaxt.js";
 
 // src/registry/thornberry/components/table.tsx
-import { jsxDEV } from "react/jsx-dev-runtime";
-var Table = ({ containerProps, className, ...rest }) => /* @__PURE__ */ jsxDEV("div", {
+import { jsx } from "react/jsx-runtime";
+var Table = ({ containerProps, className, ...rest }) => /* @__PURE__ */ jsx("div", {
   "data-slot": "table-container",
   className: cn("no-scrollbar relative w-full overflow-auto", containerProps),
-  children: /* @__PURE__ */ jsxDEV("table", {
+  children: /* @__PURE__ */ jsx("table", {
     "data-slot": "table",
     className: cn("w-full caption-bottom text-sm", className),
     ...rest
-  }, undefined, false, undefined, this)
-}, undefined, false, undefined, this);
-var TableHeader = ({ className, ...rest }) => /* @__PURE__ */ jsxDEV("thead", {
+  })
+});
+var TableHeader = ({ className, ...rest }) => /* @__PURE__ */ jsx("thead", {
   "data-slot": "table-header",
   className: cn("h-8 [&_tr]:border-b", className),
   ...rest
-}, undefined, false, undefined, this);
-var TableBody = ({ className, ...rest }) => /* @__PURE__ */ jsxDEV("tbody", {
+});
+var TableBody = ({ className, ...rest }) => /* @__PURE__ */ jsx("tbody", {
   "data-slot": "table-body",
   className: cn("[&_tr:last-child]:border-0", className),
   ...rest
-}, undefined, false, undefined, this);
-var TableFooter = ({ className, ...rest }) => /* @__PURE__ */ jsxDEV("tfoot", {
+});
+var TableFooter = ({ className, ...rest }) => /* @__PURE__ */ jsx("tfoot", {
   "data-slot": "table-footer",
   className: cn("border-t bg-muted/50 [&>tr]:last:border-b-0", className),
   ...rest
-}, undefined, false, undefined, this);
-var TableRow = ({ className, ...rest }) => /* @__PURE__ */ jsxDEV("tr", {
+});
+var TableRow = ({ className, ...rest }) => /* @__PURE__ */ jsx("tr", {
   "data-slot": "table-row",
   className: cn("border-b hover:bg-accent data-[state=selected]:bg-accent", className),
   ...rest
-}, undefined, false, undefined, this);
-var TableHead = ({ className, ...rest }) => /* @__PURE__ */ jsxDEV("th", {
+});
+var TableHead = ({ className, ...rest }) => /* @__PURE__ */ jsx("th", {
   "data-slot": "table-head",
   className: cn("whitespace-nowrap p-1 text-left align-middle font-medium text-foreground [&:has([role=checkbox])]:pr-0 *:[[role=checkbox]]:translate-y-0.5", className),
   ...rest
-}, undefined, false, undefined, this);
-var TableCell = ({ className, ...rest }) => /* @__PURE__ */ jsxDEV("td", {
+});
+var TableCell = ({ className, ...rest }) => /* @__PURE__ */ jsx("td", {
   "data-slot": "table-cell",
   className: cn("select-none whitespace-nowrap p-2 align-middle font-light [&:has([role=checkbox])]:pr-0 *:[[role=checkbox]]:translate-y-0.5", className),
   ...rest
-}, undefined, false, undefined, this);
-var TableCaption = ({ className, ...rest }) => /* @__PURE__ */ jsxDEV("caption", {
+});
+var TableCaption = ({ className, ...rest }) => /* @__PURE__ */ jsx("caption", {
   "data-slot": "table-caption",
   className: cn("mt-4 text-muted-foreground text-sm", className),
   ...rest
-}, undefined, false, undefined, this);
+});
 export {
   TableRow,
   TableHeader,

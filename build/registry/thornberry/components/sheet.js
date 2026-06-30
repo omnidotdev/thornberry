@@ -9,7 +9,7 @@ import {
   SheetRoot,
   SheetTitle,
   SheetTrigger
-} from "../../../chunks/avatar-44chqh8d.js";
+} from "../../../chunks/avatar-zw43tfjm.js";
 import"../../../chunks/avatar-yp1ewaxt.js";
 export {
   SheetTrigger,

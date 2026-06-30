@@ -40,6 +40,11 @@ const EXTERNAL = [
 ];
 
 const build = async () => {
+  // NB: this build must run with NODE_ENV=production (set in the `build:lib`
+  // script). Bun.build selects the JSX runtime from NODE_ENV at process start,
+  // and the development runtime (jsxDEV) is stubbed out by consumers'
+  // production bundlers (@vitejs/plugin-react sets jsxDEV to undefined),
+  // crashing every component with "jsxDEV is not a function".
   await $`rm -rf build`;
 
   const entrypoints: string[] = [];

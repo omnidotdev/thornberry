@@ -1,6 +1,6 @@
 import {
   Button
-} from "../../../chunks/avatar-07z52b3z.js";
+} from "../../../chunks/avatar-jb3sh07m.js";
 import"../../../chunks/avatar-zdtfvyzd.js";
 import {
   cn
@@ -9,66 +9,66 @@ import {
 // src/registry/thornberry/components/pagination.tsx
 import { Pagination as ArkPagination } from "@ark-ui/react/pagination";
 import { ChevronLeft, ChevronRight, Ellipsis } from "lucide-react";
-import { jsxDEV } from "react/jsx-dev-runtime";
+import { jsx } from "react/jsx-runtime";
 var PaginationProvider = ArkPagination.RootProvider;
 var PaginationContext = ArkPagination.Context;
 var PaginationRoot = ({
   className,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkPagination.Root, {
+}) => /* @__PURE__ */ jsx(ArkPagination.Root, {
   className: cn("flex w-full flex-col", className),
   ...rest
-}, undefined, false, undefined, this);
+});
 var PaginationEllipsis = ({
   className,
   index,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkPagination.Ellipsis, {
+}) => /* @__PURE__ */ jsx(ArkPagination.Ellipsis, {
   index,
   className: cn("flex h-9 w-9 items-center justify-center", className),
   ...rest,
-  children: /* @__PURE__ */ jsxDEV(Ellipsis, {
+  children: /* @__PURE__ */ jsx(Ellipsis, {
     className: "h-4 w-4"
-  }, undefined, false, undefined, this)
-}, undefined, false, undefined, this);
+  })
+});
 var PaginationItem = ({
   className,
   page,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkPagination.Item, {
+}) => /* @__PURE__ */ jsx(ArkPagination.Item, {
   className: cn("flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background font-medium text-sm hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary data-selected:border-primary data-selected:bg-primary data-selected:text-primary-foreground data-selected:focus-visible:ring-foreground", className),
   ...rest
-}, undefined, false, undefined, this);
+});
 var PaginationPrevTrigger = ({
   className,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkPagination.PrevTrigger, {
+}) => /* @__PURE__ */ jsx(ArkPagination.PrevTrigger, {
   asChild: true,
   ...rest,
-  children: /* @__PURE__ */ jsxDEV(Button, {
+  children: /* @__PURE__ */ jsx(Button, {
     variant: "outline",
     size: "icon",
     className: cn("h-9 w-9", className),
-    children: /* @__PURE__ */ jsxDEV(ChevronLeft, {
+    children: /* @__PURE__ */ jsx(ChevronLeft, {
       className: "h-4 w-4"
-    }, undefined, false, undefined, this)
-  }, undefined, false, undefined, this)
-}, undefined, false, undefined, this);
+    })
+  })
+});
 var PaginationNextTrigger = ({
   className,
   ...rest
-}) => /* @__PURE__ */ jsxDEV(ArkPagination.NextTrigger, {
+}) => /* @__PURE__ */ jsx(ArkPagination.NextTrigger, {
   asChild: true,
   ...rest,
-  children: /* @__PURE__ */ jsxDEV(Button, {
+  children: /* @__PURE__ */ jsx(Button, {
     variant: "outline",
     size: "icon",
     className: cn("h-9 w-9", className),
-    children: /* @__PURE__ */ jsxDEV(ChevronRight, {
+    children: /* @__PURE__ */ jsx(ChevronRight, {
       className: "h-4 w-4"
-    }, undefined, false, undefined, this)
-  }, undefined, false, undefined, this)
-}, undefined, false, undefined, this);
+    })
+  })
+});
 export {
   PaginationRoot,
   PaginationProvider,
