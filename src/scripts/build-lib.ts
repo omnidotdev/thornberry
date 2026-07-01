@@ -90,6 +90,11 @@ const build = async () => {
   await $`bunx tsc -p tsconfig.build.json`;
   await $`bunx tsc-alias -p tsconfig.build.json`;
 
+  // Ship the shared consumer base stylesheet (apps import it as
+  // "@omnidotdev/thornberry/base.css"). `files: ["build"]` publishes only
+  // build/, and the initial `rm -rf build` wipes it, so copy it in here.
+  await $`cp src/lib/styles/base.css build/base.css`;
+
   console.warn("Library build complete.");
 };
 

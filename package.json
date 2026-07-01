@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./base.css": "./build/base.css",
     "./*": {
       "types": "./build/registry/thornberry/components/*.d.ts",
       "import": "./build/registry/thornberry/components/*.js"

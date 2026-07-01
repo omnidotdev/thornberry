@@ -1,0 +1,19 @@
+/*
+ * Shared base styles for Omni apps that consume @omnidotdev/thornberry.
+ *
+ * Import once, near the top of an app's globals.css:
+ *   @import "@omnidotdev/thornberry/base.css";
+ *
+ * Only universal, theme-agnostic normalizations that should be IDENTICAL across
+ * every Omni app belong here, so they live in one place and propagate on the
+ * next thornberry bump instead of being copy-pasted into each app's globals.css.
+ * App-specific theme tokens, Tailwind setup, and overrides stay in the app.
+ */
+@layer base {
+  html {
+    /* Reserve the scrollbar gutter so pages never shift horizontally when the
+       document scrollbar appears/disappears (content-height changes, list
+       expansion). Standard fix; degrades gracefully on older browsers. */
+    scrollbar-gutter: stable;
+  }
+}
