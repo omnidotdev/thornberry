@@ -11,9 +11,13 @@
  */
 @layer base {
   html {
-    /* Reserve the scrollbar gutter so pages never shift horizontally when the
-       document scrollbar appears/disappears (content-height changes, list
-       expansion). Standard fix; degrades gracefully on older browsers. */
-    scrollbar-gutter: stable;
+    /* Keep the document scrollbar always present so pages never shift
+       horizontally when it appears/disappears (content-height changes, list
+       expansion). `overflow-y: scroll` shows a persistent scrollbar rather
+       than the blank reserved gutter `scrollbar-gutter: stable` leaves on
+       pages that do not scroll. On overlay-scrollbar platforms (default
+       macOS) it costs nothing; on classic scrollbars it reads as an
+       intentional scrollbar instead of mystery whitespace. */
+    overflow-y: scroll;
   }
 }

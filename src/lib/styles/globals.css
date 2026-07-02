@@ -116,7 +116,10 @@
 
 @layer base {
   html {
-    scrollbar-gutter: stable;
+    /* Persistent scrollbar (not a reserved-but-empty gutter) so the page
+       never shifts horizontally and non-scrolling pages show no blank
+       whitespace where the scrollbar would be. */
+    overflow-y: scroll;
   }
   * {
     @apply border-border outline-ring/50;
