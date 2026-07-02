@@ -12,7 +12,13 @@ COPY package.json bun.lock .env.production ./
 RUN bun install --frozen-lockfile
 COPY . .
 ENV NITRO_PRESET=node-server
-RUN bun run build
+# Cache-bust marker to force a fresh Vite/Nitro build layer
+ARG BUILD_TOKEN=2026-07-02-cb1
+RUN echo "build token: $BUILD_TOKEN" && bun run build
+# Fail the build loudly if Nitro traced react-dom without server.node.js
+# (the node-server runtime imports it; a missing file crash-loops the pod)
+RUN test -f .output/server/node_modules/react-dom/server.node.js \
+  || (echo "ERROR: react-dom/server.node.js missing from .output" && exit 1)
 
 # Bun doesn't properly resolve externalized Nitro packages (srvx, react-dom/server),
 # so run under node (slim, glibc to match the oven/bun builder) with the builder's
