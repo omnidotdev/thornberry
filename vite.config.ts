@@ -33,7 +33,18 @@ const viteConfig = defineConfig({
     }),
     react(),
     // see https://tanstack.com/start/latest/docs/framework/react/guide/hosting for hosting config
-    nitro(),
+    // Inline react-dom (and other externalized server deps) so Nitro's tracer
+    // does not resolve react-dom/server to a runtime variant lacking server.node.js
+    nitro({
+      externals: {
+        inline: [
+          "srvx",
+          "react-dom",
+          "@tanstack/router-core",
+          "@tanstack/start-server-core",
+        ],
+      },
+    }),
   ],
 });
 

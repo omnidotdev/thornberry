@@ -12,12 +12,7 @@ COPY package.json bun.lock .env.production ./
 RUN bun install --frozen-lockfile
 COPY . .
 ENV NITRO_PRESET=node-server
-# Run the Vite/Nitro build under node, not bun. Nitro appends the "bun" export
-# condition whenever the build process is Bun ("Bun" in globalThis), which makes
-# its dependency tracer resolve react-dom/server to server.bun.js/server.edge.js
-# and omit server.node.js, the file the node-server runtime imports at runtime
-# (ERR_MODULE_NOT_FOUND under node). Building under node traces server.node.js
-RUN bunx fumadocs-mdx && bunx tsc --noEmit && node node_modules/.bin/vite build
+RUN bun run build
 
 # Bun doesn't properly resolve externalized Nitro packages (srvx, react-dom/server),
 # so run under node (slim, glibc to match the oven/bun builder) with the builder's
