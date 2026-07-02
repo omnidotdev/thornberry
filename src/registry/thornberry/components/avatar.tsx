@@ -68,10 +68,18 @@ const AvatarImage = ({
   <ArkAvatar.Image
     // Render the image even before it decodes (overriding Ark's `hidden`) so it
     // can cross-fade in via opacity rather than snapping from display:none. Ark
-    // flips `data-state` to "visible" once it loads; an already-decoded (cached)
-    // image is visible from first paint, so it shows with no perceptible fade,
-    // and a broken/loading one stays at opacity 0 with the fallback behind it.
+    // flips `data-state` to "visible" once it loads, driving the fade; a
+    // broken/loading one stays at opacity 0 with the fallback behind it.
     hidden={false}
+    ref={(img) => {
+      // A cached / already-decoded avatar shows instantly with the transition
+      // suppressed, so a page full of cached avatars never mass-fades at once;
+      // only a genuinely-loading avatar cross-fades in via the data-state class.
+      if (img?.complete && img.naturalWidth > 0) {
+        img.style.transition = "none";
+        img.style.opacity = "1";
+      }
+    }}
     className={cn(
       "aspect-square size-full opacity-0 transition-opacity duration-300 ease-out data-[state=visible]:opacity-100",
       className,
