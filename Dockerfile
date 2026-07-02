@@ -12,11 +12,13 @@ COPY package.json bun.lock .env.production ./
 RUN bun install --frozen-lockfile
 COPY . .
 ENV NITRO_PRESET=node-server
-# Cache-bust marker to force a fresh Vite/Nitro build layer
-ARG BUILD_TOKEN=2026-07-02-cb1
-RUN echo "build token: $BUILD_TOKEN" && bun run build
-# Fail the build loudly if Nitro traced react-dom without server.node.js
-# (the node-server runtime imports it; a missing file crash-loops the pod)
+RUN bun run build
+# Under the oven/bun builder, Nitro's tracer bundles react-dom's bun/edge server
+# variants but omits server.node.js, which the node-server runtime imports at
+# runtime (ERR_MODULE_NOT_FOUND, crash-loops the pod). Copy the complete react-dom
+# into the traced output so the node entry and its cjs deps are present
+RUN cp -rn node_modules/react-dom/. .output/server/node_modules/react-dom/
+# Fail the build loudly if server.node.js is still missing
 RUN test -f .output/server/node_modules/react-dom/server.node.js \
   || (echo "ERROR: react-dom/server.node.js missing from .output" && exit 1)
 
