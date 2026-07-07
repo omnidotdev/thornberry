@@ -3,23 +3,44 @@ title: Overview
 description: Welcome to the Omni Thornberry Registry! This registry showcases the Omni design system, featuring our custom-built component registry powered by Ark UI and styled with Tailwind CSS. It provides a comprehensive, living guide to the components, hooks, and utilities in our UI library and toolkit. Use this reference to explore implementation patterns, accessibility-first design practices, and the visual language that defines Omni.
 ---
 
-## Getting Started
-
-<p className="py-4">Coming Soon</p>
-
 ## Requirements
 
-<p className="py-4">Coming Soon</p>
+Thornberry components drop into any React app set up with:
+
+- [React](https://react.dev) 19+
+- [Tailwind CSS](https://tailwindcss.com) v4
+- The [shadcn](https://ui.shadcn.com) CLI (a `components.json` in your project)
+- [lucide-react](https://lucide.dev) for icons
+
+Components are built on [Ark UI](https://ark-ui.com) primitives, which the CLI pulls in per component as needed.
+
+## Getting Started
+
+1. Initialize shadcn in your React + Tailwind project (skip if you already have a `components.json`):
+
+   ```bash
+   npx shadcn@latest init
+   ```
+
+2. Add any component from the Thornberry registry by URL. Every component page in these docs also has its own install tab with the exact command. For example, the button:
+
+   ```bash
+   bunx --bun shadcn@latest add https://thornberry.omni.dev/r/button.json
+   ```
+
+   The component is copied into your project (under your configured `ui` alias) as editable source, ready to customize.
+
+3. (Optional) Pull in the shared Omni base styles so normalizations stay consistent across apps. Add the package and import its stylesheet after Tailwind in your global stylesheet:
+
+   ```css
+   @import "tailwindcss";
+   @import "@omnidotdev/thornberry/base.css";
+   ```
 
 ## Theming
 
-<p className="py-4">Coming Soon</p>
-
-## Typography
-
-<p className="py-4">Coming Soon</p>
+Thornberry is the Tailwind and shadcn expression of the Omni [Sigil](https://docs.omni.dev/sigil) design system. Theme tokens are plain CSS variables, so you restyle components by overriding them in your own stylesheet, exactly as you would in any shadcn project. Shared, theme-agnostic normalizations live in `@omnidotdev/thornberry/base.css` so they stay consistent across Omni apps and update on the next bump.
 
 ## Acknowledgments
 
-{/* TODO: include reference / callouts to appropriate API documentation like Ark UI here */}
-<p className="py-4">Coming Soon</p>
+Thornberry stands on [Ark UI](https://ark-ui.com) for accessible, unstyled primitives, the [shadcn](https://ui.shadcn.com) registry for distribution, and [Tailwind CSS](https://tailwindcss.com) for styling.
