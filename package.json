@@ -22,7 +22,7 @@
     "lint": "biome lint",
     "registry:build": "shadcn registry:build",
     "build:lib": "NODE_ENV=production bun src/scripts/build-lib.ts",
-    "test": "bun test --conditions development",
+    "test": "bun test --conditions production",
     "knip": "knip-bun",
     "prepare": "husky"
   },
