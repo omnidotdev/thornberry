@@ -104,11 +104,14 @@ var defaultTheme = {
   list: {
     ul: "mb-2 ml-5 list-disc",
     ol: "mb-2 ml-5 list-decimal",
-    listitem: "mb-1"
+    listitem: "mb-1",
+    listitemUnchecked: "before:text-muted-foreground before:content-['○']",
+    listitemChecked: "text-muted-foreground line-through before:text-primary before:content-['✓']"
   },
   link: "text-primary underline underline-offset-2 hover:opacity-80",
   quote: "my-2 border-border border-l-2 pl-3 text-muted-foreground italic"
 };
+var CHECKLIST_ITEM_GEOMETRY = "relative list-none pl-6 before:absolute before:top-1 before:left-0 before:h-4 before:w-4 before:cursor-pointer before:text-center before:leading-4";
 var MARKDOWN_TRANSFORMERS = [
   HEADING,
   QUOTE,
@@ -449,9 +452,18 @@ var RichTextEditor = ({
       ...rest
     });
   }
+  const baseTheme = theme ?? defaultTheme;
+  const editorTheme = enableChecklist ? {
+    ...baseTheme,
+    list: {
+      ...baseTheme.list,
+      listitemUnchecked: cn(CHECKLIST_ITEM_GEOMETRY, baseTheme.list?.listitemUnchecked ?? defaultTheme.list?.listitemUnchecked),
+      listitemChecked: cn(CHECKLIST_ITEM_GEOMETRY, baseTheme.list?.listitemChecked ?? defaultTheme.list?.listitemChecked)
+    }
+  } : baseTheme;
   const initialConfig = {
     namespace: "RichTextEditor",
-    theme: theme ?? defaultTheme,
+    theme: editorTheme,
     editable,
     onError: (error) => console.error("Lexical error:", error),
     nodes: [
