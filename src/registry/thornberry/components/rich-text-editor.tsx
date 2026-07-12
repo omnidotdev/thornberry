@@ -115,10 +115,28 @@ const defaultTheme: EditorThemeClasses = {
     ul: "mb-2 ml-5 list-disc",
     ol: "mb-2 ml-5 list-decimal",
     listitem: "mb-1",
+    // Checklist appearance only (glyph + color); the clickable geometry is
+    // injected via CHECKLIST_ITEM_GEOMETRY so it can never be dropped.
+    listitemUnchecked: "before:text-muted-foreground before:content-['○']",
+    listitemChecked:
+      "text-muted-foreground line-through before:text-primary before:content-['✓']",
   },
   link: "text-primary underline underline-offset-2 hover:opacity-80",
   quote: "my-2 border-border border-l-2 pl-3 text-muted-foreground italic",
 };
+
+/**
+ * Geometry that makes a checklist item's checkbox clickable. Lexical's checkbox
+ * is not a real `<input>`: `@lexical/list`'s `registerCheckList` toggles only
+ * when a click lands in `[li.left, li.left + ::before width]`. So the `::before`
+ * checkbox MUST sit at the list item's left edge, inside its box, with a real
+ * width, or the visible checkmark and the clickable region never overlap and the
+ * item can't be checked. Kept separate from appearance (glyph/color) and always
+ * injected when `enableChecklist` is on, so a consumer theme only supplies
+ * appearance and can never ship an unclickable checkbox.
+ */
+const CHECKLIST_ITEM_GEOMETRY =
+  "relative list-none pl-6 before:absolute before:top-1 before:left-0 before:h-4 before:w-4 before:cursor-pointer before:text-center before:leading-4";
 
 /**
  * Markdown shortcuts the editor understands as you type (e.g. `- ` for a
@@ -696,9 +714,32 @@ const RichTextEditor = ({
     );
   }
 
+  const baseTheme = theme ?? defaultTheme;
+  // Always pair the checklist appearance with CHECKLIST_ITEM_GEOMETRY so the
+  // checkbox is clickable regardless of the consumer's theme, falling back to
+  // the default glyphs when a custom theme omits checklist styling.
+  const editorTheme = enableChecklist
+    ? {
+        ...baseTheme,
+        list: {
+          ...baseTheme.list,
+          listitemUnchecked: cn(
+            CHECKLIST_ITEM_GEOMETRY,
+            baseTheme.list?.listitemUnchecked ??
+              defaultTheme.list?.listitemUnchecked,
+          ),
+          listitemChecked: cn(
+            CHECKLIST_ITEM_GEOMETRY,
+            baseTheme.list?.listitemChecked ??
+              defaultTheme.list?.listitemChecked,
+          ),
+        },
+      }
+    : baseTheme;
+
   const initialConfig = {
     namespace: "RichTextEditor",
-    theme: theme ?? defaultTheme,
+    theme: editorTheme,
     editable,
     onError: (error: Error) => console.error("Lexical error:", error),
     nodes: [
