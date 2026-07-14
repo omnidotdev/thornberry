@@ -112,6 +112,7 @@ var defaultTheme = {
   quote: "my-2 border-border border-l-2 pl-3 text-muted-foreground italic"
 };
 var CHECKLIST_ITEM_GEOMETRY = "relative list-none pl-6 before:absolute before:top-1 before:left-0 before:h-4 before:w-4 before:cursor-pointer before:text-center before:leading-4";
+var NESTED_LIST_ITEM_GEOMETRY = "list-none before:hidden after:hidden";
 var MARKDOWN_TRANSFORMERS = [
   HEADING,
   QUOTE,
@@ -453,14 +454,20 @@ var RichTextEditor = ({
     });
   }
   const baseTheme = theme ?? defaultTheme;
-  const editorTheme = enableChecklist ? {
+  const editorTheme = {
     ...baseTheme,
     list: {
       ...baseTheme.list,
-      listitemUnchecked: cn(CHECKLIST_ITEM_GEOMETRY, baseTheme.list?.listitemUnchecked ?? defaultTheme.list?.listitemUnchecked),
-      listitemChecked: cn(CHECKLIST_ITEM_GEOMETRY, baseTheme.list?.listitemChecked ?? defaultTheme.list?.listitemChecked)
+      nested: {
+        ...baseTheme.list?.nested,
+        listitem: cn(NESTED_LIST_ITEM_GEOMETRY, baseTheme.list?.nested?.listitem)
+      },
+      ...enableChecklist ? {
+        listitemUnchecked: cn(CHECKLIST_ITEM_GEOMETRY, baseTheme.list?.listitemUnchecked ?? defaultTheme.list?.listitemUnchecked),
+        listitemChecked: cn(CHECKLIST_ITEM_GEOMETRY, baseTheme.list?.listitemChecked ?? defaultTheme.list?.listitemChecked)
+      } : {}
     }
-  } : baseTheme;
+  };
   const initialConfig = {
     namespace: "RichTextEditor",
     theme: editorTheme,
