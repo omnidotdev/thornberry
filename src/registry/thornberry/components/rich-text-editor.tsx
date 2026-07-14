@@ -139,6 +139,17 @@ const CHECKLIST_ITEM_GEOMETRY =
   "relative list-none pl-6 before:absolute before:top-1 before:left-0 before:h-4 before:w-4 before:cursor-pointer before:text-center before:leading-4";
 
 /**
+ * Suppresses the marker on the structural `<li>` that only wraps a nested list.
+ * When a list item is indented, Lexical wraps the sublist in a `<li>` and still
+ * applies the list-item (and, in a checklist, the checked/unchecked) classes to
+ * it, so that wrapper draws its own bullet/checkbox on top of the real nested
+ * item's, a doubled marker. Removing the list marker and the checklist `::before`
+ * glyph on the wrapper collapses it back to one. Injected centrally (like
+ * CHECKLIST_ITEM_GEOMETRY) so a consumer theme can never reintroduce the double.
+ */
+const NESTED_LIST_ITEM_GEOMETRY = "list-none before:hidden after:hidden";
+
+/**
  * Markdown shortcuts the editor understands as you type (e.g. `- ` for a
  * bullet, `1. ` for a numbered list, `# ` for a heading, `> ` for a quote,
  * `**bold**`, `` `code` ``). Code blocks are intentionally excluded (the
@@ -715,27 +726,38 @@ const RichTextEditor = ({
   }
 
   const baseTheme = theme ?? defaultTheme;
-  // Always pair the checklist appearance with CHECKLIST_ITEM_GEOMETRY so the
-  // checkbox is clickable regardless of the consumer's theme, falling back to
-  // the default glyphs when a custom theme omits checklist styling.
-  const editorTheme = enableChecklist
-    ? {
-        ...baseTheme,
-        list: {
-          ...baseTheme.list,
-          listitemUnchecked: cn(
-            CHECKLIST_ITEM_GEOMETRY,
-            baseTheme.list?.listitemUnchecked ??
-              defaultTheme.list?.listitemUnchecked,
-          ),
-          listitemChecked: cn(
-            CHECKLIST_ITEM_GEOMETRY,
-            baseTheme.list?.listitemChecked ??
-              defaultTheme.list?.listitemChecked,
-          ),
-        },
-      }
-    : baseTheme;
+  // Always suppress the nested-wrapper marker (see NESTED_LIST_ITEM_GEOMETRY) so
+  // indenting any list, bulleted, numbered, or checklist, never doubles the
+  // marker, and always pair the checklist appearance with CHECKLIST_ITEM_GEOMETRY
+  // so the checkbox is clickable regardless of the consumer's theme, falling back
+  // to the default glyphs when a custom theme omits checklist styling.
+  const editorTheme = {
+    ...baseTheme,
+    list: {
+      ...baseTheme.list,
+      nested: {
+        ...baseTheme.list?.nested,
+        listitem: cn(
+          NESTED_LIST_ITEM_GEOMETRY,
+          baseTheme.list?.nested?.listitem,
+        ),
+      },
+      ...(enableChecklist
+        ? {
+            listitemUnchecked: cn(
+              CHECKLIST_ITEM_GEOMETRY,
+              baseTheme.list?.listitemUnchecked ??
+                defaultTheme.list?.listitemUnchecked,
+            ),
+            listitemChecked: cn(
+              CHECKLIST_ITEM_GEOMETRY,
+              baseTheme.list?.listitemChecked ??
+                defaultTheme.list?.listitemChecked,
+            ),
+          }
+        : {}),
+    },
+  };
 
   const initialConfig = {
     namespace: "RichTextEditor",
