@@ -55,7 +55,7 @@ var AvatarImage = ({
       img.style.opacity = "1";
     }
   },
-  className: cn("aspect-square size-full opacity-0 transition-opacity duration-300 ease-out data-[state=visible]:opacity-100", className),
+  className: cn("absolute inset-0 aspect-square size-full opacity-0 transition-opacity duration-300 ease-out data-[state=visible]:opacity-100", className),
   alt: "Avatar",
   ...rest
 });
