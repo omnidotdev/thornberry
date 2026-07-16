@@ -63,7 +63,7 @@ const MenuItem = ({
   <ArkMenu.Item
     data-variant={variant}
     className={cn(
-      "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden hover:bg-muted focus:bg-muted data-disabled:pointer-events-none data-[state=checked]:bg-muted data-highlighted:bg-muted data-inset:pl-8 data-[variant=destructive]:text-destructive data-disabled:opacity-50 data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:hover:bg-destructive/10 dark:data-[variant=destructive]:hover:bg-destructive/20 [&[data-state=checked][data-highlighted]]:bg-muted [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 data-[variant=destructive]:*:[svg]:text-destructive!",
+      "relative flex cursor-pointer select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden hover:bg-muted focus:bg-muted data-disabled:pointer-events-none data-[state=checked]:bg-muted data-highlighted:bg-muted data-inset:pl-8 data-[variant=destructive]:text-destructive data-disabled:opacity-50 data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:hover:bg-destructive/10 dark:data-[variant=destructive]:hover:bg-destructive/20 [&[data-state=checked][data-highlighted]]:bg-muted [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 data-[variant=destructive]:*:[svg]:text-destructive!",
       variant === "destructive" &&
         "data-highlighted:bg-destructive/10 data-highlighted:text-destructive",
       className,
@@ -81,7 +81,7 @@ const MenuCheckboxItem = ({
 }: ComponentProps<typeof ArkMenu.CheckboxItem>) => (
   <ArkMenu.CheckboxItem
     className={cn(
-      "relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-muted focus:bg-muted data-disabled:pointer-events-none data-[state=checked]:bg-muted data-highlighted:bg-muted data-disabled:opacity-50 [&[data-state=checked][data-highlighted]]:bg-muted",
+      "relative flex w-full cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-muted focus:bg-muted data-disabled:pointer-events-none data-[state=checked]:bg-muted data-highlighted:bg-muted data-disabled:opacity-50 [&[data-state=checked][data-highlighted]]:bg-muted",
       className,
     )}
     {...rest}
@@ -139,7 +139,7 @@ const MenuRadioItem = ({
 }: ComponentProps<typeof ArkMenu.RadioItem>) => (
   <ArkMenu.RadioItem
     className={cn(
-      "relative flex cursor-default select-none items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden focus:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "relative flex cursor-pointer select-none items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden focus:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
       className,
     )}
     {...rest}
@@ -172,7 +172,7 @@ const MenuTriggerItem = ({
 }: ComponentProps<typeof ArkMenu.TriggerItem>) => (
   <ArkMenu.TriggerItem
     className={cn(
-      "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-muted focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 data-disabled:pointer-events-none data-highlighted:bg-muted data-disabled:opacity-50 [&>svg]:size-4",
+      "relative flex cursor-pointer select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-muted focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 data-disabled:pointer-events-none data-highlighted:bg-muted data-disabled:opacity-50 [&>svg]:size-4",
       className,
     )}
     {...rest}
