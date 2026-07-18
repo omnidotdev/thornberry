@@ -20,4 +20,30 @@
        intentional scrollbar instead of mystery whitespace. */
     overflow-y: scroll;
   }
+
+  /* Restore the hand cursor on every interactive primitive. Two forces strip
+     it otherwise: modern browsers default `<button>` to the arrow cursor, and
+     Tailwind v4 Preflight explicitly sets `cursor: default` on `button` and
+     `[role="button"]`. The components already carry a `cursor-pointer` utility,
+     but that only takes effect when the consuming app's Tailwind build scans
+     thornberry's shipped output for class names, which it does NOT do by
+     default (Tailwind ignores `node_modules`), so the affordance silently
+     vanishes in consumers. These rules ship as plain CSS in base.css, which
+     every consumer imports directly, guaranteeing the cursor regardless of the
+     consumer's content-scanning config. The `:not(...)` guards raise
+     specificity above Preflight and skip disabled controls, which keep the
+     default cursor. Ark UI marks disabled widgets with `data-disabled` and
+     `aria-disabled`; native controls use `:disabled`. */
+  button:not(:disabled):not([aria-disabled="true"]):not([data-disabled]),
+  [role="button"]:not([aria-disabled="true"]):not([data-disabled]),
+  [role="menuitem"]:not([aria-disabled="true"]):not([data-disabled]),
+  [role="menuitemcheckbox"]:not([aria-disabled="true"]):not([data-disabled]),
+  [role="menuitemradio"]:not([aria-disabled="true"]):not([data-disabled]),
+  [role="option"]:not([aria-disabled="true"]):not([data-disabled]),
+  [role="tab"]:not([aria-disabled="true"]):not([data-disabled]),
+  [role="switch"]:not([aria-disabled="true"]):not([data-disabled]),
+  [role="radio"]:not([aria-disabled="true"]):not([data-disabled]),
+  [role="checkbox"]:not([aria-disabled="true"]):not([data-disabled]) {
+    cursor: pointer;
+  }
 }

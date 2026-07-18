@@ -114,7 +114,7 @@ const ComboboxItem = ({
 }: ComponentProps<typeof ArkCombobox.Item>) => (
   <ArkCombobox.Item
     className={cn(
-      "flex w-full cursor-default select-none items-center justify-between rounded-sm px-2 py-1.5 pr-2 text-sm outline-none data-disabled:pointer-events-none data-[state=checked]:bg-muted data-highlighted:bg-muted data-disabled:opacity-50",
+      "flex w-full cursor-pointer select-none items-center justify-between rounded-sm px-2 py-1.5 pr-2 text-sm outline-none data-disabled:pointer-events-none data-[state=checked]:bg-muted data-highlighted:bg-muted data-disabled:opacity-50",
       className,
     )}
     {...rest}
