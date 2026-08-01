@@ -131,14 +131,10 @@ var MARKDOWN_TRANSFORMERS = [
 ];
 var URL_MATCHER = /((https?:\/\/(www\.)?)|(www\.))[-\w@:%.+~#=]{1,256}\.[a-z]{2,6}\b([-\w@:%+.~#?&/=]*)/i;
 var EMAIL_MATCHER = /[\w.+-]+@([\w-]+\.)+[a-z]{2,}/i;
-var autoLinkMatchers = null;
-var getAutoLinkMatchers = () => {
-  autoLinkMatchers ??= [
-    createLinkMatcherWithRegExp(URL_MATCHER, (text) => text.startsWith("http") ? text : `https://${text}`),
-    createLinkMatcherWithRegExp(EMAIL_MATCHER, (text) => `mailto:${text}`)
-  ];
-  return autoLinkMatchers;
-};
+var AUTO_LINK_MATCHERS = [
+  createLinkMatcherWithRegExp(URL_MATCHER, (text) => text.startsWith("http") ? text : `https://${text}`),
+  createLinkMatcherWithRegExp(EMAIL_MATCHER, (text) => `mailto:${text}`)
+];
 var linkFromText = (text) => {
   const value = text.trim();
   if (!value || /\s/.test(value))
@@ -530,7 +526,7 @@ var RichTextEditor = ({
             /* @__PURE__ */ jsx(LinkPlugin, {}),
             /* @__PURE__ */ jsx(LinkShortcutsPlugin, {}),
             /* @__PURE__ */ jsx(AutoLinkPlugin, {
-              matchers: getAutoLinkMatchers()
+              matchers: AUTO_LINK_MATCHERS
             }),
             mentionItems?.length ? /* @__PURE__ */ jsx(MentionTypeahead, {
               items: mentionItems

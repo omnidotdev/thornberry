@@ -183,22 +183,13 @@ const EMAIL_MATCHER = /[\w.+-]+@([\w-]+\.)+[a-z]{2,}/i;
  * AutoLink matchers turning bare URLs and email addresses into links as the
  * user types or pastes. Scheme-less URLs get an `https://` prefix; emails get a
  * `mailto:` scheme.
- *
- * Built lazily rather than at module load so `createLinkMatcherWithRegExp` is
- * never evaluated during module initialization, avoiding a cross-module
- * temporal dead zone under bundled test/build graphs.
  */
-let autoLinkMatchers: ReturnType<typeof createLinkMatcherWithRegExp>[] | null =
-  null;
-const getAutoLinkMatchers = () => {
-  autoLinkMatchers ??= [
-    createLinkMatcherWithRegExp(URL_MATCHER, (text) =>
-      text.startsWith("http") ? text : `https://${text}`,
-    ),
-    createLinkMatcherWithRegExp(EMAIL_MATCHER, (text) => `mailto:${text}`),
-  ];
-  return autoLinkMatchers;
-};
+const AUTO_LINK_MATCHERS = [
+  createLinkMatcherWithRegExp(URL_MATCHER, (text) =>
+    text.startsWith("http") ? text : `https://${text}`,
+  ),
+  createLinkMatcherWithRegExp(EMAIL_MATCHER, (text) => `mailto:${text}`),
+];
 
 /**
  * Normalize a pasted token into a link href, or null when it is not a single
@@ -844,7 +835,7 @@ const RichTextEditor = ({
           {/* paste a URL over a selection to link it; Cmd/Ctrl+K to link */}
           <LinkShortcutsPlugin />
           {/* turn bare URLs / emails into links as they are typed or pasted */}
-          <AutoLinkPlugin matchers={getAutoLinkMatchers()} />
+          <AutoLinkPlugin matchers={AUTO_LINK_MATCHERS} />
           {mentionItems?.length ? (
             <MentionTypeahead items={mentionItems} />
           ) : null}
