@@ -87,7 +87,7 @@ const AvatarImage = ({
       // of the flex root and split the row with the fallback, shoving the
       // fallback initial off-center. Taking it out of flow lets the fallback own
       // the full circle so its initial stays centered.
-      "absolute inset-0 aspect-square size-full opacity-0 transition-opacity duration-300 ease-out data-[state=visible]:opacity-100",
+      "absolute inset-0 aspect-square size-full object-cover opacity-0 transition-opacity duration-300 ease-out data-[state=visible]:opacity-100",
       className,
     )}
     alt="Avatar"
