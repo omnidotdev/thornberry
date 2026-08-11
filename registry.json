@@ -234,6 +234,33 @@
       ]
     },
     {
+      "name": "command-palette",
+      "type": "registry:ui",
+      "title": "Command Palette",
+      "description": "An opinionated command palette (cmdk) that owns the mod+k shortcut and an open event, so apps supply only their own action list",
+      "dependencies": ["cmdk", "react-hotkeys-hook"],
+      "registryDependencies": ["command", "kbd"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/command-palette.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "use-hotkeys",
+      "type": "registry:hook",
+      "title": "Use Hotkeys",
+      "description": "Shared keyboard-shortcut surface: a single react-hotkeys-hook import source plus normalized global bindings and a label helper",
+      "dependencies": ["react-hotkeys-hook"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/use-hotkeys.tsx",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
       "name": "hover-card",
       "type": "registry:ui",
       "title": "Hover Card",
