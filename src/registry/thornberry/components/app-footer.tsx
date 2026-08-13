@@ -51,8 +51,12 @@ const Divider = () => (
 );
 
 interface AppFooterProps extends ComponentProps<"footer"> {
-  /** The product's own logomark (inline SVG or icon element). */
-  appLogo: ReactNode;
+  /**
+   * The product's own logomark (inline SVG or icon element). Optional: many apps
+   * brand with a lucide icon or none - omit it and the credit still leads with
+   * the product symbol.
+   */
+  appLogo?: ReactNode;
   /**
    * The product's symbol from the Omni product catalog (`products.ts` `icon`,
    * e.g. Fractal "🔷", Kiln "🔥"), shown in the "Made with <symbol> by Omni"
@@ -61,6 +65,12 @@ interface AppFooterProps extends ComponentProps<"footer"> {
   appSymbol: string;
   /** Product docs link. Omit to hide the Docs entry. */
   docsUrl?: string;
+  /**
+   * App-specific nav links (e.g. Feedback, Status, Blog), rendered next to Docs.
+   * Pass the app's own link elements. Keeps adoption from dropping working links
+   * the standard slots don't cover.
+   */
+  links?: ReactNode;
   /**
    * The product's own social links block (apps render their own brand icons).
    * Omit to hide. Always include Threads (`@omnidotdev`) - the commonly missed one.
@@ -85,6 +95,7 @@ const AppFooter = ({
   appLogo,
   appSymbol,
   docsUrl,
+  links,
   socials,
   orgName = "Omni",
   orgUrl = "https://omni.dev",
@@ -120,10 +131,13 @@ const AppFooter = ({
         </span>
       </p>
 
-      {docsUrl && (
+      {(docsUrl || links) && (
         <>
           <Divider />
-          <FooterLink href={docsUrl}>Docs</FooterLink>
+          <div className="flex items-center gap-1">
+            {docsUrl && <FooterLink href={docsUrl}>Docs</FooterLink>}
+            {links}
+          </div>
         </>
       )}
 

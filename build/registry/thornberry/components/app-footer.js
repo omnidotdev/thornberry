@@ -50,6 +50,7 @@ var AppFooter = ({
   appLogo,
   appSymbol,
   docsUrl,
+  links,
   socials,
   orgName = "Omni",
   orgUrl = "https://omni.dev",
@@ -99,12 +100,18 @@ var AppFooter = ({
           })
         ]
       }),
-      docsUrl && /* @__PURE__ */ jsxs(Fragment, {
+      (docsUrl || links) && /* @__PURE__ */ jsxs(Fragment, {
         children: [
           /* @__PURE__ */ jsx(Divider, {}),
-          /* @__PURE__ */ jsx(FooterLink, {
-            href: docsUrl,
-            children: "Docs"
+          /* @__PURE__ */ jsxs("div", {
+            className: "flex items-center gap-1",
+            children: [
+              docsUrl && /* @__PURE__ */ jsx(FooterLink, {
+                href: docsUrl,
+                children: "Docs"
+              }),
+              links
+            ]
           })
         ]
       }),
