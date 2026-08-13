@@ -40,6 +40,18 @@
       ]
     },
     {
+      "name": "app-footer",
+      "type": "registry:ui",
+      "title": "App Footer",
+      "description": "Standard Omni product footer (Made with <symbol> by Omni credit).",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/app-footer.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "avatar",
       "type": "registry:ui",
       "title": "Avatar",
@@ -380,7 +392,7 @@
       "name": "radio-group",
       "type": "registry:ui",
       "title": "Radio Group",
-      "description": "A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time",
+      "description": "A set of checkable buttons\u2014known as radio buttons\u2014where no more than one of the buttons can be checked at a time",
       "files": [
         {
           "path": "src/registry/thornberry/components/radio-group.tsx",
