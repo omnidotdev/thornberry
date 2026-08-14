@@ -151,7 +151,11 @@ const AppFooter = ({
       {socials && (
         <>
           <Divider />
-          <div className="flex items-center gap-1">{socials}</div>
+          {/*
+           * Wider gap than the text-link groups: social icons are bare (no
+           * per-link padding), so gap-1 would leave them visually touching.
+           */}
+          <div className="flex items-center gap-3">{socials}</div>
         </>
       )}
     </footer>

@@ -137,7 +137,7 @@ var AppFooter = ({
         children: [
           /* @__PURE__ */ jsx(Divider, {}),
           /* @__PURE__ */ jsx("div", {
-            className: "flex items-center gap-1",
+            className: "flex items-center gap-3",
             children: socials
           })
         ]
