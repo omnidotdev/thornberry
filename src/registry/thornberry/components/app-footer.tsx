@@ -131,29 +131,35 @@ const AppFooter = ({
         </span>
       </p>
 
-      {(docsUrl || links) && (
-        <>
-          <Divider />
-          <div className="flex items-center gap-1">
-            {docsUrl && <FooterLink href={docsUrl}>Docs</FooterLink>}
-            {links}
-          </div>
-        </>
-      )}
+      {/* Docs, legal, and socials: on mobile they flow into a single centered,
+          wrapping row so Docs/Privacy/Terms/Cookies align together instead of
+          stacking into separate rows; on sm+ this wrapper is `contents`, so the
+          groups and dividers lay out as the original single row. */}
+      <div className="flex flex-wrap items-center justify-center gap-x-1 gap-y-1 sm:contents">
+        {(docsUrl || links) && (
+          <>
+            <Divider />
+            <div className="flex items-center gap-1">
+              {docsUrl && <FooterLink href={docsUrl}>Docs</FooterLink>}
+              {links}
+            </div>
+          </>
+        )}
 
-      <Divider />
-      <div className="flex items-center gap-1">
-        <FooterLink href={legalLinks.privacy}>Privacy</FooterLink>
-        <FooterLink href={legalLinks.terms}>Terms</FooterLink>
-        <FooterLink href={legalLinks.cookies}>Cookies</FooterLink>
+        <Divider />
+        <div className="flex items-center gap-1">
+          <FooterLink href={legalLinks.privacy}>Privacy</FooterLink>
+          <FooterLink href={legalLinks.terms}>Terms</FooterLink>
+          <FooterLink href={legalLinks.cookies}>Cookies</FooterLink>
+        </div>
+
+        {socials && (
+          <>
+            <Divider />
+            <div className="flex items-center gap-1">{socials}</div>
+          </>
+        )}
       </div>
-
-      {socials && (
-        <>
-          <Divider />
-          <div className="flex items-center gap-1">{socials}</div>
-        </>
-      )}
     </footer>
   );
 };

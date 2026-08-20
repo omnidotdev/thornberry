@@ -100,45 +100,50 @@ var AppFooter = ({
           })
         ]
       }),
-      (docsUrl || links) && /* @__PURE__ */ jsxs(Fragment, {
+      /* @__PURE__ */ jsxs("div", {
+        className: "flex flex-wrap items-center justify-center gap-x-1 gap-y-1 sm:contents",
         children: [
+          (docsUrl || links) && /* @__PURE__ */ jsxs(Fragment, {
+            children: [
+              /* @__PURE__ */ jsx(Divider, {}),
+              /* @__PURE__ */ jsxs("div", {
+                className: "flex items-center gap-1",
+                children: [
+                  docsUrl && /* @__PURE__ */ jsx(FooterLink, {
+                    href: docsUrl,
+                    children: "Docs"
+                  }),
+                  links
+                ]
+              })
+            ]
+          }),
           /* @__PURE__ */ jsx(Divider, {}),
           /* @__PURE__ */ jsxs("div", {
             className: "flex items-center gap-1",
             children: [
-              docsUrl && /* @__PURE__ */ jsx(FooterLink, {
-                href: docsUrl,
-                children: "Docs"
+              /* @__PURE__ */ jsx(FooterLink, {
+                href: legalLinks.privacy,
+                children: "Privacy"
               }),
-              links
+              /* @__PURE__ */ jsx(FooterLink, {
+                href: legalLinks.terms,
+                children: "Terms"
+              }),
+              /* @__PURE__ */ jsx(FooterLink, {
+                href: legalLinks.cookies,
+                children: "Cookies"
+              })
             ]
-          })
-        ]
-      }),
-      /* @__PURE__ */ jsx(Divider, {}),
-      /* @__PURE__ */ jsxs("div", {
-        className: "flex items-center gap-1",
-        children: [
-          /* @__PURE__ */ jsx(FooterLink, {
-            href: legalLinks.privacy,
-            children: "Privacy"
           }),
-          /* @__PURE__ */ jsx(FooterLink, {
-            href: legalLinks.terms,
-            children: "Terms"
-          }),
-          /* @__PURE__ */ jsx(FooterLink, {
-            href: legalLinks.cookies,
-            children: "Cookies"
-          })
-        ]
-      }),
-      socials && /* @__PURE__ */ jsxs(Fragment, {
-        children: [
-          /* @__PURE__ */ jsx(Divider, {}),
-          /* @__PURE__ */ jsx("div", {
-            className: "flex items-center gap-1",
-            children: socials
+          socials && /* @__PURE__ */ jsxs(Fragment, {
+            children: [
+              /* @__PURE__ */ jsx(Divider, {}),
+              /* @__PURE__ */ jsx("div", {
+                className: "flex items-center gap-1",
+                children: socials
+              })
+            ]
           })
         ]
       })
