@@ -38,7 +38,7 @@
     "@lexical/rich-text": "^0.39.0",
     "@omnidotdev/providers": "github:omnidotdev/providers#49f2fc4",
     "@tailwindcss/vite": "^4.1.18",
-    "@tanstack/devtools-vite": "^0.4.1",
+    "@tanstack/devtools-vite": "^0.8.0",
     "@tanstack/react-devtools": "^0.9.2",
     "@tanstack/react-router": "^1.147.3",
     "@tanstack/react-router-devtools": "^1.147.3",
