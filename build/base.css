@@ -17,8 +17,37 @@
        than the blank reserved gutter `scrollbar-gutter: stable` leaves on
        pages that do not scroll. On overlay-scrollbar platforms (default
        macOS) it costs nothing; on classic scrollbars it reads as an
-       intentional scrollbar instead of mystery whitespace. */
+       intentional scrollbar instead of mystery whitespace.
+
+       `scrollbar-gutter: stable` is paired with it specifically so overlay
+       libraries that lock body scroll (Ark UI / Zag dialogs, the command
+       palette) detect a stable gutter and skip their scrollbar-width padding
+       compensation. Without it, on a classic-scrollbar platform Zag pads the
+       body by the scrollbar width on open (thinking it removed the bar, which
+       actually lives on `html` and never left), and the whole layout jumps
+       sideways. The gutter and the persistent scrollbar share the same space,
+       so this does not double-reserve. */
     overflow-y: scroll;
+    scrollbar-gutter: stable;
+  }
+
+  /* Counterpart to the persistent `html` scrollbar above, for the OTHER scroll
+     locker in the stack: Radix dialogs (and cmdk's `Command.Dialog`, which is
+     Radix under the hood) lock scroll via `react-remove-scroll`. That library
+     unconditionally adds `body { margin-right: <scrollbar-width> }` on open to
+     compensate for a scrollbar it assumes it removed. But `overflow-y: scroll`
+     on `html` puts the scrollbar on the root element and breaks the body->
+     viewport overflow propagation the library relies on, so the scrollbar is
+     never actually removed and that margin is pure layout shift (right-aligned
+     content jumps ~15px, centered content ~7.5px, on every dialog open). We
+     zero it out: the scrollbar stays put, scroll is still blocked by the
+     library's wheel/touch/key handlers, and nothing shifts. Higher specificity
+     than the library's own `body[data-scroll-locked]` rule so it wins the
+     cascade despite that rule being injected later with `!important`. Zag
+     dialogs use a different attribute (`data-scroll-lock`) and already honor
+     `scrollbar-gutter: stable`, so this rule does not touch them. */
+  html body[data-scroll-locked] {
+    margin-right: 0 !important;
   }
 
   /* Restore the hand cursor on every interactive primitive. Two forces strip

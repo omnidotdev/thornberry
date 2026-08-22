@@ -118,8 +118,20 @@
   html {
     /* Persistent scrollbar (not a reserved-but-empty gutter) so the page
        never shifts horizontally and non-scrolling pages show no blank
-       whitespace where the scrollbar would be. */
+       whitespace where the scrollbar would be. `scrollbar-gutter: stable` is
+       paired with it so Ark UI / Zag dialogs (the command palette) detect a
+       stable gutter and skip their scrollbar-width padding on open, which
+       otherwise jumps the layout sideways on classic-scrollbar platforms. See
+       base.css for the full rationale. */
     overflow-y: scroll;
+    scrollbar-gutter: stable;
+  }
+  /* Radix/cmdk dialogs lock scroll via react-remove-scroll, which adds a
+     compensating `body` margin that becomes pure layout shift once `html` owns
+     the scrollbar. Zero it (higher specificity beats the library's later
+     `!important`). See base.css for the full rationale. */
+  html body[data-scroll-locked] {
+    margin-right: 0 !important;
   }
   * {
     @apply border-border outline-ring/50;
