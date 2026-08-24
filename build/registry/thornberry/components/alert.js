@@ -48,9 +48,9 @@ var AlertDescription = ({
   ...rest
 });
 export {
-  alertVariants,
-  AlertTitle,
-  AlertRoot,
+  AlertDescription,
   AlertIcon,
-  AlertDescription
+  AlertRoot,
+  AlertTitle,
+  alertVariants
 };

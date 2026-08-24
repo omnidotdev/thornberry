@@ -26,6 +26,6 @@ var Image = ({ className, rounded, ...rest }) => /* @__PURE__ */ jsx(UnpicImage,
   ...rest
 });
 export {
-  imageVariants,
-  Image
+  Image,
+  imageVariants
 };

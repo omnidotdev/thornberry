@@ -65,11 +65,11 @@ var AngleSliderHiddenInput = ({
   ...rest
 });
 export {
-  AngleSliderValueText,
-  AngleSliderThumb,
-  AngleSliderRoot,
-  AngleSliderMarkerGroup,
-  AngleSliderMarker,
+  AngleSliderControl,
   AngleSliderHiddenInput,
-  AngleSliderControl
+  AngleSliderMarker,
+  AngleSliderMarkerGroup,
+  AngleSliderRoot,
+  AngleSliderThumb,
+  AngleSliderValueText
 };

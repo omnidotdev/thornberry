@@ -12,14 +12,14 @@ import {
 } from "../../../chunks/avatar-zw43tfjm.js";
 import"../../../chunks/avatar-yp1ewaxt.js";
 export {
-  SheetTrigger,
-  SheetTitle,
-  SheetRoot,
-  SheetProvider,
-  SheetPositioner,
-  SheetDescription,
-  SheetContext,
-  SheetContent,
+  SheetBackdrop,
   SheetCloseTrigger,
-  SheetBackdrop
+  SheetContent,
+  SheetContext,
+  SheetDescription,
+  SheetPositioner,
+  SheetProvider,
+  SheetRoot,
+  SheetTitle,
+  SheetTrigger
 };

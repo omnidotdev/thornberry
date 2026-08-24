@@ -5,6 +5,6 @@ import {
 import"../../../chunks/avatar-zdtfvyzd.js";
 import"../../../chunks/avatar-yp1ewaxt.js";
 export {
-  buttonVariants,
-  Button
+  Button,
+  buttonVariants
 };

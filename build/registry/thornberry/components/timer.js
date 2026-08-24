@@ -48,10 +48,10 @@ var TimerActionTrigger = ({
   ...rest
 });
 export {
-  TimerSeparator,
-  TimerItem,
-  TimerControl,
-  TimerArea,
+  TimerRoot as Timer,
   TimerActionTrigger,
-  TimerRoot as Timer
+  TimerArea,
+  TimerControl,
+  TimerItem,
+  TimerSeparator
 };

@@ -64,14 +64,14 @@ var SliderValueText = ({
   ...rest
 });
 export {
-  SliderValueText,
-  SliderTrack,
-  SliderThumb,
-  SliderRoot,
-  SliderRange,
-  SliderProvider,
-  SliderMarker,
-  SliderLabel,
+  SliderContext,
   SliderControl,
-  SliderContext
+  SliderLabel,
+  SliderMarker,
+  SliderProvider,
+  SliderRange,
+  SliderRoot,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText
 };

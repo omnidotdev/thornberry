@@ -70,11 +70,11 @@ var PaginationNextTrigger = ({
   })
 });
 export {
-  PaginationRoot,
-  PaginationProvider,
-  PaginationPrevTrigger,
-  PaginationNextTrigger,
-  PaginationItem,
+  PaginationContext,
   PaginationEllipsis,
-  PaginationContext
+  PaginationItem,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationProvider,
+  PaginationRoot
 };

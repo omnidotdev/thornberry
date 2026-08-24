@@ -7,11 +7,11 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut
-} from "../../../chunks/avatar-jb5nvfyb.js";
+} from "../../../chunks/avatar-kwryaq8z.js";
+import"../../../chunks/avatar-p3ac7628.js";
 import {
   Kbd
 } from "../../../chunks/avatar-ktx8cffm.js";
-import"../../../chunks/avatar-p3ac7628.js";
 import"../../../chunks/avatar-yp1ewaxt.js";
 
 // src/registry/thornberry/components/command-palette.tsx
@@ -113,7 +113,7 @@ var CommandPalette = ({
   });
 };
 export {
-  openCommandPalette,
+  CommandPalette,
   OPEN_COMMAND_PALETTE_EVENT,
-  CommandPalette
+  openCommandPalette
 };

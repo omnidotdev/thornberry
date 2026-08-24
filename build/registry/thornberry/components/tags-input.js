@@ -106,15 +106,15 @@ var TagsInputClearTrigger = ({
 var TagsInputContext = ArkTagsInput.Context;
 var TagsInputRoot = ArkTagsInput.Root;
 export {
-  TagsInputRoot,
-  TagsInputLabel,
-  TagsInputItemText,
-  TagsInputItemPreview,
-  TagsInputItemInput,
-  TagsInputItemDeleteTrigger,
-  TagsInputItem,
-  TagsInputInput,
-  TagsInputControl,
+  TagsInputClearTrigger,
   TagsInputContext,
-  TagsInputClearTrigger
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItem,
+  TagsInputItemDeleteTrigger,
+  TagsInputItemInput,
+  TagsInputItemPreview,
+  TagsInputItemText,
+  TagsInputLabel,
+  TagsInputRoot
 };

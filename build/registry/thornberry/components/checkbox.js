@@ -41,12 +41,12 @@ var CheckboxHiddenInput = ({
   ...rest
 });
 export {
-  CheckboxRoot,
-  CheckboxProvider,
-  CheckboxLabel,
-  CheckboxIndicator,
-  CheckboxHiddenInput,
-  CheckboxGroup,
+  CheckboxContext,
   CheckboxControl,
-  CheckboxContext
+  CheckboxGroup,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+  CheckboxProvider,
+  CheckboxRoot
 };

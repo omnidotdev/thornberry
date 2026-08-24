@@ -43,11 +43,11 @@ var TabsIndicator = ({
   ...rest
 });
 export {
-  TabsTrigger,
-  TabsRoot,
-  TabsProvider,
-  TabsList,
-  TabsIndicator,
+  TabsContent,
   TabsContext,
-  TabsContent
+  TabsIndicator,
+  TabsList,
+  TabsProvider,
+  TabsRoot,
+  TabsTrigger
 };

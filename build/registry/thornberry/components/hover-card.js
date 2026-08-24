@@ -30,10 +30,10 @@ var HoverCardPositioner = ({
   ...rest
 });
 export {
-  HoverCardTrigger,
-  HoverCardRoot,
-  HoverCardProvider,
-  HoverCardPositioner,
+  HoverCardContent,
   HoverCardContext,
-  HoverCardContent
+  HoverCardPositioner,
+  HoverCardProvider,
+  HoverCardRoot,
+  HoverCardTrigger
 };

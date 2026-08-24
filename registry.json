@@ -232,6 +232,18 @@
       ]
     },
     {
+      "name": "not-found",
+      "type": "registry:ui",
+      "title": "Not Found",
+      "description": "Standard Omni 404 page: in-shell, theme-aware, per-app branding (logomark plus wordmark) with a prominent 404 and a way home.",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/not-found.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "command",
       "type": "registry:ui",
       "title": "Command",

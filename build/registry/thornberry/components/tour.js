@@ -83,17 +83,17 @@ var TourControl = ({
   ...rest
 });
 export {
-  TourTitle,
-  TourSpotlight,
-  TourRoot,
-  TourProgressText,
-  TourPositioner,
-  TourDescription,
-  TourControl,
-  TourContext,
-  TourContent,
-  TourCloseTrigger,
-  TourBackdrop,
+  TourActionTrigger,
   TourActions,
-  TourActionTrigger
+  TourBackdrop,
+  TourCloseTrigger,
+  TourContent,
+  TourContext,
+  TourControl,
+  TourDescription,
+  TourPositioner,
+  TourProgressText,
+  TourRoot,
+  TourSpotlight,
+  TourTitle
 };
