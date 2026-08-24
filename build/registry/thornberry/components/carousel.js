@@ -90,14 +90,14 @@ var CarouselControl = ({
   ...rest
 });
 export {
-  CarouselRoot,
-  CarouselProvider,
-  CarouselPrevTrigger,
-  CarouselNextTrigger,
-  CarouselItemGroup,
-  CarouselItem,
-  CarouselIndicatorGroup,
-  CarouselIndicator,
+  CarouselContext,
   CarouselControl,
-  CarouselContext
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+  CarouselProvider,
+  CarouselRoot
 };

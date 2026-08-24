@@ -49,12 +49,12 @@ var TableCaption = ({ className, ...rest }) => /* @__PURE__ */ jsx("caption", {
   ...rest
 });
 export {
-  TableRow,
-  TableHeader,
-  TableHead,
-  TableFooter,
-  TableCell,
-  TableCaption,
+  Table,
   TableBody,
-  Table
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow
 };

@@ -43,11 +43,11 @@ var SwitchLabel = ({
   ...rest
 });
 export {
-  SwitchThumb,
-  SwitchRoot,
-  SwitchProvider,
-  SwitchLabel,
-  SwitchHiddenInput,
+  SwitchContext,
   SwitchControl,
-  SwitchContext
+  SwitchHiddenInput,
+  SwitchLabel,
+  SwitchProvider,
+  SwitchRoot,
+  SwitchThumb
 };

@@ -81,15 +81,15 @@ var PopoverDescription = ({
   ...rest
 });
 export {
-  PopoverTrigger,
-  PopoverTitle,
-  PopoverRoot,
-  PopoverProvider,
-  PopoverPositioner,
-  PopoverDescription,
-  PopoverContext,
-  PopoverContent,
-  PopoverCloseTrigger,
+  PopoverArrow,
   PopoverArrowTip,
-  PopoverArrow
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverContext,
+  PopoverDescription,
+  PopoverPositioner,
+  PopoverProvider,
+  PopoverRoot,
+  PopoverTitle,
+  PopoverTrigger
 };

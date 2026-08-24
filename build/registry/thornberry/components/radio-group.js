@@ -51,10 +51,10 @@ var RadioGroupItemText = ({
   children
 });
 export {
-  RadioGroupRoot,
-  RadioGroupLabel,
-  RadioGroupItemText,
-  RadioGroupItemHiddenInput,
+  RadioGroupItem,
   RadioGroupItemControl,
-  RadioGroupItem
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
+  RadioGroupLabel,
+  RadioGroupRoot
 };

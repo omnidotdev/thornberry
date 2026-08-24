@@ -43,11 +43,11 @@ var PinInputHiddenInput = ({
   ...rest
 });
 export {
-  PinInputRoot,
-  PinInputProvider,
-  PinInputLabel,
-  PinInputInput,
-  PinInputHiddenInput,
+  PinInputContext,
   PinInputControl,
-  PinInputContext
+  PinInputHiddenInput,
+  PinInputInput,
+  PinInputLabel,
+  PinInputProvider,
+  PinInputRoot
 };

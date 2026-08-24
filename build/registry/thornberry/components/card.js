@@ -36,10 +36,10 @@ var CardFooter = ({ className, ...rest }) => /* @__PURE__ */ jsx(ark.div, {
   ...rest
 });
 export {
-  CardTitle,
-  CardRoot,
-  CardHeader,
-  CardFooter,
+  CardContent,
   CardDescription,
-  CardContent
+  CardFooter,
+  CardHeader,
+  CardRoot,
+  CardTitle
 };

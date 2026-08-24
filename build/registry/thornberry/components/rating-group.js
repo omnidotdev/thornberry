@@ -44,12 +44,12 @@ var RatingGroupHiddenInput = ({
   ...rest
 });
 export {
-  RatingGroupRoot,
-  RatingGroupProvider,
-  RatingGroupLabel,
-  RatingGroupItemContext,
-  RatingGroupItem,
-  RatingGroupHiddenInput,
+  RatingGroupContext,
   RatingGroupControl,
-  RatingGroupContext
+  RatingGroupHiddenInput,
+  RatingGroupItem,
+  RatingGroupItemContext,
+  RatingGroupLabel,
+  RatingGroupProvider,
+  RatingGroupRoot
 };

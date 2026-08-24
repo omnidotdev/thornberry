@@ -60,9 +60,9 @@ var AvatarImage = ({
   ...rest
 });
 export {
-  useAvatar,
-  AvatarRoot,
-  AvatarProvider,
+  AvatarFallback,
   AvatarImage,
-  AvatarFallback
+  AvatarProvider,
+  AvatarRoot,
+  useAvatar
 };

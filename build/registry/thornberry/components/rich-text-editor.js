@@ -644,10 +644,10 @@ var RichTextContent = ({
 };
 var rich_text_editor_default = RichTextEditor;
 export {
-  linkifyMarkdownLinks,
-  linkifyBareUrls,
-  linkFromText,
-  rich_text_editor_default as default,
+  RichTextContent,
   RichTextEditor,
-  RichTextContent
+  rich_text_editor_default as default,
+  linkFromText,
+  linkifyBareUrls,
+  linkifyMarkdownLinks
 };

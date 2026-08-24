@@ -31,9 +31,9 @@ var CollapsibleContent = ({
   ...rest
 });
 export {
-  CollapsibleTrigger,
-  CollapsibleRoot,
-  CollapsibleProvider,
+  CollapsibleContent,
   CollapsibleContext,
-  CollapsibleContent
+  CollapsibleProvider,
+  CollapsibleRoot,
+  CollapsibleTrigger
 };

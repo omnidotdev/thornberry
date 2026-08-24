@@ -162,10 +162,10 @@ var BoardColumnEmpty = ({ className, ...rest }) => /* @__PURE__ */ jsx("p", {
   ...rest
 });
 export {
-  useInertialScroll,
-  BoardColumnHeader,
-  BoardColumnEmpty,
-  BoardColumnBody,
+  Board,
   BoardColumn,
-  Board
+  BoardColumnBody,
+  BoardColumnEmpty,
+  BoardColumnHeader,
+  useInertialScroll
 };

@@ -77,15 +77,15 @@ var FileUploadHiddenInput = ({
   ...rest
 });
 export {
-  FileUploadTrigger,
-  FileUploadLabel,
-  FileUploadItemSizeText,
-  FileUploadItemName,
-  FileUploadItemGroup,
-  FileUploadItemDeleteTrigger,
-  FileUploadItem,
-  FileUploadHiddenInput,
-  FileUploadDropzone,
+  FileUploadRoot as FileUpload,
   FileUploadContext,
-  FileUploadRoot as FileUpload
+  FileUploadDropzone,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadItemSizeText,
+  FileUploadLabel,
+  FileUploadTrigger
 };

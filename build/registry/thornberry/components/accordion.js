@@ -45,8 +45,8 @@ var AccordionItemContent = ({
   })
 });
 export {
-  AccordionRoot,
-  AccordionItemTrigger,
+  AccordionItem,
   AccordionItemContent,
-  AccordionItem
+  AccordionItemTrigger,
+  AccordionRoot
 };

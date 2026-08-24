@@ -114,19 +114,19 @@ var ComboboxItemText = ({
   ...rest
 });
 export {
-  ComboboxTrigger,
-  ComboboxRoot,
-  ComboboxProvider,
-  ComboboxPositioner,
-  ComboboxLabel,
-  ComboboxItemText,
-  ComboboxItemIndicator,
-  ComboboxItemGroupLabel,
-  ComboboxItemGroup,
-  ComboboxItem,
-  ComboboxInput,
-  ComboboxControl,
-  ComboboxContext,
+  ComboboxClearTrigger,
   ComboboxContent,
-  ComboboxClearTrigger
+  ComboboxContext,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemGroup,
+  ComboboxItemGroupLabel,
+  ComboboxItemIndicator,
+  ComboboxItemText,
+  ComboboxLabel,
+  ComboboxPositioner,
+  ComboboxProvider,
+  ComboboxRoot,
+  ComboboxTrigger
 };

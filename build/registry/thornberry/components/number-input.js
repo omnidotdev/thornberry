@@ -73,12 +73,12 @@ var NumberInputIncrementTrigger = ({
   })
 });
 export {
-  NumberInputRoot,
-  NumberInputProvider,
-  NumberInputLabel,
-  NumberInputInput,
-  NumberInputIncrementTrigger,
-  NumberInputDecrementTrigger,
+  NumberInputContext,
   NumberInputControl,
-  NumberInputContext
+  NumberInputDecrementTrigger,
+  NumberInputIncrementTrigger,
+  NumberInputInput,
+  NumberInputLabel,
+  NumberInputProvider,
+  NumberInputRoot
 };

@@ -20,7 +20,7 @@ var hotkeyLabel = (hotkey) => {
   }).join(apple ? "" : "+");
 };
 export {
-  useHotkeys,
+  GLOBAL_HOTKEYS,
   hotkeyLabel,
-  GLOBAL_HOTKEYS
+  useHotkeys
 };

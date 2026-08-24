@@ -30,6 +30,6 @@ var Badge = ({
   ...rest
 });
 export {
-  badgeVariants,
-  Badge
+  Badge,
+  badgeVariants
 };
