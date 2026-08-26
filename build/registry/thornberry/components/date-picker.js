@@ -5,6 +5,7 @@ import"../../../chunks/avatar-zdtfvyzd.js";
 import {
   cn
 } from "../../../chunks/avatar-yp1ewaxt.js";
+import"../../../chunks/avatar-d1wjbx81.js";
 
 // src/registry/thornberry/components/date-picker.tsx
 import { DatePicker as ArkDatePicker } from "@ark-ui/react/date-picker";

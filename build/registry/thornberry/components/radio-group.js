@@ -1,6 +1,7 @@
 import {
   cn
 } from "../../../chunks/avatar-yp1ewaxt.js";
+import"../../../chunks/avatar-d1wjbx81.js";
 
 // src/registry/thornberry/components/radio-group.tsx
 import { RadioGroup as ArkRadioGroup } from "@ark-ui/react/radio-group";

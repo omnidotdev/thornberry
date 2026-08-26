@@ -1,6 +1,7 @@
 import {
   cn
 } from "../../../chunks/avatar-yp1ewaxt.js";
+import"../../../chunks/avatar-d1wjbx81.js";
 
 // src/registry/thornberry/components/slider.tsx
 import { Slider as ArkSlider } from "@ark-ui/react/slider";

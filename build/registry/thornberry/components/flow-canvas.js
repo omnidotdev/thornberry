@@ -5,6 +5,7 @@ import {
   BaseNode
 } from "../../../chunks/avatar-sq2amekn.js";
 import"../../../chunks/avatar-yp1ewaxt.js";
+import"../../../chunks/avatar-d1wjbx81.js";
 
 // src/registry/thornberry/components/flow-canvas.tsx
 import {

@@ -1,6 +1,7 @@
 import {
   cn
 } from "../../../chunks/avatar-yp1ewaxt.js";
+import"../../../chunks/avatar-d1wjbx81.js";
 
 // src/registry/thornberry/components/hover-card.tsx
 import { HoverCard as ArkHoverCard } from "@ark-ui/react/hover-card";

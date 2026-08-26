@@ -1,6 +1,7 @@
 import {
   cn
 } from "../../../chunks/avatar-yp1ewaxt.js";
+import"../../../chunks/avatar-d1wjbx81.js";
 
 // src/registry/thornberry/components/app-footer.tsx
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";

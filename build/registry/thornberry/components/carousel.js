@@ -5,6 +5,7 @@ import"../../../chunks/avatar-zdtfvyzd.js";
 import {
   cn
 } from "../../../chunks/avatar-yp1ewaxt.js";
+import"../../../chunks/avatar-d1wjbx81.js";
 
 // src/registry/thornberry/components/carousel.tsx
 import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";

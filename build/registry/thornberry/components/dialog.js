@@ -11,6 +11,7 @@ import {
   DialogTrigger
 } from "../../../chunks/avatar-p3ac7628.js";
 import"../../../chunks/avatar-yp1ewaxt.js";
+import"../../../chunks/avatar-d1wjbx81.js";
 export {
   DialogBackdrop,
   DialogCloseTrigger,

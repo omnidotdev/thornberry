@@ -1,3 +1,5 @@
+import"../../../chunks/avatar-d1wjbx81.js";
+
 // src/registry/thornberry/components/use-hotkeys.tsx
 import { useHotkeys } from "react-hotkeys-hook";
 var GLOBAL_HOTKEYS = {

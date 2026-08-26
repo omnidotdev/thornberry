@@ -5,6 +5,7 @@ import"../../../chunks/avatar-zdtfvyzd.js";
 import {
   cn
 } from "../../../chunks/avatar-yp1ewaxt.js";
+import"../../../chunks/avatar-d1wjbx81.js";
 
 // src/registry/thornberry/components/combobox.tsx
 import { Combobox as ArkCombobox } from "@ark-ui/react/combobox";

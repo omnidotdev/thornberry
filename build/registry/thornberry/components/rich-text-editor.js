@@ -8,6 +8,7 @@ import"../../../chunks/avatar-zdtfvyzd.js";
 import {
   cn
 } from "../../../chunks/avatar-yp1ewaxt.js";
+import"../../../chunks/avatar-d1wjbx81.js";
 
 // src/registry/thornberry/components/rich-text-editor.tsx
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";

@@ -1,6 +1,7 @@
 import {
   cn
 } from "../../../chunks/avatar-yp1ewaxt.js";
+import"../../../chunks/avatar-d1wjbx81.js";
 
 // src/registry/thornberry/components/pin-input.tsx
 import { PinInput as ArkPinInput } from "@ark-ui/react/pin-input";

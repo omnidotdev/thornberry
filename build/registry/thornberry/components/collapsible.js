@@ -1,6 +1,7 @@
 import {
   cn
 } from "../../../chunks/avatar-yp1ewaxt.js";
+import"../../../chunks/avatar-d1wjbx81.js";
 
 // src/registry/thornberry/components/collapsible.tsx
 import { Collapsible as ArkCollapsible } from "@ark-ui/react/collapsible";

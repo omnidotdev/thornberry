@@ -5,6 +5,7 @@ import"../../../chunks/avatar-zdtfvyzd.js";
 import {
   cn
 } from "../../../chunks/avatar-yp1ewaxt.js";
+import"../../../chunks/avatar-d1wjbx81.js";
 
 // src/registry/thornberry/components/pagination.tsx
 import { Pagination as ArkPagination } from "@ark-ui/react/pagination";
