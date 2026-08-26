@@ -696,6 +696,34 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "data-table",
+      "type": "registry:ui",
+      "title": "Data Table",
+      "description": "An advanced data table built on TanStack Table with global search, sortable headers, a filter toolbar slot, optional row selection with a bulk action bar, and an empty state.",
+      "dependencies": ["@tanstack/react-table"],
+      "registryDependencies": ["table", "input", "checkbox"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/data-table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "form",
+      "type": "registry:ui",
+      "title": "Form",
+      "description": "A TanStack Form wrapper that binds typed, validation-aware field components onto thornberry inputs (text, textarea, checkbox, select) with matching styling.",
+      "dependencies": ["@tanstack/react-form"],
+      "registryDependencies": ["input", "checkbox", "select", "button"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/form.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
