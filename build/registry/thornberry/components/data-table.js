@@ -2991,7 +2991,7 @@ var DataTable = ({
     data,
     columns: enableSelection ? [selectionColumn, ...columns] : columns,
     getRowId,
-    globalFilterFn,
+    globalFilterFn: globalFilterFn ?? "includesString",
     state: { sorting, globalFilter, rowSelection },
     onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,

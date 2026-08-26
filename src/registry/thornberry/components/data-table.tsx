@@ -162,7 +162,9 @@ const DataTable = <TData,>({
       ? [selectionColumn, ...(columns as AnyColumnDef<TData>[])]
       : columns,
     getRowId,
-    globalFilterFn,
+    // Fall back to a case-insensitive substring match so the search box filters
+    // out of the box when a consumer does not supply a custom globalFilterFn
+    globalFilterFn: globalFilterFn ?? "includesString",
     state: { sorting, globalFilter, rowSelection },
     onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,
