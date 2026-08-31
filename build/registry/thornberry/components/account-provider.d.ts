@@ -74,6 +74,19 @@ export interface AccountSessionData {
     user: AccountUser;
     session: AccountSession;
 }
+/**
+ * A session shown in the active-sessions list. The host pre-parses the user
+ * agent into a coarse device type and a human label so the block stays a pure
+ * presentation surface and thornberry takes on no UA-parsing dependency.
+ */
+export interface AccountActiveSession {
+    id: string;
+    token: string;
+    /** Coarse device class used to pick an icon, e.g. "mobile" or "desktop" */
+    deviceType?: string | null;
+    /** Human-readable device/OS/browser label, e.g. "macOS (Chrome)" */
+    label?: string | null;
+}
 /** A registered passkey the console lists */
 export interface AccountPasskey {
     id: string;
