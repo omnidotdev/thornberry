@@ -1,7 +1,7 @@
 import {
   cn
-} from "../../../chunks/avatar-yp1ewaxt.js";
-import"../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
+import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 
 // src/registry/thornberry/components/logo-lockup.tsx
 import { jsx, jsxs } from "react/jsx-runtime";

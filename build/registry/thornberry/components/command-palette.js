@@ -1,7 +1,4 @@
 import {
-  Kbd
-} from "../../../chunks/avatar-ktx8cffm.js";
-import {
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -10,10 +7,13 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut
-} from "../../../chunks/avatar-kwryaq8z.js";
-import"../../../chunks/avatar-p3ac7628.js";
-import"../../../chunks/avatar-yp1ewaxt.js";
-import"../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-kwryaq8z.js";
+import {
+  Kbd
+} from "../../../chunks/account-user-two-factor-authentication-ktx8cffm.js";
+import"../../../chunks/account-user-two-factor-authentication-p3ac7628.js";
+import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
+import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 
 // src/registry/thornberry/components/command-palette.tsx
 import { Fragment, useEffect, useState } from "react";

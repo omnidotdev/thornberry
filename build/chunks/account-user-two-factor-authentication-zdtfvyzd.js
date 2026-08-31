@@ -1,6 +1,6 @@
 import {
   clsx
-} from "./avatar-yp1ewaxt.js";
+} from "./account-user-two-factor-authentication-yp1ewaxt.js";
 
 // node_modules/class-variance-authority/dist/index.mjs
 var falsyToString = (value) => typeof value === "boolean" ? `${value}` : value === 0 ? "0" : value;

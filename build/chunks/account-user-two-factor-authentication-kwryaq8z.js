@@ -5,10 +5,10 @@ import {
   DialogPositioner,
   DialogRoot,
   DialogTitle
-} from "./avatar-p3ac7628.js";
+} from "./account-user-two-factor-authentication-p3ac7628.js";
 import {
   cn
-} from "./avatar-yp1ewaxt.js";
+} from "./account-user-two-factor-authentication-yp1ewaxt.js";
 
 // src/registry/thornberry/components/command.tsx
 import { Portal } from "@ark-ui/react/portal";

@@ -4,24 +4,24 @@ import {
   SheetRoot,
   SheetTitle,
   SheetTrigger
-} from "../../../chunks/avatar-zw43tfjm.js";
+} from "../../../chunks/account-user-two-factor-authentication-zw43tfjm.js";
 import {
   TooltipContent,
   TooltipPositioner,
   TooltipRoot,
   TooltipTrigger
-} from "../../../chunks/avatar-rz6429x0.js";
+} from "../../../chunks/account-user-two-factor-authentication-rz6429x0.js";
 import {
   Input
-} from "../../../chunks/avatar-nmmcnpth.js";
+} from "../../../chunks/account-user-two-factor-authentication-nmmcnpth.js";
 import {
   Button
-} from "../../../chunks/avatar-jb3sh07m.js";
-import"../../../chunks/avatar-zdtfvyzd.js";
+} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
+import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
 import {
   cn
-} from "../../../chunks/avatar-yp1ewaxt.js";
-import"../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
+import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 
 // src/registry/thornberry/components/sidebar.tsx
 import { ark } from "@ark-ui/react/factory";

@@ -2,7 +2,7 @@ import { Avatar as ArkAvatar } from "@ark-ui/react";
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 declare const avatarVariants: (props?: ({
-    size?: "xs" | "sm" | "md" | "lg" | "xl" | null | undefined;
+    size?: "sm" | "md" | "lg" | "xs" | "xl" | null | undefined;
 } & import("class-variance-authority/types").ClassProp) | undefined) => string;
 declare const useAvatar: (props?: import("@ark-ui/react").UseAvatarProps) => import("@ark-ui/react").UseAvatarReturn;
 declare const AvatarProvider: ({ className, size, ...rest }: ComponentProps<typeof ArkAvatar.RootProvider> & VariantProps<typeof avatarVariants>) => import("react/jsx-runtime").JSX.Element;

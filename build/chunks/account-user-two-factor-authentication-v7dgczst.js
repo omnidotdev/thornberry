@@ -1,6 +1,6 @@
 import {
   cn
-} from "./avatar-yp1ewaxt.js";
+} from "./account-user-two-factor-authentication-yp1ewaxt.js";
 
 // src/registry/thornberry/components/select.tsx
 import { Select as ArkSelect } from "@ark-ui/react/select";

@@ -1,6 +1,6 @@
 import {
   cn
-} from "./avatar-yp1ewaxt.js";
+} from "./account-user-two-factor-authentication-yp1ewaxt.js";
 
 // src/registry/thornberry/components/base-node.tsx
 import { Handle } from "@xyflow/react";

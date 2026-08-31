@@ -1,24 +1,24 @@
 import {
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxRoot
+} from "../../../chunks/account-user-two-factor-authentication-ksnvs1j1.js";
+import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow
-} from "../../../chunks/avatar-f7k9a70k.js";
+} from "../../../chunks/account-user-two-factor-authentication-f7k9a70k.js";
 import {
   Input
-} from "../../../chunks/avatar-nmmcnpth.js";
-import {
-  CheckboxControl,
-  CheckboxHiddenInput,
-  CheckboxIndicator,
-  CheckboxRoot
-} from "../../../chunks/avatar-ksnvs1j1.js";
+} from "../../../chunks/account-user-two-factor-authentication-nmmcnpth.js";
 import {
   cn
-} from "../../../chunks/avatar-yp1ewaxt.js";
-import"../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
+import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 
 // node_modules/@tanstack/react-table/build/lib/index.mjs
 import * as React from "react";
