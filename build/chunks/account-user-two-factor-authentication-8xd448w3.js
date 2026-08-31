@@ -1,9 +1,9 @@
 import {
-  useAccountContext
-} from "./account-user-two-factor-authentication-en4v22ys.js";
-import {
   Label
 } from "./account-user-two-factor-authentication-gsg3ph0v.js";
+import {
+  useAccountContext
+} from "./account-user-two-factor-authentication-en4v22ys.js";
 import {
   Input
 } from "./account-user-two-factor-authentication-nmmcnpth.js";

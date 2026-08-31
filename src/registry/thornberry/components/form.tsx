@@ -13,6 +13,7 @@ import {
   CheckboxRoot,
 } from "@/registry/thornberry/components/checkbox";
 import { Input } from "@/registry/thornberry/components/input";
+import { PasswordInput } from "@/registry/thornberry/components/password-input";
 import {
   Select,
   SelectContent,
@@ -137,6 +138,46 @@ const TextField = ({ label, className, id, ...rest }: TextFieldProps) => {
     <div className="flex w-full flex-col gap-1.5">
       {label && <FieldLabel htmlFor={fieldId}>{label}</FieldLabel>}
       <Input
+        id={fieldId}
+        name={field.name}
+        value={field.state.value ?? ""}
+        onBlur={field.handleBlur}
+        onChange={(event) => field.handleChange(event.target.value)}
+        aria-invalid={hasError || undefined}
+        className={cn(
+          hasError && "border-destructive focus-visible:ring-destructive",
+          className,
+        )}
+        {...rest}
+      />
+      {hasError && <FieldErrors errors={field.state.meta.errors} />}
+    </div>
+  );
+};
+
+interface PasswordFieldProps
+  extends Omit<
+    ComponentProps<typeof PasswordInput>,
+    "value" | "onChange" | "onBlur" | "name"
+  > {
+  label?: string;
+}
+
+const PasswordField = ({
+  label,
+  className,
+  id,
+  ...rest
+}: PasswordFieldProps) => {
+  const field = useFieldContext<string>();
+  const fieldId = id ?? field.name;
+  const hasError =
+    field.state.meta.isTouched && field.state.meta.errors.length > 0;
+
+  return (
+    <div className="flex w-full flex-col gap-1.5">
+      {label && <FieldLabel htmlFor={fieldId}>{label}</FieldLabel>}
+      <PasswordInput
         id={fieldId}
         name={field.name}
         value={field.state.value ?? ""}
@@ -312,6 +353,7 @@ const { useAppForm, withForm, withFieldGroup } = createFormHook({
   formContext,
   fieldComponents: {
     TextField,
+    PasswordField,
     TextareaField,
     CheckboxField,
     SelectField,
@@ -330,11 +372,13 @@ export {
   fieldContext,
   formContext,
   TextField,
+  PasswordField,
   TextareaField,
   CheckboxField,
   SelectField,
   SubmitButton,
   type TextFieldProps,
+  type PasswordFieldProps,
   type TextareaFieldProps,
   type CheckboxFieldProps,
   type SelectFieldProps,

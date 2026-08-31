@@ -1,7 +1,4 @@
 import {
-  Kbd
-} from "../../../chunks/account-user-two-factor-authentication-ktx8cffm.js";
-import {
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -11,6 +8,9 @@ import {
   CommandSeparator,
   CommandShortcut
 } from "../../../chunks/account-user-two-factor-authentication-kwryaq8z.js";
+import {
+  Kbd
+} from "../../../chunks/account-user-two-factor-authentication-ktx8cffm.js";
 import"../../../chunks/account-user-two-factor-authentication-p3ac7628.js";
 import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
 import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
