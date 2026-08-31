@@ -1,4 +1,7 @@
 import {
+  Input
+} from "../../../chunks/avatar-nmmcnpth.js";
+import {
   Table,
   TableBody,
   TableCell,
@@ -6,9 +9,6 @@ import {
   TableHeader,
   TableRow
 } from "../../../chunks/avatar-f7k9a70k.js";
-import {
-  Input
-} from "../../../chunks/avatar-nmmcnpth.js";
 import {
   CheckboxControl,
   CheckboxHiddenInput,
