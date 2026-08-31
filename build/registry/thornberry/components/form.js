@@ -1,4 +1,11 @@
 import {
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+  CheckboxRoot
+} from "../../../chunks/account-user-two-factor-authentication-ksnvs1j1.js";
+import {
   Select,
   SelectContent,
   SelectControl,
@@ -12,28 +19,21 @@ import {
   SelectTrigger,
   SelectValueText,
   createListCollection
-} from "../../../chunks/avatar-v7dgczst.js";
+} from "../../../chunks/account-user-two-factor-authentication-v7dgczst.js";
 import {
   Input
-} from "../../../chunks/avatar-nmmcnpth.js";
+} from "../../../chunks/account-user-two-factor-authentication-nmmcnpth.js";
 import {
   Button
-} from "../../../chunks/avatar-jb3sh07m.js";
-import"../../../chunks/avatar-zdtfvyzd.js";
-import {
-  CheckboxControl,
-  CheckboxHiddenInput,
-  CheckboxIndicator,
-  CheckboxLabel,
-  CheckboxRoot
-} from "../../../chunks/avatar-ksnvs1j1.js";
+} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
+import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
 import {
   cn
-} from "../../../chunks/avatar-yp1ewaxt.js";
+} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
 import {
   __commonJS,
   __toESM
-} from "../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 
 // node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.production.js
 import * as React from "react";

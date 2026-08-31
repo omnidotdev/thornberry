@@ -1,6 +1,6 @@
 import {
   cn
-} from "./avatar-yp1ewaxt.js";
+} from "./account-user-two-factor-authentication-yp1ewaxt.js";
 
 // src/registry/thornberry/components/tooltip.tsx
 import { Tooltip as ArkTooltip } from "@ark-ui/react/tooltip";

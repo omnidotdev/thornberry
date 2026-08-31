@@ -1,11 +1,11 @@
 import {
   Button
-} from "../../../chunks/avatar-jb3sh07m.js";
-import"../../../chunks/avatar-zdtfvyzd.js";
+} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
+import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
 import {
   cn
-} from "../../../chunks/avatar-yp1ewaxt.js";
-import"../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
+import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 
 // src/registry/thornberry/components/pagination.tsx
 import { Pagination as ArkPagination } from "@ark-ui/react/pagination";

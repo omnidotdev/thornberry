@@ -26,7 +26,9 @@
     "knip": "knip-bun",
     "prepare": "husky"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-qr-code": "^2.2.0"
+  },
   "devDependencies": {
     "@ark-ui/react": "^5.30.0",
     "@biomejs/biome": "2.3.11",

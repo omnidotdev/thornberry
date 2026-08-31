@@ -1,10 +1,10 @@
 import {
   cva
-} from "../../../chunks/avatar-zdtfvyzd.js";
+} from "../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
 import {
   cn
-} from "../../../chunks/avatar-yp1ewaxt.js";
-import"../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
+import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 
 // src/registry/thornberry/components/avatar.tsx
 import { Avatar as ArkAvatar, useAvatar as useArkAvatar } from "@ark-ui/react";

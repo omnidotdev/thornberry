@@ -1,14 +1,14 @@
 import {
   Skeleton
-} from "../../../chunks/avatar-3rns3zjj.js";
+} from "../../../chunks/account-user-two-factor-authentication-3rns3zjj.js";
 import {
   Button
-} from "../../../chunks/avatar-jb3sh07m.js";
-import"../../../chunks/avatar-zdtfvyzd.js";
+} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
+import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
 import {
   cn
-} from "../../../chunks/avatar-yp1ewaxt.js";
-import"../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
+import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 
 // src/registry/thornberry/components/rich-text-editor.tsx
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";

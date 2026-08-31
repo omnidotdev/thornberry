@@ -5,9 +5,9 @@ import {
   CardHeader,
   CardRoot,
   CardTitle
-} from "../../../chunks/avatar-t5d4htnb.js";
-import"../../../chunks/avatar-yp1ewaxt.js";
-import"../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-t5d4htnb.js";
+import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
+import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 export {
   CardContent,
   CardDescription,

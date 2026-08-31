@@ -1,12 +1,12 @@
 import {
   useAccountContext
-} from "./avatar-en4v22ys.js";
+} from "./account-user-two-factor-authentication-en4v22ys.js";
 import {
   Label
-} from "./avatar-gsg3ph0v.js";
+} from "./account-user-two-factor-authentication-gsg3ph0v.js";
 import {
   Input
-} from "./avatar-nmmcnpth.js";
+} from "./account-user-two-factor-authentication-nmmcnpth.js";
 import {
   DialogBackdrop,
   DialogContent,
@@ -15,10 +15,10 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger
-} from "./avatar-p3ac7628.js";
+} from "./account-user-two-factor-authentication-p3ac7628.js";
 import {
   Button
-} from "./avatar-jb3sh07m.js";
+} from "./account-user-two-factor-authentication-jb3sh07m.js";
 
 // src/registry/thornberry/components/account-add-passkey.tsx
 import { Fingerprint, Loader2 } from "lucide-react";

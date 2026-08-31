@@ -1,7 +1,7 @@
 import {
   NODE_MIN_HEIGHT,
   NODE_WIDTH
-} from "./avatar-sq2amekn.js";
+} from "./account-user-two-factor-authentication-sq2amekn.js";
 
 // src/registry/thornberry/components/smart-edge.tsx
 import { getSmoothStepPath, useStore } from "@xyflow/react";

@@ -1,9 +1,9 @@
 import {
   cva
-} from "./avatar-zdtfvyzd.js";
+} from "./account-user-two-factor-authentication-zdtfvyzd.js";
 import {
   cn
-} from "./avatar-yp1ewaxt.js";
+} from "./account-user-two-factor-authentication-yp1ewaxt.js";
 
 // src/registry/thornberry/components/button.tsx
 import { ark } from "@ark-ui/react";

@@ -1,8 +1,8 @@
 import {
   Skeleton
-} from "../../../chunks/avatar-3rns3zjj.js";
-import"../../../chunks/avatar-yp1ewaxt.js";
-import"../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-3rns3zjj.js";
+import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
+import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 export {
   Skeleton
 };

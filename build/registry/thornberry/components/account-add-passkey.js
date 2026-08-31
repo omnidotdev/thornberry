@@ -1,14 +1,14 @@
 import {
   AddPasskey
-} from "../../../chunks/avatar-qm0wgtth.js";
-import"../../../chunks/avatar-en4v22ys.js";
-import"../../../chunks/avatar-gsg3ph0v.js";
-import"../../../chunks/avatar-nmmcnpth.js";
-import"../../../chunks/avatar-p3ac7628.js";
-import"../../../chunks/avatar-jb3sh07m.js";
-import"../../../chunks/avatar-zdtfvyzd.js";
-import"../../../chunks/avatar-yp1ewaxt.js";
-import"../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-qm0wgtth.js";
+import"../../../chunks/account-user-two-factor-authentication-en4v22ys.js";
+import"../../../chunks/account-user-two-factor-authentication-gsg3ph0v.js";
+import"../../../chunks/account-user-two-factor-authentication-nmmcnpth.js";
+import"../../../chunks/account-user-two-factor-authentication-p3ac7628.js";
+import"../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
+import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
+import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
+import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 export {
   AddPasskey
 };

@@ -7,9 +7,9 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from "../../../chunks/avatar-f7k9a70k.js";
-import"../../../chunks/avatar-yp1ewaxt.js";
-import"../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-f7k9a70k.js";
+import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
+import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 export {
   Table,
   TableBody,

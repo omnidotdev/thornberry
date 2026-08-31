@@ -5,16 +5,16 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from "../../../chunks/avatar-f7k9a70k.js";
+} from "../../../chunks/account-user-two-factor-authentication-f7k9a70k.js";
 import {
   useAccountContext
-} from "../../../chunks/avatar-en4v22ys.js";
+} from "../../../chunks/account-user-two-factor-authentication-en4v22ys.js";
 import {
   Label
-} from "../../../chunks/avatar-gsg3ph0v.js";
+} from "../../../chunks/account-user-two-factor-authentication-gsg3ph0v.js";
 import {
   Input
-} from "../../../chunks/avatar-nmmcnpth.js";
+} from "../../../chunks/account-user-two-factor-authentication-nmmcnpth.js";
 import {
   DialogBackdrop,
   DialogContent,
@@ -23,13 +23,13 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger
-} from "../../../chunks/avatar-p3ac7628.js";
+} from "../../../chunks/account-user-two-factor-authentication-p3ac7628.js";
 import {
   Button
-} from "../../../chunks/avatar-jb3sh07m.js";
-import"../../../chunks/avatar-zdtfvyzd.js";
-import"../../../chunks/avatar-yp1ewaxt.js";
-import"../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
+import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
+import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
+import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 
 // src/registry/thornberry/components/account-view-passkeys.tsx
 import { Fingerprint, Loader2, Trash2 } from "lucide-react";

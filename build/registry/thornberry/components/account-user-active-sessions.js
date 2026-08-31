@@ -1,12 +1,12 @@
 import {
   useAccountContext
-} from "../../../chunks/avatar-en4v22ys.js";
+} from "../../../chunks/account-user-two-factor-authentication-en4v22ys.js";
 import {
   Button
-} from "../../../chunks/avatar-jb3sh07m.js";
-import"../../../chunks/avatar-zdtfvyzd.js";
-import"../../../chunks/avatar-yp1ewaxt.js";
-import"../../../chunks/avatar-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
+import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
+import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
+import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
 
 // src/registry/thornberry/components/account-user-active-sessions.tsx
 import { Loader2, Monitor, Smartphone } from "lucide-react";
