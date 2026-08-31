@@ -1,7 +1,4 @@
 import {
-  Kbd
-} from "../../../chunks/avatar-ktx8cffm.js";
-import {
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -11,6 +8,9 @@ import {
   CommandSeparator,
   CommandShortcut
 } from "../../../chunks/avatar-kwryaq8z.js";
+import {
+  Kbd
+} from "../../../chunks/avatar-ktx8cffm.js";
 import"../../../chunks/avatar-p3ac7628.js";
 import"../../../chunks/avatar-yp1ewaxt.js";
 import"../../../chunks/avatar-d1wjbx81.js";
