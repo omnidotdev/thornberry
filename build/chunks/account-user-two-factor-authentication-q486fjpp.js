@@ -2018,7 +2018,7 @@ var UserTwoFactorAuthentication = () => {
                   },
                   children: isPendingTwoFa ? /* @__PURE__ */ jsx(Loader2, {
                     className: "mr-2 size-4 animate-spin"
-                  }) : twoFactorEnabled ? "Disable 2FA" : "Enable 2FA"
+                  }) : twoFactorEnabled ? "Disable 2FA" : twoFactorVerifyUri ? "Verify & activate" : "Enable 2FA"
                 })
               ]
             })
