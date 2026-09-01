@@ -1,8 +1,9 @@
-import { Loader2, Monitor, Smartphone } from "lucide-react";
+import { Monitor, Smartphone } from "lucide-react";
 import { useState } from "react";
 
 import { useAccountContext } from "@/registry/thornberry/components/account-provider";
 import { Button } from "@/registry/thornberry/components/button";
+import { ConfirmDialog } from "@/registry/thornberry/components/confirm-dialog";
 
 import type { AccountActiveSession } from "@/registry/thornberry/components/account-provider";
 
@@ -21,9 +22,9 @@ interface UserActiveSessionsProps {
 }
 
 /**
- * List the user's active sessions and let them revoke each. Reads the current
- * session from the injected client so the active one reads "Sign Out" rather
- * than "Terminate", and revokes through the client.
+ * List the user's active sessions and let them revoke each (behind a
+ * confirmation, since a revoke signs that device out). Reads the current
+ * session from the injected client so the active one reads "Sign Out".
  */
 const UserActiveSessions = ({
   activeSessions,
@@ -32,7 +33,34 @@ const UserActiveSessions = ({
   const { authClient, toaster } = useAccountContext();
 
   const { data: session } = authClient.useSession();
-  const [isTerminating, setIsTerminating] = useState<string>();
+  const [sessionToRevoke, setSessionToRevoke] =
+    useState<AccountActiveSession | null>(null);
+  const [isTerminating, setIsTerminating] = useState(false);
+
+  const isCurrent =
+    sessionToRevoke != null && sessionToRevoke.id === session?.session.id;
+
+  const handleRevoke = async () => {
+    if (!sessionToRevoke) return;
+
+    setIsTerminating(true);
+
+    const res = await authClient.revokeSession({
+      token: sessionToRevoke.token,
+    });
+
+    if (res.error) {
+      toaster.error({
+        title: res.error.message ?? "Failed to revoke session",
+      });
+    } else {
+      toaster.success({ title: "Session terminated successfully" });
+    }
+
+    onSessionRevoked?.();
+    setIsTerminating(false);
+    setSessionToRevoke(null);
+  };
 
   return (
     <>
@@ -51,35 +79,28 @@ const UserActiveSessions = ({
           <Button
             variant="ghost"
             className="text-red-500 underline hover:text-red-600"
-            onClick={async () => {
-              setIsTerminating(activeSession.id);
-
-              const res = await authClient.revokeSession({
-                token: activeSession.token,
-              });
-
-              if (res.error) {
-                toaster.error({
-                  title: res.error.message ?? "Failed to revoke session",
-                });
-              } else {
-                toaster.success({ title: "Session terminated successfully" });
-              }
-
-              onSessionRevoked?.();
-              setIsTerminating(undefined);
-            }}
+            onClick={() => setSessionToRevoke(activeSession)}
           >
-            {isTerminating === activeSession.id ? (
-              <Loader2 className="size-4 animate-spin" />
-            ) : activeSession.id === session?.session.id ? (
-              "Sign Out"
-            ) : (
-              "Terminate"
-            )}
+            {activeSession.id === session?.session.id
+              ? "Sign Out"
+              : "Terminate"}
           </Button>
         </div>
       ))}
+
+      <ConfirmDialog
+        open={sessionToRevoke !== null}
+        onOpenChange={(open) => {
+          if (!open) setSessionToRevoke(null);
+        }}
+        title={isCurrent ? "Sign out this device?" : "Terminate this session?"}
+        description={`${
+          sessionToRevoke?.label ?? "This device"
+        } will be signed out and will need to sign in again. This cannot be undone.`}
+        confirmLabel={isCurrent ? "Sign Out" : "Terminate"}
+        onConfirm={handleRevoke}
+        isPending={isTerminating}
+      />
     </>
   );
 };
