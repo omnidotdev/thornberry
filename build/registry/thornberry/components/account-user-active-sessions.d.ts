@@ -13,9 +13,9 @@ interface UserActiveSessionsProps {
     onSessionRevoked?: () => void;
 }
 /**
- * List the user's active sessions and let them revoke each. Reads the current
- * session from the injected client so the active one reads "Sign Out" rather
- * than "Terminate", and revokes through the client.
+ * List the user's active sessions and let them revoke each (behind a
+ * confirmation, since a revoke signs that device out). Reads the current
+ * session from the injected client so the active one reads "Sign Out".
  */
 declare const UserActiveSessions: ({ activeSessions, onSessionRevoked, }: UserActiveSessionsProps) => import("react/jsx-runtime").JSX.Element;
 export { UserActiveSessions };
