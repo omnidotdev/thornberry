@@ -26,7 +26,7 @@ import"../../../chunks/account-user-two-factor-authentication-164eysdm.js";
 import"../../../chunks/account-user-two-factor-authentication-f7k9a70k.js";
 import {
   UserTwoFactorAuthentication
-} from "../../../chunks/account-user-two-factor-authentication-vgxbrb9f.js";
+} from "../../../chunks/account-user-two-factor-authentication-q486fjpp.js";
 import"../../../chunks/account-user-two-factor-authentication-5zw78ck9.js";
 import"../../../chunks/account-user-two-factor-authentication-f0pw65h3.js";
 import {

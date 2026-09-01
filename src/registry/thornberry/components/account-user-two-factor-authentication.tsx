@@ -233,6 +233,8 @@ const UserTwoFactorAuthentication = () => {
                 <Loader2 className="mr-2 size-4 animate-spin" />
               ) : twoFactorEnabled ? (
                 "Disable 2FA"
+              ) : twoFactorVerifyUri ? (
+                "Verify & activate"
               ) : (
                 "Enable 2FA"
               )}
