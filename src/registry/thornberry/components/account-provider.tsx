@@ -14,6 +14,8 @@ export interface AccountBrand {
   supportEmail?: string;
   /** Community or support link surfaced in the console footer */
   supportUrl?: string;
+  /** Docs link explaining account security (e.g. two-factor setup) */
+  securityDocsUrl?: string;
   /** Placeholder email shown in email inputs */
   placeholderEmail?: string;
   /** Privacy policy link */

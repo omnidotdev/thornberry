@@ -640,7 +640,7 @@ var LiteThrottler = class {
 function liteThrottle(fn, options) {
   return new LiteThrottler(fn, options).maybeExecute;
 }
-// node_modules/@tanstack/devtools-event-client/dist/esm/plugin.js
+// node_modules/@tanstack/form-core/node_modules/@tanstack/devtools-event-client/dist/esm/plugin.js
 var EventClient = class {
   #enabled = true;
   #pluginId;
