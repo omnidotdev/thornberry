@@ -47,13 +47,13 @@ const toaster = {
   promise: async () => {},
 } as unknown as AccountContextValue["toaster"];
 
-const renderBlock = () =>
+const renderBlock = (
+  brand: { organizationName: string; securityDocsUrl?: string } = {
+    organizationName: "Test",
+  },
+) =>
   render(
-    <AccountProvider
-      authClient={makeClient()}
-      toaster={toaster}
-      brand={{ organizationName: "Test" }}
-    >
+    <AccountProvider authClient={makeClient()} toaster={toaster} brand={brand}>
       <UserTwoFactorAuthentication />
     </AccountProvider>,
   );
@@ -83,5 +83,36 @@ describe("UserTwoFactorAuthentication", () => {
     // not still read "Enable 2FA" (which is what made the flow look finished)
     const verify = await screen.findByText("Verify & activate");
     expect(verify).toBeDefined();
+  });
+
+  test("links out to the security docs when a URL is provided", () => {
+    renderBlock({
+      organizationName: "Test",
+      securityDocsUrl: "https://docs.test.dev/account/security",
+    });
+
+    const link = screen.getByRole("link", { name: /learn more/i });
+    expect(link.getAttribute("href")).toBe(
+      "https://docs.test.dev/account/security",
+    );
+  });
+
+  test("omits the docs link when no URL is provided", () => {
+    renderBlock();
+
+    expect(screen.queryByRole("link", { name: /learn more/i })).toBeNull();
+  });
+
+  test("shows the QR code after setup starts", async () => {
+    renderBlock();
+
+    press(screen.getByRole("button", { name: "Enable 2FA" }));
+    const dialog = await screen.findByRole("dialog");
+    press(within(dialog).getByRole("button", { name: "Enable 2FA" }));
+
+    // react-qr-code renders an <svg>; the manual-entry field carries the URI
+    await screen.findByText("Verify & activate");
+    const svg = document.querySelector("svg[viewBox]");
+    expect(svg).not.toBeNull();
   });
 });

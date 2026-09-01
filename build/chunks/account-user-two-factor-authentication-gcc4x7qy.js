@@ -90,7 +90,13 @@ var require_prop_types = __commonJS(function(exports, module) {
 });
 
 // src/registry/thornberry/components/account-user-two-factor-authentication.tsx
-import { Loader2, QrCode, ShieldCheck, ShieldOff } from "lucide-react";
+import {
+  ExternalLink,
+  Loader2,
+  QrCode,
+  ShieldCheck,
+  ShieldOff
+} from "lucide-react";
 import { useState } from "react";
 
 // node_modules/react-qr-code/lib/index.mjs
@@ -1806,8 +1812,18 @@ QRCode.propTypes = propTypes;
 
 // src/registry/thornberry/components/account-user-two-factor-authentication.tsx
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
+var QrPanel = ({ value }) => /* @__PURE__ */ jsx("div", {
+  className: "flex justify-center",
+  children: /* @__PURE__ */ jsx("div", {
+    className: "rounded-lg border border-border bg-white p-4",
+    children: /* @__PURE__ */ jsx(QRCode, {
+      value,
+      size: 180
+    })
+  })
+});
 var UserTwoFactorAuthentication = () => {
-  const { authClient, toaster } = useAccountContext();
+  const { authClient, toaster, brand } = useAccountContext();
   const { data: session } = authClient.useSession();
   const [isPendingTwoFa, setIsPendingTwoFa] = useState(false);
   const [password, setPassword] = useState("");
@@ -1819,6 +1835,29 @@ var UserTwoFactorAuthentication = () => {
       /* @__PURE__ */ jsx("h3", {
         className: "font-bold text-xl",
         children: "Two-Factor Authentication"
+      }),
+      /* @__PURE__ */ jsxs("p", {
+        className: "max-w-prose text-muted-foreground text-sm",
+        children: [
+          "Two-factor authentication adds a second step when you sign in: after your password, you enter a short code from an authenticator app on your phone. Even if someone learns your password, they can't sign in without your phone.",
+          brand.securityDocsUrl ? /* @__PURE__ */ jsxs(Fragment, {
+            children: [
+              " ",
+              /* @__PURE__ */ jsxs("a", {
+                href: brand.securityDocsUrl,
+                target: "_blank",
+                rel: "noreferrer",
+                className: "inline-flex items-center gap-1 text-primary underline underline-offset-2",
+                children: [
+                  "Learn more",
+                  /* @__PURE__ */ jsx(ExternalLink, {
+                    className: "size-3"
+                  })
+                ]
+              })
+            ]
+          }) : null
+        ]
       }),
       twoFactorEnabled && /* @__PURE__ */ jsxs(DialogRoot, {
         children: [
@@ -1848,20 +1887,26 @@ var UserTwoFactorAuthentication = () => {
                     /* @__PURE__ */ jsx(DialogTitle, {
                       children: "Scan QR Code"
                     }),
-                    /* @__PURE__ */ jsx(DialogDescription, {
-                      children: "Scan the QR code with your TOTP app"
+                    /* @__PURE__ */ jsxs(DialogDescription, {
+                      children: [
+                        "Add ",
+                        brand.organizationName,
+                        " to your authenticator app again. Confirm your password, then scan the code below."
+                      ]
                     })
                   ]
                 }),
                 twoFactorVerifyUri ? /* @__PURE__ */ jsxs(Fragment, {
                   children: [
-                    /* @__PURE__ */ jsx(QRCode, {
+                    /* @__PURE__ */ jsx(QrPanel, {
                       value: twoFactorVerifyUri
                     }),
-                    /* @__PURE__ */ jsx("p", {
-                      children: "Copy URI to clipboard"
+                    /* @__PURE__ */ jsx(Label, {
+                      htmlFor: "two-factor-uri",
+                      children: "Can't scan? Enter this setup key manually instead."
                     }),
                     /* @__PURE__ */ jsx("input", {
+                      id: "two-factor-uri",
                       readOnly: true,
                       value: twoFactorVerifyUri,
                       className: "w-full rounded border border-border bg-muted px-2 py-1 font-mono text-sm"
@@ -1930,24 +1975,26 @@ var UserTwoFactorAuthentication = () => {
                       children: twoFactorEnabled ? "Disable 2FA" : "Enable 2FA"
                     }),
                     /* @__PURE__ */ jsx(DialogDescription, {
-                      children: twoFactorEnabled ? "Disable the second authentication factor from your account." : "Enable 2FA to secure your account."
+                      children: twoFactorEnabled ? "Turn off two-factor authentication. Your account will be protected by your password alone." : twoFactorVerifyUri ? "Scan the code with your authenticator app, then enter the 6-digit code it shows to finish." : "Confirm your password to begin setting up two-factor authentication."
                     })
                   ]
                 }),
                 twoFactorVerifyUri ? /* @__PURE__ */ jsxs(Fragment, {
                   children: [
-                    /* @__PURE__ */ jsx(QRCode, {
+                    /* @__PURE__ */ jsx(QrPanel, {
                       value: twoFactorVerifyUri
                     }),
                     /* @__PURE__ */ jsx(Label, {
                       htmlFor: "two-factor-code",
-                      children: "Scan the QR code with your TOTP app."
+                      children: "Enter the 6-digit code from your authenticator app"
                     }),
                     /* @__PURE__ */ jsx(Input, {
                       id: "two-factor-code",
+                      inputMode: "numeric",
+                      autoComplete: "one-time-code",
                       value: password,
                       onChange: (event) => setPassword(event.target.value),
-                      placeholder: "Enter OTP"
+                      placeholder: "000000"
                     })
                   ]
                 }) : /* @__PURE__ */ jsxs(Fragment, {
