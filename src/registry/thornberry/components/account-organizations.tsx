@@ -345,18 +345,210 @@ const CreateOrganizationDialog = ({ onCreated }: { onCreated: () => void }) => {
  * owners, leave for everyone else). Personal organizations show a short note
  * instead, since they have no other members.
  */
+/**
+ * Edit an organization's name, handle, and description (owner/admin). The handle
+ * is checked for availability only when it changes; an unchanged handle stays
+ * valid. Description is left blank on open and only sent when filled, so saving
+ * never clears an existing description the dialog didn't load.
+ */
+const EditOrganizationDialog = ({
+  organization,
+  open,
+  onOpenChange,
+  onUpdated,
+}: {
+  organization: AccountOrganization;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onUpdated: () => void;
+}) => {
+  const { authClient, toaster } = useAccountContext();
+
+  const [name, setName] = useState(organization.name);
+  const [slug, setSlug] = useState(organization.slug);
+  const [description, setDescription] = useState("");
+  const [slugStatus, setSlugStatus] = useState<SlugStatus>("idle");
+  const [isSaving, setIsSaving] = useState(false);
+  const slugTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (open) {
+      setName(organization.name);
+      setSlug(organization.slug);
+      setDescription("");
+      setSlugStatus("idle");
+    }
+  }, [open, organization.name, organization.slug]);
+
+  const slugChanged = slug !== organization.slug;
+
+  const checkSlug = (value: string) => {
+    setSlugStatus("idle");
+    if (slugTimer.current) clearTimeout(slugTimer.current);
+    if (value === organization.slug) return;
+    if (value.length < 3) return;
+    if (!SLUG_PATTERN.test(value)) {
+      setSlugStatus("invalid");
+      return;
+    }
+    setSlugStatus("checking");
+    slugTimer.current = setTimeout(async () => {
+      try {
+        const result = await authClient.organization.checkSlug({ slug: value });
+        setSlugStatus(result?.data?.status ? "available" : "taken");
+      } catch {
+        setSlugStatus("idle");
+      }
+    }, 500);
+  };
+
+  const handleSlugChange = (value: string) => {
+    const normalized = value.toLowerCase();
+    setSlug(normalized);
+    checkSlug(normalized);
+  };
+
+  const canSave =
+    name.trim().length > 0 &&
+    slug.length >= 3 &&
+    (!slugChanged || slugStatus === "available") &&
+    !isSaving;
+
+  const handleSave = async () => {
+    setIsSaving(true);
+    const data: { name?: string; slug?: string; description?: string } = {};
+    if (name.trim() !== organization.name) data.name = name.trim();
+    if (slugChanged) data.slug = slug;
+    if (description.trim()) data.description = description.trim();
+
+    const res = await authClient.organization.update({
+      data,
+      organizationId: organization.id,
+    });
+    setIsSaving(false);
+
+    if (res?.error) {
+      toaster.error({
+        title: errorMessage(res.error, "Couldn't save changes"),
+      });
+      return;
+    }
+    toaster.success({ title: "Organization updated" });
+    onOpenChange(false);
+    onUpdated();
+  };
+
+  return (
+    <DialogRoot
+      open={open}
+      onOpenChange={({ open: next }) => {
+        if (isSaving) return;
+        onOpenChange(next);
+      }}
+    >
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent className="w-full max-w-md p-6">
+          <DialogTitle>Edit organization</DialogTitle>
+          <DialogDescription className="text-muted-foreground text-sm">
+            Update your organization's name, handle, or description.
+          </DialogDescription>
+          <form
+            className="mt-4 space-y-4"
+            onSubmit={(event) => {
+              event.preventDefault();
+              if (canSave) handleSave();
+            }}
+          >
+            <div className="space-y-1.5">
+              <Label htmlFor="edit-org-name">Name</Label>
+              <Input
+                id="edit-org-name"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="edit-org-slug">Handle</Label>
+              <div className="relative">
+                <span className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm">
+                  @
+                </span>
+                <Input
+                  id="edit-org-slug"
+                  value={slug}
+                  onChange={(event) => handleSlugChange(event.target.value)}
+                  className="pr-9 pl-7"
+                  required
+                />
+                <div className="absolute top-1/2 right-3 -translate-y-1/2">
+                  {slugStatus === "checking" && (
+                    <Loader2 className="size-4 animate-spin text-muted-foreground" />
+                  )}
+                  {slugStatus === "available" && (
+                    <Check className="size-4 text-green-500" />
+                  )}
+                  {(slugStatus === "taken" || slugStatus === "invalid") && (
+                    <X className="size-4 text-destructive" />
+                  )}
+                </div>
+              </div>
+              {slugChanged && (
+                <p className="text-muted-foreground text-xs">
+                  {slugStatus === "taken"
+                    ? "That handle is already taken."
+                    : slugStatus === "invalid"
+                      ? "Use lowercase letters, numbers, and hyphens only."
+                      : "Changing the handle updates it everywhere this organization is used."}
+                </p>
+              )}
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="edit-org-desc">Description</Label>
+              <Input
+                id="edit-org-desc"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+                placeholder="Optional"
+              />
+            </div>
+            <div className="flex justify-end gap-2 pt-2">
+              <Button
+                type="button"
+                variant="outline"
+                disabled={isSaving}
+                onClick={() => onOpenChange(false)}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" disabled={!canSave}>
+                {isSaving ? "Saving..." : "Save"}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </DialogPositioner>
+    </DialogRoot>
+  );
+};
+
 const OrganizationDetail = ({
   organization,
   currentEmail,
   onBack,
   onLeftOrDeleted,
+  onUpdated,
 }: {
   organization: AccountOrganization;
   currentEmail: string;
   onBack: () => void;
   onLeftOrDeleted: () => void;
+  onUpdated: () => void;
 }) => {
   const { authClient, toaster } = useAccountContext();
+
+  const [editOpen, setEditOpen] = useState(false);
 
   const [full, setFull] = useState<AccountFullOrganization | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -524,12 +716,30 @@ const OrganizationDetail = ({
           <h3 className="font-semibold text-lg">{organization.name}</h3>
           <p className="text-muted-foreground text-sm">@{organization.slug}</p>
         </div>
-        {currentMember && (
-          <Badge variant="outline" className="capitalize">
-            {currentMember.role}
-          </Badge>
-        )}
+        <div className="flex items-center gap-2">
+          {canManage && organization.type !== "personal" && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setEditOpen(true)}
+            >
+              Edit
+            </Button>
+          )}
+          {currentMember && (
+            <Badge variant="outline" className="capitalize">
+              {currentMember.role}
+            </Badge>
+          )}
+        </div>
       </div>
+
+      <EditOrganizationDialog
+        organization={organization}
+        open={editOpen}
+        onOpenChange={setEditOpen}
+        onUpdated={onUpdated}
+      />
 
       {isPersonal ? (
         <p className="rounded-lg border p-5 text-muted-foreground text-sm">
@@ -839,6 +1049,10 @@ const AccountOrganizations = () => {
         currentEmail={session.user.email}
         onBack={() => setSelectedSlug(null)}
         onLeftOrDeleted={() => {
+          setSelectedSlug(null);
+          load();
+        }}
+        onUpdated={() => {
           setSelectedSlug(null);
           load();
         }}
