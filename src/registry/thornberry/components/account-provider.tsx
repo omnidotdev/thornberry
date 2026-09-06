@@ -257,6 +257,11 @@ export interface AccountAuthClient {
       name: string;
       slug: string;
     }) => Promise<AccountAuthResult>;
+    /** Update an organization's name, handle, or description (owner/admin) */
+    update: (options: {
+      data: { name?: string; slug?: string; description?: string };
+      organizationId: string;
+    }) => Promise<AccountAuthResult>;
     /** Delete a team organization (owner only) */
     delete: (options: { organizationId: string }) => Promise<AccountAuthResult>;
     /** Leave an organization (non-last-owner) */

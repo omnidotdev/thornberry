@@ -334,13 +334,215 @@ var CreateOrganizationDialog = ({ onCreated }) => {
     ]
   });
 };
+var EditOrganizationDialog = ({
+  organization,
+  open,
+  onOpenChange,
+  onUpdated
+}) => {
+  const { authClient, toaster } = useAccountContext();
+  const [name, setName] = useState(organization.name);
+  const [slug, setSlug] = useState(organization.slug);
+  const [description, setDescription] = useState("");
+  const [slugStatus, setSlugStatus] = useState("idle");
+  const [isSaving, setIsSaving] = useState(false);
+  const slugTimer = useRef(null);
+  useEffect(() => {
+    if (open) {
+      setName(organization.name);
+      setSlug(organization.slug);
+      setDescription("");
+      setSlugStatus("idle");
+    }
+  }, [open, organization.name, organization.slug]);
+  const slugChanged = slug !== organization.slug;
+  const checkSlug = (value) => {
+    setSlugStatus("idle");
+    if (slugTimer.current)
+      clearTimeout(slugTimer.current);
+    if (value === organization.slug)
+      return;
+    if (value.length < 3)
+      return;
+    if (!SLUG_PATTERN.test(value)) {
+      setSlugStatus("invalid");
+      return;
+    }
+    setSlugStatus("checking");
+    slugTimer.current = setTimeout(async () => {
+      try {
+        const result = await authClient.organization.checkSlug({ slug: value });
+        setSlugStatus(result?.data?.status ? "available" : "taken");
+      } catch {
+        setSlugStatus("idle");
+      }
+    }, 500);
+  };
+  const handleSlugChange = (value) => {
+    const normalized = value.toLowerCase();
+    setSlug(normalized);
+    checkSlug(normalized);
+  };
+  const canSave = name.trim().length > 0 && slug.length >= 3 && (!slugChanged || slugStatus === "available") && !isSaving;
+  const handleSave = async () => {
+    setIsSaving(true);
+    const data = {};
+    if (name.trim() !== organization.name)
+      data.name = name.trim();
+    if (slugChanged)
+      data.slug = slug;
+    if (description.trim())
+      data.description = description.trim();
+    const res = await authClient.organization.update({
+      data,
+      organizationId: organization.id
+    });
+    setIsSaving(false);
+    if (res?.error) {
+      toaster.error({
+        title: errorMessage(res.error, "Couldn't save changes")
+      });
+      return;
+    }
+    toaster.success({ title: "Organization updated" });
+    onOpenChange(false);
+    onUpdated();
+  };
+  return /* @__PURE__ */ jsxs(DialogRoot, {
+    open,
+    onOpenChange: ({ open: next }) => {
+      if (isSaving)
+        return;
+      onOpenChange(next);
+    },
+    children: [
+      /* @__PURE__ */ jsx(DialogBackdrop, {}),
+      /* @__PURE__ */ jsx(DialogPositioner, {
+        children: /* @__PURE__ */ jsxs(DialogContent, {
+          className: "w-full max-w-md p-6",
+          children: [
+            /* @__PURE__ */ jsx(DialogTitle, {
+              children: "Edit organization"
+            }),
+            /* @__PURE__ */ jsx(DialogDescription, {
+              className: "text-muted-foreground text-sm",
+              children: "Update your organization's name, handle, or description."
+            }),
+            /* @__PURE__ */ jsxs("form", {
+              className: "mt-4 space-y-4",
+              onSubmit: (event) => {
+                event.preventDefault();
+                if (canSave)
+                  handleSave();
+              },
+              children: [
+                /* @__PURE__ */ jsxs("div", {
+                  className: "space-y-1.5",
+                  children: [
+                    /* @__PURE__ */ jsx(Label, {
+                      htmlFor: "edit-org-name",
+                      children: "Name"
+                    }),
+                    /* @__PURE__ */ jsx(Input, {
+                      id: "edit-org-name",
+                      value: name,
+                      onChange: (event) => setName(event.target.value),
+                      required: true
+                    })
+                  ]
+                }),
+                /* @__PURE__ */ jsxs("div", {
+                  className: "space-y-1.5",
+                  children: [
+                    /* @__PURE__ */ jsx(Label, {
+                      htmlFor: "edit-org-slug",
+                      children: "Handle"
+                    }),
+                    /* @__PURE__ */ jsxs("div", {
+                      className: "relative",
+                      children: [
+                        /* @__PURE__ */ jsx("span", {
+                          className: "absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm",
+                          children: "@"
+                        }),
+                        /* @__PURE__ */ jsx(Input, {
+                          id: "edit-org-slug",
+                          value: slug,
+                          onChange: (event) => handleSlugChange(event.target.value),
+                          className: "pr-9 pl-7",
+                          required: true
+                        }),
+                        /* @__PURE__ */ jsxs("div", {
+                          className: "absolute top-1/2 right-3 -translate-y-1/2",
+                          children: [
+                            slugStatus === "checking" && /* @__PURE__ */ jsx(Loader2, {
+                              className: "size-4 animate-spin text-muted-foreground"
+                            }),
+                            slugStatus === "available" && /* @__PURE__ */ jsx(Check, {
+                              className: "size-4 text-green-500"
+                            }),
+                            (slugStatus === "taken" || slugStatus === "invalid") && /* @__PURE__ */ jsx(X, {
+                              className: "size-4 text-destructive"
+                            })
+                          ]
+                        })
+                      ]
+                    }),
+                    slugChanged && /* @__PURE__ */ jsx("p", {
+                      className: "text-muted-foreground text-xs",
+                      children: slugStatus === "taken" ? "That handle is already taken." : slugStatus === "invalid" ? "Use lowercase letters, numbers, and hyphens only." : "Changing the handle updates it everywhere this organization is used."
+                    })
+                  ]
+                }),
+                /* @__PURE__ */ jsxs("div", {
+                  className: "space-y-1.5",
+                  children: [
+                    /* @__PURE__ */ jsx(Label, {
+                      htmlFor: "edit-org-desc",
+                      children: "Description"
+                    }),
+                    /* @__PURE__ */ jsx(Input, {
+                      id: "edit-org-desc",
+                      value: description,
+                      onChange: (event) => setDescription(event.target.value),
+                      placeholder: "Optional"
+                    })
+                  ]
+                }),
+                /* @__PURE__ */ jsxs("div", {
+                  className: "flex justify-end gap-2 pt-2",
+                  children: [
+                    /* @__PURE__ */ jsx(Button, {
+                      type: "button",
+                      variant: "outline",
+                      disabled: isSaving,
+                      onClick: () => onOpenChange(false),
+                      children: "Cancel"
+                    }),
+                    /* @__PURE__ */ jsx(Button, {
+                      type: "submit",
+                      disabled: !canSave,
+                      children: isSaving ? "Saving..." : "Save"
+                    })
+                  ]
+                })
+              ]
+            })
+          ]
+        })
+      })
+    ]
+  });
+};
 var OrganizationDetail = ({
   organization,
   currentEmail,
   onBack,
-  onLeftOrDeleted
+  onLeftOrDeleted,
+  onUpdated
 }) => {
   const { authClient, toaster } = useAccountContext();
+  const [editOpen, setEditOpen] = useState(false);
   const [full, setFull] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [inviteEmail, setInviteEmail] = useState("");
@@ -506,12 +708,29 @@ var OrganizationDetail = ({
               })
             ]
           }),
-          currentMember && /* @__PURE__ */ jsx(Badge, {
-            variant: "outline",
-            className: "capitalize",
-            children: currentMember.role
+          /* @__PURE__ */ jsxs("div", {
+            className: "flex items-center gap-2",
+            children: [
+              canManage && organization.type !== "personal" && /* @__PURE__ */ jsx(Button, {
+                variant: "outline",
+                size: "sm",
+                onClick: () => setEditOpen(true),
+                children: "Edit"
+              }),
+              currentMember && /* @__PURE__ */ jsx(Badge, {
+                variant: "outline",
+                className: "capitalize",
+                children: currentMember.role
+              })
+            ]
           })
         ]
+      }),
+      /* @__PURE__ */ jsx(EditOrganizationDialog, {
+        organization,
+        open: editOpen,
+        onOpenChange: setEditOpen,
+        onUpdated
       }),
       isPersonal ? /* @__PURE__ */ jsx("p", {
         className: "rounded-lg border p-5 text-muted-foreground text-sm",
@@ -809,6 +1028,10 @@ var AccountOrganizations = () => {
       currentEmail: session.user.email,
       onBack: () => setSelectedSlug(null),
       onLeftOrDeleted: () => {
+        setSelectedSlug(null);
+        load();
+      },
+      onUpdated: () => {
         setSelectedSlug(null);
         load();
       }
