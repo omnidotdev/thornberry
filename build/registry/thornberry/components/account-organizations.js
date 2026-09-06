@@ -1,4 +1,7 @@
 import {
+  AccountOrganizationTeams
+} from "../../../chunks/account-user-two-factor-authentication-ep01pj75.js";
+import {
   Select,
   SelectContent,
   SelectControl,
@@ -687,6 +690,10 @@ var OrganizationDetail = ({
                 ]
               }, invitation.id))
             ]
+          }),
+          canManage && /* @__PURE__ */ jsx(AccountOrganizationTeams, {
+            organizationId: organization.id,
+            members
           }),
           /* @__PURE__ */ jsx("div", {
             className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5",

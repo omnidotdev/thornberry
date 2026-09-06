@@ -106,11 +106,23 @@ export interface AccountTeam {
     id: string;
     name: string;
 }
+/** A member of a team, as listed in the team-management view */
+export interface AccountTeamMember {
+    id: string;
+    userId: string;
+    user?: {
+        name?: string | null;
+        email?: string | null;
+        image?: string | null;
+    } | null;
+}
 /** An organization role the console assigns */
 export type AccountOrgRole = "owner" | "admin" | "member";
 /** A member of an organization, as listed in the management view */
 export interface AccountOrgMember {
     id: string;
+    /** Gatekeeper user id, used to add the member to teams */
+    userId?: string;
     role: string;
     user: {
         name?: string | null;
@@ -272,6 +284,57 @@ export interface AccountAuthClient {
         removeMember: (options: {
             organizationId: string;
             memberIdOrEmail: string;
+        }) => Promise<AccountAuthResult>;
+        /** List the teams within an organization */
+        listTeams: (options: {
+            query: {
+                organizationId: string;
+            };
+        }) => Promise<{
+            data?: AccountTeam[] | null;
+            error?: {
+                message?: string | null;
+            } | null;
+        }>;
+        /** Create a team within an organization */
+        createTeam: (options: {
+            name: string;
+            organizationId: string;
+        }) => Promise<AccountAuthResult>;
+        /** Rename a team */
+        updateTeam: (options: {
+            teamId: string;
+            data: {
+                name: string;
+            };
+        }) => Promise<AccountAuthResult>;
+        /** Remove a team */
+        removeTeam: (options: {
+            teamId: string;
+            organizationId: string;
+        }) => Promise<AccountAuthResult>;
+        /** List the members of a team */
+        listTeamMembers: (options: {
+            query: {
+                teamId: string;
+            };
+        }) => Promise<{
+            data?: AccountTeamMember[] | null;
+            error?: {
+                message?: string | null;
+            } | null;
+        }>;
+        /** Add an organization member to a team */
+        addTeamMember: (options: {
+            teamId: string;
+            userId: string;
+            organizationId: string;
+        }) => Promise<AccountAuthResult>;
+        /** Remove a member from a team */
+        removeTeamMember: (options: {
+            teamId: string;
+            userId: string;
+            organizationId: string;
         }) => Promise<AccountAuthResult>;
     };
     admin: {
