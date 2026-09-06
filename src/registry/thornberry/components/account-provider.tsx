@@ -342,6 +342,18 @@ export interface AccountAuthClient {
  * lets the same components render inside an identity server's own dashboard and
  * inside a relying-party account app.
  */
+/**
+ * Optional org-logo uploader. Logo storage is host-specific (each deployment
+ * proxies it to its own endpoint), so it is injected rather than part of the
+ * structural auth client. When present and enabled, the org editor shows a logo
+ * control; `onUpload` stores the file, sets it on the organization, and returns
+ * the new URL.
+ */
+export interface AccountOrgLogoUploader {
+  uploadEnabled?: boolean;
+  onUpload: (organizationId: string, file: Blob) => Promise<string | void>;
+}
+
 export interface AccountContextValue {
   /** Configured auth client the blocks call for every account operation */
   authClient: AccountAuthClient;
@@ -349,6 +361,8 @@ export interface AccountContextValue {
   toaster: AccountToaster;
   /** Host branding and copy */
   brand: AccountBrand;
+  /** Optional host-provided org-logo uploader (enables the logo control) */
+  orgLogo?: AccountOrgLogoUploader;
 }
 
 const AccountContext = createContext<AccountContextValue | null>(null);

@@ -362,14 +362,17 @@ const EditOrganizationDialog = ({
   onOpenChange: (open: boolean) => void;
   onUpdated: () => void;
 }) => {
-  const { authClient, toaster } = useAccountContext();
+  const { authClient, toaster, orgLogo } = useAccountContext();
 
   const [name, setName] = useState(organization.name);
   const [slug, setSlug] = useState(organization.slug);
   const [description, setDescription] = useState("");
   const [slugStatus, setSlugStatus] = useState<SlugStatus>("idle");
   const [isSaving, setIsSaving] = useState(false);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const [isUploadingLogo, setIsUploadingLogo] = useState(false);
   const slugTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (open) {
@@ -377,8 +380,38 @@ const EditOrganizationDialog = ({
       setSlug(organization.slug);
       setDescription("");
       setSlugStatus("idle");
+      setLogoPreview(null);
     }
   }, [open, organization.name, organization.slug]);
+
+  const handleLogoSelect = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file || !orgLogo) return;
+
+    if (!file.type.startsWith("image/")) {
+      toaster.error({ title: "Choose an image file" });
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toaster.error({ title: "Image must be under 5 MB" });
+      return;
+    }
+
+    setIsUploadingLogo(true);
+    try {
+      const url = await orgLogo.onUpload(organization.id, file);
+      if (typeof url === "string") setLogoPreview(url);
+      toaster.success({ title: "Logo updated" });
+      onUpdated();
+    } catch (error) {
+      toaster.error({ title: errorMessage(error, "Couldn't upload the logo") });
+    } finally {
+      setIsUploadingLogo(false);
+    }
+  };
 
   const slugChanged = slug !== organization.slug;
 
@@ -460,6 +493,40 @@ const EditOrganizationDialog = ({
               if (canSave) handleSave();
             }}
           >
+            {orgLogo?.uploadEnabled && (
+              <div className="flex items-center gap-4">
+                <AvatarRoot className="size-14 shrink-0 rounded-md">
+                  <AvatarImage
+                    src={logoPreview ?? organization.logo ?? undefined}
+                  />
+                  <AvatarFallback className="rounded-md">
+                    {organization.name.charAt(0)}
+                  </AvatarFallback>
+                </AvatarRoot>
+                <div className="space-y-1">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={isUploadingLogo}
+                    onClick={() => logoInputRef.current?.click()}
+                  >
+                    {isUploadingLogo ? "Uploading..." : "Change logo"}
+                  </Button>
+                  <p className="text-muted-foreground text-xs">
+                    PNG or JPG, up to 5 MB.
+                  </p>
+                </div>
+                <input
+                  ref={logoInputRef}
+                  type="file"
+                  accept="image/*"
+                  hidden
+                  onChange={handleLogoSelect}
+                />
+              </div>
+            )}
+
             <div className="space-y-1.5">
               <Label htmlFor="edit-org-name">Name</Label>
               <Input
