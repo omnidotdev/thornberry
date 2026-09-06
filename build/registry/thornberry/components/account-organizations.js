@@ -1022,6 +1022,7 @@ var AccountOrganizations = () => {
     load();
   }, [load]);
   const selected = organizations.find((org) => org.slug === selectedSlug);
+  const sortedOrganizations = [...organizations].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
   if (selected && session?.user) {
     return /* @__PURE__ */ jsx(OrganizationDetail, {
       organization: selected,
@@ -1067,7 +1068,7 @@ var AccountOrganizations = () => {
           children: /* @__PURE__ */ jsx(Loader2, {
             className: "size-5 animate-spin"
           })
-        }) : organizations.length ? organizations.map((org) => /* @__PURE__ */ jsxs("button", {
+        }) : sortedOrganizations.length ? sortedOrganizations.map((org) => /* @__PURE__ */ jsxs("button", {
           type: "button",
           onClick: () => setSelectedSlug(org.slug),
           className: "flex w-full items-center justify-between gap-3 rounded-lg border p-3 text-left transition-colors hover:bg-muted/50",
@@ -1075,12 +1076,17 @@ var AccountOrganizations = () => {
             /* @__PURE__ */ jsxs("div", {
               className: "flex min-w-0 items-center gap-3",
               children: [
-                /* @__PURE__ */ jsx(AvatarRoot, {
+                /* @__PURE__ */ jsxs(AvatarRoot, {
                   className: "size-9 shrink-0 rounded-md",
-                  children: /* @__PURE__ */ jsx(AvatarFallback, {
-                    className: "rounded-md",
-                    children: org.name.charAt(0)
-                  })
+                  children: [
+                    /* @__PURE__ */ jsx(AvatarImage, {
+                      src: org.logo ?? undefined
+                    }),
+                    /* @__PURE__ */ jsx(AvatarFallback, {
+                      className: "rounded-md",
+                      children: org.name.charAt(0)
+                    })
+                  ]
                 }),
                 /* @__PURE__ */ jsxs("div", {
                   className: "min-w-0",
