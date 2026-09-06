@@ -12,6 +12,7 @@ import {
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { useAccountContext } from "@/registry/thornberry/components/account-provider";
+import { AccountOrganizationTeams } from "@/registry/thornberry/components/account-teams";
 import {
   AvatarFallback,
   AvatarImage,
@@ -687,6 +688,13 @@ const OrganizationDetail = ({
                 </div>
               ))}
             </div>
+          )}
+
+          {canManage && (
+            <AccountOrganizationTeams
+              organizationId={organization.id}
+              members={members}
+            />
           )}
 
           <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5">
