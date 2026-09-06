@@ -1083,13 +1083,33 @@ const OrganizationDetail = ({
  * dashboard and in a relying-party account app. Fill `AccountConsole`'s
  * `organizationsSection` slot with it, or render it standalone.
  */
-const AccountOrganizations = () => {
+const AccountOrganizations = ({
+  selectedSlug: controlledSlug,
+  onSelectOrganization,
+}: {
+  /**
+   * The org slug currently drilled into. Provide together with
+   * `onSelectOrganization` to make list/detail navigation controlled, so a host
+   * can reflect it in the URL; omit both for internal (uncontrolled) state.
+   */
+  selectedSlug?: string | null;
+  onSelectOrganization?: (slug: string | null) => void;
+} = {}) => {
   const { authClient } = useAccountContext();
 
   const { data: session } = authClient.useSession();
   const [organizations, setOrganizations] = useState<AccountOrganization[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+  const [internalSlug, setInternalSlug] = useState<string | null>(null);
+
+  // Controlled when the host drives selection (to sync the URL); otherwise the
+  // block keeps its own state
+  const isControlled = onSelectOrganization !== undefined;
+  const selectedSlug = isControlled ? (controlledSlug ?? null) : internalSlug;
+  const setSelectedSlug = (slug: string | null) => {
+    if (isControlled) onSelectOrganization(slug);
+    else setInternalSlug(slug);
+  };
 
   const load = useCallback(async () => {
     setIsLoading(true);

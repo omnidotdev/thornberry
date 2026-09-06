@@ -6,5 +6,13 @@
  * dashboard and in a relying-party account app. Fill `AccountConsole`'s
  * `organizationsSection` slot with it, or render it standalone.
  */
-declare const AccountOrganizations: () => import("react/jsx-runtime").JSX.Element;
+declare const AccountOrganizations: ({ selectedSlug: controlledSlug, onSelectOrganization, }?: {
+    /**
+     * The org slug currently drilled into. Provide together with
+     * `onSelectOrganization` to make list/detail navigation controlled, so a host
+     * can reflect it in the URL; omit both for internal (uncontrolled) state.
+     */
+    selectedSlug?: string | null;
+    onSelectOrganization?: (slug: string | null) => void;
+}) => import("react/jsx-runtime").JSX.Element;
 export { AccountOrganizations };
