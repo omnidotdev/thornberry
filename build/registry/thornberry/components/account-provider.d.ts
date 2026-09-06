@@ -106,6 +106,33 @@ export interface AccountTeam {
     id: string;
     name: string;
 }
+/** An organization role the console assigns */
+export type AccountOrgRole = "owner" | "admin" | "member";
+/** A member of an organization, as listed in the management view */
+export interface AccountOrgMember {
+    id: string;
+    role: string;
+    user: {
+        name?: string | null;
+        email: string;
+        image?: string | null;
+    };
+}
+/** A pending invitation shown in the management view */
+export interface AccountOrgInvitation {
+    id: string;
+    email: string;
+    role: string;
+    status: string;
+}
+/**
+ * An organization with its roster and pending invitations, read when a member
+ * opens the org's management view.
+ */
+export interface AccountFullOrganization extends AccountOrganization {
+    members: AccountOrgMember[];
+    invitations: AccountOrgInvitation[];
+}
 /**
  * Per-request lifecycle callbacks the console passes to client operations.
  * Callback payloads are intentionally loose (`any`): each auth backend shapes
@@ -190,6 +217,62 @@ export interface AccountAuthClient {
                 message?: string | null;
             } | null;
         }>;
+        /** Read one organization with its roster and pending invitations by slug */
+        getFullOrganization: (options: {
+            query: {
+                organizationSlug: string;
+            };
+        }) => Promise<{
+            data?: AccountFullOrganization | null;
+            error?: {
+                message?: string | null;
+            } | null;
+        }>;
+        /** Create a team organization the caller owns */
+        create: (options: {
+            name: string;
+            slug: string;
+        }) => Promise<AccountAuthResult>;
+        /** Delete a team organization (owner only) */
+        delete: (options: {
+            organizationId: string;
+        }) => Promise<AccountAuthResult>;
+        /** Leave an organization (non-last-owner) */
+        leave: (options: {
+            organizationId: string;
+        }) => Promise<AccountAuthResult>;
+        /** Check whether a handle is free before creating */
+        checkSlug: (options: {
+            slug: string;
+        }) => Promise<{
+            data?: {
+                status?: boolean;
+            } | null;
+            error?: {
+                message?: string | null;
+            } | null;
+        }>;
+        /** Invite a member by email */
+        inviteMember: (options: {
+            email: string;
+            role: AccountOrgRole;
+            organizationId: string;
+        }) => Promise<AccountAuthResult>;
+        /** Cancel a pending invitation */
+        cancelInvitation: (options: {
+            invitationId: string;
+        }) => Promise<AccountAuthResult>;
+        /** Change a member's role */
+        updateMemberRole: (options: {
+            organizationId: string;
+            memberId: string;
+            role: AccountOrgRole;
+        }) => Promise<AccountAuthResult>;
+        /** Remove a member */
+        removeMember: (options: {
+            organizationId: string;
+            memberIdOrEmail: string;
+        }) => Promise<AccountAuthResult>;
     };
     admin: {
         stopImpersonating: () => Promise<unknown>;
