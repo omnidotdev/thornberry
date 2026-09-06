@@ -1072,12 +1072,23 @@ var OrganizationDetail = ({
     ]
   });
 };
-var AccountOrganizations = () => {
+var AccountOrganizations = ({
+  selectedSlug: controlledSlug,
+  onSelectOrganization
+} = {}) => {
   const { authClient } = useAccountContext();
   const { data: session } = authClient.useSession();
   const [organizations, setOrganizations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedSlug, setSelectedSlug] = useState(null);
+  const [internalSlug, setInternalSlug] = useState(null);
+  const isControlled = onSelectOrganization !== undefined;
+  const selectedSlug = isControlled ? controlledSlug ?? null : internalSlug;
+  const setSelectedSlug = (slug) => {
+    if (isControlled)
+      onSelectOrganization(slug);
+    else
+      setInternalSlug(slug);
+  };
   const load = useCallback(async () => {
     setIsLoading(true);
     try {
