@@ -1042,6 +1042,12 @@ const AccountOrganizations = () => {
 
   const selected = organizations.find((org) => org.slug === selectedSlug);
 
+  // Present the list alphabetically by name (case-insensitive), independent of
+  // the order the backend returns
+  const sortedOrganizations = [...organizations].sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { sensitivity: "base" }),
+  );
+
   if (selected && session?.user) {
     return (
       <OrganizationDetail
@@ -1077,8 +1083,8 @@ const AccountOrganizations = () => {
           <div className="flex items-center justify-center py-8 text-muted-foreground">
             <Loader2 className="size-5 animate-spin" />
           </div>
-        ) : organizations.length ? (
-          organizations.map((org) => (
+        ) : sortedOrganizations.length ? (
+          sortedOrganizations.map((org) => (
             <button
               key={org.id}
               type="button"
@@ -1087,6 +1093,7 @@ const AccountOrganizations = () => {
             >
               <div className="flex min-w-0 items-center gap-3">
                 <AvatarRoot className="size-9 shrink-0 rounded-md">
+                  <AvatarImage src={org.logo ?? undefined} />
                   <AvatarFallback className="rounded-md">
                     {org.name.charAt(0)}
                   </AvatarFallback>

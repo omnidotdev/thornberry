@@ -99,6 +99,7 @@ export interface AccountOrganization {
     id: string;
     slug: string;
     name: string;
+    logo?: string | null;
     type?: string | null;
 }
 /** A team within an organization */
