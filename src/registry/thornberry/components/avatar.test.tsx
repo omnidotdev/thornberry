@@ -53,4 +53,28 @@ describe("AvatarImage", () => {
     expect(img.style.opacity).toBe("");
     expect(img.style.transition).toBe("");
   });
+
+  test("clears the inline styles when the source becomes a new unloaded url", () => {
+    const { rerender } = renderAvatar({ src: "https://example.com/a.png" });
+
+    const img = getImage();
+
+    // The previous avatar decoded, so the ref forced it visible inline
+    img.style.opacity = "1";
+    img.style.transition = "none";
+
+    // A stale/broken url can linger after a clear (the deleted avatar 404s); it
+    // has not decoded, so it must not inherit the previous image's inline
+    // opacity or it renders a broken glyph over the fallback until a refresh
+    rerender(
+      <AvatarRoot>
+        <AvatarImage src="https://example.com/deleted.png" />
+        <AvatarFallback>A</AvatarFallback>
+      </AvatarRoot>,
+    );
+
+    expect(img.complete && img.naturalWidth > 0).toBe(false);
+    expect(img.style.opacity).toBe("");
+    expect(img.style.transition).toBe("");
+  });
 });
