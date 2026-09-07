@@ -72,10 +72,20 @@ const AvatarImage = ({
     // broken/loading one stays at opacity 0 with the fallback behind it.
     hidden={false}
     ref={(img) => {
+      if (!img) return;
+      // When the source is removed (e.g. the avatar is cleared) the <img> keeps
+      // rendering because of `hidden={false}`, so drop the inline styles set
+      // below to let the class-driven opacity-0 win again and the fallback show,
+      // rather than a src-less <img> flashing its `alt` text until a refresh
+      if (!img.getAttribute("src")) {
+        img.style.opacity = "";
+        img.style.transition = "";
+        return;
+      }
       // A cached / already-decoded avatar shows instantly with the transition
       // suppressed, so a page full of cached avatars never mass-fades at once;
       // only a genuinely-loading avatar cross-fades in via the data-state class.
-      if (img?.complete && img.naturalWidth > 0) {
+      if (img.complete && img.naturalWidth > 0) {
         img.style.transition = "none";
         img.style.opacity = "1";
       }
