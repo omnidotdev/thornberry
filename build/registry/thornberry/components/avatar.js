@@ -4,7 +4,7 @@ import {
   AvatarProvider,
   AvatarRoot,
   useAvatar
-} from "../../../chunks/account-user-two-factor-authentication-f0pw65h3.js";
+} from "../../../chunks/account-user-two-factor-authentication-w1smy5z1.js";
 import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
 import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
 import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";

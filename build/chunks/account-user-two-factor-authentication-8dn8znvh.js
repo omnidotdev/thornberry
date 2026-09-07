@@ -2,7 +2,7 @@ import {
   AvatarFallback,
   AvatarImage,
   AvatarRoot
-} from "./account-user-two-factor-authentication-f0pw65h3.js";
+} from "./account-user-two-factor-authentication-w1smy5z1.js";
 import {
   useAccountContext
 } from "./account-user-two-factor-authentication-en4v22ys.js";

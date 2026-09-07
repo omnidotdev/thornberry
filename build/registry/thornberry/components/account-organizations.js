@@ -25,7 +25,7 @@ import {
   AvatarFallback,
   AvatarImage,
   AvatarRoot
-} from "../../../chunks/account-user-two-factor-authentication-f0pw65h3.js";
+} from "../../../chunks/account-user-two-factor-authentication-w1smy5z1.js";
 import {
   Label
 } from "../../../chunks/account-user-two-factor-authentication-gsg3ph0v.js";

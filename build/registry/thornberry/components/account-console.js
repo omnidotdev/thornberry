@@ -6,7 +6,7 @@ import {
 } from "../../../chunks/account-user-two-factor-authentication-7dv5bezr.js";
 import {
   AvatarUpload
-} from "../../../chunks/account-user-two-factor-authentication-894jevk7.js";
+} from "../../../chunks/account-user-two-factor-authentication-8dn8znvh.js";
 import {
   AlertDescription,
   AlertRoot,
@@ -28,7 +28,7 @@ import {
   UserTwoFactorAuthentication
 } from "../../../chunks/account-user-two-factor-authentication-gcc4x7qy.js";
 import"../../../chunks/account-user-two-factor-authentication-5zw78ck9.js";
-import"../../../chunks/account-user-two-factor-authentication-f0pw65h3.js";
+import"../../../chunks/account-user-two-factor-authentication-w1smy5z1.js";
 import {
   CardContent,
   CardFooter,

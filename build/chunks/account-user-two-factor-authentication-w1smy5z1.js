@@ -50,9 +50,14 @@ var AvatarImage = ({
 }) => /* @__PURE__ */ jsx(ArkAvatar.Image, {
   hidden: false,
   ref: (img) => {
-    if (img?.complete && img.naturalWidth > 0) {
+    if (!img)
+      return;
+    if (img.getAttribute("src") && img.complete && img.naturalWidth > 0) {
       img.style.transition = "none";
       img.style.opacity = "1";
+    } else {
+      img.style.opacity = "";
+      img.style.transition = "";
     }
   },
   className: cn("absolute inset-0 aspect-square size-full object-cover opacity-0 transition-opacity duration-300 ease-out data-[state=visible]:opacity-100", className),
