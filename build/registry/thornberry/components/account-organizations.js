@@ -17,7 +17,7 @@ import {
 } from "../../../chunks/account-user-two-factor-authentication-v7dgczst.js";
 import {
   Badge
-} from "../../../chunks/account-user-two-factor-authentication-nbe470h9.js";
+} from "../../../chunks/account-user-two-factor-authentication-7qezk7ef.js";
 import {
   ConfirmDialog
 } from "../../../chunks/account-user-two-factor-authentication-164eysdm.js";
@@ -619,6 +619,7 @@ var OrganizationDetail = ({
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteRole, setInviteRole] = useState("member");
   const [isInviting, setIsInviting] = useState(false);
+  const [resendingId, setResendingId] = useState(null);
   const [pending, setPending] = useState(null);
   const [isActionPending, setIsActionPending] = useState(false);
   const load = useCallback(async () => {
@@ -665,6 +666,23 @@ var OrganizationDetail = ({
     setInviteEmail("");
     setInviteRole("member");
     toaster.success({ title: "Invitation sent" });
+    load();
+  };
+  const handleResend = async (invitation) => {
+    setResendingId(invitation.id);
+    const res = await authClient.organization.inviteMember({
+      email: invitation.email,
+      role: invitation.role ?? "member",
+      organizationId: organization.id
+    });
+    setResendingId(null);
+    if (res?.error) {
+      toaster.error({
+        title: errorMessage(res.error, "Couldn't resend the invitation")
+      });
+      return;
+    }
+    toaster.success({ title: `Invitation resent to ${invitation.email}` });
     load();
   };
   const handleRoleChange = async (memberId, role) => {
@@ -877,6 +895,7 @@ var OrganizationDetail = ({
                 children: "No members yet."
               }) : members.map((member) => {
                 const isLastOwner = member.role === "owner" && ownerCount === 1;
+                const canManageMember = canManage && (isOwner || member.role !== "owner");
                 return /* @__PURE__ */ jsxs("div", {
                   className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border p-3",
                   children: [
@@ -912,16 +931,16 @@ var OrganizationDetail = ({
                     /* @__PURE__ */ jsxs("div", {
                       className: "flex items-center gap-2",
                       children: [
-                        canManage ? /* @__PURE__ */ jsx(RoleSelect, {
+                        canManageMember ? /* @__PURE__ */ jsx(RoleSelect, {
                           value: member.role,
                           disabled: isLastOwner,
                           onValueChange: (role) => handleRoleChange(member.id, role)
                         }) : /* @__PURE__ */ jsx(Badge, {
-                          variant: "outline",
+                          variant: "soft",
                           className: "capitalize",
                           children: member.role
                         }),
-                        canManage && !isLastOwner && /* @__PURE__ */ jsx(Button, {
+                        canManageMember && !isLastOwner && /* @__PURE__ */ jsx(Button, {
                           variant: "ghost",
                           size: "sm",
                           className: "text-destructive hover:text-destructive",
@@ -966,7 +985,7 @@ var OrganizationDetail = ({
                                 children: invitation.email
                               }),
                               invitation.isExpired && /* @__PURE__ */ jsx(Badge, {
-                                variant: "secondary",
+                                variant: "warning",
                                 children: "Expired"
                               })
                             ]
@@ -979,16 +998,28 @@ var OrganizationDetail = ({
                       })
                     ]
                   }),
-                  /* @__PURE__ */ jsx(Button, {
-                    variant: "ghost",
-                    size: "sm",
-                    className: "text-destructive hover:text-destructive",
-                    onClick: () => setPending({
-                      kind: "cancel",
-                      invitationId: invitation.id,
-                      label: invitation.email
-                    }),
-                    children: invitation.isExpired ? "Remove" : "Cancel"
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "flex items-center gap-1",
+                    children: [
+                      invitation.isExpired && /* @__PURE__ */ jsx(Button, {
+                        variant: "outline",
+                        size: "sm",
+                        disabled: resendingId === invitation.id,
+                        onClick: () => handleResend(invitation),
+                        children: resendingId === invitation.id ? "Resending..." : "Resend"
+                      }),
+                      /* @__PURE__ */ jsx(Button, {
+                        variant: "ghost",
+                        size: "sm",
+                        className: "text-destructive hover:text-destructive",
+                        onClick: () => setPending({
+                          kind: "cancel",
+                          invitationId: invitation.id,
+                          label: invitation.email
+                        }),
+                        children: invitation.isExpired ? "Remove" : "Cancel"
+                      })
+                    ]
                   })
                 ]
               }, invitation.id))

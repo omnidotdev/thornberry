@@ -622,6 +622,7 @@ const OrganizationDetail = ({
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteRole, setInviteRole] = useState<AccountOrgRole>("member");
   const [isInviting, setIsInviting] = useState(false);
+  const [resendingId, setResendingId] = useState<string | null>(null);
   const [pending, setPending] = useState<PendingAction>(null);
   const [isActionPending, setIsActionPending] = useState(false);
 
@@ -683,6 +684,33 @@ const OrganizationDetail = ({
     setInviteEmail("");
     setInviteRole("member");
     toaster.success({ title: "Invitation sent" });
+    load();
+  };
+
+  // Reissue an expired invite by re-inviting the same email and role. A fresh
+  // invitation (new expiry, new email) is created; Gatekeeper's
+  // `cancelPendingInvitationsOnReInvite` supersedes the stale row server-side,
+  // so no separate cleanup is needed
+  const handleResend = async (invitation: {
+    id: string;
+    email: string;
+    role: string;
+  }) => {
+    setResendingId(invitation.id);
+    const res = await authClient.organization.inviteMember({
+      email: invitation.email,
+      role: (invitation.role as AccountOrgRole) ?? "member",
+      organizationId: organization.id,
+    });
+    setResendingId(null);
+
+    if (res?.error) {
+      toaster.error({
+        title: errorMessage(res.error, "Couldn't resend the invitation"),
+      });
+      return;
+    }
+    toaster.success({ title: `Invitation resent to ${invitation.email}` });
     load();
   };
 
@@ -878,6 +906,13 @@ const OrganizationDetail = ({
             ) : (
               members.map((member) => {
                 const isLastOwner = member.role === "owner" && ownerCount === 1;
+                // Only owners may change or remove another owner. This mirrors
+                // Gatekeeper's server-side guard (Better Auth forbids a
+                // non-`creatorRole` member from updating or removing an owner),
+                // so an admin sees an owner's role read-only rather than an
+                // editable control that would fail on submit
+                const canManageMember =
+                  canManage && (isOwner || member.role !== "owner");
 
                 return (
                   <div
@@ -902,7 +937,7 @@ const OrganizationDetail = ({
                     </div>
 
                     <div className="flex items-center gap-2">
-                      {canManage ? (
+                      {canManageMember ? (
                         <RoleSelect
                           value={member.role as AccountOrgRole}
                           disabled={isLastOwner}
@@ -911,12 +946,12 @@ const OrganizationDetail = ({
                           }
                         />
                       ) : (
-                        <Badge variant="outline" className="capitalize">
+                        <Badge variant="soft" className="capitalize">
                           {member.role}
                         </Badge>
                       )}
 
-                      {canManage && !isLastOwner && (
+                      {canManageMember && !isLastOwner && (
                         <Button
                           variant="ghost"
                           size="sm"
@@ -955,7 +990,7 @@ const OrganizationDetail = ({
                           {invitation.email}
                         </div>
                         {invitation.isExpired && (
-                          <Badge variant="secondary">Expired</Badge>
+                          <Badge variant="warning">Expired</Badge>
                         )}
                       </div>
                       <div className="text-muted-foreground text-xs capitalize">
@@ -963,20 +998,34 @@ const OrganizationDetail = ({
                       </div>
                     </div>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-destructive hover:text-destructive"
-                    onClick={() =>
-                      setPending({
-                        kind: "cancel",
-                        invitationId: invitation.id,
-                        label: invitation.email,
-                      })
-                    }
-                  >
-                    {invitation.isExpired ? "Remove" : "Cancel"}
-                  </Button>
+                  <div className="flex items-center gap-1">
+                    {invitation.isExpired && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={resendingId === invitation.id}
+                        onClick={() => handleResend(invitation)}
+                      >
+                        {resendingId === invitation.id
+                          ? "Resending..."
+                          : "Resend"}
+                      </Button>
+                    )}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-destructive hover:text-destructive"
+                      onClick={() =>
+                        setPending({
+                          kind: "cancel",
+                          invitationId: invitation.id,
+                          label: invitation.email,
+                        })
+                      }
+                    >
+                      {invitation.isExpired ? "Remove" : "Cancel"}
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>

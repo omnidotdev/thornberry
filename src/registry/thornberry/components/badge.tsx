@@ -19,6 +19,17 @@ const badgeVariants = cva(
           "border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
           "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
+        // Soft, tinted status variants: a subtle fill with matching text, tuned
+        // so the light-mode tint and the translucent dark-mode fill both read as
+        // quiet status markers rather than loud solid chips
+        soft: "border-transparent bg-muted text-muted-foreground",
+        success:
+          "border-transparent bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300",
+        warning:
+          "border-transparent bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300",
+        info: "border-transparent bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300",
+        danger:
+          "border-transparent bg-red-50 text-red-700 dark:bg-red-500/15 dark:text-red-300",
       },
     },
     defaultVariants: {
