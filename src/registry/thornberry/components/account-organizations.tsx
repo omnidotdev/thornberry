@@ -644,9 +644,19 @@ const OrganizationDetail = ({
   }, [load]);
 
   const members = full?.members ?? [];
-  const invitations = (full?.invitations ?? []).filter(
-    (invitation) => invitation.status === "pending",
-  );
+  // Better Auth keeps an invite `status: "pending"` even after it expires (it
+  // only rejects at accept time), so decide expiry from `expiresAt` here and
+  // sort live invites above expired ones rather than presenting both as active
+  const now = Date.now();
+  const invitations = (full?.invitations ?? [])
+    .filter((invitation) => invitation.status === "pending")
+    .map((invitation) => ({
+      ...invitation,
+      isExpired: invitation.expiresAt
+        ? new Date(invitation.expiresAt).getTime() < now
+        : false,
+    }))
+    .sort((a, b) => Number(a.isExpired) - Number(b.isExpired));
   const ownerCount = members.filter((member) => member.role === "owner").length;
 
   const currentMember = members.find(
@@ -940,8 +950,13 @@ const OrganizationDetail = ({
                   <div className="flex min-w-0 items-center gap-3">
                     <Mail className="size-4 shrink-0 text-muted-foreground" />
                     <div className="min-w-0">
-                      <div className="truncate font-medium text-sm">
-                        {invitation.email}
+                      <div className="flex items-center gap-2">
+                        <div className="truncate font-medium text-sm">
+                          {invitation.email}
+                        </div>
+                        {invitation.isExpired && (
+                          <Badge variant="secondary">Expired</Badge>
+                        )}
                       </div>
                       <div className="text-muted-foreground text-xs capitalize">
                         {invitation.role}
@@ -960,7 +975,7 @@ const OrganizationDetail = ({
                       })
                     }
                   >
-                    Cancel
+                    {invitation.isExpired ? "Remove" : "Cancel"}
                   </Button>
                 </div>
               ))}

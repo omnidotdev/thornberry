@@ -156,6 +156,13 @@ export interface AccountOrgInvitation {
   email: string;
   role: string;
   status: string;
+  /**
+   * ISO timestamp the invite stops being acceptable. Better Auth leaves the row
+   * `status: "pending"` past this instant (it only rejects at accept time), so
+   * the management view compares this against now to surface expired invites
+   * rather than showing them as live
+   */
+  expiresAt?: string | null;
 }
 
 /**

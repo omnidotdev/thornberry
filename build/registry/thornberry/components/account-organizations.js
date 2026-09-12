@@ -638,7 +638,11 @@ var OrganizationDetail = ({
     load();
   }, [load]);
   const members = full?.members ?? [];
-  const invitations = (full?.invitations ?? []).filter((invitation) => invitation.status === "pending");
+  const now = Date.now();
+  const invitations = (full?.invitations ?? []).filter((invitation) => invitation.status === "pending").map((invitation) => ({
+    ...invitation,
+    isExpired: invitation.expiresAt ? new Date(invitation.expiresAt).getTime() < now : false
+  })).sort((a, b) => Number(a.isExpired) - Number(b.isExpired));
   const ownerCount = members.filter((member) => member.role === "owner").length;
   const currentMember = members.find((member) => member.user.email.toLowerCase() === currentEmail.toLowerCase());
   const isOwner = currentMember?.role === "owner";
@@ -954,9 +958,18 @@ var OrganizationDetail = ({
                       /* @__PURE__ */ jsxs("div", {
                         className: "min-w-0",
                         children: [
-                          /* @__PURE__ */ jsx("div", {
-                            className: "truncate font-medium text-sm",
-                            children: invitation.email
+                          /* @__PURE__ */ jsxs("div", {
+                            className: "flex items-center gap-2",
+                            children: [
+                              /* @__PURE__ */ jsx("div", {
+                                className: "truncate font-medium text-sm",
+                                children: invitation.email
+                              }),
+                              invitation.isExpired && /* @__PURE__ */ jsx(Badge, {
+                                variant: "secondary",
+                                children: "Expired"
+                              })
+                            ]
                           }),
                           /* @__PURE__ */ jsx("div", {
                             className: "text-muted-foreground text-xs capitalize",
@@ -975,7 +988,7 @@ var OrganizationDetail = ({
                       invitationId: invitation.id,
                       label: invitation.email
                     }),
-                    children: "Cancel"
+                    children: invitation.isExpired ? "Remove" : "Cancel"
                   })
                 ]
               }, invitation.id))
