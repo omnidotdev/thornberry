@@ -54,6 +54,7 @@ const makeClient = ({
     organizationId: string;
   }> = [];
   const roleCalls: Array<{ memberId: string; role: string }> = [];
+  const cancelCalls: Array<{ invitationId: string }> = [];
 
   const client = {
     useSession: () => ({
@@ -78,7 +79,10 @@ const makeClient = ({
         inviteCalls.push(args);
         return { error: null };
       },
-      cancelInvitation: async () => ({ error: null }),
+      cancelInvitation: async (args: { invitationId: string }) => {
+        cancelCalls.push(args);
+        return { error: null };
+      },
       updateMemberRole: async (args: { memberId: string; role: string }) => {
         roleCalls.push(args);
         return { error: null };
@@ -87,7 +91,7 @@ const makeClient = ({
     },
   } as unknown as AccountContextValue["authClient"];
 
-  return { client, inviteCalls, roleCalls };
+  return { client, inviteCalls, roleCalls, cancelCalls };
 };
 
 const toaster = {
@@ -190,6 +194,34 @@ describe("AccountOrganizations invitations", () => {
       role: "admin",
       organizationId: "org1",
     });
+  });
+
+  test("Remove confirms, then cancels the expired invitation by id", async () => {
+    const { client, cancelCalls } = makeClient({
+      currentEmail: "owner@acme.test",
+      members: [OWNER_SELF],
+      invitations: [
+        {
+          id: "inv-exp",
+          email: "expired@acme.test",
+          role: "member",
+          status: "pending",
+          expiresAt: past(),
+        },
+      ],
+    });
+    renderDetail(client);
+
+    // Remove opens a confirmation; nothing is cancelled until it is confirmed
+    fireEvent.click(await screen.findByRole("button", { name: "Remove" }));
+    const confirm = await screen.findByRole("button", {
+      name: "Cancel invitation",
+    });
+    expect(cancelCalls.length).toBe(0);
+
+    fireEvent.click(confirm);
+    await waitFor(() => expect(cancelCalls.length).toBe(1));
+    expect(cancelCalls[0]).toEqual({ invitationId: "inv-exp" });
   });
 });
 
