@@ -872,10 +872,7 @@ var OrganizationDetail = ({
         onOpenChange: setEditOpen,
         onUpdated
       }),
-      isPersonal ? /* @__PURE__ */ jsx("p", {
-        className: "rounded-lg border p-5 text-muted-foreground text-sm",
-        children: "This is your personal workspace. It is just you, so there are no members to manage."
-      }) : /* @__PURE__ */ jsxs(Fragment, {
+      /* @__PURE__ */ jsxs(Fragment, {
         children: [
           canManage && /* @__PURE__ */ jsxs("div", {
             className: "space-y-3 rounded-lg border p-5",
@@ -888,7 +885,7 @@ var OrganizationDetail = ({
                   }),
                   /* @__PURE__ */ jsx("p", {
                     className: "text-muted-foreground text-sm",
-                    children: "They will get an email to join this workspace."
+                    children: isPersonal ? "Your personal workspace is just you by default. Invite people to collaborate here." : "They will get an email to join this workspace."
                   })
                 ]
               }),
@@ -1211,72 +1208,76 @@ var OrganizationDetail = ({
             members,
             currentUserId
           }),
-          /* @__PURE__ */ jsx("div", {
-            className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5",
-            children: isOwner ? /* @__PURE__ */ jsxs(Fragment, {
-              children: [
-                /* @__PURE__ */ jsxs("div", {
-                  className: "min-w-0",
-                  children: [
-                    /* @__PURE__ */ jsx("div", {
-                      className: "font-medium text-sm",
-                      children: "Delete this workspace"
-                    }),
-                    /* @__PURE__ */ jsx("div", {
-                      className: "text-muted-foreground text-sm",
-                      children: "Removes it for every member. This cannot be undone."
-                    })
-                  ]
-                }),
-                /* @__PURE__ */ jsx(Button, {
-                  variant: "destructive",
-                  onClick: () => setPending({ kind: "delete" }),
-                  children: "Delete workspace"
-                })
-              ]
-            }) : /* @__PURE__ */ jsxs(Fragment, {
-              children: [
-                /* @__PURE__ */ jsxs("div", {
-                  className: "min-w-0",
-                  children: [
-                    /* @__PURE__ */ jsx("div", {
-                      className: "font-medium text-sm",
-                      children: "Leave this workspace"
-                    }),
-                    /* @__PURE__ */ jsx("div", {
-                      className: "text-muted-foreground text-sm",
-                      children: "You'll lose access to it."
-                    })
-                  ]
-                }),
-                /* @__PURE__ */ jsx(Button, {
-                  variant: "outline",
-                  onClick: () => setPending({ kind: "leave" }),
-                  children: "Leave workspace"
-                })
-              ]
-            })
-          }),
-          isOwner && !isSoleOwner && /* @__PURE__ */ jsxs("div", {
-            className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5",
+          !isPersonal && /* @__PURE__ */ jsxs(Fragment, {
             children: [
-              /* @__PURE__ */ jsxs("div", {
-                className: "min-w-0",
+              /* @__PURE__ */ jsx("div", {
+                className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5",
+                children: isOwner ? /* @__PURE__ */ jsxs(Fragment, {
+                  children: [
+                    /* @__PURE__ */ jsxs("div", {
+                      className: "min-w-0",
+                      children: [
+                        /* @__PURE__ */ jsx("div", {
+                          className: "font-medium text-sm",
+                          children: "Delete this workspace"
+                        }),
+                        /* @__PURE__ */ jsx("div", {
+                          className: "text-muted-foreground text-sm",
+                          children: "Removes it for every member. This cannot be undone."
+                        })
+                      ]
+                    }),
+                    /* @__PURE__ */ jsx(Button, {
+                      variant: "destructive",
+                      onClick: () => setPending({ kind: "delete" }),
+                      children: "Delete workspace"
+                    })
+                  ]
+                }) : /* @__PURE__ */ jsxs(Fragment, {
+                  children: [
+                    /* @__PURE__ */ jsxs("div", {
+                      className: "min-w-0",
+                      children: [
+                        /* @__PURE__ */ jsx("div", {
+                          className: "font-medium text-sm",
+                          children: "Leave this workspace"
+                        }),
+                        /* @__PURE__ */ jsx("div", {
+                          className: "text-muted-foreground text-sm",
+                          children: "You'll lose access to it."
+                        })
+                      ]
+                    }),
+                    /* @__PURE__ */ jsx(Button, {
+                      variant: "outline",
+                      onClick: () => setPending({ kind: "leave" }),
+                      children: "Leave workspace"
+                    })
+                  ]
+                })
+              }),
+              isOwner && !isSoleOwner && /* @__PURE__ */ jsxs("div", {
+                className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5",
                 children: [
-                  /* @__PURE__ */ jsx("div", {
-                    className: "font-medium text-sm",
-                    children: "Leave this workspace"
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "min-w-0",
+                    children: [
+                      /* @__PURE__ */ jsx("div", {
+                        className: "font-medium text-sm",
+                        children: "Leave this workspace"
+                      }),
+                      /* @__PURE__ */ jsx("div", {
+                        className: "text-muted-foreground text-sm",
+                        children: "Step down as owner. Another owner keeps managing it."
+                      })
+                    ]
                   }),
-                  /* @__PURE__ */ jsx("div", {
-                    className: "text-muted-foreground text-sm",
-                    children: "Step down as owner. Another owner keeps managing it."
+                  /* @__PURE__ */ jsx(Button, {
+                    variant: "outline",
+                    onClick: () => setPending({ kind: "leave" }),
+                    children: "Leave"
                   })
                 ]
-              }),
-              /* @__PURE__ */ jsx(Button, {
-                variant: "outline",
-                onClick: () => setPending({ kind: "leave" }),
-                children: "Leave"
               })
             ]
           })

@@ -926,366 +926,368 @@ const OrganizationDetail = ({
         onUpdated={onUpdated}
       />
 
-      {isPersonal ? (
-        <p className="rounded-lg border p-5 text-muted-foreground text-sm">
-          This is your personal workspace. It is just you, so there are no
-          members to manage.
-        </p>
-      ) : (
-        <>
-          {canManage && (
-            <div className="space-y-3 rounded-lg border p-5">
-              <div>
-                <h4 className="font-medium text-sm">Invite a member</h4>
-                <p className="text-muted-foreground text-sm">
-                  They will get an email to join this workspace.
-                </p>
-              </div>
-              <form
-                className="flex flex-col gap-3 sm:flex-row sm:items-center"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  handleInvite();
-                }}
-              >
-                <Input
-                  type="email"
-                  required
-                  placeholder="teammate@example.com"
-                  value={inviteEmail}
-                  onChange={(event) => setInviteEmail(event.target.value)}
-                  className="flex-1"
-                />
-                <RoleSelect
-                  value={inviteRole}
-                  onValueChange={setInviteRole}
-                  size="md"
-                  roles={assignableRoles(isOwner)}
-                />
-                <Button
-                  type="submit"
-                  disabled={!inviteEmail.trim() || isInviting}
-                  className="gap-2"
-                >
-                  <UserPlus className="size-4" />
-                  {isInviting ? "Sending..." : "Invite"}
-                </Button>
-              </form>
-            </div>
-          )}
-
+      <>
+        {canManage && (
           <div className="space-y-3 rounded-lg border p-5">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <h4 className="font-medium text-sm">Members</h4>
-                <p className="text-muted-foreground text-sm">
-                  People with access to this workspace.
-                </p>
-              </div>
-              {members.length > 1 && (
-                <span className="text-muted-foreground text-xs">
-                  {visibleMembers.length} of {members.length}
-                </span>
-              )}
+            <div>
+              <h4 className="font-medium text-sm">Invite a member</h4>
+              <p className="text-muted-foreground text-sm">
+                {isPersonal
+                  ? "Your personal workspace is just you by default. Invite people to collaborate here."
+                  : "They will get an email to join this workspace."}
+              </p>
             </div>
+            <form
+              className="flex flex-col gap-3 sm:flex-row sm:items-center"
+              onSubmit={(event) => {
+                event.preventDefault();
+                handleInvite();
+              }}
+            >
+              <Input
+                type="email"
+                required
+                placeholder="teammate@example.com"
+                value={inviteEmail}
+                onChange={(event) => setInviteEmail(event.target.value)}
+                className="flex-1"
+              />
+              <RoleSelect
+                value={inviteRole}
+                onValueChange={setInviteRole}
+                size="md"
+                roles={assignableRoles(isOwner)}
+              />
+              <Button
+                type="submit"
+                disabled={!inviteEmail.trim() || isInviting}
+                className="gap-2"
+              >
+                <UserPlus className="size-4" />
+                {isInviting ? "Sending..." : "Invite"}
+              </Button>
+            </form>
+          </div>
+        )}
 
-            {members.length > 0 && (
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <Input
-                  type="search"
-                  placeholder="Search by name or email"
-                  value={memberSearch}
-                  onChange={(event) => setMemberSearch(event.target.value)}
-                  className="flex-1"
-                />
-                <Select
-                  collection={roleFilterCollection}
-                  value={[roleFilter]}
-                  onValueChange={(details) =>
-                    setRoleFilter(
-                      (details.value[0] as "all" | AccountOrgRole) ?? "all",
-                    )
-                  }
-                  positioning={{ strategy: "fixed", placement: "bottom-end" }}
-                >
-                  <SelectControl>
-                    <SelectTrigger asChild>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="min-w-32 justify-between gap-2"
-                      >
-                        <SelectValueText placeholder="Role" />
-                        <SelectIndicator>
-                          <ChevronsUpDown className="size-3.5 shrink-0 opacity-60" />
-                        </SelectIndicator>
-                      </Button>
-                    </SelectTrigger>
-                  </SelectControl>
-                  <SelectPositioner>
-                    <SelectContent className="min-w-[9rem] p-1">
-                      <SelectItemGroup className="space-y-0.5">
-                        {roleFilterCollection.items.map((item) => (
-                          <SelectItem key={item.value} item={item}>
-                            <SelectItemText>{item.label}</SelectItemText>
-                            <SelectItemIndicator />
-                          </SelectItem>
-                        ))}
-                      </SelectItemGroup>
-                    </SelectContent>
-                  </SelectPositioner>
-                </Select>
-                <Select
-                  collection={memberSortCollection}
-                  value={[memberSort]}
-                  onValueChange={(details) =>
-                    setMemberSort(
-                      (details.value[0] as MemberSort) ?? "name-asc",
-                    )
-                  }
-                  positioning={{ strategy: "fixed", placement: "bottom-end" }}
-                >
-                  <SelectControl>
-                    <SelectTrigger asChild>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="min-w-36 justify-between gap-2"
-                      >
-                        <SelectValueText placeholder="Sort" />
-                        <SelectIndicator>
-                          <ChevronsUpDown className="size-3.5 shrink-0 opacity-60" />
-                        </SelectIndicator>
-                      </Button>
-                    </SelectTrigger>
-                  </SelectControl>
-                  <SelectPositioner>
-                    <SelectContent className="min-w-[10rem] p-1">
-                      <SelectItemGroup className="space-y-0.5">
-                        {memberSortCollection.items.map((item) => (
-                          <SelectItem key={item.value} item={item}>
-                            <SelectItemText>{item.label}</SelectItemText>
-                            <SelectItemIndicator />
-                          </SelectItem>
-                        ))}
-                      </SelectItemGroup>
-                    </SelectContent>
-                  </SelectPositioner>
-                </Select>
-              </div>
-            )}
-
-            {isLoading ? (
-              <p className="py-4 text-center text-muted-foreground text-sm">
-                Loading members...
+        <div className="space-y-3 rounded-lg border p-5">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h4 className="font-medium text-sm">Members</h4>
+              <p className="text-muted-foreground text-sm">
+                People with access to this workspace.
               </p>
-            ) : members.length === 0 ? (
-              <p className="py-4 text-center text-muted-foreground text-sm">
-                No members yet.
-              </p>
-            ) : visibleMembers.length === 0 ? (
-              <p className="py-4 text-center text-muted-foreground text-sm">
-                No members match your search.
-              </p>
-            ) : (
-              visibleMembers.map((member) => {
-                const isLastOwner = member.role === "owner" && ownerCount === 1;
-                // Only owners may change or remove another owner. This mirrors
-                // Gatekeeper's server-side guard (Better Auth forbids a
-                // non-`creatorRole` member from updating or removing an owner),
-                // so an admin sees an owner's role read-only rather than an
-                // editable control that would fail on submit
-                const canManageMember =
-                  canManage && (isOwner || member.role !== "owner");
-
-                return (
-                  <div
-                    key={member.id}
-                    className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-3"
-                  >
-                    <div className="flex min-w-0 items-center gap-3">
-                      <AvatarRoot className="size-9 shrink-0">
-                        <AvatarImage src={member.user.image ?? undefined} />
-                        <AvatarFallback>
-                          {(member.user.name ?? member.user.email).charAt(0)}
-                        </AvatarFallback>
-                      </AvatarRoot>
-                      <div className="min-w-0">
-                        <div className="truncate font-medium text-sm">
-                          {memberDisplayName(member)}
-                          {member.user.email.toLowerCase() ===
-                            currentEmail.toLowerCase() && (
-                            <span className="ml-1.5 font-normal text-muted-foreground">
-                              (you)
-                            </span>
-                          )}
-                        </div>
-                        <div className="truncate text-muted-foreground text-xs">
-                          {member.user.email}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      {canManageMember ? (
-                        <RoleSelect
-                          value={member.role as AccountOrgRole}
-                          disabled={isLastOwner}
-                          roles={assignableRoles(isOwner)}
-                          onValueChange={(role) =>
-                            handleRoleChange(member.id, role)
-                          }
-                        />
-                      ) : (
-                        <Badge variant="soft" className="capitalize">
-                          {member.role}
-                        </Badge>
-                      )}
-
-                      {canManageMember && !isLastOwner && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-destructive hover:text-destructive"
-                          onClick={() =>
-                            setPending({
-                              kind: "remove",
-                              memberIdOrEmail: member.user.email,
-                              label: member.user.name ?? member.user.email,
-                            })
-                          }
-                        >
-                          Remove
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                );
-              })
+            </div>
+            {members.length > 1 && (
+              <span className="text-muted-foreground text-xs">
+                {visibleMembers.length} of {members.length}
+              </span>
             )}
           </div>
 
-          {canManage && invitations.length > 0 && (
-            <div className="space-y-2 rounded-lg border p-5">
-              <h4 className="font-medium text-sm">Pending invitations</h4>
-              {invitations.map((invitation) => (
-                <div
-                  key={invitation.id}
-                  className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-3"
-                >
-                  <div className="flex min-w-0 items-center gap-3">
-                    <Mail className="size-4 shrink-0 text-muted-foreground" />
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2">
-                        <div className="truncate font-medium text-sm">
-                          {invitation.email}
-                        </div>
-                        {invitation.isExpired && (
-                          <Badge variant="warning">Expired</Badge>
-                        )}
-                      </div>
-                      <div className="text-muted-foreground text-xs capitalize">
-                        {invitation.role}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    {invitation.isExpired && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        disabled={resendingId === invitation.id}
-                        onClick={() => handleResend(invitation)}
-                      >
-                        {resendingId === invitation.id
-                          ? "Resending..."
-                          : "Resend"}
-                      </Button>
-                    )}
+          {members.length > 0 && (
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <Input
+                type="search"
+                placeholder="Search by name or email"
+                value={memberSearch}
+                onChange={(event) => setMemberSearch(event.target.value)}
+                className="flex-1"
+              />
+              <Select
+                collection={roleFilterCollection}
+                value={[roleFilter]}
+                onValueChange={(details) =>
+                  setRoleFilter(
+                    (details.value[0] as "all" | AccountOrgRole) ?? "all",
+                  )
+                }
+                positioning={{ strategy: "fixed", placement: "bottom-end" }}
+              >
+                <SelectControl>
+                  <SelectTrigger asChild>
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
-                      className="text-destructive hover:text-destructive"
-                      onClick={() =>
-                        setPending({
-                          kind: "cancel",
-                          invitationId: invitation.id,
-                          label: invitation.email,
-                        })
-                      }
+                      className="min-w-32 justify-between gap-2"
                     >
-                      {invitation.isExpired ? "Remove" : "Cancel"}
+                      <SelectValueText placeholder="Role" />
+                      <SelectIndicator>
+                        <ChevronsUpDown className="size-3.5 shrink-0 opacity-60" />
+                      </SelectIndicator>
                     </Button>
-                  </div>
-                </div>
-              ))}
+                  </SelectTrigger>
+                </SelectControl>
+                <SelectPositioner>
+                  <SelectContent className="min-w-[9rem] p-1">
+                    <SelectItemGroup className="space-y-0.5">
+                      {roleFilterCollection.items.map((item) => (
+                        <SelectItem key={item.value} item={item}>
+                          <SelectItemText>{item.label}</SelectItemText>
+                          <SelectItemIndicator />
+                        </SelectItem>
+                      ))}
+                    </SelectItemGroup>
+                  </SelectContent>
+                </SelectPositioner>
+              </Select>
+              <Select
+                collection={memberSortCollection}
+                value={[memberSort]}
+                onValueChange={(details) =>
+                  setMemberSort((details.value[0] as MemberSort) ?? "name-asc")
+                }
+                positioning={{ strategy: "fixed", placement: "bottom-end" }}
+              >
+                <SelectControl>
+                  <SelectTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="min-w-36 justify-between gap-2"
+                    >
+                      <SelectValueText placeholder="Sort" />
+                      <SelectIndicator>
+                        <ChevronsUpDown className="size-3.5 shrink-0 opacity-60" />
+                      </SelectIndicator>
+                    </Button>
+                  </SelectTrigger>
+                </SelectControl>
+                <SelectPositioner>
+                  <SelectContent className="min-w-[10rem] p-1">
+                    <SelectItemGroup className="space-y-0.5">
+                      {memberSortCollection.items.map((item) => (
+                        <SelectItem key={item.value} item={item}>
+                          <SelectItemText>{item.label}</SelectItemText>
+                          <SelectItemIndicator />
+                        </SelectItem>
+                      ))}
+                    </SelectItemGroup>
+                  </SelectContent>
+                </SelectPositioner>
+              </Select>
             </div>
           )}
 
-          {canManage && (
-            <AccountOrganizationTeams
-              organizationId={organization.id}
-              members={members}
-              currentUserId={currentUserId}
-            />
-          )}
+          {isLoading ? (
+            <p className="py-4 text-center text-muted-foreground text-sm">
+              Loading members...
+            </p>
+          ) : members.length === 0 ? (
+            <p className="py-4 text-center text-muted-foreground text-sm">
+              No members yet.
+            </p>
+          ) : visibleMembers.length === 0 ? (
+            <p className="py-4 text-center text-muted-foreground text-sm">
+              No members match your search.
+            </p>
+          ) : (
+            visibleMembers.map((member) => {
+              const isLastOwner = member.role === "owner" && ownerCount === 1;
+              // Only owners may change or remove another owner. This mirrors
+              // Gatekeeper's server-side guard (Better Auth forbids a
+              // non-`creatorRole` member from updating or removing an owner),
+              // so an admin sees an owner's role read-only rather than an
+              // editable control that would fail on submit
+              const canManageMember =
+                canManage && (isOwner || member.role !== "owner");
 
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5">
-            {isOwner ? (
-              <>
-                <div className="min-w-0">
-                  <div className="font-medium text-sm">
-                    Delete this workspace
+              return (
+                <div
+                  key={member.id}
+                  className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-3"
+                >
+                  <div className="flex min-w-0 items-center gap-3">
+                    <AvatarRoot className="size-9 shrink-0">
+                      <AvatarImage src={member.user.image ?? undefined} />
+                      <AvatarFallback>
+                        {(member.user.name ?? member.user.email).charAt(0)}
+                      </AvatarFallback>
+                    </AvatarRoot>
+                    <div className="min-w-0">
+                      <div className="truncate font-medium text-sm">
+                        {memberDisplayName(member)}
+                        {member.user.email.toLowerCase() ===
+                          currentEmail.toLowerCase() && (
+                          <span className="ml-1.5 font-normal text-muted-foreground">
+                            (you)
+                          </span>
+                        )}
+                      </div>
+                      <div className="truncate text-muted-foreground text-xs">
+                        {member.user.email}
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-muted-foreground text-sm">
-                    Removes it for every member. This cannot be undone.
+
+                  <div className="flex items-center gap-2">
+                    {canManageMember ? (
+                      <RoleSelect
+                        value={member.role as AccountOrgRole}
+                        disabled={isLastOwner}
+                        roles={assignableRoles(isOwner)}
+                        onValueChange={(role) =>
+                          handleRoleChange(member.id, role)
+                        }
+                      />
+                    ) : (
+                      <Badge variant="soft" className="capitalize">
+                        {member.role}
+                      </Badge>
+                    )}
+
+                    {canManageMember && !isLastOwner && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-destructive hover:text-destructive"
+                        onClick={() =>
+                          setPending({
+                            kind: "remove",
+                            memberIdOrEmail: member.user.email,
+                            label: member.user.name ?? member.user.email,
+                          })
+                        }
+                      >
+                        Remove
+                      </Button>
+                    )}
                   </div>
                 </div>
-                <Button
-                  variant="destructive"
-                  onClick={() => setPending({ kind: "delete" })}
-                >
-                  Delete workspace
-                </Button>
-              </>
-            ) : (
-              <>
+              );
+            })
+          )}
+        </div>
+
+        {canManage && invitations.length > 0 && (
+          <div className="space-y-2 rounded-lg border p-5">
+            <h4 className="font-medium text-sm">Pending invitations</h4>
+            {invitations.map((invitation) => (
+              <div
+                key={invitation.id}
+                className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-3"
+              >
+                <div className="flex min-w-0 items-center gap-3">
+                  <Mail className="size-4 shrink-0 text-muted-foreground" />
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <div className="truncate font-medium text-sm">
+                        {invitation.email}
+                      </div>
+                      {invitation.isExpired && (
+                        <Badge variant="warning">Expired</Badge>
+                      )}
+                    </div>
+                    <div className="text-muted-foreground text-xs capitalize">
+                      {invitation.role}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1">
+                  {invitation.isExpired && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={resendingId === invitation.id}
+                      onClick={() => handleResend(invitation)}
+                    >
+                      {resendingId === invitation.id
+                        ? "Resending..."
+                        : "Resend"}
+                    </Button>
+                  )}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-destructive hover:text-destructive"
+                    onClick={() =>
+                      setPending({
+                        kind: "cancel",
+                        invitationId: invitation.id,
+                        label: invitation.email,
+                      })
+                    }
+                  >
+                    {invitation.isExpired ? "Remove" : "Cancel"}
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {canManage && (
+          <AccountOrganizationTeams
+            organizationId={organization.id}
+            members={members}
+            currentUserId={currentUserId}
+          />
+        )}
+
+        {/* Personal workspaces are undeletable and you cannot leave your own
+              identity, so the delete/leave danger zone is shown only for shared
+              workspaces. */}
+        {!isPersonal && (
+          <>
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5">
+              {isOwner ? (
+                <>
+                  <div className="min-w-0">
+                    <div className="font-medium text-sm">
+                      Delete this workspace
+                    </div>
+                    <div className="text-muted-foreground text-sm">
+                      Removes it for every member. This cannot be undone.
+                    </div>
+                  </div>
+                  <Button
+                    variant="destructive"
+                    onClick={() => setPending({ kind: "delete" })}
+                  >
+                    Delete workspace
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <div className="min-w-0">
+                    <div className="font-medium text-sm">
+                      Leave this workspace
+                    </div>
+                    <div className="text-muted-foreground text-sm">
+                      You'll lose access to it.
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline"
+                    onClick={() => setPending({ kind: "leave" })}
+                  >
+                    Leave workspace
+                  </Button>
+                </>
+              )}
+            </div>
+
+            {isOwner && !isSoleOwner && (
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5">
                 <div className="min-w-0">
                   <div className="font-medium text-sm">
                     Leave this workspace
                   </div>
                   <div className="text-muted-foreground text-sm">
-                    You'll lose access to it.
+                    Step down as owner. Another owner keeps managing it.
                   </div>
                 </div>
                 <Button
                   variant="outline"
                   onClick={() => setPending({ kind: "leave" })}
                 >
-                  Leave workspace
+                  Leave
                 </Button>
-              </>
-            )}
-          </div>
-
-          {isOwner && !isSoleOwner && (
-            <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5">
-              <div className="min-w-0">
-                <div className="font-medium text-sm">Leave this workspace</div>
-                <div className="text-muted-foreground text-sm">
-                  Step down as owner. Another owner keeps managing it.
-                </div>
               </div>
-              <Button
-                variant="outline"
-                onClick={() => setPending({ kind: "leave" })}
-              >
-                Leave
-              </Button>
-            </div>
-          )}
-        </>
-      )}
+            )}
+          </>
+        )}
+      </>
 
       <ConfirmDialog
         open={pending !== null}
