@@ -8,6 +8,7 @@ import {
   DialogBackdrop,
   DialogContent,
   DialogDescription,
+  DialogPortal,
   DialogPositioner,
   DialogRoot,
   DialogTitle,
@@ -54,9 +55,12 @@ const memberLabel = (member: AccountOrgMember): string =>
 const AccountOrganizationTeams = ({
   organizationId,
   members,
+  currentUserId,
 }: {
   organizationId: string;
   members: AccountOrgMember[];
+  /** Gatekeeper user id of the viewer, used to suffix "(you)" on their row. */
+  currentUserId?: string;
 }) => {
   const { authClient, toaster } = useAccountContext();
 
@@ -90,65 +94,99 @@ const AccountOrganizationTeams = ({
     loadTeams();
   }, [loadTeams]);
 
+  // The team mutations below update the local list optimistically (add, rename,
+  // or remove the row before the request resolves) and roll the change back if
+  // the server rejects it, so the list feels immediate without a refetch
   const handleCreate = async () => {
-    if (!newTeamName.trim()) return;
+    const name = newTeamName.trim();
+    if (!name) return;
+    const tempId = `temp-${Date.now()}`;
     setIsCreating(true);
+    setTeams((prev) => [...prev, { id: tempId, name }]);
     const res = await authClient.organization.createTeam({
-      name: newTeamName.trim(),
+      name,
       organizationId,
     });
     setIsCreating(false);
     if (res?.error) {
+      setTeams((prev) => prev.filter((team) => team.id !== tempId));
       toaster.error({ title: errorMessage(res.error, "Couldn't create it") });
       return;
+    }
+    // Reconcile the optimistic row with the server's real id so later renames
+    // and deletes target the persisted team
+    const created = res?.data as AccountTeam | undefined;
+    if (created?.id) {
+      setTeams((prev) =>
+        prev.map((team) => (team.id === tempId ? created : team)),
+      );
     }
     toaster.success({ title: "Team created" });
     setNewTeamName("");
     setCreateOpen(false);
-    loadTeams();
   };
 
   const handleRename = async () => {
-    if (!editing || !editName.trim()) return;
+    const nextName = editName.trim();
+    if (!editing || !nextName) return;
+    const target = editing;
+    const previousName = target.name;
     setIsSavingEdit(true);
+    setTeams((prev) =>
+      prev.map((team) =>
+        team.id === target.id ? { ...team, name: nextName } : team,
+      ),
+    );
     const res = await authClient.organization.updateTeam({
-      teamId: editing.id,
-      data: { name: editName.trim() },
+      teamId: target.id,
+      data: { name: nextName },
     });
     setIsSavingEdit(false);
     if (res?.error) {
+      setTeams((prev) =>
+        prev.map((team) =>
+          team.id === target.id ? { ...team, name: previousName } : team,
+        ),
+      );
       toaster.error({ title: errorMessage(res.error, "Couldn't rename it") });
       return;
     }
     toaster.success({ title: "Team renamed" });
     setEditing(null);
-    loadTeams();
   };
 
   const handleDelete = async () => {
     if (!teamToDelete) return;
+    const removed = teamToDelete;
     setIsDeleting(true);
+    setTeams((prev) => prev.filter((team) => team.id !== removed.id));
+    if (expandedId === removed.id) setExpandedId(null);
     const res = await authClient.organization.removeTeam({
-      teamId: teamToDelete.id,
+      teamId: removed.id,
       organizationId,
     });
     setIsDeleting(false);
     setTeamToDelete(null);
     if (res?.error) {
+      setTeams((prev) => [...prev, removed]);
       toaster.error({ title: errorMessage(res.error, "Couldn't delete it") });
       return;
     }
     toaster.success({ title: "Team deleted" });
-    if (expandedId === teamToDelete.id) setExpandedId(null);
-    loadTeams();
   };
 
   return (
     <div className="space-y-2 rounded-lg border p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <Users className="size-4 text-muted-foreground" />
-          <h4 className="font-medium text-sm">Teams</h4>
+        <div>
+          <div className="flex items-center gap-2">
+            <Users className="size-4 text-muted-foreground" />
+            <h4 className="font-medium text-sm">Teams</h4>
+          </div>
+          <p className="text-muted-foreground text-sm">
+            Groups within this organization, for organizing members and their
+            access.
+          </p>
         </div>
         <Button size="sm" className="gap-2" onClick={() => setCreateOpen(true)}>
           <Plus className="size-4" />
@@ -205,6 +243,7 @@ const AccountOrganizationTeams = ({
                 organizationId={organizationId}
                 teamId={team.id}
                 members={members}
+                currentUserId={currentUserId}
               />
             )}
           </div>
@@ -220,50 +259,52 @@ const AccountOrganizationTeams = ({
           if (!open) setNewTeamName("");
         }}
       >
-        <DialogBackdrop />
-        <DialogPositioner>
-          <DialogContent className="w-full max-w-md p-6">
-            <DialogTitle>Create a team</DialogTitle>
-            <DialogDescription className="text-muted-foreground text-sm">
-              Group members within this organization.
-            </DialogDescription>
-            <form
-              className="mt-4 space-y-4"
-              onSubmit={(event) => {
-                event.preventDefault();
-                handleCreate();
-              }}
-            >
-              <div className="space-y-1.5">
-                <Label htmlFor="team-name">Name</Label>
-                <Input
-                  id="team-name"
-                  value={newTeamName}
-                  onChange={(event) => setNewTeamName(event.target.value)}
-                  placeholder="Engineering"
-                  autoFocus
-                  required
-                />
-              </div>
-              <div className="flex justify-end gap-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  disabled={isCreating}
-                  onClick={() => setCreateOpen(false)}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  disabled={!newTeamName.trim() || isCreating}
-                >
-                  {isCreating ? "Creating..." : "Create"}
-                </Button>
-              </div>
-            </form>
-          </DialogContent>
-        </DialogPositioner>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogPositioner>
+            <DialogContent className="w-full max-w-md p-6">
+              <DialogTitle>Create a team</DialogTitle>
+              <DialogDescription className="text-muted-foreground text-sm">
+                Group members within this organization.
+              </DialogDescription>
+              <form
+                className="mt-4 space-y-4"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  handleCreate();
+                }}
+              >
+                <div className="space-y-1.5">
+                  <Label htmlFor="team-name">Name</Label>
+                  <Input
+                    id="team-name"
+                    value={newTeamName}
+                    onChange={(event) => setNewTeamName(event.target.value)}
+                    placeholder="Engineering"
+                    autoFocus
+                    required
+                  />
+                </div>
+                <div className="flex justify-end gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={isCreating}
+                    onClick={() => setCreateOpen(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    disabled={!newTeamName.trim() || isCreating}
+                  >
+                    {isCreating ? "Creating..." : "Create"}
+                  </Button>
+                </div>
+              </form>
+            </DialogContent>
+          </DialogPositioner>
+        </DialogPortal>
       </DialogRoot>
 
       {/* Rename team */}
@@ -274,46 +315,48 @@ const AccountOrganizationTeams = ({
           if (!open) setEditing(null);
         }}
       >
-        <DialogBackdrop />
-        <DialogPositioner>
-          <DialogContent className="w-full max-w-md p-6">
-            <DialogTitle>Rename team</DialogTitle>
-            <form
-              className="mt-4 space-y-4"
-              onSubmit={(event) => {
-                event.preventDefault();
-                handleRename();
-              }}
-            >
-              <div className="space-y-1.5">
-                <Label htmlFor="team-rename">Name</Label>
-                <Input
-                  id="team-rename"
-                  value={editName}
-                  onChange={(event) => setEditName(event.target.value)}
-                  autoFocus
-                  required
-                />
-              </div>
-              <div className="flex justify-end gap-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  disabled={isSavingEdit}
-                  onClick={() => setEditing(null)}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  disabled={!editName.trim() || isSavingEdit}
-                >
-                  {isSavingEdit ? "Saving..." : "Save"}
-                </Button>
-              </div>
-            </form>
-          </DialogContent>
-        </DialogPositioner>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogPositioner>
+            <DialogContent className="w-full max-w-md p-6">
+              <DialogTitle>Rename team</DialogTitle>
+              <form
+                className="mt-4 space-y-4"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  handleRename();
+                }}
+              >
+                <div className="space-y-1.5">
+                  <Label htmlFor="team-rename">Name</Label>
+                  <Input
+                    id="team-rename"
+                    value={editName}
+                    onChange={(event) => setEditName(event.target.value)}
+                    autoFocus
+                    required
+                  />
+                </div>
+                <div className="flex justify-end gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={isSavingEdit}
+                    onClick={() => setEditing(null)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    disabled={!editName.trim() || isSavingEdit}
+                  >
+                    {isSavingEdit ? "Saving..." : "Save"}
+                  </Button>
+                </div>
+              </form>
+            </DialogContent>
+          </DialogPositioner>
+        </DialogPortal>
       </DialogRoot>
 
       <ConfirmDialog
@@ -340,10 +383,12 @@ const TeamMembers = ({
   organizationId,
   teamId,
   members,
+  currentUserId,
 }: {
   organizationId: string;
   teamId: string;
   members: AccountOrgMember[];
+  currentUserId?: string;
 }) => {
   const { authClient, toaster } = useAccountContext();
 
@@ -351,6 +396,9 @@ const TeamMembers = ({
   const [isLoading, setIsLoading] = useState(true);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [isAdding, setIsAdding] = useState(false);
+  const [memberToRemove, setMemberToRemove] =
+    useState<AccountTeamMember | null>(null);
+  const [isRemoving, setIsRemoving] = useState(false);
 
   const load = useCallback(async () => {
     setIsLoading(true);
@@ -387,36 +435,71 @@ const TeamMembers = ({
     return orgMember ? memberLabel(orgMember) : userId;
   };
 
+  const teamMemberLabel = (member: AccountTeamMember): string =>
+    member.user?.name ?? member.user?.email ?? nameForUserId(member.userId);
+
+  // Add and remove update the roster optimistically and roll back on error, so
+  // the change lands immediately rather than after a refetch
   const handleAdd = async () => {
     if (!selectedUserId) return;
+    const userId = selectedUserId;
+    const orgMember = members.find((member) => member.userId === userId);
+    const optimistic: AccountTeamMember = {
+      id: `temp-${userId}`,
+      userId,
+      user: orgMember
+        ? {
+            name: orgMember.user.name,
+            email: orgMember.user.email,
+            image: orgMember.user.image,
+          }
+        : null,
+    };
     setIsAdding(true);
-    const res = await authClient.organization.addTeamMember({
-      teamId,
-      userId: selectedUserId,
-      organizationId,
-    });
-    setIsAdding(false);
-    if (res?.error) {
-      toaster.error({ title: errorMessage(res.error, "Couldn't add them") });
-      return;
-    }
-    toaster.success({ title: "Added to team" });
     setSelectedUserId(null);
-    load();
-  };
-
-  const handleRemove = async (userId: string) => {
-    const res = await authClient.organization.removeTeamMember({
+    setTeamMembers((prev) => [...prev, optimistic]);
+    const res = await authClient.organization.addTeamMember({
       teamId,
       userId,
       organizationId,
     });
+    setIsAdding(false);
     if (res?.error) {
+      setTeamMembers((prev) =>
+        prev.filter((member) => member.id !== optimistic.id),
+      );
+      setSelectedUserId(userId);
+      toaster.error({ title: errorMessage(res.error, "Couldn't add them") });
+      return;
+    }
+    // Reconcile the optimistic row with the persisted record when returned
+    const added = res?.data as AccountTeamMember | undefined;
+    if (added?.id) {
+      setTeamMembers((prev) =>
+        prev.map((member) => (member.id === optimistic.id ? added : member)),
+      );
+    }
+    toaster.success({ title: "Added to team" });
+  };
+
+  const handleRemove = async () => {
+    if (!memberToRemove) return;
+    const removed = memberToRemove;
+    setIsRemoving(true);
+    setTeamMembers((prev) => prev.filter((member) => member.id !== removed.id));
+    const res = await authClient.organization.removeTeamMember({
+      teamId,
+      userId: removed.userId,
+      organizationId,
+    });
+    setIsRemoving(false);
+    setMemberToRemove(null);
+    if (res?.error) {
+      setTeamMembers((prev) => [...prev, removed]);
       toaster.error({ title: errorMessage(res.error, "Couldn't remove them") });
       return;
     }
     toaster.success({ title: "Removed from team" });
-    load();
   };
 
   return (
@@ -432,15 +515,16 @@ const TeamMembers = ({
             className="flex items-center justify-between gap-2 text-sm"
           >
             <span className="truncate">
-              {member.user?.name ??
-                member.user?.email ??
-                nameForUserId(member.userId)}
+              {teamMemberLabel(member)}
+              {currentUserId && member.userId === currentUserId && (
+                <span className="ml-1.5 text-muted-foreground">(you)</span>
+              )}
             </span>
             <Button
               variant="ghost"
               size="sm"
               className="text-destructive hover:text-destructive"
-              onClick={() => handleRemove(member.userId)}
+              onClick={() => setMemberToRemove(member)}
             >
               Remove
             </Button>
@@ -495,6 +579,21 @@ const TeamMembers = ({
           </Button>
         </div>
       )}
+
+      <ConfirmDialog
+        open={memberToRemove !== null}
+        onOpenChange={(open) => {
+          if (!open) setMemberToRemove(null);
+        }}
+        title={`Remove ${
+          memberToRemove ? teamMemberLabel(memberToRemove) : "member"
+        } from this team?`}
+        description="They stay in the organization but lose this team's access. You can add them back later."
+        confirmLabel="Remove"
+        cancelLabel="Keep"
+        isPending={isRemoving}
+        onConfirm={handleRemove}
+      />
     </div>
   );
 };
