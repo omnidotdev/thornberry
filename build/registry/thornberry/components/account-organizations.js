@@ -135,6 +135,7 @@ var RoleSelect = ({
   });
 };
 var ROLE_RANK = { owner: 0, admin: 1, member: 2 };
+var DELETION_GRACE_DAYS = 30;
 var roleFilterCollection = createListCollection({
   items: [
     { label: "All roles", value: "all" },
@@ -649,6 +650,7 @@ var OrganizationDetail = ({
   const [resendingId, setResendingId] = useState(null);
   const [pending, setPending] = useState(null);
   const [isActionPending, setIsActionPending] = useState(false);
+  const [isRestoring, setIsRestoring] = useState(false);
   const [memberSearch, setMemberSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
   const [memberSort, setMemberSort] = useState("name-asc");
@@ -784,7 +786,8 @@ var OrganizationDetail = ({
       return;
     }
     if (pending.kind === "delete") {
-      const res2 = await authClient.organization.delete({
+      const schedule = authClient.organization.scheduleOrganizationDeletion;
+      const res2 = schedule ? await schedule({ organizationId: organization.id }) : await authClient.organization.delete({
         organizationId: organization.id
       });
       setIsActionPending(false);
@@ -795,7 +798,9 @@ var OrganizationDetail = ({
         });
         return;
       }
-      toaster.success({ title: "Workspace deleted" });
+      toaster.success({
+        title: schedule ? "Workspace scheduled for deletion" : "Workspace deleted"
+      });
       onLeftOrDeleted();
       return;
     }
@@ -813,7 +818,25 @@ var OrganizationDetail = ({
     toaster.success({ title: "You left the workspace" });
     onLeftOrDeleted();
   };
+  const handleRestore = async () => {
+    const restore = authClient.organization.restoreOrganization;
+    if (!restore)
+      return;
+    setIsRestoring(true);
+    const res = await restore({ organizationId: organization.id });
+    setIsRestoring(false);
+    if (res?.error) {
+      toaster.error({
+        title: errorMessage(res.error, "Couldn't restore the organization")
+      });
+      return;
+    }
+    toaster.success({ title: "Deletion canceled" });
+    onUpdated();
+  };
   const isPersonal = organization.type === "personal";
+  const canScheduleDeletion = !!authClient.organization.scheduleOrganizationDeletion;
+  const scheduledDeletionDate = organization.deletedAt ? new Date(new Date(organization.deletedAt).getTime() + DELETION_GRACE_DAYS * 24 * 60 * 60 * 1000) : null;
   return /* @__PURE__ */ jsxs("div", {
     className: "space-y-6",
     children: [
@@ -863,6 +886,35 @@ var OrganizationDetail = ({
             size: "sm",
             onClick: () => setEditOpen(true),
             children: "Edit"
+          })
+        ]
+      }),
+      scheduledDeletionDate && /* @__PURE__ */ jsxs("div", {
+        className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border border-destructive/50 bg-destructive/5 p-4",
+        children: [
+          /* @__PURE__ */ jsxs("div", {
+            className: "min-w-0",
+            children: [
+              /* @__PURE__ */ jsx("div", {
+                className: "font-medium text-sm",
+                children: "Scheduled for deletion"
+              }),
+              /* @__PURE__ */ jsxs("div", {
+                className: "text-muted-foreground text-sm",
+                children: [
+                  "This organization will be permanently deleted around",
+                  " ",
+                  scheduledDeletionDate.toLocaleDateString(),
+                  ". Restore it before then to cancel."
+                ]
+              })
+            ]
+          }),
+          isOwner && authClient.organization.restoreOrganization && /* @__PURE__ */ jsx(Button, {
+            variant: "outline",
+            onClick: handleRestore,
+            disabled: isRestoring,
+            children: isRestoring ? "Restoring..." : "Restore"
           })
         ]
       }),
@@ -1210,51 +1262,50 @@ var OrganizationDetail = ({
           }),
           !isPersonal && /* @__PURE__ */ jsxs(Fragment, {
             children: [
-              /* @__PURE__ */ jsx("div", {
+              isOwner ? !scheduledDeletionDate && /* @__PURE__ */ jsxs("div", {
                 className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5",
-                children: isOwner ? /* @__PURE__ */ jsxs(Fragment, {
-                  children: [
-                    /* @__PURE__ */ jsxs("div", {
-                      className: "min-w-0",
-                      children: [
-                        /* @__PURE__ */ jsx("div", {
-                          className: "font-medium text-sm",
-                          children: "Delete this workspace"
-                        }),
-                        /* @__PURE__ */ jsx("div", {
-                          className: "text-muted-foreground text-sm",
-                          children: "Removes it for every member. This cannot be undone."
-                        })
-                      ]
-                    }),
-                    /* @__PURE__ */ jsx(Button, {
-                      variant: "destructive",
-                      onClick: () => setPending({ kind: "delete" }),
-                      children: "Delete workspace"
-                    })
-                  ]
-                }) : /* @__PURE__ */ jsxs(Fragment, {
-                  children: [
-                    /* @__PURE__ */ jsxs("div", {
-                      className: "min-w-0",
-                      children: [
-                        /* @__PURE__ */ jsx("div", {
-                          className: "font-medium text-sm",
-                          children: "Leave this workspace"
-                        }),
-                        /* @__PURE__ */ jsx("div", {
-                          className: "text-muted-foreground text-sm",
-                          children: "You'll lose access to it."
-                        })
-                      ]
-                    }),
-                    /* @__PURE__ */ jsx(Button, {
-                      variant: "outline",
-                      onClick: () => setPending({ kind: "leave" }),
-                      children: "Leave workspace"
-                    })
-                  ]
-                })
+                children: [
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "min-w-0",
+                    children: [
+                      /* @__PURE__ */ jsx("div", {
+                        className: "font-medium text-sm",
+                        children: "Delete this workspace"
+                      }),
+                      /* @__PURE__ */ jsx("div", {
+                        className: "text-muted-foreground text-sm",
+                        children: canScheduleDeletion ? `Removes it for every member. Restorable for ${DELETION_GRACE_DAYS} days, then permanent.` : "Removes it for every member. This cannot be undone."
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsx(Button, {
+                    variant: "destructive",
+                    onClick: () => setPending({ kind: "delete" }),
+                    children: "Delete workspace"
+                  })
+                ]
+              }) : /* @__PURE__ */ jsxs("div", {
+                className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5",
+                children: [
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "min-w-0",
+                    children: [
+                      /* @__PURE__ */ jsx("div", {
+                        className: "font-medium text-sm",
+                        children: "Leave this workspace"
+                      }),
+                      /* @__PURE__ */ jsx("div", {
+                        className: "text-muted-foreground text-sm",
+                        children: "You'll lose access to it."
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsx(Button, {
+                    variant: "outline",
+                    onClick: () => setPending({ kind: "leave" }),
+                    children: "Leave workspace"
+                  })
+                ]
               }),
               isOwner && !isSoleOwner && /* @__PURE__ */ jsxs("div", {
                 className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5",
@@ -1290,7 +1341,7 @@ var OrganizationDetail = ({
             setPending(null);
         },
         title: pending?.kind === "remove" ? `Remove ${pending.label}?` : pending?.kind === "cancel" ? `Cancel invitation for ${pending.label}?` : pending?.kind === "delete" ? `Delete ${organization.name}?` : pending?.kind === "leave" ? `Leave ${organization.name}?` : "",
-        description: pending?.kind === "remove" ? "They will lose access to this workspace. This cannot be undone." : pending?.kind === "cancel" ? "The invitation link will stop working. You can invite them again later." : pending?.kind === "delete" ? "Every member loses access to this workspace. This cannot be undone." : "You will lose access to this workspace. An owner can invite you back later.",
+        description: pending?.kind === "remove" ? "They will lose access to this workspace. This cannot be undone." : pending?.kind === "cancel" ? "The invitation link will stop working. You can invite them again later." : pending?.kind === "delete" ? canScheduleDeletion ? `Every member loses access. The workspace is restorable for ${DELETION_GRACE_DAYS} days, then permanently deleted.` : "Every member loses access to this workspace. This cannot be undone." : "You will lose access to this workspace. An owner can invite you back later.",
         confirmLabel: pending?.kind === "remove" ? "Remove" : pending?.kind === "cancel" ? "Cancel invitation" : pending?.kind === "delete" ? "Delete workspace" : "Leave workspace",
         cancelLabel: "Keep",
         confirmationText: pending?.kind === "delete" ? organization.name : undefined,
@@ -1412,6 +1463,10 @@ var AccountOrganizations = ({
                         org.type === "personal" && /* @__PURE__ */ jsx(Badge, {
                           variant: "outline",
                           children: "Personal"
+                        }),
+                        org.deletedAt && /* @__PURE__ */ jsx(Badge, {
+                          variant: "warning",
+                          children: "Scheduled for deletion"
                         })
                       ]
                     }),

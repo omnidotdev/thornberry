@@ -168,6 +168,13 @@ type MemberSort = "name-asc" | "name-desc" | "role";
 /** Owner first, then admin, then member, for the "Role" sort */
 const ROLE_RANK: Record<string, number> = { owner: 0, admin: 1, member: 2 };
 
+/**
+ * Grace window before a scheduled organization is permanently deleted. Used only
+ * to show an approximate purge date in the banner; the authoritative window lives
+ * server-side (Gatekeeper's ORG_DELETION_GRACE_MS, 30 days by default).
+ */
+const DELETION_GRACE_DAYS = 30;
+
 const roleFilterCollection = createListCollection({
   items: [
     { label: "All roles", value: "all" },
@@ -677,6 +684,7 @@ const OrganizationDetail = ({
   const [resendingId, setResendingId] = useState<string | null>(null);
   const [pending, setPending] = useState<PendingAction>(null);
   const [isActionPending, setIsActionPending] = useState(false);
+  const [isRestoring, setIsRestoring] = useState(false);
 
   // Member table controls: free-text search, a role filter, and a sort. The
   // list defaults to alphabetical by name so it reads predictably regardless of
@@ -854,9 +862,14 @@ const OrganizationDetail = ({
     }
 
     if (pending.kind === "delete") {
-      const res = await authClient.organization.delete({
-        organizationId: organization.id,
-      });
+      // Prefer scheduled deletion (a grace window the owner can restore from)
+      // when the host supports it; otherwise fall back to an immediate delete.
+      const schedule = authClient.organization.scheduleOrganizationDeletion;
+      const res = schedule
+        ? await schedule({ organizationId: organization.id })
+        : await authClient.organization.delete({
+            organizationId: organization.id,
+          });
       setIsActionPending(false);
       setPending(null);
       if (res?.error) {
@@ -865,7 +878,11 @@ const OrganizationDetail = ({
         });
         return;
       }
-      toaster.success({ title: "Workspace deleted" });
+      toaster.success({
+        title: schedule
+          ? "Workspace scheduled for deletion"
+          : "Workspace deleted",
+      });
       onLeftOrDeleted();
       return;
     }
@@ -886,7 +903,34 @@ const OrganizationDetail = ({
     onLeftOrDeleted();
   };
 
+  const handleRestore = async () => {
+    const restore = authClient.organization.restoreOrganization;
+    if (!restore) return;
+    setIsRestoring(true);
+    const res = await restore({ organizationId: organization.id });
+    setIsRestoring(false);
+    if (res?.error) {
+      toaster.error({
+        title: errorMessage(res.error, "Couldn't restore the organization"),
+      });
+      return;
+    }
+    toaster.success({ title: "Deletion canceled" });
+    onUpdated();
+  };
+
   const isPersonal = organization.type === "personal";
+  const canScheduleDeletion =
+    !!authClient.organization.scheduleOrganizationDeletion;
+  // The organization is within its deletion grace window. The exact purge date
+  // is the server's; DELETION_GRACE_DAYS mirrors Gatekeeper's default window so
+  // the banner can show an approximate date.
+  const scheduledDeletionDate = organization.deletedAt
+    ? new Date(
+        new Date(organization.deletedAt).getTime() +
+          DELETION_GRACE_DAYS * 24 * 60 * 60 * 1000,
+      )
+    : null;
 
   return (
     <div className="space-y-6">
@@ -918,6 +962,28 @@ const OrganizationDetail = ({
           </Button>
         )}
       </div>
+
+      {scheduledDeletionDate && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-destructive/50 bg-destructive/5 p-4">
+          <div className="min-w-0">
+            <div className="font-medium text-sm">Scheduled for deletion</div>
+            <div className="text-muted-foreground text-sm">
+              This organization will be permanently deleted around{" "}
+              {scheduledDeletionDate.toLocaleDateString()}. Restore it before
+              then to cancel.
+            </div>
+          </div>
+          {isOwner && authClient.organization.restoreOrganization && (
+            <Button
+              variant="outline"
+              onClick={handleRestore}
+              disabled={isRestoring}
+            >
+              {isRestoring ? "Restoring..." : "Restore"}
+            </Button>
+          )}
+        </div>
+      )}
 
       <EditOrganizationDialog
         organization={organization}
@@ -1229,15 +1295,19 @@ const OrganizationDetail = ({
               workspaces. */}
         {!isPersonal && (
           <>
-            <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5">
-              {isOwner ? (
-                <>
+            {isOwner ? (
+              // Once scheduled, the banner above owns the state (Restore), so
+              // the delete row is hidden to avoid a redundant re-schedule
+              !scheduledDeletionDate && (
+                <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5">
                   <div className="min-w-0">
                     <div className="font-medium text-sm">
                       Delete this workspace
                     </div>
                     <div className="text-muted-foreground text-sm">
-                      Removes it for every member. This cannot be undone.
+                      {canScheduleDeletion
+                        ? `Removes it for every member. Restorable for ${DELETION_GRACE_DAYS} days, then permanent.`
+                        : "Removes it for every member. This cannot be undone."}
                     </div>
                   </div>
                   <Button
@@ -1246,26 +1316,26 @@ const OrganizationDetail = ({
                   >
                     Delete workspace
                   </Button>
-                </>
-              ) : (
-                <>
-                  <div className="min-w-0">
-                    <div className="font-medium text-sm">
-                      Leave this workspace
-                    </div>
-                    <div className="text-muted-foreground text-sm">
-                      You'll lose access to it.
-                    </div>
+                </div>
+              )
+            ) : (
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5">
+                <div className="min-w-0">
+                  <div className="font-medium text-sm">
+                    Leave this workspace
                   </div>
-                  <Button
-                    variant="outline"
-                    onClick={() => setPending({ kind: "leave" })}
-                  >
-                    Leave workspace
-                  </Button>
-                </>
-              )}
-            </div>
+                  <div className="text-muted-foreground text-sm">
+                    You'll lose access to it.
+                  </div>
+                </div>
+                <Button
+                  variant="outline"
+                  onClick={() => setPending({ kind: "leave" })}
+                >
+                  Leave workspace
+                </Button>
+              </div>
+            )}
 
             {isOwner && !isSoleOwner && (
               <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5">
@@ -1311,7 +1381,9 @@ const OrganizationDetail = ({
             : pending?.kind === "cancel"
               ? "The invitation link will stop working. You can invite them again later."
               : pending?.kind === "delete"
-                ? "Every member loses access to this workspace. This cannot be undone."
+                ? canScheduleDeletion
+                  ? `Every member loses access. The workspace is restorable for ${DELETION_GRACE_DAYS} days, then permanently deleted.`
+                  : "Every member loses access to this workspace. This cannot be undone."
                 : "You will lose access to this workspace. An owner can invite you back later."
         }
         confirmLabel={
@@ -1452,6 +1524,9 @@ const AccountOrganizations = ({
                     </span>
                     {org.type === "personal" && (
                       <Badge variant="outline">Personal</Badge>
+                    )}
+                    {org.deletedAt && (
+                      <Badge variant="warning">Scheduled for deletion</Badge>
                     )}
                   </div>
                   <div className="truncate text-muted-foreground text-xs">

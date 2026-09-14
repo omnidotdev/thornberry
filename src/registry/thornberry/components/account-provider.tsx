@@ -115,6 +115,12 @@ export interface AccountOrganization {
   name: string;
   logo?: string | null;
   type?: string | null;
+  /**
+   * When set (ISO timestamp), the organization is scheduled for deletion and is
+   * within its grace window: still functional, restorable, and hard-deleted by a
+   * retention job once the window elapses.
+   */
+  deletedAt?: string | null;
 }
 
 /** A team within an organization */
@@ -335,6 +341,18 @@ export interface AccountAuthClient {
     removeTeamMember: (options: {
       teamId: string;
       userId: string;
+      organizationId: string;
+    }) => Promise<AccountAuthResult>;
+    /**
+     * Schedule an organization for deletion with a grace period, instead of
+     * deleting it immediately. Optional: a host whose backend does not support
+     * scheduled deletion omits it, and the console falls back to `delete`.
+     */
+    scheduleOrganizationDeletion?: (options: {
+      organizationId: string;
+    }) => Promise<AccountAuthResult>;
+    /** Cancel a pending scheduled deletion (restore). Paired with the above. */
+    restoreOrganization?: (options: {
       organizationId: string;
     }) => Promise<AccountAuthResult>;
   };

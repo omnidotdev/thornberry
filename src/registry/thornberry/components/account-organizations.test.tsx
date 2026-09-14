@@ -481,3 +481,95 @@ describe("AccountOrganizations delete confirmation", () => {
     expect(deleteCalls[0]).toEqual({ organizationId: "org1" });
   });
 });
+
+describe("AccountOrganizations scheduled deletion", () => {
+  afterEach(() => cleanup());
+
+  const OWNER: Member = {
+    id: "m-own",
+    role: "owner",
+    user: { name: "Olivia Owner", email: "olivia@acme.test" },
+  };
+
+  /**
+   * A client whose backend supports scheduled deletion. `deletedAt` seeds the
+   * org as already scheduled (for the restore/banner test).
+   */
+  const makeSchedulingClient = (deletedAt?: string) => {
+    const org = { ...ORG, logo: null, deletedAt: deletedAt ?? null };
+    const scheduleCalls: Array<{ organizationId: string }> = [];
+    const restoreCalls: Array<{ organizationId: string }> = [];
+    const deleteCalls: Array<{ organizationId: string }> = [];
+
+    const client = {
+      useSession: () => ({
+        data: {
+          user: { id: "u1", name: "Viewer", email: "olivia@acme.test" },
+          session: { id: "s1", token: "t1" },
+        },
+        isPending: false,
+        refetch: async () => {},
+      }),
+      organization: {
+        list: async () => ({ data: [org] }),
+        getFullOrganization: async () => ({
+          data: { ...org, members: [OWNER], invitations: [] },
+        }),
+        listTeams: async () => ({ data: [] }),
+        delete: async (args: { organizationId: string }) => {
+          deleteCalls.push(args);
+          return { error: null };
+        },
+        scheduleOrganizationDeletion: async (args: {
+          organizationId: string;
+        }) => {
+          scheduleCalls.push(args);
+          return { error: null };
+        },
+        restoreOrganization: async (args: { organizationId: string }) => {
+          restoreCalls.push(args);
+          return { error: null };
+        },
+      },
+    } as unknown as AccountContextValue["authClient"];
+
+    return { client, scheduleCalls, restoreCalls, deleteCalls };
+  };
+
+  test("delete schedules (not hard-deletes) when the backend supports it", async () => {
+    const { client, scheduleCalls, deleteCalls } = makeSchedulingClient();
+    renderDetail(client);
+
+    fireEvent.click(
+      await screen.findByRole("button", { name: "Delete workspace" }),
+    );
+    await screen.findByText("Delete Acme?");
+    const confirm = screen
+      .getAllByRole("button", { name: "Delete workspace" })
+      .find((button) => (button as HTMLButtonElement).disabled) as
+      | HTMLButtonElement
+      | undefined;
+    fireEvent.change(screen.getByLabelText(/to confirm/i), {
+      target: { value: "Acme" },
+    });
+    await waitFor(() => expect(confirm?.disabled).toBe(false));
+    fireEvent.click(confirm as HTMLButtonElement);
+
+    await waitFor(() => expect(scheduleCalls.length).toBe(1));
+    expect(scheduleCalls[0]).toEqual({ organizationId: "org1" });
+    expect(deleteCalls.length).toBe(0);
+  });
+
+  test("a scheduled org shows a restore banner that calls restoreOrganization", async () => {
+    const { client, restoreCalls } = makeSchedulingClient(
+      new Date().toISOString(),
+    );
+    renderDetail(client);
+
+    await screen.findByText("Scheduled for deletion");
+    // Restore is owner-gated, so it appears once getFullOrganization resolves
+    fireEvent.click(await screen.findByRole("button", { name: "Restore" }));
+    await waitFor(() => expect(restoreCalls.length).toBe(1));
+    expect(restoreCalls[0]).toEqual({ organizationId: "org1" });
+  });
+});
