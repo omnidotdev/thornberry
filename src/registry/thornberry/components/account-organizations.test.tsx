@@ -55,6 +55,7 @@ const makeClient = ({
   }> = [];
   const roleCalls: Array<{ memberId: string; role: string }> = [];
   const cancelCalls: Array<{ invitationId: string }> = [];
+  const deleteCalls: Array<{ organizationId: string }> = [];
 
   const client = {
     useSession: () => ({
@@ -88,10 +89,14 @@ const makeClient = ({
         return { error: null };
       },
       removeMember: async () => ({ error: null }),
+      delete: async (args: { organizationId: string }) => {
+        deleteCalls.push(args);
+        return { error: null };
+      },
     },
   } as unknown as AccountContextValue["authClient"];
 
-  return { client, inviteCalls, roleCalls, cancelCalls };
+  return { client, inviteCalls, roleCalls, cancelCalls, deleteCalls };
 };
 
 const toaster = {
@@ -382,5 +387,97 @@ describe("AccountOrganizations role-assignment restriction", () => {
       row("Mia Member").getByRole("combobox"),
     );
     expect(options).toContain("owner");
+  });
+});
+
+describe("AccountOrganizations member list", () => {
+  afterEach(() => cleanup());
+
+  const MEMBERS: Member[] = [
+    {
+      id: "m-own",
+      role: "owner",
+      user: { name: "Olivia Owner", email: "olivia@acme.test" },
+    },
+    {
+      id: "m-mem",
+      role: "member",
+      user: { name: "Mia Member", email: "mia@acme.test" },
+    },
+  ];
+
+  test("suffixes '(you)' on the viewer's own row and not on others", async () => {
+    const { client } = makeClient({
+      currentEmail: "olivia@acme.test",
+      members: MEMBERS,
+    });
+    renderDetail(client);
+
+    await screen.findByText("Olivia Owner");
+    expect(row("Olivia Owner").getByText("(you)")).toBeTruthy();
+    expect(row("Mia Member").queryByText("(you)")).toBeNull();
+  });
+
+  test("search filters the member list by name or email", async () => {
+    const { client } = makeClient({
+      currentEmail: "olivia@acme.test",
+      members: MEMBERS,
+    });
+    renderDetail(client);
+
+    await screen.findByText("Mia Member");
+    fireEvent.change(screen.getByPlaceholderText("Search by name or email"), {
+      target: { value: "mia" },
+    });
+
+    expect(screen.queryByText("Olivia Owner")).toBeNull();
+    expect(screen.getByText("Mia Member")).toBeTruthy();
+  });
+});
+
+describe("AccountOrganizations delete confirmation", () => {
+  afterEach(() => cleanup());
+
+  const OWNER: Member = {
+    id: "m-own",
+    role: "owner",
+    user: { name: "Olivia Owner", email: "olivia@acme.test" },
+  };
+
+  test("delete stays disabled until the org name is typed exactly", async () => {
+    const { client, deleteCalls } = makeClient({
+      currentEmail: "olivia@acme.test",
+      members: [OWNER],
+    });
+    renderDetail(client);
+
+    // Open the danger-zone confirmation (only the trigger exists yet)
+    fireEvent.click(
+      await screen.findByRole("button", { name: "Delete organization" }),
+    );
+    await screen.findByText("Delete Acme?");
+
+    // The confirm button is the disabled one; nothing fires yet
+    const confirm = screen
+      .getAllByRole("button", { name: "Delete organization" })
+      .find((button) => (button as HTMLButtonElement).disabled) as
+      | HTMLButtonElement
+      | undefined;
+    expect(confirm).toBeTruthy();
+    expect(confirm?.disabled).toBe(true);
+    expect(deleteCalls.length).toBe(0);
+
+    const input = screen.getByLabelText(/to confirm/i);
+
+    // Wrong case does not satisfy the exact match
+    fireEvent.change(input, { target: { value: "acme" } });
+    expect(confirm?.disabled).toBe(true);
+
+    // Exact name enables it, and confirming deletes by id
+    fireEvent.change(input, { target: { value: "Acme" } });
+    await waitFor(() => expect(confirm?.disabled).toBe(false));
+    fireEvent.click(confirm as HTMLButtonElement);
+    await waitFor(() => expect(deleteCalls.length).toBe(1));
+    expect(deleteCalls[0]).toEqual({ organizationId: "org1" });
   });
 });

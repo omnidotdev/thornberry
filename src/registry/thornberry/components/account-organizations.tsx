@@ -25,6 +25,7 @@ import {
   DialogBackdrop,
   DialogContent,
   DialogDescription,
+  DialogPortal,
   DialogPositioner,
   DialogRoot,
   DialogTitle,
@@ -48,9 +49,13 @@ import {
 
 import type {
   AccountFullOrganization,
+  AccountOrgMember,
   AccountOrgRole,
   AccountOrganization,
 } from "@/registry/thornberry/components/account-provider";
+
+const memberDisplayName = (member: AccountOrgMember): string =>
+  member.user.name ?? member.user.email;
 
 const ROLES: AccountOrgRole[] = ["owner", "admin", "member"];
 
@@ -157,6 +162,28 @@ type PendingAction =
   | { kind: "delete" }
   | { kind: "leave" }
   | null;
+
+type MemberSort = "name-asc" | "name-desc" | "role";
+
+/** Owner first, then admin, then member, for the "Role" sort */
+const ROLE_RANK: Record<string, number> = { owner: 0, admin: 1, member: 2 };
+
+const roleFilterCollection = createListCollection({
+  items: [
+    { label: "All roles", value: "all" },
+    { label: "Owner", value: "owner" },
+    { label: "Admin", value: "admin" },
+    { label: "Member", value: "member" },
+  ],
+});
+
+const memberSortCollection = createListCollection({
+  items: [
+    { label: "Name (A-Z)", value: "name-asc" },
+    { label: "Name (Z-A)", value: "name-desc" },
+    { label: "Role", value: "role" },
+  ],
+});
 
 /**
  * Create-organization dialog. Derives a handle from the name until the user
@@ -271,88 +298,90 @@ const CreateOrganizationDialog = ({ onCreated }: { onCreated: () => void }) => {
           if (!next) reset();
         }}
       >
-        <DialogBackdrop />
-        <DialogPositioner>
-          <DialogContent className="w-full max-w-md p-6">
-            <DialogTitle>Create an organization</DialogTitle>
-            <DialogDescription className="text-muted-foreground text-sm">
-              A shared workspace for your team's access and billing. You'll be
-              its owner.
-            </DialogDescription>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogPositioner>
+            <DialogContent className="w-full max-w-md p-6">
+              <DialogTitle>Create an organization</DialogTitle>
+              <DialogDescription className="text-muted-foreground text-sm">
+                A shared workspace for your team's access and billing. You'll be
+                its owner.
+              </DialogDescription>
 
-            <form
-              className="mt-4 space-y-4"
-              onSubmit={(event) => {
-                event.preventDefault();
-                if (canSubmit) handleCreate();
-              }}
-            >
-              <div className="space-y-1.5">
-                <Label htmlFor="org-name">Name</Label>
-                <Input
-                  id="org-name"
-                  value={name}
-                  onChange={(event) => handleNameChange(event.target.value)}
-                  placeholder="Acme Inc."
-                  autoFocus
-                  required
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <Label htmlFor="org-slug">Handle</Label>
-                <div className="relative">
-                  <span className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm">
-                    @
-                  </span>
+              <form
+                className="mt-4 space-y-4"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  if (canSubmit) handleCreate();
+                }}
+              >
+                <div className="space-y-1.5">
+                  <Label htmlFor="org-name">Name</Label>
                   <Input
-                    id="org-slug"
-                    value={slug}
-                    onChange={(event) => handleSlugChange(event.target.value)}
-                    placeholder="acme"
-                    className="pr-9 pl-7"
+                    id="org-name"
+                    value={name}
+                    onChange={(event) => handleNameChange(event.target.value)}
+                    placeholder="Acme Inc."
+                    autoFocus
                     required
                   />
-                  <div className="absolute top-1/2 right-3 -translate-y-1/2">
-                    {slugStatus === "checking" && (
-                      <Loader2 className="size-4 animate-spin text-muted-foreground" />
-                    )}
-                    {slugStatus === "available" && (
-                      <Check className="size-4 text-green-500" />
-                    )}
-                    {(slugStatus === "taken" || slugStatus === "invalid") && (
-                      <X className="size-4 text-destructive" />
-                    )}
-                  </div>
                 </div>
-                <p className="text-muted-foreground text-xs">
-                  {slugStatus === "taken"
-                    ? "That handle is already taken."
-                    : slugStatus === "invalid"
-                      ? "Use lowercase letters, numbers, and hyphens only."
-                      : "This is your workspace's handle across every product."}
-                </p>
-              </div>
 
-              <div className="flex justify-end gap-2 pt-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  disabled={isCreating}
-                  onClick={() => {
-                    setOpen(false);
-                    reset();
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button type="submit" disabled={!canSubmit}>
-                  {isCreating ? "Creating..." : "Create"}
-                </Button>
-              </div>
-            </form>
-          </DialogContent>
-        </DialogPositioner>
+                <div className="space-y-1.5">
+                  <Label htmlFor="org-slug">Handle</Label>
+                  <div className="relative">
+                    <span className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm">
+                      @
+                    </span>
+                    <Input
+                      id="org-slug"
+                      value={slug}
+                      onChange={(event) => handleSlugChange(event.target.value)}
+                      placeholder="acme"
+                      className="pr-9 pl-7"
+                      required
+                    />
+                    <div className="absolute top-1/2 right-3 -translate-y-1/2">
+                      {slugStatus === "checking" && (
+                        <Loader2 className="size-4 animate-spin text-muted-foreground" />
+                      )}
+                      {slugStatus === "available" && (
+                        <Check className="size-4 text-green-500" />
+                      )}
+                      {(slugStatus === "taken" || slugStatus === "invalid") && (
+                        <X className="size-4 text-destructive" />
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground text-xs">
+                    {slugStatus === "taken"
+                      ? "That handle is already taken."
+                      : slugStatus === "invalid"
+                        ? "Use lowercase letters, numbers, and hyphens only."
+                        : "This is your workspace's handle across every product."}
+                  </p>
+                </div>
+
+                <div className="flex justify-end gap-2 pt-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={isCreating}
+                    onClick={() => {
+                      setOpen(false);
+                      reset();
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button type="submit" disabled={!canSubmit}>
+                    {isCreating ? "Creating..." : "Create"}
+                  </Button>
+                </div>
+              </form>
+            </DialogContent>
+          </DialogPositioner>
+        </DialogPortal>
       </DialogRoot>
     </>
   );
@@ -498,123 +527,125 @@ const EditOrganizationDialog = ({
         onOpenChange(next);
       }}
     >
-      <DialogBackdrop />
-      <DialogPositioner>
-        <DialogContent className="w-full max-w-md p-6">
-          <DialogTitle>Edit organization</DialogTitle>
-          <DialogDescription className="text-muted-foreground text-sm">
-            Update your organization's name, handle, or description.
-          </DialogDescription>
-          <form
-            className="mt-4 space-y-4"
-            onSubmit={(event) => {
-              event.preventDefault();
-              if (canSave) handleSave();
-            }}
-          >
-            {orgLogo?.uploadEnabled && (
-              <div className="flex items-center gap-4">
-                <AvatarRoot className="size-14 shrink-0 rounded-md">
-                  <AvatarImage
-                    src={logoPreview ?? organization.logo ?? undefined}
+      <DialogPortal>
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent className="w-full max-w-md p-6">
+            <DialogTitle>Edit organization</DialogTitle>
+            <DialogDescription className="text-muted-foreground text-sm">
+              Update your organization's name, handle, or description.
+            </DialogDescription>
+            <form
+              className="mt-4 space-y-4"
+              onSubmit={(event) => {
+                event.preventDefault();
+                if (canSave) handleSave();
+              }}
+            >
+              {orgLogo?.uploadEnabled && (
+                <div className="flex items-center gap-4">
+                  <AvatarRoot className="size-14 shrink-0 rounded-md">
+                    <AvatarImage
+                      src={logoPreview ?? organization.logo ?? undefined}
+                    />
+                    <AvatarFallback className="rounded-md">
+                      {organization.name.charAt(0)}
+                    </AvatarFallback>
+                  </AvatarRoot>
+                  <div className="space-y-1">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      disabled={isUploadingLogo}
+                      onClick={() => logoInputRef.current?.click()}
+                    >
+                      {isUploadingLogo ? "Uploading..." : "Change logo"}
+                    </Button>
+                    <p className="text-muted-foreground text-xs">
+                      PNG or JPG, up to 5 MB.
+                    </p>
+                  </div>
+                  <input
+                    ref={logoInputRef}
+                    type="file"
+                    accept="image/*"
+                    hidden
+                    onChange={handleLogoSelect}
                   />
-                  <AvatarFallback className="rounded-md">
-                    {organization.name.charAt(0)}
-                  </AvatarFallback>
-                </AvatarRoot>
-                <div className="space-y-1">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    disabled={isUploadingLogo}
-                    onClick={() => logoInputRef.current?.click()}
-                  >
-                    {isUploadingLogo ? "Uploading..." : "Change logo"}
-                  </Button>
-                  <p className="text-muted-foreground text-xs">
-                    PNG or JPG, up to 5 MB.
-                  </p>
                 </div>
-                <input
-                  ref={logoInputRef}
-                  type="file"
-                  accept="image/*"
-                  hidden
-                  onChange={handleLogoSelect}
-                />
-              </div>
-            )}
+              )}
 
-            <div className="space-y-1.5">
-              <Label htmlFor="edit-org-name">Name</Label>
-              <Input
-                id="edit-org-name"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="edit-org-slug">Handle</Label>
-              <div className="relative">
-                <span className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm">
-                  @
-                </span>
+              <div className="space-y-1.5">
+                <Label htmlFor="edit-org-name">Name</Label>
                 <Input
-                  id="edit-org-slug"
-                  value={slug}
-                  onChange={(event) => handleSlugChange(event.target.value)}
-                  className="pr-9 pl-7"
+                  id="edit-org-name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
                   required
                 />
-                <div className="absolute top-1/2 right-3 -translate-y-1/2">
-                  {slugStatus === "checking" && (
-                    <Loader2 className="size-4 animate-spin text-muted-foreground" />
-                  )}
-                  {slugStatus === "available" && (
-                    <Check className="size-4 text-green-500" />
-                  )}
-                  {(slugStatus === "taken" || slugStatus === "invalid") && (
-                    <X className="size-4 text-destructive" />
-                  )}
-                </div>
               </div>
-              {slugChanged && (
-                <p className="text-muted-foreground text-xs">
-                  {slugStatus === "taken"
-                    ? "That handle is already taken."
-                    : slugStatus === "invalid"
-                      ? "Use lowercase letters, numbers, and hyphens only."
-                      : "Changing the handle updates it everywhere this organization is used."}
-                </p>
-              )}
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="edit-org-desc">Description</Label>
-              <Input
-                id="edit-org-desc"
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
-                placeholder="Optional"
-              />
-            </div>
-            <div className="flex justify-end gap-2 pt-2">
-              <Button
-                type="button"
-                variant="outline"
-                disabled={isSaving}
-                onClick={() => onOpenChange(false)}
-              >
-                Cancel
-              </Button>
-              <Button type="submit" disabled={!canSave}>
-                {isSaving ? "Saving..." : "Save"}
-              </Button>
-            </div>
-          </form>
-        </DialogContent>
-      </DialogPositioner>
+              <div className="space-y-1.5">
+                <Label htmlFor="edit-org-slug">Handle</Label>
+                <div className="relative">
+                  <span className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm">
+                    @
+                  </span>
+                  <Input
+                    id="edit-org-slug"
+                    value={slug}
+                    onChange={(event) => handleSlugChange(event.target.value)}
+                    className="pr-9 pl-7"
+                    required
+                  />
+                  <div className="absolute top-1/2 right-3 -translate-y-1/2">
+                    {slugStatus === "checking" && (
+                      <Loader2 className="size-4 animate-spin text-muted-foreground" />
+                    )}
+                    {slugStatus === "available" && (
+                      <Check className="size-4 text-green-500" />
+                    )}
+                    {(slugStatus === "taken" || slugStatus === "invalid") && (
+                      <X className="size-4 text-destructive" />
+                    )}
+                  </div>
+                </div>
+                {slugChanged && (
+                  <p className="text-muted-foreground text-xs">
+                    {slugStatus === "taken"
+                      ? "That handle is already taken."
+                      : slugStatus === "invalid"
+                        ? "Use lowercase letters, numbers, and hyphens only."
+                        : "Changing the handle updates it everywhere this organization is used."}
+                  </p>
+                )}
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="edit-org-desc">Description</Label>
+                <Input
+                  id="edit-org-desc"
+                  value={description}
+                  onChange={(event) => setDescription(event.target.value)}
+                  placeholder="Optional"
+                />
+              </div>
+              <div className="flex justify-end gap-2 pt-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={isSaving}
+                  onClick={() => onOpenChange(false)}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={!canSave}>
+                  {isSaving ? "Saving..." : "Save"}
+                </Button>
+              </div>
+            </form>
+          </DialogContent>
+        </DialogPositioner>
+      </DialogPortal>
     </DialogRoot>
   );
 };
@@ -622,12 +653,14 @@ const EditOrganizationDialog = ({
 const OrganizationDetail = ({
   organization,
   currentEmail,
+  currentUserId,
   onBack,
   onLeftOrDeleted,
   onUpdated,
 }: {
   organization: AccountOrganization;
   currentEmail: string;
+  currentUserId?: string;
   onBack: () => void;
   onLeftOrDeleted: () => void;
   onUpdated: () => void;
@@ -644,6 +677,13 @@ const OrganizationDetail = ({
   const [resendingId, setResendingId] = useState<string | null>(null);
   const [pending, setPending] = useState<PendingAction>(null);
   const [isActionPending, setIsActionPending] = useState(false);
+
+  // Member table controls: free-text search, a role filter, and a sort. The
+  // list defaults to alphabetical by name so it reads predictably regardless of
+  // the order the backend returns
+  const [memberSearch, setMemberSearch] = useState("");
+  const [roleFilter, setRoleFilter] = useState<"all" | AccountOrgRole>("all");
+  const [memberSort, setMemberSort] = useState<MemberSort>("name-asc");
 
   const load = useCallback(async () => {
     setIsLoading(true);
@@ -685,6 +725,31 @@ const OrganizationDetail = ({
   const isOwner = currentMember?.role === "owner";
   const canManage = isOwner || currentMember?.role === "admin";
   const isSoleOwner = isOwner && ownerCount === 1;
+
+  const visibleMembers = useMemo(() => {
+    const query = memberSearch.trim().toLowerCase();
+    return members
+      .filter((member) => roleFilter === "all" || member.role === roleFilter)
+      .filter((member) => {
+        if (!query) return true;
+        return (
+          (member.user.name ?? "").toLowerCase().includes(query) ||
+          member.user.email.toLowerCase().includes(query)
+        );
+      })
+      .sort((a, b) => {
+        if (memberSort === "role") {
+          const rank = (ROLE_RANK[a.role] ?? 99) - (ROLE_RANK[b.role] ?? 99);
+          if (rank !== 0) return rank;
+        }
+        const compared = memberDisplayName(a).localeCompare(
+          memberDisplayName(b),
+          undefined,
+          { sensitivity: "base" },
+        );
+        return memberSort === "name-desc" ? -compared : compared;
+      });
+  }, [members, memberSearch, roleFilter, memberSort]);
 
   const handleInvite = async () => {
     if (!inviteEmail.trim()) return;
@@ -836,26 +901,22 @@ const OrganizationDetail = ({
       </Button>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h3 className="font-semibold text-lg">{organization.name}</h3>
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="font-semibold text-lg">{organization.name}</h3>
+            {currentMember && (
+              <Badge variant="outline" className="capitalize">
+                {currentMember.role}
+              </Badge>
+            )}
+          </div>
           <p className="text-muted-foreground text-sm">@{organization.slug}</p>
         </div>
-        <div className="flex items-center gap-2">
-          {canManage && organization.type !== "personal" && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setEditOpen(true)}
-            >
-              Edit
-            </Button>
-          )}
-          {currentMember && (
-            <Badge variant="outline" className="capitalize">
-              {currentMember.role}
-            </Badge>
-          )}
-        </div>
+        {canManage && organization.type !== "personal" && (
+          <Button variant="outline" size="sm" onClick={() => setEditOpen(true)}>
+            Edit
+          </Button>
+        )}
       </div>
 
       <EditOrganizationDialog
@@ -913,8 +974,107 @@ const OrganizationDetail = ({
             </div>
           )}
 
-          <div className="space-y-2 rounded-lg border p-5">
-            <h4 className="font-medium text-sm">Members</h4>
+          <div className="space-y-3 rounded-lg border p-5">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h4 className="font-medium text-sm">Members</h4>
+                <p className="text-muted-foreground text-sm">
+                  People with access to this organization.
+                </p>
+              </div>
+              {members.length > 1 && (
+                <span className="text-muted-foreground text-xs">
+                  {visibleMembers.length} of {members.length}
+                </span>
+              )}
+            </div>
+
+            {members.length > 0 && (
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                <Input
+                  type="search"
+                  placeholder="Search by name or email"
+                  value={memberSearch}
+                  onChange={(event) => setMemberSearch(event.target.value)}
+                  className="flex-1"
+                />
+                <Select
+                  collection={roleFilterCollection}
+                  value={[roleFilter]}
+                  onValueChange={(details) =>
+                    setRoleFilter(
+                      (details.value[0] as "all" | AccountOrgRole) ?? "all",
+                    )
+                  }
+                  positioning={{ strategy: "fixed", placement: "bottom-end" }}
+                >
+                  <SelectControl>
+                    <SelectTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="min-w-32 justify-between gap-2"
+                      >
+                        <SelectValueText placeholder="Role" />
+                        <SelectIndicator>
+                          <ChevronsUpDown className="size-3.5 shrink-0 opacity-60" />
+                        </SelectIndicator>
+                      </Button>
+                    </SelectTrigger>
+                  </SelectControl>
+                  <SelectPositioner>
+                    <SelectContent className="min-w-[9rem] p-1">
+                      <SelectItemGroup className="space-y-0.5">
+                        {roleFilterCollection.items.map((item) => (
+                          <SelectItem key={item.value} item={item}>
+                            <SelectItemText>{item.label}</SelectItemText>
+                            <SelectItemIndicator />
+                          </SelectItem>
+                        ))}
+                      </SelectItemGroup>
+                    </SelectContent>
+                  </SelectPositioner>
+                </Select>
+                <Select
+                  collection={memberSortCollection}
+                  value={[memberSort]}
+                  onValueChange={(details) =>
+                    setMemberSort(
+                      (details.value[0] as MemberSort) ?? "name-asc",
+                    )
+                  }
+                  positioning={{ strategy: "fixed", placement: "bottom-end" }}
+                >
+                  <SelectControl>
+                    <SelectTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="min-w-36 justify-between gap-2"
+                      >
+                        <SelectValueText placeholder="Sort" />
+                        <SelectIndicator>
+                          <ChevronsUpDown className="size-3.5 shrink-0 opacity-60" />
+                        </SelectIndicator>
+                      </Button>
+                    </SelectTrigger>
+                  </SelectControl>
+                  <SelectPositioner>
+                    <SelectContent className="min-w-[10rem] p-1">
+                      <SelectItemGroup className="space-y-0.5">
+                        {memberSortCollection.items.map((item) => (
+                          <SelectItem key={item.value} item={item}>
+                            <SelectItemText>{item.label}</SelectItemText>
+                            <SelectItemIndicator />
+                          </SelectItem>
+                        ))}
+                      </SelectItemGroup>
+                    </SelectContent>
+                  </SelectPositioner>
+                </Select>
+              </div>
+            )}
+
             {isLoading ? (
               <p className="py-4 text-center text-muted-foreground text-sm">
                 Loading members...
@@ -923,8 +1083,12 @@ const OrganizationDetail = ({
               <p className="py-4 text-center text-muted-foreground text-sm">
                 No members yet.
               </p>
+            ) : visibleMembers.length === 0 ? (
+              <p className="py-4 text-center text-muted-foreground text-sm">
+                No members match your search.
+              </p>
             ) : (
-              members.map((member) => {
+              visibleMembers.map((member) => {
                 const isLastOwner = member.role === "owner" && ownerCount === 1;
                 // Only owners may change or remove another owner. This mirrors
                 // Gatekeeper's server-side guard (Better Auth forbids a
@@ -948,7 +1112,13 @@ const OrganizationDetail = ({
                       </AvatarRoot>
                       <div className="min-w-0">
                         <div className="truncate font-medium text-sm">
-                          {member.user.name ?? member.user.email}
+                          {memberDisplayName(member)}
+                          {member.user.email.toLowerCase() ===
+                            currentEmail.toLowerCase() && (
+                            <span className="ml-1.5 font-normal text-muted-foreground">
+                              (you)
+                            </span>
+                          )}
                         </div>
                         <div className="truncate text-muted-foreground text-xs">
                           {member.user.email}
@@ -1056,6 +1226,7 @@ const OrganizationDetail = ({
             <AccountOrganizationTeams
               organizationId={organization.id}
               members={members}
+              currentUserId={currentUserId}
             />
           )}
 
@@ -1153,6 +1324,9 @@ const OrganizationDetail = ({
                 : "Leave organization"
         }
         cancelLabel="Keep"
+        confirmationText={
+          pending?.kind === "delete" ? organization.name : undefined
+        }
         isPending={isActionPending}
         onConfirm={runPending}
       />
@@ -1225,6 +1399,7 @@ const AccountOrganizations = ({
       <OrganizationDetail
         organization={selected}
         currentEmail={session.user.email}
+        currentUserId={session.user.id}
         onBack={() => setSelectedSlug(null)}
         onLeftOrDeleted={() => {
           setSelectedSlug(null);
@@ -1244,7 +1419,7 @@ const AccountOrganizations = ({
         <div>
           <h3 className="font-semibold text-lg">Organizations</h3>
           <p className="text-muted-foreground text-sm">
-            Workspaces you belong to.
+            Your personal workspace and the organizations you belong to.
           </p>
         </div>
         <CreateOrganizationDialog onCreated={load} />
@@ -1276,7 +1451,7 @@ const AccountOrganizations = ({
                       {org.name}
                     </span>
                     <Badge variant="outline">
-                      {org.type === "personal" ? "Personal" : "Team"}
+                      {org.type === "personal" ? "Personal" : "Organization"}
                     </Badge>
                   </div>
                   <div className="truncate text-muted-foreground text-xs">
