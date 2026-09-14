@@ -62,12 +62,10 @@ import {
   UserPlus,
   X
 } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 var ROLES = ["owner", "admin", "member"];
-var ROLE_COLLECTION = createListCollection({
-  items: ROLES.map((role) => ({ label: role, value: role }))
-});
+var assignableRoles = (isOwner) => isOwner ? ROLES : ROLES.filter((role) => role !== "owner");
 var SLUG_PATTERN = /^[a-z0-9-]+$/;
 var slugify = (value) => value.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 50);
 var errorMessage = (error, fallback) => typeof error?.message === "string" ? error.message : fallback;
@@ -75,59 +73,65 @@ var RoleSelect = ({
   value,
   onValueChange,
   disabled,
-  size = "sm"
-}) => /* @__PURE__ */ jsxs(Select, {
-  collection: ROLE_COLLECTION,
-  value: [value],
-  onValueChange: (details) => {
-    const next = details.value[0];
-    if (next)
-      onValueChange(next);
-  },
-  disabled,
-  positioning: { strategy: "fixed", placement: "bottom-end" },
-  children: [
-    /* @__PURE__ */ jsx(SelectControl, {
-      children: /* @__PURE__ */ jsx(SelectTrigger, {
-        asChild: true,
-        children: /* @__PURE__ */ jsxs(Button, {
-          variant: "outline",
-          size,
-          className: "min-w-28 justify-between gap-2 capitalize",
-          children: [
-            /* @__PURE__ */ jsx(SelectValueText, {
-              className: "capitalize",
-              placeholder: "Role"
-            }),
-            /* @__PURE__ */ jsx(SelectIndicator, {
-              children: /* @__PURE__ */ jsx(ChevronsUpDown, {
-                className: "size-3.5 shrink-0 opacity-60"
-              })
-            })
-          ]
-        })
-      })
-    }),
-    /* @__PURE__ */ jsx(SelectPositioner, {
-      children: /* @__PURE__ */ jsx(SelectContent, {
-        className: "min-w-[8rem] p-1",
-        children: /* @__PURE__ */ jsx(SelectItemGroup, {
-          className: "space-y-0.5",
-          children: ROLE_COLLECTION.items.map((item) => /* @__PURE__ */ jsxs(SelectItem, {
-            item,
+  size = "sm",
+  roles = ROLES
+}) => {
+  const collection = useMemo(() => createListCollection({
+    items: roles.map((role) => ({ label: role, value: role }))
+  }), [roles]);
+  return /* @__PURE__ */ jsxs(Select, {
+    collection,
+    value: [value],
+    onValueChange: (details) => {
+      const next = details.value[0];
+      if (next)
+        onValueChange(next);
+    },
+    disabled,
+    positioning: { strategy: "fixed", placement: "bottom-end" },
+    children: [
+      /* @__PURE__ */ jsx(SelectControl, {
+        children: /* @__PURE__ */ jsx(SelectTrigger, {
+          asChild: true,
+          children: /* @__PURE__ */ jsxs(Button, {
+            variant: "outline",
+            size,
+            className: "min-w-28 justify-between gap-2 capitalize",
             children: [
-              /* @__PURE__ */ jsx(SelectItemText, {
+              /* @__PURE__ */ jsx(SelectValueText, {
                 className: "capitalize",
-                children: item.label
+                placeholder: "Role"
               }),
-              /* @__PURE__ */ jsx(SelectItemIndicator, {})
+              /* @__PURE__ */ jsx(SelectIndicator, {
+                children: /* @__PURE__ */ jsx(ChevronsUpDown, {
+                  className: "size-3.5 shrink-0 opacity-60"
+                })
+              })
             ]
-          }, item.value))
+          })
+        })
+      }),
+      /* @__PURE__ */ jsx(SelectPositioner, {
+        children: /* @__PURE__ */ jsx(SelectContent, {
+          className: "min-w-[8rem] p-1",
+          children: /* @__PURE__ */ jsx(SelectItemGroup, {
+            className: "space-y-0.5",
+            children: collection.items.map((item) => /* @__PURE__ */ jsxs(SelectItem, {
+              item,
+              children: [
+                /* @__PURE__ */ jsx(SelectItemText, {
+                  className: "capitalize",
+                  children: item.label
+                }),
+                /* @__PURE__ */ jsx(SelectItemIndicator, {})
+              ]
+            }, item.value))
+          })
         })
       })
-    })
-  ]
-});
+    ]
+  });
+};
 var CreateOrganizationDialog = ({ onCreated }) => {
   const { authClient, toaster } = useAccountContext();
   const [open, setOpen] = useState(false);
@@ -863,7 +867,8 @@ var OrganizationDetail = ({
                   /* @__PURE__ */ jsx(RoleSelect, {
                     value: inviteRole,
                     onValueChange: setInviteRole,
-                    size: "md"
+                    size: "md",
+                    roles: assignableRoles(isOwner)
                   }),
                   /* @__PURE__ */ jsxs(Button, {
                     type: "submit",
@@ -934,6 +939,7 @@ var OrganizationDetail = ({
                         canManageMember ? /* @__PURE__ */ jsx(RoleSelect, {
                           value: member.role,
                           disabled: isLastOwner,
+                          roles: assignableRoles(isOwner),
                           onValueChange: (role) => handleRoleChange(member.id, role)
                         }) : /* @__PURE__ */ jsx(Badge, {
                           variant: "soft",

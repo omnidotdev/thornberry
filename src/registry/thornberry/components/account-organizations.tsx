@@ -9,7 +9,7 @@ import {
   UserPlus,
   X,
 } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { useAccountContext } from "@/registry/thornberry/components/account-provider";
 import { AccountOrganizationTeams } from "@/registry/thornberry/components/account-teams";
@@ -54,9 +54,15 @@ import type {
 
 const ROLES: AccountOrgRole[] = ["owner", "admin", "member"];
 
-const ROLE_COLLECTION = createListCollection({
-  items: ROLES.map((role) => ({ label: role, value: role })),
-});
+/**
+ * Roles the acting user may assign. Only an owner can grant the `owner` role;
+ * an admin is limited to `admin`/`member`. This mirrors Gatekeeper's
+ * server-side guard (Better Auth forbids a non-`creatorRole` member from
+ * assigning or modifying the owner role), so the picker never offers an option
+ * the server would reject.
+ */
+const assignableRoles = (isOwner: boolean): AccountOrgRole[] =>
+  isOwner ? ROLES : ROLES.filter((role) => role !== "owner");
 
 type SlugStatus = "idle" | "checking" | "available" | "taken" | "invalid";
 
@@ -77,60 +83,73 @@ const errorMessage = (error: unknown, fallback: string): string =>
     : fallback;
 
 /**
- * Styled organization-role picker (owner/admin/member).
+ * Styled organization-role picker. `roles` is the set of options the acting
+ * user may assign (see `assignableRoles`); it defaults to all roles.
  */
 const RoleSelect = ({
   value,
   onValueChange,
   disabled,
   size = "sm",
+  roles = ROLES,
 }: {
   value: AccountOrgRole;
   onValueChange: (role: AccountOrgRole) => void;
   disabled?: boolean;
   size?: "sm" | "md";
-}) => (
-  <Select
-    collection={ROLE_COLLECTION}
-    value={[value]}
-    onValueChange={(details) => {
-      const next = details.value[0] as AccountOrgRole | undefined;
-      if (next) onValueChange(next);
-    }}
-    disabled={disabled}
-    positioning={{ strategy: "fixed", placement: "bottom-end" }}
-  >
-    <SelectControl>
-      <SelectTrigger asChild>
-        <Button
-          variant="outline"
-          size={size}
-          className="min-w-28 justify-between gap-2 capitalize"
-        >
-          <SelectValueText className="capitalize" placeholder="Role" />
-          <SelectIndicator>
-            <ChevronsUpDown className="size-3.5 shrink-0 opacity-60" />
-          </SelectIndicator>
-        </Button>
-      </SelectTrigger>
-    </SelectControl>
+  roles?: AccountOrgRole[];
+}) => {
+  const collection = useMemo(
+    () =>
+      createListCollection({
+        items: roles.map((role) => ({ label: role, value: role })),
+      }),
+    [roles],
+  );
 
-    <SelectPositioner>
-      <SelectContent className="min-w-[8rem] p-1">
-        <SelectItemGroup className="space-y-0.5">
-          {ROLE_COLLECTION.items.map((item) => (
-            <SelectItem key={item.value} item={item}>
-              <SelectItemText className="capitalize">
-                {item.label}
-              </SelectItemText>
-              <SelectItemIndicator />
-            </SelectItem>
-          ))}
-        </SelectItemGroup>
-      </SelectContent>
-    </SelectPositioner>
-  </Select>
-);
+  return (
+    <Select
+      collection={collection}
+      value={[value]}
+      onValueChange={(details) => {
+        const next = details.value[0] as AccountOrgRole | undefined;
+        if (next) onValueChange(next);
+      }}
+      disabled={disabled}
+      positioning={{ strategy: "fixed", placement: "bottom-end" }}
+    >
+      <SelectControl>
+        <SelectTrigger asChild>
+          <Button
+            variant="outline"
+            size={size}
+            className="min-w-28 justify-between gap-2 capitalize"
+          >
+            <SelectValueText className="capitalize" placeholder="Role" />
+            <SelectIndicator>
+              <ChevronsUpDown className="size-3.5 shrink-0 opacity-60" />
+            </SelectIndicator>
+          </Button>
+        </SelectTrigger>
+      </SelectControl>
+
+      <SelectPositioner>
+        <SelectContent className="min-w-[8rem] p-1">
+          <SelectItemGroup className="space-y-0.5">
+            {collection.items.map((item) => (
+              <SelectItem key={item.value} item={item}>
+                <SelectItemText className="capitalize">
+                  {item.label}
+                </SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
+            ))}
+          </SelectItemGroup>
+        </SelectContent>
+      </SelectPositioner>
+    </Select>
+  );
+};
 
 type PendingAction =
   | { kind: "remove"; memberIdOrEmail: string; label: string }
@@ -880,6 +899,7 @@ const OrganizationDetail = ({
                   value={inviteRole}
                   onValueChange={setInviteRole}
                   size="md"
+                  roles={assignableRoles(isOwner)}
                 />
                 <Button
                   type="submit"
@@ -941,6 +961,7 @@ const OrganizationDetail = ({
                         <RoleSelect
                           value={member.role as AccountOrgRole}
                           disabled={isLastOwner}
+                          roles={assignableRoles(isOwner)}
                           onValueChange={(role) =>
                             handleRoleChange(member.id, role)
                           }

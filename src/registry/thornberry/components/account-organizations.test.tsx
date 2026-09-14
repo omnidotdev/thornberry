@@ -288,3 +288,99 @@ describe("AccountOrganizations owner-role protection", () => {
     expect(row("Owen Owner").getByRole("combobox")).toBeTruthy();
   });
 });
+
+/**
+ * Open the given role picker (an Ark Select trigger) and read back the role
+ * options it offers. The options render in a portal on `document.body` once the
+ * select is open, so they are queried at screen level rather than within a row.
+ */
+const openRoleOptions = async (trigger: HTMLElement): Promise<string[]> => {
+  fireEvent.click(trigger);
+  await waitFor(() =>
+    expect(screen.queryAllByRole("option").length).toBeGreaterThan(0),
+  );
+  return screen.queryAllByRole("option").map((option) => option.textContent);
+};
+
+describe("AccountOrganizations role-assignment restriction", () => {
+  afterEach(() => cleanup());
+
+  const MEMBERS: Member[] = [
+    {
+      id: "m-own",
+      role: "owner",
+      user: { name: "Olivia Owner", email: "olivia@acme.test" },
+    },
+    {
+      id: "m-adm",
+      role: "admin",
+      user: { name: "Adam Admin", email: "adam@acme.test" },
+    },
+    {
+      id: "m-mem",
+      role: "member",
+      user: { name: "Mia Member", email: "mia@acme.test" },
+    },
+  ];
+
+  test("an admin is not offered the owner role when changing a member's role", async () => {
+    const { client } = makeClient({
+      currentEmail: "adam@acme.test", // viewer is an admin
+      members: MEMBERS,
+    });
+    renderDetail(client);
+
+    await screen.findByText("Mia Member");
+    const options = await openRoleOptions(
+      row("Mia Member").getByRole("combobox"),
+    );
+    expect(options).not.toContain("owner");
+    expect(options).toEqual(["admin", "member"]);
+  });
+
+  test("an admin cannot promote their own row to owner", async () => {
+    const { client } = makeClient({
+      currentEmail: "adam@acme.test", // viewer is an admin, editing themselves
+      members: MEMBERS,
+    });
+    renderDetail(client);
+
+    await screen.findByText("Adam Admin");
+    const options = await openRoleOptions(
+      row("Adam Admin").getByRole("combobox"),
+    );
+    expect(options).not.toContain("owner");
+  });
+
+  test("an admin is not offered the owner role when inviting", async () => {
+    const { client } = makeClient({
+      currentEmail: "adam@acme.test", // viewer is an admin
+      members: MEMBERS,
+    });
+    renderDetail(client);
+
+    await screen.findByText("Invite a member");
+    const inviteCard = within(
+      screen
+        .getByText("Invite a member")
+        .closest('[class~="p-5"]') as HTMLElement,
+    );
+    const options = await openRoleOptions(inviteCard.getByRole("combobox"));
+    expect(options).not.toContain("owner");
+    expect(options).toEqual(["admin", "member"]);
+  });
+
+  test("an owner is still offered the owner role", async () => {
+    const { client } = makeClient({
+      currentEmail: "olivia@acme.test", // viewer is an owner
+      members: MEMBERS,
+    });
+    renderDetail(client);
+
+    await screen.findByText("Mia Member");
+    const options = await openRoleOptions(
+      row("Mia Member").getByRole("combobox"),
+    );
+    expect(options).toContain("owner");
+  });
+});
