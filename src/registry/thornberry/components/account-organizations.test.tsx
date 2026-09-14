@@ -453,13 +453,13 @@ describe("AccountOrganizations delete confirmation", () => {
 
     // Open the danger-zone confirmation (only the trigger exists yet)
     fireEvent.click(
-      await screen.findByRole("button", { name: "Delete organization" }),
+      await screen.findByRole("button", { name: "Delete workspace" }),
     );
     await screen.findByText("Delete Acme?");
 
     // The confirm button is the disabled one; nothing fires yet
     const confirm = screen
-      .getAllByRole("button", { name: "Delete organization" })
+      .getAllByRole("button", { name: "Delete workspace" })
       .find((button) => (button as HTMLButtonElement).disabled) as
       | HTMLButtonElement
       | undefined;

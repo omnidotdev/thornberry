@@ -184,7 +184,7 @@ const AccountOrganizationTeams = ({
             <h4 className="font-medium text-sm">Teams</h4>
           </div>
           <p className="text-muted-foreground text-sm">
-            Groups within this organization, for organizing members and their
+            Groups within this workspace, for organizing members and their
             access.
           </p>
         </div>
@@ -265,7 +265,7 @@ const AccountOrganizationTeams = ({
             <DialogContent className="w-full max-w-md p-6">
               <DialogTitle>Create a team</DialogTitle>
               <DialogDescription className="text-muted-foreground text-sm">
-                Group members within this organization.
+                Group members within this workspace.
               </DialogDescription>
               <form
                 className="mt-4 space-y-4"
@@ -588,7 +588,7 @@ const TeamMembers = ({
         title={`Remove ${
           memberToRemove ? teamMemberLabel(memberToRemove) : "member"
         } from this team?`}
-        description="They stay in the organization but lose this team's access. You can add them back later."
+        description="They stay in the workspace but lose this team's access. You can add them back later."
         confirmLabel="Remove"
         cancelLabel="Keep"
         isPending={isRemoving}

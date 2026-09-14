@@ -271,7 +271,7 @@ const CreateOrganizationDialog = ({ onCreated }: { onCreated: () => void }) => {
       return;
     }
 
-    toaster.success({ title: "Organization created" });
+    toaster.success({ title: "Workspace created" });
     setOpen(false);
     reset();
     onCreated();
@@ -287,7 +287,7 @@ const CreateOrganizationDialog = ({ onCreated }: { onCreated: () => void }) => {
         }}
       >
         <Plus className="size-4" />
-        New organization
+        New workspace
       </Button>
 
       <DialogRoot
@@ -302,7 +302,7 @@ const CreateOrganizationDialog = ({ onCreated }: { onCreated: () => void }) => {
           <DialogBackdrop />
           <DialogPositioner>
             <DialogContent className="w-full max-w-md p-6">
-              <DialogTitle>Create an organization</DialogTitle>
+              <DialogTitle>Create a workspace</DialogTitle>
               <DialogDescription className="text-muted-foreground text-sm">
                 A shared workspace for your team's access and billing. You'll be
                 its owner.
@@ -514,7 +514,7 @@ const EditOrganizationDialog = ({
       });
       return;
     }
-    toaster.success({ title: "Organization updated" });
+    toaster.success({ title: "Workspace updated" });
     onOpenChange(false);
     onUpdated();
   };
@@ -531,9 +531,9 @@ const EditOrganizationDialog = ({
         <DialogBackdrop />
         <DialogPositioner>
           <DialogContent className="w-full max-w-md p-6">
-            <DialogTitle>Edit organization</DialogTitle>
+            <DialogTitle>Edit workspace</DialogTitle>
             <DialogDescription className="text-muted-foreground text-sm">
-              Update your organization's name, handle, or description.
+              Update your workspace's name, handle, or description.
             </DialogDescription>
             <form
               className="mt-4 space-y-4"
@@ -616,7 +616,7 @@ const EditOrganizationDialog = ({
                       ? "That handle is already taken."
                       : slugStatus === "invalid"
                         ? "Use lowercase letters, numbers, and hyphens only."
-                        : "Changing the handle updates it everywhere this organization is used."}
+                        : "Changing the handle updates it everywhere this workspace is used."}
                   </p>
                 )}
               </div>
@@ -861,11 +861,11 @@ const OrganizationDetail = ({
       setPending(null);
       if (res?.error) {
         toaster.error({
-          title: errorMessage(res.error, "Couldn't delete the organization"),
+          title: errorMessage(res.error, "Couldn't delete the workspace"),
         });
         return;
       }
-      toaster.success({ title: "Organization deleted" });
+      toaster.success({ title: "Workspace deleted" });
       onLeftOrDeleted();
       return;
     }
@@ -878,11 +878,11 @@ const OrganizationDetail = ({
     setPending(null);
     if (res?.error) {
       toaster.error({
-        title: errorMessage(res.error, "Couldn't leave the organization"),
+        title: errorMessage(res.error, "Couldn't leave the workspace"),
       });
       return;
     }
-    toaster.success({ title: "You left the organization" });
+    toaster.success({ title: "You left the workspace" });
     onLeftOrDeleted();
   };
 
@@ -897,7 +897,7 @@ const OrganizationDetail = ({
         onClick={onBack}
       >
         <ArrowLeft className="size-4" />
-        All organizations
+        All workspaces
       </Button>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -938,7 +938,7 @@ const OrganizationDetail = ({
               <div>
                 <h4 className="font-medium text-sm">Invite a member</h4>
                 <p className="text-muted-foreground text-sm">
-                  They will get an email to join this organization.
+                  They will get an email to join this workspace.
                 </p>
               </div>
               <form
@@ -979,7 +979,7 @@ const OrganizationDetail = ({
               <div>
                 <h4 className="font-medium text-sm">Members</h4>
                 <p className="text-muted-foreground text-sm">
-                  People with access to this organization.
+                  People with access to this workspace.
                 </p>
               </div>
               {members.length > 1 && (
@@ -1235,7 +1235,7 @@ const OrganizationDetail = ({
               <>
                 <div className="min-w-0">
                   <div className="font-medium text-sm">
-                    Delete this organization
+                    Delete this workspace
                   </div>
                   <div className="text-muted-foreground text-sm">
                     Removes it for every member. This cannot be undone.
@@ -1245,14 +1245,14 @@ const OrganizationDetail = ({
                   variant="destructive"
                   onClick={() => setPending({ kind: "delete" })}
                 >
-                  Delete organization
+                  Delete workspace
                 </Button>
               </>
             ) : (
               <>
                 <div className="min-w-0">
                   <div className="font-medium text-sm">
-                    Leave this organization
+                    Leave this workspace
                   </div>
                   <div className="text-muted-foreground text-sm">
                     You'll lose access to it.
@@ -1262,7 +1262,7 @@ const OrganizationDetail = ({
                   variant="outline"
                   onClick={() => setPending({ kind: "leave" })}
                 >
-                  Leave organization
+                  Leave workspace
                 </Button>
               </>
             )}
@@ -1271,9 +1271,7 @@ const OrganizationDetail = ({
           {isOwner && !isSoleOwner && (
             <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5">
               <div className="min-w-0">
-                <div className="font-medium text-sm">
-                  Leave this organization
-                </div>
+                <div className="font-medium text-sm">Leave this workspace</div>
                 <div className="text-muted-foreground text-sm">
                   Step down as owner. Another owner keeps managing it.
                 </div>
@@ -1307,12 +1305,12 @@ const OrganizationDetail = ({
         }
         description={
           pending?.kind === "remove"
-            ? "They will lose access to this organization. This cannot be undone."
+            ? "They will lose access to this workspace. This cannot be undone."
             : pending?.kind === "cancel"
               ? "The invitation link will stop working. You can invite them again later."
               : pending?.kind === "delete"
-                ? "Every member loses access to this organization. This cannot be undone."
-                : "You will lose access to this organization. An owner can invite you back later."
+                ? "Every member loses access to this workspace. This cannot be undone."
+                : "You will lose access to this workspace. An owner can invite you back later."
         }
         confirmLabel={
           pending?.kind === "remove"
@@ -1320,8 +1318,8 @@ const OrganizationDetail = ({
             : pending?.kind === "cancel"
               ? "Cancel invitation"
               : pending?.kind === "delete"
-                ? "Delete organization"
-                : "Leave organization"
+                ? "Delete workspace"
+                : "Leave workspace"
         }
         cancelLabel="Keep"
         confirmationText={
@@ -1417,9 +1415,9 @@ const AccountOrganizations = ({
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h3 className="font-semibold text-lg">Organizations</h3>
+          <h3 className="font-semibold text-lg">Workspaces</h3>
           <p className="text-muted-foreground text-sm">
-            Your personal workspace and the organizations you belong to.
+            The workspaces you belong to, including your personal one.
           </p>
         </div>
         <CreateOrganizationDialog onCreated={load} />
@@ -1450,9 +1448,9 @@ const AccountOrganizations = ({
                     <span className="truncate font-medium text-sm">
                       {org.name}
                     </span>
-                    <Badge variant="outline">
-                      {org.type === "personal" ? "Personal" : "Organization"}
-                    </Badge>
+                    {org.type === "personal" && (
+                      <Badge variant="outline">Personal</Badge>
+                    )}
                   </div>
                   <div className="truncate text-muted-foreground text-xs">
                     @{org.slug}
@@ -1464,7 +1462,7 @@ const AccountOrganizations = ({
           ))
         ) : (
           <div className="py-8 text-center text-muted-foreground text-sm">
-            You don't belong to any organizations yet.
+            You don't belong to any workspaces yet.
           </div>
         )}
       </div>
