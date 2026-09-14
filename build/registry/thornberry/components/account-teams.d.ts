@@ -7,8 +7,10 @@ import type { AccountOrgMember } from "../../../registry/thornberry/components/a
  * app alike. Intended to sit inside an organization's management view; pass the
  * organization id and its members (the pool teams draw from).
  */
-declare const AccountOrganizationTeams: ({ organizationId, members, }: {
+declare const AccountOrganizationTeams: ({ organizationId, members, currentUserId, }: {
     organizationId: string;
     members: AccountOrgMember[];
+    /** Gatekeeper user id of the viewer, used to suffix "(you)" on their row. */
+    currentUserId?: string;
 }) => import("react/jsx-runtime").JSX.Element;
 export { AccountOrganizationTeams };

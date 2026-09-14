@@ -5,7 +5,7 @@ import {
   DialogPositioner,
   DialogRoot,
   DialogTitle
-} from "./account-user-two-factor-authentication-p3ac7628.js";
+} from "./account-user-two-factor-authentication-negb4kbv.js";
 import {
   cn
 } from "./account-user-two-factor-authentication-yp1ewaxt.js";

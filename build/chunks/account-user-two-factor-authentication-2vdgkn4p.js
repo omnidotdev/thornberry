@@ -1,6 +1,6 @@
 import {
   ConfirmDialog
-} from "./account-user-two-factor-authentication-164eysdm.js";
+} from "./account-user-two-factor-authentication-y482en2x.js";
 import {
   Table,
   TableBody,
@@ -26,7 +26,7 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger
-} from "./account-user-two-factor-authentication-p3ac7628.js";
+} from "./account-user-two-factor-authentication-negb4kbv.js";
 import {
   Button
 } from "./account-user-two-factor-authentication-jb3sh07m.js";

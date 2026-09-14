@@ -14,7 +14,7 @@ import {
 } from "./account-user-two-factor-authentication-v7dgczst.js";
 import {
   ConfirmDialog
-} from "./account-user-two-factor-authentication-164eysdm.js";
+} from "./account-user-two-factor-authentication-y482en2x.js";
 import {
   Label
 } from "./account-user-two-factor-authentication-gsg3ph0v.js";
@@ -28,10 +28,11 @@ import {
   DialogBackdrop,
   DialogContent,
   DialogDescription,
+  DialogPortal,
   DialogPositioner,
   DialogRoot,
   DialogTitle
-} from "./account-user-two-factor-authentication-p3ac7628.js";
+} from "./account-user-two-factor-authentication-negb4kbv.js";
 import {
   Button
 } from "./account-user-two-factor-authentication-jb3sh07m.js";
@@ -44,7 +45,8 @@ var errorMessage = (error, fallback) => typeof error?.message === "string" ? err
 var memberLabel = (member) => member.user.name ?? member.user.email;
 var AccountOrganizationTeams = ({
   organizationId,
-  members
+  members,
+  currentUserId
 }) => {
   const { authClient, toaster } = useAccountContext();
   const [teams, setTeams] = useState([]);
@@ -75,58 +77,71 @@ var AccountOrganizationTeams = ({
     loadTeams();
   }, [loadTeams]);
   const handleCreate = async () => {
-    if (!newTeamName.trim())
+    const name = newTeamName.trim();
+    if (!name)
       return;
+    const tempId = `temp-${Date.now()}`;
     setIsCreating(true);
+    setTeams((prev) => [...prev, { id: tempId, name }]);
     const res = await authClient.organization.createTeam({
-      name: newTeamName.trim(),
+      name,
       organizationId
     });
     setIsCreating(false);
     if (res?.error) {
+      setTeams((prev) => prev.filter((team) => team.id !== tempId));
       toaster.error({ title: errorMessage(res.error, "Couldn't create it") });
       return;
+    }
+    const created = res?.data;
+    if (created?.id) {
+      setTeams((prev) => prev.map((team) => team.id === tempId ? created : team));
     }
     toaster.success({ title: "Team created" });
     setNewTeamName("");
     setCreateOpen(false);
-    loadTeams();
   };
   const handleRename = async () => {
-    if (!editing || !editName.trim())
+    const nextName = editName.trim();
+    if (!editing || !nextName)
       return;
+    const target = editing;
+    const previousName = target.name;
     setIsSavingEdit(true);
+    setTeams((prev) => prev.map((team) => team.id === target.id ? { ...team, name: nextName } : team));
     const res = await authClient.organization.updateTeam({
-      teamId: editing.id,
-      data: { name: editName.trim() }
+      teamId: target.id,
+      data: { name: nextName }
     });
     setIsSavingEdit(false);
     if (res?.error) {
+      setTeams((prev) => prev.map((team) => team.id === target.id ? { ...team, name: previousName } : team));
       toaster.error({ title: errorMessage(res.error, "Couldn't rename it") });
       return;
     }
     toaster.success({ title: "Team renamed" });
     setEditing(null);
-    loadTeams();
   };
   const handleDelete = async () => {
     if (!teamToDelete)
       return;
+    const removed = teamToDelete;
     setIsDeleting(true);
+    setTeams((prev) => prev.filter((team) => team.id !== removed.id));
+    if (expandedId === removed.id)
+      setExpandedId(null);
     const res = await authClient.organization.removeTeam({
-      teamId: teamToDelete.id,
+      teamId: removed.id,
       organizationId
     });
     setIsDeleting(false);
     setTeamToDelete(null);
     if (res?.error) {
+      setTeams((prev) => [...prev, removed]);
       toaster.error({ title: errorMessage(res.error, "Couldn't delete it") });
       return;
     }
     toaster.success({ title: "Team deleted" });
-    if (expandedId === teamToDelete.id)
-      setExpandedId(null);
-    loadTeams();
   };
   return /* @__PURE__ */ jsxs("div", {
     className: "space-y-2 rounded-lg border p-5",
@@ -135,14 +150,22 @@ var AccountOrganizationTeams = ({
         className: "flex flex-wrap items-center justify-between gap-3",
         children: [
           /* @__PURE__ */ jsxs("div", {
-            className: "flex items-center gap-2",
             children: [
-              /* @__PURE__ */ jsx(Users, {
-                className: "size-4 text-muted-foreground"
+              /* @__PURE__ */ jsxs("div", {
+                className: "flex items-center gap-2",
+                children: [
+                  /* @__PURE__ */ jsx(Users, {
+                    className: "size-4 text-muted-foreground"
+                  }),
+                  /* @__PURE__ */ jsx("h4", {
+                    className: "font-medium text-sm",
+                    children: "Teams"
+                  })
+                ]
               }),
-              /* @__PURE__ */ jsx("h4", {
-                className: "font-medium text-sm",
-                children: "Teams"
+              /* @__PURE__ */ jsx("p", {
+                className: "text-muted-foreground text-sm",
+                children: "Groups within this organization, for organizing members and their access."
               })
             ]
           }),
@@ -207,11 +230,12 @@ var AccountOrganizationTeams = ({
           expandedId === team.id && /* @__PURE__ */ jsx(TeamMembers, {
             organizationId,
             teamId: team.id,
-            members
+            members,
+            currentUserId
           })
         ]
       }, team.id)),
-      /* @__PURE__ */ jsxs(DialogRoot, {
+      /* @__PURE__ */ jsx(DialogRoot, {
         open: createOpen,
         onOpenChange: ({ open }) => {
           if (isCreating)
@@ -220,68 +244,70 @@ var AccountOrganizationTeams = ({
           if (!open)
             setNewTeamName("");
         },
-        children: [
-          /* @__PURE__ */ jsx(DialogBackdrop, {}),
-          /* @__PURE__ */ jsx(DialogPositioner, {
-            children: /* @__PURE__ */ jsxs(DialogContent, {
-              className: "w-full max-w-md p-6",
-              children: [
-                /* @__PURE__ */ jsx(DialogTitle, {
-                  children: "Create a team"
-                }),
-                /* @__PURE__ */ jsx(DialogDescription, {
-                  className: "text-muted-foreground text-sm",
-                  children: "Group members within this organization."
-                }),
-                /* @__PURE__ */ jsxs("form", {
-                  className: "mt-4 space-y-4",
-                  onSubmit: (event) => {
-                    event.preventDefault();
-                    handleCreate();
-                  },
-                  children: [
-                    /* @__PURE__ */ jsxs("div", {
-                      className: "space-y-1.5",
-                      children: [
-                        /* @__PURE__ */ jsx(Label, {
-                          htmlFor: "team-name",
-                          children: "Name"
-                        }),
-                        /* @__PURE__ */ jsx(Input, {
-                          id: "team-name",
-                          value: newTeamName,
-                          onChange: (event) => setNewTeamName(event.target.value),
-                          placeholder: "Engineering",
-                          autoFocus: true,
-                          required: true
-                        })
-                      ]
-                    }),
-                    /* @__PURE__ */ jsxs("div", {
-                      className: "flex justify-end gap-2",
-                      children: [
-                        /* @__PURE__ */ jsx(Button, {
-                          type: "button",
-                          variant: "outline",
-                          disabled: isCreating,
-                          onClick: () => setCreateOpen(false),
-                          children: "Cancel"
-                        }),
-                        /* @__PURE__ */ jsx(Button, {
-                          type: "submit",
-                          disabled: !newTeamName.trim() || isCreating,
-                          children: isCreating ? "Creating..." : "Create"
-                        })
-                      ]
-                    })
-                  ]
-                })
-              ]
+        children: /* @__PURE__ */ jsxs(DialogPortal, {
+          children: [
+            /* @__PURE__ */ jsx(DialogBackdrop, {}),
+            /* @__PURE__ */ jsx(DialogPositioner, {
+              children: /* @__PURE__ */ jsxs(DialogContent, {
+                className: "w-full max-w-md p-6",
+                children: [
+                  /* @__PURE__ */ jsx(DialogTitle, {
+                    children: "Create a team"
+                  }),
+                  /* @__PURE__ */ jsx(DialogDescription, {
+                    className: "text-muted-foreground text-sm",
+                    children: "Group members within this organization."
+                  }),
+                  /* @__PURE__ */ jsxs("form", {
+                    className: "mt-4 space-y-4",
+                    onSubmit: (event) => {
+                      event.preventDefault();
+                      handleCreate();
+                    },
+                    children: [
+                      /* @__PURE__ */ jsxs("div", {
+                        className: "space-y-1.5",
+                        children: [
+                          /* @__PURE__ */ jsx(Label, {
+                            htmlFor: "team-name",
+                            children: "Name"
+                          }),
+                          /* @__PURE__ */ jsx(Input, {
+                            id: "team-name",
+                            value: newTeamName,
+                            onChange: (event) => setNewTeamName(event.target.value),
+                            placeholder: "Engineering",
+                            autoFocus: true,
+                            required: true
+                          })
+                        ]
+                      }),
+                      /* @__PURE__ */ jsxs("div", {
+                        className: "flex justify-end gap-2",
+                        children: [
+                          /* @__PURE__ */ jsx(Button, {
+                            type: "button",
+                            variant: "outline",
+                            disabled: isCreating,
+                            onClick: () => setCreateOpen(false),
+                            children: "Cancel"
+                          }),
+                          /* @__PURE__ */ jsx(Button, {
+                            type: "submit",
+                            disabled: !newTeamName.trim() || isCreating,
+                            children: isCreating ? "Creating..." : "Create"
+                          })
+                        ]
+                      })
+                    ]
+                  })
+                ]
+              })
             })
-          })
-        ]
+          ]
+        })
       }),
-      /* @__PURE__ */ jsxs(DialogRoot, {
+      /* @__PURE__ */ jsx(DialogRoot, {
         open: editing !== null,
         onOpenChange: ({ open }) => {
           if (isSavingEdit)
@@ -289,61 +315,63 @@ var AccountOrganizationTeams = ({
           if (!open)
             setEditing(null);
         },
-        children: [
-          /* @__PURE__ */ jsx(DialogBackdrop, {}),
-          /* @__PURE__ */ jsx(DialogPositioner, {
-            children: /* @__PURE__ */ jsxs(DialogContent, {
-              className: "w-full max-w-md p-6",
-              children: [
-                /* @__PURE__ */ jsx(DialogTitle, {
-                  children: "Rename team"
-                }),
-                /* @__PURE__ */ jsxs("form", {
-                  className: "mt-4 space-y-4",
-                  onSubmit: (event) => {
-                    event.preventDefault();
-                    handleRename();
-                  },
-                  children: [
-                    /* @__PURE__ */ jsxs("div", {
-                      className: "space-y-1.5",
-                      children: [
-                        /* @__PURE__ */ jsx(Label, {
-                          htmlFor: "team-rename",
-                          children: "Name"
-                        }),
-                        /* @__PURE__ */ jsx(Input, {
-                          id: "team-rename",
-                          value: editName,
-                          onChange: (event) => setEditName(event.target.value),
-                          autoFocus: true,
-                          required: true
-                        })
-                      ]
-                    }),
-                    /* @__PURE__ */ jsxs("div", {
-                      className: "flex justify-end gap-2",
-                      children: [
-                        /* @__PURE__ */ jsx(Button, {
-                          type: "button",
-                          variant: "outline",
-                          disabled: isSavingEdit,
-                          onClick: () => setEditing(null),
-                          children: "Cancel"
-                        }),
-                        /* @__PURE__ */ jsx(Button, {
-                          type: "submit",
-                          disabled: !editName.trim() || isSavingEdit,
-                          children: isSavingEdit ? "Saving..." : "Save"
-                        })
-                      ]
-                    })
-                  ]
-                })
-              ]
+        children: /* @__PURE__ */ jsxs(DialogPortal, {
+          children: [
+            /* @__PURE__ */ jsx(DialogBackdrop, {}),
+            /* @__PURE__ */ jsx(DialogPositioner, {
+              children: /* @__PURE__ */ jsxs(DialogContent, {
+                className: "w-full max-w-md p-6",
+                children: [
+                  /* @__PURE__ */ jsx(DialogTitle, {
+                    children: "Rename team"
+                  }),
+                  /* @__PURE__ */ jsxs("form", {
+                    className: "mt-4 space-y-4",
+                    onSubmit: (event) => {
+                      event.preventDefault();
+                      handleRename();
+                    },
+                    children: [
+                      /* @__PURE__ */ jsxs("div", {
+                        className: "space-y-1.5",
+                        children: [
+                          /* @__PURE__ */ jsx(Label, {
+                            htmlFor: "team-rename",
+                            children: "Name"
+                          }),
+                          /* @__PURE__ */ jsx(Input, {
+                            id: "team-rename",
+                            value: editName,
+                            onChange: (event) => setEditName(event.target.value),
+                            autoFocus: true,
+                            required: true
+                          })
+                        ]
+                      }),
+                      /* @__PURE__ */ jsxs("div", {
+                        className: "flex justify-end gap-2",
+                        children: [
+                          /* @__PURE__ */ jsx(Button, {
+                            type: "button",
+                            variant: "outline",
+                            disabled: isSavingEdit,
+                            onClick: () => setEditing(null),
+                            children: "Cancel"
+                          }),
+                          /* @__PURE__ */ jsx(Button, {
+                            type: "submit",
+                            disabled: !editName.trim() || isSavingEdit,
+                            children: isSavingEdit ? "Saving..." : "Save"
+                          })
+                        ]
+                      })
+                    ]
+                  })
+                ]
+              })
             })
-          })
-        ]
+          ]
+        })
       }),
       /* @__PURE__ */ jsx(ConfirmDialog, {
         open: teamToDelete !== null,
@@ -364,13 +392,16 @@ var AccountOrganizationTeams = ({
 var TeamMembers = ({
   organizationId,
   teamId,
-  members
+  members,
+  currentUserId
 }) => {
   const { authClient, toaster } = useAccountContext();
   const [teamMembers, setTeamMembers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
+  const [memberToRemove, setMemberToRemove] = useState(null);
+  const [isRemoving, setIsRemoving] = useState(false);
   const load = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -399,36 +430,61 @@ var TeamMembers = ({
     const orgMember = members.find((member) => member.userId === userId);
     return orgMember ? memberLabel(orgMember) : userId;
   };
+  const teamMemberLabel = (member) => member.user?.name ?? member.user?.email ?? nameForUserId(member.userId);
   const handleAdd = async () => {
     if (!selectedUserId)
       return;
+    const userId = selectedUserId;
+    const orgMember = members.find((member) => member.userId === userId);
+    const optimistic = {
+      id: `temp-${userId}`,
+      userId,
+      user: orgMember ? {
+        name: orgMember.user.name,
+        email: orgMember.user.email,
+        image: orgMember.user.image
+      } : null
+    };
     setIsAdding(true);
-    const res = await authClient.organization.addTeamMember({
-      teamId,
-      userId: selectedUserId,
-      organizationId
-    });
-    setIsAdding(false);
-    if (res?.error) {
-      toaster.error({ title: errorMessage(res.error, "Couldn't add them") });
-      return;
-    }
-    toaster.success({ title: "Added to team" });
     setSelectedUserId(null);
-    load();
-  };
-  const handleRemove = async (userId) => {
-    const res = await authClient.organization.removeTeamMember({
+    setTeamMembers((prev) => [...prev, optimistic]);
+    const res = await authClient.organization.addTeamMember({
       teamId,
       userId,
       organizationId
     });
+    setIsAdding(false);
     if (res?.error) {
+      setTeamMembers((prev) => prev.filter((member) => member.id !== optimistic.id));
+      setSelectedUserId(userId);
+      toaster.error({ title: errorMessage(res.error, "Couldn't add them") });
+      return;
+    }
+    const added = res?.data;
+    if (added?.id) {
+      setTeamMembers((prev) => prev.map((member) => member.id === optimistic.id ? added : member));
+    }
+    toaster.success({ title: "Added to team" });
+  };
+  const handleRemove = async () => {
+    if (!memberToRemove)
+      return;
+    const removed = memberToRemove;
+    setIsRemoving(true);
+    setTeamMembers((prev) => prev.filter((member) => member.id !== removed.id));
+    const res = await authClient.organization.removeTeamMember({
+      teamId,
+      userId: removed.userId,
+      organizationId
+    });
+    setIsRemoving(false);
+    setMemberToRemove(null);
+    if (res?.error) {
+      setTeamMembers((prev) => [...prev, removed]);
       toaster.error({ title: errorMessage(res.error, "Couldn't remove them") });
       return;
     }
     toaster.success({ title: "Removed from team" });
-    load();
   };
   return /* @__PURE__ */ jsxs("div", {
     className: "mt-3 space-y-2 border-t pt-3",
@@ -442,15 +498,21 @@ var TeamMembers = ({
       }) : teamMembers.map((member) => /* @__PURE__ */ jsxs("div", {
         className: "flex items-center justify-between gap-2 text-sm",
         children: [
-          /* @__PURE__ */ jsx("span", {
+          /* @__PURE__ */ jsxs("span", {
             className: "truncate",
-            children: member.user?.name ?? member.user?.email ?? nameForUserId(member.userId)
+            children: [
+              teamMemberLabel(member),
+              currentUserId && member.userId === currentUserId && /* @__PURE__ */ jsx("span", {
+                className: "ml-1.5 text-muted-foreground",
+                children: "(you)"
+              })
+            ]
           }),
           /* @__PURE__ */ jsx(Button, {
             variant: "ghost",
             size: "sm",
             className: "text-destructive hover:text-destructive",
-            onClick: () => handleRemove(member.userId),
+            onClick: () => setMemberToRemove(member),
             children: "Remove"
           })
         ]
@@ -511,6 +573,19 @@ var TeamMembers = ({
             children: isAdding ? "Adding..." : "Add"
           })
         ]
+      }),
+      /* @__PURE__ */ jsx(ConfirmDialog, {
+        open: memberToRemove !== null,
+        onOpenChange: (open) => {
+          if (!open)
+            setMemberToRemove(null);
+        },
+        title: `Remove ${memberToRemove ? teamMemberLabel(memberToRemove) : "member"} from this team?`,
+        description: "They stay in the organization but lose this team's access. You can add them back later.",
+        confirmLabel: "Remove",
+        cancelLabel: "Keep",
+        isPending: isRemoving,
+        onConfirm: handleRemove
       })
     ]
   });

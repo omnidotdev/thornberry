@@ -4,11 +4,13 @@ import {
 
 // src/registry/thornberry/components/dialog.tsx
 import { Dialog as ArkDialog } from "@ark-ui/react/dialog";
+import { Portal } from "@ark-ui/react/portal";
 import { X } from "lucide-react";
 import { jsx, jsxs } from "react/jsx-runtime";
 var DialogProvider = ArkDialog.RootProvider;
 var DialogContext = ArkDialog.Context;
 var DialogRoot = ArkDialog.Root;
+var DialogPortal = Portal;
 var DialogTrigger = ({
   className,
   ...rest
@@ -79,4 +81,4 @@ var DialogCloseTrigger = ({
     children
   });
 };
-export { DialogProvider, DialogContext, DialogRoot, DialogTrigger, DialogBackdrop, DialogPositioner, DialogContent, DialogTitle, DialogDescription, DialogCloseTrigger };
+export { DialogProvider, DialogContext, DialogRoot, DialogPortal, DialogTrigger, DialogBackdrop, DialogPositioner, DialogContent, DialogTitle, DialogDescription, DialogCloseTrigger };

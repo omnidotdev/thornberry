@@ -1,6 +1,6 @@
 import {
   ConfirmDialog
-} from "./account-user-two-factor-authentication-164eysdm.js";
+} from "./account-user-two-factor-authentication-y482en2x.js";
 import {
   useAccountContext
 } from "./account-user-two-factor-authentication-en4v22ys.js";

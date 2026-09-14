@@ -1,6 +1,6 @@
 import {
   AccountOrganizationTeams
-} from "../../../chunks/account-user-two-factor-authentication-ep01pj75.js";
+} from "../../../chunks/account-user-two-factor-authentication-4fa1czw6.js";
 import {
   Select,
   SelectContent,
@@ -20,7 +20,7 @@ import {
 } from "../../../chunks/account-user-two-factor-authentication-7qezk7ef.js";
 import {
   ConfirmDialog
-} from "../../../chunks/account-user-two-factor-authentication-164eysdm.js";
+} from "../../../chunks/account-user-two-factor-authentication-y482en2x.js";
 import {
   AvatarFallback,
   AvatarImage,
@@ -39,10 +39,11 @@ import {
   DialogBackdrop,
   DialogContent,
   DialogDescription,
+  DialogPortal,
   DialogPositioner,
   DialogRoot,
   DialogTitle
-} from "../../../chunks/account-user-two-factor-authentication-p3ac7628.js";
+} from "../../../chunks/account-user-two-factor-authentication-negb4kbv.js";
 import {
   Button
 } from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
@@ -64,6 +65,7 @@ import {
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
+var memberDisplayName = (member) => member.user.name ?? member.user.email;
 var ROLES = ["owner", "admin", "member"];
 var assignableRoles = (isOwner) => isOwner ? ROLES : ROLES.filter((role) => role !== "owner");
 var SLUG_PATTERN = /^[a-z0-9-]+$/;
@@ -132,6 +134,22 @@ var RoleSelect = ({
     ]
   });
 };
+var ROLE_RANK = { owner: 0, admin: 1, member: 2 };
+var roleFilterCollection = createListCollection({
+  items: [
+    { label: "All roles", value: "all" },
+    { label: "Owner", value: "owner" },
+    { label: "Admin", value: "admin" },
+    { label: "Member", value: "member" }
+  ]
+});
+var memberSortCollection = createListCollection({
+  items: [
+    { label: "Name (A-Z)", value: "name-asc" },
+    { label: "Name (Z-A)", value: "name-desc" },
+    { label: "Role", value: "role" }
+  ]
+});
 var CreateOrganizationDialog = ({ onCreated }) => {
   const { authClient, toaster } = useAccountContext();
   const [open, setOpen] = useState(false);
@@ -217,7 +235,7 @@ var CreateOrganizationDialog = ({ onCreated }) => {
           "New organization"
         ]
       }),
-      /* @__PURE__ */ jsxs(DialogRoot, {
+      /* @__PURE__ */ jsx(DialogRoot, {
         open,
         onOpenChange: ({ open: next }) => {
           if (isCreating)
@@ -226,114 +244,116 @@ var CreateOrganizationDialog = ({ onCreated }) => {
           if (!next)
             reset();
         },
-        children: [
-          /* @__PURE__ */ jsx(DialogBackdrop, {}),
-          /* @__PURE__ */ jsx(DialogPositioner, {
-            children: /* @__PURE__ */ jsxs(DialogContent, {
-              className: "w-full max-w-md p-6",
-              children: [
-                /* @__PURE__ */ jsx(DialogTitle, {
-                  children: "Create an organization"
-                }),
-                /* @__PURE__ */ jsx(DialogDescription, {
-                  className: "text-muted-foreground text-sm",
-                  children: "A shared workspace for your team's access and billing. You'll be its owner."
-                }),
-                /* @__PURE__ */ jsxs("form", {
-                  className: "mt-4 space-y-4",
-                  onSubmit: (event) => {
-                    event.preventDefault();
-                    if (canSubmit)
-                      handleCreate();
-                  },
-                  children: [
-                    /* @__PURE__ */ jsxs("div", {
-                      className: "space-y-1.5",
-                      children: [
-                        /* @__PURE__ */ jsx(Label, {
-                          htmlFor: "org-name",
-                          children: "Name"
-                        }),
-                        /* @__PURE__ */ jsx(Input, {
-                          id: "org-name",
-                          value: name,
-                          onChange: (event) => handleNameChange(event.target.value),
-                          placeholder: "Acme Inc.",
-                          autoFocus: true,
-                          required: true
-                        })
-                      ]
-                    }),
-                    /* @__PURE__ */ jsxs("div", {
-                      className: "space-y-1.5",
-                      children: [
-                        /* @__PURE__ */ jsx(Label, {
-                          htmlFor: "org-slug",
-                          children: "Handle"
-                        }),
-                        /* @__PURE__ */ jsxs("div", {
-                          className: "relative",
-                          children: [
-                            /* @__PURE__ */ jsx("span", {
-                              className: "absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm",
-                              children: "@"
-                            }),
-                            /* @__PURE__ */ jsx(Input, {
-                              id: "org-slug",
-                              value: slug,
-                              onChange: (event) => handleSlugChange(event.target.value),
-                              placeholder: "acme",
-                              className: "pr-9 pl-7",
-                              required: true
-                            }),
-                            /* @__PURE__ */ jsxs("div", {
-                              className: "absolute top-1/2 right-3 -translate-y-1/2",
-                              children: [
-                                slugStatus === "checking" && /* @__PURE__ */ jsx(Loader2, {
-                                  className: "size-4 animate-spin text-muted-foreground"
-                                }),
-                                slugStatus === "available" && /* @__PURE__ */ jsx(Check, {
-                                  className: "size-4 text-green-500"
-                                }),
-                                (slugStatus === "taken" || slugStatus === "invalid") && /* @__PURE__ */ jsx(X, {
-                                  className: "size-4 text-destructive"
-                                })
-                              ]
-                            })
-                          ]
-                        }),
-                        /* @__PURE__ */ jsx("p", {
-                          className: "text-muted-foreground text-xs",
-                          children: slugStatus === "taken" ? "That handle is already taken." : slugStatus === "invalid" ? "Use lowercase letters, numbers, and hyphens only." : "This is your workspace's handle across every product."
-                        })
-                      ]
-                    }),
-                    /* @__PURE__ */ jsxs("div", {
-                      className: "flex justify-end gap-2 pt-2",
-                      children: [
-                        /* @__PURE__ */ jsx(Button, {
-                          type: "button",
-                          variant: "outline",
-                          disabled: isCreating,
-                          onClick: () => {
-                            setOpen(false);
-                            reset();
-                          },
-                          children: "Cancel"
-                        }),
-                        /* @__PURE__ */ jsx(Button, {
-                          type: "submit",
-                          disabled: !canSubmit,
-                          children: isCreating ? "Creating..." : "Create"
-                        })
-                      ]
-                    })
-                  ]
-                })
-              ]
+        children: /* @__PURE__ */ jsxs(DialogPortal, {
+          children: [
+            /* @__PURE__ */ jsx(DialogBackdrop, {}),
+            /* @__PURE__ */ jsx(DialogPositioner, {
+              children: /* @__PURE__ */ jsxs(DialogContent, {
+                className: "w-full max-w-md p-6",
+                children: [
+                  /* @__PURE__ */ jsx(DialogTitle, {
+                    children: "Create an organization"
+                  }),
+                  /* @__PURE__ */ jsx(DialogDescription, {
+                    className: "text-muted-foreground text-sm",
+                    children: "A shared workspace for your team's access and billing. You'll be its owner."
+                  }),
+                  /* @__PURE__ */ jsxs("form", {
+                    className: "mt-4 space-y-4",
+                    onSubmit: (event) => {
+                      event.preventDefault();
+                      if (canSubmit)
+                        handleCreate();
+                    },
+                    children: [
+                      /* @__PURE__ */ jsxs("div", {
+                        className: "space-y-1.5",
+                        children: [
+                          /* @__PURE__ */ jsx(Label, {
+                            htmlFor: "org-name",
+                            children: "Name"
+                          }),
+                          /* @__PURE__ */ jsx(Input, {
+                            id: "org-name",
+                            value: name,
+                            onChange: (event) => handleNameChange(event.target.value),
+                            placeholder: "Acme Inc.",
+                            autoFocus: true,
+                            required: true
+                          })
+                        ]
+                      }),
+                      /* @__PURE__ */ jsxs("div", {
+                        className: "space-y-1.5",
+                        children: [
+                          /* @__PURE__ */ jsx(Label, {
+                            htmlFor: "org-slug",
+                            children: "Handle"
+                          }),
+                          /* @__PURE__ */ jsxs("div", {
+                            className: "relative",
+                            children: [
+                              /* @__PURE__ */ jsx("span", {
+                                className: "absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm",
+                                children: "@"
+                              }),
+                              /* @__PURE__ */ jsx(Input, {
+                                id: "org-slug",
+                                value: slug,
+                                onChange: (event) => handleSlugChange(event.target.value),
+                                placeholder: "acme",
+                                className: "pr-9 pl-7",
+                                required: true
+                              }),
+                              /* @__PURE__ */ jsxs("div", {
+                                className: "absolute top-1/2 right-3 -translate-y-1/2",
+                                children: [
+                                  slugStatus === "checking" && /* @__PURE__ */ jsx(Loader2, {
+                                    className: "size-4 animate-spin text-muted-foreground"
+                                  }),
+                                  slugStatus === "available" && /* @__PURE__ */ jsx(Check, {
+                                    className: "size-4 text-green-500"
+                                  }),
+                                  (slugStatus === "taken" || slugStatus === "invalid") && /* @__PURE__ */ jsx(X, {
+                                    className: "size-4 text-destructive"
+                                  })
+                                ]
+                              })
+                            ]
+                          }),
+                          /* @__PURE__ */ jsx("p", {
+                            className: "text-muted-foreground text-xs",
+                            children: slugStatus === "taken" ? "That handle is already taken." : slugStatus === "invalid" ? "Use lowercase letters, numbers, and hyphens only." : "This is your workspace's handle across every product."
+                          })
+                        ]
+                      }),
+                      /* @__PURE__ */ jsxs("div", {
+                        className: "flex justify-end gap-2 pt-2",
+                        children: [
+                          /* @__PURE__ */ jsx(Button, {
+                            type: "button",
+                            variant: "outline",
+                            disabled: isCreating,
+                            onClick: () => {
+                              setOpen(false);
+                              reset();
+                            },
+                            children: "Cancel"
+                          }),
+                          /* @__PURE__ */ jsx(Button, {
+                            type: "submit",
+                            disabled: !canSubmit,
+                            children: isCreating ? "Creating..." : "Create"
+                          })
+                        ]
+                      })
+                    ]
+                  })
+                ]
+              })
             })
-          })
-        ]
+          ]
+        })
       })
     ]
   });
@@ -442,176 +462,179 @@ var EditOrganizationDialog = ({
     onOpenChange(false);
     onUpdated();
   };
-  return /* @__PURE__ */ jsxs(DialogRoot, {
+  return /* @__PURE__ */ jsx(DialogRoot, {
     open,
     onOpenChange: ({ open: next }) => {
       if (isSaving)
         return;
       onOpenChange(next);
     },
-    children: [
-      /* @__PURE__ */ jsx(DialogBackdrop, {}),
-      /* @__PURE__ */ jsx(DialogPositioner, {
-        children: /* @__PURE__ */ jsxs(DialogContent, {
-          className: "w-full max-w-md p-6",
-          children: [
-            /* @__PURE__ */ jsx(DialogTitle, {
-              children: "Edit organization"
-            }),
-            /* @__PURE__ */ jsx(DialogDescription, {
-              className: "text-muted-foreground text-sm",
-              children: "Update your organization's name, handle, or description."
-            }),
-            /* @__PURE__ */ jsxs("form", {
-              className: "mt-4 space-y-4",
-              onSubmit: (event) => {
-                event.preventDefault();
-                if (canSave)
-                  handleSave();
-              },
-              children: [
-                orgLogo?.uploadEnabled && /* @__PURE__ */ jsxs("div", {
-                  className: "flex items-center gap-4",
-                  children: [
-                    /* @__PURE__ */ jsxs(AvatarRoot, {
-                      className: "size-14 shrink-0 rounded-md",
-                      children: [
-                        /* @__PURE__ */ jsx(AvatarImage, {
-                          src: logoPreview ?? organization.logo ?? undefined
-                        }),
-                        /* @__PURE__ */ jsx(AvatarFallback, {
-                          className: "rounded-md",
-                          children: organization.name.charAt(0)
-                        })
-                      ]
-                    }),
-                    /* @__PURE__ */ jsxs("div", {
-                      className: "space-y-1",
-                      children: [
-                        /* @__PURE__ */ jsx(Button, {
-                          type: "button",
-                          variant: "outline",
-                          size: "sm",
-                          disabled: isUploadingLogo,
-                          onClick: () => logoInputRef.current?.click(),
-                          children: isUploadingLogo ? "Uploading..." : "Change logo"
-                        }),
-                        /* @__PURE__ */ jsx("p", {
-                          className: "text-muted-foreground text-xs",
-                          children: "PNG or JPG, up to 5 MB."
-                        })
-                      ]
-                    }),
-                    /* @__PURE__ */ jsx("input", {
-                      ref: logoInputRef,
-                      type: "file",
-                      accept: "image/*",
-                      hidden: true,
-                      onChange: handleLogoSelect
-                    })
-                  ]
-                }),
-                /* @__PURE__ */ jsxs("div", {
-                  className: "space-y-1.5",
-                  children: [
-                    /* @__PURE__ */ jsx(Label, {
-                      htmlFor: "edit-org-name",
-                      children: "Name"
-                    }),
-                    /* @__PURE__ */ jsx(Input, {
-                      id: "edit-org-name",
-                      value: name,
-                      onChange: (event) => setName(event.target.value),
-                      required: true
-                    })
-                  ]
-                }),
-                /* @__PURE__ */ jsxs("div", {
-                  className: "space-y-1.5",
-                  children: [
-                    /* @__PURE__ */ jsx(Label, {
-                      htmlFor: "edit-org-slug",
-                      children: "Handle"
-                    }),
-                    /* @__PURE__ */ jsxs("div", {
-                      className: "relative",
-                      children: [
-                        /* @__PURE__ */ jsx("span", {
-                          className: "absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm",
-                          children: "@"
-                        }),
-                        /* @__PURE__ */ jsx(Input, {
-                          id: "edit-org-slug",
-                          value: slug,
-                          onChange: (event) => handleSlugChange(event.target.value),
-                          className: "pr-9 pl-7",
-                          required: true
-                        }),
-                        /* @__PURE__ */ jsxs("div", {
-                          className: "absolute top-1/2 right-3 -translate-y-1/2",
-                          children: [
-                            slugStatus === "checking" && /* @__PURE__ */ jsx(Loader2, {
-                              className: "size-4 animate-spin text-muted-foreground"
-                            }),
-                            slugStatus === "available" && /* @__PURE__ */ jsx(Check, {
-                              className: "size-4 text-green-500"
-                            }),
-                            (slugStatus === "taken" || slugStatus === "invalid") && /* @__PURE__ */ jsx(X, {
-                              className: "size-4 text-destructive"
-                            })
-                          ]
-                        })
-                      ]
-                    }),
-                    slugChanged && /* @__PURE__ */ jsx("p", {
-                      className: "text-muted-foreground text-xs",
-                      children: slugStatus === "taken" ? "That handle is already taken." : slugStatus === "invalid" ? "Use lowercase letters, numbers, and hyphens only." : "Changing the handle updates it everywhere this organization is used."
-                    })
-                  ]
-                }),
-                /* @__PURE__ */ jsxs("div", {
-                  className: "space-y-1.5",
-                  children: [
-                    /* @__PURE__ */ jsx(Label, {
-                      htmlFor: "edit-org-desc",
-                      children: "Description"
-                    }),
-                    /* @__PURE__ */ jsx(Input, {
-                      id: "edit-org-desc",
-                      value: description,
-                      onChange: (event) => setDescription(event.target.value),
-                      placeholder: "Optional"
-                    })
-                  ]
-                }),
-                /* @__PURE__ */ jsxs("div", {
-                  className: "flex justify-end gap-2 pt-2",
-                  children: [
-                    /* @__PURE__ */ jsx(Button, {
-                      type: "button",
-                      variant: "outline",
-                      disabled: isSaving,
-                      onClick: () => onOpenChange(false),
-                      children: "Cancel"
-                    }),
-                    /* @__PURE__ */ jsx(Button, {
-                      type: "submit",
-                      disabled: !canSave,
-                      children: isSaving ? "Saving..." : "Save"
-                    })
-                  ]
-                })
-              ]
-            })
-          ]
+    children: /* @__PURE__ */ jsxs(DialogPortal, {
+      children: [
+        /* @__PURE__ */ jsx(DialogBackdrop, {}),
+        /* @__PURE__ */ jsx(DialogPositioner, {
+          children: /* @__PURE__ */ jsxs(DialogContent, {
+            className: "w-full max-w-md p-6",
+            children: [
+              /* @__PURE__ */ jsx(DialogTitle, {
+                children: "Edit organization"
+              }),
+              /* @__PURE__ */ jsx(DialogDescription, {
+                className: "text-muted-foreground text-sm",
+                children: "Update your organization's name, handle, or description."
+              }),
+              /* @__PURE__ */ jsxs("form", {
+                className: "mt-4 space-y-4",
+                onSubmit: (event) => {
+                  event.preventDefault();
+                  if (canSave)
+                    handleSave();
+                },
+                children: [
+                  orgLogo?.uploadEnabled && /* @__PURE__ */ jsxs("div", {
+                    className: "flex items-center gap-4",
+                    children: [
+                      /* @__PURE__ */ jsxs(AvatarRoot, {
+                        className: "size-14 shrink-0 rounded-md",
+                        children: [
+                          /* @__PURE__ */ jsx(AvatarImage, {
+                            src: logoPreview ?? organization.logo ?? undefined
+                          }),
+                          /* @__PURE__ */ jsx(AvatarFallback, {
+                            className: "rounded-md",
+                            children: organization.name.charAt(0)
+                          })
+                        ]
+                      }),
+                      /* @__PURE__ */ jsxs("div", {
+                        className: "space-y-1",
+                        children: [
+                          /* @__PURE__ */ jsx(Button, {
+                            type: "button",
+                            variant: "outline",
+                            size: "sm",
+                            disabled: isUploadingLogo,
+                            onClick: () => logoInputRef.current?.click(),
+                            children: isUploadingLogo ? "Uploading..." : "Change logo"
+                          }),
+                          /* @__PURE__ */ jsx("p", {
+                            className: "text-muted-foreground text-xs",
+                            children: "PNG or JPG, up to 5 MB."
+                          })
+                        ]
+                      }),
+                      /* @__PURE__ */ jsx("input", {
+                        ref: logoInputRef,
+                        type: "file",
+                        accept: "image/*",
+                        hidden: true,
+                        onChange: handleLogoSelect
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "space-y-1.5",
+                    children: [
+                      /* @__PURE__ */ jsx(Label, {
+                        htmlFor: "edit-org-name",
+                        children: "Name"
+                      }),
+                      /* @__PURE__ */ jsx(Input, {
+                        id: "edit-org-name",
+                        value: name,
+                        onChange: (event) => setName(event.target.value),
+                        required: true
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "space-y-1.5",
+                    children: [
+                      /* @__PURE__ */ jsx(Label, {
+                        htmlFor: "edit-org-slug",
+                        children: "Handle"
+                      }),
+                      /* @__PURE__ */ jsxs("div", {
+                        className: "relative",
+                        children: [
+                          /* @__PURE__ */ jsx("span", {
+                            className: "absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm",
+                            children: "@"
+                          }),
+                          /* @__PURE__ */ jsx(Input, {
+                            id: "edit-org-slug",
+                            value: slug,
+                            onChange: (event) => handleSlugChange(event.target.value),
+                            className: "pr-9 pl-7",
+                            required: true
+                          }),
+                          /* @__PURE__ */ jsxs("div", {
+                            className: "absolute top-1/2 right-3 -translate-y-1/2",
+                            children: [
+                              slugStatus === "checking" && /* @__PURE__ */ jsx(Loader2, {
+                                className: "size-4 animate-spin text-muted-foreground"
+                              }),
+                              slugStatus === "available" && /* @__PURE__ */ jsx(Check, {
+                                className: "size-4 text-green-500"
+                              }),
+                              (slugStatus === "taken" || slugStatus === "invalid") && /* @__PURE__ */ jsx(X, {
+                                className: "size-4 text-destructive"
+                              })
+                            ]
+                          })
+                        ]
+                      }),
+                      slugChanged && /* @__PURE__ */ jsx("p", {
+                        className: "text-muted-foreground text-xs",
+                        children: slugStatus === "taken" ? "That handle is already taken." : slugStatus === "invalid" ? "Use lowercase letters, numbers, and hyphens only." : "Changing the handle updates it everywhere this organization is used."
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "space-y-1.5",
+                    children: [
+                      /* @__PURE__ */ jsx(Label, {
+                        htmlFor: "edit-org-desc",
+                        children: "Description"
+                      }),
+                      /* @__PURE__ */ jsx(Input, {
+                        id: "edit-org-desc",
+                        value: description,
+                        onChange: (event) => setDescription(event.target.value),
+                        placeholder: "Optional"
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "flex justify-end gap-2 pt-2",
+                    children: [
+                      /* @__PURE__ */ jsx(Button, {
+                        type: "button",
+                        variant: "outline",
+                        disabled: isSaving,
+                        onClick: () => onOpenChange(false),
+                        children: "Cancel"
+                      }),
+                      /* @__PURE__ */ jsx(Button, {
+                        type: "submit",
+                        disabled: !canSave,
+                        children: isSaving ? "Saving..." : "Save"
+                      })
+                    ]
+                  })
+                ]
+              })
+            ]
+          })
         })
-      })
-    ]
+      ]
+    })
   });
 };
 var OrganizationDetail = ({
   organization,
   currentEmail,
+  currentUserId,
   onBack,
   onLeftOrDeleted,
   onUpdated
@@ -626,6 +649,9 @@ var OrganizationDetail = ({
   const [resendingId, setResendingId] = useState(null);
   const [pending, setPending] = useState(null);
   const [isActionPending, setIsActionPending] = useState(false);
+  const [memberSearch, setMemberSearch] = useState("");
+  const [roleFilter, setRoleFilter] = useState("all");
+  const [memberSort, setMemberSort] = useState("name-asc");
   const load = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -653,6 +679,22 @@ var OrganizationDetail = ({
   const isOwner = currentMember?.role === "owner";
   const canManage = isOwner || currentMember?.role === "admin";
   const isSoleOwner = isOwner && ownerCount === 1;
+  const visibleMembers = useMemo(() => {
+    const query = memberSearch.trim().toLowerCase();
+    return members.filter((member) => roleFilter === "all" || member.role === roleFilter).filter((member) => {
+      if (!query)
+        return true;
+      return (member.user.name ?? "").toLowerCase().includes(query) || member.user.email.toLowerCase().includes(query);
+    }).sort((a, b) => {
+      if (memberSort === "role") {
+        const rank = (ROLE_RANK[a.role] ?? 99) - (ROLE_RANK[b.role] ?? 99);
+        if (rank !== 0)
+          return rank;
+      }
+      const compared = memberDisplayName(a).localeCompare(memberDisplayName(b), undefined, { sensitivity: "base" });
+      return memberSort === "name-desc" ? -compared : compared;
+    });
+  }, [members, memberSearch, roleFilter, memberSort]);
   const handleInvite = async () => {
     if (!inviteEmail.trim())
       return;
@@ -791,10 +833,21 @@ var OrganizationDetail = ({
         className: "flex flex-wrap items-center justify-between gap-3",
         children: [
           /* @__PURE__ */ jsxs("div", {
+            className: "min-w-0",
             children: [
-              /* @__PURE__ */ jsx("h3", {
-                className: "font-semibold text-lg",
-                children: organization.name
+              /* @__PURE__ */ jsxs("div", {
+                className: "flex flex-wrap items-center gap-2",
+                children: [
+                  /* @__PURE__ */ jsx("h3", {
+                    className: "font-semibold text-lg",
+                    children: organization.name
+                  }),
+                  currentMember && /* @__PURE__ */ jsx(Badge, {
+                    variant: "outline",
+                    className: "capitalize",
+                    children: currentMember.role
+                  })
+                ]
               }),
               /* @__PURE__ */ jsxs("p", {
                 className: "text-muted-foreground text-sm",
@@ -805,21 +858,11 @@ var OrganizationDetail = ({
               })
             ]
           }),
-          /* @__PURE__ */ jsxs("div", {
-            className: "flex items-center gap-2",
-            children: [
-              canManage && organization.type !== "personal" && /* @__PURE__ */ jsx(Button, {
-                variant: "outline",
-                size: "sm",
-                onClick: () => setEditOpen(true),
-                children: "Edit"
-              }),
-              currentMember && /* @__PURE__ */ jsx(Badge, {
-                variant: "outline",
-                className: "capitalize",
-                children: currentMember.role
-              })
-            ]
+          canManage && organization.type !== "personal" && /* @__PURE__ */ jsx(Button, {
+            variant: "outline",
+            size: "sm",
+            onClick: () => setEditOpen(true),
+            children: "Edit"
           })
         ]
       }),
@@ -886,11 +929,134 @@ var OrganizationDetail = ({
             ]
           }),
           /* @__PURE__ */ jsxs("div", {
-            className: "space-y-2 rounded-lg border p-5",
+            className: "space-y-3 rounded-lg border p-5",
             children: [
-              /* @__PURE__ */ jsx("h4", {
-                className: "font-medium text-sm",
-                children: "Members"
+              /* @__PURE__ */ jsxs("div", {
+                className: "flex flex-wrap items-center justify-between gap-2",
+                children: [
+                  /* @__PURE__ */ jsxs("div", {
+                    children: [
+                      /* @__PURE__ */ jsx("h4", {
+                        className: "font-medium text-sm",
+                        children: "Members"
+                      }),
+                      /* @__PURE__ */ jsx("p", {
+                        className: "text-muted-foreground text-sm",
+                        children: "People with access to this organization."
+                      })
+                    ]
+                  }),
+                  members.length > 1 && /* @__PURE__ */ jsxs("span", {
+                    className: "text-muted-foreground text-xs",
+                    children: [
+                      visibleMembers.length,
+                      " of ",
+                      members.length
+                    ]
+                  })
+                ]
+              }),
+              members.length > 0 && /* @__PURE__ */ jsxs("div", {
+                className: "flex flex-col gap-2 sm:flex-row sm:items-center",
+                children: [
+                  /* @__PURE__ */ jsx(Input, {
+                    type: "search",
+                    placeholder: "Search by name or email",
+                    value: memberSearch,
+                    onChange: (event) => setMemberSearch(event.target.value),
+                    className: "flex-1"
+                  }),
+                  /* @__PURE__ */ jsxs(Select, {
+                    collection: roleFilterCollection,
+                    value: [roleFilter],
+                    onValueChange: (details) => setRoleFilter(details.value[0] ?? "all"),
+                    positioning: { strategy: "fixed", placement: "bottom-end" },
+                    children: [
+                      /* @__PURE__ */ jsx(SelectControl, {
+                        children: /* @__PURE__ */ jsx(SelectTrigger, {
+                          asChild: true,
+                          children: /* @__PURE__ */ jsxs(Button, {
+                            variant: "outline",
+                            size: "sm",
+                            className: "min-w-32 justify-between gap-2",
+                            children: [
+                              /* @__PURE__ */ jsx(SelectValueText, {
+                                placeholder: "Role"
+                              }),
+                              /* @__PURE__ */ jsx(SelectIndicator, {
+                                children: /* @__PURE__ */ jsx(ChevronsUpDown, {
+                                  className: "size-3.5 shrink-0 opacity-60"
+                                })
+                              })
+                            ]
+                          })
+                        })
+                      }),
+                      /* @__PURE__ */ jsx(SelectPositioner, {
+                        children: /* @__PURE__ */ jsx(SelectContent, {
+                          className: "min-w-[9rem] p-1",
+                          children: /* @__PURE__ */ jsx(SelectItemGroup, {
+                            className: "space-y-0.5",
+                            children: roleFilterCollection.items.map((item) => /* @__PURE__ */ jsxs(SelectItem, {
+                              item,
+                              children: [
+                                /* @__PURE__ */ jsx(SelectItemText, {
+                                  children: item.label
+                                }),
+                                /* @__PURE__ */ jsx(SelectItemIndicator, {})
+                              ]
+                            }, item.value))
+                          })
+                        })
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsxs(Select, {
+                    collection: memberSortCollection,
+                    value: [memberSort],
+                    onValueChange: (details) => setMemberSort(details.value[0] ?? "name-asc"),
+                    positioning: { strategy: "fixed", placement: "bottom-end" },
+                    children: [
+                      /* @__PURE__ */ jsx(SelectControl, {
+                        children: /* @__PURE__ */ jsx(SelectTrigger, {
+                          asChild: true,
+                          children: /* @__PURE__ */ jsxs(Button, {
+                            variant: "outline",
+                            size: "sm",
+                            className: "min-w-36 justify-between gap-2",
+                            children: [
+                              /* @__PURE__ */ jsx(SelectValueText, {
+                                placeholder: "Sort"
+                              }),
+                              /* @__PURE__ */ jsx(SelectIndicator, {
+                                children: /* @__PURE__ */ jsx(ChevronsUpDown, {
+                                  className: "size-3.5 shrink-0 opacity-60"
+                                })
+                              })
+                            ]
+                          })
+                        })
+                      }),
+                      /* @__PURE__ */ jsx(SelectPositioner, {
+                        children: /* @__PURE__ */ jsx(SelectContent, {
+                          className: "min-w-[10rem] p-1",
+                          children: /* @__PURE__ */ jsx(SelectItemGroup, {
+                            className: "space-y-0.5",
+                            children: memberSortCollection.items.map((item) => /* @__PURE__ */ jsxs(SelectItem, {
+                              item,
+                              children: [
+                                /* @__PURE__ */ jsx(SelectItemText, {
+                                  children: item.label
+                                }),
+                                /* @__PURE__ */ jsx(SelectItemIndicator, {})
+                              ]
+                            }, item.value))
+                          })
+                        })
+                      })
+                    ]
+                  })
+                ]
               }),
               isLoading ? /* @__PURE__ */ jsx("p", {
                 className: "py-4 text-center text-muted-foreground text-sm",
@@ -898,7 +1064,10 @@ var OrganizationDetail = ({
               }) : members.length === 0 ? /* @__PURE__ */ jsx("p", {
                 className: "py-4 text-center text-muted-foreground text-sm",
                 children: "No members yet."
-              }) : members.map((member) => {
+              }) : visibleMembers.length === 0 ? /* @__PURE__ */ jsx("p", {
+                className: "py-4 text-center text-muted-foreground text-sm",
+                children: "No members match your search."
+              }) : visibleMembers.map((member) => {
                 const isLastOwner = member.role === "owner" && ownerCount === 1;
                 const canManageMember = canManage && (isOwner || member.role !== "owner");
                 return /* @__PURE__ */ jsxs("div", {
@@ -921,9 +1090,15 @@ var OrganizationDetail = ({
                         /* @__PURE__ */ jsxs("div", {
                           className: "min-w-0",
                           children: [
-                            /* @__PURE__ */ jsx("div", {
+                            /* @__PURE__ */ jsxs("div", {
                               className: "truncate font-medium text-sm",
-                              children: member.user.name ?? member.user.email
+                              children: [
+                                memberDisplayName(member),
+                                member.user.email.toLowerCase() === currentEmail.toLowerCase() && /* @__PURE__ */ jsx("span", {
+                                  className: "ml-1.5 font-normal text-muted-foreground",
+                                  children: "(you)"
+                                })
+                              ]
                             }),
                             /* @__PURE__ */ jsx("div", {
                               className: "truncate text-muted-foreground text-xs",
@@ -1033,7 +1208,8 @@ var OrganizationDetail = ({
           }),
           canManage && /* @__PURE__ */ jsx(AccountOrganizationTeams, {
             organizationId: organization.id,
-            members
+            members,
+            currentUserId
           }),
           /* @__PURE__ */ jsx("div", {
             className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5",
@@ -1116,6 +1292,7 @@ var OrganizationDetail = ({
         description: pending?.kind === "remove" ? "They will lose access to this organization. This cannot be undone." : pending?.kind === "cancel" ? "The invitation link will stop working. You can invite them again later." : pending?.kind === "delete" ? "Every member loses access to this organization. This cannot be undone." : "You will lose access to this organization. An owner can invite you back later.",
         confirmLabel: pending?.kind === "remove" ? "Remove" : pending?.kind === "cancel" ? "Cancel invitation" : pending?.kind === "delete" ? "Delete organization" : "Leave organization",
         cancelLabel: "Keep",
+        confirmationText: pending?.kind === "delete" ? organization.name : undefined,
         isPending: isActionPending,
         onConfirm: runPending
       })
@@ -1159,6 +1336,7 @@ var AccountOrganizations = ({
     return /* @__PURE__ */ jsx(OrganizationDetail, {
       organization: selected,
       currentEmail: session.user.email,
+      currentUserId: session.user.id,
       onBack: () => setSelectedSlug(null),
       onLeftOrDeleted: () => {
         setSelectedSlug(null);
@@ -1184,7 +1362,7 @@ var AccountOrganizations = ({
               }),
               /* @__PURE__ */ jsx("p", {
                 className: "text-muted-foreground text-sm",
-                children: "Workspaces you belong to."
+                children: "Your personal workspace and the organizations you belong to."
               })
             ]
           }),
@@ -1232,7 +1410,7 @@ var AccountOrganizations = ({
                         }),
                         /* @__PURE__ */ jsx(Badge, {
                           variant: "outline",
-                          children: org.type === "personal" ? "Personal" : "Team"
+                          children: org.type === "personal" ? "Personal" : "Organization"
                         })
                       ]
                     }),
