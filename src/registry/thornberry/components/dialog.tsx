@@ -1,4 +1,5 @@
 import { Dialog as ArkDialog } from "@ark-ui/react/dialog";
+import { Portal } from "@ark-ui/react/portal";
 import { X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -8,6 +9,16 @@ import type { ComponentProps } from "react";
 const DialogProvider = ArkDialog.RootProvider;
 const DialogContext = ArkDialog.Context;
 const DialogRoot = ArkDialog.Root;
+
+/**
+ * Portals the dialog's backdrop and positioner to the document body. Without it
+ * the `fixed inset-0` backdrop and positioner render inline in the DOM, so any
+ * ancestor with a `transform`, `filter`, or `backdrop-filter` (page/route
+ * transitions, blurred panels) becomes their containing block and the overlay no
+ * longer covers the full viewport. Wrap every dialog's backdrop + positioner in
+ * this so they always resolve against the viewport.
+ */
+const DialogPortal = Portal;
 
 const DialogTrigger = ({
   className,
@@ -111,6 +122,7 @@ const DialogCloseTrigger = ({
 
 export {
   DialogRoot,
+  DialogPortal,
   DialogTrigger,
   DialogBackdrop,
   DialogPositioner,
