@@ -1,6 +1,6 @@
 import {
   AccountOrganizationTeams
-} from "../../../chunks/account-user-two-factor-authentication-4fa1czw6.js";
+} from "../../../chunks/account-user-two-factor-authentication-2xyfkm3p.js";
 import {
   Select,
   SelectContent,
@@ -215,7 +215,7 @@ var CreateOrganizationDialog = ({ onCreated }) => {
       toaster.error({ title: errorMessage(res.error, "Couldn't create it") });
       return;
     }
-    toaster.success({ title: "Organization created" });
+    toaster.success({ title: "Workspace created" });
     setOpen(false);
     reset();
     onCreated();
@@ -232,7 +232,7 @@ var CreateOrganizationDialog = ({ onCreated }) => {
           /* @__PURE__ */ jsx(Plus, {
             className: "size-4"
           }),
-          "New organization"
+          "New workspace"
         ]
       }),
       /* @__PURE__ */ jsx(DialogRoot, {
@@ -252,7 +252,7 @@ var CreateOrganizationDialog = ({ onCreated }) => {
                 className: "w-full max-w-md p-6",
                 children: [
                   /* @__PURE__ */ jsx(DialogTitle, {
-                    children: "Create an organization"
+                    children: "Create a workspace"
                   }),
                   /* @__PURE__ */ jsx(DialogDescription, {
                     className: "text-muted-foreground text-sm",
@@ -458,7 +458,7 @@ var EditOrganizationDialog = ({
       });
       return;
     }
-    toaster.success({ title: "Organization updated" });
+    toaster.success({ title: "Workspace updated" });
     onOpenChange(false);
     onUpdated();
   };
@@ -477,11 +477,11 @@ var EditOrganizationDialog = ({
             className: "w-full max-w-md p-6",
             children: [
               /* @__PURE__ */ jsx(DialogTitle, {
-                children: "Edit organization"
+                children: "Edit workspace"
               }),
               /* @__PURE__ */ jsx(DialogDescription, {
                 className: "text-muted-foreground text-sm",
-                children: "Update your organization's name, handle, or description."
+                children: "Update your workspace's name, handle, or description."
               }),
               /* @__PURE__ */ jsxs("form", {
                 className: "mt-4 space-y-4",
@@ -586,7 +586,7 @@ var EditOrganizationDialog = ({
                       }),
                       slugChanged && /* @__PURE__ */ jsx("p", {
                         className: "text-muted-foreground text-xs",
-                        children: slugStatus === "taken" ? "That handle is already taken." : slugStatus === "invalid" ? "Use lowercase letters, numbers, and hyphens only." : "Changing the handle updates it everywhere this organization is used."
+                        children: slugStatus === "taken" ? "That handle is already taken." : slugStatus === "invalid" ? "Use lowercase letters, numbers, and hyphens only." : "Changing the handle updates it everywhere this workspace is used."
                       })
                     ]
                   }),
@@ -791,11 +791,11 @@ var OrganizationDetail = ({
       setPending(null);
       if (res2?.error) {
         toaster.error({
-          title: errorMessage(res2.error, "Couldn't delete the organization")
+          title: errorMessage(res2.error, "Couldn't delete the workspace")
         });
         return;
       }
-      toaster.success({ title: "Organization deleted" });
+      toaster.success({ title: "Workspace deleted" });
       onLeftOrDeleted();
       return;
     }
@@ -806,11 +806,11 @@ var OrganizationDetail = ({
     setPending(null);
     if (res?.error) {
       toaster.error({
-        title: errorMessage(res.error, "Couldn't leave the organization")
+        title: errorMessage(res.error, "Couldn't leave the workspace")
       });
       return;
     }
-    toaster.success({ title: "You left the organization" });
+    toaster.success({ title: "You left the workspace" });
     onLeftOrDeleted();
   };
   const isPersonal = organization.type === "personal";
@@ -826,7 +826,7 @@ var OrganizationDetail = ({
           /* @__PURE__ */ jsx(ArrowLeft, {
             className: "size-4"
           }),
-          "All organizations"
+          "All workspaces"
         ]
       }),
       /* @__PURE__ */ jsxs("div", {
@@ -888,7 +888,7 @@ var OrganizationDetail = ({
                   }),
                   /* @__PURE__ */ jsx("p", {
                     className: "text-muted-foreground text-sm",
-                    children: "They will get an email to join this organization."
+                    children: "They will get an email to join this workspace."
                   })
                 ]
               }),
@@ -942,7 +942,7 @@ var OrganizationDetail = ({
                       }),
                       /* @__PURE__ */ jsx("p", {
                         className: "text-muted-foreground text-sm",
-                        children: "People with access to this organization."
+                        children: "People with access to this workspace."
                       })
                     ]
                   }),
@@ -1220,7 +1220,7 @@ var OrganizationDetail = ({
                   children: [
                     /* @__PURE__ */ jsx("div", {
                       className: "font-medium text-sm",
-                      children: "Delete this organization"
+                      children: "Delete this workspace"
                     }),
                     /* @__PURE__ */ jsx("div", {
                       className: "text-muted-foreground text-sm",
@@ -1231,7 +1231,7 @@ var OrganizationDetail = ({
                 /* @__PURE__ */ jsx(Button, {
                   variant: "destructive",
                   onClick: () => setPending({ kind: "delete" }),
-                  children: "Delete organization"
+                  children: "Delete workspace"
                 })
               ]
             }) : /* @__PURE__ */ jsxs(Fragment, {
@@ -1241,7 +1241,7 @@ var OrganizationDetail = ({
                   children: [
                     /* @__PURE__ */ jsx("div", {
                       className: "font-medium text-sm",
-                      children: "Leave this organization"
+                      children: "Leave this workspace"
                     }),
                     /* @__PURE__ */ jsx("div", {
                       className: "text-muted-foreground text-sm",
@@ -1252,7 +1252,7 @@ var OrganizationDetail = ({
                 /* @__PURE__ */ jsx(Button, {
                   variant: "outline",
                   onClick: () => setPending({ kind: "leave" }),
-                  children: "Leave organization"
+                  children: "Leave workspace"
                 })
               ]
             })
@@ -1265,7 +1265,7 @@ var OrganizationDetail = ({
                 children: [
                   /* @__PURE__ */ jsx("div", {
                     className: "font-medium text-sm",
-                    children: "Leave this organization"
+                    children: "Leave this workspace"
                   }),
                   /* @__PURE__ */ jsx("div", {
                     className: "text-muted-foreground text-sm",
@@ -1289,8 +1289,8 @@ var OrganizationDetail = ({
             setPending(null);
         },
         title: pending?.kind === "remove" ? `Remove ${pending.label}?` : pending?.kind === "cancel" ? `Cancel invitation for ${pending.label}?` : pending?.kind === "delete" ? `Delete ${organization.name}?` : pending?.kind === "leave" ? `Leave ${organization.name}?` : "",
-        description: pending?.kind === "remove" ? "They will lose access to this organization. This cannot be undone." : pending?.kind === "cancel" ? "The invitation link will stop working. You can invite them again later." : pending?.kind === "delete" ? "Every member loses access to this organization. This cannot be undone." : "You will lose access to this organization. An owner can invite you back later.",
-        confirmLabel: pending?.kind === "remove" ? "Remove" : pending?.kind === "cancel" ? "Cancel invitation" : pending?.kind === "delete" ? "Delete organization" : "Leave organization",
+        description: pending?.kind === "remove" ? "They will lose access to this workspace. This cannot be undone." : pending?.kind === "cancel" ? "The invitation link will stop working. You can invite them again later." : pending?.kind === "delete" ? "Every member loses access to this workspace. This cannot be undone." : "You will lose access to this workspace. An owner can invite you back later.",
+        confirmLabel: pending?.kind === "remove" ? "Remove" : pending?.kind === "cancel" ? "Cancel invitation" : pending?.kind === "delete" ? "Delete workspace" : "Leave workspace",
         cancelLabel: "Keep",
         confirmationText: pending?.kind === "delete" ? organization.name : undefined,
         isPending: isActionPending,
@@ -1358,11 +1358,11 @@ var AccountOrganizations = ({
             children: [
               /* @__PURE__ */ jsx("h3", {
                 className: "font-semibold text-lg",
-                children: "Organizations"
+                children: "Workspaces"
               }),
               /* @__PURE__ */ jsx("p", {
                 className: "text-muted-foreground text-sm",
-                children: "Your personal workspace and the organizations you belong to."
+                children: "The workspaces you belong to, including your personal one."
               })
             ]
           }),
@@ -1408,9 +1408,9 @@ var AccountOrganizations = ({
                           className: "truncate font-medium text-sm",
                           children: org.name
                         }),
-                        /* @__PURE__ */ jsx(Badge, {
+                        org.type === "personal" && /* @__PURE__ */ jsx(Badge, {
                           variant: "outline",
-                          children: org.type === "personal" ? "Personal" : "Organization"
+                          children: "Personal"
                         })
                       ]
                     }),
@@ -1431,7 +1431,7 @@ var AccountOrganizations = ({
           ]
         }, org.id)) : /* @__PURE__ */ jsx("div", {
           className: "py-8 text-center text-muted-foreground text-sm",
-          children: "You don't belong to any organizations yet."
+          children: "You don't belong to any workspaces yet."
         })
       })
     ]

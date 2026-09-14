@@ -165,7 +165,7 @@ var AccountOrganizationTeams = ({
               }),
               /* @__PURE__ */ jsx("p", {
                 className: "text-muted-foreground text-sm",
-                children: "Groups within this organization, for organizing members and their access."
+                children: "Groups within this workspace, for organizing members and their access."
               })
             ]
           }),
@@ -256,7 +256,7 @@ var AccountOrganizationTeams = ({
                   }),
                   /* @__PURE__ */ jsx(DialogDescription, {
                     className: "text-muted-foreground text-sm",
-                    children: "Group members within this organization."
+                    children: "Group members within this workspace."
                   }),
                   /* @__PURE__ */ jsxs("form", {
                     className: "mt-4 space-y-4",
@@ -581,7 +581,7 @@ var TeamMembers = ({
             setMemberToRemove(null);
         },
         title: `Remove ${memberToRemove ? teamMemberLabel(memberToRemove) : "member"} from this team?`,
-        description: "They stay in the organization but lose this team's access. You can add them back later.",
+        description: "They stay in the workspace but lose this team's access. You can add them back later.",
         confirmLabel: "Remove",
         cancelLabel: "Keep",
         isPending: isRemoving,

@@ -1,6 +1,6 @@
 import {
   AccountOrganizationTeams
-} from "../../../chunks/account-user-two-factor-authentication-4fa1czw6.js";
+} from "../../../chunks/account-user-two-factor-authentication-2xyfkm3p.js";
 import"../../../chunks/account-user-two-factor-authentication-v7dgczst.js";
 import"../../../chunks/account-user-two-factor-authentication-y482en2x.js";
 import"../../../chunks/account-user-two-factor-authentication-gsg3ph0v.js";
