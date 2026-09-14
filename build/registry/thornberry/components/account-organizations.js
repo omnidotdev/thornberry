@@ -1250,7 +1250,7 @@ var OrganizationDetail = ({
                   ]
                 }),
                 /* @__PURE__ */ jsx(Button, {
-                  variant: "destructive",
+                  variant: "outline",
                   onClick: () => setPending({ kind: "leave" }),
                   children: "Leave organization"
                 })
