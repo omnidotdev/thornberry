@@ -1259,7 +1259,7 @@ const OrganizationDetail = ({
                   </div>
                 </div>
                 <Button
-                  variant="destructive"
+                  variant="outline"
                   onClick={() => setPending({ kind: "leave" })}
                 >
                   Leave organization
