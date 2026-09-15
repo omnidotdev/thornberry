@@ -8,6 +8,7 @@ import {
   AvatarRoot,
 } from "@/registry/thornberry/components/avatar";
 import { Button } from "@/registry/thornberry/components/button";
+import { ConfirmDialog } from "@/registry/thornberry/components/confirm-dialog";
 import {
   DialogBackdrop,
   DialogContent,
@@ -80,6 +81,7 @@ const AvatarUpload = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [confirmRemoveOpen, setConfirmRemoveOpen] = useState(false);
 
   const [imageToCrop, setImageToCrop] = useState<string | null>(null);
 
@@ -99,12 +101,13 @@ const AvatarUpload = ({
     if (!onClear || isBusy) return;
 
     setIsClearing(true);
-    setDialogOpen(false);
 
     try {
       await onClear();
       setPreviewUrl(null);
       await refetch();
+      setConfirmRemoveOpen(false);
+      setDialogOpen(false);
       toaster.success({
         title: "Avatar removed",
         description: "Your profile picture has been removed.",
@@ -286,7 +289,7 @@ const AvatarUpload = ({
                   <Button
                     variant="outline"
                     className="w-full justify-start gap-3 text-red-500 hover:text-red-600"
-                    onClick={handleClear}
+                    onClick={() => setConfirmRemoveOpen(true)}
                     disabled={isClearing}
                   >
                     <Trash2 className="size-5" />
@@ -298,6 +301,16 @@ const AvatarUpload = ({
           </DialogContent>
         </DialogPositioner>
       </DialogRoot>
+
+      <ConfirmDialog
+        open={confirmRemoveOpen}
+        onOpenChange={setConfirmRemoveOpen}
+        title="Remove profile photo?"
+        description="This removes your current profile photo. You can upload a new one anytime."
+        confirmLabel="Remove"
+        isPending={isClearing}
+        onConfirm={handleClear}
+      />
     </>
   );
 };

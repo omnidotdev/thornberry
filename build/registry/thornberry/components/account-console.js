@@ -11,7 +11,7 @@ import {
 } from "../../../chunks/account-user-two-factor-authentication-dqb57ezx.js";
 import {
   AvatarUpload
-} from "../../../chunks/account-user-two-factor-authentication-3as0kspy.js";
+} from "../../../chunks/account-user-two-factor-authentication-xmzb7ah5.js";
 import {
   ChangePassword
 } from "../../../chunks/account-user-two-factor-authentication-5m1nmfqx.js";

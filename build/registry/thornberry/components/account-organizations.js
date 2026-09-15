@@ -378,7 +378,10 @@ var EditOrganizationDialog = ({
   const [isSaving, setIsSaving] = useState(false);
   const [logoPreview, setLogoPreview] = useState(null);
   const [logoToCrop, setLogoToCrop] = useState(null);
+  const [logoRemoved, setLogoRemoved] = useState(false);
+  const [logoRemoveOpen, setLogoRemoveOpen] = useState(false);
   const [isUploadingLogo, setIsUploadingLogo] = useState(false);
+  const [isRemovingLogo, setIsRemovingLogo] = useState(false);
   const slugTimer = useRef(null);
   const logoInputRef = useRef(null);
   useEffect(() => {
@@ -389,6 +392,7 @@ var EditOrganizationDialog = ({
       setSlugStatus("idle");
       setLogoPreview(null);
       setLogoToCrop(null);
+      setLogoRemoved(false);
     }
   }, [open, organization.name, organization.slug]);
   const handleLogoSelect = (event) => {
@@ -417,6 +421,7 @@ var EditOrganizationDialog = ({
       const url = await orgLogo.onUpload(organization.id, file);
       if (typeof url === "string")
         setLogoPreview(url);
+      setLogoRemoved(false);
       setLogoToCrop(null);
       toaster.success({ title: "Logo updated" });
       onUpdated();
@@ -426,6 +431,32 @@ var EditOrganizationDialog = ({
       setIsUploadingLogo(false);
     }
   };
+  const handleLogoRemove = async () => {
+    setIsRemovingLogo(true);
+    try {
+      const res = await authClient.organization.update({
+        data: { logo: null },
+        organizationId: organization.id
+      });
+      if (res?.error) {
+        toaster.error({
+          title: errorMessage(res.error, "Couldn't remove the logo")
+        });
+        return;
+      }
+      setLogoPreview(null);
+      setLogoRemoved(true);
+      setLogoRemoveOpen(false);
+      toaster.success({ title: "Logo removed" });
+      onUpdated();
+    } catch (error) {
+      toaster.error({ title: errorMessage(error, "Couldn't remove the logo") });
+    } finally {
+      setIsRemovingLogo(false);
+    }
+  };
+  const currentLogo = logoRemoved ? null : logoPreview ?? organization.logo ?? null;
+  const logoBusy = isUploadingLogo || isRemovingLogo;
   const slugChanged = slug !== organization.slug;
   const checkSlug = (value) => {
     setSlugStatus("idle");
@@ -517,7 +548,7 @@ var EditOrganizationDialog = ({
                             className: "size-14 shrink-0 rounded-md",
                             children: [
                               /* @__PURE__ */ jsx(AvatarImage, {
-                                src: logoPreview ?? organization.logo ?? undefined
+                                src: currentLogo ?? undefined
                               }),
                               /* @__PURE__ */ jsx(AvatarFallback, {
                                 className: "rounded-md",
@@ -528,13 +559,27 @@ var EditOrganizationDialog = ({
                           /* @__PURE__ */ jsxs("div", {
                             className: "space-y-1",
                             children: [
-                              /* @__PURE__ */ jsx(Button, {
-                                type: "button",
-                                variant: "outline",
-                                size: "sm",
-                                disabled: isUploadingLogo,
-                                onClick: () => logoInputRef.current?.click(),
-                                children: isUploadingLogo ? "Uploading..." : "Change logo"
+                              /* @__PURE__ */ jsxs("div", {
+                                className: "flex items-center gap-2",
+                                children: [
+                                  /* @__PURE__ */ jsx(Button, {
+                                    type: "button",
+                                    variant: "outline",
+                                    size: "sm",
+                                    disabled: logoBusy,
+                                    onClick: () => logoInputRef.current?.click(),
+                                    children: isUploadingLogo ? "Uploading..." : "Change logo"
+                                  }),
+                                  !!currentLogo && /* @__PURE__ */ jsx(Button, {
+                                    type: "button",
+                                    variant: "outline",
+                                    size: "sm",
+                                    className: "text-destructive hover:text-destructive",
+                                    disabled: logoBusy,
+                                    onClick: () => setLogoRemoveOpen(true),
+                                    children: isRemovingLogo ? "Removing..." : "Remove"
+                                  })
+                                ]
                               }),
                               /* @__PURE__ */ jsx("p", {
                                 className: "text-muted-foreground text-xs",
@@ -682,6 +727,15 @@ var EditOrganizationDialog = ({
             })
           ]
         })
+      }),
+      logoRemoveOpen && /* @__PURE__ */ jsx(ConfirmDialog, {
+        open: logoRemoveOpen,
+        onOpenChange: setLogoRemoveOpen,
+        title: "Remove logo?",
+        description: "This removes the workspace logo. You can upload a new one anytime.",
+        confirmLabel: "Remove",
+        isPending: isRemovingLogo,
+        onConfirm: handleLogoRemove
       })
     ]
   });

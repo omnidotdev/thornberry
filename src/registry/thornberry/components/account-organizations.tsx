@@ -431,7 +431,10 @@ const EditOrganizationDialog = ({
   const [isSaving, setIsSaving] = useState(false);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [logoToCrop, setLogoToCrop] = useState<string | null>(null);
+  const [logoRemoved, setLogoRemoved] = useState(false);
+  const [logoRemoveOpen, setLogoRemoveOpen] = useState(false);
   const [isUploadingLogo, setIsUploadingLogo] = useState(false);
+  const [isRemovingLogo, setIsRemovingLogo] = useState(false);
   const slugTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const logoInputRef = useRef<HTMLInputElement>(null);
 
@@ -443,6 +446,7 @@ const EditOrganizationDialog = ({
       setSlugStatus("idle");
       setLogoPreview(null);
       setLogoToCrop(null);
+      setLogoRemoved(false);
     }
   }, [open, organization.name, organization.slug]);
 
@@ -478,6 +482,7 @@ const EditOrganizationDialog = ({
     try {
       const url = await orgLogo.onUpload(organization.id, file);
       if (typeof url === "string") setLogoPreview(url);
+      setLogoRemoved(false);
       setLogoToCrop(null);
       toaster.success({ title: "Logo updated" });
       onUpdated();
@@ -487,6 +492,41 @@ const EditOrganizationDialog = ({
       setIsUploadingLogo(false);
     }
   };
+
+  // Clearing a logo is a plain organization update to a null logo (there is no
+  // dedicated clear endpoint, and this matches how Gatekeeper's own UI does it).
+  // The stored file is left in place, exactly as avatar-clear leaves its object
+  const handleLogoRemove = async () => {
+    setIsRemovingLogo(true);
+    try {
+      const res = await authClient.organization.update({
+        data: { logo: null },
+        organizationId: organization.id,
+      });
+      if (res?.error) {
+        toaster.error({
+          title: errorMessage(res.error, "Couldn't remove the logo"),
+        });
+        return;
+      }
+      setLogoPreview(null);
+      setLogoRemoved(true);
+      setLogoRemoveOpen(false);
+      toaster.success({ title: "Logo removed" });
+      onUpdated();
+    } catch (error) {
+      toaster.error({ title: errorMessage(error, "Couldn't remove the logo") });
+    } finally {
+      setIsRemovingLogo(false);
+    }
+  };
+
+  // Current logo, accounting for an in-dialog upload (preview) or removal, so
+  // the control and the Remove button reflect the pending state before refetch
+  const currentLogo = logoRemoved
+    ? null
+    : (logoPreview ?? organization.logo ?? null);
+  const logoBusy = isUploadingLogo || isRemovingLogo;
 
   const slugChanged = slug !== organization.slug;
 
@@ -573,23 +613,35 @@ const EditOrganizationDialog = ({
                 {orgLogo?.uploadEnabled && (
                   <div className="flex items-center gap-4">
                     <AvatarRoot className="size-14 shrink-0 rounded-md">
-                      <AvatarImage
-                        src={logoPreview ?? organization.logo ?? undefined}
-                      />
+                      <AvatarImage src={currentLogo ?? undefined} />
                       <AvatarFallback className="rounded-md">
                         {organization.name.charAt(0)}
                       </AvatarFallback>
                     </AvatarRoot>
                     <div className="space-y-1">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        disabled={isUploadingLogo}
-                        onClick={() => logoInputRef.current?.click()}
-                      >
-                        {isUploadingLogo ? "Uploading..." : "Change logo"}
-                      </Button>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          disabled={logoBusy}
+                          onClick={() => logoInputRef.current?.click()}
+                        >
+                          {isUploadingLogo ? "Uploading..." : "Change logo"}
+                        </Button>
+                        {!!currentLogo && (
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            className="text-destructive hover:text-destructive"
+                            disabled={logoBusy}
+                            onClick={() => setLogoRemoveOpen(true)}
+                          >
+                            {isRemovingLogo ? "Removing..." : "Remove"}
+                          </Button>
+                        )}
+                      </div>
                       <p className="text-muted-foreground text-xs">
                         JPEG, PNG, WebP, or GIF, up to 5 MB.
                       </p>
@@ -703,6 +755,18 @@ const EditOrganizationDialog = ({
           </DialogPositioner>
         </DialogPortal>
       </DialogRoot>
+
+      {logoRemoveOpen && (
+        <ConfirmDialog
+          open={logoRemoveOpen}
+          onOpenChange={setLogoRemoveOpen}
+          title="Remove logo?"
+          description="This removes the workspace logo. You can upload a new one anytime."
+          confirmLabel="Remove"
+          isPending={isRemovingLogo}
+          onConfirm={handleLogoRemove}
+        />
+      )}
     </>
   );
 };

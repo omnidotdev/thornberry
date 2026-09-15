@@ -259,12 +259,16 @@ export interface AccountAuthClient {
             name: string;
             slug: string;
         }) => Promise<AccountAuthResult>;
-        /** Update an organization's name, handle, or description (owner/admin) */
+        /**
+         * Update an organization's name, handle, description, or logo (owner/admin).
+         * Pass `logo: null` to clear the logo (Better Auth's logo field is nullable)
+         */
         update: (options: {
             data: {
                 name?: string;
                 slug?: string;
                 description?: string;
+                logo?: string | null;
             };
             organizationId: string;
         }) => Promise<AccountAuthResult>;
