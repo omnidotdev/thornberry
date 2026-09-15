@@ -1,5 +1,19 @@
 import type { Area } from "react-easy-crop";
 
+/**
+ * Image types every avatar/logo uploader accepts. Shared so the personal
+ * avatar and the workspace logo accept exactly the same inputs
+ */
+const ALLOWED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+];
+
+/** Maximum upload size for any avatar/logo: 5 MB */
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
+
 const createImage = (url: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
     const image = new Image();
@@ -47,4 +61,4 @@ const getCroppedImg = async (
   });
 };
 
-export { getCroppedImg };
+export { ALLOWED_IMAGE_TYPES, getCroppedImg, MAX_IMAGE_SIZE };

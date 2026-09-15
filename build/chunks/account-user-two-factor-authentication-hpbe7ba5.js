@@ -1113,6 +1113,13 @@ Cropper.getTouchPoint = (touch) => ({
 var src_default = Cropper;
 
 // src/registry/thornberry/lib/crop.ts
+var ALLOWED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif"
+];
+var MAX_IMAGE_SIZE = 5 * 1024 * 1024;
 var createImage = (url) => new Promise((resolve, reject) => {
   const image = new Image;
   image.addEventListener("load", () => resolve(image));
@@ -1219,4 +1226,4 @@ var ImageCropper = ({
     ]
   });
 };
-export { ImageCropper };
+export { ALLOWED_IMAGE_TYPES, MAX_IMAGE_SIZE, ImageCropper };

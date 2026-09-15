@@ -45,9 +45,10 @@ const toaster = {
 describe("AccountOrganizations logo upload", () => {
   afterEach(() => cleanup());
 
-  test("selecting a logo opens a crop step instead of uploading immediately", async () => {
-    const uploadCalls: Array<{ organizationId: string; file: Blob }> = [];
+  const uploadCalls: Array<{ organizationId: string; file: Blob }> = [];
 
+  const openLogoInput = async (): Promise<HTMLInputElement> => {
+    uploadCalls.length = 0;
     render(
       <AccountProvider
         authClient={makeClient()}
@@ -71,11 +72,12 @@ describe("AccountOrganizations logo upload", () => {
     fireEvent.click(await screen.findByRole("button", { name: "Edit" }));
     await screen.findByText("Edit workspace");
 
-    // Pick an image file via the hidden logo input (rendered in the dialog
-    // portal on document.body, not inside the render container)
-    const fileInput = document.querySelector(
-      'input[type="file"]',
-    ) as HTMLInputElement;
+    // The hidden logo input renders in the dialog portal on document.body
+    return document.querySelector('input[type="file"]') as HTMLInputElement;
+  };
+
+  test("selecting a logo opens a crop step instead of uploading immediately", async () => {
+    const fileInput = await openLogoInput();
     expect(fileInput).toBeTruthy();
 
     const file = new File([new Uint8Array([1, 2, 3])], "pic.png", {
@@ -86,6 +88,19 @@ describe("AccountOrganizations logo upload", () => {
     // The crop step appears, and nothing has been uploaded yet: the raw file
     // must be cropped first (the regression was uploading it uncropped)
     await screen.findByText("Crop logo");
+    expect(uploadCalls.length).toBe(0);
+  });
+
+  test("rejects a file type the avatar would reject too (parity)", async () => {
+    const fileInput = await openLogoInput();
+
+    // SVG is outside ALLOWED_IMAGE_TYPES; the logo must accept exactly what the
+    // personal avatar accepts, so this is rejected with no crop step
+    const svg = new File(["<svg/>"], "logo.svg", { type: "image/svg+xml" });
+    fireEvent.change(fileInput, { target: { files: [svg] } });
+
+    await Promise.resolve();
+    expect(screen.queryByText("Crop logo")).toBeNull();
     expect(uploadCalls.length).toBe(0);
   });
 });

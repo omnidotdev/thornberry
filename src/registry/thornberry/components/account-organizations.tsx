@@ -47,6 +47,10 @@ import {
   SelectValueText,
   createListCollection,
 } from "@/registry/thornberry/components/select";
+import {
+  ALLOWED_IMAGE_TYPES,
+  MAX_IMAGE_SIZE,
+} from "@/registry/thornberry/lib/crop";
 
 import type {
   AccountFullOrganization,
@@ -449,11 +453,11 @@ const EditOrganizationDialog = ({
     event.target.value = "";
     if (!file || !orgLogo) return;
 
-    if (!file.type.startsWith("image/")) {
-      toaster.error({ title: "Choose an image file" });
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      toaster.error({ title: "Choose a JPEG, PNG, WebP, or GIF image" });
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
+    if (file.size > MAX_IMAGE_SIZE) {
       toaster.error({ title: "Image must be under 5 MB" });
       return;
     }
@@ -587,13 +591,13 @@ const EditOrganizationDialog = ({
                         {isUploadingLogo ? "Uploading..." : "Change logo"}
                       </Button>
                       <p className="text-muted-foreground text-xs">
-                        PNG or JPG, up to 5 MB.
+                        JPEG, PNG, WebP, or GIF, up to 5 MB.
                       </p>
                     </div>
                     <input
                       ref={logoInputRef}
                       type="file"
-                      accept="image/*"
+                      accept={ALLOWED_IMAGE_TYPES.join(",")}
                       hidden
                       onChange={handleLogoSelect}
                     />

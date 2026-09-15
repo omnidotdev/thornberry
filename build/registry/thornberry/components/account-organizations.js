@@ -45,8 +45,10 @@ import {
   DialogTitle
 } from "../../../chunks/account-user-two-factor-authentication-negb4kbv.js";
 import {
-  ImageCropper
-} from "../../../chunks/account-user-two-factor-authentication-7qtmtny1.js";
+  ALLOWED_IMAGE_TYPES,
+  ImageCropper,
+  MAX_IMAGE_SIZE
+} from "../../../chunks/account-user-two-factor-authentication-hpbe7ba5.js";
 import {
   Button
 } from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
@@ -394,11 +396,11 @@ var EditOrganizationDialog = ({
     event.target.value = "";
     if (!file || !orgLogo)
       return;
-    if (!file.type.startsWith("image/")) {
-      toaster.error({ title: "Choose an image file" });
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      toaster.error({ title: "Choose a JPEG, PNG, WebP, or GIF image" });
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
+    if (file.size > MAX_IMAGE_SIZE) {
       toaster.error({ title: "Image must be under 5 MB" });
       return;
     }
@@ -536,14 +538,14 @@ var EditOrganizationDialog = ({
                               }),
                               /* @__PURE__ */ jsx("p", {
                                 className: "text-muted-foreground text-xs",
-                                children: "PNG or JPG, up to 5 MB."
+                                children: "JPEG, PNG, WebP, or GIF, up to 5 MB."
                               })
                             ]
                           }),
                           /* @__PURE__ */ jsx("input", {
                             ref: logoInputRef,
                             type: "file",
-                            accept: "image/*",
+                            accept: ALLOWED_IMAGE_TYPES.join(","),
                             hidden: true,
                             onChange: handleLogoSelect
                           })

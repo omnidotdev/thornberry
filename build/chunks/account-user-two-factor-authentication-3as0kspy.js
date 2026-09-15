@@ -14,8 +14,10 @@ import {
   DialogTitle
 } from "./account-user-two-factor-authentication-negb4kbv.js";
 import {
-  ImageCropper
-} from "./account-user-two-factor-authentication-7qtmtny1.js";
+  ALLOWED_IMAGE_TYPES,
+  ImageCropper,
+  MAX_IMAGE_SIZE
+} from "./account-user-two-factor-authentication-hpbe7ba5.js";
 import {
   Button
 } from "./account-user-two-factor-authentication-jb3sh07m.js";
@@ -24,13 +26,6 @@ import {
 import { Camera, CloudUpload, Loader2, Trash2 } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-var MAX_AVATAR_SIZE = 5 * 1024 * 1024;
-var ALLOWED_AVATAR_TYPES = [
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/gif"
-];
 var sizeClassMap = {
   xs: "size-6",
   sm: "size-8",
@@ -97,14 +92,14 @@ var AvatarUpload = ({
     const file = event.target.files?.[0];
     if (!file)
       return;
-    if (!ALLOWED_AVATAR_TYPES.includes(file.type)) {
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
       toaster.error({
         title: "Invalid file type",
         description: "Please select a JPEG, PNG, WebP, or GIF image."
       });
       return;
     }
-    if (file.size > MAX_AVATAR_SIZE) {
+    if (file.size > MAX_IMAGE_SIZE) {
       toaster.error({
         title: "File too large",
         description: "Image must be less than 5 MB."
@@ -197,7 +192,7 @@ var AvatarUpload = ({
       /* @__PURE__ */ jsx("input", {
         ref: fileInputRef,
         type: "file",
-        accept: ALLOWED_AVATAR_TYPES.join(","),
+        accept: ALLOWED_IMAGE_TYPES.join(","),
         onChange: handleFileChange,
         style: { display: "none" }
       }),

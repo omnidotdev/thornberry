@@ -16,17 +16,10 @@ import {
   DialogTitle,
 } from "@/registry/thornberry/components/dialog";
 import { ImageCropper } from "@/registry/thornberry/components/image-cropper";
-
-/** Maximum avatar size: 5 MB */
-const MAX_AVATAR_SIZE = 5 * 1024 * 1024;
-
-/** Allowed avatar file types */
-const ALLOWED_AVATAR_TYPES = [
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/gif",
-];
+import {
+  ALLOWED_IMAGE_TYPES,
+  MAX_IMAGE_SIZE,
+} from "@/registry/thornberry/lib/crop";
 
 type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 
@@ -132,7 +125,7 @@ const AvatarUpload = ({
       const file = event.target.files?.[0];
       if (!file) return;
 
-      if (!ALLOWED_AVATAR_TYPES.includes(file.type)) {
+      if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
         toaster.error({
           title: "Invalid file type",
           description: "Please select a JPEG, PNG, WebP, or GIF image.",
@@ -140,7 +133,7 @@ const AvatarUpload = ({
         return;
       }
 
-      if (file.size > MAX_AVATAR_SIZE) {
+      if (file.size > MAX_IMAGE_SIZE) {
         toaster.error({
           title: "File too large",
           description: "Image must be less than 5 MB.",
@@ -244,7 +237,7 @@ const AvatarUpload = ({
       <input
         ref={fileInputRef}
         type="file"
-        accept={ALLOWED_AVATAR_TYPES.join(",")}
+        accept={ALLOWED_IMAGE_TYPES.join(",")}
         onChange={handleFileChange}
         style={{ display: "none" }}
       />
