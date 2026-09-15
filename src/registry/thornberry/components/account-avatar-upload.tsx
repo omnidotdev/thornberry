@@ -1,6 +1,5 @@
 import { Camera, CloudUpload, Loader2, Trash2 } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
-import Cropper from "react-easy-crop";
 
 import { useAccountContext } from "@/registry/thornberry/components/account-provider";
 import {
@@ -16,8 +15,7 @@ import {
   DialogRoot,
   DialogTitle,
 } from "@/registry/thornberry/components/dialog";
-
-import type { Area, Point } from "react-easy-crop";
+import { ImageCropper } from "@/registry/thornberry/components/image-cropper";
 
 /** Maximum avatar size: 5 MB */
 const MAX_AVATAR_SIZE = 5 * 1024 * 1024;
@@ -29,53 +27,6 @@ const ALLOWED_AVATAR_TYPES = [
   "image/webp",
   "image/gif",
 ];
-
-const createImage = (url: string): Promise<HTMLImageElement> =>
-  new Promise((resolve, reject) => {
-    const image = new Image();
-    image.addEventListener("load", () => resolve(image));
-    image.addEventListener("error", (error) => reject(error));
-    image.setAttribute("crossOrigin", "anonymous");
-    image.src = url;
-  });
-
-/**
- * Crop an image to the given pixel area and return a JPEG Blob. An opaque white
- * background is filled first so transparent source pixels do not encode as
- * black in the alpha-less JPEG output.
- */
-const getCroppedImg = async (
-  imageSrc: string,
-  pixelCrop: Area,
-): Promise<Blob | null> => {
-  const image = await createImage(imageSrc);
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
-
-  if (!ctx) return null;
-
-  canvas.width = pixelCrop.width;
-  canvas.height = pixelCrop.height;
-
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.drawImage(
-    image,
-    pixelCrop.x,
-    pixelCrop.y,
-    pixelCrop.width,
-    pixelCrop.height,
-    0,
-    0,
-    pixelCrop.width,
-    pixelCrop.height,
-  );
-
-  return new Promise((resolve) => {
-    canvas.toBlob((blob) => resolve(blob), "image/jpeg", 0.9);
-  });
-};
 
 type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 
@@ -138,9 +89,6 @@ const AvatarUpload = ({
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const [imageToCrop, setImageToCrop] = useState<string | null>(null);
-  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
 
   const canUpload = uploadEnabled && !!onUpload;
   const hasImage = !!(previewUrl || session?.user.image);
@@ -152,8 +100,6 @@ const AvatarUpload = ({
 
   const resetCrop = useCallback(() => {
     setImageToCrop(null);
-    setCrop({ x: 0, y: 0 });
-    setZoom(1);
   }, []);
 
   const handleClear = useCallback(async () => {
@@ -205,8 +151,6 @@ const AvatarUpload = ({
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageToCrop(reader.result as string);
-        setCrop({ x: 0, y: 0 });
-        setZoom(1);
       };
       reader.readAsDataURL(file);
 
@@ -217,40 +161,38 @@ const AvatarUpload = ({
     [toaster],
   );
 
-  const handleCropConfirm = useCallback(async () => {
-    if (!imageToCrop || !croppedAreaPixels || !onUpload) return;
+  const handleCropConfirm = useCallback(
+    async (croppedBlob: Blob) => {
+      if (!onUpload) return;
 
-    setIsUploading(true);
+      setIsUploading(true);
 
-    try {
-      const croppedBlob = await getCroppedImg(imageToCrop, croppedAreaPixels);
-      if (!croppedBlob) {
-        throw new Error("Failed to crop image");
+      try {
+        setPreviewUrl(URL.createObjectURL(croppedBlob));
+
+        await onUpload(croppedBlob);
+        await refetch();
+
+        setImageToCrop(null);
+        setDialogOpen(false);
+
+        toaster.success({
+          title: "Avatar updated",
+          description: "Your profile picture has been updated.",
+        });
+      } catch (error) {
+        setPreviewUrl(null);
+        toaster.error({
+          title: "Upload failed",
+          description:
+            error instanceof Error ? error.message : "Failed to upload avatar",
+        });
+      } finally {
+        setIsUploading(false);
       }
-
-      setPreviewUrl(URL.createObjectURL(croppedBlob));
-
-      await onUpload(croppedBlob);
-      await refetch();
-
-      setImageToCrop(null);
-      setDialogOpen(false);
-
-      toaster.success({
-        title: "Avatar updated",
-        description: "Your profile picture has been updated.",
-      });
-    } catch (error) {
-      setPreviewUrl(null);
-      toaster.error({
-        title: "Upload failed",
-        description:
-          error instanceof Error ? error.message : "Failed to upload avatar",
-      });
-    } finally {
-      setIsUploading(false);
-    }
-  }, [imageToCrop, croppedAreaPixels, onUpload, refetch, toaster]);
+    },
+    [onUpload, refetch, toaster],
+  );
 
   return (
     <>
@@ -322,55 +264,14 @@ const AvatarUpload = ({
               {isCropping ? "Crop your photo" : "Profile photo"}
             </DialogTitle>
 
-            {isCropping ? (
-              <div className="flex flex-col gap-4">
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    height: 300,
-                    background: "var(--colors-background-subtle)",
-                    borderRadius: "var(--radii-md)",
-                    overflow: "hidden",
-                  }}
-                >
-                  <Cropper
-                    image={imageToCrop ?? undefined}
-                    crop={crop}
-                    zoom={zoom}
-                    aspect={1}
-                    cropShape="round"
-                    showGrid={false}
-                    onCropChange={setCrop}
-                    onCropComplete={(_: Area, pixels: Area) =>
-                      setCroppedAreaPixels(pixels)
-                    }
-                    onZoomChange={setZoom}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <p className="text-muted-foreground text-sm">Zoom</p>
-                  <input
-                    type="range"
-                    min={1}
-                    max={3}
-                    step={0.1}
-                    value={zoom}
-                    onChange={(event) => setZoom(Number(event.target.value))}
-                    className="w-full"
-                  />
-                </div>
-
-                <div className="flex items-center justify-end gap-2">
-                  <Button variant="outline" onClick={resetCrop}>
-                    Cancel
-                  </Button>
-                  <Button onClick={handleCropConfirm} disabled={isUploading}>
-                    {isUploading ? "Uploading..." : "Save"}
-                  </Button>
-                </div>
-              </div>
+            {isCropping && imageToCrop ? (
+              <ImageCropper
+                imageSrc={imageToCrop}
+                cropShape="round"
+                confirming={isUploading}
+                onCancel={resetCrop}
+                onConfirm={handleCropConfirm}
+              />
             ) : (
               <div className="flex flex-col gap-3">
                 {canUpload ? (

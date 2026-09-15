@@ -30,6 +30,7 @@ import {
   DialogRoot,
   DialogTitle,
 } from "@/registry/thornberry/components/dialog";
+import { ImageCropper } from "@/registry/thornberry/components/image-cropper";
 import { Input } from "@/registry/thornberry/components/input";
 import { Label } from "@/registry/thornberry/components/label";
 import {
@@ -425,6 +426,7 @@ const EditOrganizationDialog = ({
   const [slugStatus, setSlugStatus] = useState<SlugStatus>("idle");
   const [isSaving, setIsSaving] = useState(false);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const [logoToCrop, setLogoToCrop] = useState<string | null>(null);
   const [isUploadingLogo, setIsUploadingLogo] = useState(false);
   const slugTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const logoInputRef = useRef<HTMLInputElement>(null);
@@ -436,12 +438,13 @@ const EditOrganizationDialog = ({
       setDescription("");
       setSlugStatus("idle");
       setLogoPreview(null);
+      setLogoToCrop(null);
     }
   }, [open, organization.name, organization.slug]);
 
-  const handleLogoSelect = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  // Selecting a file opens the crop step rather than uploading immediately, so
+  // the logo is framed the same way an avatar is (both go through ImageCropper)
+  const handleLogoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     event.target.value = "";
     if (!file || !orgLogo) return;
@@ -455,10 +458,23 @@ const EditOrganizationDialog = ({
       return;
     }
 
+    const reader = new FileReader();
+    reader.onloadend = () => setLogoToCrop(reader.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  const handleLogoCropConfirm = async (blob: Blob) => {
+    if (!orgLogo) return;
+
+    // Wrap the cropped blob in a File so the upload proxy keeps a sane filename
+    // and extension (it falls back to a nameless "logo" for a raw Blob)
+    const file = new File([blob], "logo.jpg", { type: "image/jpeg" });
+
     setIsUploadingLogo(true);
     try {
       const url = await orgLogo.onUpload(organization.id, file);
       if (typeof url === "string") setLogoPreview(url);
+      setLogoToCrop(null);
       toaster.success({ title: "Logo updated" });
       onUpdated();
     } catch (error) {
@@ -527,133 +543,163 @@ const EditOrganizationDialog = ({
   };
 
   return (
-    <DialogRoot
-      open={open}
-      onOpenChange={({ open: next }) => {
-        if (isSaving) return;
-        onOpenChange(next);
-      }}
-    >
-      <DialogPortal>
-        <DialogBackdrop />
-        <DialogPositioner>
-          <DialogContent className="w-full max-w-md p-6">
-            <DialogTitle>Edit workspace</DialogTitle>
-            <DialogDescription className="text-muted-foreground text-sm">
-              Update your workspace's name, handle, or description.
-            </DialogDescription>
-            <form
-              className="mt-4 space-y-4"
-              onSubmit={(event) => {
-                event.preventDefault();
-                if (canSave) handleSave();
-              }}
-            >
-              {orgLogo?.uploadEnabled && (
-                <div className="flex items-center gap-4">
-                  <AvatarRoot className="size-14 shrink-0 rounded-md">
-                    <AvatarImage
-                      src={logoPreview ?? organization.logo ?? undefined}
+    <>
+      <DialogRoot
+        open={open}
+        onOpenChange={({ open: next }) => {
+          if (isSaving) return;
+          onOpenChange(next);
+        }}
+      >
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogPositioner>
+            <DialogContent className="w-full max-w-md p-6">
+              <DialogTitle>Edit workspace</DialogTitle>
+              <DialogDescription className="text-muted-foreground text-sm">
+                Update your workspace's name, handle, or description.
+              </DialogDescription>
+              <form
+                className="mt-4 space-y-4"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  if (canSave) handleSave();
+                }}
+              >
+                {orgLogo?.uploadEnabled && (
+                  <div className="flex items-center gap-4">
+                    <AvatarRoot className="size-14 shrink-0 rounded-md">
+                      <AvatarImage
+                        src={logoPreview ?? organization.logo ?? undefined}
+                      />
+                      <AvatarFallback className="rounded-md">
+                        {organization.name.charAt(0)}
+                      </AvatarFallback>
+                    </AvatarRoot>
+                    <div className="space-y-1">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        disabled={isUploadingLogo}
+                        onClick={() => logoInputRef.current?.click()}
+                      >
+                        {isUploadingLogo ? "Uploading..." : "Change logo"}
+                      </Button>
+                      <p className="text-muted-foreground text-xs">
+                        PNG or JPG, up to 5 MB.
+                      </p>
+                    </div>
+                    <input
+                      ref={logoInputRef}
+                      type="file"
+                      accept="image/*"
+                      hidden
+                      onChange={handleLogoSelect}
                     />
-                    <AvatarFallback className="rounded-md">
-                      {organization.name.charAt(0)}
-                    </AvatarFallback>
-                  </AvatarRoot>
-                  <div className="space-y-1">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      disabled={isUploadingLogo}
-                      onClick={() => logoInputRef.current?.click()}
-                    >
-                      {isUploadingLogo ? "Uploading..." : "Change logo"}
-                    </Button>
-                    <p className="text-muted-foreground text-xs">
-                      PNG or JPG, up to 5 MB.
-                    </p>
                   </div>
-                  <input
-                    ref={logoInputRef}
-                    type="file"
-                    accept="image/*"
-                    hidden
-                    onChange={handleLogoSelect}
+                )}
+
+                <div className="space-y-1.5">
+                  <Label htmlFor="edit-org-name">Name</Label>
+                  <Input
+                    id="edit-org-name"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="edit-org-slug">Handle</Label>
+                  <div className="relative">
+                    <span className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm">
+                      @
+                    </span>
+                    <Input
+                      id="edit-org-slug"
+                      value={slug}
+                      onChange={(event) => handleSlugChange(event.target.value)}
+                      className="pr-9 pl-7"
+                      required
+                    />
+                    <div className="absolute top-1/2 right-3 -translate-y-1/2">
+                      {slugStatus === "checking" && (
+                        <Loader2 className="size-4 animate-spin text-muted-foreground" />
+                      )}
+                      {slugStatus === "available" && (
+                        <Check className="size-4 text-green-500" />
+                      )}
+                      {(slugStatus === "taken" || slugStatus === "invalid") && (
+                        <X className="size-4 text-destructive" />
+                      )}
+                    </div>
+                  </div>
+                  {slugChanged && (
+                    <p className="text-muted-foreground text-xs">
+                      {slugStatus === "taken"
+                        ? "That handle is already taken."
+                        : slugStatus === "invalid"
+                          ? "Use lowercase letters, numbers, and hyphens only."
+                          : "Changing the handle updates it everywhere this workspace is used."}
+                    </p>
+                  )}
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="edit-org-desc">Description</Label>
+                  <Input
+                    id="edit-org-desc"
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                    placeholder="Optional"
+                  />
+                </div>
+                <div className="flex justify-end gap-2 pt-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={isSaving}
+                    onClick={() => onOpenChange(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button type="submit" disabled={!canSave}>
+                    {isSaving ? "Saving..." : "Save"}
+                  </Button>
+                </div>
+              </form>
+            </DialogContent>
+          </DialogPositioner>
+        </DialogPortal>
+      </DialogRoot>
+
+      <DialogRoot
+        open={!!logoToCrop}
+        onOpenChange={({ open: next }) => {
+          if (isUploadingLogo) return;
+          if (!next) setLogoToCrop(null);
+        }}
+      >
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogPositioner>
+            <DialogContent className="w-full max-w-md p-6">
+              <DialogTitle>Crop logo</DialogTitle>
+              {logoToCrop && (
+                <div className="mt-4">
+                  <ImageCropper
+                    imageSrc={logoToCrop}
+                    cropShape="rect"
+                    confirming={isUploadingLogo}
+                    onCancel={() => setLogoToCrop(null)}
+                    onConfirm={handleLogoCropConfirm}
                   />
                 </div>
               )}
-
-              <div className="space-y-1.5">
-                <Label htmlFor="edit-org-name">Name</Label>
-                <Input
-                  id="edit-org-name"
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                  required
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="edit-org-slug">Handle</Label>
-                <div className="relative">
-                  <span className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm">
-                    @
-                  </span>
-                  <Input
-                    id="edit-org-slug"
-                    value={slug}
-                    onChange={(event) => handleSlugChange(event.target.value)}
-                    className="pr-9 pl-7"
-                    required
-                  />
-                  <div className="absolute top-1/2 right-3 -translate-y-1/2">
-                    {slugStatus === "checking" && (
-                      <Loader2 className="size-4 animate-spin text-muted-foreground" />
-                    )}
-                    {slugStatus === "available" && (
-                      <Check className="size-4 text-green-500" />
-                    )}
-                    {(slugStatus === "taken" || slugStatus === "invalid") && (
-                      <X className="size-4 text-destructive" />
-                    )}
-                  </div>
-                </div>
-                {slugChanged && (
-                  <p className="text-muted-foreground text-xs">
-                    {slugStatus === "taken"
-                      ? "That handle is already taken."
-                      : slugStatus === "invalid"
-                        ? "Use lowercase letters, numbers, and hyphens only."
-                        : "Changing the handle updates it everywhere this workspace is used."}
-                  </p>
-                )}
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="edit-org-desc">Description</Label>
-                <Input
-                  id="edit-org-desc"
-                  value={description}
-                  onChange={(event) => setDescription(event.target.value)}
-                  placeholder="Optional"
-                />
-              </div>
-              <div className="flex justify-end gap-2 pt-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  disabled={isSaving}
-                  onClick={() => onOpenChange(false)}
-                >
-                  Cancel
-                </Button>
-                <Button type="submit" disabled={!canSave}>
-                  {isSaving ? "Saving..." : "Save"}
-                </Button>
-              </div>
-            </form>
-          </DialogContent>
-        </DialogPositioner>
-      </DialogPortal>
-    </DialogRoot>
+            </DialogContent>
+          </DialogPositioner>
+        </DialogPortal>
+      </DialogRoot>
+    </>
   );
 };
 

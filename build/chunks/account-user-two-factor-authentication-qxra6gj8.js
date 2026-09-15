@@ -1,7 +1,4 @@
 import {
-  ConfirmDialog
-} from "./account-user-two-factor-authentication-y482en2x.js";
-import {
   Table,
   TableBody,
   TableCell,
@@ -9,6 +6,9 @@ import {
   TableHeader,
   TableRow
 } from "./account-user-two-factor-authentication-f7k9a70k.js";
+import {
+  ConfirmDialog
+} from "./account-user-two-factor-authentication-y482en2x.js";
 import {
   Label
 } from "./account-user-two-factor-authentication-gsg3ph0v.js";

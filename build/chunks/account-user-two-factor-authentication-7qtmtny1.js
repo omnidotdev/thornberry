@@ -1,19 +1,4 @@
 import {
-  AvatarFallback,
-  AvatarImage,
-  AvatarRoot
-} from "./account-user-two-factor-authentication-w1smy5z1.js";
-import {
-  useAccountContext
-} from "./account-user-two-factor-authentication-en4v22ys.js";
-import {
-  DialogBackdrop,
-  DialogContent,
-  DialogPositioner,
-  DialogRoot,
-  DialogTitle
-} from "./account-user-two-factor-authentication-negb4kbv.js";
-import {
   Button
 } from "./account-user-two-factor-authentication-jb3sh07m.js";
 import {
@@ -238,9 +223,8 @@ var require_normalizeWheel = __commonJS(function(exports, module) {
   module.exports = normalizeWheel;
 });
 
-// src/registry/thornberry/components/account-avatar-upload.tsx
-import { Camera, CloudUpload, Loader2, Trash2 } from "lucide-react";
-import { useCallback, useRef, useState } from "react";
+// src/registry/thornberry/components/image-cropper.tsx
+import { useState } from "react";
 
 // node_modules/react-easy-crop/index.module.mjs
 var import_normalize_wheel = __toESM(require_normalizeWheel(), 1);
@@ -1128,15 +1112,7 @@ Cropper.getTouchPoint = (touch) => ({
 });
 var src_default = Cropper;
 
-// src/registry/thornberry/components/account-avatar-upload.tsx
-import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-var MAX_AVATAR_SIZE = 5 * 1024 * 1024;
-var ALLOWED_AVATAR_TYPES = [
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/gif"
-];
+// src/registry/thornberry/lib/crop.ts
 var createImage = (url) => new Promise((resolve, reject) => {
   const image = new Image;
   image.addEventListener("load", () => resolve(image));
@@ -1159,297 +1135,88 @@ var getCroppedImg = async (imageSrc, pixelCrop) => {
     canvas.toBlob((blob) => resolve(blob), "image/jpeg", 0.9);
   });
 };
-var sizeClassMap = {
-  xs: "size-6",
-  sm: "size-8",
-  md: "size-10",
-  lg: "size-12",
-  xl: "size-14",
-  "2xl": "size-16"
-};
-var sizePixelMap = {
-  xs: 24,
-  sm: 32,
-  md: 40,
-  lg: 48,
-  xl: 56,
-  "2xl": 64
-};
-var AvatarUpload = ({
-  size = "md",
-  editable = true,
-  uploadEnabled = true,
-  onUpload,
-  onClear
+
+// src/registry/thornberry/components/image-cropper.tsx
+import { jsx, jsxs } from "react/jsx-runtime";
+var ImageCropper = ({
+  imageSrc,
+  cropShape = "round",
+  aspect = 1,
+  confirmLabel = "Save",
+  confirmingLabel = "Uploading...",
+  confirming = false,
+  onCancel,
+  onConfirm
 }) => {
-  const { authClient, toaster } = useAccountContext();
-  const { data: session, refetch } = authClient.useSession();
-  const [isUploading, setIsUploading] = useState(false);
-  const [isClearing, setIsClearing] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState(null);
-  const fileInputRef = useRef(null);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [imageToCrop, setImageToCrop] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  const canUpload = uploadEnabled && !!onUpload;
-  const hasImage = !!(previewUrl || session?.user.image);
-  const isBusy = isUploading || isClearing;
-  const isCropping = !!imageToCrop;
-  const pixelSize = sizePixelMap[size];
-  const iconSize = Math.max(16, pixelSize * 0.4);
-  const resetCrop = useCallback(() => {
-    setImageToCrop(null);
-    setCrop({ x: 0, y: 0 });
-    setZoom(1);
-  }, []);
-  const handleClear = useCallback(async () => {
-    if (!onClear || isBusy)
+  const handleConfirm = async () => {
+    if (!croppedAreaPixels)
       return;
-    setIsClearing(true);
-    setDialogOpen(false);
-    try {
-      await onClear();
-      setPreviewUrl(null);
-      await refetch();
-      toaster.success({
-        title: "Avatar removed",
-        description: "Your profile picture has been removed."
-      });
-    } catch (error) {
-      toaster.error({
-        title: "Failed to remove avatar",
-        description: error instanceof Error ? error.message : "Failed to remove avatar"
-      });
-    } finally {
-      setIsClearing(false);
-    }
-  }, [onClear, isBusy, refetch, toaster]);
-  const handleFileChange = useCallback((event) => {
-    const file = event.target.files?.[0];
-    if (!file)
+    const croppedBlob = await getCroppedImg(imageSrc, croppedAreaPixels);
+    if (!croppedBlob)
       return;
-    if (!ALLOWED_AVATAR_TYPES.includes(file.type)) {
-      toaster.error({
-        title: "Invalid file type",
-        description: "Please select a JPEG, PNG, WebP, or GIF image."
-      });
-      return;
-    }
-    if (file.size > MAX_AVATAR_SIZE) {
-      toaster.error({
-        title: "File too large",
-        description: "Image must be less than 5 MB."
-      });
-      return;
-    }
-    const reader = new FileReader;
-    reader.onloadend = () => {
-      setImageToCrop(reader.result);
-      setCrop({ x: 0, y: 0 });
-      setZoom(1);
-    };
-    reader.readAsDataURL(file);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  }, [toaster]);
-  const handleCropConfirm = useCallback(async () => {
-    if (!imageToCrop || !croppedAreaPixels || !onUpload)
-      return;
-    setIsUploading(true);
-    try {
-      const croppedBlob = await getCroppedImg(imageToCrop, croppedAreaPixels);
-      if (!croppedBlob) {
-        throw new Error("Failed to crop image");
-      }
-      setPreviewUrl(URL.createObjectURL(croppedBlob));
-      await onUpload(croppedBlob);
-      await refetch();
-      setImageToCrop(null);
-      setDialogOpen(false);
-      toaster.success({
-        title: "Avatar updated",
-        description: "Your profile picture has been updated."
-      });
-    } catch (error) {
-      setPreviewUrl(null);
-      toaster.error({
-        title: "Upload failed",
-        description: error instanceof Error ? error.message : "Failed to upload avatar"
-      });
-    } finally {
-      setIsUploading(false);
-    }
-  }, [imageToCrop, croppedAreaPixels, onUpload, refetch, toaster]);
-  return /* @__PURE__ */ jsxs(Fragment, {
+    await onConfirm(croppedBlob);
+  };
+  return /* @__PURE__ */ jsxs("div", {
+    className: "flex flex-col gap-4",
     children: [
+      /* @__PURE__ */ jsx("div", {
+        style: {
+          position: "relative",
+          width: "100%",
+          height: 300,
+          background: "var(--colors-background-subtle)",
+          borderRadius: "var(--radii-md)",
+          overflow: "hidden"
+        },
+        children: /* @__PURE__ */ jsx(src_default, {
+          image: imageSrc,
+          crop,
+          zoom,
+          aspect,
+          cropShape,
+          showGrid: false,
+          onCropChange: setCrop,
+          onCropComplete: (_, pixels) => setCroppedAreaPixels(pixels),
+          onZoomChange: setZoom
+        })
+      }),
       /* @__PURE__ */ jsxs("div", {
-        className: "avatar-upload-wrapper relative inline-flex w-fit shrink-0",
-        role: editable ? "button" : undefined,
-        tabIndex: editable && !isBusy ? 0 : undefined,
-        onClick: () => {
-          if (editable && !isBusy)
-            setDialogOpen(true);
-        },
-        onKeyDown: (event) => {
-          if (editable && !isBusy && (event.key === "Enter" || event.key === " ")) {
-            event.preventDefault();
-            setDialogOpen(true);
-          }
-        },
-        style: { cursor: editable && !isBusy ? "pointer" : "default" },
+        className: "flex flex-col gap-2",
         children: [
-          /* @__PURE__ */ jsxs(AvatarRoot, {
-            className: sizeClassMap[size],
-            children: [
-              /* @__PURE__ */ jsx(AvatarImage, {
-                src: previewUrl || session?.user.image || undefined
-              }),
-              /* @__PURE__ */ jsx(AvatarFallback, {
-                children: session?.user.name?.charAt(0)
-              })
-            ]
+          /* @__PURE__ */ jsx("p", {
+            className: "text-muted-foreground text-sm",
+            children: "Zoom"
           }),
-          editable && /* @__PURE__ */ jsx("div", {
-            className: "avatar-overlay absolute inset-0 flex items-center justify-center rounded-full bg-black/60 transition-opacity",
-            style: { opacity: isBusy ? 1 : 0, pointerEvents: "none" },
-            children: isBusy ? /* @__PURE__ */ jsx(Loader2, {
-              size: iconSize,
-              color: "white",
-              className: "animate-spin"
-            }) : /* @__PURE__ */ jsx(Camera, {
-              size: iconSize,
-              color: "white"
-            })
-          }),
-          /* @__PURE__ */ jsx("style", {
-            children: `
-          .avatar-upload-wrapper:hover .avatar-overlay {
-            opacity: 1 !important;
-          }
-        `
+          /* @__PURE__ */ jsx("input", {
+            type: "range",
+            min: 1,
+            max: 3,
+            step: 0.1,
+            value: zoom,
+            onChange: (event) => setZoom(Number(event.target.value)),
+            className: "w-full"
           })
         ]
       }),
-      /* @__PURE__ */ jsx("input", {
-        ref: fileInputRef,
-        type: "file",
-        accept: ALLOWED_AVATAR_TYPES.join(","),
-        onChange: handleFileChange,
-        style: { display: "none" }
-      }),
-      /* @__PURE__ */ jsxs(DialogRoot, {
-        open: dialogOpen,
-        onOpenChange: ({ open }) => {
-          setDialogOpen(open);
-          if (!open)
-            resetCrop();
-        },
+      /* @__PURE__ */ jsxs("div", {
+        className: "flex items-center justify-end gap-2",
         children: [
-          /* @__PURE__ */ jsx(DialogBackdrop, {}),
-          /* @__PURE__ */ jsx(DialogPositioner, {
-            children: /* @__PURE__ */ jsxs(DialogContent, {
-              children: [
-                /* @__PURE__ */ jsx(DialogTitle, {
-                  children: isCropping ? "Crop your photo" : "Profile photo"
-                }),
-                isCropping ? /* @__PURE__ */ jsxs("div", {
-                  className: "flex flex-col gap-4",
-                  children: [
-                    /* @__PURE__ */ jsx("div", {
-                      style: {
-                        position: "relative",
-                        width: "100%",
-                        height: 300,
-                        background: "var(--colors-background-subtle)",
-                        borderRadius: "var(--radii-md)",
-                        overflow: "hidden"
-                      },
-                      children: /* @__PURE__ */ jsx(src_default, {
-                        image: imageToCrop ?? undefined,
-                        crop,
-                        zoom,
-                        aspect: 1,
-                        cropShape: "round",
-                        showGrid: false,
-                        onCropChange: setCrop,
-                        onCropComplete: (_, pixels) => setCroppedAreaPixels(pixels),
-                        onZoomChange: setZoom
-                      })
-                    }),
-                    /* @__PURE__ */ jsxs("div", {
-                      className: "flex flex-col gap-2",
-                      children: [
-                        /* @__PURE__ */ jsx("p", {
-                          className: "text-muted-foreground text-sm",
-                          children: "Zoom"
-                        }),
-                        /* @__PURE__ */ jsx("input", {
-                          type: "range",
-                          min: 1,
-                          max: 3,
-                          step: 0.1,
-                          value: zoom,
-                          onChange: (event) => setZoom(Number(event.target.value)),
-                          className: "w-full"
-                        })
-                      ]
-                    }),
-                    /* @__PURE__ */ jsxs("div", {
-                      className: "flex items-center justify-end gap-2",
-                      children: [
-                        /* @__PURE__ */ jsx(Button, {
-                          variant: "outline",
-                          onClick: resetCrop,
-                          children: "Cancel"
-                        }),
-                        /* @__PURE__ */ jsx(Button, {
-                          onClick: handleCropConfirm,
-                          disabled: isUploading,
-                          children: isUploading ? "Uploading..." : "Save"
-                        })
-                      ]
-                    })
-                  ]
-                }) : /* @__PURE__ */ jsxs("div", {
-                  className: "flex flex-col gap-3",
-                  children: [
-                    canUpload ? /* @__PURE__ */ jsxs(Button, {
-                      variant: "outline",
-                      className: "w-full justify-start gap-3",
-                      onClick: () => fileInputRef.current?.click(),
-                      children: [
-                        /* @__PURE__ */ jsx(CloudUpload, {
-                          className: "size-5"
-                        }),
-                        "Upload new photo"
-                      ]
-                    }) : /* @__PURE__ */ jsx("p", {
-                      className: "text-muted-foreground text-sm",
-                      children: "Photo uploads are unavailable right now."
-                    }),
-                    hasImage && onClear && /* @__PURE__ */ jsxs(Button, {
-                      variant: "outline",
-                      className: "w-full justify-start gap-3 text-red-500 hover:text-red-600",
-                      onClick: handleClear,
-                      disabled: isClearing,
-                      children: [
-                        /* @__PURE__ */ jsx(Trash2, {
-                          className: "size-5"
-                        }),
-                        isClearing ? "Removing..." : "Remove photo"
-                      ]
-                    })
-                  ]
-                })
-              ]
-            })
+          /* @__PURE__ */ jsx(Button, {
+            variant: "outline",
+            onClick: onCancel,
+            children: "Cancel"
+          }),
+          /* @__PURE__ */ jsx(Button, {
+            onClick: handleConfirm,
+            disabled: confirming,
+            children: confirming ? confirmingLabel : confirmLabel
           })
         ]
       })
     ]
   });
 };
-export { AvatarUpload };
+export { ImageCropper };
