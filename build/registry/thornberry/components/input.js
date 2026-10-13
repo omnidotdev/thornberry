@@ -1,8 +1,6 @@
 import {
-  Input
-} from "../../../chunks/account-user-two-factor-authentication-nmmcnpth.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  Input2
+} from "../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
 export {
-  Input
+  Input2 as Input
 };

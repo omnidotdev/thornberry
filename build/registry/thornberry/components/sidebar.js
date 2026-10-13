@@ -1,27 +1,25 @@
 import {
-  SheetContent,
-  SheetDescription,
-  SheetRoot,
-  SheetTitle,
-  SheetTrigger
-} from "../../../chunks/account-user-two-factor-authentication-zw43tfjm.js";
+  Button2
+} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
 import {
-  TooltipContent,
-  TooltipPositioner,
-  TooltipRoot,
-  TooltipTrigger
-} from "../../../chunks/account-user-two-factor-authentication-rz6429x0.js";
+  Input2
+} from "../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
 import {
-  Input
-} from "../../../chunks/account-user-two-factor-authentication-nmmcnpth.js";
+  SheetRoot2,
+  SheetTrigger2,
+  SheetContent2,
+  SheetTitle2,
+  SheetDescription2
+} from "../../../chunks/account-user-two-factor-authentication-mny4qh82.js";
 import {
-  Button
-} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
+  TooltipRoot2,
+  TooltipTrigger2,
+  TooltipPositioner2,
+  TooltipContent2
+} from "../../../chunks/account-user-two-factor-authentication-fyv865k9.js";
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
 
 // src/registry/thornberry/components/sidebar.tsx
 import { ark } from "@ark-ui/react/factory";
@@ -207,9 +205,9 @@ function useSidebarResize({
             onToggle();
             const initialWidth = calculateWidth(e, startX.current, startWidth.current, currentRailRect);
             const clampedWidth = Math.max(minWidthPx, Math.min(maxWidthPx, initialWidth));
-            const formattedWidth2 = formatWidth(unit === "rem" ? clampedWidth / 16 : clampedWidth, unit);
-            onResize(formattedWidth2);
-            persistWidth(formattedWidth2);
+            const formattedWidth = formatWidth(unit === "rem" ? clampedWidth / 16 : clampedWidth, unit);
+            onResize(formattedWidth);
+            persistWidth(formattedWidth);
             lastTogglePoint.current = e.clientX;
             lastToggleWidth.current = clampedWidth;
             toggleCooldown.current = true;
@@ -321,7 +319,7 @@ var SidebarProvider = ({
     document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
   }, [setOpenProp, open]);
   const toggleSidebar = useCallback2(() => {
-    return isMobile ? setOpenMobile((open2) => !open2) : setOpen((open2) => !open2);
+    return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
   }, [isMobile, setOpen]);
   useHotkeys("b", toggleSidebar, [toggleSidebar]);
   const state = open ? "expanded" : "collapsed";
@@ -380,14 +378,14 @@ var Sidebar = ({
     });
   }
   if (isMobile) {
-    return /* @__PURE__ */ jsxs(SheetRoot, {
+    return /* @__PURE__ */ jsxs(SheetRoot2, {
       open: openMobile,
       onOpenChange: ({ open }) => setOpenMobile(open),
       children: [
-        /* @__PURE__ */ jsx(SheetTrigger, {
+        /* @__PURE__ */ jsx(SheetTrigger2, {
           asChild: true,
           className: "absolute top-2 right-2 z-50",
-          children: /* @__PURE__ */ jsx(Button, {
+          children: /* @__PURE__ */ jsx(Button2, {
             variant: "ghost",
             size: "icon",
             className: "h-10 w-10",
@@ -396,7 +394,7 @@ var Sidebar = ({
             })
           })
         }),
-        /* @__PURE__ */ jsxs(SheetContent, {
+        /* @__PURE__ */ jsxs(SheetContent2, {
           "data-sidebar": "sidebar",
           "data-slot": "sidebar",
           "data-mobile": "true",
@@ -406,10 +404,10 @@ var Sidebar = ({
             /* @__PURE__ */ jsxs("div", {
               className: "sr-only",
               children: [
-                /* @__PURE__ */ jsx(SheetTitle, {
+                /* @__PURE__ */ jsx(SheetTitle2, {
                   children: "Sidebar"
                 }),
-                /* @__PURE__ */ jsx(SheetDescription, {
+                /* @__PURE__ */ jsx(SheetDescription2, {
                   children: "Displays the mobile sidebar."
                 })
               ]
@@ -456,7 +454,7 @@ var SidebarTrigger = ({
   ...rest
 }) => {
   const { toggleSidebar } = useSidebar();
-  return /* @__PURE__ */ jsxs(Button, {
+  return /* @__PURE__ */ jsxs(Button2, {
     "data-sidebar": "trigger",
     "data-slot": "sidebar-trigger",
     variant: "ghost",
@@ -498,7 +496,7 @@ var SidebarRail = ({
   const anchorRect = useRef2(null);
   const getAnchorRect = useCallback2(() => anchorRect.current, []);
   const isCollapsed = state === "collapsed";
-  return /* @__PURE__ */ jsxs(TooltipRoot, {
+  return /* @__PURE__ */ jsxs(TooltipRoot2, {
     positioning: {
       placement: "right",
       getAnchorRect
@@ -507,7 +505,7 @@ var SidebarRail = ({
     openDelay: 300,
     children: [
       /* @__PURE__ */ jsx(TooltipContext, {
-        children: (tootlip) => /* @__PURE__ */ jsx(TooltipTrigger, {
+        children: (tootlip) => /* @__PURE__ */ jsx(TooltipTrigger2, {
           asChild: true,
           onPointerMove: (e) => {
             anchorRect.current = new DOMRect(e.clientX, e.clientY, 1, 1);
@@ -525,8 +523,8 @@ var SidebarRail = ({
           })
         })
       }),
-      /* @__PURE__ */ jsx(TooltipPositioner, {
-        children: /* @__PURE__ */ jsxs(TooltipContent, {
+      /* @__PURE__ */ jsx(TooltipPositioner2, {
+        children: /* @__PURE__ */ jsxs(TooltipContent2, {
           className: "flex h-fit w-full flex-col gap-1 border bg-background text-foreground",
           children: [
             /* @__PURE__ */ jsx("span", {
@@ -567,7 +565,7 @@ var SidebarSeparator = ({ className, ...rest }) => {
   });
 };
 var SidebarInput = ({ className, ...rest }) => {
-  return /* @__PURE__ */ jsx(Input, {
+  return /* @__PURE__ */ jsx(Input2, {
     "data-slot": "sidebar-input",
     "data-sidebar": "input",
     className: cn("h-8 w-full bg-background shadow-none", className),
@@ -670,7 +668,7 @@ var SidebarMenuButton = ({
   if (!tooltip) {
     return button;
   }
-  return /* @__PURE__ */ jsxs(TooltipRoot, {
+  return /* @__PURE__ */ jsxs(TooltipRoot2, {
     positioning: {
       placement: "right",
       offset: { mainAxis: 8 },
@@ -680,12 +678,12 @@ var SidebarMenuButton = ({
     openDelay: 200,
     disabled: isMobile || state === "expanded",
     children: [
-      /* @__PURE__ */ jsx(TooltipTrigger, {
+      /* @__PURE__ */ jsx(TooltipTrigger2, {
         asChild: true,
         children: button
       }),
-      /* @__PURE__ */ jsx(TooltipPositioner, {
-        children: /* @__PURE__ */ jsx(TooltipContent, {
+      /* @__PURE__ */ jsx(TooltipPositioner2, {
+        children: /* @__PURE__ */ jsx(TooltipContent2, {
           className: "border bg-background text-foreground",
           children: /* @__PURE__ */ jsxs("div", {
             className: "flex items-center gap-2",

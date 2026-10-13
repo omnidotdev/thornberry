@@ -1,11 +1,9 @@
 import {
-  Button
-} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
+  Button2
+} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
 
 // src/registry/thornberry/components/pagination.tsx
 import { Pagination as ArkPagination } from "@ark-ui/react/pagination";
@@ -46,7 +44,7 @@ var PaginationPrevTrigger = ({
 }) => /* @__PURE__ */ jsx(ArkPagination.PrevTrigger, {
   asChild: true,
   ...rest,
-  children: /* @__PURE__ */ jsx(Button, {
+  children: /* @__PURE__ */ jsx(Button2, {
     variant: "outline",
     size: "icon",
     className: cn("h-9 w-9", className),
@@ -61,7 +59,7 @@ var PaginationNextTrigger = ({
 }) => /* @__PURE__ */ jsx(ArkPagination.NextTrigger, {
   asChild: true,
   ...rest,
-  children: /* @__PURE__ */ jsx(Button, {
+  children: /* @__PURE__ */ jsx(Button2, {
     variant: "outline",
     size: "icon",
     className: cn("h-9 w-9", className),

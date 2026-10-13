@@ -55,6 +55,13 @@ interface RichTextEditorProps extends Omit<ComponentProps<"div">, "placeholder" 
     issueReferenceItems?: IssueReferenceItem[];
     /** Show a checklist (task list) button in the toolbar and enable the plugin. */
     enableChecklist?: boolean;
+    /**
+     * Enable a hover drag handle for reordering top-level blocks (Notion-style).
+     * Off by default: it reserves a left gutter on the editor surface, which is
+     * unwanted on single-line surfaces (titles, list items). Turn on for rich,
+     * multi-block editors (e.g. a task description).
+     */
+    enableBlockDrag?: boolean;
     /** Extra Lexical node classes to register (e.g. an app's image node). */
     extraNodes?: ReadonlyArray<Klass<LexicalNode>>;
     /** Extra Lexical plugins rendered inside the composer (e.g. image paste, code highlighting). */
@@ -71,7 +78,7 @@ interface RichTextEditorProps extends Omit<ComponentProps<"div">, "placeholder" 
  * via a minimal toolbar. Content is read out as sanitizable HTML through
  * `onUpdate`. Render stored HTML back with {@link RichTextContent}.
  */
-declare const RichTextEditor: ({ editorApi, onUpdate, defaultContent, editable, placeholder, hideToolbar, toolbarClassName, mentionItems, issueReferenceItems, enableChecklist, extraNodes, plugins, theme, skeletonClassName, className, editorClassName, ...rest }: RichTextEditorProps) => import("react/jsx-runtime").JSX.Element;
+declare const RichTextEditor: ({ editorApi, onUpdate, defaultContent, editable, placeholder, hideToolbar, toolbarClassName, mentionItems, issueReferenceItems, enableChecklist, enableBlockDrag, extraNodes, plugins, theme, skeletonClassName, className, editorClassName, ...rest }: RichTextEditorProps) => import("react/jsx-runtime").JSX.Element;
 /**
  * Linkify bare URLs and email addresses in a rich-text HTML string so plain
  * links in stored content render as anchors. Splits on tags so matching only

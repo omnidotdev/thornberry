@@ -1,0 +1,83 @@
+import {
+  cn
+} from "./account-user-two-factor-authentication-81fr4sax.js";
+
+// src/registry/thornberry/components/sheet.tsx
+import { Dialog as ArkSheet } from "@ark-ui/react/dialog";
+import { X } from "lucide-react";
+import { jsx, jsxs } from "react/jsx-runtime";
+var SheetProvider2 = ArkSheet.RootProvider;
+var SheetContext2 = ArkSheet.Context;
+var SheetRoot2 = ArkSheet.Root;
+var SheetTrigger2 = ({
+  className,
+  ...rest
+}) => /* @__PURE__ */ jsx(ArkSheet.Trigger, {
+  className,
+  ...rest
+});
+var SheetBackdrop2 = ({
+  className,
+  ...rest
+}) => /* @__PURE__ */ jsx(ArkSheet.Backdrop, {
+  className,
+  ...rest
+});
+var SheetPositioner2 = ({
+  className,
+  ...rest
+}) => /* @__PURE__ */ jsx(ArkSheet.Positioner, {
+  className,
+  ...rest
+});
+var SheetContent2 = ({
+  className,
+  side = "left",
+  ...rest
+}) => /* @__PURE__ */ jsx(ArkSheet.Content, {
+  className: cn("data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed z-50 bg-background data-[state=closed]:animate-out data-[state=open]:animate-in", side === "right" && "data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm", side === "left" && "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm", side === "top" && "data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 h-auto border-b", side === "bottom" && "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t", className),
+  ...rest
+});
+var SheetTitle2 = ({
+  className,
+  ...rest
+}) => /* @__PURE__ */ jsx(ArkSheet.Title, {
+  className: cn("font-semibold text-lg leading-none tracking-tight", className),
+  ...rest
+});
+var SheetDescription2 = ({
+  className,
+  ...rest
+}) => /* @__PURE__ */ jsx(ArkSheet.Description, {
+  className: cn("text-muted-foreground text-sm", className),
+  ...rest
+});
+var SheetCloseTrigger2 = ({
+  className,
+  children,
+  asChild,
+  ...rest
+}) => {
+  if (!children) {
+    return /* @__PURE__ */ jsxs(ArkSheet.CloseTrigger, {
+      className: cn("absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none", className),
+      ...rest,
+      children: [
+        /* @__PURE__ */ jsx(X, {
+          className: "h-4 w-4"
+        }),
+        /* @__PURE__ */ jsx("span", {
+          className: "sr-only",
+          children: "Close"
+        })
+      ]
+    });
+  }
+  return /* @__PURE__ */ jsx(ArkSheet.CloseTrigger, {
+    className,
+    asChild,
+    ...rest,
+    children
+  });
+};
+export { SheetProvider2, SheetContext2, SheetRoot2, SheetTrigger2, SheetBackdrop2, SheetPositioner2, SheetContent2, SheetTitle2, SheetDescription2, SheetCloseTrigger2 };

@@ -1,15 +1,12 @@
 import {
-  UserTwoFactorAuthentication
-} from "../../../chunks/account-user-two-factor-authentication-xea8v61h.js";
-import"../../../chunks/account-user-two-factor-authentication-5zw78ck9.js";
-import"../../../chunks/account-user-two-factor-authentication-gsg3ph0v.js";
-import"../../../chunks/account-user-two-factor-authentication-en4v22ys.js";
-import"../../../chunks/account-user-two-factor-authentication-nmmcnpth.js";
-import"../../../chunks/account-user-two-factor-authentication-negb4kbv.js";
-import"../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  UserTwoFactorAuthentication2
+} from "../../../chunks/account-user-two-factor-authentication-jrfwyda6.js";
+import"../../../chunks/account-user-two-factor-authentication-e8m4br8p.js";
+import"../../../chunks/account-user-two-factor-authentication-fa46q8yp.js";
+import"../../../chunks/account-user-two-factor-authentication-b60vh03c.js";
+import"../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
+import"../../../chunks/account-user-two-factor-authentication-8q0yqrx6.js";
+import"../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
 export {
-  UserTwoFactorAuthentication
+  UserTwoFactorAuthentication2 as UserTwoFactorAuthentication
 };

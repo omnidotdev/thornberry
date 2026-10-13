@@ -1,17 +1,14 @@
 import {
-  AvatarFallback,
-  AvatarImage,
-  AvatarProvider,
-  AvatarRoot,
-  useAvatar
-} from "../../../chunks/account-user-two-factor-authentication-w1smy5z1.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  useAvatar2,
+  AvatarProvider2,
+  AvatarRoot2,
+  AvatarFallback2,
+  AvatarImage2
+} from "../../../chunks/account-user-two-factor-authentication-b7jpk793.js";
 export {
-  AvatarFallback,
-  AvatarImage,
-  AvatarProvider,
-  AvatarRoot,
-  useAvatar
+  AvatarFallback2 as AvatarFallback,
+  AvatarImage2 as AvatarImage,
+  AvatarProvider2 as AvatarProvider,
+  AvatarRoot2 as AvatarRoot,
+  useAvatar2 as useAvatar
 };

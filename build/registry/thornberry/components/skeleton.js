@@ -1,8 +1,6 @@
 import {
-  Skeleton
-} from "../../../chunks/account-user-two-factor-authentication-3rns3zjj.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  Skeleton2
+} from "../../../chunks/account-user-two-factor-authentication-4ayhnmp9.js";
 export {
-  Skeleton
+  Skeleton2 as Skeleton
 };

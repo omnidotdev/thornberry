@@ -1,11 +1,9 @@
 import {
-  Button
-} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
+  Button2
+} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
 
 // src/registry/thornberry/components/combobox.tsx
 import { Combobox as ArkCombobox } from "@ark-ui/react/combobox";
@@ -44,7 +42,7 @@ var ComboboxTrigger = ({
 }) => /* @__PURE__ */ jsx(ArkCombobox.Trigger, {
   asChild: true,
   ...rest,
-  children: /* @__PURE__ */ jsx(Button, {
+  children: /* @__PURE__ */ jsx(Button2, {
     variant: "ghost",
     size: "icon",
     className: cn("absolute top-0.5 right-0.5 opacity-50 hover:bg-background", className),

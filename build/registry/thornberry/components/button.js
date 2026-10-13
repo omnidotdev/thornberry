@@ -1,11 +1,8 @@
 import {
-  Button,
-  buttonVariants
-} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  buttonVariants2,
+  Button2
+} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
 export {
-  Button,
-  buttonVariants
+  Button2 as Button,
+  buttonVariants2 as buttonVariants
 };

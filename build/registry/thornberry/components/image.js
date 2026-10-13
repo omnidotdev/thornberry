@@ -1,10 +1,9 @@
 import {
   cva
-} from "../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
+} from "../../../chunks/account-user-two-factor-authentication-g7wczx51.js";
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
 
 // src/registry/thornberry/components/image.tsx
 import { Image as UnpicImage } from "@unpic/react";

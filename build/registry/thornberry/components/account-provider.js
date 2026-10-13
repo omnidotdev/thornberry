@@ -1,9 +1,8 @@
 import {
-  AccountProvider,
-  useAccountContext
-} from "../../../chunks/account-user-two-factor-authentication-en4v22ys.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  AccountProvider2,
+  useAccountContext2
+} from "../../../chunks/account-user-two-factor-authentication-b60vh03c.js";
 export {
-  AccountProvider,
-  useAccountContext
+  AccountProvider2 as AccountProvider,
+  useAccountContext2 as useAccountContext
 };

@@ -1,56 +1,53 @@
 import {
-  UserActiveSessions
-} from "../../../chunks/account-user-two-factor-authentication-z0dpjc80.js";
+  useAccountContext2
+} from "../../../chunks/account-user-two-factor-authentication-b60vh03c.js";
 import {
-  AlertDescription,
-  AlertRoot,
-  AlertTitle
-} from "../../../chunks/account-user-two-factor-authentication-qrqgt04q.js";
+  Button2
+} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
+import"../../../chunks/account-user-two-factor-authentication-8q0yqrx6.js";
+import"../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
+import"../../../chunks/account-user-two-factor-authentication-fa46q8yp.js";
 import {
-  EditProfile
-} from "../../../chunks/account-user-two-factor-authentication-dqb57ezx.js";
+  AddPasskey2
+} from "../../../chunks/account-user-two-factor-authentication-8hgpxw18.js";
+import"../../../chunks/account-user-two-factor-authentication-b7jpk793.js";
+import"../../../chunks/account-user-two-factor-authentication-1qzbdkf5.js";
+import"../../../chunks/account-user-two-factor-authentication-q37czf6m.js";
 import {
-  AvatarUpload
-} from "../../../chunks/account-user-two-factor-authentication-xmzb7ah5.js";
+  AvatarUpload2
+} from "../../../chunks/account-user-two-factor-authentication-qp39pwcd.js";
+import"../../../chunks/account-user-two-factor-authentication-h7z0b3ps.js";
+import"../../../chunks/account-user-two-factor-authentication-n3zp77m0.js";
+import"../../../chunks/account-user-two-factor-authentication-rmtq1dzy.js";
+import"../../../chunks/account-user-two-factor-authentication-e8m4br8p.js";
+import"../../../chunks/account-user-two-factor-authentication-8wtqb3wn.js";
 import {
-  ChangePassword
-} from "../../../chunks/account-user-two-factor-authentication-5m1nmfqx.js";
-import"../../../chunks/account-user-two-factor-authentication-1kbapfba.js";
-import"../../../chunks/account-user-two-factor-authentication-gtemm9x0.js";
-import"../../../chunks/account-user-two-factor-authentication-v7dgczst.js";
-import"../../../chunks/account-user-two-factor-authentication-ksnvs1j1.js";
+  ChangePassword2
+} from "../../../chunks/account-user-two-factor-authentication-b42r02js.js";
 import {
-  ViewPasskeys
-} from "../../../chunks/account-user-two-factor-authentication-qxra6gj8.js";
-import"../../../chunks/account-user-two-factor-authentication-f7k9a70k.js";
-import"../../../chunks/account-user-two-factor-authentication-y482en2x.js";
+  EditProfile2
+} from "../../../chunks/account-user-two-factor-authentication-23cd922d.js";
 import {
-  UserTwoFactorAuthentication
-} from "../../../chunks/account-user-two-factor-authentication-xea8v61h.js";
-import"../../../chunks/account-user-two-factor-authentication-5zw78ck9.js";
-import"../../../chunks/account-user-two-factor-authentication-w1smy5z1.js";
+  UserActiveSessions2
+} from "../../../chunks/account-user-two-factor-authentication-4c988h17.js";
 import {
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardRoot
-} from "../../../chunks/account-user-two-factor-authentication-t5d4htnb.js";
+  UserTwoFactorAuthentication2
+} from "../../../chunks/account-user-two-factor-authentication-jrfwyda6.js";
+import"../../../chunks/account-user-two-factor-authentication-06kze8cq.js";
 import {
-  AddPasskey
-} from "../../../chunks/account-user-two-factor-authentication-3dt56sqm.js";
-import"../../../chunks/account-user-two-factor-authentication-gsg3ph0v.js";
+  ViewPasskeys2
+} from "../../../chunks/account-user-two-factor-authentication-mx6m3pne.js";
 import {
-  useAccountContext
-} from "../../../chunks/account-user-two-factor-authentication-en4v22ys.js";
-import"../../../chunks/account-user-two-factor-authentication-nmmcnpth.js";
-import"../../../chunks/account-user-two-factor-authentication-negb4kbv.js";
-import"../../../chunks/account-user-two-factor-authentication-hpbe7ba5.js";
+  AlertRoot2,
+  AlertTitle2,
+  AlertDescription2
+} from "../../../chunks/account-user-two-factor-authentication-zzr25an1.js";
 import {
-  Button
-} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  CardRoot2,
+  CardHeader2,
+  CardContent2,
+  CardFooter2
+} from "../../../chunks/account-user-two-factor-authentication-f7d4gzjq.js";
 
 // src/registry/thornberry/components/account-console.tsx
 import { Loader2, StopCircle } from "lucide-react";
@@ -71,7 +68,7 @@ var AccountConsole = ({
   organizationsSection,
   footer
 }) => {
-  const { authClient, toaster, brand } = useAccountContext();
+  const { authClient, toaster, brand } = useAccountContext2();
   const { data: session, isPending } = authClient.useSession();
   const [isStopping, setIsStopping] = useState(false);
   const [isResending, setIsResending] = useState(false);
@@ -79,9 +76,9 @@ var AccountConsole = ({
     return null;
   const user = session?.user;
   const showEmailPrompt = !!user && !user.emailVerified && !!user.email && !!onResendVerification;
-  return /* @__PURE__ */ jsxs(CardRoot, {
+  return /* @__PURE__ */ jsxs(CardRoot2, {
     children: [
-      /* @__PURE__ */ jsx(CardHeader, {
+      /* @__PURE__ */ jsx(CardHeader2, {
         children: /* @__PURE__ */ jsxs("div", {
           className: "flex items-center justify-between",
           children: [
@@ -93,7 +90,7 @@ var AccountConsole = ({
                 " Account"
               ]
             }),
-            session?.session.impersonatedBy && /* @__PURE__ */ jsx(Button, {
+            session?.session.impersonatedBy && /* @__PURE__ */ jsx(Button2, {
               variant: "outline",
               disabled: isStopping,
               onClick: async () => {
@@ -117,7 +114,7 @@ var AccountConsole = ({
           ]
         })
       }),
-      /* @__PURE__ */ jsxs(CardContent, {
+      /* @__PURE__ */ jsxs(CardContent2, {
         className: "flex flex-col gap-6",
         children: [
           /* @__PURE__ */ jsxs("div", {
@@ -126,7 +123,7 @@ var AccountConsole = ({
               /* @__PURE__ */ jsxs("div", {
                 className: "flex flex-col items-start gap-4 sm:flex-row",
                 children: [
-                  /* @__PURE__ */ jsx(AvatarUpload, {
+                  /* @__PURE__ */ jsx(AvatarUpload2, {
                     size: "lg",
                     uploadEnabled: avatar?.uploadEnabled,
                     onUpload: avatar?.onUpload,
@@ -156,10 +153,10 @@ var AccountConsole = ({
               /* @__PURE__ */ jsxs("div", {
                 className: "flex flex-col gap-2 sm:flex-row",
                 children: [
-                  /* @__PURE__ */ jsx(ChangePassword, {
+                  /* @__PURE__ */ jsx(ChangePassword2, {
                     passwordRequirements
                   }),
-                  /* @__PURE__ */ jsx(EditProfile, {
+                  /* @__PURE__ */ jsx(EditProfile2, {
                     checkUsernameAvailability,
                     onProfileUpdated
                   })
@@ -168,16 +165,16 @@ var AccountConsole = ({
             ]
           }),
           /* @__PURE__ */ jsx("hr", {}),
-          showEmailPrompt && /* @__PURE__ */ jsxs(AlertRoot, {
+          showEmailPrompt && /* @__PURE__ */ jsxs(AlertRoot2, {
             variant: "warning",
             children: [
-              /* @__PURE__ */ jsx(AlertTitle, {
+              /* @__PURE__ */ jsx(AlertTitle2, {
                 children: "Verify Your Email Address"
               }),
-              /* @__PURE__ */ jsx(AlertDescription, {
+              /* @__PURE__ */ jsx(AlertDescription2, {
                 children: "Please verify your email address. Check your inbox for the verification email. If you haven't received it, resend it below."
               }),
-              /* @__PURE__ */ jsx(Button, {
+              /* @__PURE__ */ jsx(Button2, {
                 className: "mt-2 w-fit",
                 size: "sm",
                 variant: "outline",
@@ -194,11 +191,11 @@ var AccountConsole = ({
               })
             ]
           }),
-          enableActiveSessions && /* @__PURE__ */ jsx(UserActiveSessions, {
+          enableActiveSessions && /* @__PURE__ */ jsx(UserActiveSessions2, {
             activeSessions,
             onSessionRevoked
           }),
-          /* @__PURE__ */ jsx(UserTwoFactorAuthentication, {}),
+          /* @__PURE__ */ jsx(UserTwoFactorAuthentication2, {}),
           /* @__PURE__ */ jsx("h3", {
             className: "font-bold text-xl",
             children: "Passkeys"
@@ -206,8 +203,8 @@ var AccountConsole = ({
           /* @__PURE__ */ jsxs("div", {
             className: "flex items-center gap-2",
             children: [
-              /* @__PURE__ */ jsx(AddPasskey, {}),
-              /* @__PURE__ */ jsx(ViewPasskeys, {})
+              /* @__PURE__ */ jsx(AddPasskey2, {}),
+              /* @__PURE__ */ jsx(ViewPasskeys2, {})
             ]
           }),
           socialSection && /* @__PURE__ */ jsxs(Fragment, {
@@ -219,7 +216,7 @@ var AccountConsole = ({
           organizationsSection
         ]
       }),
-      footer && /* @__PURE__ */ jsx(CardFooter, {
+      footer && /* @__PURE__ */ jsx(CardFooter2, {
         children: footer
       })
     ]

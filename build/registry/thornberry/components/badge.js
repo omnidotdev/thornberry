@@ -1,11 +1,8 @@
 import {
-  Badge,
-  badgeVariants
-} from "../../../chunks/account-user-two-factor-authentication-7qezk7ef.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  badgeVariants2,
+  Badge2
+} from "../../../chunks/account-user-two-factor-authentication-mhbe1kzg.js";
 export {
-  Badge,
-  badgeVariants
+  Badge2 as Badge,
+  badgeVariants2 as badgeVariants
 };

@@ -1,14 +1,12 @@
 import {
-  Skeleton
-} from "../../../chunks/account-user-two-factor-authentication-3rns3zjj.js";
+  Button2
+} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
 import {
-  Button
-} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
+  Skeleton2
+} from "../../../chunks/account-user-two-factor-authentication-4ayhnmp9.js";
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
 
 // src/registry/thornberry/components/rich-text-editor.tsx
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
@@ -49,6 +47,7 @@ import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
+import { DraggableBlockPlugin_EXPERIMENTAL } from "@lexical/react/LexicalDraggableBlockPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
@@ -79,6 +78,7 @@ import {
 } from "lexical";
 import {
   Bold,
+  GripVertical,
   Italic,
   Link as LinkIcon,
   List,
@@ -184,7 +184,7 @@ var ToolbarButton = ({
   children,
   className,
   ...rest
-}) => /* @__PURE__ */ jsx(Button, {
+}) => /* @__PURE__ */ jsx(Button2, {
   type: "button",
   size: "icon",
   variant: "ghost",
@@ -248,6 +248,31 @@ var EditablePlugin = ({ editable }) => {
     editor.setEditable(editable);
   }, [editor, editable]);
   return null;
+};
+var BlockDragPlugin = ({ anchorElem }) => {
+  const menuRef = useRef(null);
+  const targetLineRef = useRef(null);
+  return /* @__PURE__ */ jsx(DraggableBlockPlugin_EXPERIMENTAL, {
+    anchorElem,
+    menuRef,
+    targetLineRef,
+    menuComponent: /* @__PURE__ */ jsx("div", {
+      ref: menuRef,
+      "data-block-drag-handle": true,
+      "aria-label": "Drag to reorder block",
+      role: "button",
+      tabIndex: -1,
+      className: "absolute top-0 left-0 flex cursor-grab rounded-sm px-0.5 py-1 opacity-0 will-change-transform hover:bg-muted active:cursor-grabbing",
+      children: /* @__PURE__ */ jsx(GripVertical, {
+        className: "size-4 text-muted-foreground"
+      })
+    }),
+    targetLineComponent: /* @__PURE__ */ jsx("div", {
+      ref: targetLineRef,
+      className: "pointer-events-none absolute top-0 left-0 h-0.5 rounded-full bg-primary opacity-0 will-change-transform"
+    }),
+    isOnMenu: (element) => !!element.closest("[data-block-drag-handle]")
+  });
 };
 var LinkShortcutsPlugin = () => {
   const [editor] = useLexicalComposerContext();
@@ -437,6 +462,7 @@ var RichTextEditor = ({
   mentionItems,
   issueReferenceItems,
   enableChecklist,
+  enableBlockDrag,
   extraNodes,
   plugins,
   theme,
@@ -447,9 +473,16 @@ var RichTextEditor = ({
 }) => {
   const [mounted, setMounted] = useState(false);
   const [isEmpty, setIsEmpty] = useState(!defaultContent);
+  const [anchorElem, setAnchorElem] = useState(null);
+  const onAnchorRef = useCallback((el) => {
+    if (el !== null) {
+      setAnchorElem(el);
+    }
+  }, []);
+  const blockDragEnabled = Boolean(enableBlockDrag) && editable;
   useEffect(() => setMounted(true), []);
   if (!mounted) {
-    return /* @__PURE__ */ jsx(Skeleton, {
+    return /* @__PURE__ */ jsx(Skeleton2, {
       className: cn("h-24 w-full rounded-md", skeletonClassName ?? className),
       ...rest
     });
@@ -505,14 +538,15 @@ var RichTextEditor = ({
         }),
         /* @__PURE__ */ jsxs("div", {
           className: "relative",
+          ref: onAnchorRef,
           children: [
             /* @__PURE__ */ jsx(RichTextPlugin, {
               contentEditable: /* @__PURE__ */ jsx(ContentEditable, {
-                className: cn("min-h-20 px-3 py-2 text-base outline-none md:text-sm", editorClassName),
+                className: cn("min-h-20 px-3 py-2 text-base outline-none md:text-sm", blockDragEnabled && "pl-7", editorClassName),
                 spellCheck: true
               }),
               placeholder: placeholder && isEmpty ? /* @__PURE__ */ jsx("div", {
-                className: "pointer-events-none absolute top-2 left-3 select-none text-muted-foreground",
+                className: cn("pointer-events-none absolute top-2 left-3 select-none text-muted-foreground", blockDragEnabled && "left-7"),
                 children: placeholder
               }) : null,
               ErrorBoundary: LexicalErrorBoundary
@@ -534,6 +568,9 @@ var RichTextEditor = ({
             }) : null,
             issueReferenceItems?.length ? /* @__PURE__ */ jsx(IssueReferenceTypeahead, {
               items: issueReferenceItems
+            }) : null,
+            blockDragEnabled && anchorElem ? /* @__PURE__ */ jsx(BlockDragPlugin, {
+              anchorElem
             }) : null,
             plugins,
             /* @__PURE__ */ jsx(OnChangePlugin, {
