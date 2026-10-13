@@ -5,6 +5,9 @@ import { cleanup, render, waitFor } from "@testing-library/react";
 import {
   RichTextContent,
   RichTextEditor,
+  dragUnitClass,
+  dropSide,
+  getDragUnits,
   linkFromText,
   linkifyBareUrls,
   linkifyMarkdownLinks,
@@ -13,6 +16,34 @@ import {
 afterEach(cleanup);
 
 const DRAG_HANDLE_LABEL = "Drag to reorder block";
+
+test("getDragUnits expands lists so each list item is its own draggable unit", () => {
+  const root = document.createElement("div");
+  root.innerHTML = "<h2>h</h2><p>p</p><ul><li>a</li><li>b</li></ul><p>q</p>";
+  const units = getDragUnits(root);
+  expect(units.map((u) => u.tagName)).toEqual(["H2", "P", "LI", "LI", "P"]);
+  expect(units.map((u) => u.textContent)).toEqual(["h", "p", "a", "b", "q"]);
+});
+
+test("getDragUnits expands ordered lists too", () => {
+  const root = document.createElement("div");
+  root.innerHTML = "<ol><li>one</li><li>two</li></ol>";
+  expect(getDragUnits(root).map((u) => u.textContent)).toEqual(["one", "two"]);
+});
+
+test("dragUnitClass distinguishes list items from blocks", () => {
+  const li = document.createElement("li");
+  const p = document.createElement("p");
+  expect(dragUnitClass(li)).toBe("list-item");
+  expect(dragUnitClass(p)).toBe("block");
+});
+
+test("dropSide picks before above the midpoint and after below it", () => {
+  // a unit spanning y=[100,140], midpoint 120
+  expect(dropSide(100, 40, 110)).toBe("before");
+  expect(dropSide(100, 40, 130)).toBe("after");
+  expect(dropSide(100, 40, 120)).toBe("after");
+});
 
 test("mounts a block-drag handle when editable and enableBlockDrag is set", async () => {
   const { container } = render(

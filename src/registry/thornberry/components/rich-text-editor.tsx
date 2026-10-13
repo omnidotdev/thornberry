@@ -36,7 +36,6 @@ import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
-import { DraggableBlockPlugin_EXPERIMENTAL } from "@lexical/react/LexicalDraggableBlockPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
@@ -55,6 +54,8 @@ import DOMPurify from "isomorphic-dompurify";
 import {
   $createParagraphNode,
   $createTextNode,
+  $getNearestNodeFromDOMNode,
+  $getNodeByKey,
   $getRoot,
   $getSelection,
   $insertNodes,
@@ -90,7 +91,12 @@ import type {
   TextFormatType,
   TextNode,
 } from "lexical";
-import type { ComponentProps, ReactNode, RefObject } from "react";
+import type {
+  ComponentProps,
+  DragEvent as ReactDragEvent,
+  ReactNode,
+  RefObject,
+} from "react";
 
 /** Imperative handle exposed via `editorApi` for clearing/focusing the editor. */
 export interface EditorApi {
@@ -350,46 +356,238 @@ const EditablePlugin = ({ editable }: { editable: boolean }) => {
   return null;
 };
 
+// Offset of the drag handle from the editor surface's left edge; sits inside the
+// gutter the surface reserves (pl-7) so the handle never overlaps the text.
+const DRAG_HANDLE_GUTTER = 4;
+// Horizontal inset of the drop line, matching the text gutter so it lines up
+// with content rather than running under the handle.
+const DROP_LINE_INSET = 24;
+
 /**
- * Notion-style drag handle for reordering top-level blocks (paragraphs,
- * headings, lists, quotes, and any registered block-level `extraNodes`). Wraps
- * Lexical's own experimental draggable-block plugin so the drag math tracks
- * upstream; this component only supplies the handle and drop-line chrome.
- *
- * The plugin toggles each element's inline opacity and transform to show, hide,
- * and position them, so both the handle and the target line stay absolutely
- * positioned with the ref attached and never set their own opacity. The handle
- * lives in the left gutter the editor surface reserves (pl-7) when drag is on.
+ * The ordered draggable units inside the editor root: every top-level block,
+ * except a list block contributes its direct list items instead, so checklist
+ * and list rows reorder individually (Lexical's stock plugin only sees the whole
+ * list). Nested sublists are left to drag with their parent item in this pass.
+ */
+const getDragUnits = (rootEl: HTMLElement): HTMLElement[] => {
+  const units: HTMLElement[] = [];
+  for (const child of Array.from(rootEl.children)) {
+    if (!(child instanceof HTMLElement)) continue;
+    if (child.tagName === "UL" || child.tagName === "OL") {
+      for (const li of Array.from(child.children)) {
+        if (li instanceof HTMLElement && li.tagName === "LI") units.push(li);
+      }
+    } else {
+      units.push(child);
+    }
+  }
+  return units;
+};
+
+/**
+ * A draggable unit is either a list item or a top-level block. A unit only drops
+ * among units of its own kind (item among items, block among blocks), so a move
+ * can never put a list item at the document root or a block inside a list and
+ * corrupt the tree.
+ */
+const dragUnitClass = (el: HTMLElement): "list-item" | "block" =>
+  el.tagName === "LI" ? "list-item" : "block";
+
+/** Which edge of a unit a drop lands on, from the pointer's y within it. */
+const dropSide = (
+  top: number,
+  height: number,
+  clientY: number,
+): "before" | "after" => (clientY < top + height / 2 ? "before" : "after");
+
+/**
+ * Hover drag handle for reordering editor content. Unlike Lexical's stock
+ * draggable-block plugin (top-level blocks only), each list item is its own
+ * draggable unit via {@link getDragUnits}, so checklist and list rows reorder
+ * individually. Purpose-built so the handle and drop line fade and glide: show
+ * and hide toggle only opacity, leaving transform free to transition between
+ * units. A unit drops only among units of its own kind (see {@link dragUnitClass}).
  */
 const BlockDragPlugin = ({ anchorElem }: { anchorElem: HTMLElement }) => {
-  const menuRef = useRef<HTMLDivElement>(null);
-  const targetLineRef = useRef<HTMLDivElement>(null);
+  const [editor] = useLexicalComposerContext();
+  const handleRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  // the unit the handle currently points at (the drag source once a drag starts)
+  const hoveredUnitRef = useRef<HTMLElement | null>(null);
+  const dragRef = useRef<{ key: string; kind: "list-item" | "block" } | null>(
+    null,
+  );
+  const dropRef = useRef<{ key: string; side: "before" | "after" } | null>(
+    null,
+  );
+
+  // Resolve the Lexical node key for a unit's DOM element (a top-level block
+  // maps to its own node; a list item maps to its ListItemNode).
+  const unitNodeKey = useCallback(
+    (unit: HTMLElement): string => {
+      let key = "";
+      // editor.read (not getEditorState().read) sets the active editor context
+      // $getNearestNodeFromDOMNode requires
+      editor.read(() => {
+        const node = $getNearestNodeFromDOMNode(unit);
+        if (node) key = node.getKey();
+      });
+      return key;
+    },
+    [editor],
+  );
+
+  useEffect(() => {
+    const rootEl = editor.getRootElement();
+    if (!rootEl) return;
+
+    const placeHandle = (unit: HTMLElement | null) => {
+      const el = handleRef.current;
+      if (!el) return;
+      if (!unit) {
+        el.style.opacity = "0";
+        return;
+      }
+      const a = anchorElem.getBoundingClientRect();
+      const u = unit.getBoundingClientRect();
+      const top =
+        u.top - a.top + (u.height - el.offsetHeight) / 2 + anchorElem.scrollTop;
+      el.style.transform = `translate(${DRAG_HANDLE_GUTTER}px, ${Math.round(top)}px)`;
+      el.style.opacity = "1";
+    };
+
+    const placeLine = (unit: HTMLElement, side: "before" | "after") => {
+      const line = lineRef.current;
+      if (!line) return;
+      const a = anchorElem.getBoundingClientRect();
+      const u = unit.getBoundingClientRect();
+      const edge = side === "before" ? u.top : u.bottom;
+      line.style.transform = `translate(${DROP_LINE_INSET}px, ${Math.round(edge - a.top + anchorElem.scrollTop)}px)`;
+      line.style.width = `${Math.round(u.width)}px`;
+      line.style.opacity = "1";
+    };
+
+    const hideLine = () => {
+      if (lineRef.current) lineRef.current.style.opacity = "0";
+    };
+
+    const unitAtY = (clientY: number, kind?: "list-item" | "block") => {
+      const units = kind
+        ? getDragUnits(rootEl).filter((u) => dragUnitClass(u) === kind)
+        : getDragUnits(rootEl);
+      let nearest: HTMLElement | null = null;
+      let nearestDist = Number.POSITIVE_INFINITY;
+      for (const u of units) {
+        const r = u.getBoundingClientRect();
+        if (clientY >= r.top && clientY <= r.bottom) return u;
+        const dist = clientY < r.top ? r.top - clientY : clientY - r.bottom;
+        if (dist < nearestDist) {
+          nearestDist = dist;
+          nearest = u;
+        }
+      }
+      return nearest;
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (dragRef.current) return;
+      const unit = unitAtY(e.clientY);
+      hoveredUnitRef.current = unit;
+      placeHandle(unit);
+    };
+    const onMouseLeave = () => {
+      if (dragRef.current) return;
+      hoveredUnitRef.current = null;
+      placeHandle(null);
+    };
+    const onDragOver = (e: DragEvent) => {
+      const drag = dragRef.current;
+      if (!drag) return;
+      // allow the drop regardless of where it lands so onDrop always fires
+      e.preventDefault();
+      const unit = unitAtY(e.clientY, drag.kind);
+      if (!unit) {
+        dropRef.current = null;
+        hideLine();
+        return;
+      }
+      const r = unit.getBoundingClientRect();
+      const side = dropSide(r.top, r.height, e.clientY);
+      const key = unitNodeKey(unit);
+      dropRef.current = key ? { key, side } : null;
+      placeLine(unit, side);
+    };
+    const endDrag = () => {
+      dragRef.current = null;
+      dropRef.current = null;
+      hideLine();
+      placeHandle(null);
+    };
+    const onDrop = (e: DragEvent) => {
+      const drag = dragRef.current;
+      if (!drag) return;
+      e.preventDefault();
+      const drop = dropRef.current;
+      if (drop && drop.key !== drag.key) {
+        editor.update(() => {
+          const dragged = $getNodeByKey(drag.key);
+          const target = $getNodeByKey(drop.key);
+          if (dragged && target && dragged !== target) {
+            if (drop.side === "after") target.insertAfter(dragged);
+            else target.insertBefore(dragged);
+          }
+        });
+      }
+      endDrag();
+    };
+
+    anchorElem.addEventListener("mousemove", onMouseMove);
+    anchorElem.addEventListener("mouseleave", onMouseLeave);
+    anchorElem.addEventListener("dragover", onDragOver);
+    anchorElem.addEventListener("drop", onDrop);
+    anchorElem.addEventListener("dragend", endDrag);
+    return () => {
+      anchorElem.removeEventListener("mousemove", onMouseMove);
+      anchorElem.removeEventListener("mouseleave", onMouseLeave);
+      anchorElem.removeEventListener("dragover", onDragOver);
+      anchorElem.removeEventListener("drop", onDrop);
+      anchorElem.removeEventListener("dragend", endDrag);
+    };
+  }, [editor, anchorElem, unitNodeKey]);
+
+  const onHandleDragStart = (e: ReactDragEvent<HTMLDivElement>) => {
+    const unit = hoveredUnitRef.current;
+    const key = unit ? unitNodeKey(unit) : "";
+    if (!unit || !key) {
+      e.preventDefault();
+      return;
+    }
+    dragRef.current = { key, kind: dragUnitClass(unit) };
+    e.dataTransfer.effectAllowed = "move";
+    // some browsers refuse to start a drag unless data is set
+    e.dataTransfer.setData("text/plain", "");
+    e.dataTransfer.setDragImage(unit, 0, 0);
+  };
 
   return (
-    <DraggableBlockPlugin_EXPERIMENTAL
-      anchorElem={anchorElem}
-      menuRef={menuRef}
-      targetLineRef={targetLineRef}
-      menuComponent={
-        <div
-          ref={menuRef}
-          data-block-drag-handle
-          aria-label="Drag to reorder block"
-          role="button"
-          tabIndex={-1}
-          className="absolute top-0 left-0 flex cursor-grab rounded-sm px-0.5 py-1 opacity-0 will-change-transform hover:bg-muted active:cursor-grabbing"
-        >
-          <GripVertical className="size-4 text-muted-foreground" />
-        </div>
-      }
-      targetLineComponent={
-        <div
-          ref={targetLineRef}
-          className="pointer-events-none absolute top-0 left-0 h-0.5 rounded-full bg-primary opacity-0 will-change-transform"
-        />
-      }
-      isOnMenu={(element) => !!element.closest("[data-block-drag-handle]")}
-    />
+    <>
+      <div
+        ref={handleRef}
+        draggable
+        onDragStart={onHandleDragStart}
+        data-block-drag-handle
+        aria-label="Drag to reorder block"
+        role="button"
+        tabIndex={-1}
+        className="absolute top-0 left-0 flex cursor-grab rounded-sm px-0.5 py-1 opacity-0 transition-all duration-150 ease-out will-change-transform hover:bg-muted active:cursor-grabbing"
+      >
+        <GripVertical className="size-4 text-muted-foreground" />
+      </div>
+      <div
+        ref={lineRef}
+        className="pointer-events-none absolute top-0 left-0 h-0.5 rounded-full bg-primary opacity-0 transition-all duration-150 ease-out will-change-transform"
+      />
+    </>
   );
 };
 
@@ -1094,5 +1292,8 @@ export {
   linkFromText,
   linkifyBareUrls,
   linkifyMarkdownLinks,
+  getDragUnits,
+  dragUnitClass,
+  dropSide,
 };
 export default RichTextEditor;
