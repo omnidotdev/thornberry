@@ -47,7 +47,6 @@ import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
-import { DraggableBlockPlugin_EXPERIMENTAL } from "@lexical/react/LexicalDraggableBlockPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
@@ -66,6 +65,8 @@ import DOMPurify from "isomorphic-dompurify";
 import {
   $createParagraphNode,
   $createTextNode,
+  $getNearestNodeFromDOMNode,
+  $getNodeByKey,
   $getRoot,
   $getSelection,
   $insertNodes,
@@ -249,29 +250,192 @@ var EditablePlugin = ({ editable }) => {
   }, [editor, editable]);
   return null;
 };
+var DRAG_HANDLE_GUTTER = 4;
+var DROP_LINE_INSET = 24;
+var getDragUnits = (rootEl) => {
+  const units = [];
+  for (const child of Array.from(rootEl.children)) {
+    if (!(child instanceof HTMLElement))
+      continue;
+    if (child.tagName === "UL" || child.tagName === "OL") {
+      for (const li of Array.from(child.children)) {
+        if (li instanceof HTMLElement && li.tagName === "LI")
+          units.push(li);
+      }
+    } else {
+      units.push(child);
+    }
+  }
+  return units;
+};
+var dragUnitClass = (el) => el.tagName === "LI" ? "list-item" : "block";
+var dropSide = (top, height, clientY) => clientY < top + height / 2 ? "before" : "after";
 var BlockDragPlugin = ({ anchorElem }) => {
-  const menuRef = useRef(null);
-  const targetLineRef = useRef(null);
-  return /* @__PURE__ */ jsx(DraggableBlockPlugin_EXPERIMENTAL, {
-    anchorElem,
-    menuRef,
-    targetLineRef,
-    menuComponent: /* @__PURE__ */ jsx("div", {
-      ref: menuRef,
-      "data-block-drag-handle": true,
-      "aria-label": "Drag to reorder block",
-      role: "button",
-      tabIndex: -1,
-      className: "absolute top-0 left-0 flex cursor-grab rounded-sm px-0.5 py-1 opacity-0 will-change-transform hover:bg-muted active:cursor-grabbing",
-      children: /* @__PURE__ */ jsx(GripVertical, {
-        className: "size-4 text-muted-foreground"
+  const [editor] = useLexicalComposerContext();
+  const handleRef = useRef(null);
+  const lineRef = useRef(null);
+  const hoveredUnitRef = useRef(null);
+  const dragRef = useRef(null);
+  const dropRef = useRef(null);
+  const unitNodeKey = useCallback((unit) => {
+    let key = "";
+    editor.read(() => {
+      const node = $getNearestNodeFromDOMNode(unit);
+      if (node)
+        key = node.getKey();
+    });
+    return key;
+  }, [editor]);
+  useEffect(() => {
+    const rootEl = editor.getRootElement();
+    if (!rootEl)
+      return;
+    const placeHandle = (unit) => {
+      const el = handleRef.current;
+      if (!el)
+        return;
+      if (!unit) {
+        el.style.opacity = "0";
+        return;
+      }
+      const a = anchorElem.getBoundingClientRect();
+      const u = unit.getBoundingClientRect();
+      const top = u.top - a.top + (u.height - el.offsetHeight) / 2 + anchorElem.scrollTop;
+      el.style.transform = `translate(${DRAG_HANDLE_GUTTER}px, ${Math.round(top)}px)`;
+      el.style.opacity = "1";
+    };
+    const placeLine = (unit, side) => {
+      const line = lineRef.current;
+      if (!line)
+        return;
+      const a = anchorElem.getBoundingClientRect();
+      const u = unit.getBoundingClientRect();
+      const edge = side === "before" ? u.top : u.bottom;
+      line.style.transform = `translate(${DROP_LINE_INSET}px, ${Math.round(edge - a.top + anchorElem.scrollTop)}px)`;
+      line.style.width = `${Math.round(u.width)}px`;
+      line.style.opacity = "1";
+    };
+    const hideLine = () => {
+      if (lineRef.current)
+        lineRef.current.style.opacity = "0";
+    };
+    const unitAtY = (clientY, kind) => {
+      const units = kind ? getDragUnits(rootEl).filter((u) => dragUnitClass(u) === kind) : getDragUnits(rootEl);
+      let nearest = null;
+      let nearestDist = Number.POSITIVE_INFINITY;
+      for (const u of units) {
+        const r = u.getBoundingClientRect();
+        if (clientY >= r.top && clientY <= r.bottom)
+          return u;
+        const dist = clientY < r.top ? r.top - clientY : clientY - r.bottom;
+        if (dist < nearestDist) {
+          nearestDist = dist;
+          nearest = u;
+        }
+      }
+      return nearest;
+    };
+    const onMouseMove = (e) => {
+      if (dragRef.current)
+        return;
+      const unit = unitAtY(e.clientY);
+      hoveredUnitRef.current = unit;
+      placeHandle(unit);
+    };
+    const onMouseLeave = () => {
+      if (dragRef.current)
+        return;
+      hoveredUnitRef.current = null;
+      placeHandle(null);
+    };
+    const onDragOver = (e) => {
+      const drag = dragRef.current;
+      if (!drag)
+        return;
+      e.preventDefault();
+      const unit = unitAtY(e.clientY, drag.kind);
+      if (!unit) {
+        dropRef.current = null;
+        hideLine();
+        return;
+      }
+      const r = unit.getBoundingClientRect();
+      const side = dropSide(r.top, r.height, e.clientY);
+      const key = unitNodeKey(unit);
+      dropRef.current = key ? { key, side } : null;
+      placeLine(unit, side);
+    };
+    const endDrag = () => {
+      dragRef.current = null;
+      dropRef.current = null;
+      hideLine();
+      placeHandle(null);
+    };
+    const onDrop = (e) => {
+      const drag = dragRef.current;
+      if (!drag)
+        return;
+      e.preventDefault();
+      const drop = dropRef.current;
+      if (drop && drop.key !== drag.key) {
+        editor.update(() => {
+          const dragged = $getNodeByKey(drag.key);
+          const target = $getNodeByKey(drop.key);
+          if (dragged && target && dragged !== target) {
+            if (drop.side === "after")
+              target.insertAfter(dragged);
+            else
+              target.insertBefore(dragged);
+          }
+        });
+      }
+      endDrag();
+    };
+    anchorElem.addEventListener("mousemove", onMouseMove);
+    anchorElem.addEventListener("mouseleave", onMouseLeave);
+    anchorElem.addEventListener("dragover", onDragOver);
+    anchorElem.addEventListener("drop", onDrop);
+    anchorElem.addEventListener("dragend", endDrag);
+    return () => {
+      anchorElem.removeEventListener("mousemove", onMouseMove);
+      anchorElem.removeEventListener("mouseleave", onMouseLeave);
+      anchorElem.removeEventListener("dragover", onDragOver);
+      anchorElem.removeEventListener("drop", onDrop);
+      anchorElem.removeEventListener("dragend", endDrag);
+    };
+  }, [editor, anchorElem, unitNodeKey]);
+  const onHandleDragStart = (e) => {
+    const unit = hoveredUnitRef.current;
+    const key = unit ? unitNodeKey(unit) : "";
+    if (!unit || !key) {
+      e.preventDefault();
+      return;
+    }
+    dragRef.current = { key, kind: dragUnitClass(unit) };
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/plain", "");
+    e.dataTransfer.setDragImage(unit, 0, 0);
+  };
+  return /* @__PURE__ */ jsxs(Fragment, {
+    children: [
+      /* @__PURE__ */ jsx("div", {
+        ref: handleRef,
+        draggable: true,
+        onDragStart: onHandleDragStart,
+        "data-block-drag-handle": true,
+        "aria-label": "Drag to reorder block",
+        role: "button",
+        tabIndex: -1,
+        className: "absolute top-0 left-0 flex cursor-grab rounded-sm px-0.5 py-1 opacity-0 transition-all duration-150 ease-out will-change-transform hover:bg-muted active:cursor-grabbing",
+        children: /* @__PURE__ */ jsx(GripVertical, {
+          className: "size-4 text-muted-foreground"
+        })
+      }),
+      /* @__PURE__ */ jsx("div", {
+        ref: lineRef,
+        className: "pointer-events-none absolute top-0 left-0 h-0.5 rounded-full bg-primary opacity-0 transition-all duration-150 ease-out will-change-transform"
       })
-    }),
-    targetLineComponent: /* @__PURE__ */ jsx("div", {
-      ref: targetLineRef,
-      className: "pointer-events-none absolute top-0 left-0 h-0.5 rounded-full bg-primary opacity-0 will-change-transform"
-    }),
-    isOnMenu: (element) => !!element.closest("[data-block-drag-handle]")
+    ]
   });
 };
 var LinkShortcutsPlugin = () => {
@@ -685,6 +849,9 @@ export {
   RichTextContent,
   RichTextEditor,
   rich_text_editor_default as default,
+  dragUnitClass,
+  dropSide,
+  getDragUnits,
   linkFromText,
   linkifyBareUrls,
   linkifyMarkdownLinks

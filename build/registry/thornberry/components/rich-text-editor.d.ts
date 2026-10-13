@@ -12,6 +12,22 @@ export interface EditorApi {
  * a sentence still replaces the selection as text.
  */
 declare const linkFromText: (text: string) => string | null;
+/**
+ * The ordered draggable units inside the editor root: every top-level block,
+ * except a list block contributes its direct list items instead, so checklist
+ * and list rows reorder individually (Lexical's stock plugin only sees the whole
+ * list). Nested sublists are left to drag with their parent item in this pass.
+ */
+declare const getDragUnits: (rootEl: HTMLElement) => HTMLElement[];
+/**
+ * A draggable unit is either a list item or a top-level block. A unit only drops
+ * among units of its own kind (item among items, block among blocks), so a move
+ * can never put a list item at the document root or a block inside a list and
+ * corrupt the tree.
+ */
+declare const dragUnitClass: (el: HTMLElement) => "list-item" | "block";
+/** Which edge of a unit a drop lands on, from the pointer's y within it. */
+declare const dropSide: (top: number, height: number, clientY: number) => "before" | "after";
 /** A mentionable entity offered in the `@`-typeahead. */
 export interface MentionItem {
     /** Stable id (e.g. user id). */
@@ -107,5 +123,5 @@ interface RichTextContentProps extends ComponentProps<"div"> {
  * user-generated content safe. Mirrors the editor's node-class theme.
  */
 declare const RichTextContent: ({ html, fallback, className, ...rest }: RichTextContentProps) => import("react/jsx-runtime").JSX.Element;
-export { RichTextEditor, RichTextContent, linkFromText, linkifyBareUrls, linkifyMarkdownLinks, };
+export { RichTextEditor, RichTextContent, linkFromText, linkifyBareUrls, linkifyMarkdownLinks, getDragUnits, dragUnitClass, dropSide, };
 export default RichTextEditor;
