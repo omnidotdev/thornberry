@@ -401,6 +401,35 @@ const dropSide = (
 ): "before" | "after" => (clientY < top + height / 2 ? "before" : "after");
 
 /**
+ * Build a solid, opaque card clone of a block to use as the drag image, so the
+ * drag shows the actual block content rather than the browser's faint native
+ * snapshot of the live element. Appended off-screen (laid out so the browser can
+ * snapshot it); the caller removes it once the drag has started.
+ */
+const buildBlockDragImage = (unit: HTMLElement): HTMLElement => {
+  const rect = unit.getBoundingClientRect();
+  const preview = unit.cloneNode(true) as HTMLElement;
+  preview.setAttribute("data-block-drag-image", "");
+  // keep the block's own prose classes, add card chrome (bg-background makes it
+  // opaque, not the translucent native ghost)
+  preview.className = cn(
+    unit.className,
+    "rounded-md border border-border bg-background px-3 py-2 text-sm shadow-lg",
+  );
+  Object.assign(preview.style, {
+    position: "fixed",
+    top: "-10000px",
+    left: "-10000px",
+    width: `${Math.round(rect.width)}px`,
+    margin: "0",
+    boxSizing: "border-box",
+    pointerEvents: "none",
+  });
+  document.body.appendChild(preview);
+  return preview;
+};
+
+/**
  * Hover drag handle for reordering editor content. Unlike Lexical's stock
  * draggable-block plugin (top-level blocks only), each list item is its own
  * draggable unit via {@link getDragUnits}, so checklist and list rows reorder
@@ -566,7 +595,13 @@ const BlockDragPlugin = ({ anchorElem }: { anchorElem: HTMLElement }) => {
     e.dataTransfer.effectAllowed = "move";
     // some browsers refuse to start a drag unless data is set
     e.dataTransfer.setData("text/plain", "");
-    e.dataTransfer.setDragImage(unit, 0, 0);
+    // Use a solid card clone as the drag image instead of the browser's faint
+    // native snapshot of the live block, so the user sees the actual content as
+    // a card (closer to the board's drag). The browser snapshots synchronously
+    // at dragstart, so the off-screen clone can be removed on the next frame.
+    const preview = buildBlockDragImage(unit);
+    e.dataTransfer.setDragImage(preview, 12, 16);
+    requestAnimationFrame(() => preview.remove());
   };
 
   return (
