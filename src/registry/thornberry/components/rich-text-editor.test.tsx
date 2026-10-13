@@ -1,15 +1,59 @@
 import { afterEach, expect, test } from "bun:test";
 
-import { cleanup, render } from "@testing-library/react";
+import { cleanup, render, waitFor } from "@testing-library/react";
 
 import {
   RichTextContent,
+  RichTextEditor,
   linkFromText,
   linkifyBareUrls,
   linkifyMarkdownLinks,
 } from "@/registry/thornberry/components/rich-text-editor";
 
 afterEach(cleanup);
+
+const DRAG_HANDLE_LABEL = "Drag to reorder block";
+
+test("mounts a block-drag handle when editable and enableBlockDrag is set", async () => {
+  const { container } = render(
+    <RichTextEditor editable enableBlockDrag defaultContent="<p>one</p>" />,
+  );
+  // the editor is client-only (mounts behind an effect), so wait for it
+  await waitFor(() =>
+    expect(
+      container.querySelector(`[aria-label="${DRAG_HANDLE_LABEL}"]`),
+    ).not.toBeNull(),
+  );
+});
+
+test("mounts no block-drag handle when enableBlockDrag is not set", async () => {
+  const { container } = render(
+    <RichTextEditor editable defaultContent="<p>one</p>" />,
+  );
+  // wait for the editor surface itself, then assert the handle is absent
+  await waitFor(() =>
+    expect(container.querySelector('[contenteditable="true"]')).not.toBeNull(),
+  );
+  expect(
+    container.querySelector(`[aria-label="${DRAG_HANDLE_LABEL}"]`),
+  ).toBeNull();
+});
+
+test("mounts no block-drag handle in read-only mode even with enableBlockDrag", async () => {
+  const { container } = render(
+    <RichTextEditor
+      editable={false}
+      enableBlockDrag
+      defaultContent="<p>one</p>"
+    />,
+  );
+  await waitFor(() =>
+    expect(container.querySelector("[data-lexical-editor]")).not.toBeNull(),
+  );
+  expect(
+    container.querySelector(`[aria-label="${DRAG_HANDLE_LABEL}"]`),
+  ).toBeNull();
+});
 
 test("linkFromText treats a lone URL or email as a link href", () => {
   expect(linkFromText("https://omni.dev")).toBe("https://omni.dev");

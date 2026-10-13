@@ -36,6 +36,7 @@ import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
+import { DraggableBlockPlugin_EXPERIMENTAL } from "@lexical/react/LexicalDraggableBlockPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
@@ -66,6 +67,7 @@ import {
 } from "lexical";
 import {
   Bold,
+  GripVertical,
   Italic,
   Link as LinkIcon,
   List,
@@ -346,6 +348,49 @@ const EditablePlugin = ({ editable }: { editable: boolean }) => {
   }, [editor, editable]);
 
   return null;
+};
+
+/**
+ * Notion-style drag handle for reordering top-level blocks (paragraphs,
+ * headings, lists, quotes, and any registered block-level `extraNodes`). Wraps
+ * Lexical's own experimental draggable-block plugin so the drag math tracks
+ * upstream; this component only supplies the handle and drop-line chrome.
+ *
+ * The plugin toggles each element's inline opacity and transform to show, hide,
+ * and position them, so both the handle and the target line stay absolutely
+ * positioned with the ref attached and never set their own opacity. The handle
+ * lives in the left gutter the editor surface reserves (pl-7) when drag is on.
+ */
+const BlockDragPlugin = ({ anchorElem }: { anchorElem: HTMLElement }) => {
+  const menuRef = useRef<HTMLDivElement>(null);
+  const targetLineRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <DraggableBlockPlugin_EXPERIMENTAL
+      anchorElem={anchorElem}
+      menuRef={menuRef}
+      targetLineRef={targetLineRef}
+      menuComponent={
+        <div
+          ref={menuRef}
+          data-block-drag-handle
+          aria-label="Drag to reorder block"
+          role="button"
+          tabIndex={-1}
+          className="absolute top-0 left-0 flex cursor-grab rounded-sm px-0.5 py-1 opacity-0 will-change-transform hover:bg-muted active:cursor-grabbing"
+        >
+          <GripVertical className="size-4 text-muted-foreground" />
+        </div>
+      }
+      targetLineComponent={
+        <div
+          ref={targetLineRef}
+          className="pointer-events-none absolute top-0 left-0 h-0.5 rounded-full bg-primary opacity-0 will-change-transform"
+        />
+      }
+      isOnMenu={(element) => !!element.closest("[data-block-drag-handle]")}
+    />
+  );
 };
 
 /**
@@ -674,6 +719,13 @@ interface RichTextEditorProps
   issueReferenceItems?: IssueReferenceItem[];
   /** Show a checklist (task list) button in the toolbar and enable the plugin. */
   enableChecklist?: boolean;
+  /**
+   * Enable a hover drag handle for reordering top-level blocks (Notion-style).
+   * Off by default: it reserves a left gutter on the editor surface, which is
+   * unwanted on single-line surfaces (titles, list items). Turn on for rich,
+   * multi-block editors (e.g. a task description).
+   */
+  enableBlockDrag?: boolean;
   /** Extra Lexical node classes to register (e.g. an app's image node). */
   extraNodes?: ReadonlyArray<Klass<LexicalNode>>;
   /** Extra Lexical plugins rendered inside the composer (e.g. image paste, code highlighting). */
@@ -702,6 +754,7 @@ const RichTextEditor = ({
   mentionItems,
   issueReferenceItems,
   enableChecklist,
+  enableBlockDrag,
   extraNodes,
   plugins,
   theme,
@@ -712,6 +765,16 @@ const RichTextEditor = ({
 }: RichTextEditorProps) => {
   const [mounted, setMounted] = useState(false);
   const [isEmpty, setIsEmpty] = useState(!defaultContent);
+  // The drag plugin needs a positioned DOM anchor to portal the handle into;
+  // capture the surface wrapper once it mounts (keep the last non-null node, as
+  // the Lexical playground does, so the plugin never loses its anchor).
+  const [anchorElem, setAnchorElem] = useState<HTMLDivElement | null>(null);
+  const onAnchorRef = useCallback((el: HTMLDivElement | null) => {
+    if (el !== null) {
+      setAnchorElem(el);
+    }
+  }, []);
+  const blockDragEnabled = Boolean(enableBlockDrag) && editable;
 
   // Lexical touches the DOM, so only render it on the client to stay SSR-safe.
   useEffect(() => setMounted(true), []);
@@ -801,7 +864,7 @@ const RichTextEditor = ({
           />
         )}
 
-        <div className="relative">
+        <div className="relative" ref={onAnchorRef}>
           <RichTextPlugin
             contentEditable={
               <ContentEditable
@@ -810,6 +873,9 @@ const RichTextEditor = ({
                   // viewport on focus (it zooms any field under 16px and never
                   // zooms back out); drop to 14px from md up to match Input/Textarea
                   "min-h-20 px-3 py-2 text-base outline-none md:text-sm",
+                  // reserve a left gutter for the block-drag handle so it never
+                  // overlaps the text (the handle sits ~4px from the surface edge)
+                  blockDragEnabled && "pl-7",
                   editorClassName,
                 )}
                 spellCheck
@@ -817,7 +883,13 @@ const RichTextEditor = ({
             }
             placeholder={
               placeholder && isEmpty ? (
-                <div className="pointer-events-none absolute top-2 left-3 select-none text-muted-foreground">
+                <div
+                  className={cn(
+                    "pointer-events-none absolute top-2 left-3 select-none text-muted-foreground",
+                    // keep the placeholder aligned with the gutter-shifted text
+                    blockDragEnabled && "left-7",
+                  )}
+                >
                   {placeholder}
                 </div>
               ) : null
@@ -841,6 +913,9 @@ const RichTextEditor = ({
           ) : null}
           {issueReferenceItems?.length ? (
             <IssueReferenceTypeahead items={issueReferenceItems} />
+          ) : null}
+          {blockDragEnabled && anchorElem ? (
+            <BlockDragPlugin anchorElem={anchorElem} />
           ) : null}
           {plugins}
           <OnChangePlugin onChange={handleChange} />
