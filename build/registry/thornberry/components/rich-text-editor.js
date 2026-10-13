@@ -270,6 +270,23 @@ var getDragUnits = (rootEl) => {
 };
 var dragUnitClass = (el) => el.tagName === "LI" ? "list-item" : "block";
 var dropSide = (top, height, clientY) => clientY < top + height / 2 ? "before" : "after";
+var buildBlockDragImage = (unit) => {
+  const rect = unit.getBoundingClientRect();
+  const preview = unit.cloneNode(true);
+  preview.setAttribute("data-block-drag-image", "");
+  preview.className = cn(unit.className, "rounded-md border border-border bg-background px-3 py-2 text-sm shadow-lg");
+  Object.assign(preview.style, {
+    position: "fixed",
+    top: "-10000px",
+    left: "-10000px",
+    width: `${Math.round(rect.width)}px`,
+    margin: "0",
+    boxSizing: "border-box",
+    pointerEvents: "none"
+  });
+  document.body.appendChild(preview);
+  return preview;
+};
 var BlockDragPlugin = ({ anchorElem }) => {
   const [editor] = useLexicalComposerContext();
   const handleRef = useRef(null);
@@ -414,7 +431,9 @@ var BlockDragPlugin = ({ anchorElem }) => {
     dragRef.current = { key, kind: dragUnitClass(unit) };
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("text/plain", "");
-    e.dataTransfer.setDragImage(unit, 0, 0);
+    const preview = buildBlockDragImage(unit);
+    e.dataTransfer.setDragImage(preview, 12, 16);
+    requestAnimationFrame(() => preview.remove());
   };
   return /* @__PURE__ */ jsxs(Fragment, {
     children: [
