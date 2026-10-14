@@ -37,6 +37,11 @@ const EXTERNAL = [
   "@unpic/react",
   "@xyflow/react",
   "@omnidotdev/providers",
+  // Externalized so the consumer supplies one instance: @internationalized/date
+  // relies on instanceof, which breaks if a second copy is bundled, and cadence
+  // is installed directly by consumers (it is a registry dependency)
+  "@omnidotdev/cadence",
+  "@internationalized/date",
 ];
 
 const build = async () => {

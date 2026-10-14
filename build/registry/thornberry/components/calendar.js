@@ -1,0 +1,144 @@
+import {
+  cn
+} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
+
+// src/registry/thornberry/components/calendar.tsx
+import {
+  DateFormatter,
+  getLocalTimeZone,
+  today
+} from "@internationalized/date";
+import { buildMonthGrid } from "@omnidotdev/cadence";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { useCallback, useMemo, useState } from "react";
+import { jsx, jsxs } from "react/jsx-runtime";
+var WEEKDAY_LABELS = [
+  "Sun",
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat"
+];
+var orderedWeekdays = (weekStartsOn) => weekStartsOn === 1 ? [...WEEKDAY_LABELS.slice(1), WEEKDAY_LABELS[0]] : WEEKDAY_LABELS;
+var CalendarHeader = ({
+  title,
+  onPrevious,
+  onNext,
+  onToday,
+  className,
+  children,
+  ...rest
+}) => /* @__PURE__ */ jsxs("div", {
+  className: cn("flex items-center justify-between px-1 py-3", className),
+  ...rest,
+  children: [
+    /* @__PURE__ */ jsx("h2", {
+      className: "font-semibold text-lg",
+      children: title
+    }),
+    /* @__PURE__ */ jsxs("div", {
+      className: "flex items-center gap-1",
+      children: [
+        /* @__PURE__ */ jsx("button", {
+          type: "button",
+          "aria-label": "Previous",
+          onClick: onPrevious,
+          className: "rounded-md p-1.5 hover:bg-muted",
+          children: /* @__PURE__ */ jsx(ChevronLeftIcon, {
+            className: "size-4"
+          })
+        }),
+        /* @__PURE__ */ jsx("button", {
+          type: "button",
+          onClick: onToday,
+          className: "rounded-md border px-2 py-1 text-sm hover:bg-muted",
+          children: "Today"
+        }),
+        /* @__PURE__ */ jsx("button", {
+          type: "button",
+          "aria-label": "Next",
+          onClick: onNext,
+          className: "rounded-md p-1.5 hover:bg-muted",
+          children: /* @__PURE__ */ jsx(ChevronRightIcon, {
+            className: "size-4"
+          })
+        }),
+        children
+      ]
+    })
+  ]
+});
+var CalendarWeekdays = ({
+  weekStartsOn = 0,
+  className,
+  ...rest
+}) => /* @__PURE__ */ jsx("div", {
+  className: cn("grid grid-cols-7 border-border border-b", className),
+  ...rest,
+  children: orderedWeekdays(weekStartsOn).map((day) => /* @__PURE__ */ jsx("div", {
+    className: "px-2 py-1 text-center font-medium text-muted-foreground text-xs",
+    children: day
+  }, day))
+});
+var CalendarGrid = ({ className, ...rest }) => /* @__PURE__ */ jsx("div", {
+  className: cn("grid grid-cols-7", className),
+  ...rest
+});
+var CalendarDayCell = ({
+  day,
+  isOver,
+  className,
+  children,
+  ...rest
+}) => /* @__PURE__ */ jsxs("div", {
+  "data-cadence-day": day.key,
+  className: cn("flex min-h-24 flex-col border-border border-r border-b p-1", !day.inMonth && "bg-muted/30 text-muted-foreground", isOver && "bg-accent/40", className),
+  ...rest,
+  children: [
+    /* @__PURE__ */ jsx("span", {
+      className: cn("inline-flex size-6 items-center justify-center self-start text-xs", day.isToday && "rounded-full bg-primary font-semibold text-primary-foreground"),
+      children: day.dayOfMonth
+    }),
+    /* @__PURE__ */ jsx("div", {
+      className: "mt-1 flex flex-col gap-1 overflow-hidden",
+      children
+    })
+  ]
+});
+var CalendarItemChip = ({
+  isDragging,
+  className,
+  type,
+  ...rest
+}) => /* @__PURE__ */ jsx("button", {
+  type: type ?? "button",
+  "data-cadence-item": true,
+  className: cn("truncate rounded bg-accent px-1.5 py-0.5 text-left text-xs hover:bg-accent/80", isDragging && "shadow-lg ring-1 ring-primary", className),
+  ...rest
+});
+var useCalendarMonth = ({
+  initialMonth,
+  weekStartsOn = 0,
+  timeZone = getLocalTimeZone()
+} = {}) => {
+  const [month, setMonth] = useState(() => initialMonth ?? today(timeZone).set({ day: 1 }));
+  const grid = useMemo(() => buildMonthGrid(month, { weekStartsOn, today: today(timeZone) }), [month, weekStartsOn, timeZone]);
+  const label = useMemo(() => new DateFormatter("en-US", {
+    month: "long",
+    year: "numeric"
+  }).format(month.toDate(timeZone)), [month, timeZone]);
+  const goToPrevious = useCallback(() => setMonth((current) => current.subtract({ months: 1 })), []);
+  const goToNext = useCallback(() => setMonth((current) => current.add({ months: 1 })), []);
+  const goToToday = useCallback(() => setMonth(today(timeZone).set({ day: 1 })), [timeZone]);
+  return { month, grid, label, goToPrevious, goToNext, goToToday, setMonth };
+};
+export {
+  CalendarDayCell,
+  CalendarGrid,
+  CalendarHeader,
+  CalendarItemChip,
+  CalendarWeekdays,
+  useCalendarMonth
+};
