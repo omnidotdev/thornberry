@@ -88,6 +88,23 @@
       ]
     },
     {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Presentational, drag-agnostic month-calendar primitives (header, weekday row, day cells, item chips) with grid math from @omnidotdev/cadence",
+      "dependencies": [
+        "@omnidotdev/cadence",
+        "@internationalized/date",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/calendar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "card",
       "type": "registry:ui",
       "title": "Card",
