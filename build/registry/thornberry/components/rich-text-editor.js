@@ -44,6 +44,7 @@ import {
   createLinkMatcherWithRegExp
 } from "@lexical/react/LexicalAutoLinkPlugin";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
+import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
@@ -746,6 +747,7 @@ var RichTextEditor = ({
             /* @__PURE__ */ jsx(AutoLinkPlugin, {
               matchers: AUTO_LINK_MATCHERS
             }),
+            /* @__PURE__ */ jsx(ClickableLinkPlugin, {}),
             mentionItems?.length ? /* @__PURE__ */ jsx(MentionTypeahead, {
               items: mentionItems
             }) : null,
