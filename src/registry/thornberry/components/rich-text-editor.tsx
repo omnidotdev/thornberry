@@ -33,6 +33,7 @@ import {
   createLinkMatcherWithRegExp,
 } from "@lexical/react/LexicalAutoLinkPlugin";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
+import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
@@ -1141,6 +1142,10 @@ const RichTextEditor = ({
           <LinkShortcutsPlugin />
           {/* turn bare URLs / emails into links as they are typed or pasted */}
           <AutoLinkPlugin matchers={AUTO_LINK_MATCHERS} />
+          {/* open links on click (new tab), in both read-only and edit mode;
+              drag-selecting a link's text suppresses navigation so it stays
+              editable. Without this, Lexical swallows the click for selection */}
+          <ClickableLinkPlugin />
           {mentionItems?.length ? (
             <MentionTypeahead items={mentionItems} />
           ) : null}

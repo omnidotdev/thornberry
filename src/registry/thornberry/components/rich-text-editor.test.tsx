@@ -86,6 +86,39 @@ test("mounts no block-drag handle in read-only mode even with enableBlockDrag", 
   ).toBeNull();
 });
 
+test("read-only editor opens a link on click (ClickableLinkPlugin)", async () => {
+  const opened: string[] = [];
+  const originalOpen = window.open;
+  window.open = ((url?: string | URL) => {
+    opened.push(String(url));
+    return null;
+    // biome-ignore lint/suspicious/noExplicitAny: test stub for window.open
+  }) as any;
+
+  try {
+    const { container } = render(
+      <RichTextEditor
+        editable={false}
+        defaultContent='<p><a href="https://omni.dev">site</a></p>'
+      />,
+    );
+
+    // the editor mounts behind an effect; wait for the anchor inside it
+    await waitFor(() => {
+      expect(container.querySelector("[data-lexical-editor] a")).not.toBeNull();
+    });
+
+    container
+      .querySelector<HTMLAnchorElement>("[data-lexical-editor] a")!
+      .click();
+
+    await waitFor(() => expect(opened.length).toBeGreaterThan(0));
+    expect(opened[0]).toContain("omni.dev");
+  } finally {
+    window.open = originalOpen;
+  }
+});
+
 test("linkFromText treats a lone URL or email as a link href", () => {
   expect(linkFromText("https://omni.dev")).toBe("https://omni.dev");
   expect(linkFromText("  www.omni.dev  ")).toBe("https://www.omni.dev");
