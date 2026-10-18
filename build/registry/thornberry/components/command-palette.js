@@ -1,19 +1,17 @@
+import"../../../chunks/account-user-two-factor-authentication-8q0yqrx6.js";
 import {
-  Kbd
-} from "../../../chunks/account-user-two-factor-authentication-ktx8cffm.js";
+  CommandDialog2,
+  CommandInput2,
+  CommandList2,
+  CommandEmpty2,
+  CommandGroup2,
+  CommandSeparator2,
+  CommandItem2,
+  CommandShortcut2
+} from "../../../chunks/account-user-two-factor-authentication-1qcg15v6.js";
 import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut
-} from "../../../chunks/account-user-two-factor-authentication-67pw02m7.js";
-import"../../../chunks/account-user-two-factor-authentication-negb4kbv.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  Kbd2
+} from "../../../chunks/account-user-two-factor-authentication-ym1fwyxy.js";
 
 // src/registry/thornberry/components/command-palette.tsx
 import { Fragment, useEffect, useState } from "react";
@@ -64,26 +62,26 @@ var CommandPalette = ({
     }
     group.items.push(command);
   }
-  return /* @__PURE__ */ jsxs(CommandDialog, {
+  return /* @__PURE__ */ jsxs(CommandDialog2, {
     open,
     onOpenChange: (details) => setOpen(details.open),
     children: [
-      /* @__PURE__ */ jsx(CommandInput, {
+      /* @__PURE__ */ jsx(CommandInput2, {
         placeholder
       }),
-      /* @__PURE__ */ jsxs(CommandList, {
+      /* @__PURE__ */ jsxs(CommandList2, {
         children: [
-          /* @__PURE__ */ jsx(CommandEmpty, {
+          /* @__PURE__ */ jsx(CommandEmpty2, {
             children: emptyMessage
           }),
           groups.map((group, index) => /* @__PURE__ */ jsxs(Fragment, {
             children: [
-              index > 0 && /* @__PURE__ */ jsx(CommandSeparator, {}),
-              /* @__PURE__ */ jsx(CommandGroup, {
+              index > 0 && /* @__PURE__ */ jsx(CommandSeparator2, {}),
+              /* @__PURE__ */ jsx(CommandGroup2, {
                 heading: group.name || undefined,
                 children: group.items.map((command) => {
                   const Icon = command.icon;
-                  return /* @__PURE__ */ jsxs(CommandItem, {
+                  return /* @__PURE__ */ jsxs(CommandItem2, {
                     value: `${command.label} ${command.keywords?.join(" ") ?? ""}`,
                     onSelect: () => {
                       setOpen(false);
@@ -97,8 +95,8 @@ var CommandPalette = ({
                         className: "flex-1 truncate",
                         children: command.label
                       }),
-                      command.shortcut && /* @__PURE__ */ jsx(CommandShortcut, {
-                        children: /* @__PURE__ */ jsx(Kbd, {
+                      command.shortcut && /* @__PURE__ */ jsx(CommandShortcut2, {
+                        children: /* @__PURE__ */ jsx(Kbd2, {
                           children: command.shortcut
                         })
                       })

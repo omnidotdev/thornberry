@@ -1,17 +1,14 @@
 import {
-  AlertDescription,
-  AlertIcon,
-  AlertRoot,
-  AlertTitle,
-  alertVariants
-} from "../../../chunks/account-user-two-factor-authentication-qrqgt04q.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  alertVariants2,
+  AlertRoot2,
+  AlertIcon2,
+  AlertTitle2,
+  AlertDescription2
+} from "../../../chunks/account-user-two-factor-authentication-zzr25an1.js";
 export {
-  AlertDescription,
-  AlertIcon,
-  AlertRoot,
-  AlertTitle,
-  alertVariants
+  AlertDescription2 as AlertDescription,
+  AlertIcon2 as AlertIcon,
+  AlertRoot2 as AlertRoot,
+  AlertTitle2 as AlertTitle,
+  alertVariants2 as alertVariants
 };

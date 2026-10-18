@@ -1,14 +1,12 @@
 import {
-  Skeleton
-} from "../../../chunks/account-user-two-factor-authentication-3rns3zjj.js";
+  Button2
+} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
 import {
-  Button
-} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
+  Skeleton2
+} from "../../../chunks/account-user-two-factor-authentication-4ayhnmp9.js";
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
 
 // src/registry/thornberry/components/rich-text-editor.tsx
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
@@ -184,7 +182,7 @@ var ToolbarButton = ({
   children,
   className,
   ...rest
-}) => /* @__PURE__ */ jsx(Button, {
+}) => /* @__PURE__ */ jsx(Button2, {
   type: "button",
   size: "icon",
   variant: "ghost",
@@ -449,7 +447,7 @@ var RichTextEditor = ({
   const [isEmpty, setIsEmpty] = useState(!defaultContent);
   useEffect(() => setMounted(true), []);
   if (!mounted) {
-    return /* @__PURE__ */ jsx(Skeleton, {
+    return /* @__PURE__ */ jsx(Skeleton2, {
       className: cn("h-24 w-full rounded-md", skeletonClassName ?? className),
       ...rest
     });

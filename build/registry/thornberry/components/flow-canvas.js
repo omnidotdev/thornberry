@@ -1,11 +1,9 @@
 import {
-  SmartEdge
-} from "../../../chunks/account-user-two-factor-authentication-8d3fhx89.js";
+  BaseNode2
+} from "../../../chunks/account-user-two-factor-authentication-jkgqd6za.js";
 import {
-  BaseNode
-} from "../../../chunks/account-user-two-factor-authentication-sq2amekn.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  SmartEdge2
+} from "../../../chunks/account-user-two-factor-authentication-mntdd9kx.js";
 
 // src/registry/thornberry/components/flow-canvas.tsx
 import {
@@ -19,10 +17,10 @@ import { useMemo } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 "use client";
 var DEFAULT_NODE_TYPES = {
-  base: BaseNode
+  base: BaseNode2
 };
 var DEFAULT_EDGE_TYPES = {
-  smart: SmartEdge
+  smart: SmartEdge2
 };
 var DEFAULT_EDGE_OPTIONS = {
   type: "smart"

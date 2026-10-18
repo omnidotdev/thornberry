@@ -1,11 +1,9 @@
 import {
-  Button
-} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
+  Button2
+} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
 
 // src/registry/thornberry/components/carousel.tsx
 import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
@@ -43,7 +41,7 @@ var CarouselNextTrigger = ({
 }) => /* @__PURE__ */ jsx(ArkCarousel.NextTrigger, {
   asChild: true,
   ...rest,
-  children: /* @__PURE__ */ jsx(Button, {
+  children: /* @__PURE__ */ jsx(Button2, {
     variant: "outline",
     size: "icon",
     className: cn("z-10 size-7 rounded-full", className),
@@ -58,7 +56,7 @@ var CarouselPrevTrigger = ({
 }) => /* @__PURE__ */ jsx(ArkCarousel.PrevTrigger, {
   asChild: true,
   ...rest,
-  children: /* @__PURE__ */ jsx(Button, {
+  children: /* @__PURE__ */ jsx(Button2, {
     variant: "outline",
     size: "icon",
     className: cn("z-10 size-7 rounded-full", className),

@@ -1,10 +1,7 @@
 import {
-  ImageCropper
-} from "../../../chunks/account-user-two-factor-authentication-hpbe7ba5.js";
-import"../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  ImageCropper2
+} from "../../../chunks/account-user-two-factor-authentication-q37czf6m.js";
+import"../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
 export {
-  ImageCropper
+  ImageCropper2 as ImageCropper
 };

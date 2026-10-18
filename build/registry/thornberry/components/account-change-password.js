@@ -1,18 +1,15 @@
 import {
-  ChangePassword
-} from "../../../chunks/account-user-two-factor-authentication-5m1nmfqx.js";
-import"../../../chunks/account-user-two-factor-authentication-1kbapfba.js";
-import"../../../chunks/account-user-two-factor-authentication-gtemm9x0.js";
-import"../../../chunks/account-user-two-factor-authentication-v7dgczst.js";
-import"../../../chunks/account-user-two-factor-authentication-ksnvs1j1.js";
-import"../../../chunks/account-user-two-factor-authentication-5zw78ck9.js";
-import"../../../chunks/account-user-two-factor-authentication-en4v22ys.js";
-import"../../../chunks/account-user-two-factor-authentication-nmmcnpth.js";
-import"../../../chunks/account-user-two-factor-authentication-negb4kbv.js";
-import"../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  ChangePassword2
+} from "../../../chunks/account-user-two-factor-authentication-b42r02js.js";
+import"../../../chunks/account-user-two-factor-authentication-h7z0b3ps.js";
+import"../../../chunks/account-user-two-factor-authentication-n3zp77m0.js";
+import"../../../chunks/account-user-two-factor-authentication-8wtqb3wn.js";
+import"../../../chunks/account-user-two-factor-authentication-rmtq1dzy.js";
+import"../../../chunks/account-user-two-factor-authentication-e8m4br8p.js";
+import"../../../chunks/account-user-two-factor-authentication-b60vh03c.js";
+import"../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
+import"../../../chunks/account-user-two-factor-authentication-8q0yqrx6.js";
+import"../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
 export {
-  ChangePassword
+  ChangePassword2 as ChangePassword
 };

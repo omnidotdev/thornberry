@@ -1,7 +1,6 @@
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
 
 // src/registry/thornberry/components/radio-group.tsx
 import { RadioGroup as ArkRadioGroup } from "@ark-ui/react/radio-group";

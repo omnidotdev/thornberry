@@ -1,60 +1,57 @@
 import {
-  AccountOrganizationTeams
-} from "../../../chunks/account-user-two-factor-authentication-2xyfkm3p.js";
+  useAccountContext2
+} from "../../../chunks/account-user-two-factor-authentication-b60vh03c.js";
 import {
-  Select,
-  SelectContent,
-  SelectControl,
-  SelectIndicator,
-  SelectItem,
-  SelectItemGroup,
-  SelectItemIndicator,
-  SelectItemText,
-  SelectPositioner,
-  SelectTrigger,
-  SelectValueText,
-  createListCollection
-} from "../../../chunks/account-user-two-factor-authentication-v7dgczst.js";
+  Button2
+} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
 import {
-  Badge
-} from "../../../chunks/account-user-two-factor-authentication-7qezk7ef.js";
+  DialogRoot2,
+  DialogPortal2,
+  DialogBackdrop2,
+  DialogPositioner2,
+  DialogContent2,
+  DialogTitle2,
+  DialogDescription2
+} from "../../../chunks/account-user-two-factor-authentication-8q0yqrx6.js";
 import {
-  ConfirmDialog
-} from "../../../chunks/account-user-two-factor-authentication-y482en2x.js";
+  Input2
+} from "../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
 import {
-  AvatarFallback,
-  AvatarImage,
-  AvatarRoot
-} from "../../../chunks/account-user-two-factor-authentication-w1smy5z1.js";
+  Label2
+} from "../../../chunks/account-user-two-factor-authentication-fa46q8yp.js";
 import {
-  Label
-} from "../../../chunks/account-user-two-factor-authentication-gsg3ph0v.js";
+  ConfirmDialog2
+} from "../../../chunks/account-user-two-factor-authentication-1qzbdkf5.js";
 import {
-  useAccountContext
-} from "../../../chunks/account-user-two-factor-authentication-en4v22ys.js";
+  Select2,
+  SelectControl2,
+  SelectTrigger2,
+  SelectValueText2,
+  SelectIndicator2,
+  SelectPositioner2,
+  SelectContent2,
+  SelectItemGroup2,
+  SelectItem2,
+  SelectItemText2,
+  SelectItemIndicator2,
+  createListCollection2
+} from "../../../chunks/account-user-two-factor-authentication-8wtqb3wn.js";
 import {
-  Input
-} from "../../../chunks/account-user-two-factor-authentication-nmmcnpth.js";
+  AccountOrganizationTeams2
+} from "../../../chunks/account-user-two-factor-authentication-k3txg2x1.js";
 import {
-  DialogBackdrop,
-  DialogContent,
-  DialogDescription,
-  DialogPortal,
-  DialogPositioner,
-  DialogRoot,
-  DialogTitle
-} from "../../../chunks/account-user-two-factor-authentication-negb4kbv.js";
+  AvatarRoot2,
+  AvatarFallback2,
+  AvatarImage2
+} from "../../../chunks/account-user-two-factor-authentication-b7jpk793.js";
+import {
+  Badge2
+} from "../../../chunks/account-user-two-factor-authentication-mhbe1kzg.js";
 import {
   ALLOWED_IMAGE_TYPES,
-  ImageCropper,
-  MAX_IMAGE_SIZE
-} from "../../../chunks/account-user-two-factor-authentication-hpbe7ba5.js";
-import {
-  Button
-} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  MAX_IMAGE_SIZE,
+  ImageCropper2
+} from "../../../chunks/account-user-two-factor-authentication-q37czf6m.js";
 
 // src/registry/thornberry/components/account-organizations.tsx
 import {
@@ -83,10 +80,10 @@ var RoleSelect = ({
   size = "sm",
   roles = ROLES
 }) => {
-  const collection = useMemo(() => createListCollection({
+  const collection = useMemo(() => createListCollection2({
     items: roles.map((role) => ({ label: role, value: role }))
   }), [roles]);
-  return /* @__PURE__ */ jsxs(Select, {
+  return /* @__PURE__ */ jsxs(Select2, {
     collection,
     value: [value],
     onValueChange: (details) => {
@@ -97,19 +94,19 @@ var RoleSelect = ({
     disabled,
     positioning: { strategy: "fixed", placement: "bottom-end" },
     children: [
-      /* @__PURE__ */ jsx(SelectControl, {
-        children: /* @__PURE__ */ jsx(SelectTrigger, {
+      /* @__PURE__ */ jsx(SelectControl2, {
+        children: /* @__PURE__ */ jsx(SelectTrigger2, {
           asChild: true,
-          children: /* @__PURE__ */ jsxs(Button, {
+          children: /* @__PURE__ */ jsxs(Button2, {
             variant: "outline",
             size,
             className: "min-w-28 justify-between gap-2 capitalize",
             children: [
-              /* @__PURE__ */ jsx(SelectValueText, {
+              /* @__PURE__ */ jsx(SelectValueText2, {
                 className: "capitalize",
                 placeholder: "Role"
               }),
-              /* @__PURE__ */ jsx(SelectIndicator, {
+              /* @__PURE__ */ jsx(SelectIndicator2, {
                 children: /* @__PURE__ */ jsx(ChevronsUpDown, {
                   className: "size-3.5 shrink-0 opacity-60"
                 })
@@ -118,19 +115,19 @@ var RoleSelect = ({
           })
         })
       }),
-      /* @__PURE__ */ jsx(SelectPositioner, {
-        children: /* @__PURE__ */ jsx(SelectContent, {
+      /* @__PURE__ */ jsx(SelectPositioner2, {
+        children: /* @__PURE__ */ jsx(SelectContent2, {
           className: "min-w-[8rem] p-1",
-          children: /* @__PURE__ */ jsx(SelectItemGroup, {
+          children: /* @__PURE__ */ jsx(SelectItemGroup2, {
             className: "space-y-0.5",
-            children: collection.items.map((item) => /* @__PURE__ */ jsxs(SelectItem, {
+            children: collection.items.map((item) => /* @__PURE__ */ jsxs(SelectItem2, {
               item,
               children: [
-                /* @__PURE__ */ jsx(SelectItemText, {
+                /* @__PURE__ */ jsx(SelectItemText2, {
                   className: "capitalize",
                   children: item.label
                 }),
-                /* @__PURE__ */ jsx(SelectItemIndicator, {})
+                /* @__PURE__ */ jsx(SelectItemIndicator2, {})
               ]
             }, item.value))
           })
@@ -141,7 +138,7 @@ var RoleSelect = ({
 };
 var ROLE_RANK = { owner: 0, admin: 1, member: 2 };
 var DELETION_GRACE_DAYS = 30;
-var roleFilterCollection = createListCollection({
+var roleFilterCollection = createListCollection2({
   items: [
     { label: "All roles", value: "all" },
     { label: "Owner", value: "owner" },
@@ -149,7 +146,7 @@ var roleFilterCollection = createListCollection({
     { label: "Member", value: "member" }
   ]
 });
-var memberSortCollection = createListCollection({
+var memberSortCollection = createListCollection2({
   items: [
     { label: "Name (A-Z)", value: "name-asc" },
     { label: "Name (Z-A)", value: "name-desc" },
@@ -157,7 +154,7 @@ var memberSortCollection = createListCollection({
   ]
 });
 var CreateOrganizationDialog = ({ onCreated }) => {
-  const { authClient, toaster } = useAccountContext();
+  const { authClient, toaster } = useAccountContext2();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
@@ -228,7 +225,7 @@ var CreateOrganizationDialog = ({ onCreated }) => {
   };
   return /* @__PURE__ */ jsxs(Fragment, {
     children: [
-      /* @__PURE__ */ jsxs(Button, {
+      /* @__PURE__ */ jsxs(Button2, {
         className: "gap-2",
         onClick: () => {
           reset();
@@ -241,7 +238,7 @@ var CreateOrganizationDialog = ({ onCreated }) => {
           "New workspace"
         ]
       }),
-      /* @__PURE__ */ jsx(DialogRoot, {
+      /* @__PURE__ */ jsx(DialogRoot2, {
         open,
         onOpenChange: ({ open: next }) => {
           if (isCreating)
@@ -250,17 +247,17 @@ var CreateOrganizationDialog = ({ onCreated }) => {
           if (!next)
             reset();
         },
-        children: /* @__PURE__ */ jsxs(DialogPortal, {
+        children: /* @__PURE__ */ jsxs(DialogPortal2, {
           children: [
-            /* @__PURE__ */ jsx(DialogBackdrop, {}),
-            /* @__PURE__ */ jsx(DialogPositioner, {
-              children: /* @__PURE__ */ jsxs(DialogContent, {
+            /* @__PURE__ */ jsx(DialogBackdrop2, {}),
+            /* @__PURE__ */ jsx(DialogPositioner2, {
+              children: /* @__PURE__ */ jsxs(DialogContent2, {
                 className: "w-full max-w-md p-6",
                 children: [
-                  /* @__PURE__ */ jsx(DialogTitle, {
+                  /* @__PURE__ */ jsx(DialogTitle2, {
                     children: "Create a workspace"
                   }),
-                  /* @__PURE__ */ jsx(DialogDescription, {
+                  /* @__PURE__ */ jsx(DialogDescription2, {
                     className: "text-muted-foreground text-sm",
                     children: "A shared workspace for your team's access and billing. You'll be its owner."
                   }),
@@ -275,11 +272,11 @@ var CreateOrganizationDialog = ({ onCreated }) => {
                       /* @__PURE__ */ jsxs("div", {
                         className: "space-y-1.5",
                         children: [
-                          /* @__PURE__ */ jsx(Label, {
+                          /* @__PURE__ */ jsx(Label2, {
                             htmlFor: "org-name",
                             children: "Name"
                           }),
-                          /* @__PURE__ */ jsx(Input, {
+                          /* @__PURE__ */ jsx(Input2, {
                             id: "org-name",
                             value: name,
                             onChange: (event) => handleNameChange(event.target.value),
@@ -292,7 +289,7 @@ var CreateOrganizationDialog = ({ onCreated }) => {
                       /* @__PURE__ */ jsxs("div", {
                         className: "space-y-1.5",
                         children: [
-                          /* @__PURE__ */ jsx(Label, {
+                          /* @__PURE__ */ jsx(Label2, {
                             htmlFor: "org-slug",
                             children: "Handle"
                           }),
@@ -303,7 +300,7 @@ var CreateOrganizationDialog = ({ onCreated }) => {
                                 className: "absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm",
                                 children: "@"
                               }),
-                              /* @__PURE__ */ jsx(Input, {
+                              /* @__PURE__ */ jsx(Input2, {
                                 id: "org-slug",
                                 value: slug,
                                 onChange: (event) => handleSlugChange(event.target.value),
@@ -336,7 +333,7 @@ var CreateOrganizationDialog = ({ onCreated }) => {
                       /* @__PURE__ */ jsxs("div", {
                         className: "flex justify-end gap-2 pt-2",
                         children: [
-                          /* @__PURE__ */ jsx(Button, {
+                          /* @__PURE__ */ jsx(Button2, {
                             type: "button",
                             variant: "outline",
                             disabled: isCreating,
@@ -346,7 +343,7 @@ var CreateOrganizationDialog = ({ onCreated }) => {
                             },
                             children: "Cancel"
                           }),
-                          /* @__PURE__ */ jsx(Button, {
+                          /* @__PURE__ */ jsx(Button2, {
                             type: "submit",
                             disabled: !canSubmit,
                             children: isCreating ? "Creating..." : "Create"
@@ -370,7 +367,7 @@ var EditOrganizationDialog = ({
   onOpenChange,
   onUpdated
 }) => {
-  const { authClient, toaster, orgLogo } = useAccountContext();
+  const { authClient, toaster, orgLogo } = useAccountContext2();
   const [name, setName] = useState(organization.name);
   const [slug, setSlug] = useState(organization.slug);
   const [description, setDescription] = useState("");
@@ -512,24 +509,24 @@ var EditOrganizationDialog = ({
   };
   return /* @__PURE__ */ jsxs(Fragment, {
     children: [
-      /* @__PURE__ */ jsx(DialogRoot, {
+      /* @__PURE__ */ jsx(DialogRoot2, {
         open,
         onOpenChange: ({ open: next }) => {
           if (isSaving)
             return;
           onOpenChange(next);
         },
-        children: /* @__PURE__ */ jsxs(DialogPortal, {
+        children: /* @__PURE__ */ jsxs(DialogPortal2, {
           children: [
-            /* @__PURE__ */ jsx(DialogBackdrop, {}),
-            /* @__PURE__ */ jsx(DialogPositioner, {
-              children: /* @__PURE__ */ jsxs(DialogContent, {
+            /* @__PURE__ */ jsx(DialogBackdrop2, {}),
+            /* @__PURE__ */ jsx(DialogPositioner2, {
+              children: /* @__PURE__ */ jsxs(DialogContent2, {
                 className: "w-full max-w-md p-6",
                 children: [
-                  /* @__PURE__ */ jsx(DialogTitle, {
+                  /* @__PURE__ */ jsx(DialogTitle2, {
                     children: "Edit workspace"
                   }),
-                  /* @__PURE__ */ jsx(DialogDescription, {
+                  /* @__PURE__ */ jsx(DialogDescription2, {
                     className: "text-muted-foreground text-sm",
                     children: "Update your workspace's name, handle, or description."
                   }),
@@ -544,13 +541,13 @@ var EditOrganizationDialog = ({
                       orgLogo?.uploadEnabled && /* @__PURE__ */ jsxs("div", {
                         className: "flex items-center gap-4",
                         children: [
-                          /* @__PURE__ */ jsxs(AvatarRoot, {
+                          /* @__PURE__ */ jsxs(AvatarRoot2, {
                             className: "size-14 shrink-0 rounded-md",
                             children: [
-                              /* @__PURE__ */ jsx(AvatarImage, {
+                              /* @__PURE__ */ jsx(AvatarImage2, {
                                 src: currentLogo ?? undefined
                               }),
-                              /* @__PURE__ */ jsx(AvatarFallback, {
+                              /* @__PURE__ */ jsx(AvatarFallback2, {
                                 className: "rounded-md",
                                 children: organization.name.charAt(0)
                               })
@@ -562,7 +559,7 @@ var EditOrganizationDialog = ({
                               /* @__PURE__ */ jsxs("div", {
                                 className: "flex items-center gap-2",
                                 children: [
-                                  /* @__PURE__ */ jsx(Button, {
+                                  /* @__PURE__ */ jsx(Button2, {
                                     type: "button",
                                     variant: "outline",
                                     size: "sm",
@@ -570,7 +567,7 @@ var EditOrganizationDialog = ({
                                     onClick: () => logoInputRef.current?.click(),
                                     children: isUploadingLogo ? "Uploading..." : "Change logo"
                                   }),
-                                  !!currentLogo && /* @__PURE__ */ jsx(Button, {
+                                  !!currentLogo && /* @__PURE__ */ jsx(Button2, {
                                     type: "button",
                                     variant: "outline",
                                     size: "sm",
@@ -599,11 +596,11 @@ var EditOrganizationDialog = ({
                       /* @__PURE__ */ jsxs("div", {
                         className: "space-y-1.5",
                         children: [
-                          /* @__PURE__ */ jsx(Label, {
+                          /* @__PURE__ */ jsx(Label2, {
                             htmlFor: "edit-org-name",
                             children: "Name"
                           }),
-                          /* @__PURE__ */ jsx(Input, {
+                          /* @__PURE__ */ jsx(Input2, {
                             id: "edit-org-name",
                             value: name,
                             onChange: (event) => setName(event.target.value),
@@ -614,7 +611,7 @@ var EditOrganizationDialog = ({
                       /* @__PURE__ */ jsxs("div", {
                         className: "space-y-1.5",
                         children: [
-                          /* @__PURE__ */ jsx(Label, {
+                          /* @__PURE__ */ jsx(Label2, {
                             htmlFor: "edit-org-slug",
                             children: "Handle"
                           }),
@@ -625,7 +622,7 @@ var EditOrganizationDialog = ({
                                 className: "absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm",
                                 children: "@"
                               }),
-                              /* @__PURE__ */ jsx(Input, {
+                              /* @__PURE__ */ jsx(Input2, {
                                 id: "edit-org-slug",
                                 value: slug,
                                 onChange: (event) => handleSlugChange(event.target.value),
@@ -657,11 +654,11 @@ var EditOrganizationDialog = ({
                       /* @__PURE__ */ jsxs("div", {
                         className: "space-y-1.5",
                         children: [
-                          /* @__PURE__ */ jsx(Label, {
+                          /* @__PURE__ */ jsx(Label2, {
                             htmlFor: "edit-org-desc",
                             children: "Description"
                           }),
-                          /* @__PURE__ */ jsx(Input, {
+                          /* @__PURE__ */ jsx(Input2, {
                             id: "edit-org-desc",
                             value: description,
                             onChange: (event) => setDescription(event.target.value),
@@ -672,14 +669,14 @@ var EditOrganizationDialog = ({
                       /* @__PURE__ */ jsxs("div", {
                         className: "flex justify-end gap-2 pt-2",
                         children: [
-                          /* @__PURE__ */ jsx(Button, {
+                          /* @__PURE__ */ jsx(Button2, {
                             type: "button",
                             variant: "outline",
                             disabled: isSaving,
                             onClick: () => onOpenChange(false),
                             children: "Cancel"
                           }),
-                          /* @__PURE__ */ jsx(Button, {
+                          /* @__PURE__ */ jsx(Button2, {
                             type: "submit",
                             disabled: !canSave,
                             children: isSaving ? "Saving..." : "Save"
@@ -694,7 +691,7 @@ var EditOrganizationDialog = ({
           ]
         })
       }),
-      /* @__PURE__ */ jsx(DialogRoot, {
+      /* @__PURE__ */ jsx(DialogRoot2, {
         open: !!logoToCrop,
         onOpenChange: ({ open: next }) => {
           if (isUploadingLogo)
@@ -702,19 +699,19 @@ var EditOrganizationDialog = ({
           if (!next)
             setLogoToCrop(null);
         },
-        children: /* @__PURE__ */ jsxs(DialogPortal, {
+        children: /* @__PURE__ */ jsxs(DialogPortal2, {
           children: [
-            /* @__PURE__ */ jsx(DialogBackdrop, {}),
-            /* @__PURE__ */ jsx(DialogPositioner, {
-              children: /* @__PURE__ */ jsxs(DialogContent, {
+            /* @__PURE__ */ jsx(DialogBackdrop2, {}),
+            /* @__PURE__ */ jsx(DialogPositioner2, {
+              children: /* @__PURE__ */ jsxs(DialogContent2, {
                 className: "w-full max-w-md p-6",
                 children: [
-                  /* @__PURE__ */ jsx(DialogTitle, {
+                  /* @__PURE__ */ jsx(DialogTitle2, {
                     children: "Crop logo"
                   }),
                   logoToCrop && /* @__PURE__ */ jsx("div", {
                     className: "mt-4",
-                    children: /* @__PURE__ */ jsx(ImageCropper, {
+                    children: /* @__PURE__ */ jsx(ImageCropper2, {
                       imageSrc: logoToCrop,
                       cropShape: "rect",
                       confirming: isUploadingLogo,
@@ -728,7 +725,7 @@ var EditOrganizationDialog = ({
           ]
         })
       }),
-      logoRemoveOpen && /* @__PURE__ */ jsx(ConfirmDialog, {
+      logoRemoveOpen && /* @__PURE__ */ jsx(ConfirmDialog2, {
         open: logoRemoveOpen,
         onOpenChange: setLogoRemoveOpen,
         title: "Remove logo?",
@@ -748,7 +745,7 @@ var OrganizationDetail = ({
   onLeftOrDeleted,
   onUpdated
 }) => {
-  const { authClient, toaster } = useAccountContext();
+  const { authClient, toaster } = useAccountContext2();
   const [editOpen, setEditOpen] = useState(false);
   const [full, setFull] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -861,15 +858,15 @@ var OrganizationDetail = ({
       return;
     setIsActionPending(true);
     if (pending.kind === "remove") {
-      const res2 = await authClient.organization.removeMember({
+      const res = await authClient.organization.removeMember({
         organizationId: organization.id,
         memberIdOrEmail: pending.memberIdOrEmail
       });
       setIsActionPending(false);
       setPending(null);
-      if (res2?.error) {
+      if (res?.error) {
         toaster.error({
-          title: errorMessage(res2.error, "Couldn't remove the member")
+          title: errorMessage(res.error, "Couldn't remove the member")
         });
         return;
       }
@@ -878,14 +875,14 @@ var OrganizationDetail = ({
       return;
     }
     if (pending.kind === "cancel") {
-      const res2 = await authClient.organization.cancelInvitation({
+      const res = await authClient.organization.cancelInvitation({
         invitationId: pending.invitationId
       });
       setIsActionPending(false);
       setPending(null);
-      if (res2?.error) {
+      if (res?.error) {
         toaster.error({
-          title: errorMessage(res2.error, "Couldn't cancel the invitation")
+          title: errorMessage(res.error, "Couldn't cancel the invitation")
         });
         return;
       }
@@ -895,14 +892,14 @@ var OrganizationDetail = ({
     }
     if (pending.kind === "delete") {
       const schedule = authClient.organization.scheduleOrganizationDeletion;
-      const res2 = schedule ? await schedule({ organizationId: organization.id }) : await authClient.organization.delete({
+      const res = schedule ? await schedule({ organizationId: organization.id }) : await authClient.organization.delete({
         organizationId: organization.id
       });
       setIsActionPending(false);
       setPending(null);
-      if (res2?.error) {
+      if (res?.error) {
         toaster.error({
-          title: errorMessage(res2.error, "Couldn't delete the workspace")
+          title: errorMessage(res.error, "Couldn't delete the workspace")
         });
         return;
       }
@@ -948,7 +945,7 @@ var OrganizationDetail = ({
   return /* @__PURE__ */ jsxs("div", {
     className: "space-y-6",
     children: [
-      /* @__PURE__ */ jsxs(Button, {
+      /* @__PURE__ */ jsxs(Button2, {
         variant: "ghost",
         size: "sm",
         className: "w-fit gap-1.5 px-2 text-muted-foreground",
@@ -973,7 +970,7 @@ var OrganizationDetail = ({
                     className: "font-semibold text-lg",
                     children: organization.name
                   }),
-                  currentMember && /* @__PURE__ */ jsx(Badge, {
+                  currentMember && /* @__PURE__ */ jsx(Badge2, {
                     variant: "outline",
                     className: "capitalize",
                     children: currentMember.role
@@ -989,7 +986,7 @@ var OrganizationDetail = ({
               })
             ]
           }),
-          canManage && organization.type !== "personal" && /* @__PURE__ */ jsx(Button, {
+          canManage && organization.type !== "personal" && /* @__PURE__ */ jsx(Button2, {
             variant: "outline",
             size: "sm",
             onClick: () => setEditOpen(true),
@@ -1018,7 +1015,7 @@ var OrganizationDetail = ({
               })
             ]
           }),
-          isOwner && authClient.organization.restoreOrganization && /* @__PURE__ */ jsx(Button, {
+          isOwner && authClient.organization.restoreOrganization && /* @__PURE__ */ jsx(Button2, {
             variant: "outline",
             onClick: handleRestore,
             disabled: isRestoring,
@@ -1056,7 +1053,7 @@ var OrganizationDetail = ({
                   handleInvite();
                 },
                 children: [
-                  /* @__PURE__ */ jsx(Input, {
+                  /* @__PURE__ */ jsx(Input2, {
                     type: "email",
                     required: true,
                     placeholder: "teammate@example.com",
@@ -1070,7 +1067,7 @@ var OrganizationDetail = ({
                     size: "md",
                     roles: assignableRoles(isOwner)
                   }),
-                  /* @__PURE__ */ jsxs(Button, {
+                  /* @__PURE__ */ jsxs(Button2, {
                     type: "submit",
                     disabled: !inviteEmail.trim() || isInviting,
                     className: "gap-2",
@@ -1116,31 +1113,31 @@ var OrganizationDetail = ({
               members.length > 0 && /* @__PURE__ */ jsxs("div", {
                 className: "flex flex-col gap-2 sm:flex-row sm:items-center",
                 children: [
-                  /* @__PURE__ */ jsx(Input, {
+                  /* @__PURE__ */ jsx(Input2, {
                     type: "search",
                     placeholder: "Search by name or email",
                     value: memberSearch,
                     onChange: (event) => setMemberSearch(event.target.value),
                     className: "flex-1"
                   }),
-                  /* @__PURE__ */ jsxs(Select, {
+                  /* @__PURE__ */ jsxs(Select2, {
                     collection: roleFilterCollection,
                     value: [roleFilter],
                     onValueChange: (details) => setRoleFilter(details.value[0] ?? "all"),
                     positioning: { strategy: "fixed", placement: "bottom-end" },
                     children: [
-                      /* @__PURE__ */ jsx(SelectControl, {
-                        children: /* @__PURE__ */ jsx(SelectTrigger, {
+                      /* @__PURE__ */ jsx(SelectControl2, {
+                        children: /* @__PURE__ */ jsx(SelectTrigger2, {
                           asChild: true,
-                          children: /* @__PURE__ */ jsxs(Button, {
+                          children: /* @__PURE__ */ jsxs(Button2, {
                             variant: "outline",
                             size: "sm",
                             className: "min-w-32 justify-between gap-2",
                             children: [
-                              /* @__PURE__ */ jsx(SelectValueText, {
+                              /* @__PURE__ */ jsx(SelectValueText2, {
                                 placeholder: "Role"
                               }),
-                              /* @__PURE__ */ jsx(SelectIndicator, {
+                              /* @__PURE__ */ jsx(SelectIndicator2, {
                                 children: /* @__PURE__ */ jsx(ChevronsUpDown, {
                                   className: "size-3.5 shrink-0 opacity-60"
                                 })
@@ -1149,18 +1146,18 @@ var OrganizationDetail = ({
                           })
                         })
                       }),
-                      /* @__PURE__ */ jsx(SelectPositioner, {
-                        children: /* @__PURE__ */ jsx(SelectContent, {
+                      /* @__PURE__ */ jsx(SelectPositioner2, {
+                        children: /* @__PURE__ */ jsx(SelectContent2, {
                           className: "min-w-[9rem] p-1",
-                          children: /* @__PURE__ */ jsx(SelectItemGroup, {
+                          children: /* @__PURE__ */ jsx(SelectItemGroup2, {
                             className: "space-y-0.5",
-                            children: roleFilterCollection.items.map((item) => /* @__PURE__ */ jsxs(SelectItem, {
+                            children: roleFilterCollection.items.map((item) => /* @__PURE__ */ jsxs(SelectItem2, {
                               item,
                               children: [
-                                /* @__PURE__ */ jsx(SelectItemText, {
+                                /* @__PURE__ */ jsx(SelectItemText2, {
                                   children: item.label
                                 }),
-                                /* @__PURE__ */ jsx(SelectItemIndicator, {})
+                                /* @__PURE__ */ jsx(SelectItemIndicator2, {})
                               ]
                             }, item.value))
                           })
@@ -1168,24 +1165,24 @@ var OrganizationDetail = ({
                       })
                     ]
                   }),
-                  /* @__PURE__ */ jsxs(Select, {
+                  /* @__PURE__ */ jsxs(Select2, {
                     collection: memberSortCollection,
                     value: [memberSort],
                     onValueChange: (details) => setMemberSort(details.value[0] ?? "name-asc"),
                     positioning: { strategy: "fixed", placement: "bottom-end" },
                     children: [
-                      /* @__PURE__ */ jsx(SelectControl, {
-                        children: /* @__PURE__ */ jsx(SelectTrigger, {
+                      /* @__PURE__ */ jsx(SelectControl2, {
+                        children: /* @__PURE__ */ jsx(SelectTrigger2, {
                           asChild: true,
-                          children: /* @__PURE__ */ jsxs(Button, {
+                          children: /* @__PURE__ */ jsxs(Button2, {
                             variant: "outline",
                             size: "sm",
                             className: "min-w-36 justify-between gap-2",
                             children: [
-                              /* @__PURE__ */ jsx(SelectValueText, {
+                              /* @__PURE__ */ jsx(SelectValueText2, {
                                 placeholder: "Sort"
                               }),
-                              /* @__PURE__ */ jsx(SelectIndicator, {
+                              /* @__PURE__ */ jsx(SelectIndicator2, {
                                 children: /* @__PURE__ */ jsx(ChevronsUpDown, {
                                   className: "size-3.5 shrink-0 opacity-60"
                                 })
@@ -1194,18 +1191,18 @@ var OrganizationDetail = ({
                           })
                         })
                       }),
-                      /* @__PURE__ */ jsx(SelectPositioner, {
-                        children: /* @__PURE__ */ jsx(SelectContent, {
+                      /* @__PURE__ */ jsx(SelectPositioner2, {
+                        children: /* @__PURE__ */ jsx(SelectContent2, {
                           className: "min-w-[10rem] p-1",
-                          children: /* @__PURE__ */ jsx(SelectItemGroup, {
+                          children: /* @__PURE__ */ jsx(SelectItemGroup2, {
                             className: "space-y-0.5",
-                            children: memberSortCollection.items.map((item) => /* @__PURE__ */ jsxs(SelectItem, {
+                            children: memberSortCollection.items.map((item) => /* @__PURE__ */ jsxs(SelectItem2, {
                               item,
                               children: [
-                                /* @__PURE__ */ jsx(SelectItemText, {
+                                /* @__PURE__ */ jsx(SelectItemText2, {
                                   children: item.label
                                 }),
-                                /* @__PURE__ */ jsx(SelectItemIndicator, {})
+                                /* @__PURE__ */ jsx(SelectItemIndicator2, {})
                               ]
                             }, item.value))
                           })
@@ -1233,13 +1230,13 @@ var OrganizationDetail = ({
                     /* @__PURE__ */ jsxs("div", {
                       className: "flex min-w-0 items-center gap-3",
                       children: [
-                        /* @__PURE__ */ jsxs(AvatarRoot, {
+                        /* @__PURE__ */ jsxs(AvatarRoot2, {
                           className: "size-9 shrink-0",
                           children: [
-                            /* @__PURE__ */ jsx(AvatarImage, {
+                            /* @__PURE__ */ jsx(AvatarImage2, {
                               src: member.user.image ?? undefined
                             }),
-                            /* @__PURE__ */ jsx(AvatarFallback, {
+                            /* @__PURE__ */ jsx(AvatarFallback2, {
                               children: (member.user.name ?? member.user.email).charAt(0)
                             })
                           ]
@@ -1273,12 +1270,12 @@ var OrganizationDetail = ({
                           disabled: isLastOwner,
                           roles: assignableRoles(isOwner),
                           onValueChange: (role) => handleRoleChange(member.id, role)
-                        }) : /* @__PURE__ */ jsx(Badge, {
+                        }) : /* @__PURE__ */ jsx(Badge2, {
                           variant: "soft",
                           className: "capitalize",
                           children: member.role
                         }),
-                        canManageMember && !isLastOwner && /* @__PURE__ */ jsx(Button, {
+                        canManageMember && !isLastOwner && /* @__PURE__ */ jsx(Button2, {
                           variant: "ghost",
                           size: "sm",
                           className: "text-destructive hover:text-destructive",
@@ -1322,7 +1319,7 @@ var OrganizationDetail = ({
                                 className: "truncate font-medium text-sm",
                                 children: invitation.email
                               }),
-                              invitation.isExpired && /* @__PURE__ */ jsx(Badge, {
+                              invitation.isExpired && /* @__PURE__ */ jsx(Badge2, {
                                 variant: "warning",
                                 children: "Expired"
                               })
@@ -1339,14 +1336,14 @@ var OrganizationDetail = ({
                   /* @__PURE__ */ jsxs("div", {
                     className: "flex items-center gap-1",
                     children: [
-                      invitation.isExpired && /* @__PURE__ */ jsx(Button, {
+                      invitation.isExpired && /* @__PURE__ */ jsx(Button2, {
                         variant: "outline",
                         size: "sm",
                         disabled: resendingId === invitation.id,
                         onClick: () => handleResend(invitation),
                         children: resendingId === invitation.id ? "Resending..." : "Resend"
                       }),
-                      /* @__PURE__ */ jsx(Button, {
+                      /* @__PURE__ */ jsx(Button2, {
                         variant: "ghost",
                         size: "sm",
                         className: "text-destructive hover:text-destructive",
@@ -1363,7 +1360,7 @@ var OrganizationDetail = ({
               }, invitation.id))
             ]
           }),
-          canManage && /* @__PURE__ */ jsx(AccountOrganizationTeams, {
+          canManage && /* @__PURE__ */ jsx(AccountOrganizationTeams2, {
             organizationId: organization.id,
             members,
             currentUserId
@@ -1386,7 +1383,7 @@ var OrganizationDetail = ({
                       })
                     ]
                   }),
-                  /* @__PURE__ */ jsx(Button, {
+                  /* @__PURE__ */ jsx(Button2, {
                     variant: "destructive",
                     onClick: () => setPending({ kind: "delete" }),
                     children: "Delete workspace"
@@ -1408,7 +1405,7 @@ var OrganizationDetail = ({
                       })
                     ]
                   }),
-                  /* @__PURE__ */ jsx(Button, {
+                  /* @__PURE__ */ jsx(Button2, {
                     variant: "outline",
                     onClick: () => setPending({ kind: "leave" }),
                     children: "Leave workspace"
@@ -1431,7 +1428,7 @@ var OrganizationDetail = ({
                       })
                     ]
                   }),
-                  /* @__PURE__ */ jsx(Button, {
+                  /* @__PURE__ */ jsx(Button2, {
                     variant: "outline",
                     onClick: () => setPending({ kind: "leave" }),
                     children: "Leave"
@@ -1442,7 +1439,7 @@ var OrganizationDetail = ({
           })
         ]
       }),
-      /* @__PURE__ */ jsx(ConfirmDialog, {
+      /* @__PURE__ */ jsx(ConfirmDialog2, {
         open: pending !== null,
         onOpenChange: (open) => {
           if (!open)
@@ -1463,7 +1460,7 @@ var AccountOrganizations = ({
   selectedSlug: controlledSlug,
   onSelectOrganization
 } = {}) => {
-  const { authClient } = useAccountContext();
+  const { authClient } = useAccountContext2();
   const { data: session } = authClient.useSession();
   const [organizations, setOrganizations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -1546,13 +1543,13 @@ var AccountOrganizations = ({
             /* @__PURE__ */ jsxs("div", {
               className: "flex min-w-0 items-center gap-3",
               children: [
-                /* @__PURE__ */ jsxs(AvatarRoot, {
+                /* @__PURE__ */ jsxs(AvatarRoot2, {
                   className: "size-9 shrink-0 rounded-md",
                   children: [
-                    /* @__PURE__ */ jsx(AvatarImage, {
+                    /* @__PURE__ */ jsx(AvatarImage2, {
                       src: org.logo ?? undefined
                     }),
-                    /* @__PURE__ */ jsx(AvatarFallback, {
+                    /* @__PURE__ */ jsx(AvatarFallback2, {
                       className: "rounded-md",
                       children: org.name.charAt(0)
                     })
@@ -1568,11 +1565,11 @@ var AccountOrganizations = ({
                           className: "truncate font-medium text-sm",
                           children: org.name
                         }),
-                        org.type === "personal" && /* @__PURE__ */ jsx(Badge, {
+                        org.type === "personal" && /* @__PURE__ */ jsx(Badge2, {
                           variant: "outline",
                           children: "Personal"
                         }),
-                        org.deletedAt && /* @__PURE__ */ jsx(Badge, {
+                        org.deletedAt && /* @__PURE__ */ jsx(Badge2, {
                           variant: "warning",
                           children: "Scheduled for deletion"
                         })

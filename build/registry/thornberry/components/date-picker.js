@@ -1,11 +1,9 @@
 import {
-  Button
-} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
+  Button2
+} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
 
 // src/registry/thornberry/components/date-picker.tsx
 import { DatePicker as ArkDatePicker } from "@ark-ui/react/date-picker";
@@ -54,7 +52,7 @@ var DatePickerTrigger = ({
 }) => /* @__PURE__ */ jsx(ArkDatePicker.Trigger, {
   asChild: true,
   ...rest,
-  children: /* @__PURE__ */ jsx(Button, {
+  children: /* @__PURE__ */ jsx(Button2, {
     variant: "outline",
     size: "icon",
     className: cn("ml-2 h-10 w-10", className),
@@ -69,7 +67,7 @@ var DatePickerClearTrigger = ({
 }) => /* @__PURE__ */ jsx(ArkDatePicker.ClearTrigger, {
   asChild: true,
   ...rest,
-  children: /* @__PURE__ */ jsx(Button, {
+  children: /* @__PURE__ */ jsx(Button2, {
     variant: "ghost",
     size: "sm",
     className: cn("h-auto px-2 text-xs", className),
@@ -103,7 +101,7 @@ var DatePickerPrevTrigger = ({
 }) => /* @__PURE__ */ jsx(ArkDatePicker.PrevTrigger, {
   asChild: true,
   ...rest,
-  children: /* @__PURE__ */ jsx(Button, {
+  children: /* @__PURE__ */ jsx(Button2, {
     variant: "ghost",
     size: "icon",
     className,
@@ -118,7 +116,7 @@ var DatePickerNextTrigger = ({
 }) => /* @__PURE__ */ jsx(ArkDatePicker.NextTrigger, {
   asChild: true,
   ...rest,
-  children: /* @__PURE__ */ jsx(Button, {
+  children: /* @__PURE__ */ jsx(Button2, {
     variant: "ghost",
     size: "icon",
     className,

@@ -1,21 +1,18 @@
 import {
-  CardRoot
-} from "../../../chunks/account-user-two-factor-authentication-t5d4htnb.js";
+  useAccountContext2
+} from "../../../chunks/account-user-two-factor-authentication-b60vh03c.js";
 import {
-  AddPasskey
-} from "../../../chunks/account-user-two-factor-authentication-3dt56sqm.js";
-import"../../../chunks/account-user-two-factor-authentication-gsg3ph0v.js";
+  Button2
+} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
+import"../../../chunks/account-user-two-factor-authentication-8q0yqrx6.js";
+import"../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
+import"../../../chunks/account-user-two-factor-authentication-fa46q8yp.js";
 import {
-  useAccountContext
-} from "../../../chunks/account-user-two-factor-authentication-en4v22ys.js";
-import"../../../chunks/account-user-two-factor-authentication-nmmcnpth.js";
-import"../../../chunks/account-user-two-factor-authentication-negb4kbv.js";
+  AddPasskey2
+} from "../../../chunks/account-user-two-factor-authentication-8hgpxw18.js";
 import {
-  Button
-} from "../../../chunks/account-user-two-factor-authentication-jb3sh07m.js";
-import"../../../chunks/account-user-two-factor-authentication-zdtfvyzd.js";
-import"../../../chunks/account-user-two-factor-authentication-yp1ewaxt.js";
-import"../../../chunks/account-user-two-factor-authentication-d1wjbx81.js";
+  CardRoot2
+} from "../../../chunks/account-user-two-factor-authentication-f7d4gzjq.js";
 
 // src/registry/thornberry/components/account-passkey-nudge.tsx
 import { Fingerprint, X } from "lucide-react";
@@ -23,7 +20,7 @@ import { useEffect, useState } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 var DISMISS_KEY = "passkey-nudge-dismissed";
 var PasskeyNudge = () => {
-  const { authClient } = useAccountContext();
+  const { authClient } = useAccountContext2();
   const { data, isPending } = authClient.useListPasskeys();
   const [dismissed, setDismissed] = useState(false);
   useEffect(() => {
@@ -45,7 +42,7 @@ var PasskeyNudge = () => {
     return null;
   if (dismissed)
     return null;
-  return /* @__PURE__ */ jsxs(CardRoot, {
+  return /* @__PURE__ */ jsxs(CardRoot2, {
     className: "flex items-start gap-4 p-4",
     children: [
       /* @__PURE__ */ jsx("div", {
@@ -71,11 +68,11 @@ var PasskeyNudge = () => {
             ]
           }),
           /* @__PURE__ */ jsx("div", {
-            children: /* @__PURE__ */ jsx(AddPasskey, {})
+            children: /* @__PURE__ */ jsx(AddPasskey2, {})
           })
         ]
       }),
-      /* @__PURE__ */ jsx(Button, {
+      /* @__PURE__ */ jsx(Button2, {
         variant: "ghost",
         size: "icon",
         "aria-label": "Dismiss",
