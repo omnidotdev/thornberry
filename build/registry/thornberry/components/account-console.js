@@ -26,7 +26,7 @@ import {
 } from "../../../chunks/account-user-two-factor-authentication-b42r02js.js";
 import {
   EditProfile2
-} from "../../../chunks/account-user-two-factor-authentication-23cd922d.js";
+} from "../../../chunks/account-user-two-factor-authentication-2hcq6kz1.js";
 import {
   UserActiveSessions2
 } from "../../../chunks/account-user-two-factor-authentication-4c988h17.js";

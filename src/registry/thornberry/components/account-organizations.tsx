@@ -173,6 +173,37 @@ type MemberSort = "name-asc" | "name-desc" | "role";
 /** Owner first, then admin, then member, for the "Role" sort */
 const ROLE_RANK: Record<string, number> = { owner: 0, admin: 1, member: 2 };
 
+const RELATIVE_TIME = new Intl.RelativeTimeFormat(undefined, {
+  numeric: "always",
+});
+
+/**
+ * Format an invitation's expiry as an absolute date plus a relative phrase,
+ * e.g. "Expires Jan 2, 2026 (in 6 days)" or "Expired Jan 2, 2026 (1 day ago)".
+ * Falls back to hours or minutes when the window is under a day so a
+ * near-expiry invite still reads sensibly.
+ */
+const formatExpiry = (expiresAt: string, isExpired: boolean): string => {
+  const date = new Date(expiresAt);
+  const absolute = date.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+  const diffMs = date.getTime() - Date.now();
+  const diffDays = Math.round(diffMs / 86_400_000);
+  const diffHours = Math.round(diffMs / 3_600_000);
+  let relative: string;
+  if (Math.abs(diffDays) >= 1) {
+    relative = RELATIVE_TIME.format(diffDays, "day");
+  } else if (Math.abs(diffHours) >= 1) {
+    relative = RELATIVE_TIME.format(diffHours, "hour");
+  } else {
+    relative = RELATIVE_TIME.format(Math.round(diffMs / 60_000), "minute");
+  }
+  return `${isExpired ? "Expired" : "Expires"} ${absolute} (${relative})`;
+};
+
 /**
  * Grace window before a scheduled organization is permanently deleted. Used only
  * to show an approximate purge date in the banner; the authoritative window lives
@@ -1361,6 +1392,20 @@ const OrganizationDetail = ({
                     <div className="text-muted-foreground text-xs capitalize">
                       {invitation.role}
                     </div>
+                    {invitation.expiresAt && (
+                      <div
+                        className={`text-xs ${
+                          invitation.isExpired
+                            ? "text-destructive"
+                            : "text-muted-foreground"
+                        }`}
+                      >
+                        {formatExpiry(
+                          invitation.expiresAt,
+                          invitation.isExpired,
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
