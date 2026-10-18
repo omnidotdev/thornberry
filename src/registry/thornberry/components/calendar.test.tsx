@@ -10,6 +10,7 @@ import { act, renderHook } from "@testing-library/react";
 
 import {
   useCalendarMonth,
+  useCalendarView,
   useDayOverflow,
 } from "@/registry/thornberry/components/calendar";
 
@@ -47,6 +48,47 @@ describe("useCalendarMonth", () => {
     );
     act(() => result.current.goToToday());
     expect(result.current.label).toBe(expected);
+  });
+});
+
+describe("useCalendarView", () => {
+  test("month range yields a 6x7 grid", () => {
+    const { result } = renderHook(() =>
+      useCalendarView({
+        range: "month",
+        initialDate: new CalendarDate(2026, 10, 1),
+      }),
+    );
+    expect(result.current.grid).toHaveLength(6);
+    expect(result.current.label).toBe("October 2026");
+  });
+
+  test("week range yields a single row of 7 and a range label", () => {
+    const { result } = renderHook(() =>
+      useCalendarView({
+        range: "week",
+        initialDate: new CalendarDate(2026, 10, 7),
+      }),
+    );
+    expect(result.current.grid).toHaveLength(1);
+    expect(result.current.grid[0]).toHaveLength(7);
+    // Oct 7 2026 is a Wednesday; a Sunday-start week runs Oct 4 - Oct 10
+    expect(result.current.grid[0]?.[0]?.key).toBe("2026-10-04");
+    expect(result.current.label).toBe("Oct 4 - Oct 10, 2026");
+  });
+
+  test("week navigation steps by a week", () => {
+    const { result } = renderHook(() =>
+      useCalendarView({
+        range: "week",
+        initialDate: new CalendarDate(2026, 10, 7),
+      }),
+    );
+    act(() => result.current.goToNext());
+    expect(result.current.grid[0]?.[0]?.key).toBe("2026-10-11");
+    act(() => result.current.goToPrevious());
+    act(() => result.current.goToPrevious());
+    expect(result.current.grid[0]?.[0]?.key).toBe("2026-09-27");
   });
 });
 

@@ -3,7 +3,11 @@ import {
   getLocalTimeZone,
   today,
 } from "@internationalized/date";
-import { buildMonthGrid } from "@omnidotdev/cadence";
+import {
+  buildMonthGrid,
+  buildWeekDays,
+  parseDayKey,
+} from "@omnidotdev/cadence";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 
@@ -316,6 +320,92 @@ const useCalendarMonth = ({
   return { month, grid, label, goToPrevious, goToNext, goToToday, setMonth };
 };
 
+/** Whether the calendar shows a full month grid or a single week row. */
+export type CalendarRange = "month" | "week";
+
+interface UseCalendarViewOptions {
+  /** "month" (6x7 grid) or "week" (one row of 7). Defaults to "month". */
+  range?: CalendarRange;
+  /** Date to open on (defaults to today). */
+  initialDate?: CalendarDate;
+  /** 0 = Sunday (default), 1 = Monday. */
+  weekStartsOn?: 0 | 1;
+  /** Time zone used to resolve "today" and format the label. */
+  timeZone?: string;
+}
+
+const WEEK_START_FORMAT = new DateFormatter("en-US", {
+  month: "short",
+  day: "numeric",
+});
+const WEEK_END_FORMAT = new DateFormatter("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+
+/**
+ * View-state for a month OR week calendar: the rows of days (from
+ * @omnidotdev/cadence), a formatted label, and navigation that steps by the
+ * active range. `range` is an option (not a conditional hook), so a consumer can
+ * flip month/week from a toggle without breaking the rules of hooks.
+ */
+const useCalendarView = ({
+  range = "month",
+  initialDate,
+  weekStartsOn = 0,
+  timeZone = getLocalTimeZone(),
+}: UseCalendarViewOptions = {}) => {
+  const [anchor, setAnchor] = useState<CalendarDate>(
+    () => initialDate ?? today(timeZone),
+  );
+
+  const grid = useMemo(() => {
+    const reference = today(timeZone);
+    return range === "week"
+      ? [buildWeekDays(anchor, { weekStartsOn, today: reference })]
+      : buildMonthGrid(anchor.set({ day: 1 }), {
+          weekStartsOn,
+          today: reference,
+        });
+  }, [range, anchor, weekStartsOn, timeZone]);
+
+  const label = useMemo(() => {
+    if (range === "week") {
+      const days = buildWeekDays(anchor, { weekStartsOn });
+      const start = parseDayKey(days[0]!.key).toDate(timeZone);
+      const end = parseDayKey(days[days.length - 1]!.key).toDate(timeZone);
+      return `${WEEK_START_FORMAT.format(start)} - ${WEEK_END_FORMAT.format(end)}`;
+    }
+    return new DateFormatter("en-US", {
+      month: "long",
+      year: "numeric",
+    }).format(anchor.toDate(timeZone));
+  }, [range, anchor, weekStartsOn, timeZone]);
+
+  const goToPrevious = useCallback(
+    () =>
+      setAnchor((current) =>
+        range === "week"
+          ? current.subtract({ weeks: 1 })
+          : current.subtract({ months: 1 }),
+      ),
+    [range],
+  );
+  const goToNext = useCallback(
+    () =>
+      setAnchor((current) =>
+        range === "week"
+          ? current.add({ weeks: 1 })
+          : current.add({ months: 1 }),
+      ),
+    [range],
+  );
+  const goToToday = useCallback(() => setAnchor(today(timeZone)), [timeZone]);
+
+  return { range, grid, label, goToPrevious, goToNext, goToToday, setAnchor };
+};
+
 interface UseDayOverflowOptions {
   /** Total number of items for the day. */
   count: number;
@@ -347,5 +437,6 @@ export {
   CalendarItemChip,
   CalendarMoreToggle,
   useCalendarMonth,
+  useCalendarView,
   useDayOverflow,
 };
