@@ -24,6 +24,38 @@ import {
 
 type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 
+/**
+ * User-facing copy for the upload control, overridable so the same control can
+ * drive a personal avatar or another entity such as a workspace logo
+ */
+interface AvatarUploadCopy {
+  /** Title over the upload/remove choices */
+  menuTitle: string;
+  /** Title over the crop step */
+  cropTitle: string;
+  /** Upload-success toast */
+  updatedTitle: string;
+  updatedDescription: string;
+  /** Remove-success toast */
+  removedTitle: string;
+  removedDescription: string;
+  /** Remove-confirmation dialog */
+  removeConfirmTitle: string;
+  removeConfirmDescription: string;
+}
+
+const defaultCopy: AvatarUploadCopy = {
+  menuTitle: "Profile photo",
+  cropTitle: "Crop your photo",
+  updatedTitle: "Avatar updated",
+  updatedDescription: "Your profile picture has been updated.",
+  removedTitle: "Avatar removed",
+  removedDescription: "Your profile picture has been removed.",
+  removeConfirmTitle: "Remove profile photo?",
+  removeConfirmDescription:
+    "This removes your current profile photo. You can upload a new one anytime.",
+};
+
 interface AvatarUploadProps {
   /** Rendered avatar size */
   size?: AvatarSize;
@@ -31,14 +63,31 @@ interface AvatarUploadProps {
   editable?: boolean;
   /** Whether photo uploads are available (host config). Defaults to true */
   uploadEnabled?: boolean;
+  /** Crop framing: a round mask for people, a square one for logos */
+  cropShape?: "round" | "rect";
   /**
-   * Host uploads the cropped avatar blob to its own storage and applies it to
-   * the user; the session is refetched afterward to reflect the new image. Omit
-   * (or set uploadEnabled false) to disable uploads.
+   * Current image URL. Defaults to the signed-in user's avatar so the personal
+   * profile needs no wiring; pass it (with `fallback` and `onChanged`) to drive
+   * a different entity such as a workspace logo
+   */
+  src?: string | null;
+  /** Fallback glyph when there is no image. Defaults to the user's initial */
+  fallback?: string;
+  /**
+   * Host uploads the cropped blob to its own storage and applies it to the
+   * entity. Omit (or set uploadEnabled false) to disable uploads
    */
   onUpload?: (blob: Blob) => Promise<void>;
-  /** Host clears the user's avatar. Omit to hide the remove option */
+  /** Host clears the image. Omit to hide the remove option */
   onClear?: () => Promise<void>;
+  /**
+   * Refresh the surrounding view after an upload or remove. Defaults to
+   * refetching the auth session (for the personal avatar); pass it to reload
+   * other data such as a workspace
+   */
+  onChanged?: () => void | Promise<void>;
+  /** Copy overrides for non-avatar entities (e.g. a workspace logo) */
+  copy?: Partial<AvatarUploadCopy>;
 }
 
 const sizeClassMap: Record<AvatarSize, string> = {
@@ -62,18 +111,33 @@ const sizePixelMap: Record<AvatarSize, number> = {
 /**
  * Avatar with click-to-edit upload, crop, and remove. The storage endpoints are
  * host-specific, so the actual upload and clear are injected; the crop UX and
- * client-side validation live here.
+ * client-side validation live here. Defaults target the signed-in user's
+ * avatar, but `src`/`fallback`/`onChanged`/`copy` repoint it at any entity
  */
 const AvatarUpload = ({
   size = "md",
   editable = true,
   uploadEnabled = true,
+  cropShape = "round",
+  src,
+  fallback,
   onUpload,
   onClear,
+  onChanged,
+  copy: copyOverrides,
 }: AvatarUploadProps) => {
   const { authClient, toaster } = useAccountContext();
 
   const { data: session, refetch } = authClient.useSession();
+
+  const copy = { ...defaultCopy, ...copyOverrides };
+  // `src === undefined` means "uncontrolled": fall back to the session user so
+  // the personal profile works with no wiring. An explicit null is a controlled
+  // empty (e.g. a workspace with no logo)
+  const resolvedImage = src !== undefined ? src : session?.user.image;
+  const resolvedFallback =
+    fallback !== undefined ? fallback : session?.user.name?.charAt(0);
+  const refresh = onChanged ?? refetch;
 
   const [isUploading, setIsUploading] = useState(false);
   const [isClearing, setIsClearing] = useState(false);
@@ -86,7 +150,7 @@ const AvatarUpload = ({
   const [imageToCrop, setImageToCrop] = useState<string | null>(null);
 
   const canUpload = uploadEnabled && !!onUpload;
-  const hasImage = !!(previewUrl || session?.user.image);
+  const hasImage = !!(previewUrl || resolvedImage);
   const isBusy = isUploading || isClearing;
   const isCropping = !!imageToCrop;
 
@@ -105,23 +169,30 @@ const AvatarUpload = ({
     try {
       await onClear();
       setPreviewUrl(null);
-      await refetch();
+      await refresh();
       setConfirmRemoveOpen(false);
       setDialogOpen(false);
       toaster.success({
-        title: "Avatar removed",
-        description: "Your profile picture has been removed.",
+        title: copy.removedTitle,
+        description: copy.removedDescription,
       });
     } catch (error) {
       toaster.error({
-        title: "Failed to remove avatar",
+        title: "Failed to remove",
         description:
-          error instanceof Error ? error.message : "Failed to remove avatar",
+          error instanceof Error ? error.message : "Failed to remove",
       });
     } finally {
       setIsClearing(false);
     }
-  }, [onClear, isBusy, refetch, toaster]);
+  }, [
+    onClear,
+    isBusy,
+    refresh,
+    toaster,
+    copy.removedTitle,
+    copy.removedDescription,
+  ]);
 
   const handleFileChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -167,27 +238,27 @@ const AvatarUpload = ({
         setPreviewUrl(URL.createObjectURL(croppedBlob));
 
         await onUpload(croppedBlob);
-        await refetch();
+        await refresh();
 
         setImageToCrop(null);
         setDialogOpen(false);
 
         toaster.success({
-          title: "Avatar updated",
-          description: "Your profile picture has been updated.",
+          title: copy.updatedTitle,
+          description: copy.updatedDescription,
         });
       } catch (error) {
         setPreviewUrl(null);
         toaster.error({
           title: "Upload failed",
           description:
-            error instanceof Error ? error.message : "Failed to upload avatar",
+            error instanceof Error ? error.message : "Failed to upload",
         });
       } finally {
         setIsUploading(false);
       }
     },
-    [onUpload, refetch, toaster],
+    [onUpload, refresh, toaster, copy.updatedTitle, copy.updatedDescription],
   );
 
   return (
@@ -213,8 +284,8 @@ const AvatarUpload = ({
         style={{ cursor: editable && !isBusy ? "pointer" : "default" }}
       >
         <AvatarRoot className={sizeClassMap[size]}>
-          <AvatarImage src={previewUrl || session?.user.image || undefined} />
-          <AvatarFallback>{session?.user.name?.charAt(0)}</AvatarFallback>
+          <AvatarImage src={previewUrl || resolvedImage || undefined} />
+          <AvatarFallback>{resolvedFallback}</AvatarFallback>
         </AvatarRoot>
 
         {editable && (
@@ -257,13 +328,13 @@ const AvatarUpload = ({
         <DialogPositioner>
           <DialogContent>
             <DialogTitle>
-              {isCropping ? "Crop your photo" : "Profile photo"}
+              {isCropping ? copy.cropTitle : copy.menuTitle}
             </DialogTitle>
 
             {isCropping && imageToCrop ? (
               <ImageCropper
                 imageSrc={imageToCrop}
-                cropShape="round"
+                cropShape={cropShape}
                 confirming={isUploading}
                 onCancel={resetCrop}
                 onConfirm={handleCropConfirm}
@@ -305,8 +376,8 @@ const AvatarUpload = ({
       <ConfirmDialog
         open={confirmRemoveOpen}
         onOpenChange={setConfirmRemoveOpen}
-        title="Remove profile photo?"
-        description="This removes your current profile photo. You can upload a new one anytime."
+        title={copy.removeConfirmTitle}
+        description={copy.removeConfirmDescription}
         confirmLabel="Remove"
         isPending={isClearing}
         onConfirm={handleClear}

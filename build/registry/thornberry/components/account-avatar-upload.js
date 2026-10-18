@@ -1,6 +1,6 @@
 import {
   AvatarUpload2
-} from "../../../chunks/account-user-two-factor-authentication-qp39pwcd.js";
+} from "../../../chunks/account-user-two-factor-authentication-h9xs2bn6.js";
 import"../../../chunks/account-user-two-factor-authentication-1qzbdkf5.js";
 import"../../../chunks/account-user-two-factor-authentication-b7jpk793.js";
 import"../../../chunks/account-user-two-factor-authentication-fa46q8yp.js";
