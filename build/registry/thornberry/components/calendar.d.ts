@@ -85,6 +85,33 @@ declare const useCalendarMonth: ({ initialMonth, weekStartsOn, timeZone, }?: Use
     goToToday: () => void;
     setMonth: import("react").Dispatch<import("react").SetStateAction<CalendarDate>>;
 };
+/** Whether the calendar shows a full month grid or a single week row. */
+export type CalendarRange = "month" | "week";
+interface UseCalendarViewOptions {
+    /** "month" (6x7 grid) or "week" (one row of 7). Defaults to "month". */
+    range?: CalendarRange;
+    /** Date to open on (defaults to today). */
+    initialDate?: CalendarDate;
+    /** 0 = Sunday (default), 1 = Monday. */
+    weekStartsOn?: 0 | 1;
+    /** Time zone used to resolve "today" and format the label. */
+    timeZone?: string;
+}
+/**
+ * View-state for a month OR week calendar: the rows of days (from
+ * @omnidotdev/cadence), a formatted label, and navigation that steps by the
+ * active range. `range` is an option (not a conditional hook), so a consumer can
+ * flip month/week from a toggle without breaking the rules of hooks.
+ */
+declare const useCalendarView: ({ range, initialDate, weekStartsOn, timeZone, }?: UseCalendarViewOptions) => {
+    range: CalendarRange;
+    grid: CalendarDay[][];
+    label: string;
+    goToPrevious: () => void;
+    goToNext: () => void;
+    goToToday: () => void;
+    setAnchor: import("react").Dispatch<import("react").SetStateAction<CalendarDate>>;
+};
 interface UseDayOverflowOptions {
     /** Total number of items for the day. */
     count: number;
@@ -105,4 +132,4 @@ declare const useDayOverflow: ({ count, maxVisible }: UseDayOverflowOptions) => 
     isExpanded: boolean;
     toggle: () => void;
 };
-export { CalendarHeader, CalendarWeekdays, CalendarGrid, CalendarDayCell, CalendarItemChip, CalendarMoreToggle, useCalendarMonth, useDayOverflow, };
+export { CalendarHeader, CalendarWeekdays, CalendarGrid, CalendarDayCell, CalendarItemChip, CalendarMoreToggle, useCalendarMonth, useCalendarView, useDayOverflow, };

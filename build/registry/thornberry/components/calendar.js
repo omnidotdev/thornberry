@@ -8,7 +8,11 @@ import {
   getLocalTimeZone,
   today
 } from "@internationalized/date";
-import { buildMonthGrid } from "@omnidotdev/cadence";
+import {
+  buildMonthGrid,
+  buildWeekDays,
+  parseDayKey
+} from "@omnidotdev/cadence";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
@@ -166,6 +170,46 @@ var useCalendarMonth = ({
   const goToToday = useCallback(() => setMonth(today(timeZone).set({ day: 1 })), [timeZone]);
   return { month, grid, label, goToPrevious, goToNext, goToToday, setMonth };
 };
+var WEEK_START_FORMAT = new DateFormatter("en-US", {
+  month: "short",
+  day: "numeric"
+});
+var WEEK_END_FORMAT = new DateFormatter("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric"
+});
+var useCalendarView = ({
+  range = "month",
+  initialDate,
+  weekStartsOn = 0,
+  timeZone = getLocalTimeZone()
+} = {}) => {
+  const [anchor, setAnchor] = useState(() => initialDate ?? today(timeZone));
+  const grid = useMemo(() => {
+    const reference = today(timeZone);
+    return range === "week" ? [buildWeekDays(anchor, { weekStartsOn, today: reference })] : buildMonthGrid(anchor.set({ day: 1 }), {
+      weekStartsOn,
+      today: reference
+    });
+  }, [range, anchor, weekStartsOn, timeZone]);
+  const label = useMemo(() => {
+    if (range === "week") {
+      const days = buildWeekDays(anchor, { weekStartsOn });
+      const start = parseDayKey(days[0].key).toDate(timeZone);
+      const end = parseDayKey(days[days.length - 1].key).toDate(timeZone);
+      return `${WEEK_START_FORMAT.format(start)} - ${WEEK_END_FORMAT.format(end)}`;
+    }
+    return new DateFormatter("en-US", {
+      month: "long",
+      year: "numeric"
+    }).format(anchor.toDate(timeZone));
+  }, [range, anchor, weekStartsOn, timeZone]);
+  const goToPrevious = useCallback(() => setAnchor((current) => range === "week" ? current.subtract({ weeks: 1 }) : current.subtract({ months: 1 })), [range]);
+  const goToNext = useCallback(() => setAnchor((current) => range === "week" ? current.add({ weeks: 1 }) : current.add({ months: 1 })), [range]);
+  const goToToday = useCallback(() => setAnchor(today(timeZone)), [timeZone]);
+  return { range, grid, label, goToPrevious, goToNext, goToToday, setAnchor };
+};
 var useDayOverflow = ({ count, maxVisible = 3 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const hasOverflow = count > maxVisible;
@@ -182,5 +226,6 @@ export {
   CalendarMoreToggle,
   CalendarWeekdays,
   useCalendarMonth,
+  useCalendarView,
   useDayOverflow
 };
