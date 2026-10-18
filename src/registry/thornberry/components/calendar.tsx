@@ -166,32 +166,101 @@ const CalendarDayCell = ({
   </div>
 );
 
+/**
+ * A chip's background tint. Consumers map their own domain onto a tone (e.g. a
+ * task priority -> danger/warning/success) so the chip stays domain-agnostic.
+ */
+export type CalendarItemTone =
+  | "neutral"
+  | "danger"
+  | "warning"
+  | "success"
+  | "info";
+
+const ITEM_TONE_CLASSES: Record<CalendarItemTone, string> = {
+  neutral: "",
+  danger: "bg-red-500/15 hover:bg-red-500/25",
+  warning: "bg-yellow-500/15 hover:bg-yellow-500/25",
+  success: "bg-green-500/15 hover:bg-green-500/25",
+  info: "bg-blue-500/15 hover:bg-blue-500/25",
+};
+
 interface CalendarItemChipProps extends ComponentProps<"button"> {
   /** Whether this chip is currently being dragged. */
   isDragging?: boolean;
+  /** Soft background tint; map a domain concept (e.g. priority) onto it. */
+  tone?: CalendarItemTone;
+  /** Leading color dots (CSS color strings), e.g. label colors. Capped at 3. */
+  dots?: readonly string[];
 }
 
 /**
- * A compact item chip for a calendar cell. Carries `data-cadence-item` so a
- * caller can wrap it as a draggable.
+ * A compact item chip for a calendar cell: an optional priority-style tint, up
+ * to three leading color dots (e.g. labels), then the truncated content.
+ * Carries `data-cadence-item` so a caller can wrap it as a draggable.
  */
 const CalendarItemChip = ({
   isDragging,
+  tone = "neutral",
+  dots,
   className,
   type,
+  children,
   ...rest
 }: CalendarItemChipProps) => (
   <button
-    // biome-ignore lint/a11y/useButtonType: type is forwarded from the caller, defaulting to button
     type={type ?? "button"}
     data-cadence-item
     className={cn(
-      "truncate rounded bg-accent px-1.5 py-0.5 text-left text-xs hover:bg-accent/80",
+      "flex w-full items-center gap-1 rounded bg-accent px-1.5 py-0.5 text-left text-xs hover:bg-accent/80",
+      ITEM_TONE_CLASSES[tone],
       isDragging && "shadow-lg ring-1 ring-primary",
       className,
     )}
     {...rest}
-  />
+  >
+    {dots?.slice(0, 3).map((color, index) => (
+      <span
+        // biome-ignore lint/suspicious/noArrayIndexKey: positional color dots
+        key={index}
+        className="size-1.5 shrink-0 rounded-full"
+        style={{ backgroundColor: color }}
+      />
+    ))}
+    {children != null && (
+      <span className="min-w-0 flex-1 truncate">{children}</span>
+    )}
+  </button>
+);
+
+interface CalendarMoreToggleProps extends ComponentProps<"button"> {
+  /** How many items are hidden behind the toggle. */
+  hiddenCount: number;
+  /** Whether the day is currently expanded. */
+  isExpanded: boolean;
+}
+
+/**
+ * The "+N more" / "Show less" control for a day cell with more items than it
+ * shows by default. Pair with {@link useDayOverflow}.
+ */
+const CalendarMoreToggle = ({
+  hiddenCount,
+  isExpanded,
+  className,
+  type,
+  ...rest
+}: CalendarMoreToggleProps) => (
+  <button
+    type={type ?? "button"}
+    className={cn(
+      "px-1.5 py-0.5 text-left text-muted-foreground text-xs hover:text-foreground",
+      className,
+    )}
+    {...rest}
+  >
+    {isExpanded ? "Show less" : `+${hiddenCount} more`}
+  </button>
 );
 
 interface UseCalendarMonthOptions {
@@ -247,11 +316,36 @@ const useCalendarMonth = ({
   return { month, grid, label, goToPrevious, goToNext, goToToday, setMonth };
 };
 
+interface UseDayOverflowOptions {
+  /** Total number of items for the day. */
+  count: number;
+  /** How many to show before collapsing the rest (default 3). */
+  maxVisible?: number;
+}
+
+/**
+ * Per-cell overflow state: how many items to render, how many are hidden, and a
+ * toggle to expand/collapse. Keeps a busy day from stretching its grid row -
+ * slice your items to `visibleCount`, render them, then render a
+ * {@link CalendarMoreToggle} when `hasOverflow`. Call once per day cell (e.g.
+ * from a per-day component), not inside a loop.
+ */
+const useDayOverflow = ({ count, maxVisible = 3 }: UseDayOverflowOptions) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const hasOverflow = count > maxVisible;
+  const visibleCount = isExpanded || !hasOverflow ? count : maxVisible;
+  const hiddenCount = Math.max(0, count - visibleCount);
+  const toggle = useCallback(() => setIsExpanded((value) => !value), []);
+  return { visibleCount, hiddenCount, hasOverflow, isExpanded, toggle };
+};
+
 export {
   CalendarHeader,
   CalendarWeekdays,
   CalendarGrid,
   CalendarDayCell,
   CalendarItemChip,
+  CalendarMoreToggle,
   useCalendarMonth,
+  useDayOverflow,
 };

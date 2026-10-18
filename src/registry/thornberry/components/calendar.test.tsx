@@ -8,7 +8,10 @@ import {
 } from "@internationalized/date";
 import { act, renderHook } from "@testing-library/react";
 
-import { useCalendarMonth } from "@/registry/thornberry/components/calendar";
+import {
+  useCalendarMonth,
+  useDayOverflow,
+} from "@/registry/thornberry/components/calendar";
 
 describe("useCalendarMonth", () => {
   test("opens on the given month with its grid and label", () => {
@@ -44,5 +47,34 @@ describe("useCalendarMonth", () => {
     );
     act(() => result.current.goToToday());
     expect(result.current.label).toBe(expected);
+  });
+});
+
+describe("useDayOverflow", () => {
+  test("shows all items when at or under the cap", () => {
+    const { result } = renderHook(() => useDayOverflow({ count: 3 }));
+    expect(result.current.hasOverflow).toBe(false);
+    expect(result.current.visibleCount).toBe(3);
+    expect(result.current.hiddenCount).toBe(0);
+  });
+
+  test("caps visible items and reports the hidden count", () => {
+    const { result } = renderHook(() => useDayOverflow({ count: 7 }));
+    expect(result.current.hasOverflow).toBe(true);
+    expect(result.current.visibleCount).toBe(3);
+    expect(result.current.hiddenCount).toBe(4);
+  });
+
+  test("toggle expands to all items and collapses back", () => {
+    const { result } = renderHook(() =>
+      useDayOverflow({ count: 7, maxVisible: 2 }),
+    );
+    expect(result.current.visibleCount).toBe(2);
+    act(() => result.current.toggle());
+    expect(result.current.isExpanded).toBe(true);
+    expect(result.current.visibleCount).toBe(7);
+    expect(result.current.hiddenCount).toBe(0);
+    act(() => result.current.toggle());
+    expect(result.current.visibleCount).toBe(2);
   });
 });
