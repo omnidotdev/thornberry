@@ -93,6 +93,38 @@ const errorMessage = (error: unknown, fallback: string): string =>
     : fallback;
 
 /**
+ * Human-readable expiry for a pending invitation: a relative phrase for the row
+ * ("Expires in 3 days", "Expired 2 days ago") plus the absolute local timestamp
+ * for its `title` tooltip. Returns null when no expiry is recorded
+ */
+const formatExpiry = (
+  expiresAt: string | Date | null | undefined,
+): { label: string; title: string } | null => {
+  if (!expiresAt) return null;
+  const date = new Date(expiresAt);
+  if (Number.isNaN(date.getTime())) return null;
+
+  const diffMs = date.getTime() - Date.now();
+  const absMs = Math.abs(diffMs);
+  const divisions: [Intl.RelativeTimeFormatUnit, number][] = [
+    ["day", 86_400_000],
+    ["hour", 3_600_000],
+    ["minute", 60_000],
+  ];
+  const [unit, size] =
+    divisions.find(([, ms]) => absMs >= ms) ??
+    (["minute", 60_000] as [Intl.RelativeTimeFormatUnit, number]);
+  const relative = new Intl.RelativeTimeFormat(undefined, {
+    numeric: "auto",
+  }).format(Math.round(diffMs / size), unit);
+
+  return {
+    label: diffMs < 0 ? `Expired ${relative}` : `Expires ${relative}`,
+    title: date.toLocaleString(),
+  };
+};
+
+/**
  * Styled organization-role picker. `roles` is the set of options the acting
  * user may assign (see `assignableRoles`); it defaults to all roles.
  */
@@ -1342,57 +1374,68 @@ const OrganizationDetail = ({
         {canManage && invitations.length > 0 && (
           <div className="space-y-2 rounded-lg border p-5">
             <h4 className="font-medium text-sm">Pending invitations</h4>
-            {invitations.map((invitation) => (
-              <div
-                key={invitation.id}
-                className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-3"
-              >
-                <div className="flex min-w-0 items-center gap-3">
-                  <Mail className="size-4 shrink-0 text-muted-foreground" />
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <div className="truncate font-medium text-sm">
-                        {invitation.email}
+            {invitations.map((invitation) => {
+              const expiry = formatExpiry(invitation.expiresAt);
+              return (
+                <div
+                  key={invitation.id}
+                  className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-3"
+                >
+                  <div className="flex min-w-0 items-center gap-3">
+                    <Mail className="size-4 shrink-0 text-muted-foreground" />
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <div className="truncate font-medium text-sm">
+                          {invitation.email}
+                        </div>
+                        {invitation.isExpired && (
+                          <Badge variant="warning">Expired</Badge>
+                        )}
                       </div>
-                      {invitation.isExpired && (
-                        <Badge variant="warning">Expired</Badge>
+                      <div className="text-muted-foreground text-xs capitalize">
+                        {invitation.role}
+                      </div>
+                      {expiry && (
+                        <div
+                          className="text-muted-foreground text-xs"
+                          title={expiry.title}
+                        >
+                          {expiry.label}
+                        </div>
                       )}
                     </div>
-                    <div className="text-muted-foreground text-xs capitalize">
-                      {invitation.role}
-                    </div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    {invitation.isExpired && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={resendingId === invitation.id}
+                        onClick={() => handleResend(invitation)}
+                      >
+                        {resendingId === invitation.id
+                          ? "Resending..."
+                          : "Resend"}
+                      </Button>
+                    )}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-destructive hover:text-destructive"
+                      onClick={() =>
+                        setPending({
+                          kind: "cancel",
+                          invitationId: invitation.id,
+                          label: invitation.email,
+                        })
+                      }
+                    >
+                      {invitation.isExpired ? "Remove" : "Cancel"}
+                    </Button>
                   </div>
                 </div>
-                <div className="flex items-center gap-1">
-                  {invitation.isExpired && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      disabled={resendingId === invitation.id}
-                      onClick={() => handleResend(invitation)}
-                    >
-                      {resendingId === invitation.id
-                        ? "Resending..."
-                        : "Resend"}
-                    </Button>
-                  )}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-destructive hover:text-destructive"
-                    onClick={() =>
-                      setPending({
-                        kind: "cancel",
-                        invitationId: invitation.id,
-                        label: invitation.email,
-                      })
-                    }
-                  >
-                    {invitation.isExpired ? "Remove" : "Cancel"}
-                  </Button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
 

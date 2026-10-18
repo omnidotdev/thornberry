@@ -73,6 +73,28 @@ var assignableRoles = (isOwner) => isOwner ? ROLES : ROLES.filter((role) => role
 var SLUG_PATTERN = /^[a-z0-9-]+$/;
 var slugify = (value) => value.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 50);
 var errorMessage = (error, fallback) => typeof error?.message === "string" ? error.message : fallback;
+var formatExpiry = (expiresAt) => {
+  if (!expiresAt)
+    return null;
+  const date = new Date(expiresAt);
+  if (Number.isNaN(date.getTime()))
+    return null;
+  const diffMs = date.getTime() - Date.now();
+  const absMs = Math.abs(diffMs);
+  const divisions = [
+    ["day", 86400000],
+    ["hour", 3600000],
+    ["minute", 60000]
+  ];
+  const [unit, size] = divisions.find(([, ms]) => absMs >= ms) ?? ["minute", 60000];
+  const relative = new Intl.RelativeTimeFormat(undefined, {
+    numeric: "auto"
+  }).format(Math.round(diffMs / size), unit);
+  return {
+    label: diffMs < 0 ? `Expired ${relative}` : `Expires ${relative}`,
+    title: date.toLocaleString()
+  };
+};
 var RoleSelect = ({
   value,
   onValueChange,
@@ -1300,64 +1322,72 @@ var OrganizationDetail = ({
                 className: "font-medium text-sm",
                 children: "Pending invitations"
               }),
-              invitations.map((invitation) => /* @__PURE__ */ jsxs("div", {
-                className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border p-3",
-                children: [
-                  /* @__PURE__ */ jsxs("div", {
-                    className: "flex min-w-0 items-center gap-3",
-                    children: [
-                      /* @__PURE__ */ jsx(Mail, {
-                        className: "size-4 shrink-0 text-muted-foreground"
-                      }),
-                      /* @__PURE__ */ jsxs("div", {
-                        className: "min-w-0",
-                        children: [
-                          /* @__PURE__ */ jsxs("div", {
-                            className: "flex items-center gap-2",
-                            children: [
-                              /* @__PURE__ */ jsx("div", {
-                                className: "truncate font-medium text-sm",
-                                children: invitation.email
-                              }),
-                              invitation.isExpired && /* @__PURE__ */ jsx(Badge2, {
-                                variant: "warning",
-                                children: "Expired"
-                              })
-                            ]
-                          }),
-                          /* @__PURE__ */ jsx("div", {
-                            className: "text-muted-foreground text-xs capitalize",
-                            children: invitation.role
-                          })
-                        ]
-                      })
-                    ]
-                  }),
-                  /* @__PURE__ */ jsxs("div", {
-                    className: "flex items-center gap-1",
-                    children: [
-                      invitation.isExpired && /* @__PURE__ */ jsx(Button2, {
-                        variant: "outline",
-                        size: "sm",
-                        disabled: resendingId === invitation.id,
-                        onClick: () => handleResend(invitation),
-                        children: resendingId === invitation.id ? "Resending..." : "Resend"
-                      }),
-                      /* @__PURE__ */ jsx(Button2, {
-                        variant: "ghost",
-                        size: "sm",
-                        className: "text-destructive hover:text-destructive",
-                        onClick: () => setPending({
-                          kind: "cancel",
-                          invitationId: invitation.id,
-                          label: invitation.email
+              invitations.map((invitation) => {
+                const expiry = formatExpiry(invitation.expiresAt);
+                return /* @__PURE__ */ jsxs("div", {
+                  className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border p-3",
+                  children: [
+                    /* @__PURE__ */ jsxs("div", {
+                      className: "flex min-w-0 items-center gap-3",
+                      children: [
+                        /* @__PURE__ */ jsx(Mail, {
+                          className: "size-4 shrink-0 text-muted-foreground"
                         }),
-                        children: invitation.isExpired ? "Remove" : "Cancel"
-                      })
-                    ]
-                  })
-                ]
-              }, invitation.id))
+                        /* @__PURE__ */ jsxs("div", {
+                          className: "min-w-0",
+                          children: [
+                            /* @__PURE__ */ jsxs("div", {
+                              className: "flex items-center gap-2",
+                              children: [
+                                /* @__PURE__ */ jsx("div", {
+                                  className: "truncate font-medium text-sm",
+                                  children: invitation.email
+                                }),
+                                invitation.isExpired && /* @__PURE__ */ jsx(Badge2, {
+                                  variant: "warning",
+                                  children: "Expired"
+                                })
+                              ]
+                            }),
+                            /* @__PURE__ */ jsx("div", {
+                              className: "text-muted-foreground text-xs capitalize",
+                              children: invitation.role
+                            }),
+                            expiry && /* @__PURE__ */ jsx("div", {
+                              className: "text-muted-foreground text-xs",
+                              title: expiry.title,
+                              children: expiry.label
+                            })
+                          ]
+                        })
+                      ]
+                    }),
+                    /* @__PURE__ */ jsxs("div", {
+                      className: "flex items-center gap-1",
+                      children: [
+                        invitation.isExpired && /* @__PURE__ */ jsx(Button2, {
+                          variant: "outline",
+                          size: "sm",
+                          disabled: resendingId === invitation.id,
+                          onClick: () => handleResend(invitation),
+                          children: resendingId === invitation.id ? "Resending..." : "Resend"
+                        }),
+                        /* @__PURE__ */ jsx(Button2, {
+                          variant: "ghost",
+                          size: "sm",
+                          className: "text-destructive hover:text-destructive",
+                          onClick: () => setPending({
+                            kind: "cancel",
+                            invitationId: invitation.id,
+                            label: invitation.email
+                          }),
+                          children: invitation.isExpired ? "Remove" : "Cancel"
+                        })
+                      ]
+                    })
+                  ]
+                }, invitation.id);
+              })
             ]
           }),
           canManage && /* @__PURE__ */ jsx(AccountOrganizationTeams2, {
