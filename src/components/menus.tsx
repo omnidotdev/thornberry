@@ -167,7 +167,7 @@ export const NestedMenu = () => {
       <MenuPositioner>
         <MenuContent className="w-48">
           <MenuItemGroup>
-            <MenuItemGroupLabel>Organization</MenuItemGroupLabel>
+            <MenuItemGroupLabel>Workspace</MenuItemGroupLabel>
             <MenuRoot>
               <MenuTriggerItem>Members</MenuTriggerItem>
               <MenuPositioner>

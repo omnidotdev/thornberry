@@ -217,7 +217,7 @@ const EditProfile = ({
                   )}
                   <p className="text-muted-foreground text-xs">
                     Changing your username will also update your personal
-                    organization handle.
+                    workspace handle.
                   </p>
                 </div>
               )}

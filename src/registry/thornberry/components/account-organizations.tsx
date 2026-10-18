@@ -1025,7 +1025,7 @@ const OrganizationDetail = ({
     setIsRestoring(false);
     if (res?.error) {
       toaster.error({
-        title: errorMessage(res.error, "Couldn't restore the organization"),
+        title: errorMessage(res.error, "Couldn't restore the workspace"),
       });
       return;
     }
@@ -1082,7 +1082,7 @@ const OrganizationDetail = ({
           <div className="min-w-0">
             <div className="font-medium text-sm">Scheduled for deletion</div>
             <div className="text-muted-foreground text-sm">
-              This organization will be permanently deleted around{" "}
+              This workspace will be permanently deleted around{" "}
               {scheduledDeletionDate.toLocaleDateString()}. Restore it before
               then to cancel.
             </div>
