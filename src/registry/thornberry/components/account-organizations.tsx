@@ -164,6 +164,13 @@ type PendingAction =
   | { kind: "leave" }
   | null;
 
+/**
+ * After a resend, briefly disable that invite's Resend button so a repeated
+ * click cannot spam the invitee with duplicate emails. Keyed by email (the
+ * stable identity) because a resend supersedes the row and mints a new id
+ */
+const RESEND_COOLDOWN_MS = 30_000;
+
 type MemberSort = "name-asc" | "name-desc" | "role";
 
 /** Owner first, then admin, then member, for the "Role" sort */
@@ -647,6 +654,10 @@ const OrganizationDetail = ({
   const [inviteRole, setInviteRole] = useState<AccountOrgRole>("member");
   const [isInviting, setIsInviting] = useState(false);
   const [resendingId, setResendingId] = useState<string | null>(null);
+  const [resendCooldown, setResendCooldown] = useState<Set<string>>(new Set());
+  const cooldownTimers = useRef<Map<string, ReturnType<typeof setTimeout>>>(
+    new Map(),
+  );
   const [pending, setPending] = useState<PendingAction>(null);
   const [isActionPending, setIsActionPending] = useState(false);
   const [isRestoring, setIsRestoring] = useState(false);
@@ -657,6 +668,14 @@ const OrganizationDetail = ({
   const [memberSearch, setMemberSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState<"all" | AccountOrgRole>("all");
   const [memberSort, setMemberSort] = useState<MemberSort>("name-asc");
+
+  // Clear any outstanding resend-cooldown timers on unmount
+  useEffect(() => {
+    const timers = cooldownTimers.current;
+    return () => {
+      for (const timer of timers.values()) clearTimeout(timer);
+    };
+  }, []);
 
   const load = useCallback(async () => {
     setIsLoading(true);
@@ -744,10 +763,12 @@ const OrganizationDetail = ({
     load();
   };
 
-  // Reissue an expired invite by re-inviting the same email and role. A fresh
-  // invitation (new expiry, new email) is created; Gatekeeper's
-  // `cancelPendingInvitationsOnReInvite` supersedes the stale row server-side,
-  // so no separate cleanup is needed
+  // Resend any pending invite (live or expired) by re-inviting the same email
+  // and role. A fresh invitation (new expiry, new email) is created; Gatekeeper
+  // supersedes the prior row server-side (`cancelPendingInvitationsOnReInvite`
+  // for a live invite, the `beforeCreateInvitation` hook for an expired one),
+  // so no separate cleanup is needed. A short cooldown guards against spamming
+  // the invitee with repeated emails
   const handleResend = async (invitation: {
     id: string;
     email: string;
@@ -767,6 +788,24 @@ const OrganizationDetail = ({
       });
       return;
     }
+    // Start the cooldown for this address (keyed by email so it survives the
+    // row's id change on reload), replacing any prior timer
+    const key = invitation.email.toLowerCase();
+    const existing = cooldownTimers.current.get(key);
+    if (existing) clearTimeout(existing);
+    setResendCooldown((prev) => new Set(prev).add(key));
+    cooldownTimers.current.set(
+      key,
+      setTimeout(() => {
+        setResendCooldown((prev) => {
+          const next = new Set(prev);
+          next.delete(key);
+          return next;
+        });
+        cooldownTimers.current.delete(key);
+      }, RESEND_COOLDOWN_MS),
+    );
+
     toaster.success({ title: `Invitation resent to ${invitation.email}` });
     load();
   };
@@ -1274,18 +1313,21 @@ const OrganizationDetail = ({
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
-                  {invitation.isExpired && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      disabled={resendingId === invitation.id}
-                      onClick={() => handleResend(invitation)}
-                    >
-                      {resendingId === invitation.id
-                        ? "Resending..."
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={
+                      resendingId === invitation.id ||
+                      resendCooldown.has(invitation.email.toLowerCase())
+                    }
+                    onClick={() => handleResend(invitation)}
+                  >
+                    {resendingId === invitation.id
+                      ? "Resending..."
+                      : resendCooldown.has(invitation.email.toLowerCase())
+                        ? "Sent"
                         : "Resend"}
-                    </Button>
-                  )}
+                  </Button>
                   <Button
                     variant="ghost"
                     size="sm"

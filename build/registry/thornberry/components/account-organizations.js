@@ -135,6 +135,7 @@ var RoleSelect = ({
     ]
   });
 };
+var RESEND_COOLDOWN_MS = 30000;
 var ROLE_RANK = { owner: 0, admin: 1, member: 2 };
 var RELATIVE_TIME = new Intl.RelativeTimeFormat(undefined, {
   numeric: "always"
@@ -601,12 +602,21 @@ var OrganizationDetail = ({
   const [inviteRole, setInviteRole] = useState("member");
   const [isInviting, setIsInviting] = useState(false);
   const [resendingId, setResendingId] = useState(null);
+  const [resendCooldown, setResendCooldown] = useState(new Set);
+  const cooldownTimers = useRef(new Map);
   const [pending, setPending] = useState(null);
   const [isActionPending, setIsActionPending] = useState(false);
   const [isRestoring, setIsRestoring] = useState(false);
   const [memberSearch, setMemberSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
   const [memberSort, setMemberSort] = useState("name-asc");
+  useEffect(() => {
+    const timers = cooldownTimers.current;
+    return () => {
+      for (const timer of timers.values())
+        clearTimeout(timer);
+    };
+  }, []);
   const load = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -683,6 +693,19 @@ var OrganizationDetail = ({
       });
       return;
     }
+    const key = invitation.email.toLowerCase();
+    const existing = cooldownTimers.current.get(key);
+    if (existing)
+      clearTimeout(existing);
+    setResendCooldown((prev) => new Set(prev).add(key));
+    cooldownTimers.current.set(key, setTimeout(() => {
+      setResendCooldown((prev) => {
+        const next = new Set(prev);
+        next.delete(key);
+        return next;
+      });
+      cooldownTimers.current.delete(key);
+    }, RESEND_COOLDOWN_MS));
     toaster.success({ title: `Invitation resent to ${invitation.email}` });
     load();
   };
@@ -1224,12 +1247,12 @@ var OrganizationDetail = ({
                   /* @__PURE__ */ jsxs("div", {
                     className: "flex items-center gap-1",
                     children: [
-                      invitation.isExpired && /* @__PURE__ */ jsx(Button2, {
+                      /* @__PURE__ */ jsx(Button2, {
                         variant: "outline",
                         size: "sm",
-                        disabled: resendingId === invitation.id,
+                        disabled: resendingId === invitation.id || resendCooldown.has(invitation.email.toLowerCase()),
                         onClick: () => handleResend(invitation),
-                        children: resendingId === invitation.id ? "Resending..." : "Resend"
+                        children: resendingId === invitation.id ? "Resending..." : resendCooldown.has(invitation.email.toLowerCase()) ? "Sent" : "Resend"
                       }),
                       /* @__PURE__ */ jsx(Button2, {
                         variant: "ghost",
