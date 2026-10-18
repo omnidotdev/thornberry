@@ -107,16 +107,48 @@ var CalendarDayCell = ({
     })
   ]
 });
+var ITEM_TONE_CLASSES = {
+  neutral: "",
+  danger: "bg-red-500/15 hover:bg-red-500/25",
+  warning: "bg-yellow-500/15 hover:bg-yellow-500/25",
+  success: "bg-green-500/15 hover:bg-green-500/25",
+  info: "bg-blue-500/15 hover:bg-blue-500/25"
+};
 var CalendarItemChip = ({
   isDragging,
+  tone = "neutral",
+  dots,
+  className,
+  type,
+  children,
+  ...rest
+}) => /* @__PURE__ */ jsxs("button", {
+  type: type ?? "button",
+  "data-cadence-item": true,
+  className: cn("flex w-full items-center gap-1 rounded bg-accent px-1.5 py-0.5 text-left text-xs hover:bg-accent/80", ITEM_TONE_CLASSES[tone], isDragging && "shadow-lg ring-1 ring-primary", className),
+  ...rest,
+  children: [
+    dots?.slice(0, 3).map((color, index) => /* @__PURE__ */ jsx("span", {
+      className: "size-1.5 shrink-0 rounded-full",
+      style: { backgroundColor: color }
+    }, index)),
+    children != null && /* @__PURE__ */ jsx("span", {
+      className: "min-w-0 flex-1 truncate",
+      children
+    })
+  ]
+});
+var CalendarMoreToggle = ({
+  hiddenCount,
+  isExpanded,
   className,
   type,
   ...rest
 }) => /* @__PURE__ */ jsx("button", {
   type: type ?? "button",
-  "data-cadence-item": true,
-  className: cn("truncate rounded bg-accent px-1.5 py-0.5 text-left text-xs hover:bg-accent/80", isDragging && "shadow-lg ring-1 ring-primary", className),
-  ...rest
+  className: cn("px-1.5 py-0.5 text-left text-muted-foreground text-xs hover:text-foreground", className),
+  ...rest,
+  children: isExpanded ? "Show less" : `+${hiddenCount} more`
 });
 var useCalendarMonth = ({
   initialMonth,
@@ -134,11 +166,21 @@ var useCalendarMonth = ({
   const goToToday = useCallback(() => setMonth(today(timeZone).set({ day: 1 })), [timeZone]);
   return { month, grid, label, goToPrevious, goToNext, goToToday, setMonth };
 };
+var useDayOverflow = ({ count, maxVisible = 3 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const hasOverflow = count > maxVisible;
+  const visibleCount = isExpanded || !hasOverflow ? count : maxVisible;
+  const hiddenCount = Math.max(0, count - visibleCount);
+  const toggle = useCallback(() => setIsExpanded((value) => !value), []);
+  return { visibleCount, hiddenCount, hasOverflow, isExpanded, toggle };
+};
 export {
   CalendarDayCell,
   CalendarGrid,
   CalendarHeader,
   CalendarItemChip,
+  CalendarMoreToggle,
   CalendarWeekdays,
-  useCalendarMonth
+  useCalendarMonth,
+  useDayOverflow
 };
