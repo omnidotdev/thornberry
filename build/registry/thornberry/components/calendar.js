@@ -118,10 +118,27 @@ var ITEM_TONE_CLASSES = {
   success: "bg-green-500/15 hover:bg-green-500/25",
   info: "bg-blue-500/15 hover:bg-blue-500/25"
 };
+var CalendarItemAvatarCircle = ({ name, src }) => /* @__PURE__ */ jsxs("span", {
+  title: name,
+  className: "relative inline-flex size-4 items-center justify-center overflow-hidden rounded-full bg-muted font-medium text-[0.5rem] uppercase leading-none ring-1 ring-background",
+  children: [
+    name.trim().charAt(0) || "?",
+    src && /* @__PURE__ */ jsx("img", {
+      src,
+      alt: "",
+      className: "absolute inset-0 size-full object-cover",
+      onError: (event) => {
+        event.currentTarget.style.display = "none";
+      }
+    })
+  ]
+});
 var CalendarItemChip = ({
   isDragging,
   tone = "neutral",
   dots,
+  avatars,
+  maxAvatars = 3,
   className,
   type,
   children,
@@ -139,6 +156,22 @@ var CalendarItemChip = ({
     children != null && /* @__PURE__ */ jsx("span", {
       className: "min-w-0 flex-1 truncate",
       children
+    }),
+    avatars && avatars.length > 0 && /* @__PURE__ */ jsxs("span", {
+      className: "flex shrink-0 items-center -space-x-1",
+      children: [
+        avatars.slice(0, maxAvatars).map((avatar, index) => /* @__PURE__ */ jsx(CalendarItemAvatarCircle, {
+          name: avatar.name,
+          src: avatar.src
+        }, index)),
+        avatars.length > maxAvatars && /* @__PURE__ */ jsxs("span", {
+          className: "inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-muted px-1 font-medium text-[0.5rem] leading-none ring-1 ring-background",
+          children: [
+            "+",
+            avatars.length - maxAvatars
+          ]
+        })
+      ]
     })
   ]
 });

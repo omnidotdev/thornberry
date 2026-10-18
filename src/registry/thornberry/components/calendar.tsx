@@ -189,6 +189,16 @@ const ITEM_TONE_CLASSES: Record<CalendarItemTone, string> = {
   info: "bg-blue-500/15 hover:bg-blue-500/25",
 };
 
+/**
+ * A person to show as a trailing avatar on a chip (e.g. a task assignee). Kept
+ * domain-agnostic: just a display name (seeds the fallback initial and the
+ * hover title) and an optional image that falls back to the initial.
+ */
+export interface CalendarItemAvatar {
+  name: string;
+  src?: string | null;
+}
+
 interface CalendarItemChipProps extends ComponentProps<"button"> {
   /** Whether this chip is currently being dragged. */
   isDragging?: boolean;
@@ -196,17 +206,50 @@ interface CalendarItemChipProps extends ComponentProps<"button"> {
   tone?: CalendarItemTone;
   /** Leading color dots (CSS color strings), e.g. label colors. Capped at 3. */
   dots?: readonly string[];
+  /** Trailing overlapped avatars (e.g. assignees), capped by {@link maxAvatars}. */
+  avatars?: readonly CalendarItemAvatar[];
+  /** How many avatars to show before a `+N` overflow badge. Defaults to 3. */
+  maxAvatars?: number;
 }
 
 /**
+ * A single compact avatar for a chip: a tiny circle with the name's initial,
+ * overlaid by the image when it loads. Deliberately lighter than the full
+ * Avatar primitive, which is sized for profile contexts and is too large and
+ * too heavy to render many-per-cell across a month grid.
+ */
+const CalendarItemAvatarCircle = ({ name, src }: CalendarItemAvatar) => (
+  <span
+    title={name}
+    className="relative inline-flex size-4 items-center justify-center overflow-hidden rounded-full bg-muted font-medium text-[0.5rem] uppercase leading-none ring-1 ring-background"
+  >
+    {name.trim().charAt(0) || "?"}
+    {src && (
+      <img
+        src={src}
+        alt=""
+        className="absolute inset-0 size-full object-cover"
+        // a broken/stale src hides itself so the initial shows through
+        onError={(event) => {
+          event.currentTarget.style.display = "none";
+        }}
+      />
+    )}
+  </span>
+);
+
+/**
  * A compact item chip for a calendar cell: an optional priority-style tint, up
- * to three leading color dots (e.g. labels), then the truncated content.
- * Carries `data-cadence-item` so a caller can wrap it as a draggable.
+ * to three leading color dots (e.g. labels), the truncated content, then any
+ * trailing avatars (e.g. assignees). Carries `data-cadence-item` so a caller
+ * can wrap it as a draggable.
  */
 const CalendarItemChip = ({
   isDragging,
   tone = "neutral",
   dots,
+  avatars,
+  maxAvatars = 3,
   className,
   type,
   children,
@@ -233,6 +276,23 @@ const CalendarItemChip = ({
     ))}
     {children != null && (
       <span className="min-w-0 flex-1 truncate">{children}</span>
+    )}
+    {avatars && avatars.length > 0 && (
+      <span className="flex shrink-0 items-center -space-x-1">
+        {avatars.slice(0, maxAvatars).map((avatar, index) => (
+          <CalendarItemAvatarCircle
+            // biome-ignore lint/suspicious/noArrayIndexKey: positional avatar stack
+            key={index}
+            name={avatar.name}
+            src={avatar.src}
+          />
+        ))}
+        {avatars.length > maxAvatars && (
+          <span className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-muted px-1 font-medium text-[0.5rem] leading-none ring-1 ring-background">
+            +{avatars.length - maxAvatars}
+          </span>
+        )}
+      </span>
     )}
   </button>
 );
