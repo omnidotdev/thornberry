@@ -2,6 +2,11 @@ import {
   useAccountContext2
 } from "../../../chunks/account-user-two-factor-authentication-b60vh03c.js";
 import {
+  AvatarRoot2,
+  AvatarFallback2,
+  AvatarImage2
+} from "../../../chunks/account-user-two-factor-authentication-b7jpk793.js";
+import {
   Button2
 } from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
 import {
@@ -22,6 +27,10 @@ import {
 import {
   ConfirmDialog2
 } from "../../../chunks/account-user-two-factor-authentication-1qzbdkf5.js";
+import"../../../chunks/account-user-two-factor-authentication-q37czf6m.js";
+import {
+  AvatarUpload2
+} from "../../../chunks/account-user-two-factor-authentication-h9xs2bn6.js";
 import {
   Select2,
   SelectControl2,
@@ -40,18 +49,8 @@ import {
   AccountOrganizationTeams2
 } from "../../../chunks/account-user-two-factor-authentication-k3txg2x1.js";
 import {
-  AvatarRoot2,
-  AvatarFallback2,
-  AvatarImage2
-} from "../../../chunks/account-user-two-factor-authentication-b7jpk793.js";
-import {
   Badge2
 } from "../../../chunks/account-user-two-factor-authentication-mhbe1kzg.js";
-import {
-  ALLOWED_IMAGE_TYPES,
-  MAX_IMAGE_SIZE,
-  ImageCropper2
-} from "../../../chunks/account-user-two-factor-authentication-q37czf6m.js";
 
 // src/registry/thornberry/components/account-organizations.tsx
 import {
@@ -390,93 +389,21 @@ var EditOrganizationDialog = ({
   onOpenChange,
   onUpdated
 }) => {
-  const { authClient, toaster, orgLogo } = useAccountContext2();
+  const { authClient, toaster } = useAccountContext2();
   const [name, setName] = useState(organization.name);
   const [slug, setSlug] = useState(organization.slug);
   const [description, setDescription] = useState("");
   const [slugStatus, setSlugStatus] = useState("idle");
   const [isSaving, setIsSaving] = useState(false);
-  const [logoPreview, setLogoPreview] = useState(null);
-  const [logoToCrop, setLogoToCrop] = useState(null);
-  const [logoRemoved, setLogoRemoved] = useState(false);
-  const [logoRemoveOpen, setLogoRemoveOpen] = useState(false);
-  const [isUploadingLogo, setIsUploadingLogo] = useState(false);
-  const [isRemovingLogo, setIsRemovingLogo] = useState(false);
   const slugTimer = useRef(null);
-  const logoInputRef = useRef(null);
   useEffect(() => {
     if (open) {
       setName(organization.name);
       setSlug(organization.slug);
       setDescription("");
       setSlugStatus("idle");
-      setLogoPreview(null);
-      setLogoToCrop(null);
-      setLogoRemoved(false);
     }
   }, [open, organization.name, organization.slug]);
-  const handleLogoSelect = (event) => {
-    const file = event.target.files?.[0];
-    event.target.value = "";
-    if (!file || !orgLogo)
-      return;
-    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-      toaster.error({ title: "Choose a JPEG, PNG, WebP, or GIF image" });
-      return;
-    }
-    if (file.size > MAX_IMAGE_SIZE) {
-      toaster.error({ title: "Image must be under 5 MB" });
-      return;
-    }
-    const reader = new FileReader;
-    reader.onloadend = () => setLogoToCrop(reader.result);
-    reader.readAsDataURL(file);
-  };
-  const handleLogoCropConfirm = async (blob) => {
-    if (!orgLogo)
-      return;
-    const file = new File([blob], "logo.jpg", { type: "image/jpeg" });
-    setIsUploadingLogo(true);
-    try {
-      const url = await orgLogo.onUpload(organization.id, file);
-      if (typeof url === "string")
-        setLogoPreview(url);
-      setLogoRemoved(false);
-      setLogoToCrop(null);
-      toaster.success({ title: "Logo updated" });
-      onUpdated();
-    } catch (error) {
-      toaster.error({ title: errorMessage(error, "Couldn't upload the logo") });
-    } finally {
-      setIsUploadingLogo(false);
-    }
-  };
-  const handleLogoRemove = async () => {
-    setIsRemovingLogo(true);
-    try {
-      const res = await authClient.organization.update({
-        data: { logo: null },
-        organizationId: organization.id
-      });
-      if (res?.error) {
-        toaster.error({
-          title: errorMessage(res.error, "Couldn't remove the logo")
-        });
-        return;
-      }
-      setLogoPreview(null);
-      setLogoRemoved(true);
-      setLogoRemoveOpen(false);
-      toaster.success({ title: "Logo removed" });
-      onUpdated();
-    } catch (error) {
-      toaster.error({ title: errorMessage(error, "Couldn't remove the logo") });
-    } finally {
-      setIsRemovingLogo(false);
-    }
-  };
-  const currentLogo = logoRemoved ? null : logoPreview ?? organization.logo ?? null;
-  const logoBusy = isUploadingLogo || isRemovingLogo;
   const slugChanged = slug !== organization.slug;
   const checkSlug = (value) => {
     setSlugStatus("idle");
@@ -530,234 +457,132 @@ var EditOrganizationDialog = ({
     onOpenChange(false);
     onUpdated();
   };
-  return /* @__PURE__ */ jsxs(Fragment, {
-    children: [
-      /* @__PURE__ */ jsx(DialogRoot2, {
-        open,
-        onOpenChange: ({ open: next }) => {
-          if (isSaving)
-            return;
-          onOpenChange(next);
-        },
-        children: /* @__PURE__ */ jsxs(DialogPortal2, {
-          children: [
-            /* @__PURE__ */ jsx(DialogBackdrop2, {}),
-            /* @__PURE__ */ jsx(DialogPositioner2, {
-              children: /* @__PURE__ */ jsxs(DialogContent2, {
-                className: "w-full max-w-md p-6",
+  return /* @__PURE__ */ jsx(DialogRoot2, {
+    open,
+    onOpenChange: ({ open: next }) => {
+      if (isSaving)
+        return;
+      onOpenChange(next);
+    },
+    children: /* @__PURE__ */ jsxs(DialogPortal2, {
+      children: [
+        /* @__PURE__ */ jsx(DialogBackdrop2, {}),
+        /* @__PURE__ */ jsx(DialogPositioner2, {
+          children: /* @__PURE__ */ jsxs(DialogContent2, {
+            className: "w-full max-w-md p-6",
+            children: [
+              /* @__PURE__ */ jsx(DialogTitle2, {
+                children: "Edit workspace"
+              }),
+              /* @__PURE__ */ jsx(DialogDescription2, {
+                className: "text-muted-foreground text-sm",
+                children: "Update your workspace's name, handle, or description."
+              }),
+              /* @__PURE__ */ jsxs("form", {
+                className: "mt-4 space-y-4",
+                onSubmit: (event) => {
+                  event.preventDefault();
+                  if (canSave)
+                    handleSave();
+                },
                 children: [
-                  /* @__PURE__ */ jsx(DialogTitle2, {
-                    children: "Edit workspace"
-                  }),
-                  /* @__PURE__ */ jsx(DialogDescription2, {
-                    className: "text-muted-foreground text-sm",
-                    children: "Update your workspace's name, handle, or description."
-                  }),
-                  /* @__PURE__ */ jsxs("form", {
-                    className: "mt-4 space-y-4",
-                    onSubmit: (event) => {
-                      event.preventDefault();
-                      if (canSave)
-                        handleSave();
-                    },
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "space-y-1.5",
                     children: [
-                      orgLogo?.uploadEnabled && /* @__PURE__ */ jsxs("div", {
-                        className: "flex items-center gap-4",
-                        children: [
-                          /* @__PURE__ */ jsxs(AvatarRoot2, {
-                            className: "size-14 shrink-0 rounded-md",
-                            children: [
-                              /* @__PURE__ */ jsx(AvatarImage2, {
-                                src: currentLogo ?? undefined
-                              }),
-                              /* @__PURE__ */ jsx(AvatarFallback2, {
-                                className: "rounded-md",
-                                children: organization.name.charAt(0)
-                              })
-                            ]
-                          }),
-                          /* @__PURE__ */ jsxs("div", {
-                            className: "space-y-1",
-                            children: [
-                              /* @__PURE__ */ jsxs("div", {
-                                className: "flex items-center gap-2",
-                                children: [
-                                  /* @__PURE__ */ jsx(Button2, {
-                                    type: "button",
-                                    variant: "outline",
-                                    size: "sm",
-                                    disabled: logoBusy,
-                                    onClick: () => logoInputRef.current?.click(),
-                                    children: isUploadingLogo ? "Uploading..." : "Change logo"
-                                  }),
-                                  !!currentLogo && /* @__PURE__ */ jsx(Button2, {
-                                    type: "button",
-                                    variant: "outline",
-                                    size: "sm",
-                                    className: "text-destructive hover:text-destructive",
-                                    disabled: logoBusy,
-                                    onClick: () => setLogoRemoveOpen(true),
-                                    children: isRemovingLogo ? "Removing..." : "Remove"
-                                  })
-                                ]
-                              }),
-                              /* @__PURE__ */ jsx("p", {
-                                className: "text-muted-foreground text-xs",
-                                children: "JPEG, PNG, WebP, or GIF, up to 5 MB."
-                              })
-                            ]
-                          }),
-                          /* @__PURE__ */ jsx("input", {
-                            ref: logoInputRef,
-                            type: "file",
-                            accept: ALLOWED_IMAGE_TYPES.join(","),
-                            hidden: true,
-                            onChange: handleLogoSelect
-                          })
-                        ]
+                      /* @__PURE__ */ jsx(Label2, {
+                        htmlFor: "edit-org-name",
+                        children: "Name"
+                      }),
+                      /* @__PURE__ */ jsx(Input2, {
+                        id: "edit-org-name",
+                        value: name,
+                        onChange: (event) => setName(event.target.value),
+                        required: true
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "space-y-1.5",
+                    children: [
+                      /* @__PURE__ */ jsx(Label2, {
+                        htmlFor: "edit-org-slug",
+                        children: "Handle"
                       }),
                       /* @__PURE__ */ jsxs("div", {
-                        className: "space-y-1.5",
+                        className: "relative",
                         children: [
-                          /* @__PURE__ */ jsx(Label2, {
-                            htmlFor: "edit-org-name",
-                            children: "Name"
+                          /* @__PURE__ */ jsx("span", {
+                            className: "absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm",
+                            children: "@"
                           }),
                           /* @__PURE__ */ jsx(Input2, {
-                            id: "edit-org-name",
-                            value: name,
-                            onChange: (event) => setName(event.target.value),
+                            id: "edit-org-slug",
+                            value: slug,
+                            onChange: (event) => handleSlugChange(event.target.value),
+                            className: "pr-9 pl-7",
                             required: true
-                          })
-                        ]
-                      }),
-                      /* @__PURE__ */ jsxs("div", {
-                        className: "space-y-1.5",
-                        children: [
-                          /* @__PURE__ */ jsx(Label2, {
-                            htmlFor: "edit-org-slug",
-                            children: "Handle"
                           }),
                           /* @__PURE__ */ jsxs("div", {
-                            className: "relative",
+                            className: "absolute top-1/2 right-3 -translate-y-1/2",
                             children: [
-                              /* @__PURE__ */ jsx("span", {
-                                className: "absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm",
-                                children: "@"
+                              slugStatus === "checking" && /* @__PURE__ */ jsx(Loader2, {
+                                className: "size-4 animate-spin text-muted-foreground"
                               }),
-                              /* @__PURE__ */ jsx(Input2, {
-                                id: "edit-org-slug",
-                                value: slug,
-                                onChange: (event) => handleSlugChange(event.target.value),
-                                className: "pr-9 pl-7",
-                                required: true
+                              slugStatus === "available" && /* @__PURE__ */ jsx(Check, {
+                                className: "size-4 text-green-500"
                               }),
-                              /* @__PURE__ */ jsxs("div", {
-                                className: "absolute top-1/2 right-3 -translate-y-1/2",
-                                children: [
-                                  slugStatus === "checking" && /* @__PURE__ */ jsx(Loader2, {
-                                    className: "size-4 animate-spin text-muted-foreground"
-                                  }),
-                                  slugStatus === "available" && /* @__PURE__ */ jsx(Check, {
-                                    className: "size-4 text-green-500"
-                                  }),
-                                  (slugStatus === "taken" || slugStatus === "invalid") && /* @__PURE__ */ jsx(X, {
-                                    className: "size-4 text-destructive"
-                                  })
-                                ]
+                              (slugStatus === "taken" || slugStatus === "invalid") && /* @__PURE__ */ jsx(X, {
+                                className: "size-4 text-destructive"
                               })
                             ]
-                          }),
-                          slugChanged && /* @__PURE__ */ jsx("p", {
-                            className: "text-muted-foreground text-xs",
-                            children: slugStatus === "taken" ? "That handle is already taken." : slugStatus === "invalid" ? "Use lowercase letters, numbers, and hyphens only." : "Changing the handle updates it everywhere this workspace is used."
                           })
                         ]
                       }),
-                      /* @__PURE__ */ jsxs("div", {
-                        className: "space-y-1.5",
-                        children: [
-                          /* @__PURE__ */ jsx(Label2, {
-                            htmlFor: "edit-org-desc",
-                            children: "Description"
-                          }),
-                          /* @__PURE__ */ jsx(Input2, {
-                            id: "edit-org-desc",
-                            value: description,
-                            onChange: (event) => setDescription(event.target.value),
-                            placeholder: "Optional"
-                          })
-                        ]
+                      slugChanged && /* @__PURE__ */ jsx("p", {
+                        className: "text-muted-foreground text-xs",
+                        children: slugStatus === "taken" ? "That handle is already taken." : slugStatus === "invalid" ? "Use lowercase letters, numbers, and hyphens only." : "Changing the handle updates it everywhere this workspace is used."
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "space-y-1.5",
+                    children: [
+                      /* @__PURE__ */ jsx(Label2, {
+                        htmlFor: "edit-org-desc",
+                        children: "Description"
                       }),
-                      /* @__PURE__ */ jsxs("div", {
-                        className: "flex justify-end gap-2 pt-2",
-                        children: [
-                          /* @__PURE__ */ jsx(Button2, {
-                            type: "button",
-                            variant: "outline",
-                            disabled: isSaving,
-                            onClick: () => onOpenChange(false),
-                            children: "Cancel"
-                          }),
-                          /* @__PURE__ */ jsx(Button2, {
-                            type: "submit",
-                            disabled: !canSave,
-                            children: isSaving ? "Saving..." : "Save"
-                          })
-                        ]
+                      /* @__PURE__ */ jsx(Input2, {
+                        id: "edit-org-desc",
+                        value: description,
+                        onChange: (event) => setDescription(event.target.value),
+                        placeholder: "Optional"
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "flex justify-end gap-2 pt-2",
+                    children: [
+                      /* @__PURE__ */ jsx(Button2, {
+                        type: "button",
+                        variant: "outline",
+                        disabled: isSaving,
+                        onClick: () => onOpenChange(false),
+                        children: "Cancel"
+                      }),
+                      /* @__PURE__ */ jsx(Button2, {
+                        type: "submit",
+                        disabled: !canSave,
+                        children: isSaving ? "Saving..." : "Save"
                       })
                     ]
                   })
                 ]
               })
-            })
-          ]
+            ]
+          })
         })
-      }),
-      /* @__PURE__ */ jsx(DialogRoot2, {
-        open: !!logoToCrop,
-        onOpenChange: ({ open: next }) => {
-          if (isUploadingLogo)
-            return;
-          if (!next)
-            setLogoToCrop(null);
-        },
-        children: /* @__PURE__ */ jsxs(DialogPortal2, {
-          children: [
-            /* @__PURE__ */ jsx(DialogBackdrop2, {}),
-            /* @__PURE__ */ jsx(DialogPositioner2, {
-              children: /* @__PURE__ */ jsxs(DialogContent2, {
-                className: "w-full max-w-md p-6",
-                children: [
-                  /* @__PURE__ */ jsx(DialogTitle2, {
-                    children: "Crop logo"
-                  }),
-                  logoToCrop && /* @__PURE__ */ jsx("div", {
-                    className: "mt-4",
-                    children: /* @__PURE__ */ jsx(ImageCropper2, {
-                      imageSrc: logoToCrop,
-                      cropShape: "rect",
-                      confirming: isUploadingLogo,
-                      onCancel: () => setLogoToCrop(null),
-                      onConfirm: handleLogoCropConfirm
-                    })
-                  })
-                ]
-              })
-            })
-          ]
-        })
-      }),
-      logoRemoveOpen && /* @__PURE__ */ jsx(ConfirmDialog2, {
-        open: logoRemoveOpen,
-        onOpenChange: setLogoRemoveOpen,
-        title: "Remove logo?",
-        description: "This removes the workspace logo. You can upload a new one anytime.",
-        confirmLabel: "Remove",
-        isPending: isRemovingLogo,
-        onConfirm: handleLogoRemove
-      })
-    ]
+      ]
+    })
   });
 };
 var OrganizationDetail = ({
@@ -768,7 +593,7 @@ var OrganizationDetail = ({
   onLeftOrDeleted,
   onUpdated
 }) => {
-  const { authClient, toaster } = useAccountContext2();
+  const { authClient, toaster, orgLogo } = useAccountContext2();
   const [editOpen, setEditOpen] = useState(false);
   const [full, setFull] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -984,27 +809,63 @@ var OrganizationDetail = ({
         className: "flex flex-wrap items-center justify-between gap-3",
         children: [
           /* @__PURE__ */ jsxs("div", {
-            className: "min-w-0",
+            className: "flex min-w-0 items-center gap-3",
             children: [
-              /* @__PURE__ */ jsxs("div", {
-                className: "flex flex-wrap items-center gap-2",
-                children: [
-                  /* @__PURE__ */ jsx("h3", {
-                    className: "font-semibold text-lg",
-                    children: organization.name
-                  }),
-                  currentMember && /* @__PURE__ */ jsx(Badge2, {
-                    variant: "outline",
-                    className: "capitalize",
-                    children: currentMember.role
-                  })
-                ]
+              /* @__PURE__ */ jsx(AvatarUpload2, {
+                size: "xl",
+                cropShape: "round",
+                editable: canManage && organization.type !== "personal",
+                uploadEnabled: !!orgLogo?.uploadEnabled,
+                src: full?.logo ?? organization.logo ?? null,
+                fallback: organization.name.charAt(0),
+                onUpload: orgLogo ? async (blob) => {
+                  await orgLogo.onUpload(organization.id, new File([blob], "logo.jpg", { type: "image/jpeg" }));
+                } : undefined,
+                onClear: async () => {
+                  const res = await authClient.organization.update({
+                    data: { logo: null },
+                    organizationId: organization.id
+                  });
+                  if (res?.error) {
+                    throw new Error(errorMessage(res.error, "Couldn't remove the logo"));
+                  }
+                },
+                onChanged: load,
+                copy: {
+                  menuTitle: "Workspace logo",
+                  cropTitle: "Crop logo",
+                  updatedTitle: "Logo updated",
+                  updatedDescription: "The workspace logo has been updated.",
+                  removedTitle: "Logo removed",
+                  removedDescription: "The workspace logo has been removed.",
+                  removeConfirmTitle: "Remove workspace logo?",
+                  removeConfirmDescription: "This removes the current workspace logo. You can upload a new one anytime."
+                }
               }),
-              /* @__PURE__ */ jsxs("p", {
-                className: "text-muted-foreground text-sm",
+              /* @__PURE__ */ jsxs("div", {
+                className: "min-w-0",
                 children: [
-                  "@",
-                  organization.slug
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "flex flex-wrap items-center gap-2",
+                    children: [
+                      /* @__PURE__ */ jsx("h3", {
+                        className: "font-semibold text-lg",
+                        children: organization.name
+                      }),
+                      currentMember && /* @__PURE__ */ jsx(Badge2, {
+                        variant: "outline",
+                        className: "capitalize",
+                        children: currentMember.role
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsxs("p", {
+                    className: "text-muted-foreground text-sm",
+                    children: [
+                      "@",
+                      organization.slug
+                    ]
+                  })
                 ]
               })
             ]
@@ -1571,13 +1432,12 @@ var AccountOrganizations = ({
               className: "flex min-w-0 items-center gap-3",
               children: [
                 /* @__PURE__ */ jsxs(AvatarRoot2, {
-                  className: "size-9 shrink-0 rounded-md",
+                  className: "size-9 shrink-0",
                   children: [
                     /* @__PURE__ */ jsx(AvatarImage2, {
                       src: org.logo ?? undefined
                     }),
                     /* @__PURE__ */ jsx(AvatarFallback2, {
-                      className: "rounded-md",
                       children: org.name.charAt(0)
                     })
                   ]

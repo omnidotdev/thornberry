@@ -29,6 +29,16 @@ import {
 import { Camera, CloudUpload, Loader2, Trash2 } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
+var defaultCopy = {
+  menuTitle: "Profile photo",
+  cropTitle: "Crop your photo",
+  updatedTitle: "Avatar updated",
+  updatedDescription: "Your profile picture has been updated.",
+  removedTitle: "Avatar removed",
+  removedDescription: "Your profile picture has been removed.",
+  removeConfirmTitle: "Remove profile photo?",
+  removeConfirmDescription: "This removes your current profile photo. You can upload a new one anytime."
+};
 var sizeClassMap = {
   xs: "size-6",
   sm: "size-8",
@@ -49,11 +59,20 @@ var AvatarUpload2 = ({
   size = "md",
   editable = true,
   uploadEnabled = true,
+  cropShape = "round",
+  src,
+  fallback,
   onUpload,
-  onClear
+  onClear,
+  onChanged,
+  copy: copyOverrides
 }) => {
   const { authClient, toaster } = useAccountContext2();
   const { data: session, refetch } = authClient.useSession();
+  const copy = { ...defaultCopy, ...copyOverrides };
+  const resolvedImage = src !== undefined ? src : session?.user.image;
+  const resolvedFallback = fallback !== undefined ? fallback : session?.user.name?.charAt(0);
+  const refresh = onChanged ?? refetch;
   const [isUploading, setIsUploading] = useState(false);
   const [isClearing, setIsClearing] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -62,7 +81,7 @@ var AvatarUpload2 = ({
   const [confirmRemoveOpen, setConfirmRemoveOpen] = useState(false);
   const [imageToCrop, setImageToCrop] = useState(null);
   const canUpload = uploadEnabled && !!onUpload;
-  const hasImage = !!(previewUrl || session?.user.image);
+  const hasImage = !!(previewUrl || resolvedImage);
   const isBusy = isUploading || isClearing;
   const isCropping = !!imageToCrop;
   const pixelSize = sizePixelMap[size];
@@ -77,22 +96,29 @@ var AvatarUpload2 = ({
     try {
       await onClear();
       setPreviewUrl(null);
-      await refetch();
+      await refresh();
       setConfirmRemoveOpen(false);
       setDialogOpen(false);
       toaster.success({
-        title: "Avatar removed",
-        description: "Your profile picture has been removed."
+        title: copy.removedTitle,
+        description: copy.removedDescription
       });
     } catch (error) {
       toaster.error({
-        title: "Failed to remove avatar",
-        description: error instanceof Error ? error.message : "Failed to remove avatar"
+        title: "Failed to remove",
+        description: error instanceof Error ? error.message : "Failed to remove"
       });
     } finally {
       setIsClearing(false);
     }
-  }, [onClear, isBusy, refetch, toaster]);
+  }, [
+    onClear,
+    isBusy,
+    refresh,
+    toaster,
+    copy.removedTitle,
+    copy.removedDescription
+  ]);
   const handleFileChange = useCallback((event) => {
     const file = event.target.files?.[0];
     if (!file)
@@ -127,23 +153,23 @@ var AvatarUpload2 = ({
     try {
       setPreviewUrl(URL.createObjectURL(croppedBlob));
       await onUpload(croppedBlob);
-      await refetch();
+      await refresh();
       setImageToCrop(null);
       setDialogOpen(false);
       toaster.success({
-        title: "Avatar updated",
-        description: "Your profile picture has been updated."
+        title: copy.updatedTitle,
+        description: copy.updatedDescription
       });
     } catch (error) {
       setPreviewUrl(null);
       toaster.error({
         title: "Upload failed",
-        description: error instanceof Error ? error.message : "Failed to upload avatar"
+        description: error instanceof Error ? error.message : "Failed to upload"
       });
     } finally {
       setIsUploading(false);
     }
-  }, [onUpload, refetch, toaster]);
+  }, [onUpload, refresh, toaster, copy.updatedTitle, copy.updatedDescription]);
   return /* @__PURE__ */ jsxs(Fragment, {
     children: [
       /* @__PURE__ */ jsxs("div", {
@@ -166,10 +192,10 @@ var AvatarUpload2 = ({
             className: sizeClassMap[size],
             children: [
               /* @__PURE__ */ jsx(AvatarImage2, {
-                src: previewUrl || session?.user.image || undefined
+                src: previewUrl || resolvedImage || undefined
               }),
               /* @__PURE__ */ jsx(AvatarFallback2, {
-                children: session?.user.name?.charAt(0)
+                children: resolvedFallback
               })
             ]
           }),
@@ -214,11 +240,11 @@ var AvatarUpload2 = ({
             children: /* @__PURE__ */ jsxs(DialogContent2, {
               children: [
                 /* @__PURE__ */ jsx(DialogTitle2, {
-                  children: isCropping ? "Crop your photo" : "Profile photo"
+                  children: isCropping ? copy.cropTitle : copy.menuTitle
                 }),
                 isCropping && imageToCrop ? /* @__PURE__ */ jsx(ImageCropper2, {
                   imageSrc: imageToCrop,
-                  cropShape: "round",
+                  cropShape,
                   confirming: isUploading,
                   onCancel: resetCrop,
                   onConfirm: handleCropConfirm
@@ -261,8 +287,8 @@ var AvatarUpload2 = ({
       /* @__PURE__ */ jsx(ConfirmDialog2, {
         open: confirmRemoveOpen,
         onOpenChange: setConfirmRemoveOpen,
-        title: "Remove profile photo?",
-        description: "This removes your current profile photo. You can upload a new one anytime.",
+        title: copy.removeConfirmTitle,
+        description: copy.removeConfirmDescription,
         confirmLabel: "Remove",
         isPending: isClearing,
         onConfirm: handleClear
