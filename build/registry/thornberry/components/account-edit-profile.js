@@ -1,6 +1,6 @@
 import {
   EditProfile2
-} from "../../../chunks/account-user-two-factor-authentication-23cd922d.js";
+} from "../../../chunks/account-user-two-factor-authentication-2hcq6kz1.js";
 import"../../../chunks/account-user-two-factor-authentication-n3zp77m0.js";
 import"../../../chunks/account-user-two-factor-authentication-8wtqb3wn.js";
 import"../../../chunks/account-user-two-factor-authentication-rmtq1dzy.js";

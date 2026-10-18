@@ -195,7 +195,7 @@ var EditProfile2 = ({
                       }),
                       /* @__PURE__ */ jsx("p", {
                         className: "text-muted-foreground text-xs",
-                        children: "Changing your username will also update your personal organization handle."
+                        children: "Changing your username will also update your personal workspace handle."
                       })
                     ]
                   })

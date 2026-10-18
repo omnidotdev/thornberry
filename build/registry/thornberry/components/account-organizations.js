@@ -137,6 +137,29 @@ var RoleSelect = ({
   });
 };
 var ROLE_RANK = { owner: 0, admin: 1, member: 2 };
+var RELATIVE_TIME = new Intl.RelativeTimeFormat(undefined, {
+  numeric: "always"
+});
+var formatExpiry = (expiresAt, isExpired) => {
+  const date = new Date(expiresAt);
+  const absolute = date.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+  });
+  const diffMs = date.getTime() - Date.now();
+  const diffDays = Math.round(diffMs / 86400000);
+  const diffHours = Math.round(diffMs / 3600000);
+  let relative;
+  if (Math.abs(diffDays) >= 1) {
+    relative = RELATIVE_TIME.format(diffDays, "day");
+  } else if (Math.abs(diffHours) >= 1) {
+    relative = RELATIVE_TIME.format(diffHours, "hour");
+  } else {
+    relative = RELATIVE_TIME.format(Math.round(diffMs / 60000), "minute");
+  }
+  return `${isExpired ? "Expired" : "Expires"} ${absolute} (${relative})`;
+};
 var DELETION_GRACE_DAYS = 30;
 var roleFilterCollection = createListCollection2({
   items: [
@@ -932,7 +955,7 @@ var OrganizationDetail = ({
     setIsRestoring(false);
     if (res?.error) {
       toaster.error({
-        title: errorMessage(res.error, "Couldn't restore the organization")
+        title: errorMessage(res.error, "Couldn't restore the workspace")
       });
       return;
     }
@@ -1007,7 +1030,7 @@ var OrganizationDetail = ({
               /* @__PURE__ */ jsxs("div", {
                 className: "text-muted-foreground text-sm",
                 children: [
-                  "This organization will be permanently deleted around",
+                  "This workspace will be permanently deleted around",
                   " ",
                   scheduledDeletionDate.toLocaleDateString(),
                   ". Restore it before then to cancel."
@@ -1328,6 +1351,10 @@ var OrganizationDetail = ({
                           /* @__PURE__ */ jsx("div", {
                             className: "text-muted-foreground text-xs capitalize",
                             children: invitation.role
+                          }),
+                          invitation.expiresAt && /* @__PURE__ */ jsx("div", {
+                            className: `text-xs ${invitation.isExpired ? "text-destructive" : "text-muted-foreground"}`,
+                            children: formatExpiry(invitation.expiresAt, invitation.isExpired)
                           })
                         ]
                       })
