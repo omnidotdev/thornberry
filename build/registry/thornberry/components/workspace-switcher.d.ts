@@ -16,13 +16,19 @@ export interface WorkspaceSwitcherProps {
     manageUrl?: string;
     manageLabel?: string;
     groupLabel?: string;
+    /**
+     * Layout: "header" is a compact button (top bars); "sidebar" is a full-width
+     * row (nav rails). Defaults to "header".
+     */
+    variant?: "header" | "sidebar";
 }
 /**
  * Workspace (organization) switcher, shared across Omni apps.
  *
- * Presentational and data-agnostic: the host app supplies the workspaces,
- * the active id, and the select handler. Creating and managing workspaces is
- * delegated to the identity dashboard via `manageUrl`.
+ * Presentational and data-agnostic: the host app supplies the workspaces, the
+ * active id, and the select handler (which may navigate, set a cookie, etc.).
+ * A single-workspace user sees a static label (no dropdown). Creating and
+ * managing workspaces is delegated to the identity dashboard via `manageUrl`.
  */
-declare const WorkspaceSwitcher: ({ workspaces, currentWorkspaceId, onSelect, manageUrl, manageLabel, groupLabel, }: WorkspaceSwitcherProps) => import("react/jsx-runtime").JSX.Element | null;
+declare const WorkspaceSwitcher: ({ workspaces, currentWorkspaceId, onSelect, manageUrl, manageLabel, groupLabel, variant, }: WorkspaceSwitcherProps) => import("react/jsx-runtime").JSX.Element | null;
 export { WorkspaceSwitcher };

@@ -38,32 +38,55 @@ var WorkspaceSwitcher = ({
   onSelect,
   manageUrl,
   manageLabel = "Manage workspaces",
-  groupLabel = "Workspaces"
+  groupLabel = "Workspaces",
+  variant = "header"
 }) => {
   const current = workspaces.find((workspace) => workspace.id === currentWorkspaceId);
   if (!current)
     return null;
+  const isSidebar = variant === "sidebar";
+  const hasMultiple = workspaces.length > 1;
+  const triggerContent = /* @__PURE__ */ jsxs(Fragment, {
+    children: [
+      /* @__PURE__ */ jsx(WorkspaceAvatar, {
+        workspace: current
+      }),
+      /* @__PURE__ */ jsx("span", {
+        className: `truncate ${isSidebar ? "flex-1 font-medium" : ""}`,
+        children: current.name
+      }),
+      hasMultiple && /* @__PURE__ */ jsx(ChevronsUpDown, {
+        className: "size-4 shrink-0 opacity-60"
+      })
+    ]
+  });
+  const sidebarTriggerClass = "flex w-full items-center gap-2 rounded-lg border bg-background px-2.5 py-2 text-left text-sm transition-colors hover:bg-accent/60";
+  if (!hasMultiple) {
+    return isSidebar ? /* @__PURE__ */ jsx("div", {
+      className: `${sidebarTriggerClass} cursor-default`,
+      children: triggerContent
+    }) : /* @__PURE__ */ jsx(Button2, {
+      variant: "outline",
+      size: "sm",
+      className: "max-w-44 cursor-default gap-2",
+      "aria-disabled": true,
+      children: triggerContent
+    });
+  }
   return /* @__PURE__ */ jsxs(MenuRoot2, {
     onSelect: (details) => onSelect(details.value),
     children: [
       /* @__PURE__ */ jsx(MenuTrigger2, {
         asChild: true,
-        children: /* @__PURE__ */ jsxs(Button2, {
+        children: isSidebar ? /* @__PURE__ */ jsx("button", {
+          type: "button",
+          className: sidebarTriggerClass,
+          children: triggerContent
+        }) : /* @__PURE__ */ jsx(Button2, {
           variant: "outline",
           size: "sm",
           className: "max-w-44 gap-2",
-          children: [
-            /* @__PURE__ */ jsx(WorkspaceAvatar, {
-              workspace: current
-            }),
-            /* @__PURE__ */ jsx("span", {
-              className: "truncate",
-              children: current.name
-            }),
-            /* @__PURE__ */ jsx(ChevronsUpDown, {
-              className: "size-4 shrink-0 opacity-60"
-            })
-          ]
+          children: triggerContent
         })
       }),
       /* @__PURE__ */ jsx(MenuPositioner2, {

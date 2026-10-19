@@ -36,6 +36,11 @@ export interface WorkspaceSwitcherProps {
   manageUrl?: string;
   manageLabel?: string;
   groupLabel?: string;
+  /**
+   * Layout: "header" is a compact button (top bars); "sidebar" is a full-width
+   * row (nav rails). Defaults to "header".
+   */
+  variant?: "header" | "sidebar";
 }
 
 /** Workspace avatar: logo if set, else the first letter of the name. */
@@ -49,9 +54,10 @@ const WorkspaceAvatar = ({ workspace }: { workspace: WorkspaceOption }) => (
 /**
  * Workspace (organization) switcher, shared across Omni apps.
  *
- * Presentational and data-agnostic: the host app supplies the workspaces,
- * the active id, and the select handler. Creating and managing workspaces is
- * delegated to the identity dashboard via `manageUrl`.
+ * Presentational and data-agnostic: the host app supplies the workspaces, the
+ * active id, and the select handler (which may navigate, set a cookie, etc.).
+ * A single-workspace user sees a static label (no dropdown). Creating and
+ * managing workspaces is delegated to the identity dashboard via `manageUrl`.
  */
 const WorkspaceSwitcher = ({
   workspaces,
@@ -60,20 +66,59 @@ const WorkspaceSwitcher = ({
   manageUrl,
   manageLabel = "Manage workspaces",
   groupLabel = "Workspaces",
+  variant = "header",
 }: WorkspaceSwitcherProps) => {
   const current = workspaces.find(
     (workspace) => workspace.id === currentWorkspaceId,
   );
   if (!current) return null;
 
+  const isSidebar = variant === "sidebar";
+  const hasMultiple = workspaces.length > 1;
+
+  const triggerContent = (
+    <>
+      <WorkspaceAvatar workspace={current} />
+      <span className={`truncate ${isSidebar ? "flex-1 font-medium" : ""}`}>
+        {current.name}
+      </span>
+      {hasMultiple && <ChevronsUpDown className="size-4 shrink-0 opacity-60" />}
+    </>
+  );
+
+  const sidebarTriggerClass =
+    "flex w-full items-center gap-2 rounded-lg border bg-background px-2.5 py-2 text-left text-sm transition-colors hover:bg-accent/60";
+
+  // Single workspace: a static label, no dropdown
+  if (!hasMultiple) {
+    return isSidebar ? (
+      <div className={`${sidebarTriggerClass} cursor-default`}>
+        {triggerContent}
+      </div>
+    ) : (
+      <Button
+        variant="outline"
+        size="sm"
+        className="max-w-44 cursor-default gap-2"
+        aria-disabled
+      >
+        {triggerContent}
+      </Button>
+    );
+  }
+
   return (
     <MenuRoot onSelect={(details) => onSelect(details.value)}>
       <MenuTrigger asChild>
-        <Button variant="outline" size="sm" className="max-w-44 gap-2">
-          <WorkspaceAvatar workspace={current} />
-          <span className="truncate">{current.name}</span>
-          <ChevronsUpDown className="size-4 shrink-0 opacity-60" />
-        </Button>
+        {isSidebar ? (
+          <button type="button" className={sidebarTriggerClass}>
+            {triggerContent}
+          </button>
+        ) : (
+          <Button variant="outline" size="sm" className="max-w-44 gap-2">
+            {triggerContent}
+          </Button>
+        )}
       </MenuTrigger>
 
       <MenuPositioner>
