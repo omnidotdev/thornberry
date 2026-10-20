@@ -51,6 +51,9 @@ import {
 import {
   Badge2
 } from "../../../chunks/account-user-two-factor-authentication-mhbe1kzg.js";
+import {
+  Skeleton2
+} from "../../../chunks/account-user-two-factor-authentication-4ayhnmp9.js";
 
 // src/registry/thornberry/components/account-organizations.tsx
 import {
@@ -76,6 +79,83 @@ var assignableRoles = (isOwner) => isOwner ? ROLES : ROLES.filter((role) => role
 var SLUG_PATTERN = /^[a-z0-9-]+$/;
 var slugify = (value) => value.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 50);
 var errorMessage = (error, fallback) => typeof error?.message === "string" ? error.message : fallback;
+var OrganizationListSkeleton = () => /* @__PURE__ */ jsx("div", {
+  className: "space-y-2",
+  children: ["a", "b", "c"].map((key) => /* @__PURE__ */ jsxs("div", {
+    className: "flex items-center gap-3 rounded-lg border p-3",
+    children: [
+      /* @__PURE__ */ jsx(Skeleton2, {
+        className: "size-9 shrink-0 rounded-full"
+      }),
+      /* @__PURE__ */ jsxs("div", {
+        className: "flex-1 space-y-2",
+        children: [
+          /* @__PURE__ */ jsx(Skeleton2, {
+            className: "h-4 w-40"
+          }),
+          /* @__PURE__ */ jsx(Skeleton2, {
+            className: "h-3 w-24"
+          })
+        ]
+      })
+    ]
+  }, key))
+});
+var OrganizationDetailSkeleton = () => /* @__PURE__ */ jsxs("div", {
+  className: "space-y-6",
+  children: [
+    /* @__PURE__ */ jsx(Skeleton2, {
+      className: "h-8 w-32"
+    }),
+    /* @__PURE__ */ jsxs("div", {
+      className: "flex items-center gap-3",
+      children: [
+        /* @__PURE__ */ jsx(Skeleton2, {
+          className: "size-16 shrink-0 rounded-full"
+        }),
+        /* @__PURE__ */ jsxs("div", {
+          className: "space-y-2",
+          children: [
+            /* @__PURE__ */ jsx(Skeleton2, {
+              className: "h-5 w-48"
+            }),
+            /* @__PURE__ */ jsx(Skeleton2, {
+              className: "h-4 w-24"
+            })
+          ]
+        })
+      ]
+    }),
+    /* @__PURE__ */ jsxs("div", {
+      className: "space-y-3 rounded-lg border p-5",
+      children: [
+        /* @__PURE__ */ jsx(Skeleton2, {
+          className: "h-4 w-16"
+        }),
+        /* @__PURE__ */ jsx(Skeleton2, {
+          className: "h-9 w-full"
+        }),
+        /* @__PURE__ */ jsx(Skeleton2, {
+          className: "h-9 w-full"
+        })
+      ]
+    }),
+    /* @__PURE__ */ jsxs("div", {
+      className: "space-y-3 rounded-lg border p-5",
+      children: [
+        /* @__PURE__ */ jsx(Skeleton2, {
+          className: "h-4 w-28"
+        }),
+        /* @__PURE__ */ jsx(Skeleton2, {
+          className: "h-10 w-full"
+        }),
+        /* @__PURE__ */ jsx(Skeleton2, {
+          className: "h-10 w-full"
+        })
+      ]
+    })
+  ]
+});
 var RoleSelect = ({
   value,
   onValueChange,
@@ -1360,9 +1440,27 @@ var OrganizationDetail = ({
                   })
                 ]
               }),
-              isLoading ? /* @__PURE__ */ jsx("p", {
-                className: "py-4 text-center text-muted-foreground text-sm",
-                children: "Loading members..."
+              isLoading ? /* @__PURE__ */ jsx("div", {
+                className: "space-y-2 py-2",
+                children: ["a", "b", "c"].map((key) => /* @__PURE__ */ jsxs("div", {
+                  className: "flex items-center gap-3",
+                  children: [
+                    /* @__PURE__ */ jsx(Skeleton2, {
+                      className: "size-8 shrink-0 rounded-full"
+                    }),
+                    /* @__PURE__ */ jsxs("div", {
+                      className: "flex-1 space-y-1.5",
+                      children: [
+                        /* @__PURE__ */ jsx(Skeleton2, {
+                          className: "h-4 w-40"
+                        }),
+                        /* @__PURE__ */ jsx(Skeleton2, {
+                          className: "h-3 w-28"
+                        })
+                      ]
+                    })
+                  ]
+                }, key))
               }) : members.length === 0 ? /* @__PURE__ */ jsx("p", {
                 className: "py-4 text-center text-muted-foreground text-sm",
                 children: "No members yet."
@@ -1641,6 +1739,9 @@ var AccountOrganizations = ({
   }, [load]);
   const selected = organizations.find((org) => org.slug === selectedSlug);
   const sortedOrganizations = [...organizations].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
+  if (selectedSlug && !selected && isLoading) {
+    return /* @__PURE__ */ jsx(OrganizationDetailSkeleton, {});
+  }
   if (selected && session?.user) {
     return /* @__PURE__ */ jsx(OrganizationDetail, {
       organization: selected,
@@ -1682,12 +1783,7 @@ var AccountOrganizations = ({
       }),
       /* @__PURE__ */ jsx("div", {
         className: "space-y-2",
-        children: isLoading ? /* @__PURE__ */ jsx("div", {
-          className: "flex items-center justify-center py-8 text-muted-foreground",
-          children: /* @__PURE__ */ jsx(Loader2, {
-            className: "size-5 animate-spin"
-          })
-        }) : sortedOrganizations.length ? sortedOrganizations.map((org) => /* @__PURE__ */ jsxs("button", {
+        children: isLoading ? /* @__PURE__ */ jsx(OrganizationListSkeleton, {}) : sortedOrganizations.length ? sortedOrganizations.map((org) => /* @__PURE__ */ jsxs("button", {
           type: "button",
           onClick: () => setSelectedSlug(org.slug),
           className: "flex w-full items-center justify-between gap-3 rounded-lg border p-3 text-left transition-colors hover:bg-muted/50",
