@@ -565,19 +565,22 @@ const isHttpUrl = (value: string): boolean => {
 const LinkFavicon = ({ url }: { url: string }) => {
   const [failed, setFailed] = useState(false);
 
-  let origin = "";
+  let hostname = "";
   try {
-    origin = new URL(url).origin;
+    hostname = new URL(url).hostname;
   } catch {
-    // leave origin empty to show the fallback
+    // leave hostname empty to show the fallback
   }
 
-  if (!origin || failed)
+  if (!hostname || failed)
     return <Globe className="size-4 shrink-0 text-muted-foreground" />;
 
+  // Resolve the site's declared favicon (handles sites that serve favicon.svg,
+  // apple-touch-icon, etc. rather than a root favicon.ico) via a public favicon
+  // service.
   return (
     <img
-      src={`${origin}/favicon.ico`}
+      src={`https://www.google.com/s2/favicons?domain=${hostname}&sz=32`}
       alt=""
       className="size-4 shrink-0 rounded-sm"
       onError={() => setFailed(true)}

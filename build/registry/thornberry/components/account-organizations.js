@@ -505,16 +505,16 @@ var isHttpUrl = (value) => {
 };
 var LinkFavicon = ({ url }) => {
   const [failed, setFailed] = useState(false);
-  let origin = "";
+  let hostname = "";
   try {
-    origin = new URL(url).origin;
+    hostname = new URL(url).hostname;
   } catch {}
-  if (!origin || failed)
+  if (!hostname || failed)
     return /* @__PURE__ */ jsx(Globe, {
       className: "size-4 shrink-0 text-muted-foreground"
     });
   return /* @__PURE__ */ jsx("img", {
-    src: `${origin}/favicon.ico`,
+    src: `https://www.google.com/s2/favicons?domain=${hostname}&sz=32`,
     alt: "",
     className: "size-4 shrink-0 rounded-sm",
     onError: () => setFailed(true)
