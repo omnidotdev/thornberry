@@ -7,6 +7,7 @@ import {
   ChevronsUpDown,
   Globe,
   Loader2,
+  Lock,
   Mail,
   Plus,
   Trash2,
@@ -487,10 +488,13 @@ const CreateOrganizationDialog = ({ onCreated }: { onCreated: () => void }) => {
  * owners, leave for everyone else). Personal organizations show a short note
  * instead, since they have no other members.
  */
+type WorkspaceLinkVisibility = "public" | "members";
+
 interface WorkspaceLinkDraft {
   id: string;
   url: string;
   title: string;
+  visibility: WorkspaceLinkVisibility;
 }
 
 /**
@@ -506,13 +510,18 @@ const parseWorkspaceLinks = (
     if (!Array.isArray(parsed)) return [];
     return parsed
       .filter(
-        (entry): entry is { url: string; title?: unknown } =>
+        (
+          entry,
+        ): entry is { url: string; title?: unknown; visibility?: unknown } =>
           !!entry && typeof entry === "object" && typeof entry.url === "string",
       )
       .map((entry) => ({
         id: crypto.randomUUID(),
         url: entry.url,
         title: typeof entry.title === "string" ? entry.title : "",
+        visibility: (entry.visibility === "members"
+          ? "members"
+          : "public") as WorkspaceLinkVisibility,
       }));
   } catch {
     return [];
@@ -526,11 +535,17 @@ const parseWorkspaceLinks = (
 const serializeWorkspaceLinks = (links: WorkspaceLinkDraft[]): string =>
   JSON.stringify(
     links
-      .map((link) => ({ url: link.url.trim(), title: link.title.trim() }))
+      .map((link) => ({
+        url: link.url.trim(),
+        title: link.title.trim(),
+        visibility: link.visibility,
+      }))
       .filter((link) => link.url)
-      .map((link) =>
-        link.title ? { url: link.url, title: link.title } : { url: link.url },
-      ),
+      .map((link) => ({
+        url: link.url,
+        ...(link.title ? { title: link.title } : {}),
+        visibility: link.visibility,
+      })),
   );
 
 /** Whether a string is a valid http(s) URL, for inline link validation. */
@@ -617,7 +632,9 @@ const WorkspaceLinksSection = ({
   const add = () =>
     setLinks((prev) => [
       ...prev,
-      { id: crypto.randomUUID(), url: "", title: "" },
+      // Default to members-only so a new link never becomes public by accident;
+      // the author opts it public explicitly.
+      { id: crypto.randomUUID(), url: "", title: "", visibility: "members" },
     ]);
 
   const move = (index: number, direction: -1 | 1) =>
@@ -650,7 +667,8 @@ const WorkspaceLinksSection = ({
         <div>
           <h4 className="font-medium text-sm">Links</h4>
           <p className="text-muted-foreground text-sm">
-            Your workspace's website and social links, shown across Omni.
+            Your workspace's website and social links. Public links show on
+            public pages; members-only links stay inside Omni for your team.
           </p>
         </div>
         {canManage && dirty && (
@@ -704,6 +722,32 @@ const WorkspaceLinksSection = ({
                   className="hidden flex-1 sm:block"
                   aria-label="Link label"
                 />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="shrink-0 gap-1.5 px-2 text-muted-foreground"
+                  aria-label={
+                    link.visibility === "public"
+                      ? "Public link, change to members-only"
+                      : "Members-only link, change to public"
+                  }
+                  onClick={() =>
+                    update(link.id, {
+                      visibility:
+                        link.visibility === "public" ? "members" : "public",
+                    })
+                  }
+                >
+                  {link.visibility === "public" ? (
+                    <Globe className="size-4" />
+                  ) : (
+                    <Lock className="size-4" />
+                  )}
+                  <span className="hidden sm:inline">
+                    {link.visibility === "public" ? "Public" : "Members"}
+                  </span>
+                </Button>
                 <div className="flex shrink-0 items-center">
                   <Button
                     type="button"
@@ -746,6 +790,9 @@ const WorkspaceLinksSection = ({
               >
                 <LinkFavicon url={link.url} />
                 <span className="truncate">{link.title || link.url}</span>
+                {link.visibility === "members" && (
+                  <Lock className="size-3 shrink-0 text-muted-foreground" />
+                )}
               </a>
             ),
           )}
