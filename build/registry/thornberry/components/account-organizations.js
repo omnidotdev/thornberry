@@ -65,6 +65,7 @@ import {
   ChevronsUpDown,
   Globe,
   Loader2,
+  Lock,
   Mail,
   Plus,
   Trash2,
@@ -478,13 +479,22 @@ var parseWorkspaceLinks = (raw) => {
     return parsed.filter((entry) => !!entry && typeof entry === "object" && typeof entry.url === "string").map((entry) => ({
       id: crypto.randomUUID(),
       url: entry.url,
-      title: typeof entry.title === "string" ? entry.title : ""
+      title: typeof entry.title === "string" ? entry.title : "",
+      visibility: entry.visibility === "members" ? "members" : "public"
     }));
   } catch {
     return [];
   }
 };
-var serializeWorkspaceLinks = (links) => JSON.stringify(links.map((link) => ({ url: link.url.trim(), title: link.title.trim() })).filter((link) => link.url).map((link) => link.title ? { url: link.url, title: link.title } : { url: link.url }));
+var serializeWorkspaceLinks = (links) => JSON.stringify(links.map((link) => ({
+  url: link.url.trim(),
+  title: link.title.trim(),
+  visibility: link.visibility
+})).filter((link) => link.url).map((link) => ({
+  url: link.url,
+  ...link.title ? { title: link.title } : {},
+  visibility: link.visibility
+})));
 var isHttpUrl = (value) => {
   try {
     const url = new URL(value);
@@ -528,7 +538,7 @@ var WorkspaceLinksSection = ({
   const remove = (id) => setLinks((prev) => prev.filter((item) => item.id !== id));
   const add = () => setLinks((prev) => [
     ...prev,
-    { id: crypto.randomUUID(), url: "", title: "" }
+    { id: crypto.randomUUID(), url: "", title: "", visibility: "members" }
   ]);
   const move = (index, direction) => setLinks((prev) => {
     const target = index + direction;
@@ -566,7 +576,7 @@ var WorkspaceLinksSection = ({
               }),
               /* @__PURE__ */ jsx("p", {
                 className: "text-muted-foreground text-sm",
-                children: "Your workspace's website and social links, shown across Omni."
+                children: "Your workspace's website and social links. Public links show on public pages; members-only links stay inside Omni for your team."
               })
             ]
           }),
@@ -624,6 +634,27 @@ var WorkspaceLinksSection = ({
                 className: "hidden flex-1 sm:block",
                 "aria-label": "Link label"
               }),
+              /* @__PURE__ */ jsxs(Button2, {
+                type: "button",
+                variant: "outline",
+                size: "sm",
+                className: "shrink-0 gap-1.5 px-2 text-muted-foreground",
+                "aria-label": link.visibility === "public" ? "Public link, change to members-only" : "Members-only link, change to public",
+                onClick: () => update(link.id, {
+                  visibility: link.visibility === "public" ? "members" : "public"
+                }),
+                children: [
+                  link.visibility === "public" ? /* @__PURE__ */ jsx(Globe, {
+                    className: "size-4"
+                  }) : /* @__PURE__ */ jsx(Lock, {
+                    className: "size-4"
+                  }),
+                  /* @__PURE__ */ jsx("span", {
+                    className: "hidden sm:inline",
+                    children: link.visibility === "public" ? "Public" : "Members"
+                  })
+                ]
+              }),
               /* @__PURE__ */ jsxs("div", {
                 className: "flex shrink-0 items-center",
                 children: [
@@ -674,6 +705,9 @@ var WorkspaceLinksSection = ({
               /* @__PURE__ */ jsx("span", {
                 className: "truncate",
                 children: link.title || link.url
+              }),
+              link.visibility === "members" && /* @__PURE__ */ jsx(Lock, {
+                className: "size-3 shrink-0 text-muted-foreground"
               })
             ]
           }, link.id)),
