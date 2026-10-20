@@ -563,27 +563,34 @@ const isHttpUrl = (value: string): boolean => {
  * a globe fallback when it is missing or the URL is not yet valid.
  */
 const LinkFavicon = ({ url }: { url: string }) => {
-  const [failed, setFailed] = useState(false);
+  // Try the site's own declared icon paths first (many sites serve favicon.svg
+  // or apple-touch-icon rather than a root favicon.ico), then a public favicon
+  // service, then fall back to a globe.
+  const candidates = useMemo(() => {
+    try {
+      const { origin, hostname } = new URL(url);
+      return [
+        `${origin}/favicon.svg`,
+        `${origin}/favicon.ico`,
+        `${origin}/apple-touch-icon.png`,
+        `https://www.google.com/s2/favicons?domain=${hostname}&sz=32`,
+      ];
+    } catch {
+      return [];
+    }
+  }, [url]);
+  const [index, setIndex] = useState(0);
+  const src = candidates[index];
 
-  let hostname = "";
-  try {
-    hostname = new URL(url).hostname;
-  } catch {
-    // leave hostname empty to show the fallback
-  }
+  if (!src) return <Globe className="size-4 shrink-0 text-muted-foreground" />;
 
-  if (!hostname || failed)
-    return <Globe className="size-4 shrink-0 text-muted-foreground" />;
-
-  // Resolve the site's declared favicon (handles sites that serve favicon.svg,
-  // apple-touch-icon, etc. rather than a root favicon.ico) via a public favicon
-  // service.
   return (
     <img
-      src={`https://www.google.com/s2/favicons?domain=${hostname}&sz=32`}
+      key={src}
+      src={src}
       alt=""
       className="size-4 shrink-0 rounded-sm"
-      onError={() => setFailed(true)}
+      onError={() => setIndex((current) => current + 1)}
     />
   );
 };
@@ -666,40 +673,20 @@ const WorkspaceLinksSection = ({
 
   return (
     <div className="space-y-3 rounded-lg border p-5">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <div>
-          <h4 className="font-medium text-sm">Links</h4>
-          <p className="text-muted-foreground text-sm">
-            Your workspace's website and social links. Public links show on
-            public pages; members-only links stay inside Omni for your team.
-          </p>
-        </div>
-        {canManage && dirty && (
-          <Button
-            size="sm"
-            onClick={handleSave}
-            disabled={isSaving || hasInvalid}
-          >
-            {isSaving ? "Saving..." : "Save links"}
-          </Button>
-        )}
+      <div>
+        <h4 className="font-medium text-sm">Links</h4>
+        <p className="text-muted-foreground text-sm">
+          Add your workspace's website and social links. Each link is Public
+          (shown on public workspace pages) or Private (visible only to your
+          workspace members inside Omni, for internal resources like a shared
+          drive).
+        </p>
       </div>
 
       {links.length === 0 ? (
         <div className="rounded-lg border border-dashed p-6 text-center">
           <Globe className="mx-auto size-5 text-muted-foreground" />
           <p className="mt-2 text-muted-foreground text-sm">No links yet.</p>
-          {canManage && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-3 gap-1.5"
-              onClick={add}
-            >
-              <Plus className="size-4" />
-              Add a link
-            </Button>
-          )}
         </div>
       ) : (
         <div className="space-y-2">
@@ -729,11 +716,11 @@ const WorkspaceLinksSection = ({
                   type="button"
                   variant="outline"
                   size="sm"
-                  className="shrink-0 gap-1.5 px-2 text-muted-foreground"
+                  className="shrink-0 justify-center gap-1.5 px-2 text-muted-foreground sm:w-28"
                   aria-label={
                     link.visibility === "public"
-                      ? "Public link, change to members-only"
-                      : "Members-only link, change to public"
+                      ? "Public link, change to private"
+                      : "Private link, change to public"
                   }
                   onClick={() =>
                     update(link.id, {
@@ -748,7 +735,7 @@ const WorkspaceLinksSection = ({
                     <Lock className="size-4" />
                   )}
                   <span className="hidden sm:inline">
-                    {link.visibility === "public" ? "Public" : "Members"}
+                    {link.visibility === "public" ? "Public" : "Private"}
                   </span>
                 </Button>
                 <div className="flex shrink-0 items-center">
@@ -799,23 +786,35 @@ const WorkspaceLinksSection = ({
               </a>
             ),
           )}
-          {canManage && (
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="gap-1.5"
-              onClick={add}
-            >
-              <Plus className="size-4" />
-              Add link
-            </Button>
-          )}
-          {hasInvalid && (
-            <p className="text-destructive text-xs">
-              Each link must be a valid http(s) URL.
-            </p>
-          )}
+        </div>
+      )}
+
+      {hasInvalid && (
+        <p className="text-destructive text-xs">
+          Each link must be a valid http(s) URL.
+        </p>
+      )}
+
+      {canManage && (
+        <div className="flex items-center justify-between gap-2 pt-1">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="gap-1.5"
+            onClick={add}
+          >
+            <Plus className="size-4" />
+            Add link
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            onClick={handleSave}
+            disabled={!dirty || isSaving || hasInvalid}
+          >
+            {isSaving ? "Saving..." : "Save links"}
+          </Button>
         </div>
       )}
     </div>
