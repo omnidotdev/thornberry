@@ -1,11 +1,15 @@
 import {
+  ArrowDown,
   ArrowLeft,
+  ArrowUp,
   Check,
   ChevronRight,
   ChevronsUpDown,
+  Globe,
   Loader2,
   Mail,
   Plus,
+  Trash2,
   UserPlus,
   X,
 } from "lucide-react";
@@ -485,6 +489,245 @@ const serializeWorkspaceLinks = (links: WorkspaceLinkDraft[]): string =>
       ),
   );
 
+/** Whether a string is a valid http(s) URL, for inline link validation. */
+const isHttpUrl = (value: string): boolean => {
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+};
+
+/**
+ * Favicon preview for a workspace link, from the link origin's /favicon.ico with
+ * a globe fallback when it is missing or the URL is not yet valid.
+ */
+const LinkFavicon = ({ url }: { url: string }) => {
+  const [failed, setFailed] = useState(false);
+
+  let origin = "";
+  try {
+    origin = new URL(url).origin;
+  } catch {
+    // leave origin empty to show the fallback
+  }
+
+  if (!origin || failed)
+    return <Globe className="size-4 shrink-0 text-muted-foreground" />;
+
+  return (
+    <img
+      src={`${origin}/favicon.ico`}
+      alt=""
+      className="size-4 shrink-0 rounded-sm"
+      onError={() => setFailed(true)}
+    />
+  );
+};
+
+/**
+ * Manage a workspace's links (website, socials) inline on the workspace page: a
+ * visible list with favicon previews, reordering, an empty state, and a save
+ * that stays on the page. Owners and admins edit; everyone else sees the list.
+ */
+const WorkspaceLinksSection = ({
+  organizationId,
+  linksRaw,
+  canManage,
+  onSaved,
+}: {
+  organizationId: string;
+  linksRaw: string | null | undefined;
+  canManage: boolean;
+  onSaved: () => void;
+}) => {
+  const { authClient, toaster } = useAccountContext();
+
+  const [links, setLinks] = useState<WorkspaceLinkDraft[]>(() =>
+    parseWorkspaceLinks(linksRaw),
+  );
+  const [isSaving, setIsSaving] = useState(false);
+
+  // Re-sync when the persisted value changes (e.g. after a save reloads it);
+  // untouched between reloads, so in-progress edits are not clobbered.
+  useEffect(() => {
+    setLinks(parseWorkspaceLinks(linksRaw));
+  }, [linksRaw]);
+
+  const dirty =
+    serializeWorkspaceLinks(links) !==
+    serializeWorkspaceLinks(parseWorkspaceLinks(linksRaw));
+  const hasInvalid = links.some(
+    (link) => link.url.trim() && !isHttpUrl(link.url.trim()),
+  );
+
+  const update = (id: string, patch: Partial<WorkspaceLinkDraft>) =>
+    setLinks((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, ...patch } : item)),
+    );
+
+  const remove = (id: string) =>
+    setLinks((prev) => prev.filter((item) => item.id !== id));
+
+  const add = () =>
+    setLinks((prev) => [
+      ...prev,
+      { id: crypto.randomUUID(), url: "", title: "" },
+    ]);
+
+  const move = (index: number, direction: -1 | 1) =>
+    setLinks((prev) => {
+      const target = index + direction;
+      if (target < 0 || target >= prev.length) return prev;
+      const next = [...prev];
+      [next[index], next[target]] = [next[target], next[index]];
+      return next;
+    });
+
+  const handleSave = async () => {
+    setIsSaving(true);
+    const res = await authClient.organization.update({
+      data: { links: serializeWorkspaceLinks(links) },
+      organizationId,
+    });
+    setIsSaving(false);
+    if (res?.error) {
+      toaster.error({ title: errorMessage(res.error, "Couldn't save links") });
+      return;
+    }
+    toaster.success({ title: "Links updated" });
+    onSaved();
+  };
+
+  return (
+    <div className="space-y-3 rounded-lg border p-5">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <h4 className="font-medium text-sm">Links</h4>
+          <p className="text-muted-foreground text-sm">
+            Your workspace's website and social links, shown across Omni.
+          </p>
+        </div>
+        {canManage && dirty && (
+          <Button
+            size="sm"
+            onClick={handleSave}
+            disabled={isSaving || hasInvalid}
+          >
+            {isSaving ? "Saving..." : "Save links"}
+          </Button>
+        )}
+      </div>
+
+      {links.length === 0 ? (
+        <div className="rounded-lg border border-dashed p-6 text-center">
+          <Globe className="mx-auto size-5 text-muted-foreground" />
+          <p className="mt-2 text-muted-foreground text-sm">No links yet.</p>
+          {canManage && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="mt-3 gap-1.5"
+              onClick={add}
+            >
+              <Plus className="size-4" />
+              Add a link
+            </Button>
+          )}
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {links.map((link, index) =>
+            canManage ? (
+              <div key={link.id} className="flex items-center gap-2">
+                <LinkFavicon url={link.url} />
+                <Input
+                  value={link.url}
+                  onChange={(event) =>
+                    update(link.id, { url: event.target.value })
+                  }
+                  placeholder="https://..."
+                  className="flex-1"
+                  aria-label="Link URL"
+                />
+                <Input
+                  value={link.title}
+                  onChange={(event) =>
+                    update(link.id, { title: event.target.value })
+                  }
+                  placeholder="Label (optional)"
+                  className="hidden flex-1 sm:block"
+                  aria-label="Link label"
+                />
+                <div className="flex shrink-0 items-center">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Move up"
+                    disabled={index === 0}
+                    onClick={() => move(index, -1)}
+                  >
+                    <ArrowUp className="size-4" />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Move down"
+                    disabled={index === links.length - 1}
+                    onClick={() => move(index, 1)}
+                  >
+                    <ArrowDown className="size-4" />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Remove link"
+                    onClick={() => remove(link.id)}
+                  >
+                    <Trash2 className="size-4" />
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <a
+                key={link.id}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-md p-2 text-sm hover:bg-muted/50"
+              >
+                <LinkFavicon url={link.url} />
+                <span className="truncate">{link.title || link.url}</span>
+              </a>
+            ),
+          )}
+          {canManage && (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="gap-1.5"
+              onClick={add}
+            >
+              <Plus className="size-4" />
+              Add link
+            </Button>
+          )}
+          {hasInvalid && (
+            <p className="text-destructive text-xs">
+              Each link must be a valid http(s) URL.
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
 /**
  * Edit an organization's name, handle, and description (owner/admin). The handle
  * is checked for availability only when it changes; an unchanged handle stays
@@ -507,7 +750,6 @@ const EditOrganizationDialog = ({
   const [name, setName] = useState(organization.name);
   const [slug, setSlug] = useState(organization.slug);
   const [description, setDescription] = useState("");
-  const [links, setLinks] = useState<WorkspaceLinkDraft[]>([]);
   const [slugStatus, setSlugStatus] = useState<SlugStatus>("idle");
   const [isSaving, setIsSaving] = useState(false);
   const slugTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -517,10 +759,9 @@ const EditOrganizationDialog = ({
       setName(organization.name);
       setSlug(organization.slug);
       setDescription("");
-      setLinks(parseWorkspaceLinks(organization.links));
       setSlugStatus("idle");
     }
-  }, [open, organization.name, organization.slug, organization.links]);
+  }, [open, organization.name, organization.slug]);
 
   const slugChanged = slug !== organization.slug;
 
@@ -558,22 +799,10 @@ const EditOrganizationDialog = ({
 
   const handleSave = async () => {
     setIsSaving(true);
-    const data: {
-      name?: string;
-      slug?: string;
-      description?: string;
-      links?: string;
-    } = {};
+    const data: { name?: string; slug?: string; description?: string } = {};
     if (name.trim() !== organization.name) data.name = name.trim();
     if (slugChanged) data.slug = slug;
     if (description.trim()) data.description = description.trim();
-
-    const serializedLinks = serializeWorkspaceLinks(links);
-    if (
-      serializedLinks !==
-      serializeWorkspaceLinks(parseWorkspaceLinks(organization.links))
-    )
-      data.links = serializedLinks;
 
     const res = await authClient.organization.update({
       data,
@@ -667,76 +896,6 @@ const EditOrganizationDialog = ({
                   onChange={(event) => setDescription(event.target.value)}
                   placeholder="Optional"
                 />
-              </div>
-              <div className="space-y-1.5">
-                <Label>Links</Label>
-                <p className="text-muted-foreground text-xs">
-                  Your workspace's website and social links, shown across Omni
-                  products.
-                </p>
-                <div className="space-y-2">
-                  {links.map((link) => (
-                    <div key={link.id} className="flex items-center gap-2">
-                      <Input
-                        value={link.url}
-                        onChange={(event) =>
-                          setLinks((prev) =>
-                            prev.map((item) =>
-                              item.id === link.id
-                                ? { ...item, url: event.target.value }
-                                : item,
-                            ),
-                          )
-                        }
-                        placeholder="https://..."
-                        className="flex-1"
-                        aria-label="Link URL"
-                      />
-                      <Input
-                        value={link.title}
-                        onChange={(event) =>
-                          setLinks((prev) =>
-                            prev.map((item) =>
-                              item.id === link.id
-                                ? { ...item, title: event.target.value }
-                                : item,
-                            ),
-                          )
-                        }
-                        placeholder="Label (optional)"
-                        className="flex-1"
-                        aria-label="Link label"
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        aria-label="Remove link"
-                        onClick={() =>
-                          setLinks((prev) =>
-                            prev.filter((item) => item.id !== link.id),
-                          )
-                        }
-                      >
-                        <X className="size-4" />
-                      </Button>
-                    </div>
-                  ))}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() =>
-                      setLinks((prev) => [
-                        ...prev,
-                        { id: crypto.randomUUID(), url: "", title: "" },
-                      ])
-                    }
-                  >
-                    <Plus className="size-4" />
-                    Add link
-                  </Button>
-                </div>
               </div>
               <div className="flex justify-end gap-2 pt-2">
                 <Button
@@ -1170,6 +1329,15 @@ const OrganizationDetail = ({
         onOpenChange={setEditOpen}
         onUpdated={onUpdated}
       />
+
+      {organization.type !== "personal" && (
+        <WorkspaceLinksSection
+          organizationId={organization.id}
+          linksRaw={full?.links ?? organization.links}
+          canManage={canManage}
+          onSaved={load}
+        />
+      )}
 
       <>
         {canManage && (
