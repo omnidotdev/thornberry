@@ -384,6 +384,23 @@ var CreateOrganizationDialog = ({ onCreated }) => {
     ]
   });
 };
+var parseWorkspaceLinks = (raw) => {
+  if (!raw)
+    return [];
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed))
+      return [];
+    return parsed.filter((entry) => !!entry && typeof entry === "object" && typeof entry.url === "string").map((entry) => ({
+      id: crypto.randomUUID(),
+      url: entry.url,
+      title: typeof entry.title === "string" ? entry.title : ""
+    }));
+  } catch {
+    return [];
+  }
+};
+var serializeWorkspaceLinks = (links) => JSON.stringify(links.map((link) => ({ url: link.url.trim(), title: link.title.trim() })).filter((link) => link.url).map((link) => link.title ? { url: link.url, title: link.title } : { url: link.url }));
 var EditOrganizationDialog = ({
   organization,
   open,
@@ -394,6 +411,7 @@ var EditOrganizationDialog = ({
   const [name, setName] = useState(organization.name);
   const [slug, setSlug] = useState(organization.slug);
   const [description, setDescription] = useState("");
+  const [links, setLinks] = useState([]);
   const [slugStatus, setSlugStatus] = useState("idle");
   const [isSaving, setIsSaving] = useState(false);
   const slugTimer = useRef(null);
@@ -402,9 +420,10 @@ var EditOrganizationDialog = ({
       setName(organization.name);
       setSlug(organization.slug);
       setDescription("");
+      setLinks(parseWorkspaceLinks(organization.links));
       setSlugStatus("idle");
     }
-  }, [open, organization.name, organization.slug]);
+  }, [open, organization.name, organization.slug, organization.links]);
   const slugChanged = slug !== organization.slug;
   const checkSlug = (value) => {
     setSlugStatus("idle");
@@ -443,6 +462,9 @@ var EditOrganizationDialog = ({
       data.slug = slug;
     if (description.trim())
       data.description = description.trim();
+    const serializedLinks = serializeWorkspaceLinks(links);
+    if (serializedLinks !== serializeWorkspaceLinks(parseWorkspaceLinks(organization.links)))
+      data.links = serializedLinks;
     const res = await authClient.organization.update({
       data,
       organizationId: organization.id
@@ -557,6 +579,67 @@ var EditOrganizationDialog = ({
                         value: description,
                         onChange: (event) => setDescription(event.target.value),
                         placeholder: "Optional"
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "space-y-1.5",
+                    children: [
+                      /* @__PURE__ */ jsx(Label2, {
+                        children: "Links"
+                      }),
+                      /* @__PURE__ */ jsx("p", {
+                        className: "text-muted-foreground text-xs",
+                        children: "Your workspace's website and social links, shown across Omni products."
+                      }),
+                      /* @__PURE__ */ jsxs("div", {
+                        className: "space-y-2",
+                        children: [
+                          links.map((link) => /* @__PURE__ */ jsxs("div", {
+                            className: "flex items-center gap-2",
+                            children: [
+                              /* @__PURE__ */ jsx(Input2, {
+                                value: link.url,
+                                onChange: (event) => setLinks((prev) => prev.map((item) => item.id === link.id ? { ...item, url: event.target.value } : item)),
+                                placeholder: "https://...",
+                                className: "flex-1",
+                                "aria-label": "Link URL"
+                              }),
+                              /* @__PURE__ */ jsx(Input2, {
+                                value: link.title,
+                                onChange: (event) => setLinks((prev) => prev.map((item) => item.id === link.id ? { ...item, title: event.target.value } : item)),
+                                placeholder: "Label (optional)",
+                                className: "flex-1",
+                                "aria-label": "Link label"
+                              }),
+                              /* @__PURE__ */ jsx(Button2, {
+                                type: "button",
+                                variant: "ghost",
+                                size: "icon",
+                                "aria-label": "Remove link",
+                                onClick: () => setLinks((prev) => prev.filter((item) => item.id !== link.id)),
+                                children: /* @__PURE__ */ jsx(X, {
+                                  className: "size-4"
+                                })
+                              })
+                            ]
+                          }, link.id)),
+                          /* @__PURE__ */ jsxs(Button2, {
+                            type: "button",
+                            variant: "outline",
+                            size: "sm",
+                            onClick: () => setLinks((prev) => [
+                              ...prev,
+                              { id: crypto.randomUUID(), url: "", title: "" }
+                            ]),
+                            children: [
+                              /* @__PURE__ */ jsx(Plus, {
+                                className: "size-4"
+                              }),
+                              "Add link"
+                            ]
+                          })
+                        ]
                       })
                     ]
                   }),

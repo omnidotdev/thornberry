@@ -114,6 +114,12 @@ export interface AccountOrganization {
   slug: string;
   name: string;
   logo?: string | null;
+  /**
+   * Workspace links (website, socials, etc.) as a JSON-encoded ordered list of
+   * `{ url, title? }`. Host-opaque string so the console stays agnostic to the
+   * backend's column type; the org editor parses and re-serializes it.
+   */
+  links?: string | null;
   type?: string | null;
   /**
    * When set (ISO timestamp), the organization is scheduled for deletion and is
@@ -281,6 +287,8 @@ export interface AccountAuthClient {
         slug?: string;
         description?: string;
         logo?: string | null;
+        /** JSON-encoded ordered list of workspace links `{ url, title? }` */
+        links?: string;
       };
       organizationId: string;
     }) => Promise<AccountAuthResult>;
