@@ -439,6 +439,52 @@ const CreateOrganizationDialog = ({ onCreated }: { onCreated: () => void }) => {
  * owners, leave for everyone else). Personal organizations show a short note
  * instead, since they have no other members.
  */
+interface WorkspaceLinkDraft {
+  id: string;
+  url: string;
+  title: string;
+}
+
+/**
+ * Parse the org `links` JSON string into editable rows, tolerating null and
+ * malformed input by returning an empty list.
+ */
+const parseWorkspaceLinks = (
+  raw: string | null | undefined,
+): WorkspaceLinkDraft[] => {
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .filter(
+        (entry): entry is { url: string; title?: unknown } =>
+          !!entry && typeof entry === "object" && typeof entry.url === "string",
+      )
+      .map((entry) => ({
+        id: crypto.randomUUID(),
+        url: entry.url,
+        title: typeof entry.title === "string" ? entry.title : "",
+      }));
+  } catch {
+    return [];
+  }
+};
+
+/**
+ * Serialize editable link rows back to the stored JSON string: trim, drop rows
+ * with no URL, and omit empty titles.
+ */
+const serializeWorkspaceLinks = (links: WorkspaceLinkDraft[]): string =>
+  JSON.stringify(
+    links
+      .map((link) => ({ url: link.url.trim(), title: link.title.trim() }))
+      .filter((link) => link.url)
+      .map((link) =>
+        link.title ? { url: link.url, title: link.title } : { url: link.url },
+      ),
+  );
+
 /**
  * Edit an organization's name, handle, and description (owner/admin). The handle
  * is checked for availability only when it changes; an unchanged handle stays
@@ -461,6 +507,7 @@ const EditOrganizationDialog = ({
   const [name, setName] = useState(organization.name);
   const [slug, setSlug] = useState(organization.slug);
   const [description, setDescription] = useState("");
+  const [links, setLinks] = useState<WorkspaceLinkDraft[]>([]);
   const [slugStatus, setSlugStatus] = useState<SlugStatus>("idle");
   const [isSaving, setIsSaving] = useState(false);
   const slugTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -470,9 +517,10 @@ const EditOrganizationDialog = ({
       setName(organization.name);
       setSlug(organization.slug);
       setDescription("");
+      setLinks(parseWorkspaceLinks(organization.links));
       setSlugStatus("idle");
     }
-  }, [open, organization.name, organization.slug]);
+  }, [open, organization.name, organization.slug, organization.links]);
 
   const slugChanged = slug !== organization.slug;
 
@@ -510,10 +558,22 @@ const EditOrganizationDialog = ({
 
   const handleSave = async () => {
     setIsSaving(true);
-    const data: { name?: string; slug?: string; description?: string } = {};
+    const data: {
+      name?: string;
+      slug?: string;
+      description?: string;
+      links?: string;
+    } = {};
     if (name.trim() !== organization.name) data.name = name.trim();
     if (slugChanged) data.slug = slug;
     if (description.trim()) data.description = description.trim();
+
+    const serializedLinks = serializeWorkspaceLinks(links);
+    if (
+      serializedLinks !==
+      serializeWorkspaceLinks(parseWorkspaceLinks(organization.links))
+    )
+      data.links = serializedLinks;
 
     const res = await authClient.organization.update({
       data,
@@ -607,6 +667,76 @@ const EditOrganizationDialog = ({
                   onChange={(event) => setDescription(event.target.value)}
                   placeholder="Optional"
                 />
+              </div>
+              <div className="space-y-1.5">
+                <Label>Links</Label>
+                <p className="text-muted-foreground text-xs">
+                  Your workspace's website and social links, shown across Omni
+                  products.
+                </p>
+                <div className="space-y-2">
+                  {links.map((link) => (
+                    <div key={link.id} className="flex items-center gap-2">
+                      <Input
+                        value={link.url}
+                        onChange={(event) =>
+                          setLinks((prev) =>
+                            prev.map((item) =>
+                              item.id === link.id
+                                ? { ...item, url: event.target.value }
+                                : item,
+                            ),
+                          )
+                        }
+                        placeholder="https://..."
+                        className="flex-1"
+                        aria-label="Link URL"
+                      />
+                      <Input
+                        value={link.title}
+                        onChange={(event) =>
+                          setLinks((prev) =>
+                            prev.map((item) =>
+                              item.id === link.id
+                                ? { ...item, title: event.target.value }
+                                : item,
+                            ),
+                          )
+                        }
+                        placeholder="Label (optional)"
+                        className="flex-1"
+                        aria-label="Link label"
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        aria-label="Remove link"
+                        onClick={() =>
+                          setLinks((prev) =>
+                            prev.filter((item) => item.id !== link.id),
+                          )
+                        }
+                      >
+                        <X className="size-4" />
+                      </Button>
+                    </div>
+                  ))}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() =>
+                      setLinks((prev) => [
+                        ...prev,
+                        { id: crypto.randomUUID(), url: "", title: "" },
+                      ])
+                    }
+                  >
+                    <Plus className="size-4" />
+                    Add link
+                  </Button>
+                </div>
               </div>
               <div className="flex justify-end gap-2 pt-2">
                 <Button
