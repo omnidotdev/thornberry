@@ -504,21 +504,31 @@ var isHttpUrl = (value) => {
   }
 };
 var LinkFavicon = ({ url }) => {
-  const [failed, setFailed] = useState(false);
-  let hostname = "";
-  try {
-    hostname = new URL(url).hostname;
-  } catch {}
-  if (!hostname || failed)
+  const candidates = useMemo(() => {
+    try {
+      const { origin, hostname } = new URL(url);
+      return [
+        `${origin}/favicon.svg`,
+        `${origin}/favicon.ico`,
+        `${origin}/apple-touch-icon.png`,
+        `https://www.google.com/s2/favicons?domain=${hostname}&sz=32`
+      ];
+    } catch {
+      return [];
+    }
+  }, [url]);
+  const [index, setIndex] = useState(0);
+  const src = candidates[index];
+  if (!src)
     return /* @__PURE__ */ jsx(Globe, {
       className: "size-4 shrink-0 text-muted-foreground"
     });
   return /* @__PURE__ */ jsx("img", {
-    src: `https://www.google.com/s2/favicons?domain=${hostname}&sz=32`,
+    src,
     alt: "",
     className: "size-4 shrink-0 rounded-sm",
-    onError: () => setFailed(true)
-  });
+    onError: () => setIndex((current) => current + 1)
+  }, src);
 };
 var WorkspaceLinksSection = ({
   organizationId,
@@ -566,25 +576,14 @@ var WorkspaceLinksSection = ({
     className: "space-y-3 rounded-lg border p-5",
     children: [
       /* @__PURE__ */ jsxs("div", {
-        className: "flex flex-wrap items-center justify-between gap-2",
         children: [
-          /* @__PURE__ */ jsxs("div", {
-            children: [
-              /* @__PURE__ */ jsx("h4", {
-                className: "font-medium text-sm",
-                children: "Links"
-              }),
-              /* @__PURE__ */ jsx("p", {
-                className: "text-muted-foreground text-sm",
-                children: "Your workspace's website and social links. Public links show on public pages; members-only links stay inside Omni for your team."
-              })
-            ]
+          /* @__PURE__ */ jsx("h4", {
+            className: "font-medium text-sm",
+            children: "Links"
           }),
-          canManage && dirty && /* @__PURE__ */ jsx(Button2, {
-            size: "sm",
-            onClick: handleSave,
-            disabled: isSaving || hasInvalid,
-            children: isSaving ? "Saving..." : "Save links"
+          /* @__PURE__ */ jsx("p", {
+            className: "text-muted-foreground text-sm",
+            children: "Add your workspace's website and social links. Each link is Public (shown on public workspace pages) or Private (visible only to your workspace members inside Omni, for internal resources like a shared drive)."
           })
         ]
       }),
@@ -597,121 +596,116 @@ var WorkspaceLinksSection = ({
           /* @__PURE__ */ jsx("p", {
             className: "mt-2 text-muted-foreground text-sm",
             children: "No links yet."
-          }),
-          canManage && /* @__PURE__ */ jsxs(Button2, {
-            variant: "outline",
-            size: "sm",
-            className: "mt-3 gap-1.5",
-            onClick: add,
-            children: [
-              /* @__PURE__ */ jsx(Plus, {
-                className: "size-4"
-              }),
-              "Add a link"
-            ]
           })
         ]
-      }) : /* @__PURE__ */ jsxs("div", {
+      }) : /* @__PURE__ */ jsx("div", {
         className: "space-y-2",
-        children: [
-          links.map((link, index) => canManage ? /* @__PURE__ */ jsxs("div", {
-            className: "flex items-center gap-2",
-            children: [
-              /* @__PURE__ */ jsx(LinkFavicon, {
-                url: link.url
+        children: links.map((link, index) => canManage ? /* @__PURE__ */ jsxs("div", {
+          className: "flex items-center gap-2",
+          children: [
+            /* @__PURE__ */ jsx(LinkFavicon, {
+              url: link.url
+            }),
+            /* @__PURE__ */ jsx(Input2, {
+              value: link.url,
+              onChange: (event) => update(link.id, { url: event.target.value }),
+              placeholder: "https://...",
+              className: "flex-1",
+              "aria-label": "Link URL"
+            }),
+            /* @__PURE__ */ jsx(Input2, {
+              value: link.title,
+              onChange: (event) => update(link.id, { title: event.target.value }),
+              placeholder: "Label (optional)",
+              className: "hidden flex-1 sm:block",
+              "aria-label": "Link label"
+            }),
+            /* @__PURE__ */ jsxs(Button2, {
+              type: "button",
+              variant: "outline",
+              size: "sm",
+              className: "shrink-0 justify-center gap-1.5 px-2 text-muted-foreground sm:w-28",
+              "aria-label": link.visibility === "public" ? "Public link, change to private" : "Private link, change to public",
+              onClick: () => update(link.id, {
+                visibility: link.visibility === "public" ? "members" : "public"
               }),
-              /* @__PURE__ */ jsx(Input2, {
-                value: link.url,
-                onChange: (event) => update(link.id, { url: event.target.value }),
-                placeholder: "https://...",
-                className: "flex-1",
-                "aria-label": "Link URL"
-              }),
-              /* @__PURE__ */ jsx(Input2, {
-                value: link.title,
-                onChange: (event) => update(link.id, { title: event.target.value }),
-                placeholder: "Label (optional)",
-                className: "hidden flex-1 sm:block",
-                "aria-label": "Link label"
-              }),
-              /* @__PURE__ */ jsxs(Button2, {
-                type: "button",
-                variant: "outline",
-                size: "sm",
-                className: "shrink-0 gap-1.5 px-2 text-muted-foreground",
-                "aria-label": link.visibility === "public" ? "Public link, change to members-only" : "Members-only link, change to public",
-                onClick: () => update(link.id, {
-                  visibility: link.visibility === "public" ? "members" : "public"
+              children: [
+                link.visibility === "public" ? /* @__PURE__ */ jsx(Globe, {
+                  className: "size-4"
+                }) : /* @__PURE__ */ jsx(Lock, {
+                  className: "size-4"
                 }),
-                children: [
-                  link.visibility === "public" ? /* @__PURE__ */ jsx(Globe, {
+                /* @__PURE__ */ jsx("span", {
+                  className: "hidden sm:inline",
+                  children: link.visibility === "public" ? "Public" : "Private"
+                })
+              ]
+            }),
+            /* @__PURE__ */ jsxs("div", {
+              className: "flex shrink-0 items-center",
+              children: [
+                /* @__PURE__ */ jsx(Button2, {
+                  type: "button",
+                  variant: "ghost",
+                  size: "icon",
+                  "aria-label": "Move up",
+                  disabled: index === 0,
+                  onClick: () => move(index, -1),
+                  children: /* @__PURE__ */ jsx(ArrowUp, {
                     className: "size-4"
-                  }) : /* @__PURE__ */ jsx(Lock, {
+                  })
+                }),
+                /* @__PURE__ */ jsx(Button2, {
+                  type: "button",
+                  variant: "ghost",
+                  size: "icon",
+                  "aria-label": "Move down",
+                  disabled: index === links.length - 1,
+                  onClick: () => move(index, 1),
+                  children: /* @__PURE__ */ jsx(ArrowDown, {
                     className: "size-4"
-                  }),
-                  /* @__PURE__ */ jsx("span", {
-                    className: "hidden sm:inline",
-                    children: link.visibility === "public" ? "Public" : "Members"
                   })
-                ]
-              }),
-              /* @__PURE__ */ jsxs("div", {
-                className: "flex shrink-0 items-center",
-                children: [
-                  /* @__PURE__ */ jsx(Button2, {
-                    type: "button",
-                    variant: "ghost",
-                    size: "icon",
-                    "aria-label": "Move up",
-                    disabled: index === 0,
-                    onClick: () => move(index, -1),
-                    children: /* @__PURE__ */ jsx(ArrowUp, {
-                      className: "size-4"
-                    })
-                  }),
-                  /* @__PURE__ */ jsx(Button2, {
-                    type: "button",
-                    variant: "ghost",
-                    size: "icon",
-                    "aria-label": "Move down",
-                    disabled: index === links.length - 1,
-                    onClick: () => move(index, 1),
-                    children: /* @__PURE__ */ jsx(ArrowDown, {
-                      className: "size-4"
-                    })
-                  }),
-                  /* @__PURE__ */ jsx(Button2, {
-                    type: "button",
-                    variant: "ghost",
-                    size: "icon",
-                    "aria-label": "Remove link",
-                    onClick: () => remove(link.id),
-                    children: /* @__PURE__ */ jsx(Trash2, {
-                      className: "size-4"
-                    })
+                }),
+                /* @__PURE__ */ jsx(Button2, {
+                  type: "button",
+                  variant: "ghost",
+                  size: "icon",
+                  "aria-label": "Remove link",
+                  onClick: () => remove(link.id),
+                  children: /* @__PURE__ */ jsx(Trash2, {
+                    className: "size-4"
                   })
-                ]
-              })
-            ]
-          }, link.id) : /* @__PURE__ */ jsxs("a", {
-            href: link.url,
-            target: "_blank",
-            rel: "noopener noreferrer",
-            className: "flex items-center gap-2 rounded-md p-2 text-sm hover:bg-muted/50",
-            children: [
-              /* @__PURE__ */ jsx(LinkFavicon, {
-                url: link.url
-              }),
-              /* @__PURE__ */ jsx("span", {
-                className: "truncate",
-                children: link.title || link.url
-              }),
-              link.visibility === "members" && /* @__PURE__ */ jsx(Lock, {
-                className: "size-3 shrink-0 text-muted-foreground"
-              })
-            ]
-          }, link.id)),
-          canManage && /* @__PURE__ */ jsxs(Button2, {
+                })
+              ]
+            })
+          ]
+        }, link.id) : /* @__PURE__ */ jsxs("a", {
+          href: link.url,
+          target: "_blank",
+          rel: "noopener noreferrer",
+          className: "flex items-center gap-2 rounded-md p-2 text-sm hover:bg-muted/50",
+          children: [
+            /* @__PURE__ */ jsx(LinkFavicon, {
+              url: link.url
+            }),
+            /* @__PURE__ */ jsx("span", {
+              className: "truncate",
+              children: link.title || link.url
+            }),
+            link.visibility === "members" && /* @__PURE__ */ jsx(Lock, {
+              className: "size-3 shrink-0 text-muted-foreground"
+            })
+          ]
+        }, link.id))
+      }),
+      hasInvalid && /* @__PURE__ */ jsx("p", {
+        className: "text-destructive text-xs",
+        children: "Each link must be a valid http(s) URL."
+      }),
+      canManage && /* @__PURE__ */ jsxs("div", {
+        className: "flex items-center justify-between gap-2 pt-1",
+        children: [
+          /* @__PURE__ */ jsxs(Button2, {
             type: "button",
             variant: "outline",
             size: "sm",
@@ -724,9 +718,12 @@ var WorkspaceLinksSection = ({
               "Add link"
             ]
           }),
-          hasInvalid && /* @__PURE__ */ jsx("p", {
-            className: "text-destructive text-xs",
-            children: "Each link must be a valid http(s) URL."
+          /* @__PURE__ */ jsx(Button2, {
+            type: "button",
+            size: "sm",
+            onClick: handleSave,
+            disabled: !dirty || isSaving || hasInvalid,
+            children: isSaving ? "Saving..." : "Save links"
           })
         ]
       })
