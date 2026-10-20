@@ -54,13 +54,17 @@ import {
 
 // src/registry/thornberry/components/account-organizations.tsx
 import {
+  ArrowDown,
   ArrowLeft,
+  ArrowUp,
   Check,
   ChevronRight,
   ChevronsUpDown,
+  Globe,
   Loader2,
   Mail,
   Plus,
+  Trash2,
   UserPlus,
   X
 } from "lucide-react";
@@ -401,6 +405,220 @@ var parseWorkspaceLinks = (raw) => {
   }
 };
 var serializeWorkspaceLinks = (links) => JSON.stringify(links.map((link) => ({ url: link.url.trim(), title: link.title.trim() })).filter((link) => link.url).map((link) => link.title ? { url: link.url, title: link.title } : { url: link.url }));
+var isHttpUrl = (value) => {
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+};
+var LinkFavicon = ({ url }) => {
+  const [failed, setFailed] = useState(false);
+  let origin = "";
+  try {
+    origin = new URL(url).origin;
+  } catch {}
+  if (!origin || failed)
+    return /* @__PURE__ */ jsx(Globe, {
+      className: "size-4 shrink-0 text-muted-foreground"
+    });
+  return /* @__PURE__ */ jsx("img", {
+    src: `${origin}/favicon.ico`,
+    alt: "",
+    className: "size-4 shrink-0 rounded-sm",
+    onError: () => setFailed(true)
+  });
+};
+var WorkspaceLinksSection = ({
+  organizationId,
+  linksRaw,
+  canManage,
+  onSaved
+}) => {
+  const { authClient, toaster } = useAccountContext2();
+  const [links, setLinks] = useState(() => parseWorkspaceLinks(linksRaw));
+  const [isSaving, setIsSaving] = useState(false);
+  useEffect(() => {
+    setLinks(parseWorkspaceLinks(linksRaw));
+  }, [linksRaw]);
+  const dirty = serializeWorkspaceLinks(links) !== serializeWorkspaceLinks(parseWorkspaceLinks(linksRaw));
+  const hasInvalid = links.some((link) => link.url.trim() && !isHttpUrl(link.url.trim()));
+  const update = (id, patch) => setLinks((prev) => prev.map((item) => item.id === id ? { ...item, ...patch } : item));
+  const remove = (id) => setLinks((prev) => prev.filter((item) => item.id !== id));
+  const add = () => setLinks((prev) => [
+    ...prev,
+    { id: crypto.randomUUID(), url: "", title: "" }
+  ]);
+  const move = (index, direction) => setLinks((prev) => {
+    const target = index + direction;
+    if (target < 0 || target >= prev.length)
+      return prev;
+    const next = [...prev];
+    [next[index], next[target]] = [next[target], next[index]];
+    return next;
+  });
+  const handleSave = async () => {
+    setIsSaving(true);
+    const res = await authClient.organization.update({
+      data: { links: serializeWorkspaceLinks(links) },
+      organizationId
+    });
+    setIsSaving(false);
+    if (res?.error) {
+      toaster.error({ title: errorMessage(res.error, "Couldn't save links") });
+      return;
+    }
+    toaster.success({ title: "Links updated" });
+    onSaved();
+  };
+  return /* @__PURE__ */ jsxs("div", {
+    className: "space-y-3 rounded-lg border p-5",
+    children: [
+      /* @__PURE__ */ jsxs("div", {
+        className: "flex flex-wrap items-center justify-between gap-2",
+        children: [
+          /* @__PURE__ */ jsxs("div", {
+            children: [
+              /* @__PURE__ */ jsx("h4", {
+                className: "font-medium text-sm",
+                children: "Links"
+              }),
+              /* @__PURE__ */ jsx("p", {
+                className: "text-muted-foreground text-sm",
+                children: "Your workspace's website and social links, shown across Omni."
+              })
+            ]
+          }),
+          canManage && dirty && /* @__PURE__ */ jsx(Button2, {
+            size: "sm",
+            onClick: handleSave,
+            disabled: isSaving || hasInvalid,
+            children: isSaving ? "Saving..." : "Save links"
+          })
+        ]
+      }),
+      links.length === 0 ? /* @__PURE__ */ jsxs("div", {
+        className: "rounded-lg border border-dashed p-6 text-center",
+        children: [
+          /* @__PURE__ */ jsx(Globe, {
+            className: "mx-auto size-5 text-muted-foreground"
+          }),
+          /* @__PURE__ */ jsx("p", {
+            className: "mt-2 text-muted-foreground text-sm",
+            children: "No links yet."
+          }),
+          canManage && /* @__PURE__ */ jsxs(Button2, {
+            variant: "outline",
+            size: "sm",
+            className: "mt-3 gap-1.5",
+            onClick: add,
+            children: [
+              /* @__PURE__ */ jsx(Plus, {
+                className: "size-4"
+              }),
+              "Add a link"
+            ]
+          })
+        ]
+      }) : /* @__PURE__ */ jsxs("div", {
+        className: "space-y-2",
+        children: [
+          links.map((link, index) => canManage ? /* @__PURE__ */ jsxs("div", {
+            className: "flex items-center gap-2",
+            children: [
+              /* @__PURE__ */ jsx(LinkFavicon, {
+                url: link.url
+              }),
+              /* @__PURE__ */ jsx(Input2, {
+                value: link.url,
+                onChange: (event) => update(link.id, { url: event.target.value }),
+                placeholder: "https://...",
+                className: "flex-1",
+                "aria-label": "Link URL"
+              }),
+              /* @__PURE__ */ jsx(Input2, {
+                value: link.title,
+                onChange: (event) => update(link.id, { title: event.target.value }),
+                placeholder: "Label (optional)",
+                className: "hidden flex-1 sm:block",
+                "aria-label": "Link label"
+              }),
+              /* @__PURE__ */ jsxs("div", {
+                className: "flex shrink-0 items-center",
+                children: [
+                  /* @__PURE__ */ jsx(Button2, {
+                    type: "button",
+                    variant: "ghost",
+                    size: "icon",
+                    "aria-label": "Move up",
+                    disabled: index === 0,
+                    onClick: () => move(index, -1),
+                    children: /* @__PURE__ */ jsx(ArrowUp, {
+                      className: "size-4"
+                    })
+                  }),
+                  /* @__PURE__ */ jsx(Button2, {
+                    type: "button",
+                    variant: "ghost",
+                    size: "icon",
+                    "aria-label": "Move down",
+                    disabled: index === links.length - 1,
+                    onClick: () => move(index, 1),
+                    children: /* @__PURE__ */ jsx(ArrowDown, {
+                      className: "size-4"
+                    })
+                  }),
+                  /* @__PURE__ */ jsx(Button2, {
+                    type: "button",
+                    variant: "ghost",
+                    size: "icon",
+                    "aria-label": "Remove link",
+                    onClick: () => remove(link.id),
+                    children: /* @__PURE__ */ jsx(Trash2, {
+                      className: "size-4"
+                    })
+                  })
+                ]
+              })
+            ]
+          }, link.id) : /* @__PURE__ */ jsxs("a", {
+            href: link.url,
+            target: "_blank",
+            rel: "noopener noreferrer",
+            className: "flex items-center gap-2 rounded-md p-2 text-sm hover:bg-muted/50",
+            children: [
+              /* @__PURE__ */ jsx(LinkFavicon, {
+                url: link.url
+              }),
+              /* @__PURE__ */ jsx("span", {
+                className: "truncate",
+                children: link.title || link.url
+              })
+            ]
+          }, link.id)),
+          canManage && /* @__PURE__ */ jsxs(Button2, {
+            type: "button",
+            variant: "outline",
+            size: "sm",
+            className: "gap-1.5",
+            onClick: add,
+            children: [
+              /* @__PURE__ */ jsx(Plus, {
+                className: "size-4"
+              }),
+              "Add link"
+            ]
+          }),
+          hasInvalid && /* @__PURE__ */ jsx("p", {
+            className: "text-destructive text-xs",
+            children: "Each link must be a valid http(s) URL."
+          })
+        ]
+      })
+    ]
+  });
+};
 var EditOrganizationDialog = ({
   organization,
   open,
@@ -411,7 +629,6 @@ var EditOrganizationDialog = ({
   const [name, setName] = useState(organization.name);
   const [slug, setSlug] = useState(organization.slug);
   const [description, setDescription] = useState("");
-  const [links, setLinks] = useState([]);
   const [slugStatus, setSlugStatus] = useState("idle");
   const [isSaving, setIsSaving] = useState(false);
   const slugTimer = useRef(null);
@@ -420,10 +637,9 @@ var EditOrganizationDialog = ({
       setName(organization.name);
       setSlug(organization.slug);
       setDescription("");
-      setLinks(parseWorkspaceLinks(organization.links));
       setSlugStatus("idle");
     }
-  }, [open, organization.name, organization.slug, organization.links]);
+  }, [open, organization.name, organization.slug]);
   const slugChanged = slug !== organization.slug;
   const checkSlug = (value) => {
     setSlugStatus("idle");
@@ -462,9 +678,6 @@ var EditOrganizationDialog = ({
       data.slug = slug;
     if (description.trim())
       data.description = description.trim();
-    const serializedLinks = serializeWorkspaceLinks(links);
-    if (serializedLinks !== serializeWorkspaceLinks(parseWorkspaceLinks(organization.links)))
-      data.links = serializedLinks;
     const res = await authClient.organization.update({
       data,
       organizationId: organization.id
@@ -579,67 +792,6 @@ var EditOrganizationDialog = ({
                         value: description,
                         onChange: (event) => setDescription(event.target.value),
                         placeholder: "Optional"
-                      })
-                    ]
-                  }),
-                  /* @__PURE__ */ jsxs("div", {
-                    className: "space-y-1.5",
-                    children: [
-                      /* @__PURE__ */ jsx(Label2, {
-                        children: "Links"
-                      }),
-                      /* @__PURE__ */ jsx("p", {
-                        className: "text-muted-foreground text-xs",
-                        children: "Your workspace's website and social links, shown across Omni products."
-                      }),
-                      /* @__PURE__ */ jsxs("div", {
-                        className: "space-y-2",
-                        children: [
-                          links.map((link) => /* @__PURE__ */ jsxs("div", {
-                            className: "flex items-center gap-2",
-                            children: [
-                              /* @__PURE__ */ jsx(Input2, {
-                                value: link.url,
-                                onChange: (event) => setLinks((prev) => prev.map((item) => item.id === link.id ? { ...item, url: event.target.value } : item)),
-                                placeholder: "https://...",
-                                className: "flex-1",
-                                "aria-label": "Link URL"
-                              }),
-                              /* @__PURE__ */ jsx(Input2, {
-                                value: link.title,
-                                onChange: (event) => setLinks((prev) => prev.map((item) => item.id === link.id ? { ...item, title: event.target.value } : item)),
-                                placeholder: "Label (optional)",
-                                className: "flex-1",
-                                "aria-label": "Link label"
-                              }),
-                              /* @__PURE__ */ jsx(Button2, {
-                                type: "button",
-                                variant: "ghost",
-                                size: "icon",
-                                "aria-label": "Remove link",
-                                onClick: () => setLinks((prev) => prev.filter((item) => item.id !== link.id)),
-                                children: /* @__PURE__ */ jsx(X, {
-                                  className: "size-4"
-                                })
-                              })
-                            ]
-                          }, link.id)),
-                          /* @__PURE__ */ jsxs(Button2, {
-                            type: "button",
-                            variant: "outline",
-                            size: "sm",
-                            onClick: () => setLinks((prev) => [
-                              ...prev,
-                              { id: crypto.randomUUID(), url: "", title: "" }
-                            ]),
-                            children: [
-                              /* @__PURE__ */ jsx(Plus, {
-                                className: "size-4"
-                              }),
-                              "Add link"
-                            ]
-                          })
-                        ]
                       })
                     ]
                   }),
@@ -1018,6 +1170,12 @@ var OrganizationDetail = ({
         open: editOpen,
         onOpenChange: setEditOpen,
         onUpdated
+      }),
+      organization.type !== "personal" && /* @__PURE__ */ jsx(WorkspaceLinksSection, {
+        organizationId: organization.id,
+        linksRaw: full?.links ?? organization.links,
+        canManage,
+        onSaved: load
       }),
       /* @__PURE__ */ jsxs(Fragment, {
         children: [
