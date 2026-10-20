@@ -51,6 +51,7 @@ import {
   SelectValueText,
   createListCollection,
 } from "@/registry/thornberry/components/select";
+import { Skeleton } from "@/registry/thornberry/components/skeleton";
 
 import type {
   AccountFullOrganization,
@@ -91,6 +92,49 @@ const errorMessage = (error: unknown, fallback: string): string =>
   typeof (error as { message?: unknown })?.message === "string"
     ? (error as { message: string }).message
     : fallback;
+
+/** Placeholder rows shown while the workspace list loads, matching its layout. */
+const OrganizationListSkeleton = () => (
+  <div className="space-y-2">
+    {["a", "b", "c"].map((key) => (
+      <div key={key} className="flex items-center gap-3 rounded-lg border p-3">
+        <Skeleton className="size-9 shrink-0 rounded-full" />
+        <div className="flex-1 space-y-2">
+          <Skeleton className="h-4 w-40" />
+          <Skeleton className="h-3 w-24" />
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
+/**
+ * Placeholder shown while a deep-linked workspace's detail loads, matching the
+ * detail layout (header, a card, and a list) so the page does not flash the
+ * list view or jump as data arrives.
+ */
+const OrganizationDetailSkeleton = () => (
+  <div className="space-y-6">
+    <Skeleton className="h-8 w-32" />
+    <div className="flex items-center gap-3">
+      <Skeleton className="size-16 shrink-0 rounded-full" />
+      <div className="space-y-2">
+        <Skeleton className="h-5 w-48" />
+        <Skeleton className="h-4 w-24" />
+      </div>
+    </div>
+    <div className="space-y-3 rounded-lg border p-5">
+      <Skeleton className="h-4 w-16" />
+      <Skeleton className="h-9 w-full" />
+      <Skeleton className="h-9 w-full" />
+    </div>
+    <div className="space-y-3 rounded-lg border p-5">
+      <Skeleton className="h-4 w-28" />
+      <Skeleton className="h-10 w-full" />
+      <Skeleton className="h-10 w-full" />
+    </div>
+  </div>
+);
 
 /**
  * Styled organization-role picker. `roles` is the set of options the acting
@@ -1483,9 +1527,17 @@ const OrganizationDetail = ({
           )}
 
           {isLoading ? (
-            <p className="py-4 text-center text-muted-foreground text-sm">
-              Loading members...
-            </p>
+            <div className="space-y-2 py-2">
+              {["a", "b", "c"].map((key) => (
+                <div key={key} className="flex items-center gap-3">
+                  <Skeleton className="size-8 shrink-0 rounded-full" />
+                  <div className="flex-1 space-y-1.5">
+                    <Skeleton className="h-4 w-40" />
+                    <Skeleton className="h-3 w-28" />
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : members.length === 0 ? (
             <p className="py-4 text-center text-muted-foreground text-sm">
               No members yet.
@@ -1830,6 +1882,13 @@ const AccountOrganizations = ({
     a.name.localeCompare(b.name, undefined, { sensitivity: "base" }),
   );
 
+  // Deep-linked to a workspace (slug in the URL) while the list is still
+  // loading: show the detail skeleton instead of flashing the list view, which
+  // is what caused the whole list to flicker on refresh.
+  if (selectedSlug && !selected && isLoading) {
+    return <OrganizationDetailSkeleton />;
+  }
+
   if (selected && session?.user) {
     return (
       <OrganizationDetail
@@ -1863,9 +1922,7 @@ const AccountOrganizations = ({
 
       <div className="space-y-2">
         {isLoading ? (
-          <div className="flex items-center justify-center py-8 text-muted-foreground">
-            <Loader2 className="size-5 animate-spin" />
-          </div>
+          <OrganizationListSkeleton />
         ) : sortedOrganizations.length ? (
           sortedOrganizations.map((org) => (
             <button
