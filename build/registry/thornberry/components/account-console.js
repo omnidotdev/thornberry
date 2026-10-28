@@ -32,7 +32,7 @@ import {
 } from "../../../chunks/account-user-two-factor-authentication-4c988h17.js";
 import {
   UserTwoFactorAuthentication2
-} from "../../../chunks/account-user-two-factor-authentication-va18vag0.js";
+} from "../../../chunks/account-user-two-factor-authentication-8771ftdn.js";
 import"../../../chunks/account-user-two-factor-authentication-06kze8cq.js";
 import {
   ViewPasskeys2

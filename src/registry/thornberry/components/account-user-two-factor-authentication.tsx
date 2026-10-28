@@ -1,5 +1,6 @@
 import {
   Copy,
+  Download,
   ExternalLink,
   KeyRound,
   Loader2,
@@ -25,6 +26,7 @@ import { Input } from "@/registry/thornberry/components/input";
 import { Label } from "@/registry/thornberry/components/label";
 import { PasswordInput } from "@/registry/thornberry/components/password-input";
 
+import type { KeyboardEvent } from "react";
 import type { AccountContextValue } from "@/registry/thornberry/components/account-provider";
 
 /**
@@ -33,6 +35,16 @@ import type { AccountContextValue } from "@/registry/thornberry/components/accou
  * and regenerate backup codes. Drives the injected client's twoFactor methods
  * and reports through the toaster.
  */
+/** Submit the step's primary action when the user presses Enter in a field. */
+const onEnter =
+  (run: () => void) =>
+  (event: KeyboardEvent): void => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      run();
+    }
+  };
+
 /**
  * QR code on a fixed light background with a quiet zone, centered. TOTP QR
  * codes must stay dark-on-light to scan, so this never inherits a dark theme.
@@ -47,14 +59,16 @@ const QrPanel = ({ value }: { value: string }) => (
 
 /**
  * One-time recovery codes. These are the only way back in if the authenticator
- * is lost, so they are shown prominently with a copy action and the explicit
- * warning that they will not be shown again.
+ * is lost, so they are shown prominently with copy and download actions and the
+ * explicit warning that they will not be shown again.
  */
 const BackupCodesPanel = ({
   codes,
+  organizationName,
   toaster,
 }: {
   codes: string[];
+  organizationName: string;
   toaster: AccountContextValue["toaster"];
 }) => (
   <div className="flex flex-col gap-2">
@@ -69,22 +83,49 @@ const BackupCodesPanel = ({
         </li>
       ))}
     </ul>
-    <Button
-      size="sm"
-      variant="outline"
-      className="w-fit"
-      onClick={async () => {
-        try {
-          await navigator.clipboard?.writeText(codes.join("\n"));
-          toaster.success({ title: "Backup codes copied" });
-        } catch {
-          toaster.error({ title: "Could not copy. Copy them manually." });
-        }
-      }}
-    >
-      <Copy className="mr-2 size-4" />
-      Copy codes
-    </Button>
+    <div className="flex flex-wrap gap-2">
+      <Button
+        size="sm"
+        variant="outline"
+        className="w-fit"
+        onClick={async () => {
+          try {
+            await navigator.clipboard?.writeText(codes.join("\n"));
+            toaster.success({ title: "Backup codes copied" });
+          } catch {
+            toaster.error({ title: "Could not copy. Copy them manually." });
+          }
+        }}
+      >
+        <Copy className="mr-2 size-4" />
+        Copy codes
+      </Button>
+      <Button
+        size="sm"
+        variant="outline"
+        className="w-fit"
+        onClick={() => {
+          try {
+            const blob = new Blob([`${codes.join("\n")}\n`], {
+              type: "text/plain",
+            });
+            const url = URL.createObjectURL(blob);
+            const anchor = document.createElement("a");
+            anchor.href = url;
+            anchor.download = `${organizationName.toLowerCase()}-backup-codes.txt`;
+            document.body.appendChild(anchor);
+            anchor.click();
+            anchor.remove();
+            URL.revokeObjectURL(url);
+          } catch {
+            toaster.error({ title: "Could not download. Copy them manually." });
+          }
+        }}
+      >
+        <Download className="mr-2 size-4" />
+        Download
+      </Button>
+    </div>
   </div>
 );
 
@@ -103,6 +144,7 @@ const UserTwoFactorAuthentication = () => {
   const [enrolledBackupCodes, setEnrolledBackupCodes] = useState<
     string[] | null
   >(null);
+  const [codesAcknowledged, setCodesAcknowledged] = useState(false);
 
   // Regenerate-backup-codes dialog (only while enabled)
   const [regenDialogOpen, setRegenDialogOpen] = useState(false);
@@ -111,15 +153,134 @@ const UserTwoFactorAuthentication = () => {
   const [regeneratedCodes, setRegeneratedCodes] = useState<string[] | null>(
     null,
   );
+  const [regenAcknowledged, setRegenAcknowledged] = useState(false);
 
   const twoFactorEnabled = !!session?.user.twoFactorEnabled;
+
+  const resetTwoFactorDialog = () => {
+    setTwoFactorDialogOpen(false);
+    setTwoFactorVerifyUri("");
+    setPendingBackupCodes([]);
+    setEnrolledBackupCodes(null);
+    setCodesAcknowledged(false);
+    setPassword("");
+  };
 
   const resetRegenDialog = () => {
     setRegenDialogOpen(false);
     setRegenPassword("");
     setRegeneratedCodes(null);
+    setRegenAcknowledged(false);
     setIsRegenerating(false);
   };
+
+  // Primary action of the enable/verify/disable/save-codes dialog, shared by the
+  // button and the Enter key.
+  const submitTwoFactor = async () => {
+    if (enrolledBackupCodes) {
+      // "Done": only reachable once the codes are acknowledged
+      resetTwoFactorDialog();
+      return;
+    }
+
+    setIsPendingTwoFa(true);
+
+    if (twoFactorEnabled) {
+      await authClient.twoFactor.disable({
+        password,
+        fetchOptions: {
+          onError(context) {
+            toaster.error({ title: context.error.message });
+          },
+          onSuccess() {
+            toaster.success({ title: "2FA disabled successfully" });
+            resetTwoFactorDialog();
+          },
+        },
+      });
+    } else if (twoFactorVerifyUri) {
+      await authClient.twoFactor.verifyTotp({
+        code: password,
+        fetchOptions: {
+          onError(context) {
+            setIsPendingTwoFa(false);
+            setPassword("");
+            toaster.error({ title: context.error.message });
+          },
+          onSuccess() {
+            toaster.success({ title: "2FA enabled successfully" });
+            // surface the codes captured at `enable` as the final step rather
+            // than closing on activation
+            setEnrolledBackupCodes(pendingBackupCodes);
+            setCodesAcknowledged(false);
+            setPendingBackupCodes([]);
+            setTwoFactorVerifyUri("");
+            setIsPendingTwoFa(false);
+            setPassword("");
+          },
+        },
+      });
+      return;
+    } else {
+      await authClient.twoFactor.enable({
+        password,
+        fetchOptions: {
+          onError(context) {
+            toaster.error({ title: context.error.message });
+          },
+          onSuccess(context) {
+            setTwoFactorVerifyUri(context.data.totpURI);
+            setPendingBackupCodes(context.data.backupCodes ?? []);
+          },
+        },
+      });
+    }
+
+    setIsPendingTwoFa(false);
+    setPassword("");
+  };
+
+  const showRescanQr = async () => {
+    if (password.length < 8) {
+      toaster.error({ title: "Password must be at least 8 characters" });
+      return;
+    }
+    await authClient.twoFactor.getTotpUri(
+      { password },
+      {
+        onSuccess(context) {
+          setTwoFactorVerifyUri(context.data.totpURI);
+        },
+      },
+    );
+    setPassword("");
+  };
+
+  const submitRegen = async () => {
+    if (regenPassword.length < 8) {
+      toaster.error({ title: "Password must be at least 8 characters" });
+      return;
+    }
+    setIsRegenerating(true);
+    await authClient.twoFactor.generateBackupCodes({
+      password: regenPassword,
+      fetchOptions: {
+        onError(context) {
+          toaster.error({ title: context.error.message });
+        },
+        onSuccess(context) {
+          setRegeneratedCodes(context.data.backupCodes ?? []);
+        },
+      },
+    });
+    setRegenPassword("");
+    setIsRegenerating(false);
+  };
+
+  // While unsaved recovery codes are on screen, the dialog must not be
+  // dismissed by an outside click or Escape, or the only codes are lost.
+  const lockTwoFactorDialog = !!enrolledBackupCodes && !codesAcknowledged;
+  const lockRegenDialog = !!regeneratedCodes && !regenAcknowledged;
 
   return (
     <>
@@ -188,32 +349,11 @@ const UserTwoFactorAuthentication = () => {
                     <PasswordInput
                       value={password}
                       onChange={(event) => setPassword(event.target.value)}
+                      onKeyDown={onEnter(showRescanQr)}
                       placeholder="Enter Password"
                     />
 
-                    <Button
-                      onClick={async () => {
-                        if (password.length < 8) {
-                          toaster.error({
-                            title: "Password must be at least 8 characters",
-                          });
-                          return;
-                        }
-
-                        await authClient.twoFactor.getTotpUri(
-                          { password },
-                          {
-                            onSuccess(context) {
-                              setTwoFactorVerifyUri(context.data.totpURI);
-                            },
-                          },
-                        );
-
-                        setPassword("");
-                      }}
-                    >
-                      Show QR Code
-                    </Button>
+                    <Button onClick={showRescanQr}>Show QR Code</Button>
                   </>
                 )}
               </DialogContent>
@@ -222,6 +362,8 @@ const UserTwoFactorAuthentication = () => {
 
           <DialogRoot
             open={regenDialogOpen}
+            closeOnInteractOutside={!lockRegenDialog}
+            closeOnEscape={!lockRegenDialog}
             onOpenChange={({ open }) =>
               open ? setRegenDialogOpen(true) : resetRegenDialog()
             }
@@ -250,9 +392,24 @@ const UserTwoFactorAuthentication = () => {
                   <>
                     <BackupCodesPanel
                       codes={regeneratedCodes}
+                      organizationName={brand.organizationName}
                       toaster={toaster}
                     />
-                    <Button className="w-fit" onClick={resetRegenDialog}>
+                    <label className="flex items-center gap-2 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={regenAcknowledged}
+                        onChange={(event) =>
+                          setRegenAcknowledged(event.target.checked)
+                        }
+                      />
+                      I have saved my backup codes
+                    </label>
+                    <Button
+                      className="w-fit"
+                      disabled={!regenAcknowledged}
+                      onClick={resetRegenDialog}
+                    >
                       Done
                     </Button>
                   </>
@@ -264,37 +421,9 @@ const UserTwoFactorAuthentication = () => {
                       placeholder="Password"
                       value={regenPassword}
                       onChange={(event) => setRegenPassword(event.target.value)}
+                      onKeyDown={onEnter(submitRegen)}
                     />
-                    <Button
-                      disabled={isRegenerating}
-                      onClick={async () => {
-                        if (regenPassword.length < 8) {
-                          toaster.error({
-                            title: "Password must be at least 8 characters",
-                          });
-                          return;
-                        }
-
-                        setIsRegenerating(true);
-
-                        await authClient.twoFactor.generateBackupCodes({
-                          password: regenPassword,
-                          fetchOptions: {
-                            onError(context) {
-                              toaster.error({ title: context.error.message });
-                            },
-                            onSuccess(context) {
-                              setRegeneratedCodes(
-                                context.data.backupCodes ?? [],
-                              );
-                            },
-                          },
-                        });
-
-                        setRegenPassword("");
-                        setIsRegenerating(false);
-                      }}
-                    >
+                    <Button disabled={isRegenerating} onClick={submitRegen}>
                       {isRegenerating ? (
                         <Loader2 className="mr-2 size-4 animate-spin" />
                       ) : (
@@ -311,16 +440,11 @@ const UserTwoFactorAuthentication = () => {
 
       <DialogRoot
         open={twoFactorDialogOpen}
-        onOpenChange={({ open }) => {
-          setTwoFactorDialogOpen(open);
-          if (!open) {
-            // leaving the flow clears any transient setup state
-            setTwoFactorVerifyUri("");
-            setPendingBackupCodes([]);
-            setEnrolledBackupCodes(null);
-            setPassword("");
-          }
-        }}
+        closeOnInteractOutside={!lockTwoFactorDialog}
+        closeOnEscape={!lockTwoFactorDialog}
+        onOpenChange={({ open }) =>
+          open ? setTwoFactorDialogOpen(true) : resetTwoFactorDialog()
+        }
       >
         <DialogTrigger asChild>
           <Button
@@ -364,7 +488,23 @@ const UserTwoFactorAuthentication = () => {
             </div>
 
             {enrolledBackupCodes ? (
-              <BackupCodesPanel codes={enrolledBackupCodes} toaster={toaster} />
+              <>
+                <BackupCodesPanel
+                  codes={enrolledBackupCodes}
+                  organizationName={brand.organizationName}
+                  toaster={toaster}
+                />
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={codesAcknowledged}
+                    onChange={(event) =>
+                      setCodesAcknowledged(event.target.checked)
+                    }
+                  />
+                  I have saved my backup codes
+                </label>
+              </>
             ) : twoFactorVerifyUri ? (
               <>
                 <QrPanel value={twoFactorVerifyUri} />
@@ -379,6 +519,7 @@ const UserTwoFactorAuthentication = () => {
                   autoComplete="one-time-code"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
+                  onKeyDown={onEnter(submitTwoFactor)}
                   placeholder="000000"
                 />
               </>
@@ -391,76 +532,16 @@ const UserTwoFactorAuthentication = () => {
                   placeholder="Password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
+                  onKeyDown={onEnter(submitTwoFactor)}
                 />
               </>
             )}
 
             <Button
-              disabled={isPendingTwoFa}
-              onClick={async () => {
-                if (enrolledBackupCodes) {
-                  // "Done": acknowledge the codes and close
-                  setEnrolledBackupCodes(null);
-                  setTwoFactorDialogOpen(false);
-                  return;
-                }
-
-                setIsPendingTwoFa(true);
-
-                if (twoFactorEnabled) {
-                  await authClient.twoFactor.disable({
-                    password,
-                    fetchOptions: {
-                      onError(context) {
-                        toaster.error({ title: context.error.message });
-                      },
-                      onSuccess() {
-                        toaster.success({ title: "2FA disabled successfully" });
-                        setTwoFactorDialogOpen(false);
-                      },
-                    },
-                  });
-                } else if (twoFactorVerifyUri) {
-                  await authClient.twoFactor.verifyTotp({
-                    code: password,
-                    fetchOptions: {
-                      onError(context) {
-                        setIsPendingTwoFa(false);
-                        setPassword("");
-                        toaster.error({ title: context.error.message });
-                      },
-                      onSuccess() {
-                        toaster.success({ title: "2FA enabled successfully" });
-                        // surface the codes captured at `enable` as the final
-                        // step rather than closing on activation
-                        setEnrolledBackupCodes(pendingBackupCodes);
-                        setPendingBackupCodes([]);
-                        setTwoFactorVerifyUri("");
-                        setIsPendingTwoFa(false);
-                        setPassword("");
-                      },
-                    },
-                  });
-
-                  return;
-                } else {
-                  await authClient.twoFactor.enable({
-                    password,
-                    fetchOptions: {
-                      onError(context) {
-                        toaster.error({ title: context.error.message });
-                      },
-                      onSuccess(context) {
-                        setTwoFactorVerifyUri(context.data.totpURI);
-                        setPendingBackupCodes(context.data.backupCodes ?? []);
-                      },
-                    },
-                  });
-                }
-
-                setIsPendingTwoFa(false);
-                setPassword("");
-              }}
+              disabled={
+                isPendingTwoFa || (!!enrolledBackupCodes && !codesAcknowledged)
+              }
+              onClick={submitTwoFactor}
             >
               {isPendingTwoFa ? (
                 <Loader2 className="mr-2 size-4 animate-spin" />

@@ -157,6 +157,43 @@ describe("UserTwoFactorAuthentication", () => {
     }
   });
 
+  test("starts setup when Enter is pressed in the password field", async () => {
+    renderBlock();
+
+    press(screen.getByRole("button", { name: "Enable 2FA" }));
+    const dialog = await screen.findByRole("dialog");
+
+    const passwordInput = within(dialog).getByLabelText("Password");
+    fireEvent.change(passwordInput, { target: { value: "hunter2hunter2" } });
+    fireEvent.keyDown(passwordInput, { key: "Enter" });
+
+    // Enter must advance the flow (to the verify step) just like clicking
+    const verify = await screen.findByText("Verify & activate");
+    expect(verify).toBeDefined();
+  });
+
+  test("gates closing enrollment until the backup codes are acknowledged", async () => {
+    renderBlock();
+
+    press(screen.getByRole("button", { name: "Enable 2FA" }));
+    const dialog = await screen.findByRole("dialog");
+    press(within(dialog).getByRole("button", { name: "Enable 2FA" }));
+
+    const codeInput = await screen.findByLabelText(
+      /6-digit code from your authenticator/i,
+    );
+    fireEvent.change(codeInput, { target: { value: "123456" } });
+    press(screen.getByRole("button", { name: "Verify & activate" }));
+
+    // backup codes are shown; the "Done" button must stay disabled until the
+    // user confirms they saved them, so the only recovery codes are not lost
+    const done = await screen.findByRole("button", { name: "Done" });
+    expect((done as HTMLButtonElement).disabled).toBe(true);
+
+    fireEvent.click(await screen.findByLabelText(/saved/i));
+    expect((done as HTMLButtonElement).disabled).toBe(false);
+  });
+
   test("regenerates and shows new backup codes when 2FA is enabled", async () => {
     renderBlock({ organizationName: "Test" }, makeClient({ enabled: true }));
 

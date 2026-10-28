@@ -1,6 +1,6 @@
 import {
   UserTwoFactorAuthentication2
-} from "../../../chunks/account-user-two-factor-authentication-va18vag0.js";
+} from "../../../chunks/account-user-two-factor-authentication-8771ftdn.js";
 import"../../../chunks/account-user-two-factor-authentication-e8m4br8p.js";
 import"../../../chunks/account-user-two-factor-authentication-fa46q8yp.js";
 import"../../../chunks/account-user-two-factor-authentication-b60vh03c.js";
