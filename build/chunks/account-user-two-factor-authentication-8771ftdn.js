@@ -92,6 +92,7 @@ var require_prop_types = __commonJS(function(exports, module) {
 // src/registry/thornberry/components/account-user-two-factor-authentication.tsx
 import {
   Copy,
+  Download,
   ExternalLink,
   KeyRound,
   Loader2,
@@ -1814,6 +1815,12 @@ QRCode.propTypes = propTypes;
 
 // src/registry/thornberry/components/account-user-two-factor-authentication.tsx
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
+var onEnter = (run) => (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    run();
+  }
+};
 var QrPanel = ({ value }) => /* @__PURE__ */ jsx("div", {
   className: "flex justify-center",
   children: /* @__PURE__ */ jsx("div", {
@@ -1826,6 +1833,7 @@ var QrPanel = ({ value }) => /* @__PURE__ */ jsx("div", {
 });
 var BackupCodesPanel = ({
   codes,
+  organizationName,
   toaster
 }) => /* @__PURE__ */ jsxs("div", {
   className: "flex flex-col gap-2",
@@ -1841,24 +1849,59 @@ var BackupCodesPanel = ({
         children: code
       }, code))
     }),
-    /* @__PURE__ */ jsxs(Button2, {
-      size: "sm",
-      variant: "outline",
-      className: "w-fit",
-      onClick: async () => {
-        try {
-          await navigator.clipboard?.writeText(codes.join(`
-`));
-          toaster.success({ title: "Backup codes copied" });
-        } catch {
-          toaster.error({ title: "Could not copy. Copy them manually." });
-        }
-      },
+    /* @__PURE__ */ jsxs("div", {
+      className: "flex flex-wrap gap-2",
       children: [
-        /* @__PURE__ */ jsx(Copy, {
-          className: "mr-2 size-4"
+        /* @__PURE__ */ jsxs(Button2, {
+          size: "sm",
+          variant: "outline",
+          className: "w-fit",
+          onClick: async () => {
+            try {
+              await navigator.clipboard?.writeText(codes.join(`
+`));
+              toaster.success({ title: "Backup codes copied" });
+            } catch {
+              toaster.error({ title: "Could not copy. Copy them manually." });
+            }
+          },
+          children: [
+            /* @__PURE__ */ jsx(Copy, {
+              className: "mr-2 size-4"
+            }),
+            "Copy codes"
+          ]
         }),
-        "Copy codes"
+        /* @__PURE__ */ jsxs(Button2, {
+          size: "sm",
+          variant: "outline",
+          className: "w-fit",
+          onClick: () => {
+            try {
+              const blob = new Blob([`${codes.join(`
+`)}
+`], {
+                type: "text/plain"
+              });
+              const url = URL.createObjectURL(blob);
+              const anchor = document.createElement("a");
+              anchor.href = url;
+              anchor.download = `${organizationName.toLowerCase()}-backup-codes.txt`;
+              document.body.appendChild(anchor);
+              anchor.click();
+              anchor.remove();
+              URL.revokeObjectURL(url);
+            } catch {
+              toaster.error({ title: "Could not download. Copy them manually." });
+            }
+          },
+          children: [
+            /* @__PURE__ */ jsx(Download, {
+              className: "mr-2 size-4"
+            }),
+            "Download"
+          ]
+        })
       ]
     })
   ]
@@ -1872,17 +1915,119 @@ var UserTwoFactorAuthentication2 = () => {
   const [twoFactorVerifyUri, setTwoFactorVerifyUri] = useState("");
   const [pendingBackupCodes, setPendingBackupCodes] = useState([]);
   const [enrolledBackupCodes, setEnrolledBackupCodes] = useState(null);
+  const [codesAcknowledged, setCodesAcknowledged] = useState(false);
   const [regenDialogOpen, setRegenDialogOpen] = useState(false);
   const [regenPassword, setRegenPassword] = useState("");
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [regeneratedCodes, setRegeneratedCodes] = useState(null);
+  const [regenAcknowledged, setRegenAcknowledged] = useState(false);
   const twoFactorEnabled = !!session?.user.twoFactorEnabled;
+  const resetTwoFactorDialog = () => {
+    setTwoFactorDialogOpen(false);
+    setTwoFactorVerifyUri("");
+    setPendingBackupCodes([]);
+    setEnrolledBackupCodes(null);
+    setCodesAcknowledged(false);
+    setPassword("");
+  };
   const resetRegenDialog = () => {
     setRegenDialogOpen(false);
     setRegenPassword("");
     setRegeneratedCodes(null);
+    setRegenAcknowledged(false);
     setIsRegenerating(false);
   };
+  const submitTwoFactor = async () => {
+    if (enrolledBackupCodes) {
+      resetTwoFactorDialog();
+      return;
+    }
+    setIsPendingTwoFa(true);
+    if (twoFactorEnabled) {
+      await authClient.twoFactor.disable({
+        password,
+        fetchOptions: {
+          onError(context) {
+            toaster.error({ title: context.error.message });
+          },
+          onSuccess() {
+            toaster.success({ title: "2FA disabled successfully" });
+            resetTwoFactorDialog();
+          }
+        }
+      });
+    } else if (twoFactorVerifyUri) {
+      await authClient.twoFactor.verifyTotp({
+        code: password,
+        fetchOptions: {
+          onError(context) {
+            setIsPendingTwoFa(false);
+            setPassword("");
+            toaster.error({ title: context.error.message });
+          },
+          onSuccess() {
+            toaster.success({ title: "2FA enabled successfully" });
+            setEnrolledBackupCodes(pendingBackupCodes);
+            setCodesAcknowledged(false);
+            setPendingBackupCodes([]);
+            setTwoFactorVerifyUri("");
+            setIsPendingTwoFa(false);
+            setPassword("");
+          }
+        }
+      });
+      return;
+    } else {
+      await authClient.twoFactor.enable({
+        password,
+        fetchOptions: {
+          onError(context) {
+            toaster.error({ title: context.error.message });
+          },
+          onSuccess(context) {
+            setTwoFactorVerifyUri(context.data.totpURI);
+            setPendingBackupCodes(context.data.backupCodes ?? []);
+          }
+        }
+      });
+    }
+    setIsPendingTwoFa(false);
+    setPassword("");
+  };
+  const showRescanQr = async () => {
+    if (password.length < 8) {
+      toaster.error({ title: "Password must be at least 8 characters" });
+      return;
+    }
+    await authClient.twoFactor.getTotpUri({ password }, {
+      onSuccess(context) {
+        setTwoFactorVerifyUri(context.data.totpURI);
+      }
+    });
+    setPassword("");
+  };
+  const submitRegen = async () => {
+    if (regenPassword.length < 8) {
+      toaster.error({ title: "Password must be at least 8 characters" });
+      return;
+    }
+    setIsRegenerating(true);
+    await authClient.twoFactor.generateBackupCodes({
+      password: regenPassword,
+      fetchOptions: {
+        onError(context) {
+          toaster.error({ title: context.error.message });
+        },
+        onSuccess(context) {
+          setRegeneratedCodes(context.data.backupCodes ?? []);
+        }
+      }
+    });
+    setRegenPassword("");
+    setIsRegenerating(false);
+  };
+  const lockTwoFactorDialog = !!enrolledBackupCodes && !codesAcknowledged;
+  const lockRegenDialog = !!regeneratedCodes && !regenAcknowledged;
   return /* @__PURE__ */ jsxs(Fragment, {
     children: [
       /* @__PURE__ */ jsx("h3", {
@@ -1973,23 +2118,11 @@ var UserTwoFactorAuthentication2 = () => {
                         /* @__PURE__ */ jsx(PasswordInput2, {
                           value: password,
                           onChange: (event) => setPassword(event.target.value),
+                          onKeyDown: onEnter(showRescanQr),
                           placeholder: "Enter Password"
                         }),
                         /* @__PURE__ */ jsx(Button2, {
-                          onClick: async () => {
-                            if (password.length < 8) {
-                              toaster.error({
-                                title: "Password must be at least 8 characters"
-                              });
-                              return;
-                            }
-                            await authClient.twoFactor.getTotpUri({ password }, {
-                              onSuccess(context) {
-                                setTwoFactorVerifyUri(context.data.totpURI);
-                              }
-                            });
-                            setPassword("");
-                          },
+                          onClick: showRescanQr,
                           children: "Show QR Code"
                         })
                       ]
@@ -2001,6 +2134,8 @@ var UserTwoFactorAuthentication2 = () => {
           }),
           /* @__PURE__ */ jsxs(DialogRoot2, {
             open: regenDialogOpen,
+            closeOnInteractOutside: !lockRegenDialog,
+            closeOnEscape: !lockRegenDialog,
             onOpenChange: ({ open }) => open ? setRegenDialogOpen(true) : resetRegenDialog(),
             children: [
               /* @__PURE__ */ jsx(DialogTrigger2, {
@@ -2038,10 +2173,23 @@ var UserTwoFactorAuthentication2 = () => {
                       children: [
                         /* @__PURE__ */ jsx(BackupCodesPanel, {
                           codes: regeneratedCodes,
+                          organizationName: brand.organizationName,
                           toaster
+                        }),
+                        /* @__PURE__ */ jsxs("label", {
+                          className: "flex items-center gap-2 text-sm",
+                          children: [
+                            /* @__PURE__ */ jsx("input", {
+                              type: "checkbox",
+                              checked: regenAcknowledged,
+                              onChange: (event) => setRegenAcknowledged(event.target.checked)
+                            }),
+                            "I have saved my backup codes"
+                          ]
                         }),
                         /* @__PURE__ */ jsx(Button2, {
                           className: "w-fit",
+                          disabled: !regenAcknowledged,
                           onClick: resetRegenDialog,
                           children: "Done"
                         })
@@ -2056,32 +2204,12 @@ var UserTwoFactorAuthentication2 = () => {
                           id: "regen-password",
                           placeholder: "Password",
                           value: regenPassword,
-                          onChange: (event) => setRegenPassword(event.target.value)
+                          onChange: (event) => setRegenPassword(event.target.value),
+                          onKeyDown: onEnter(submitRegen)
                         }),
                         /* @__PURE__ */ jsx(Button2, {
                           disabled: isRegenerating,
-                          onClick: async () => {
-                            if (regenPassword.length < 8) {
-                              toaster.error({
-                                title: "Password must be at least 8 characters"
-                              });
-                              return;
-                            }
-                            setIsRegenerating(true);
-                            await authClient.twoFactor.generateBackupCodes({
-                              password: regenPassword,
-                              fetchOptions: {
-                                onError(context) {
-                                  toaster.error({ title: context.error.message });
-                                },
-                                onSuccess(context) {
-                                  setRegeneratedCodes(context.data.backupCodes ?? []);
-                                }
-                              }
-                            });
-                            setRegenPassword("");
-                            setIsRegenerating(false);
-                          },
+                          onClick: submitRegen,
                           children: isRegenerating ? /* @__PURE__ */ jsx(Loader2, {
                             className: "mr-2 size-4 animate-spin"
                           }) : "Regenerate backup codes"
@@ -2097,15 +2225,9 @@ var UserTwoFactorAuthentication2 = () => {
       }),
       /* @__PURE__ */ jsxs(DialogRoot2, {
         open: twoFactorDialogOpen,
-        onOpenChange: ({ open }) => {
-          setTwoFactorDialogOpen(open);
-          if (!open) {
-            setTwoFactorVerifyUri("");
-            setPendingBackupCodes([]);
-            setEnrolledBackupCodes(null);
-            setPassword("");
-          }
-        },
+        closeOnInteractOutside: !lockTwoFactorDialog,
+        closeOnEscape: !lockTwoFactorDialog,
+        onOpenChange: ({ open }) => open ? setTwoFactorDialogOpen(true) : resetTwoFactorDialog(),
         children: [
           /* @__PURE__ */ jsx(DialogTrigger2, {
             asChild: true,
@@ -2139,9 +2261,25 @@ var UserTwoFactorAuthentication2 = () => {
                     })
                   ]
                 }),
-                enrolledBackupCodes ? /* @__PURE__ */ jsx(BackupCodesPanel, {
-                  codes: enrolledBackupCodes,
-                  toaster
+                enrolledBackupCodes ? /* @__PURE__ */ jsxs(Fragment, {
+                  children: [
+                    /* @__PURE__ */ jsx(BackupCodesPanel, {
+                      codes: enrolledBackupCodes,
+                      organizationName: brand.organizationName,
+                      toaster
+                    }),
+                    /* @__PURE__ */ jsxs("label", {
+                      className: "flex items-center gap-2 text-sm",
+                      children: [
+                        /* @__PURE__ */ jsx("input", {
+                          type: "checkbox",
+                          checked: codesAcknowledged,
+                          onChange: (event) => setCodesAcknowledged(event.target.checked)
+                        }),
+                        "I have saved my backup codes"
+                      ]
+                    })
+                  ]
                 }) : twoFactorVerifyUri ? /* @__PURE__ */ jsxs(Fragment, {
                   children: [
                     /* @__PURE__ */ jsx(QrPanel, {
@@ -2157,6 +2295,7 @@ var UserTwoFactorAuthentication2 = () => {
                       autoComplete: "one-time-code",
                       value: password,
                       onChange: (event) => setPassword(event.target.value),
+                      onKeyDown: onEnter(submitTwoFactor),
                       placeholder: "000000"
                     })
                   ]
@@ -2170,69 +2309,14 @@ var UserTwoFactorAuthentication2 = () => {
                       id: "two-factor-password",
                       placeholder: "Password",
                       value: password,
-                      onChange: (event) => setPassword(event.target.value)
+                      onChange: (event) => setPassword(event.target.value),
+                      onKeyDown: onEnter(submitTwoFactor)
                     })
                   ]
                 }),
                 /* @__PURE__ */ jsx(Button2, {
-                  disabled: isPendingTwoFa,
-                  onClick: async () => {
-                    if (enrolledBackupCodes) {
-                      setEnrolledBackupCodes(null);
-                      setTwoFactorDialogOpen(false);
-                      return;
-                    }
-                    setIsPendingTwoFa(true);
-                    if (twoFactorEnabled) {
-                      await authClient.twoFactor.disable({
-                        password,
-                        fetchOptions: {
-                          onError(context) {
-                            toaster.error({ title: context.error.message });
-                          },
-                          onSuccess() {
-                            toaster.success({ title: "2FA disabled successfully" });
-                            setTwoFactorDialogOpen(false);
-                          }
-                        }
-                      });
-                    } else if (twoFactorVerifyUri) {
-                      await authClient.twoFactor.verifyTotp({
-                        code: password,
-                        fetchOptions: {
-                          onError(context) {
-                            setIsPendingTwoFa(false);
-                            setPassword("");
-                            toaster.error({ title: context.error.message });
-                          },
-                          onSuccess() {
-                            toaster.success({ title: "2FA enabled successfully" });
-                            setEnrolledBackupCodes(pendingBackupCodes);
-                            setPendingBackupCodes([]);
-                            setTwoFactorVerifyUri("");
-                            setIsPendingTwoFa(false);
-                            setPassword("");
-                          }
-                        }
-                      });
-                      return;
-                    } else {
-                      await authClient.twoFactor.enable({
-                        password,
-                        fetchOptions: {
-                          onError(context) {
-                            toaster.error({ title: context.error.message });
-                          },
-                          onSuccess(context) {
-                            setTwoFactorVerifyUri(context.data.totpURI);
-                            setPendingBackupCodes(context.data.backupCodes ?? []);
-                          }
-                        }
-                      });
-                    }
-                    setIsPendingTwoFa(false);
-                    setPassword("");
-                  },
+                  disabled: isPendingTwoFa || !!enrolledBackupCodes && !codesAcknowledged,
+                  onClick: submitTwoFactor,
                   children: isPendingTwoFa ? /* @__PURE__ */ jsx(Loader2, {
                     className: "mr-2 size-4 animate-spin"
                   }) : enrolledBackupCodes ? "Done" : twoFactorEnabled ? "Disable 2FA" : twoFactorVerifyUri ? "Verify & activate" : "Enable 2FA"
