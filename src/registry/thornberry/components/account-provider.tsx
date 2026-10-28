@@ -258,6 +258,10 @@ export interface AccountAuthClient {
       code: string;
       fetchOptions?: AccountFetchOptions;
     }) => Promise<unknown>;
+    generateBackupCodes: (options: {
+      password: string;
+      fetchOptions?: AccountFetchOptions;
+    }) => Promise<unknown>;
   };
   organization: {
     list: () => Promise<{ data?: AccountOrganization[] | null }>;

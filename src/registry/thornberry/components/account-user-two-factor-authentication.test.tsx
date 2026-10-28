@@ -13,14 +13,24 @@ import { UserTwoFactorAuthentication } from "@/registry/thornberry/components/ac
 
 import type { AccountContextValue } from "@/registry/thornberry/components/account-provider";
 
-// A minimal client where `enable` starts setup and returns the TOTP URI to
-// scan (better-auth does not activate 2FA until verify-totp), so the block
-// should move on to the verification step rather than claim it is done.
-const makeClient = () =>
+const BACKUP_CODES = [
+  "aaaa-1111",
+  "bbbb-2222",
+  "cccc-3333",
+  "dddd-4444",
+  "eeee-5555",
+];
+const REGENERATED_CODES = ["wxyz-9999", "vvvv-8888"];
+
+// A minimal client. `enable` starts setup and returns the TOTP URI to scan plus
+// the backup codes (better-auth does not activate 2FA until verify-totp), so the
+// block should move on to the verification step and surface the codes once the
+// user verifies. `twoFactorEnabled` toggles the enabled-account surface.
+const makeClient = ({ enabled = false }: { enabled?: boolean } = {}) =>
   ({
     useSession: () => ({
       data: {
-        user: { id: "1", name: "", email: "", twoFactorEnabled: false },
+        user: { id: "1", name: "", email: "", twoFactorEnabled: enabled },
         session: { id: "s1", token: "t1" },
       },
       isPending: false,
@@ -31,11 +41,22 @@ const makeClient = () =>
         fetchOptions?: { onSuccess?: (ctx: unknown) => void };
       }) =>
         options.fetchOptions?.onSuccess?.({
-          data: { totpURI: "otpauth://totp/Test" },
+          data: {
+            totpURI: "otpauth://totp/Test",
+            backupCodes: BACKUP_CODES,
+          },
         }),
       disable: async () => {},
       getTotpUri: async () => {},
-      verifyTotp: async () => {},
+      verifyTotp: async (options: {
+        fetchOptions?: { onSuccess?: (ctx: unknown) => void };
+      }) => options.fetchOptions?.onSuccess?.({ data: {} }),
+      generateBackupCodes: async (options: {
+        fetchOptions?: { onSuccess?: (ctx: unknown) => void };
+      }) =>
+        options.fetchOptions?.onSuccess?.({
+          data: { backupCodes: REGENERATED_CODES },
+        }),
     },
   }) as unknown as AccountContextValue["authClient"];
 
@@ -51,9 +72,10 @@ const renderBlock = (
   brand: { organizationName: string; securityDocsUrl?: string } = {
     organizationName: "Test",
   },
+  client: AccountContextValue["authClient"] = makeClient(),
 ) =>
   render(
-    <AccountProvider authClient={makeClient()} toaster={toaster} brand={brand}>
+    <AccountProvider authClient={client} toaster={toaster} brand={brand}>
       <UserTwoFactorAuthentication />
     </AccountProvider>,
   );
@@ -114,5 +136,39 @@ describe("UserTwoFactorAuthentication", () => {
     await screen.findByText("Verify & activate");
     const svg = document.querySelector("svg[viewBox]");
     expect(svg).not.toBeNull();
+  });
+
+  test("surfaces the backup codes after the user verifies, so they can be saved", async () => {
+    renderBlock();
+
+    press(screen.getByRole("button", { name: "Enable 2FA" }));
+    const dialog = await screen.findByRole("dialog");
+    press(within(dialog).getByRole("button", { name: "Enable 2FA" }));
+
+    const codeInput = await screen.findByLabelText(
+      /6-digit code from your authenticator/i,
+    );
+    fireEvent.change(codeInput, { target: { value: "123456" } });
+    press(screen.getByRole("button", { name: "Verify & activate" }));
+
+    // every backup code the server returned must be shown to the user
+    for (const code of BACKUP_CODES) {
+      expect(await screen.findByText(code)).toBeDefined();
+    }
+  });
+
+  test("regenerates and shows new backup codes when 2FA is enabled", async () => {
+    renderBlock({ organizationName: "Test" }, makeClient({ enabled: true }));
+
+    press(screen.getByRole("button", { name: /backup codes/i }));
+    const dialog = await screen.findByRole("dialog");
+
+    const passwordInput = within(dialog).getByLabelText("Password");
+    fireEvent.change(passwordInput, { target: { value: "hunter2hunter2" } });
+    press(within(dialog).getByRole("button", { name: /regenerate/i }));
+
+    for (const code of REGENERATED_CODES) {
+      expect(await screen.findByText(code)).toBeDefined();
+    }
   });
 });
