@@ -91,7 +91,9 @@ var require_prop_types = __commonJS(function(exports, module) {
 
 // src/registry/thornberry/components/account-user-two-factor-authentication.tsx
 import {
+  Copy,
   ExternalLink,
+  KeyRound,
   Loader2,
   QrCode,
   ShieldCheck,
@@ -1822,6 +1824,45 @@ var QrPanel = ({ value }) => /* @__PURE__ */ jsx("div", {
     })
   })
 });
+var BackupCodesPanel = ({
+  codes,
+  toaster
+}) => /* @__PURE__ */ jsxs("div", {
+  className: "flex flex-col gap-2",
+  children: [
+    /* @__PURE__ */ jsx("p", {
+      className: "font-medium text-sm",
+      children: "Save these backup codes somewhere safe. Each one works once to sign in if you lose your authenticator. They will not be shown again."
+    }),
+    /* @__PURE__ */ jsx("ul", {
+      className: "grid grid-cols-2 gap-2 rounded-md border border-border bg-muted p-3",
+      children: codes.map((code) => /* @__PURE__ */ jsx("li", {
+        className: "font-mono text-sm",
+        children: code
+      }, code))
+    }),
+    /* @__PURE__ */ jsxs(Button2, {
+      size: "sm",
+      variant: "outline",
+      className: "w-fit",
+      onClick: async () => {
+        try {
+          await navigator.clipboard?.writeText(codes.join(`
+`));
+          toaster.success({ title: "Backup codes copied" });
+        } catch {
+          toaster.error({ title: "Could not copy. Copy them manually." });
+        }
+      },
+      children: [
+        /* @__PURE__ */ jsx(Copy, {
+          className: "mr-2 size-4"
+        }),
+        "Copy codes"
+      ]
+    })
+  ]
+});
 var UserTwoFactorAuthentication2 = () => {
   const { authClient, toaster, brand } = useAccountContext2();
   const { data: session } = authClient.useSession();
@@ -1829,7 +1870,19 @@ var UserTwoFactorAuthentication2 = () => {
   const [password, setPassword] = useState("");
   const [twoFactorDialogOpen, setTwoFactorDialogOpen] = useState(false);
   const [twoFactorVerifyUri, setTwoFactorVerifyUri] = useState("");
+  const [pendingBackupCodes, setPendingBackupCodes] = useState([]);
+  const [enrolledBackupCodes, setEnrolledBackupCodes] = useState(null);
+  const [regenDialogOpen, setRegenDialogOpen] = useState(false);
+  const [regenPassword, setRegenPassword] = useState("");
+  const [isRegenerating, setIsRegenerating] = useState(false);
+  const [regeneratedCodes, setRegeneratedCodes] = useState(null);
   const twoFactorEnabled = !!session?.user.twoFactorEnabled;
+  const resetRegenDialog = () => {
+    setRegenDialogOpen(false);
+    setRegenPassword("");
+    setRegeneratedCodes(null);
+    setIsRegenerating(false);
+  };
   return /* @__PURE__ */ jsxs(Fragment, {
     children: [
       /* @__PURE__ */ jsx("h3", {
@@ -1859,93 +1912,200 @@ var UserTwoFactorAuthentication2 = () => {
           }) : null
         ]
       }),
-      twoFactorEnabled && /* @__PURE__ */ jsxs(DialogRoot2, {
+      twoFactorEnabled && /* @__PURE__ */ jsxs("div", {
+        className: "flex flex-wrap gap-2",
         children: [
-          /* @__PURE__ */ jsx(DialogTrigger2, {
-            asChild: true,
-            children: /* @__PURE__ */ jsxs(Button2, {
-              className: "w-fit",
-              size: "sm",
-              variant: "outline",
-              children: [
-                /* @__PURE__ */ jsx(QrCode, {
-                  className: "mr-2 size-4"
-                }),
-                /* @__PURE__ */ jsx("span", {
-                  children: "Scan QR Code"
-                })
-              ]
-            })
-          }),
-          /* @__PURE__ */ jsx(DialogBackdrop2, {}),
-          /* @__PURE__ */ jsx(DialogPositioner2, {
-            children: /* @__PURE__ */ jsxs(DialogContent2, {
-              children: [
-                /* @__PURE__ */ jsxs("div", {
-                  className: "flex flex-col gap-1.5",
+          /* @__PURE__ */ jsxs(DialogRoot2, {
+            children: [
+              /* @__PURE__ */ jsx(DialogTrigger2, {
+                asChild: true,
+                children: /* @__PURE__ */ jsxs(Button2, {
+                  className: "w-fit",
+                  size: "sm",
+                  variant: "outline",
                   children: [
-                    /* @__PURE__ */ jsx(DialogTitle2, {
-                      children: "Scan QR Code"
+                    /* @__PURE__ */ jsx(QrCode, {
+                      className: "mr-2 size-4"
                     }),
-                    /* @__PURE__ */ jsxs(DialogDescription2, {
+                    /* @__PURE__ */ jsx("span", {
+                      children: "Scan QR Code"
+                    })
+                  ]
+                })
+              }),
+              /* @__PURE__ */ jsx(DialogBackdrop2, {}),
+              /* @__PURE__ */ jsx(DialogPositioner2, {
+                children: /* @__PURE__ */ jsxs(DialogContent2, {
+                  children: [
+                    /* @__PURE__ */ jsxs("div", {
+                      className: "flex flex-col gap-1.5",
                       children: [
-                        "Add ",
-                        brand.organizationName,
-                        " to your authenticator app again. Confirm your password, then scan the code below."
+                        /* @__PURE__ */ jsx(DialogTitle2, {
+                          children: "Scan QR Code"
+                        }),
+                        /* @__PURE__ */ jsxs(DialogDescription2, {
+                          children: [
+                            "Add ",
+                            brand.organizationName,
+                            " to your authenticator app again. Confirm your password, then scan the code below."
+                          ]
+                        })
+                      ]
+                    }),
+                    twoFactorVerifyUri ? /* @__PURE__ */ jsxs(Fragment, {
+                      children: [
+                        /* @__PURE__ */ jsx(QrPanel, {
+                          value: twoFactorVerifyUri
+                        }),
+                        /* @__PURE__ */ jsx(Label2, {
+                          htmlFor: "two-factor-uri",
+                          children: "Can't scan? Enter this setup key manually instead."
+                        }),
+                        /* @__PURE__ */ jsx("input", {
+                          id: "two-factor-uri",
+                          readOnly: true,
+                          value: twoFactorVerifyUri,
+                          className: "w-full rounded border border-border bg-muted px-2 py-1 font-mono text-sm"
+                        })
+                      ]
+                    }) : /* @__PURE__ */ jsxs(Fragment, {
+                      children: [
+                        /* @__PURE__ */ jsx(PasswordInput2, {
+                          value: password,
+                          onChange: (event) => setPassword(event.target.value),
+                          placeholder: "Enter Password"
+                        }),
+                        /* @__PURE__ */ jsx(Button2, {
+                          onClick: async () => {
+                            if (password.length < 8) {
+                              toaster.error({
+                                title: "Password must be at least 8 characters"
+                              });
+                              return;
+                            }
+                            await authClient.twoFactor.getTotpUri({ password }, {
+                              onSuccess(context) {
+                                setTwoFactorVerifyUri(context.data.totpURI);
+                              }
+                            });
+                            setPassword("");
+                          },
+                          children: "Show QR Code"
+                        })
                       ]
                     })
                   ]
-                }),
-                twoFactorVerifyUri ? /* @__PURE__ */ jsxs(Fragment, {
+                })
+              })
+            ]
+          }),
+          /* @__PURE__ */ jsxs(DialogRoot2, {
+            open: regenDialogOpen,
+            onOpenChange: ({ open }) => open ? setRegenDialogOpen(true) : resetRegenDialog(),
+            children: [
+              /* @__PURE__ */ jsx(DialogTrigger2, {
+                asChild: true,
+                children: /* @__PURE__ */ jsxs(Button2, {
+                  className: "w-fit",
+                  size: "sm",
+                  variant: "outline",
                   children: [
-                    /* @__PURE__ */ jsx(QrPanel, {
-                      value: twoFactorVerifyUri
+                    /* @__PURE__ */ jsx(KeyRound, {
+                      className: "mr-2 size-4"
                     }),
-                    /* @__PURE__ */ jsx(Label2, {
-                      htmlFor: "two-factor-uri",
-                      children: "Can't scan? Enter this setup key manually instead."
-                    }),
-                    /* @__PURE__ */ jsx("input", {
-                      id: "two-factor-uri",
-                      readOnly: true,
-                      value: twoFactorVerifyUri,
-                      className: "w-full rounded border border-border bg-muted px-2 py-1 font-mono text-sm"
-                    })
-                  ]
-                }) : /* @__PURE__ */ jsxs(Fragment, {
-                  children: [
-                    /* @__PURE__ */ jsx(PasswordInput2, {
-                      value: password,
-                      onChange: (event) => setPassword(event.target.value),
-                      placeholder: "Enter Password"
-                    }),
-                    /* @__PURE__ */ jsx(Button2, {
-                      onClick: async () => {
-                        if (password.length < 8) {
-                          toaster.error({
-                            title: "Password must be at least 8 characters"
-                          });
-                          return;
-                        }
-                        await authClient.twoFactor.getTotpUri({ password }, {
-                          onSuccess(context) {
-                            setTwoFactorVerifyUri(context.data.totpURI);
-                          }
-                        });
-                        setPassword("");
-                      },
-                      children: "Show QR Code"
+                    /* @__PURE__ */ jsx("span", {
+                      children: "Backup codes"
                     })
                   ]
                 })
-              ]
-            })
+              }),
+              /* @__PURE__ */ jsx(DialogBackdrop2, {}),
+              /* @__PURE__ */ jsx(DialogPositioner2, {
+                children: /* @__PURE__ */ jsxs(DialogContent2, {
+                  children: [
+                    /* @__PURE__ */ jsxs("div", {
+                      className: "flex flex-col gap-1.5",
+                      children: [
+                        /* @__PURE__ */ jsx(DialogTitle2, {
+                          children: "Regenerate backup codes"
+                        }),
+                        /* @__PURE__ */ jsx(DialogDescription2, {
+                          children: regeneratedCodes ? "Your previous backup codes no longer work. Save the new ones below." : "Confirm your password to generate a fresh set of backup codes. This invalidates any codes you saved before."
+                        })
+                      ]
+                    }),
+                    regeneratedCodes ? /* @__PURE__ */ jsxs(Fragment, {
+                      children: [
+                        /* @__PURE__ */ jsx(BackupCodesPanel, {
+                          codes: regeneratedCodes,
+                          toaster
+                        }),
+                        /* @__PURE__ */ jsx(Button2, {
+                          className: "w-fit",
+                          onClick: resetRegenDialog,
+                          children: "Done"
+                        })
+                      ]
+                    }) : /* @__PURE__ */ jsxs(Fragment, {
+                      children: [
+                        /* @__PURE__ */ jsx(Label2, {
+                          htmlFor: "regen-password",
+                          children: "Password"
+                        }),
+                        /* @__PURE__ */ jsx(PasswordInput2, {
+                          id: "regen-password",
+                          placeholder: "Password",
+                          value: regenPassword,
+                          onChange: (event) => setRegenPassword(event.target.value)
+                        }),
+                        /* @__PURE__ */ jsx(Button2, {
+                          disabled: isRegenerating,
+                          onClick: async () => {
+                            if (regenPassword.length < 8) {
+                              toaster.error({
+                                title: "Password must be at least 8 characters"
+                              });
+                              return;
+                            }
+                            setIsRegenerating(true);
+                            await authClient.twoFactor.generateBackupCodes({
+                              password: regenPassword,
+                              fetchOptions: {
+                                onError(context) {
+                                  toaster.error({ title: context.error.message });
+                                },
+                                onSuccess(context) {
+                                  setRegeneratedCodes(context.data.backupCodes ?? []);
+                                }
+                              }
+                            });
+                            setRegenPassword("");
+                            setIsRegenerating(false);
+                          },
+                          children: isRegenerating ? /* @__PURE__ */ jsx(Loader2, {
+                            className: "mr-2 size-4 animate-spin"
+                          }) : "Regenerate backup codes"
+                        })
+                      ]
+                    })
+                  ]
+                })
+              })
+            ]
           })
         ]
       }),
       /* @__PURE__ */ jsxs(DialogRoot2, {
         open: twoFactorDialogOpen,
-        onOpenChange: ({ open }) => setTwoFactorDialogOpen(open),
+        onOpenChange: ({ open }) => {
+          setTwoFactorDialogOpen(open);
+          if (!open) {
+            setTwoFactorVerifyUri("");
+            setPendingBackupCodes([]);
+            setEnrolledBackupCodes(null);
+            setPassword("");
+          }
+        },
         children: [
           /* @__PURE__ */ jsx(DialogTrigger2, {
             asChild: true,
@@ -1972,14 +2132,17 @@ var UserTwoFactorAuthentication2 = () => {
                   className: "flex flex-col gap-1.5",
                   children: [
                     /* @__PURE__ */ jsx(DialogTitle2, {
-                      children: twoFactorEnabled ? "Disable 2FA" : "Enable 2FA"
+                      children: enrolledBackupCodes ? "Save your backup codes" : twoFactorEnabled ? "Disable 2FA" : "Enable 2FA"
                     }),
                     /* @__PURE__ */ jsx(DialogDescription2, {
-                      children: twoFactorEnabled ? "Turn off two-factor authentication. Your account will be protected by your password alone." : twoFactorVerifyUri ? "Scan the code with your authenticator app, then enter the 6-digit code it shows to finish." : "Confirm your password to begin setting up two-factor authentication."
+                      children: enrolledBackupCodes ? "Two-factor authentication is on. Store these recovery codes before you close this." : twoFactorEnabled ? "Turn off two-factor authentication. Your account will be protected by your password alone." : twoFactorVerifyUri ? "Scan the code with your authenticator app, then enter the 6-digit code it shows to finish." : "Confirm your password to begin setting up two-factor authentication."
                     })
                   ]
                 }),
-                twoFactorVerifyUri ? /* @__PURE__ */ jsxs(Fragment, {
+                enrolledBackupCodes ? /* @__PURE__ */ jsx(BackupCodesPanel, {
+                  codes: enrolledBackupCodes,
+                  toaster
+                }) : twoFactorVerifyUri ? /* @__PURE__ */ jsxs(Fragment, {
                   children: [
                     /* @__PURE__ */ jsx(QrPanel, {
                       value: twoFactorVerifyUri
@@ -2014,6 +2177,11 @@ var UserTwoFactorAuthentication2 = () => {
                 /* @__PURE__ */ jsx(Button2, {
                   disabled: isPendingTwoFa,
                   onClick: async () => {
+                    if (enrolledBackupCodes) {
+                      setEnrolledBackupCodes(null);
+                      setTwoFactorDialogOpen(false);
+                      return;
+                    }
                     setIsPendingTwoFa(true);
                     if (twoFactorEnabled) {
                       await authClient.twoFactor.disable({
@@ -2039,10 +2207,11 @@ var UserTwoFactorAuthentication2 = () => {
                           },
                           onSuccess() {
                             toaster.success({ title: "2FA enabled successfully" });
+                            setEnrolledBackupCodes(pendingBackupCodes);
+                            setPendingBackupCodes([]);
                             setTwoFactorVerifyUri("");
                             setIsPendingTwoFa(false);
                             setPassword("");
-                            setTwoFactorDialogOpen(false);
                           }
                         }
                       });
@@ -2056,6 +2225,7 @@ var UserTwoFactorAuthentication2 = () => {
                           },
                           onSuccess(context) {
                             setTwoFactorVerifyUri(context.data.totpURI);
+                            setPendingBackupCodes(context.data.backupCodes ?? []);
                           }
                         }
                       });
@@ -2065,7 +2235,7 @@ var UserTwoFactorAuthentication2 = () => {
                   },
                   children: isPendingTwoFa ? /* @__PURE__ */ jsx(Loader2, {
                     className: "mr-2 size-4 animate-spin"
-                  }) : twoFactorEnabled ? "Disable 2FA" : twoFactorVerifyUri ? "Verify & activate" : "Enable 2FA"
+                  }) : enrolledBackupCodes ? "Done" : twoFactorEnabled ? "Disable 2FA" : twoFactorVerifyUri ? "Verify & activate" : "Enable 2FA"
                 })
               ]
             })
