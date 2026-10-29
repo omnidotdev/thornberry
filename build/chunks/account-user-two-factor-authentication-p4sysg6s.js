@@ -81,6 +81,12 @@ var ConfirmDialog2 = ({
                     id: "confirm-input",
                     value: typed,
                     onChange: (event) => setTyped(event.target.value),
+                    onKeyDown: (event) => {
+                      if (event.key === "Enter" && confirmable && !isPending) {
+                        event.preventDefault();
+                        onConfirm();
+                      }
+                    },
                     autoComplete: "off",
                     autoCapitalize: "off",
                     spellCheck: false,

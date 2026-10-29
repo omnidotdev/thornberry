@@ -9,7 +9,7 @@ import"../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
 import"../../../chunks/account-user-two-factor-authentication-fa46q8yp.js";
 import {
   AddPasskey2
-} from "../../../chunks/account-user-two-factor-authentication-8hgpxw18.js";
+} from "../../../chunks/account-user-two-factor-authentication-qvta5wkk.js";
 import {
   CardRoot2
 } from "../../../chunks/account-user-two-factor-authentication-f7d4gzjq.js";

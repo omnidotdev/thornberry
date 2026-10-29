@@ -18,7 +18,7 @@ import {
 } from "./account-user-two-factor-authentication-8q0yqrx6.js";
 import {
   ConfirmDialog2
-} from "./account-user-two-factor-authentication-1qzbdkf5.js";
+} from "./account-user-two-factor-authentication-p4sysg6s.js";
 import {
   ALLOWED_IMAGE_TYPES,
   MAX_IMAGE_SIZE,
