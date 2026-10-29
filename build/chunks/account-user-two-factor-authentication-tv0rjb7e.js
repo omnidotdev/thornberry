@@ -6,7 +6,7 @@ import {
 } from "./account-user-two-factor-authentication-qyg3bvpa.js";
 import {
   ConfirmDialog2
-} from "./account-user-two-factor-authentication-1qzbdkf5.js";
+} from "./account-user-two-factor-authentication-p4sysg6s.js";
 
 // src/registry/thornberry/components/account-user-active-sessions.tsx
 import { Monitor, Smartphone } from "lucide-react";

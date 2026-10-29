@@ -21,7 +21,7 @@ import {
 } from "./account-user-two-factor-authentication-fa46q8yp.js";
 import {
   ConfirmDialog2
-} from "./account-user-two-factor-authentication-1qzbdkf5.js";
+} from "./account-user-two-factor-authentication-p4sysg6s.js";
 import {
   Select2,
   SelectControl2,

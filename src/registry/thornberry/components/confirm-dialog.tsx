@@ -96,6 +96,14 @@ const ConfirmDialog = ({
                   id="confirm-input"
                   value={typed}
                   onChange={(event) => setTyped(event.target.value)}
+                  onKeyDown={(event) => {
+                    // Enter confirms, but only once the typed string matches,
+                    // so it can never fire the destructive action early
+                    if (event.key === "Enter" && confirmable && !isPending) {
+                      event.preventDefault();
+                      onConfirm();
+                    }
+                  }}
                   autoComplete="off"
                   autoCapitalize="off"
                   spellCheck={false}

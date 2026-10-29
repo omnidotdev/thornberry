@@ -21,7 +21,7 @@ import {
 } from "./account-user-two-factor-authentication-fa46q8yp.js";
 import {
   ConfirmDialog2
-} from "./account-user-two-factor-authentication-1qzbdkf5.js";
+} from "./account-user-two-factor-authentication-p4sysg6s.js";
 import {
   Table2,
   TableHeader2,
@@ -168,6 +168,12 @@ var ViewPasskeys2 = () => {
                       id: "passkey-name",
                       value: passkeyName,
                       onChange: (event) => setPasskeyName(event.target.value),
+                      onKeyDown: (event) => {
+                        if (event.key === "Enter" && !isLoading) {
+                          event.preventDefault();
+                          handleAddPasskey();
+                        }
+                      },
                       placeholder: "My Passkey"
                     }),
                     /* @__PURE__ */ jsx(Button2, {

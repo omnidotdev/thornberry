@@ -1,7 +1,7 @@
 import {
   AvatarUpload2
-} from "../../../chunks/account-user-two-factor-authentication-h9xs2bn6.js";
-import"../../../chunks/account-user-two-factor-authentication-1qzbdkf5.js";
+} from "../../../chunks/account-user-two-factor-authentication-h723t83p.js";
+import"../../../chunks/account-user-two-factor-authentication-p4sysg6s.js";
 import"../../../chunks/account-user-two-factor-authentication-b7jpk793.js";
 import"../../../chunks/account-user-two-factor-authentication-fa46q8yp.js";
 import"../../../chunks/account-user-two-factor-authentication-b60vh03c.js";

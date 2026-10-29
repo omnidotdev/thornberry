@@ -89,6 +89,12 @@ var AddPasskey2 = () => {
               id: "passkey-name",
               value: passkeyName,
               onChange: (event) => setPasskeyName(event.target.value),
+              onKeyDown: (event) => {
+                if (event.key === "Enter" && !isLoading) {
+                  event.preventDefault();
+                  handleAddPasskey();
+                }
+              },
               placeholder: "My Passkey"
             }),
             /* @__PURE__ */ jsx(Button2, {
