@@ -23,6 +23,15 @@ const EXTERNAL = [
   "react/jsx-dev-runtime",
   "@ark-ui/react",
   "cmdk",
+  // CodeMirror core: never bundle, so the consumer supplies ONE instance.
+  // @codemirror/state in particular breaks if a second copy is loaded (its
+  // facets and state are identity-keyed across the other packages)
+  "codemirror",
+  "@codemirror/state",
+  "@codemirror/view",
+  "@codemirror/language",
+  "@codemirror/commands",
+  "@codemirror/autocomplete",
   "lexical",
   "@lexical/html",
   "@lexical/link",

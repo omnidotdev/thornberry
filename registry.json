@@ -145,6 +145,26 @@
       ]
     },
     {
+      "name": "code-editor",
+      "type": "registry:ui",
+      "title": "Code Editor",
+      "description": "A headless-ish CodeMirror 6 code editor whose language and theme are consumer-injected through compartments, with a double-click guard that stops a dictionary extension's definition popup while preserving word-select.",
+      "dependencies": [
+        "codemirror",
+        "@codemirror/state",
+        "@codemirror/view",
+        "@codemirror/language",
+        "@codemirror/commands",
+        "@codemirror/autocomplete"
+      ],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/code-editor.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "collapsible",
       "type": "registry:ui",
       "title": "Collapsible",
