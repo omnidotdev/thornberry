@@ -148,7 +148,7 @@
       "name": "code-editor",
       "type": "registry:ui",
       "title": "Code Editor",
-      "description": "A headless-ish CodeMirror 6 code editor whose language and theme are consumer-injected through compartments, with a double-click guard that stops a dictionary extension's definition popup while preserving word-select.",
+      "description": "A headless-ish CodeMirror 6 code editor whose language, theme, extensions, read-only state, placeholder, and completion are consumer-injected through compartments and reconfigure live, with an optional token-aware theme bound to design-system CSS variables, an autocompletion config pass-through, a content-DOM id for a11y, and a double-click guard that stops a dictionary extension's definition popup while preserving word-select.",
       "dependencies": [
         "codemirror",
         "@codemirror/state",

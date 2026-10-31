@@ -1,11 +1,24 @@
+import { autocompletion } from "@codemirror/autocomplete";
 import { EditorView } from "@codemirror/view";
 import type { CompletionSource } from "@codemirror/autocomplete";
 import type { Extension } from "@codemirror/state";
+/**
+ * Config object accepted by `@codemirror/autocomplete`'s `autocompletion()`
+ * (e.g. `activateOnTyping`, `maxRenderedOptions`, `override`). Derived from the
+ * function signature because the package does not export the interface by name
+ */
+export type AutocompletionConfig = NonNullable<Parameters<typeof autocompletion>[0]>;
 /**
  * Shared CodeMirror 6 code editor. Language and theme are consumer-injected
  * through compartments, so one component serves JS, SQL, JSON, YAML, dotenv, and
  * the rest. Autocompletion ships via `basicSetup` (Ctrl+Space / Mod-Space opens
  * the popup) and completion sources are injectable through `completionSources`.
+ *
+ * The default theme is palette-free so the component carries no product styling.
+ * For a design-system-themed editor, pass the opt-in {@link tokenTheme} as the
+ * `theme` prop; it binds editor colors to these CSS custom properties (each with
+ * a literal fallback): `--background`, `--foreground`, `--muted`,
+ * `--muted-foreground`, `--accent`, `--border`.
  *
  * WebAssembly text (WAST / `.wat`) editing works today by injecting a WAST
  * language extension through the `language` prop (recommended package:
@@ -47,6 +60,14 @@ export interface CodeEditorHandle {
     setLanguage(language: Extension): void;
     /** Reconfigure the injectable completion sources live (empty reverts to the language's own). */
     setCompletionSources(sources: CompletionSource[]): void;
+    /** Reconfigure the extra extensions compartment live (replaces the previous extras). */
+    setExtensions(exts: Extension[]): void;
+    /** Reconfigure the read-only state live (also toggles the view's editability). */
+    setReadOnly(readOnly: boolean): void;
+    /** Reconfigure the placeholder text live (empty string clears it). */
+    setPlaceholder(text: string): void;
+    /** Reconfigure the content DOM `id` live (empty string clears it). */
+    setId(id: string): void;
     /** Focus the editor. */
     focus(): void;
     /** Tear down the underlying CodeMirror view. */
@@ -73,11 +94,46 @@ export interface CodeEditorOptions {
      * and the language's completions are used.
      */
     completionSources?: CompletionSource[];
+    /**
+     * Autocompletion config passed through to `@codemirror/autocomplete`'s
+     * `autocompletion()` (e.g. `activateOnTyping`, `maxRenderedOptions`,
+     * `override`). When provided, the completion compartment wires
+     * `autocompletion(config)` so completion is configured without layering a
+     * second `autocompletion()` in `extensions`. If `completionSources` is also
+     * given, it is merged in as the config's `override`. Applied at mount;
+     * `setCompletionSources` still reconfigures the override live
+     */
+    autocompletion?: AutocompletionConfig;
     /** Whether the document is read-only. */
     readOnly?: boolean;
+    /** Placeholder shown when the document is empty (CodeMirror `placeholder()` extension). */
+    placeholder?: string;
+    /** `id` set on the editor's content DOM, so a form label's `htmlFor` can target it. */
+    id?: string;
     /** Double-click guard mode (see {@link DoubleClickGuard}); defaults to `"swallow-dblclick"`. */
     guardDoubleClick?: DoubleClickGuard;
 }
+/**
+ * Opt-in token-aware theme that binds the editor's colors to the design-system
+ * CSS custom properties, so an app gets a themed editor without hand-rolling one.
+ * Pass it as the `theme` prop/option; it does NOT replace the palette-free
+ * {@link neutralTheme} default, so consumers that inject their own theme are
+ * unaffected.
+ *
+ * CSS custom properties read (each with a literal fallback via `var(--x, …)`):
+ * - `--background`: editor + gutter background
+ * - `--foreground`: text, caret, and active-line gutter text
+ * - `--muted`: active line and active-line-gutter background
+ * - `--muted-foreground`: gutter text
+ * - `--accent`: selection background
+ * - `--border`: gutter border
+ *
+ * @param opts.dark marks the theme dark so CodeMirror picks dark-appropriate
+ *   defaults for anything not bound here (defaults to `false`)
+ */
+export declare const tokenTheme: (opts?: {
+    dark?: boolean;
+}) => Extension;
 /**
  * Build the double-click guard extension for a given mode. Exported so the guard
  * logic can be exercised without mounting a full editor
@@ -105,8 +161,14 @@ export interface CodeEditorProps {
     extensions?: Extension[];
     /** Completion sources to inject; override the language's own completions when provided. */
     completionSources?: CompletionSource[];
-    /** Whether the document is read-only. */
+    /** Autocompletion config passed through to `autocompletion()` (see {@link CodeEditorOptions.autocompletion}). */
+    autocompletion?: AutocompletionConfig;
+    /** Whether the document is read-only; reconfigures live when it changes. */
     readOnly?: boolean;
+    /** Placeholder shown when the document is empty; reconfigures live when it changes. */
+    placeholder?: string;
+    /** `id` set on the editor's content DOM (for a label's `htmlFor`); reconfigures live when it changes. */
+    id?: string;
     /** Double-click guard mode (see {@link DoubleClickGuard}); defaults to `"swallow-dblclick"`. */
     guardDoubleClick?: DoubleClickGuard;
     /** Class applied to the mount element. */

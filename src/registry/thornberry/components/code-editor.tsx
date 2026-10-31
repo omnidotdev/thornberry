@@ -2,7 +2,7 @@ import { autocompletion } from "@codemirror/autocomplete";
 import { indentWithTab } from "@codemirror/commands";
 import { indentUnit } from "@codemirror/language";
 import { Compartment, EditorState } from "@codemirror/state";
-import { EditorView, keymap } from "@codemirror/view";
+import { EditorView, keymap, placeholder } from "@codemirror/view";
 import { basicSetup } from "codemirror";
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 
@@ -12,10 +12,25 @@ import type { CompletionSource } from "@codemirror/autocomplete";
 import type { Extension } from "@codemirror/state";
 
 /**
+ * Config object accepted by `@codemirror/autocomplete`'s `autocompletion()`
+ * (e.g. `activateOnTyping`, `maxRenderedOptions`, `override`). Derived from the
+ * function signature because the package does not export the interface by name
+ */
+export type AutocompletionConfig = NonNullable<
+  Parameters<typeof autocompletion>[0]
+>;
+
+/**
  * Shared CodeMirror 6 code editor. Language and theme are consumer-injected
  * through compartments, so one component serves JS, SQL, JSON, YAML, dotenv, and
  * the rest. Autocompletion ships via `basicSetup` (Ctrl+Space / Mod-Space opens
  * the popup) and completion sources are injectable through `completionSources`.
+ *
+ * The default theme is palette-free so the component carries no product styling.
+ * For a design-system-themed editor, pass the opt-in {@link tokenTheme} as the
+ * `theme` prop; it binds editor colors to these CSS custom properties (each with
+ * a literal fallback): `--background`, `--foreground`, `--muted`,
+ * `--muted-foreground`, `--accent`, `--border`.
  *
  * WebAssembly text (WAST / `.wat`) editing works today by injecting a WAST
  * language extension through the `language` prop (recommended package:
@@ -59,6 +74,14 @@ export interface CodeEditorHandle {
   setLanguage(language: Extension): void;
   /** Reconfigure the injectable completion sources live (empty reverts to the language's own). */
   setCompletionSources(sources: CompletionSource[]): void;
+  /** Reconfigure the extra extensions compartment live (replaces the previous extras). */
+  setExtensions(exts: Extension[]): void;
+  /** Reconfigure the read-only state live (also toggles the view's editability). */
+  setReadOnly(readOnly: boolean): void;
+  /** Reconfigure the placeholder text live (empty string clears it). */
+  setPlaceholder(text: string): void;
+  /** Reconfigure the content DOM `id` live (empty string clears it). */
+  setId(id: string): void;
   /** Focus the editor. */
   focus(): void;
   /** Tear down the underlying CodeMirror view. */
@@ -86,8 +109,22 @@ export interface CodeEditorOptions {
    * and the language's completions are used.
    */
   completionSources?: CompletionSource[];
+  /**
+   * Autocompletion config passed through to `@codemirror/autocomplete`'s
+   * `autocompletion()` (e.g. `activateOnTyping`, `maxRenderedOptions`,
+   * `override`). When provided, the completion compartment wires
+   * `autocompletion(config)` so completion is configured without layering a
+   * second `autocompletion()` in `extensions`. If `completionSources` is also
+   * given, it is merged in as the config's `override`. Applied at mount;
+   * `setCompletionSources` still reconfigures the override live
+   */
+  autocompletion?: AutocompletionConfig;
   /** Whether the document is read-only. */
   readOnly?: boolean;
+  /** Placeholder shown when the document is empty (CodeMirror `placeholder()` extension). */
+  placeholder?: string;
+  /** `id` set on the editor's content DOM, so a form label's `htmlFor` can target it. */
+  id?: string;
   /** Double-click guard mode (see {@link DoubleClickGuard}); defaults to `"swallow-dblclick"`. */
   guardDoubleClick?: DoubleClickGuard;
 }
@@ -109,6 +146,57 @@ const neutralTheme = EditorView.theme({
     outline: "none",
   },
 });
+
+/**
+ * Opt-in token-aware theme that binds the editor's colors to the design-system
+ * CSS custom properties, so an app gets a themed editor without hand-rolling one.
+ * Pass it as the `theme` prop/option; it does NOT replace the palette-free
+ * {@link neutralTheme} default, so consumers that inject their own theme are
+ * unaffected.
+ *
+ * CSS custom properties read (each with a literal fallback via `var(--x, …)`):
+ * - `--background`: editor + gutter background
+ * - `--foreground`: text, caret, and active-line gutter text
+ * - `--muted`: active line and active-line-gutter background
+ * - `--muted-foreground`: gutter text
+ * - `--accent`: selection background
+ * - `--border`: gutter border
+ *
+ * @param opts.dark marks the theme dark so CodeMirror picks dark-appropriate
+ *   defaults for anything not bound here (defaults to `false`)
+ */
+export const tokenTheme = (opts: { dark?: boolean } = {}): Extension =>
+  EditorView.theme(
+    {
+      "&": {
+        backgroundColor: "var(--background, #ffffff)",
+        color: "var(--foreground, #0a0a0a)",
+      },
+      ".cm-content": {
+        caretColor: "var(--foreground, #0a0a0a)",
+      },
+      ".cm-cursor, .cm-dropCursor": {
+        borderLeftColor: "var(--foreground, #0a0a0a)",
+      },
+      "&.cm-focused .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection":
+        {
+          backgroundColor: "var(--accent, #d4d4d8)",
+        },
+      ".cm-activeLine": {
+        backgroundColor: "var(--muted, #f4f4f5)",
+      },
+      ".cm-gutters": {
+        backgroundColor: "var(--background, #ffffff)",
+        color: "var(--muted-foreground, #71717a)",
+        borderRight: "1px solid var(--border, #e4e4e7)",
+      },
+      ".cm-activeLineGutter": {
+        backgroundColor: "var(--muted, #f4f4f5)",
+        color: "var(--foreground, #0a0a0a)",
+      },
+    },
+    { dark: opts.dark ?? false },
+  );
 
 /**
  * Build the double-click guard extension for a given mode. Exported so the guard
@@ -161,7 +249,10 @@ export function createCodeEditor(
     theme,
     extensions = [],
     completionSources,
+    autocompletion: autocompletionConfig,
     readOnly = false,
+    placeholder: placeholderText,
+    id,
     guardDoubleClick = "swallow-dblclick",
   } = opts;
 
@@ -169,11 +260,37 @@ export function createCodeEditor(
   const languageCompartment = new Compartment();
   const extrasCompartment = new Compartment();
   const completionCompartment = new Compartment();
+  const readOnlyCompartment = new Compartment();
+  const placeholderCompartment = new Compartment();
+  const idCompartment = new Compartment();
 
-  // Override the language completions only when sources are provided; otherwise
-  // stay empty and let basicSetup's autocompletion drive language completions
-  const completionExtension = (sources?: CompletionSource[]): Extension =>
-    sources?.length ? autocompletion({ override: sources }) : [];
+  // Wire completion from the (mount-time) config and the live sources. With a
+  // config, pass it through to autocompletion() and merge any sources in as its
+  // override; without a config, keep the original sources-only path (empty
+  // reverts to basicSetup's autocompletion and the language's own completions)
+  const completionExtension = (sources?: CompletionSource[]): Extension => {
+    if (autocompletionConfig) {
+      return autocompletion(
+        sources?.length
+          ? { ...autocompletionConfig, override: sources }
+          : autocompletionConfig,
+      );
+    }
+    return sources?.length ? autocompletion({ override: sources }) : [];
+  };
+
+  // Read-only also toggles editability so a read-only view is not focusable for
+  // text entry; both live in one compartment so setReadOnly reconfigures them
+  const readOnlyExtension = (value: boolean): Extension => [
+    EditorState.readOnly.of(value),
+    EditorView.editable.of(!value),
+  ];
+
+  const placeholderExtension = (text?: string): Extension =>
+    text ? placeholder(text) : [];
+
+  const idExtension = (value?: string): Extension =>
+    value ? EditorView.contentAttributes.of({ id: value }) : [];
 
   const view = new EditorView({
     parent,
@@ -185,7 +302,9 @@ export function createCodeEditor(
         // 2-space indent as a neutral fleet default; a consumer language or
         // extension can override it
         indentUnit.of("  "),
-        EditorState.readOnly.of(readOnly),
+        readOnlyCompartment.of(readOnlyExtension(readOnly)),
+        placeholderCompartment.of(placeholderExtension(placeholderText)),
+        idCompartment.of(idExtension(id)),
         createDoubleClickGuard(guardDoubleClick),
         themeCompartment.of(theme ?? neutralTheme),
         languageCompartment.of(language ?? []),
@@ -216,6 +335,20 @@ export function createCodeEditor(
           completionExtension(sources),
         ),
       }),
+    setExtensions: (exts) =>
+      view.dispatch({ effects: extrasCompartment.reconfigure(exts) }),
+    setReadOnly: (value) =>
+      view.dispatch({
+        effects: readOnlyCompartment.reconfigure(readOnlyExtension(value)),
+      }),
+    setPlaceholder: (text) =>
+      view.dispatch({
+        effects: placeholderCompartment.reconfigure(placeholderExtension(text)),
+      }),
+    setId: (value) =>
+      view.dispatch({
+        effects: idCompartment.reconfigure(idExtension(value)),
+      }),
     focus: () => view.focus(),
     destroy: () => view.destroy(),
     view,
@@ -238,8 +371,14 @@ export interface CodeEditorProps {
   extensions?: Extension[];
   /** Completion sources to inject; override the language's own completions when provided. */
   completionSources?: CompletionSource[];
-  /** Whether the document is read-only. */
+  /** Autocompletion config passed through to `autocompletion()` (see {@link CodeEditorOptions.autocompletion}). */
+  autocompletion?: AutocompletionConfig;
+  /** Whether the document is read-only; reconfigures live when it changes. */
   readOnly?: boolean;
+  /** Placeholder shown when the document is empty; reconfigures live when it changes. */
+  placeholder?: string;
+  /** `id` set on the editor's content DOM (for a label's `htmlFor`); reconfigures live when it changes. */
+  id?: string;
   /** Double-click guard mode (see {@link DoubleClickGuard}); defaults to `"swallow-dblclick"`. */
   guardDoubleClick?: DoubleClickGuard;
   /** Class applied to the mount element. */
@@ -260,7 +399,10 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(
       theme,
       extensions,
       completionSources,
+      autocompletion: autocompletionConfig,
       readOnly,
+      placeholder: placeholderText,
+      id,
       guardDoubleClick,
       className,
     },
@@ -286,7 +428,10 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(
         theme,
         extensions,
         completionSources,
+        autocompletion: autocompletionConfig,
         readOnly,
+        placeholder: placeholderText,
+        id,
         guardDoubleClick,
       });
       handleRef.current = handle;
@@ -320,6 +465,25 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(
         handleRef.current.setCompletionSources(completionSources);
     }, [completionSources]);
 
+    useEffect(() => {
+      if (handleRef.current && extensions)
+        handleRef.current.setExtensions(extensions);
+    }, [extensions]);
+
+    useEffect(() => {
+      if (handleRef.current && readOnly !== undefined)
+        handleRef.current.setReadOnly(readOnly);
+    }, [readOnly]);
+
+    useEffect(() => {
+      if (handleRef.current && placeholderText !== undefined)
+        handleRef.current.setPlaceholder(placeholderText);
+    }, [placeholderText]);
+
+    useEffect(() => {
+      if (handleRef.current && id !== undefined) handleRef.current.setId(id);
+    }, [id]);
+
     useImperativeHandle(
       ref,
       () => ({
@@ -330,6 +494,10 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(
           handleRef.current?.setLanguage(nextLanguage),
         setCompletionSources: (sources) =>
           handleRef.current?.setCompletionSources(sources),
+        setExtensions: (exts) => handleRef.current?.setExtensions(exts),
+        setReadOnly: (next) => handleRef.current?.setReadOnly(next),
+        setPlaceholder: (text) => handleRef.current?.setPlaceholder(text),
+        setId: (next) => handleRef.current?.setId(next),
         focus: () => handleRef.current?.focus(),
         destroy: () => handleRef.current?.destroy(),
         get view() {
