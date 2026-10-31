@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@ark-ui/react": "^5.30.0",
-    "@biomejs/biome": "2.3.11",
+    "@biomejs/biome": "2.6.4",
     "@codemirror/autocomplete": "^6.18.0",
     "@codemirror/commands": "^6.11.1",
     "@codemirror/language": "^6.12.4",
