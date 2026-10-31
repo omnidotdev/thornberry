@@ -1,6 +1,6 @@
-# syntax=docker/dockerfile:1
+# syntax=docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
 
-FROM oven/bun:1.4.4 AS base
+FROM oven/bun:1.4.4@sha256:1d22548f177f4ff38e0c15baa3c2c46c6c2060ba2d1bc573bb4720b407548f1d AS base
 WORKDIR /app
 
 # Build
@@ -25,7 +25,7 @@ RUN test -f .output/server/node_modules/react-dom/server.node.js \
 # Bun doesn't properly resolve externalized Nitro packages (srvx, react-dom/server),
 # so run under node (slim, glibc to match the oven/bun builder) with the builder's
 # node_modules copied in for those externalized runtime deps
-FROM node:22-slim AS runner
+FROM node:22-slim@sha256:4b150b48b4116e2a22f2c39cc27025fbf4f153e2078fd3b14d159fdb5c7279da AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
