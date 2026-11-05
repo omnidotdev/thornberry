@@ -4,6 +4,20 @@
   "homepage": "https://github.com/omnidotdev/thornberry",
   "items": [
     {
+      "name": "ai-describe-panel",
+      "type": "registry:ui",
+      "title": "AI Describe Panel",
+      "description": "Describe-to-draft dialog: plain-English prompt, suggestions, BYOK key, and sign-in gating for the fleet AI-creation flow. Presentational; the host injects generation and auth logic",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "dialog", "label", "password-input"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/ai-describe-panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "accordion",
       "type": "registry:ui",
       "title": "Accordion",
