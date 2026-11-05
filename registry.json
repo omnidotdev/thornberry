@@ -4,6 +4,20 @@
   "homepage": "https://github.com/omnidotdev/thornberry",
   "items": [
     {
+      "name": "ai-chat-thread",
+      "type": "registry:ui",
+      "title": "AI Chat Thread",
+      "description": "A conversation surface for AI assistants: role-aligned bubbles, typed message parts (text, thinking, tool calls), a streaming indicator, and a composer. Presentational; the host drives it from any streaming chat hook",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "badge"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/ai-chat-thread.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "ai-describe-panel",
       "type": "registry:ui",
       "title": "AI Describe Panel",
