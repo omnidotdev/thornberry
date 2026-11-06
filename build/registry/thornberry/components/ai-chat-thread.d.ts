@@ -48,6 +48,25 @@ export interface AiChatThreadProps {
      * whitespace. Keep it presentational: the host owns any markdown library
      */
     renderText?: (text: string) => ReactNode;
+    /**
+     * Render the avatar beside a message, replacing the default role icon. Lets a
+     * persona-driven host (Beacon) show the assistant's face and the signed-in
+     * user's picture. Called with a synthetic assistant message for the streaming
+     * row. Return null to fall back to the default icon
+     */
+    renderAvatar?: (message: ChatMessage) => ReactNode;
+    /**
+     * A block rendered directly above the composer, e.g. a model picker. Full
+     * width, inside the composer's border
+     */
+    composerAccessory?: ReactNode;
+    /**
+     * Extra controls placed between the composer and the send button, e.g. a
+     * voice-input button. Aligned to the composer's baseline
+     */
+    composerActions?: ReactNode;
+    /** A small hint under the composer, e.g. "Shift+Enter for a new line". */
+    footerHint?: ReactNode;
 }
 /**
  * Chat thread: the shared conversation surface for the fleet's AI assistants
@@ -59,5 +78,5 @@ export interface AiChatThreadProps {
  * that hook's messages onto `ChatMessage`/`ChatPart` and passing `status` and
  * the send handler. This owns no network, streaming, or tool-execution logic
  */
-declare const AiChatThread: ({ messages, status, input, onInputChange, onSend, placeholder, emptyState, notice, disabled, renderText, }: AiChatThreadProps) => import("react/jsx-runtime").JSX.Element;
+declare const AiChatThread: ({ messages, status, input, onInputChange, onSend, placeholder, emptyState, notice, disabled, renderText, renderAvatar, composerAccessory, composerActions, footerHint, }: AiChatThreadProps) => import("react/jsx-runtime").JSX.Element;
 export { AiChatThread };

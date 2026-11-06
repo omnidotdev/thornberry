@@ -78,11 +78,25 @@ var AiChatThread = ({
   emptyState,
   notice,
   disabled = false,
-  renderText
+  renderText,
+  renderAvatar,
+  composerAccessory,
+  composerActions,
+  footerHint
 }) => {
   const endRef = useRef(null);
   const busy = status === "submitting" || status === "streaming";
   const canSend = !disabled && !busy && input.trim().length > 0;
+  const defaultAvatar = (role) => /* @__PURE__ */ jsx("div", {
+    className: cn("flex size-7 shrink-0 items-center justify-center rounded-full", role === "user" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"),
+    "aria-hidden": true,
+    children: role === "user" ? /* @__PURE__ */ jsx(User, {
+      className: "size-4"
+    }) : /* @__PURE__ */ jsx(Bot, {
+      className: "size-4"
+    })
+  });
+  const avatarFor = (message) => renderAvatar?.(message) ?? defaultAvatar(message.role);
   useEffect(() => {
     endRef.current?.scrollIntoView({ block: "end" });
   }, [messages, status]);
@@ -100,15 +114,7 @@ var AiChatThread = ({
             return /* @__PURE__ */ jsxs("div", {
               className: cn("flex gap-3", isUser ? "flex-row-reverse" : "flex-row"),
               children: [
-                /* @__PURE__ */ jsx("div", {
-                  className: cn("flex size-7 shrink-0 items-center justify-center rounded-full", isUser ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"),
-                  "aria-hidden": true,
-                  children: isUser ? /* @__PURE__ */ jsx(User, {
-                    className: "size-4"
-                  }) : /* @__PURE__ */ jsx(Bot, {
-                    className: "size-4"
-                  })
-                }),
+                avatarFor(message),
                 /* @__PURE__ */ jsx("div", {
                   className: cn("max-w-[80%] rounded-lg px-3 py-2", isUser ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"),
                   children: /* @__PURE__ */ jsx(MessageParts, {
@@ -122,13 +128,7 @@ var AiChatThread = ({
           status === "streaming" && /* @__PURE__ */ jsxs("div", {
             className: "flex gap-3",
             children: [
-              /* @__PURE__ */ jsx("div", {
-                className: "flex size-7 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground",
-                "aria-hidden": true,
-                children: /* @__PURE__ */ jsx(Bot, {
-                  className: "size-4"
-                })
-              }),
+              avatarFor({ id: "__streaming__", role: "assistant", parts: [] }),
               /* @__PURE__ */ jsx("div", {
                 className: "rounded-lg bg-muted px-3 py-2",
                 children: /* @__PURE__ */ jsx(TypingIndicator, {})
@@ -145,34 +145,48 @@ var AiChatThread = ({
         children: notice
       }),
       /* @__PURE__ */ jsxs("div", {
-        className: "flex items-end gap-2 border-border border-t p-3",
+        className: "border-border border-t p-3",
         children: [
-          /* @__PURE__ */ jsx(Composer, {
-            value: input,
-            onChange: (event) => onInputChange(event.target.value),
-            onKeyDown: (event) => {
-              if (event.key === "Enter" && !event.shiftKey) {
-                event.preventDefault();
-                if (canSend)
-                  onSend();
-              }
-            },
-            placeholder,
-            disabled,
-            rows: 1,
-            "aria-label": "Message"
+          composerAccessory && /* @__PURE__ */ jsx("div", {
+            className: "mb-2",
+            children: composerAccessory
           }),
-          /* @__PURE__ */ jsx(Button2, {
-            type: "button",
-            size: "icon",
-            onClick: onSend,
-            disabled: !canSend,
-            "aria-label": "Send message",
-            children: busy ? /* @__PURE__ */ jsx(Loader2, {
-              className: "size-4 animate-spin"
-            }) : /* @__PURE__ */ jsx(ArrowUp, {
-              className: "size-4"
-            })
+          /* @__PURE__ */ jsxs("div", {
+            className: "flex items-end gap-2",
+            children: [
+              /* @__PURE__ */ jsx(Composer, {
+                value: input,
+                onChange: (event) => onInputChange(event.target.value),
+                onKeyDown: (event) => {
+                  if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault();
+                    if (canSend)
+                      onSend();
+                  }
+                },
+                placeholder,
+                disabled,
+                rows: 1,
+                "aria-label": "Message"
+              }),
+              composerActions,
+              /* @__PURE__ */ jsx(Button2, {
+                type: "button",
+                size: "icon",
+                onClick: onSend,
+                disabled: !canSend,
+                "aria-label": "Send message",
+                children: busy ? /* @__PURE__ */ jsx(Loader2, {
+                  className: "size-4 animate-spin"
+                }) : /* @__PURE__ */ jsx(ArrowUp, {
+                  className: "size-4"
+                })
+              })
+            ]
+          }),
+          footerHint && /* @__PURE__ */ jsx("div", {
+            className: "mt-1.5 text-muted-foreground text-xs",
+            children: footerHint
           })
         ]
       })

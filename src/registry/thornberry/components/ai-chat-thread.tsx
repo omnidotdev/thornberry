@@ -52,6 +52,25 @@ export interface AiChatThreadProps {
    * whitespace. Keep it presentational: the host owns any markdown library
    */
   renderText?: (text: string) => ReactNode;
+  /**
+   * Render the avatar beside a message, replacing the default role icon. Lets a
+   * persona-driven host (Beacon) show the assistant's face and the signed-in
+   * user's picture. Called with a synthetic assistant message for the streaming
+   * row. Return null to fall back to the default icon
+   */
+  renderAvatar?: (message: ChatMessage) => ReactNode;
+  /**
+   * A block rendered directly above the composer, e.g. a model picker. Full
+   * width, inside the composer's border
+   */
+  composerAccessory?: ReactNode;
+  /**
+   * Extra controls placed between the composer and the send button, e.g. a
+   * voice-input button. Aligned to the composer's baseline
+   */
+  composerActions?: ReactNode;
+  /** A small hint under the composer, e.g. "Shift+Enter for a new line". */
+  footerHint?: ReactNode;
 }
 
 /** A styled auto-growing textarea matching the input primitive's tokens. */
@@ -162,10 +181,37 @@ const AiChatThread = ({
   notice,
   disabled = false,
   renderText,
+  renderAvatar,
+  composerAccessory,
+  composerActions,
+  footerHint,
 }: AiChatThreadProps) => {
   const endRef = useRef<HTMLDivElement>(null);
   const busy = status === "submitting" || status === "streaming";
   const canSend = !disabled && !busy && input.trim().length > 0;
+
+  // The default role icon, used when the host supplies no renderAvatar (or it
+  // returns null for this message)
+  const defaultAvatar = (role: "user" | "assistant") => (
+    <div
+      className={cn(
+        "flex size-7 shrink-0 items-center justify-center rounded-full",
+        role === "user"
+          ? "bg-primary text-primary-foreground"
+          : "bg-muted text-muted-foreground",
+      )}
+      aria-hidden
+    >
+      {role === "user" ? (
+        <User className="size-4" />
+      ) : (
+        <Bot className="size-4" />
+      )}
+    </div>
+  );
+
+  const avatarFor = (message: ChatMessage) =>
+    renderAvatar?.(message) ?? defaultAvatar(message.role);
 
   // Keep the latest message (and the streaming tail) in view
   // biome-ignore lint/correctness/useExhaustiveDependencies: scroll on new messages or stream ticks
@@ -191,21 +237,7 @@ const AiChatThread = ({
                   isUser ? "flex-row-reverse" : "flex-row",
                 )}
               >
-                <div
-                  className={cn(
-                    "flex size-7 shrink-0 items-center justify-center rounded-full",
-                    isUser
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-muted-foreground",
-                  )}
-                  aria-hidden
-                >
-                  {isUser ? (
-                    <User className="size-4" />
-                  ) : (
-                    <Bot className="size-4" />
-                  )}
-                </div>
+                {avatarFor(message)}
                 <div
                   className={cn(
                     "max-w-[80%] rounded-lg px-3 py-2",
@@ -223,12 +255,7 @@ const AiChatThread = ({
 
         {status === "streaming" && (
           <div className="flex gap-3">
-            <div
-              className="flex size-7 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground"
-              aria-hidden
-            >
-              <Bot className="size-4" />
-            </div>
+            {avatarFor({ id: "__streaming__", role: "assistant", parts: [] })}
             <div className="rounded-lg bg-muted px-3 py-2">
               <TypingIndicator />
             </div>
@@ -244,34 +271,43 @@ const AiChatThread = ({
         </div>
       )}
 
-      <div className="flex items-end gap-2 border-border border-t p-3">
-        <Composer
-          value={input}
-          onChange={(event) => onInputChange(event.target.value)}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" && !event.shiftKey) {
-              event.preventDefault();
-              if (canSend) onSend();
-            }
-          }}
-          placeholder={placeholder}
-          disabled={disabled}
-          rows={1}
-          aria-label="Message"
-        />
-        <Button
-          type="button"
-          size="icon"
-          onClick={onSend}
-          disabled={!canSend}
-          aria-label="Send message"
-        >
-          {busy ? (
-            <Loader2 className="size-4 animate-spin" />
-          ) : (
-            <ArrowUp className="size-4" />
-          )}
-        </Button>
+      <div className="border-border border-t p-3">
+        {composerAccessory && <div className="mb-2">{composerAccessory}</div>}
+        <div className="flex items-end gap-2">
+          <Composer
+            value={input}
+            onChange={(event) => onInputChange(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                if (canSend) onSend();
+              }
+            }}
+            placeholder={placeholder}
+            disabled={disabled}
+            rows={1}
+            aria-label="Message"
+          />
+          {composerActions}
+          <Button
+            type="button"
+            size="icon"
+            onClick={onSend}
+            disabled={!canSend}
+            aria-label="Send message"
+          >
+            {busy ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              <ArrowUp className="size-4" />
+            )}
+          </Button>
+        </div>
+        {footerHint && (
+          <div className="mt-1.5 text-muted-foreground text-xs">
+            {footerHint}
+          </div>
+        )}
       </div>
     </div>
   );
