@@ -95,4 +95,36 @@ describe("AiChatThread", () => {
     );
     expect(getByLabelText("Assistant is typing")).toBeDefined();
   });
+
+  test("renderAvatar replaces the default role icon for every message", () => {
+    const { getAllByText } = render(
+      <AiChatThread
+        messages={messages}
+        status="streaming"
+        input=""
+        onInputChange={noop}
+        onSend={noop}
+        renderAvatar={(m) => <span>avatar:{m.role}</span>}
+      />,
+    );
+    // Two messages (user + assistant) plus the streaming assistant row
+    expect(getAllByText(/^avatar:/)).toHaveLength(3);
+  });
+
+  test("renders the composer accessory, actions, and footer hint slots", () => {
+    const { getByText } = render(
+      <AiChatThread
+        messages={messages}
+        input=""
+        onInputChange={noop}
+        onSend={noop}
+        composerAccessory={<div>model picker</div>}
+        composerActions={<button type="button">voice</button>}
+        footerHint="Shift+Enter for a new line"
+      />,
+    );
+    expect(getByText("model picker")).toBeDefined();
+    expect(getByText("voice")).toBeDefined();
+    expect(getByText("Shift+Enter for a new line")).toBeDefined();
+  });
 });
