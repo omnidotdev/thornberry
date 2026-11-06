@@ -4,7 +4,7 @@ import {
 
 // src/registry/thornberry/components/code-editor.tsx
 import { autocompletion } from "@codemirror/autocomplete";
-import { indentWithTab } from "@codemirror/commands";
+import { indentWithTab, redo, undo } from "@codemirror/commands";
 import { indentUnit } from "@codemirror/language";
 import { Compartment, EditorState } from "@codemirror/state";
 import { EditorView, keymap, placeholder } from "@codemirror/view";
@@ -110,7 +110,12 @@ function createCodeEditor(parent, opts = {}) {
       doc,
       extensions: [
         basicSetup,
-        keymap.of([indentWithTab]),
+        keymap.of([
+          indentWithTab,
+          { key: "Mod-z", run: undo, preventDefault: true },
+          { key: "Mod-Shift-z", run: redo, preventDefault: true },
+          { key: "Mod-y", run: redo, preventDefault: true }
+        ]),
         indentUnit.of("  "),
         readOnlyCompartment.of(readOnlyExtension(readOnly)),
         placeholderCompartment.of(placeholderExtension(placeholderText)),

@@ -1,5 +1,5 @@
 import { autocompletion } from "@codemirror/autocomplete";
-import { indentWithTab } from "@codemirror/commands";
+import { indentWithTab, redo, undo } from "@codemirror/commands";
 import { indentUnit } from "@codemirror/language";
 import { Compartment, EditorState } from "@codemirror/state";
 import { EditorView, keymap, placeholder } from "@codemirror/view";
@@ -298,7 +298,17 @@ export function createCodeEditor(
       doc,
       extensions: [
         basicSetup,
-        keymap.of([indentWithTab]),
+        // basicSetup bundles history() + its keymap, but CodeMirror only binds
+        // redo to Mod-Shift-z on macOS (elsewhere redo is Mod-y only). Add the
+        // missing cross-platform Mod-Shift-z redo so the near-universal
+        // Ctrl/Cmd+Shift+Z works everywhere (Mod-z/Mod-y restated harmlessly,
+        // since basicSetup already binds them to the same commands)
+        keymap.of([
+          indentWithTab,
+          { key: "Mod-z", run: undo, preventDefault: true },
+          { key: "Mod-Shift-z", run: redo, preventDefault: true },
+          { key: "Mod-y", run: redo, preventDefault: true },
+        ]),
         // 2-space indent as a neutral fleet default; a consumer language or
         // extension can override it
         indentUnit.of("  "),
