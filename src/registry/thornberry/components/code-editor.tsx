@@ -76,6 +76,8 @@ export interface CodeEditorHandle {
   setCompletionSources(sources: CompletionSource[]): void;
   /** Reconfigure the extra extensions compartment live (replaces the previous extras). */
   setExtensions(exts: Extension[]): void;
+  /** Toggle soft line wrapping live (long lines wrap instead of scrolling horizontally). */
+  setLineWrapping(wrap: boolean): void;
   /** Reconfigure the read-only state live (also toggles the view's editability). */
   setReadOnly(readOnly: boolean): void;
   /** Reconfigure the placeholder text live (empty string clears it). */
@@ -102,6 +104,13 @@ export interface CodeEditorOptions {
   theme?: Extension;
   /** Extra extensions layered on top (consumer-provided). */
   extensions?: Extension[];
+  /**
+   * Soft-wrap long lines instead of scrolling horizontally. Off by default to
+   * match a plain code editor; turn it on for content with very long lines (a
+   * minified blob, a long SVG path string, prose). Reconfigurable live via
+   * `setLineWrapping`
+   */
+  lineWrapping?: boolean;
   /**
    * Completion sources to inject (e.g. a product's domain API). When provided,
    * they override the language's own completions via
@@ -248,6 +257,7 @@ export function createCodeEditor(
     language,
     theme,
     extensions = [],
+    lineWrapping = false,
     completionSources,
     autocompletion: autocompletionConfig,
     readOnly = false,
@@ -259,6 +269,7 @@ export function createCodeEditor(
   const themeCompartment = new Compartment();
   const languageCompartment = new Compartment();
   const extrasCompartment = new Compartment();
+  const lineWrappingCompartment = new Compartment();
   const completionCompartment = new Compartment();
   const readOnlyCompartment = new Compartment();
   const placeholderCompartment = new Compartment();
@@ -292,6 +303,9 @@ export function createCodeEditor(
   const idExtension = (value?: string): Extension =>
     value ? EditorView.contentAttributes.of({ id: value }) : [];
 
+  const lineWrappingExtension = (value: boolean): Extension =>
+    value ? EditorView.lineWrapping : [];
+
   const view = new EditorView({
     parent,
     state: EditorState.create({
@@ -319,6 +333,7 @@ export function createCodeEditor(
         themeCompartment.of(theme ?? neutralTheme),
         languageCompartment.of(language ?? []),
         extrasCompartment.of(extensions),
+        lineWrappingCompartment.of(lineWrappingExtension(lineWrapping)),
         completionCompartment.of(completionExtension(completionSources)),
         EditorView.updateListener.of((update) => {
           if (update.docChanged) onChange?.(update.state.doc.toString());
@@ -347,6 +362,12 @@ export function createCodeEditor(
       }),
     setExtensions: (exts) =>
       view.dispatch({ effects: extrasCompartment.reconfigure(exts) }),
+    setLineWrapping: (wrap) =>
+      view.dispatch({
+        effects: lineWrappingCompartment.reconfigure(
+          lineWrappingExtension(wrap),
+        ),
+      }),
     setReadOnly: (value) =>
       view.dispatch({
         effects: readOnlyCompartment.reconfigure(readOnlyExtension(value)),
@@ -379,6 +400,8 @@ export interface CodeEditorProps {
   theme?: Extension;
   /** Extra extensions layered on top (consumer-provided). */
   extensions?: Extension[];
+  /** Soft-wrap long lines instead of scrolling horizontally; reconfigures live when it changes. */
+  lineWrapping?: boolean;
   /** Completion sources to inject; override the language's own completions when provided. */
   completionSources?: CompletionSource[];
   /** Autocompletion config passed through to `autocompletion()` (see {@link CodeEditorOptions.autocompletion}). */
@@ -408,6 +431,7 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(
       language,
       theme,
       extensions,
+      lineWrapping,
       completionSources,
       autocompletion: autocompletionConfig,
       readOnly,
@@ -437,6 +461,7 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(
         language,
         theme,
         extensions,
+        lineWrapping,
         completionSources,
         autocompletion: autocompletionConfig,
         readOnly,
@@ -481,6 +506,11 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(
     }, [extensions]);
 
     useEffect(() => {
+      if (handleRef.current && lineWrapping !== undefined)
+        handleRef.current.setLineWrapping(lineWrapping);
+    }, [lineWrapping]);
+
+    useEffect(() => {
       if (handleRef.current && readOnly !== undefined)
         handleRef.current.setReadOnly(readOnly);
     }, [readOnly]);
@@ -505,6 +535,7 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(
         setCompletionSources: (sources) =>
           handleRef.current?.setCompletionSources(sources),
         setExtensions: (exts) => handleRef.current?.setExtensions(exts),
+        setLineWrapping: (wrap) => handleRef.current?.setLineWrapping(wrap),
         setReadOnly: (next) => handleRef.current?.setReadOnly(next),
         setPlaceholder: (text) => handleRef.current?.setPlaceholder(text),
         setId: (next) => handleRef.current?.setId(next),
