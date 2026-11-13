@@ -144,18 +144,24 @@ describe("AccountOrganizations logo removal", () => {
       </AccountProvider>,
     );
 
-    fireEvent.click(await screen.findByRole("button", { name: "Edit" }));
-    await screen.findByText("Edit workspace");
+    // The logo editor lives on the workspace header avatar, not in the edit
+    // dialog: open its menu by clicking the avatar once the detail has loaded
+    await screen.findAllByText("owner@acme.test");
+    const avatar = document.querySelector(
+      ".avatar-upload-wrapper",
+    ) as HTMLElement;
+    expect(avatar).toBeTruthy();
+    fireEvent.click(avatar);
 
     // Removing does not fire immediately: it opens a confirmation first
-    fireEvent.click(await screen.findByRole("button", { name: "Remove" }));
-    const confirmTitle = await screen.findByText("Remove logo?");
+    fireEvent.click(
+      await screen.findByRole("button", { name: "Remove photo" }),
+    );
+    const confirmTitle = await screen.findByText("Remove workspace logo?");
     expect(updateCalls.length).toBe(0);
 
-    // Scope the confirm click to the confirm dialog: the edit dialog behind it
-    // also has a "Remove" (logo) button, so a global query would be ambiguous.
-    // The confirm modal stacks over the edit dialog (aria-hidden underneath),
-    // so query with hidden as well
+    // The confirm modal stacks over the logo menu (aria-hidden underneath), so
+    // scope the click to it and query with hidden as well
     const confirmDialog = confirmTitle.closest(
       '[role="dialog"]',
     ) as HTMLElement;
