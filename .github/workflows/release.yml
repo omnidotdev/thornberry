@@ -1,0 +1,38 @@
+name: Release 🏗️
+
+on:
+  push:
+    branches: [master]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    name: Handle release 🦋
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          # pin Bun so the toolchain does not drift with floating latest
+          bun-version: 1.4.2
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      # This package is consumed as a git dependency (github:omnidotdev/thornberry#<tag>),
+      # not published to npm. `bun run release` runs `changeset publish`, which (with
+      # privatePackages.tag enabled in .changeset/config.json) creates the git tag
+      # for the private package; the action then pushes it and opens the GitHub
+      # release. On a push that still has pending changesets, the action instead
+      # opens/updates the version PR.
+      - name: Create release PR or tag release
+        uses: changesets/action@v2
+        with:
+          publish-script: bun run release
+          pr-title: "feature(release): version packages"
+          commit-message: "ci(changesets): version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
