@@ -17,6 +17,7 @@ import {
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { AvatarUpload } from "@/registry/thornberry/components/account-avatar-upload";
+import { BannerUpload } from "@/registry/thornberry/components/account-banner-upload";
 import { useAccountContext } from "@/registry/thornberry/components/account-provider";
 import { AccountOrganizationTeams } from "@/registry/thornberry/components/account-teams";
 import {
@@ -1026,7 +1027,7 @@ const OrganizationDetail = ({
   onLeftOrDeleted: () => void;
   onUpdated: () => void;
 }) => {
-  const { authClient, toaster, orgLogo } = useAccountContext();
+  const { authClient, toaster, orgLogo, orgBanner } = useAccountContext();
 
   const [editOpen, setEditOpen] = useState(false);
 
@@ -1306,6 +1307,9 @@ const OrganizationDetail = ({
   };
 
   const isPersonal = organization.type === "personal";
+  // Logo and banner share one gate: an owner/admin of a non-personal workspace
+  const canEditProfile = canManage && !isPersonal;
+  const bannerSrc = full?.banner ?? organization.banner ?? null;
   const canScheduleDeletion =
     !!authClient.organization.scheduleOrganizationDeletion;
   // The organization is within its deletion grace window. The exact purge date
@@ -1330,12 +1334,41 @@ const OrganizationDetail = ({
         All workspaces
       </Button>
 
+      {/* The banner editor renders only when the host wires a banner uploader,
+          so hosts without banner storage see no change. Members who cannot
+          manage the workspace see the banner read-only, and nothing when unset */}
+      {orgBanner && (canEditProfile || bannerSrc) && (
+        <BannerUpload
+          editable={canEditProfile}
+          uploadEnabled={!!orgBanner.uploadEnabled}
+          src={bannerSrc}
+          onUpload={async (blob) => {
+            await orgBanner.onUpload(
+              organization.id,
+              new File([blob], "banner.jpg", { type: "image/jpeg" }),
+            );
+          }}
+          onClear={async () => {
+            const res = await authClient.organization.update({
+              data: { banner: null },
+              organizationId: organization.id,
+            });
+            if (res?.error) {
+              throw new Error(
+                errorMessage(res.error, "Couldn't remove the banner"),
+              );
+            }
+          }}
+          onChanged={load}
+        />
+      )}
+
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-3">
           <AvatarUpload
             size="xl"
             cropShape="round"
-            editable={canManage && organization.type !== "personal"}
+            editable={canEditProfile}
             uploadEnabled={!!orgLogo?.uploadEnabled}
             src={full?.logo ?? organization.logo ?? null}
             fallback={organization.name.charAt(0)}

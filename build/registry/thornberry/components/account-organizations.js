@@ -27,10 +27,13 @@ import {
 import {
   ConfirmDialog2
 } from "../../../chunks/account-user-two-factor-authentication-p4sysg6s.js";
-import"../../../chunks/account-user-two-factor-authentication-q37czf6m.js";
+import"../../../chunks/account-user-two-factor-authentication-4v8v7btg.js";
 import {
   AvatarUpload2
-} from "../../../chunks/account-user-two-factor-authentication-h723t83p.js";
+} from "../../../chunks/account-user-two-factor-authentication-sddhg8e5.js";
+import {
+  BannerUpload2
+} from "../../../chunks/account-user-two-factor-authentication-mv1fh49j.js";
 import {
   Select2,
   SelectControl2,
@@ -940,7 +943,7 @@ var OrganizationDetail = ({
   onLeftOrDeleted,
   onUpdated
 }) => {
-  const { authClient, toaster, orgLogo } = useAccountContext2();
+  const { authClient, toaster, orgLogo, orgBanner } = useAccountContext2();
   const [editOpen, setEditOpen] = useState(false);
   const [full, setFull] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -1157,6 +1160,8 @@ var OrganizationDetail = ({
     onUpdated();
   };
   const isPersonal = organization.type === "personal";
+  const canEditProfile = canManage && !isPersonal;
+  const bannerSrc = full?.banner ?? organization.banner ?? null;
   const canScheduleDeletion = !!authClient.organization.scheduleOrganizationDeletion;
   const scheduledDeletionDate = organization.deletedAt ? new Date(new Date(organization.deletedAt).getTime() + DELETION_GRACE_DAYS * 24 * 60 * 60 * 1000) : null;
   return /* @__PURE__ */ jsxs("div", {
@@ -1174,6 +1179,24 @@ var OrganizationDetail = ({
           "All workspaces"
         ]
       }),
+      orgBanner && (canEditProfile || bannerSrc) && /* @__PURE__ */ jsx(BannerUpload2, {
+        editable: canEditProfile,
+        uploadEnabled: !!orgBanner.uploadEnabled,
+        src: bannerSrc,
+        onUpload: async (blob) => {
+          await orgBanner.onUpload(organization.id, new File([blob], "banner.jpg", { type: "image/jpeg" }));
+        },
+        onClear: async () => {
+          const res = await authClient.organization.update({
+            data: { banner: null },
+            organizationId: organization.id
+          });
+          if (res?.error) {
+            throw new Error(errorMessage(res.error, "Couldn't remove the banner"));
+          }
+        },
+        onChanged: load
+      }),
       /* @__PURE__ */ jsxs("div", {
         className: "flex flex-wrap items-center justify-between gap-3",
         children: [
@@ -1183,7 +1206,7 @@ var OrganizationDetail = ({
               /* @__PURE__ */ jsx(AvatarUpload2, {
                 size: "xl",
                 cropShape: "round",
-                editable: canManage && organization.type !== "personal",
+                editable: canEditProfile,
                 uploadEnabled: !!orgLogo?.uploadEnabled,
                 src: full?.logo ?? organization.logo ?? null,
                 fallback: organization.name.charAt(0),

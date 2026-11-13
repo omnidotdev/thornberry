@@ -1120,6 +1120,8 @@ var ALLOWED_IMAGE_TYPES = [
   "image/gif"
 ];
 var MAX_IMAGE_SIZE = 5 * 1024 * 1024;
+var MAX_BANNER_IMAGE_SIZE = 10 * 1024 * 1024;
+var BANNER_ASPECT = 4;
 var createImage = (url) => new Promise((resolve, reject) => {
   const image = new Image;
   image.addEventListener("load", () => resolve(image));
@@ -1226,4 +1228,4 @@ var ImageCropper2 = ({
     ]
   });
 };
-export { ALLOWED_IMAGE_TYPES, MAX_IMAGE_SIZE, ImageCropper2 };
+export { ALLOWED_IMAGE_TYPES, MAX_IMAGE_SIZE, MAX_BANNER_IMAGE_SIZE, BANNER_ASPECT, ImageCropper2 };

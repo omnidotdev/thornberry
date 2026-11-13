@@ -115,6 +115,11 @@ export interface AccountOrganization {
   name: string;
   logo?: string | null;
   /**
+   * Wide header image (roughly 4:1), rendered by products with object-fit
+   * cover. Null or absent when the workspace has no banner
+   */
+  banner?: string | null;
+  /**
    * Workspace links (website, socials, etc.) as a JSON-encoded ordered list of
    * `{ url, title? }`. Host-opaque string so the console stays agnostic to the
    * backend's column type; the org editor parses and re-serializes it.
@@ -282,8 +287,9 @@ export interface AccountAuthClient {
       slug: string;
     }) => Promise<AccountAuthResult>;
     /**
-     * Update an organization's name, handle, description, or logo (owner/admin).
-     * Pass `logo: null` to clear the logo (Better Auth's logo field is nullable)
+     * Update an organization's name, handle, description, logo, or banner
+     * (owner/admin). Pass `logo: null` / `banner: null` to clear the image (both
+     * fields are nullable)
      */
     update: (options: {
       data: {
@@ -291,6 +297,11 @@ export interface AccountAuthClient {
         slug?: string;
         description?: string;
         logo?: string | null;
+        /**
+         * Banner URL. Must be a URL the host's banner upload issued, since the
+         * identity server only accepts banners from its own storage
+         */
+        banner?: string | null;
         /** JSON-encoded ordered list of workspace links `{ url, title? }` */
         links?: string;
       };
@@ -399,6 +410,18 @@ export interface AccountOrgLogoUploader {
   onUpload: (organizationId: string, file: Blob) => Promise<string | void>;
 }
 
+/**
+ * Optional org-banner uploader, injected for the same reason as the logo one
+ * (storage is host-specific). When present, the workspace detail shows a wide
+ * banner editor; `onUpload` stores the cropped 4:1 JPEG, sets it on the
+ * organization, and returns the new URL. Omit it and the banner editor does not
+ * render at all, so hosts that have not wired banners see no change.
+ */
+export interface AccountOrgBannerUploader {
+  uploadEnabled?: boolean;
+  onUpload: (organizationId: string, file: Blob) => Promise<string | void>;
+}
+
 export interface AccountContextValue {
   /** Configured auth client the blocks call for every account operation */
   authClient: AccountAuthClient;
@@ -408,6 +431,8 @@ export interface AccountContextValue {
   brand: AccountBrand;
   /** Optional host-provided org-logo uploader (enables the logo control) */
   orgLogo?: AccountOrgLogoUploader;
+  /** Optional host-provided org-banner uploader (enables the banner editor) */
+  orgBanner?: AccountOrgBannerUploader;
 }
 
 const AccountContext = createContext<AccountContextValue | null>(null);

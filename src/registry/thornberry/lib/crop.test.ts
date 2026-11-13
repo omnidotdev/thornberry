@@ -2,6 +2,8 @@ import { describe, expect, test } from "bun:test";
 
 import {
   ALLOWED_IMAGE_TYPES,
+  BANNER_ASPECT,
+  MAX_BANNER_IMAGE_SIZE,
   MAX_IMAGE_SIZE,
 } from "@/registry/thornberry/lib/crop";
 
@@ -21,5 +23,17 @@ describe("shared image upload constraints", () => {
 
   test("max size is 5 MB", () => {
     expect(MAX_IMAGE_SIZE).toBe(5 * 1024 * 1024);
+  });
+});
+
+// The workspace banner shares the type whitelist but has its own size budget
+// and a wide crop, matching the identity server's banner upload contract
+describe("workspace banner upload constraints", () => {
+  test("max size is 10 MB", () => {
+    expect(MAX_BANNER_IMAGE_SIZE).toBe(10 * 1024 * 1024);
+  });
+
+  test("crop aspect is 4:1", () => {
+    expect(BANNER_ASPECT).toBe(4);
   });
 });

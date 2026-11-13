@@ -16,6 +16,10 @@ export declare const GLOBAL_HOTKEYS: {
  * Render a `react-hotkeys-hook` binding string as a human label, e.g. `mod+k`
  * becomes `⌘K` on Apple platforms and `Ctrl+K` elsewhere. Use for shortcut hints
  * (pair with the `Kbd` chip) so the displayed key matches the bound key.
+ *
+ * Named keys render as their glyph (`slash` becomes `/`, `escape` becomes `Esc`,
+ * the arrows become `↑↓←→`), and the `shift+slash` binding (the `?` key) renders
+ * as `?` on every platform rather than a literal `⇧/` / `Shift+Slash`.
  */
 export declare const hotkeyLabel: (hotkey: string) => string;
 export { useHotkeys };
