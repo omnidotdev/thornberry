@@ -45,6 +45,8 @@ var AiDescribePanel = ({
   onGenerate,
   isPending = false,
   generateLabel = "Generate",
+  pendingLabel,
+  meta,
   onSignIn,
   signInLabel = "Sign in",
   notice,
@@ -153,24 +155,44 @@ var AiDescribePanel = ({
                 ]
               }),
               /* @__PURE__ */ jsxs("div", {
-                className: "flex justify-end gap-2",
+                className: "flex items-center justify-between gap-3",
                 children: [
-                  /* @__PURE__ */ jsx(Button2, {
-                    variant: "outline",
-                    onClick: () => onOpenChange(false),
-                    disabled: isPending,
-                    children: "Cancel"
+                  /* @__PURE__ */ jsx("div", {
+                    className: "min-w-0 flex-1 text-muted-foreground text-xs",
+                    children: isPending ? /* @__PURE__ */ jsxs("span", {
+                      className: "inline-flex items-center gap-1.5",
+                      children: [
+                        /* @__PURE__ */ jsx(Loader2, {
+                          className: "size-3 shrink-0 animate-spin"
+                        }),
+                        pendingLabel ? /* @__PURE__ */ jsx("span", {
+                          className: "truncate",
+                          children: pendingLabel
+                        }) : null
+                      ]
+                    }) : meta ?? null
                   }),
-                  mode === "signIn" ? /* @__PURE__ */ jsx(Button2, {
-                    onClick: onSignIn,
-                    disabled: isPending || !onSignIn,
-                    children: signInLabel
-                  }) : /* @__PURE__ */ jsx(Button2, {
-                    onClick: onGenerate,
-                    disabled: isPending || !canGenerate,
-                    children: isPending ? /* @__PURE__ */ jsx(Loader2, {
-                      className: "size-4 animate-spin"
-                    }) : generateLabel
+                  /* @__PURE__ */ jsxs("div", {
+                    className: "flex shrink-0 justify-end gap-2",
+                    children: [
+                      /* @__PURE__ */ jsx(Button2, {
+                        variant: "outline",
+                        onClick: () => onOpenChange(false),
+                        disabled: isPending,
+                        children: "Cancel"
+                      }),
+                      mode === "signIn" ? /* @__PURE__ */ jsx(Button2, {
+                        onClick: onSignIn,
+                        disabled: isPending || !onSignIn,
+                        children: signInLabel
+                      }) : /* @__PURE__ */ jsx(Button2, {
+                        onClick: onGenerate,
+                        disabled: isPending || !canGenerate,
+                        children: isPending ? /* @__PURE__ */ jsx(Loader2, {
+                          className: "size-4 animate-spin"
+                        }) : generateLabel
+                      })
+                    ]
                   })
                 ]
               })
