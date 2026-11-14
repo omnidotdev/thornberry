@@ -1,5 +1,6 @@
 import { Loader2 } from "lucide-react";
 
+import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
 import {
   DialogBackdrop,
@@ -12,7 +13,6 @@ import {
 } from "@/registry/thornberry/components/dialog";
 import { Label } from "@/registry/thornberry/components/label";
 import { PasswordInput } from "@/registry/thornberry/components/password-input";
-import { cn } from "@/lib/utils";
 
 import type { ComponentProps, ReactNode } from "react";
 
@@ -47,6 +47,20 @@ export interface AiDescribePanelProps {
   /** While true the dialog cannot be dismissed and inputs are disabled. */
   isPending?: boolean;
   generateLabel?: string;
+  /**
+   * A short live status shown beside a spinner while `isPending`, so a long
+   * multi-step generation reads as progress rather than a frozen button (e.g.
+   * "Generating...", "Checking the render...", "Refining..."). The host advances
+   * it as its own pipeline moves; when omitted the panel just shows the spinner
+   */
+  pendingLabel?: ReactNode;
+  /**
+   * A persistent info slot in the footer, left of the actions: the strategic
+   * place for host context the user weighs right before spending, e.g. a credit
+   * balance and a per-run cost estimate. Hidden while `isPending` (the live
+   * status takes its place). Presentational only; the host owns the content
+   */
+  meta?: ReactNode;
 
   /** Start sign-in (shown as the primary CTA in `signIn` mode). */
   onSignIn?: () => void;
@@ -108,6 +122,8 @@ const AiDescribePanel = ({
   onGenerate,
   isPending = false,
   generateLabel = "Generate",
+  pendingLabel,
+  meta,
   onSignIn,
   signInLabel = "Sign in",
   notice,
@@ -181,7 +197,9 @@ const AiDescribePanel = ({
               </div>
             )}
 
-            {notice && <div className="text-muted-foreground text-sm">{notice}</div>}
+            {notice && (
+              <div className="text-muted-foreground text-sm">{notice}</div>
+            )}
 
             {byok && (
               <div className="space-y-2">
@@ -202,7 +220,9 @@ const AiDescribePanel = ({
                     <PasswordInput
                       id="ai-byok-key"
                       value={byok.value}
-                      onChange={(event) => byok.onValueChange(event.target.value)}
+                      onChange={(event) =>
+                        byok.onValueChange(event.target.value)
+                      }
                       placeholder={byok.placeholder ?? "Synapse API key"}
                       autoComplete="off"
                       spellCheck={false}
@@ -226,30 +246,48 @@ const AiDescribePanel = ({
               </div>
             )}
 
-            <div className="flex justify-end gap-2">
-              <Button
-                variant="outline"
-                onClick={() => onOpenChange(false)}
-                disabled={isPending}
-              >
-                Cancel
-              </Button>
-              {mode === "signIn" ? (
-                <Button onClick={onSignIn} disabled={isPending || !onSignIn}>
-                  {signInLabel}
-                </Button>
-              ) : (
+            <div className="flex items-center justify-between gap-3">
+              {/* Left: a live status while pending (so a multi-step run reads as
+                  progress), otherwise the host's meta (credits, cost estimate).
+                  Keeps the row present so the actions never shift */}
+              <div className="min-w-0 flex-1 text-muted-foreground text-xs">
+                {isPending ? (
+                  <span className="inline-flex items-center gap-1.5">
+                    <Loader2 className="size-3 shrink-0 animate-spin" />
+                    {pendingLabel ? (
+                      <span className="truncate">{pendingLabel}</span>
+                    ) : null}
+                  </span>
+                ) : (
+                  (meta ?? null)
+                )}
+              </div>
+
+              <div className="flex shrink-0 justify-end gap-2">
                 <Button
-                  onClick={onGenerate}
-                  disabled={isPending || !canGenerate}
+                  variant="outline"
+                  onClick={() => onOpenChange(false)}
+                  disabled={isPending}
                 >
-                  {isPending ? (
-                    <Loader2 className="size-4 animate-spin" />
-                  ) : (
-                    generateLabel
-                  )}
+                  Cancel
                 </Button>
-              )}
+                {mode === "signIn" ? (
+                  <Button onClick={onSignIn} disabled={isPending || !onSignIn}>
+                    {signInLabel}
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={onGenerate}
+                    disabled={isPending || !canGenerate}
+                  >
+                    {isPending ? (
+                      <Loader2 className="size-4 animate-spin" />
+                    ) : (
+                      generateLabel
+                    )}
+                  </Button>
+                )}
+              </div>
             </div>
           </DialogContent>
         </DialogPositioner>
