@@ -637,16 +637,22 @@ const LinkShortcutsPlugin = () => {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
-    const unregisterPaste = editor.registerCommand<ClipboardEvent>(
+    const unregisterPaste = editor.registerCommand(
       PASTE_COMMAND,
       (event) => {
         const selection = $getSelection();
         if (!$isRangeSelection(selection) || selection.isCollapsed()) {
           return false;
         }
-        const href = linkFromText(
-          event.clipboardData?.getData("text/plain") ?? "",
-        );
+        // the paste payload may be a clipboard event or (for some input
+        // methods) an input event carrying a dataTransfer
+        const data =
+          "clipboardData" in event
+            ? event.clipboardData
+            : "dataTransfer" in event
+              ? event.dataTransfer
+              : null;
+        const href = linkFromText(data?.getData("text/plain") ?? "");
         if (!href) return false;
         event.preventDefault();
         editor.dispatchCommand(TOGGLE_LINK_COMMAND, href);
