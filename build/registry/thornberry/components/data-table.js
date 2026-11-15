@@ -3,10 +3,10 @@ import {
   CheckboxControl2,
   CheckboxIndicator2,
   CheckboxHiddenInput2
-} from "../../../chunks/account-user-two-factor-authentication-rmtq1dzy.js";
+} from "../../../chunks/ai-describe-panel-rmtq1dzy.js";
 import {
   Input2
-} from "../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
+} from "../../../chunks/ai-describe-panel-hj664zsh.js";
 import {
   Table2,
   TableHeader2,
@@ -14,10 +14,10 @@ import {
   TableRow2,
   TableHead2,
   TableCell2
-} from "../../../chunks/account-user-two-factor-authentication-06kze8cq.js";
+} from "../../../chunks/ai-describe-panel-06kze8cq.js";
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // node_modules/@tanstack/react-table/build/lib/index.mjs
 import * as React from "react";

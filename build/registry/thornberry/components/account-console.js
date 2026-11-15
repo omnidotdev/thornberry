@@ -1,53 +1,53 @@
 import {
   useAccountContext2
-} from "../../../chunks/account-user-two-factor-authentication-b60vh03c.js";
+} from "../../../chunks/ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
-import"../../../chunks/account-user-two-factor-authentication-8q0yqrx6.js";
-import"../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
-import"../../../chunks/account-user-two-factor-authentication-fa46q8yp.js";
+} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
+import"../../../chunks/ai-describe-panel-8q0yqrx6.js";
+import"../../../chunks/ai-describe-panel-hj664zsh.js";
+import"../../../chunks/ai-describe-panel-fa46q8yp.js";
 import {
   AddPasskey2
-} from "../../../chunks/account-user-two-factor-authentication-qvta5wkk.js";
-import"../../../chunks/account-user-two-factor-authentication-b7jpk793.js";
-import"../../../chunks/account-user-two-factor-authentication-p4sysg6s.js";
-import"../../../chunks/account-user-two-factor-authentication-4v8v7btg.js";
+} from "../../../chunks/ai-describe-panel-hpz9hsny.js";
+import"../../../chunks/ai-describe-panel-b7jpk793.js";
+import"../../../chunks/ai-describe-panel-4yw3abje.js";
+import"../../../chunks/ai-describe-panel-4v8v7btg.js";
 import {
   AvatarUpload2
-} from "../../../chunks/account-user-two-factor-authentication-sddhg8e5.js";
-import"../../../chunks/account-user-two-factor-authentication-h7z0b3ps.js";
-import"../../../chunks/account-user-two-factor-authentication-n3zp77m0.js";
-import"../../../chunks/account-user-two-factor-authentication-rmtq1dzy.js";
-import"../../../chunks/account-user-two-factor-authentication-e8m4br8p.js";
-import"../../../chunks/account-user-two-factor-authentication-8wtqb3wn.js";
+} from "../../../chunks/ai-describe-panel-8151vcmn.js";
+import"../../../chunks/ai-describe-panel-h7z0b3ps.js";
+import"../../../chunks/ai-describe-panel-5yqzhe3k.js";
+import"../../../chunks/ai-describe-panel-rmtq1dzy.js";
+import"../../../chunks/ai-describe-panel-e8m4br8p.js";
+import"../../../chunks/ai-describe-panel-8wtqb3wn.js";
 import {
   ChangePassword2
-} from "../../../chunks/account-user-two-factor-authentication-b42r02js.js";
+} from "../../../chunks/ai-describe-panel-nyewfbf9.js";
 import {
   EditProfile2
-} from "../../../chunks/account-user-two-factor-authentication-2hcq6kz1.js";
+} from "../../../chunks/ai-describe-panel-bykmrf3c.js";
 import {
   UserActiveSessions2
-} from "../../../chunks/account-user-two-factor-authentication-tv0rjb7e.js";
+} from "../../../chunks/ai-describe-panel-k8yefn33.js";
 import {
   UserTwoFactorAuthentication2
-} from "../../../chunks/account-user-two-factor-authentication-8771ftdn.js";
-import"../../../chunks/account-user-two-factor-authentication-06kze8cq.js";
+} from "../../../chunks/ai-describe-panel-5b5pcjd4.js";
+import"../../../chunks/ai-describe-panel-06kze8cq.js";
 import {
   ViewPasskeys2
-} from "../../../chunks/account-user-two-factor-authentication-zspxh27f.js";
+} from "../../../chunks/ai-describe-panel-088hbbp0.js";
 import {
   AlertRoot2,
   AlertTitle2,
   AlertDescription2
-} from "../../../chunks/account-user-two-factor-authentication-zzr25an1.js";
+} from "../../../chunks/ai-describe-panel-zzr25an1.js";
 import {
   CardRoot2,
   CardHeader2,
   CardContent2,
   CardFooter2
-} from "../../../chunks/account-user-two-factor-authentication-f7d4gzjq.js";
+} from "../../../chunks/ai-describe-panel-f7d4gzjq.js";
 
 // src/registry/thornberry/components/account-console.tsx
 import { Loader2, StopCircle } from "lucide-react";

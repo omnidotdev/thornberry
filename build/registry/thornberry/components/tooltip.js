@@ -6,7 +6,7 @@ import {
   TooltipPositioner2,
   TooltipContent2,
   TooltipArrowTip2
-} from "../../../chunks/account-user-two-factor-authentication-fyv865k9.js";
+} from "../../../chunks/ai-describe-panel-fyv865k9.js";
 export {
   TooltipArrow2 as TooltipArrow,
   TooltipArrowTip2 as TooltipArrowTip,

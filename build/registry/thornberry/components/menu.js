@@ -19,7 +19,7 @@ import {
   MenuSeparator2,
   MenuTriggerItem2,
   MenuItemShortcut2
-} from "../../../chunks/account-user-two-factor-authentication-jw3adf69.js";
+} from "../../../chunks/ai-describe-panel-jw3adf69.js";
 export {
   MenuArrow2 as MenuArrow,
   MenuArrowTip2 as MenuArrowTip,

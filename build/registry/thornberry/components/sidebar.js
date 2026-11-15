@@ -1,25 +1,25 @@
 import {
   Button2
-} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
 import {
   Input2
-} from "../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
+} from "../../../chunks/ai-describe-panel-hj664zsh.js";
 import {
   SheetRoot2,
   SheetTrigger2,
   SheetContent2,
   SheetTitle2,
   SheetDescription2
-} from "../../../chunks/account-user-two-factor-authentication-mny4qh82.js";
+} from "../../../chunks/ai-describe-panel-mny4qh82.js";
 import {
   TooltipRoot2,
   TooltipTrigger2,
   TooltipPositioner2,
   TooltipContent2
-} from "../../../chunks/account-user-two-factor-authentication-fyv865k9.js";
+} from "../../../chunks/ai-describe-panel-fyv865k9.js";
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/sidebar.tsx
 import { ark } from "@ark-ui/react/factory";
