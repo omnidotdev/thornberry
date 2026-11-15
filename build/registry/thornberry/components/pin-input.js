@@ -1,6 +1,6 @@
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/pin-input.tsx
 import { PinInput as ArkPinInput } from "@ark-ui/react/pin-input";

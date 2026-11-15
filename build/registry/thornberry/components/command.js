@@ -8,8 +8,8 @@ import {
   CommandSeparator2,
   CommandItem2,
   CommandShortcut2
-} from "../../../chunks/account-user-two-factor-authentication-1qcg15v6.js";
-import"../../../chunks/account-user-two-factor-authentication-8q0yqrx6.js";
+} from "../../../chunks/ai-describe-panel-1qcg15v6.js";
+import"../../../chunks/ai-describe-panel-8q0yqrx6.js";
 export {
   Command2 as Command,
   CommandDialog2 as CommandDialog,

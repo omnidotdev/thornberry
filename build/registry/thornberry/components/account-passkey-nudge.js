@@ -1,18 +1,18 @@
 import {
   useAccountContext2
-} from "../../../chunks/account-user-two-factor-authentication-b60vh03c.js";
+} from "../../../chunks/ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
-import"../../../chunks/account-user-two-factor-authentication-8q0yqrx6.js";
-import"../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
-import"../../../chunks/account-user-two-factor-authentication-fa46q8yp.js";
+} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
+import"../../../chunks/ai-describe-panel-8q0yqrx6.js";
+import"../../../chunks/ai-describe-panel-hj664zsh.js";
+import"../../../chunks/ai-describe-panel-fa46q8yp.js";
 import {
   AddPasskey2
-} from "../../../chunks/account-user-two-factor-authentication-qvta5wkk.js";
+} from "../../../chunks/ai-describe-panel-hpz9hsny.js";
 import {
   CardRoot2
-} from "../../../chunks/account-user-two-factor-authentication-f7d4gzjq.js";
+} from "../../../chunks/ai-describe-panel-f7d4gzjq.js";
 
 // src/registry/thornberry/components/account-passkey-nudge.tsx
 import { Fingerprint, X } from "lucide-react";

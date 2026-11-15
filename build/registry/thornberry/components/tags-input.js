@@ -1,6 +1,6 @@
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/tags-input.tsx
 import { TagsInput as ArkTagsInput } from "@ark-ui/react/tags-input";

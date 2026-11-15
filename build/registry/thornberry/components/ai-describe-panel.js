@@ -1,6 +1,6 @@
 import {
   Button2
-} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
 import {
   DialogRoot2,
   DialogPortal2,
@@ -9,17 +9,17 @@ import {
   DialogContent2,
   DialogTitle2,
   DialogDescription2
-} from "../../../chunks/account-user-two-factor-authentication-8q0yqrx6.js";
+} from "../../../chunks/ai-describe-panel-8q0yqrx6.js";
 import {
   Label2
-} from "../../../chunks/account-user-two-factor-authentication-fa46q8yp.js";
-import"../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
+} from "../../../chunks/ai-describe-panel-fa46q8yp.js";
+import"../../../chunks/ai-describe-panel-hj664zsh.js";
 import {
   PasswordInput2
-} from "../../../chunks/account-user-two-factor-authentication-e8m4br8p.js";
+} from "../../../chunks/ai-describe-panel-e8m4br8p.js";
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/ai-describe-panel.tsx
 import { Loader2 } from "lucide-react";

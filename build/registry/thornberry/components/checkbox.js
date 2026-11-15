@@ -7,7 +7,7 @@ import {
   CheckboxControl2,
   CheckboxIndicator2,
   CheckboxHiddenInput2
-} from "../../../chunks/account-user-two-factor-authentication-rmtq1dzy.js";
+} from "../../../chunks/ai-describe-panel-rmtq1dzy.js";
 export {
   CheckboxContext2 as CheckboxContext,
   CheckboxControl2 as CheckboxControl,

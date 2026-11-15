@@ -1,6 +1,6 @@
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/hover-card.tsx
 import { HoverCard as ArkHoverCard } from "@ark-ui/react/hover-card";

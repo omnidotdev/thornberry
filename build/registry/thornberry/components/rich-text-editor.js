@@ -1,12 +1,12 @@
 import {
   Button2
-} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
 import {
   Skeleton2
-} from "../../../chunks/account-user-two-factor-authentication-4ayhnmp9.js";
+} from "../../../chunks/ai-describe-panel-4ayhnmp9.js";
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/rich-text-editor.tsx
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
@@ -466,7 +466,8 @@ var LinkShortcutsPlugin = () => {
       if (!$isRangeSelection(selection) || selection.isCollapsed()) {
         return false;
       }
-      const href = linkFromText(event.clipboardData?.getData("text/plain") ?? "");
+      const data = "clipboardData" in event ? event.clipboardData : ("dataTransfer" in event) ? event.dataTransfer : null;
+      const href = linkFromText(data?.getData("text/plain") ?? "");
       if (!href)
         return false;
       event.preventDefault();

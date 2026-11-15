@@ -1,12 +1,12 @@
 import {
   Badge2
-} from "../../../chunks/account-user-two-factor-authentication-mhbe1kzg.js";
+} from "../../../chunks/ai-describe-panel-mhbe1kzg.js";
 import {
   Button2
-} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
 import {
   cn
-} from "../../../chunks/account-user-two-factor-authentication-81fr4sax.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/ai-chat-thread.tsx
 import { ArrowUp, Bot, Loader2, User, Wrench } from "lucide-react";

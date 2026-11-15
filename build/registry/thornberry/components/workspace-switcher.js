@@ -2,10 +2,10 @@ import {
   AvatarRoot2,
   AvatarFallback2,
   AvatarImage2
-} from "../../../chunks/account-user-two-factor-authentication-b7jpk793.js";
+} from "../../../chunks/ai-describe-panel-b7jpk793.js";
 import {
   Button2
-} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
 import {
   MenuRoot2,
   MenuTrigger2,
@@ -15,7 +15,7 @@ import {
   MenuItemGroup2,
   MenuItemGroupLabel2,
   MenuSeparator2
-} from "../../../chunks/account-user-two-factor-authentication-jw3adf69.js";
+} from "../../../chunks/ai-describe-panel-jw3adf69.js";
 
 // src/registry/thornberry/components/workspace-switcher.tsx
 import { Check, ChevronsUpDown, ExternalLink } from "lucide-react";

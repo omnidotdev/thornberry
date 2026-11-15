@@ -1,14 +1,14 @@
 import {
   useAccountContext2
-} from "../../../chunks/account-user-two-factor-authentication-b60vh03c.js";
+} from "../../../chunks/ai-describe-panel-b60vh03c.js";
 import {
   AvatarRoot2,
   AvatarFallback2,
   AvatarImage2
-} from "../../../chunks/account-user-two-factor-authentication-b7jpk793.js";
+} from "../../../chunks/ai-describe-panel-b7jpk793.js";
 import {
   Button2
-} from "../../../chunks/account-user-two-factor-authentication-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
 import {
   DialogRoot2,
   DialogPortal2,
@@ -17,23 +17,23 @@ import {
   DialogContent2,
   DialogTitle2,
   DialogDescription2
-} from "../../../chunks/account-user-two-factor-authentication-8q0yqrx6.js";
+} from "../../../chunks/ai-describe-panel-8q0yqrx6.js";
 import {
   Input2
-} from "../../../chunks/account-user-two-factor-authentication-hj664zsh.js";
+} from "../../../chunks/ai-describe-panel-hj664zsh.js";
 import {
   Label2
-} from "../../../chunks/account-user-two-factor-authentication-fa46q8yp.js";
+} from "../../../chunks/ai-describe-panel-fa46q8yp.js";
 import {
   ConfirmDialog2
-} from "../../../chunks/account-user-two-factor-authentication-p4sysg6s.js";
-import"../../../chunks/account-user-two-factor-authentication-4v8v7btg.js";
+} from "../../../chunks/ai-describe-panel-4yw3abje.js";
+import"../../../chunks/ai-describe-panel-4v8v7btg.js";
 import {
   AvatarUpload2
-} from "../../../chunks/account-user-two-factor-authentication-sddhg8e5.js";
+} from "../../../chunks/ai-describe-panel-8151vcmn.js";
 import {
   BannerUpload2
-} from "../../../chunks/account-user-two-factor-authentication-mv1fh49j.js";
+} from "../../../chunks/ai-describe-panel-58wkhfpw.js";
 import {
   Select2,
   SelectControl2,
@@ -47,16 +47,16 @@ import {
   SelectItemText2,
   SelectItemIndicator2,
   createListCollection2
-} from "../../../chunks/account-user-two-factor-authentication-8wtqb3wn.js";
+} from "../../../chunks/ai-describe-panel-8wtqb3wn.js";
 import {
   AccountOrganizationTeams2
-} from "../../../chunks/account-user-two-factor-authentication-xw9eg618.js";
+} from "../../../chunks/ai-describe-panel-y7z7p0p2.js";
 import {
   Badge2
-} from "../../../chunks/account-user-two-factor-authentication-mhbe1kzg.js";
+} from "../../../chunks/ai-describe-panel-mhbe1kzg.js";
 import {
   Skeleton2
-} from "../../../chunks/account-user-two-factor-authentication-4ayhnmp9.js";
+} from "../../../chunks/ai-describe-panel-4ayhnmp9.js";
 
 // src/registry/thornberry/components/account-organizations.tsx
 import {

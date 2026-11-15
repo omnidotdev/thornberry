@@ -19,7 +19,7 @@ import {
   SelectItemIndicator2,
   SelectSeparator2,
   createListCollection2
-} from "../../../chunks/account-user-two-factor-authentication-8wtqb3wn.js";
+} from "../../../chunks/ai-describe-panel-8wtqb3wn.js";
 export {
   Select2 as Select,
   SelectClearTrigger2 as SelectClearTrigger,

@@ -1,4 +1,4 @@
-import"../../../chunks/account-user-two-factor-authentication-8q0yqrx6.js";
+import"../../../chunks/ai-describe-panel-8q0yqrx6.js";
 import {
   CommandDialog2,
   CommandInput2,
@@ -8,10 +8,10 @@ import {
   CommandSeparator2,
   CommandItem2,
   CommandShortcut2
-} from "../../../chunks/account-user-two-factor-authentication-1qcg15v6.js";
+} from "../../../chunks/ai-describe-panel-1qcg15v6.js";
 import {
   Kbd2
-} from "../../../chunks/account-user-two-factor-authentication-ym1fwyxy.js";
+} from "../../../chunks/ai-describe-panel-ym1fwyxy.js";
 
 // src/registry/thornberry/components/command-palette.tsx
 import { Fragment, useEffect, useState } from "react";
