@@ -78,57 +78,57 @@ interface SubmitButtonProps extends Omit<ComponentProps<typeof Button>, "type"> 
     label: string;
 }
 declare const SubmitButton: ({ label, ...rest }: SubmitButtonProps) => import("react/jsx-runtime").JSX.Element;
-declare const useAppForm: <TFormData, TOnMount extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnChange extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnChangeAsync extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TOnBlur extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnBlurAsync extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TOnSubmit extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnSubmitAsync extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TOnDynamic extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnDynamicAsync extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TOnServer extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TSubmitMeta>(props: import("@tanstack/form-core").FormOptions<TFormData, TOnMount, TOnChange, TOnChangeAsync, TOnBlur, TOnBlurAsync, TOnSubmit, TOnSubmitAsync, TOnDynamic, TOnDynamicAsync, TOnServer, TSubmitMeta>) => import("@tanstack/react-form").AppFieldExtendedReactFormApi<TFormData, TOnMount, TOnChange, TOnChangeAsync, TOnBlur, TOnBlurAsync, TOnSubmit, TOnSubmitAsync, TOnDynamic, TOnDynamicAsync, TOnServer, TSubmitMeta, {
-    readonly TextField: ({ label, className, id, ...rest }: TextFieldProps) => import("react/jsx-runtime").JSX.Element;
-    readonly PasswordField: ({ label, className, id, ...rest }: PasswordFieldProps) => import("react/jsx-runtime").JSX.Element;
-    readonly TextareaField: ({ label, className, id, ...rest }: TextareaFieldProps) => import("react/jsx-runtime").JSX.Element;
-    readonly CheckboxField: ({ label }: CheckboxFieldProps) => import("react/jsx-runtime").JSX.Element;
-    readonly SelectField: ({ label, items, placeholder }: SelectFieldProps) => import("react/jsx-runtime").JSX.Element;
+declare const useAppForm: <TFormData, TOnMount extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnChange extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnChangeAsync extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TOnBlur extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnBlurAsync extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TOnSubmit extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnSubmitAsync extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TOnDynamic extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnDynamicAsync extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TOnServer extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TSubmitMeta>(props: import("@tanstack/form-core").FormOptions<TFormData, TOnMount, TOnChange, TOnChangeAsync, TOnBlur, TOnBlurAsync, TOnSubmit, TOnSubmitAsync, TOnDynamic, TOnDynamicAsync, TOnServer, TSubmitMeta>) => import("@tanstack/react-form").AppFieldExtendedReactFormApi<TFormData, TOnMount, TOnChange, TOnChangeAsync, TOnBlur, TOnBlurAsync, TOnSubmit, TOnSubmitAsync, TOnDynamic, TOnDynamicAsync, TOnServer, TSubmitMeta, {
+    readonly TextField: typeof TextField;
+    readonly PasswordField: typeof PasswordField;
+    readonly TextareaField: typeof TextareaField;
+    readonly CheckboxField: typeof CheckboxField;
+    readonly SelectField: typeof SelectField;
 }, {
-    readonly SubmitButton: ({ label, ...rest }: SubmitButtonProps) => import("react/jsx-runtime").JSX.Element;
-}>, withForm: <TFormData, TOnMount extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnChange extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnChangeAsync extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TOnBlur extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnBlurAsync extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TOnSubmit extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnSubmitAsync extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TOnDynamic extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnDynamicAsync extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TOnServer extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TSubmitMeta, TRenderProps extends object = {}>({ render, props, }: import("@tanstack/react-form").WithFormProps<TFormData, TOnMount, TOnChange, TOnChangeAsync, TOnBlur, TOnBlurAsync, TOnSubmit, TOnSubmitAsync, TOnDynamic, TOnDynamicAsync, TOnServer, TSubmitMeta, {
-    readonly TextField: ({ label, className, id, ...rest }: TextFieldProps) => import("react/jsx-runtime").JSX.Element;
-    readonly PasswordField: ({ label, className, id, ...rest }: PasswordFieldProps) => import("react/jsx-runtime").JSX.Element;
-    readonly TextareaField: ({ label, className, id, ...rest }: TextareaFieldProps) => import("react/jsx-runtime").JSX.Element;
-    readonly CheckboxField: ({ label }: CheckboxFieldProps) => import("react/jsx-runtime").JSX.Element;
-    readonly SelectField: ({ label, items, placeholder }: SelectFieldProps) => import("react/jsx-runtime").JSX.Element;
+    readonly SubmitButton: typeof SubmitButton;
+}>, withForm: <TFormData, TOnMount extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnChange extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnChangeAsync extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TOnBlur extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnBlurAsync extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TOnSubmit extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnSubmitAsync extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TOnDynamic extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnDynamicAsync extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TOnServer extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TSubmitMeta, TRenderProps extends object = {}>({ render, props, }: import("@tanstack/react-form").WithFormProps<TFormData, TOnMount, TOnChange, TOnChangeAsync, TOnBlur, TOnBlurAsync, TOnSubmit, TOnSubmitAsync, TOnDynamic, TOnDynamicAsync, TOnServer, TSubmitMeta, {
+    readonly TextField: typeof TextField;
+    readonly PasswordField: typeof PasswordField;
+    readonly TextareaField: typeof TextareaField;
+    readonly CheckboxField: typeof CheckboxField;
+    readonly SelectField: typeof SelectField;
 }, {
-    readonly SubmitButton: ({ label, ...rest }: SubmitButtonProps) => import("react/jsx-runtime").JSX.Element;
+    readonly SubmitButton: typeof SubmitButton;
 }, TRenderProps>) => import("react").FunctionComponent<import("react").PropsWithChildren<NoInfer<[unknown] extends [TRenderProps] ? any : TRenderProps> & {
     form: import("@tanstack/react-form").AppFieldExtendedReactFormApi<[unknown] extends [TFormData] ? any : TFormData, [import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined] extends [TOnMount] ? [TOnMount] extends [TOnMount & (import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined)] ? any : TOnMount : TOnMount, [import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined] extends [TOnChange] ? [TOnChange] extends [TOnChange & (import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined)] ? any : TOnChange : TOnChange, [import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined] extends [TOnChangeAsync] ? [TOnChangeAsync] extends [TOnChangeAsync & (import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined)] ? any : TOnChangeAsync : TOnChangeAsync, [import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined] extends [TOnBlur] ? [TOnBlur] extends [TOnBlur & (import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined)] ? any : TOnBlur : TOnBlur, [import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined] extends [TOnBlurAsync] ? [TOnBlurAsync] extends [TOnBlurAsync & (import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined)] ? any : TOnBlurAsync : TOnBlurAsync, [import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined] extends [TOnSubmit] ? [TOnSubmit] extends [TOnSubmit & (import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined)] ? any : TOnSubmit : TOnSubmit, [import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined] extends [TOnSubmitAsync] ? [TOnSubmitAsync] extends [TOnSubmitAsync & (import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined)] ? any : TOnSubmitAsync : TOnSubmitAsync, [import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined] extends [TOnDynamic] ? [TOnDynamic] extends [TOnDynamic & (import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined)] ? any : TOnDynamic : TOnDynamic, [import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined] extends [TOnDynamicAsync] ? [TOnDynamicAsync] extends [TOnDynamicAsync & (import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined)] ? any : TOnDynamicAsync : TOnDynamicAsync, [import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined] extends [TOnServer] ? [TOnServer] extends [TOnServer & (import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined)] ? any : TOnServer : TOnServer, [unknown] extends [TSubmitMeta] ? any : TSubmitMeta, {
-        readonly TextField: ({ label, className, id, ...rest }: TextFieldProps) => import("react/jsx-runtime").JSX.Element;
-        readonly PasswordField: ({ label, className, id, ...rest }: PasswordFieldProps) => import("react/jsx-runtime").JSX.Element;
-        readonly TextareaField: ({ label, className, id, ...rest }: TextareaFieldProps) => import("react/jsx-runtime").JSX.Element;
-        readonly CheckboxField: ({ label }: CheckboxFieldProps) => import("react/jsx-runtime").JSX.Element;
-        readonly SelectField: ({ label, items, placeholder }: SelectFieldProps) => import("react/jsx-runtime").JSX.Element;
+        readonly TextField: typeof TextField;
+        readonly PasswordField: typeof PasswordField;
+        readonly TextareaField: typeof TextareaField;
+        readonly CheckboxField: typeof CheckboxField;
+        readonly SelectField: typeof SelectField;
     }, {
-        readonly SubmitButton: ({ label, ...rest }: SubmitButtonProps) => import("react/jsx-runtime").JSX.Element;
+        readonly SubmitButton: typeof SubmitButton;
     }>;
 }>>, withFieldGroup: <TFieldGroupData, TSubmitMeta, TRenderProps extends object = {}>({ render, props, defaultValues, }: import("@tanstack/react-form").WithFieldGroupProps<TFieldGroupData, {
-    readonly TextField: ({ label, className, id, ...rest }: TextFieldProps) => import("react/jsx-runtime").JSX.Element;
-    readonly PasswordField: ({ label, className, id, ...rest }: PasswordFieldProps) => import("react/jsx-runtime").JSX.Element;
-    readonly TextareaField: ({ label, className, id, ...rest }: TextareaFieldProps) => import("react/jsx-runtime").JSX.Element;
-    readonly CheckboxField: ({ label }: CheckboxFieldProps) => import("react/jsx-runtime").JSX.Element;
-    readonly SelectField: ({ label, items, placeholder }: SelectFieldProps) => import("react/jsx-runtime").JSX.Element;
+    readonly TextField: typeof TextField;
+    readonly PasswordField: typeof PasswordField;
+    readonly TextareaField: typeof TextareaField;
+    readonly CheckboxField: typeof CheckboxField;
+    readonly SelectField: typeof SelectField;
 }, {
-    readonly SubmitButton: ({ label, ...rest }: SubmitButtonProps) => import("react/jsx-runtime").JSX.Element;
-}, TSubmitMeta, TRenderProps>) => <TFormData, TFields extends import("@tanstack/form-core").DeepKeysOfType<TFormData, TFieldGroupData | null | undefined> | import("@tanstack/form-core").FieldsMap<TFormData, TFieldGroupData>, TOnMount extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnChange extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnChangeAsync extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TOnBlur extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnBlurAsync extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TOnSubmit extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnSubmitAsync extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TOnDynamic extends import("@tanstack/form-core").FormValidateOrFn<TFormData> | undefined, TOnDynamicAsync extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TOnServer extends import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData> | undefined, TFormSubmitMeta>(params: import("react").PropsWithChildren<NoInfer<TRenderProps> & {
-    form: import("@tanstack/react-form").AppFieldExtendedReactFormApi<TFormData, TOnMount, TOnChange, TOnChangeAsync, TOnBlur, TOnBlurAsync, TOnSubmit, TOnSubmitAsync, TOnDynamic, TOnDynamicAsync, TOnServer, unknown extends TSubmitMeta ? TFormSubmitMeta : TSubmitMeta, {
-        readonly TextField: ({ label, className, id, ...rest }: TextFieldProps) => import("react/jsx-runtime").JSX.Element;
-        readonly PasswordField: ({ label, className, id, ...rest }: PasswordFieldProps) => import("react/jsx-runtime").JSX.Element;
-        readonly TextareaField: ({ label, className, id, ...rest }: TextareaFieldProps) => import("react/jsx-runtime").JSX.Element;
-        readonly CheckboxField: ({ label }: CheckboxFieldProps) => import("react/jsx-runtime").JSX.Element;
-        readonly SelectField: ({ label, items, placeholder }: SelectFieldProps) => import("react/jsx-runtime").JSX.Element;
+    readonly SubmitButton: typeof SubmitButton;
+}, TSubmitMeta, TRenderProps>) => <TFormData, TFields extends import("@tanstack/form-core").DeepKeysOfType<TFormData, TFieldGroupData | null | undefined> | import("@tanstack/form-core").FieldsMap<TFormData, TFieldGroupData>, TOnMount extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnChange extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnChangeAsync extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TOnBlur extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnBlurAsync extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TOnSubmit extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnSubmitAsync extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TOnDynamic extends undefined | import("@tanstack/form-core").FormValidateOrFn<TFormData>, TOnDynamicAsync extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TOnServer extends undefined | import("@tanstack/form-core").FormAsyncValidateOrFn<TFormData>, TFormSubmitMeta>(params: import("react").PropsWithChildren<NoInfer<TRenderProps> & {
+    form: import("@tanstack/react-form").AppFieldExtendedReactFieldGroupApi<unknown, TFormData, string | import("@tanstack/form-core").FieldsMap<unknown, TFormData>, any, any, any, any, any, any, any, any, any, any, unknown extends TSubmitMeta ? TFormSubmitMeta : TSubmitMeta, {
+        readonly TextField: typeof TextField;
+        readonly PasswordField: typeof PasswordField;
+        readonly TextareaField: typeof TextareaField;
+        readonly CheckboxField: typeof CheckboxField;
+        readonly SelectField: typeof SelectField;
     }, {
-        readonly SubmitButton: ({ label, ...rest }: SubmitButtonProps) => import("react/jsx-runtime").JSX.Element;
-    }> | import("@tanstack/react-form").AppFieldExtendedReactFieldGroupApi<unknown, TFormData, string | import("@tanstack/form-core").FieldsMap<unknown, TFormData>, any, any, any, any, any, any, any, any, any, any, unknown extends TSubmitMeta ? TFormSubmitMeta : TSubmitMeta, {
-        readonly TextField: ({ label, className, id, ...rest }: TextFieldProps) => import("react/jsx-runtime").JSX.Element;
-        readonly PasswordField: ({ label, className, id, ...rest }: PasswordFieldProps) => import("react/jsx-runtime").JSX.Element;
-        readonly TextareaField: ({ label, className, id, ...rest }: TextareaFieldProps) => import("react/jsx-runtime").JSX.Element;
-        readonly CheckboxField: ({ label }: CheckboxFieldProps) => import("react/jsx-runtime").JSX.Element;
-        readonly SelectField: ({ label, items, placeholder }: SelectFieldProps) => import("react/jsx-runtime").JSX.Element;
+        readonly SubmitButton: typeof SubmitButton;
+    }> | import("@tanstack/react-form").AppFieldExtendedReactFormApi<TFormData, TOnMount, TOnChange, TOnChangeAsync, TOnBlur, TOnBlurAsync, TOnSubmit, TOnSubmitAsync, TOnDynamic, TOnDynamicAsync, TOnServer, unknown extends TSubmitMeta ? TFormSubmitMeta : TSubmitMeta, {
+        readonly TextField: typeof TextField;
+        readonly PasswordField: typeof PasswordField;
+        readonly TextareaField: typeof TextareaField;
+        readonly CheckboxField: typeof CheckboxField;
+        readonly SelectField: typeof SelectField;
     }, {
-        readonly SubmitButton: ({ label, ...rest }: SubmitButtonProps) => import("react/jsx-runtime").JSX.Element;
+        readonly SubmitButton: typeof SubmitButton;
     }>;
     fields: TFields;
 }>) => ReturnType<import("react").FunctionComponent>;

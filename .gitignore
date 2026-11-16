@@ -21,6 +21,9 @@ CLAUDE.md
 next-env.d.ts
 
 # production
+/.output
+/.nitro
+/.tanstack
 
 # misc
 .DS_Store
