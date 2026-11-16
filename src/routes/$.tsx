@@ -87,7 +87,7 @@ const serverLoader = createServerFn({ method: "GET" })
     };
   });
 
-const clientLoader = browserCollections.docs.createClientLoader({
+const clientLoader = browserCollections.docs.createClientLoader<object>({
   component: ({ toc, frontmatter, default: MDX, path }) => (
     <DocsPage
       toc={toc}

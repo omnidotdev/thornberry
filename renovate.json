@@ -1,4 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>omnidotdev/.github", "customManagers:biomeVersions"]
+  "extends": ["github>omnidotdev/.github", "customManagers:biomeVersions"],
+  "packageRules": [
+    {
+      "description": "@tanstack/react-table 9 rewrites the API the shared data-table is built on, and it is a peer dependency, so moving forces every consumer onto v9; migrate deliberately",
+      "matchPackageNames": ["@tanstack/react-table"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    }
+  ]
 }
