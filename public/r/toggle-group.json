@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-group",
+  "title": "Toggle Group",
+  "description": "A set of toggle buttons supporting single or multiple selection",
+  "registryDependencies": ["toggle"],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/toggle-group.tsx",
+      "content": "import { ToggleGroup as ArkToggleGroup } from \"@ark-ui/react/toggle-group\";\nimport { createContext, useContext } from \"react\";\n\nimport { cn } from \"@/lib/utils\";\nimport { toggleVariants } from \"@/registry/thornberry/components/toggle\";\n\nimport type { VariantProps } from \"class-variance-authority\";\nimport type { ComponentProps } from \"react\";\n\ntype ToggleGroupVariantProps = VariantProps<typeof toggleVariants>;\n\n// Lets items inherit the variant and size set once on the root\nconst ToggleGroupStyleContext = createContext<ToggleGroupVariantProps>({});\n\nconst ToggleGroupProvider = ArkToggleGroup.RootProvider;\nconst ToggleGroupContext = ArkToggleGroup.Context;\n\n/**\n * A set of toggle buttons. Single selection by default; pass `multiple` to\n * allow several items on at once. `value` is always an array of item values.\n * `variant` and `size` set here apply to every item unless an item overrides\n * them.\n */\nconst ToggleGroupRoot = ({\n  className,\n  variant,\n  size,\n  ...rest\n}: ComponentProps<typeof ArkToggleGroup.Root> & ToggleGroupVariantProps) => (\n  <ToggleGroupStyleContext.Provider value={{ variant, size }}>\n    <ArkToggleGroup.Root\n      className={cn(\n        \"inline-flex w-fit items-center gap-1 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch\",\n        className,\n      )}\n      {...rest}\n    />\n  </ToggleGroupStyleContext.Provider>\n);\n\nconst ToggleGroupItem = ({\n  className,\n  variant,\n  size,\n  ...rest\n}: ComponentProps<typeof ArkToggleGroup.Item> & ToggleGroupVariantProps) => {\n  const inherited = useContext(ToggleGroupStyleContext);\n\n  return (\n    <ArkToggleGroup.Item\n      className={cn(\n        toggleVariants({\n          variant: variant ?? inherited.variant,\n          size: size ?? inherited.size,\n        }),\n        className,\n      )}\n      {...rest}\n    />\n  );\n};\n\nexport {\n  ToggleGroupContext,\n  ToggleGroupItem,\n  ToggleGroupProvider,\n  ToggleGroupRoot,\n};\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

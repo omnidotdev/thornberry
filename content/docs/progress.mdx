@@ -1,0 +1,182 @@
+---
+title: Progress
+description: Shows the completion of a task as a linear bar or a circular ring, with determinate and indeterminate states.
+---
+
+import {
+  CircularProgress,
+  Progress,
+  ProgressLabel,
+  ProgressRange,
+  ProgressRoot,
+  ProgressTrack,
+  ProgressValueText,
+} from "@/registry/thornberry/components/progress";
+
+<div className="mb-8 max-w-sm">
+  <Progress value={60} label="Uploading" showValueText />
+</div>
+
+## Installation
+
+<InstallationTabs filename="progress.json" />
+
+## Usage
+
+```tsx
+import { CircularProgress, Progress } from "@/components/ui/progress";
+```
+
+```tsx
+<Progress value={60} label="Uploading" showValueText />
+
+<CircularProgress value={60} showValueText />
+```
+
+Pass `value={null}` to show an indeterminate state when the amount of work is unknown.
+
+## Examples
+
+<br />
+
+#### Sizes
+
+<Tabs items={["Small", "Medium", "Large"]} className="mt-4">
+  <Tab value="Small">
+    <div className="max-w-sm">
+      <Progress value={40} size="sm" />
+    </div>
+
+    ```tsx
+    <Progress value={40} size="sm" />
+    ```
+  </Tab>
+  <Tab value="Medium">
+    <div className="max-w-sm">
+      <Progress value={40} size="md" />
+    </div>
+
+    ```tsx
+    <Progress value={40} size="md" />
+    ```
+  </Tab>
+  <Tab value="Large">
+    <div className="max-w-sm">
+      <Progress value={40} size="lg" />
+    </div>
+
+    ```tsx
+    <Progress value={40} size="lg" />
+    ```
+  </Tab>
+</Tabs>
+
+#### Indeterminate
+
+<Tabs items={["Linear", "Circular"]} className="mt-4">
+  <Tab value="Linear">
+    <div className="max-w-sm">
+      <Progress value={null} label="Loading" />
+    </div>
+
+    ```tsx
+    <Progress value={null} label="Loading" />
+    ```
+  </Tab>
+  <Tab value="Circular">
+    <CircularProgress value={null} aria-label="Loading" />
+
+    ```tsx
+    <CircularProgress value={null} aria-label="Loading" />
+    ```
+  </Tab>
+</Tabs>
+
+#### Circular
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="flex items-center gap-6">
+      <CircularProgress value={25} size="sm" />
+      <CircularProgress value={50} size="md" showValueText />
+      <CircularProgress value={75} size="lg" showValueText />
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <CircularProgress value={25} size="sm" />
+    <CircularProgress value={50} size="md" showValueText />
+    <CircularProgress value={75} size="lg" showValueText />
+    ```
+  </Tab>
+</Tabs>
+
+#### Custom Range
+
+Values are relative to `min` and `max`, and the value text shows the percentage by default. Pass children to `ProgressValueText` for custom text.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <ProgressRoot value={3} max={5} className="max-w-sm">
+      <div className="flex items-center justify-between">
+        <ProgressLabel>Steps completed</ProgressLabel>
+        <ProgressValueText>3 of 5</ProgressValueText>
+      </div>
+      <ProgressTrack>
+        <ProgressRange />
+      </ProgressTrack>
+    </ProgressRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <ProgressRoot value={3} max={5}>
+      <div className="flex items-center justify-between">
+        <ProgressLabel>Steps completed</ProgressLabel>
+        <ProgressValueText>3 of 5</ProgressValueText>
+      </div>
+      <ProgressTrack>
+        <ProgressRange />
+      </ProgressTrack>
+    </ProgressRoot>
+    ```
+  </Tab>
+</Tabs>
+
+#### Composition
+
+Build a custom layout from the parts when the composites do not fit.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <ProgressRoot value={80} className="max-w-sm">
+      <ProgressTrack size="sm">
+        <ProgressRange className="bg-green-600" />
+      </ProgressTrack>
+      <div className="flex items-center justify-between">
+        <ProgressLabel>Storage</ProgressLabel>
+        <ProgressValueText />
+      </div>
+    </ProgressRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import {
+      ProgressLabel,
+      ProgressRange,
+      ProgressRoot,
+      ProgressTrack,
+      ProgressValueText,
+    } from "@/components/ui/progress";
+
+    <ProgressRoot value={80}>
+      <ProgressTrack size="sm">
+        <ProgressRange className="bg-green-600" />
+      </ProgressTrack>
+      <div className="flex items-center justify-between">
+        <ProgressLabel>Storage</ProgressLabel>
+        <ProgressValueText />
+      </div>
+    </ProgressRoot>
+    ```
+  </Tab>
+</Tabs>

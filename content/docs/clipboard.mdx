@@ -1,0 +1,115 @@
+---
+title: Clipboard
+description: Copy text to the clipboard with a read-only field or a drop-in copy button.
+---
+
+import {
+  Clipboard,
+  ClipboardControl,
+  ClipboardIndicator,
+  ClipboardRoot,
+  ClipboardTrigger,
+  ClipboardValueText,
+  CopyButton,
+} from "@/registry/thornberry/components/clipboard";
+
+<div className="mb-8 max-w-sm">
+  <Clipboard label="API key" value="sk_live_51Hx9thornberry" />
+</div>
+
+## Installation
+
+<InstallationTabs filename="clipboard.json" />
+
+## Usage
+
+```tsx
+import { Clipboard, CopyButton } from "@/components/ui/clipboard";
+```
+
+```tsx
+<Clipboard label="API key" value={apiKey} />
+
+<CopyButton value={apiKey} />
+```
+
+## Examples
+
+<br />
+
+#### Copy Button
+
+`CopyButton` copies `value` on click and shows a check until `timeout` (3 seconds by default) passes. It is icon-only by default; children add visible text.
+
+<Tabs items={["Icon", "With Text", "Inline"]} className="mt-4">
+  <Tab value="Icon">
+    <CopyButton value="https://thornberry.omni.dev" />
+
+    ```tsx
+    <CopyButton value="https://thornberry.omni.dev" />
+    ```
+  </Tab>
+  <Tab value="With Text">
+    <CopyButton value="https://thornberry.omni.dev" variant="outline" size="sm" label="Copy link">
+      Copy link
+    </CopyButton>
+
+    ```tsx
+    <CopyButton value={url} variant="outline" size="sm" label="Copy link">
+      Copy link
+    </CopyButton>
+    ```
+  </Tab>
+  <Tab value="Inline">
+    <div className="flex w-fit items-center gap-2 rounded-md border py-1 pr-1 pl-3">
+      <code className="text-sm">bun add @omnidotdev/thornberry</code>
+      <CopyButton value="bun add @omnidotdev/thornberry" size="sm" label="Copy install command" />
+    </div>
+
+    ```tsx
+    <div className="flex w-fit items-center gap-2 rounded-md border py-1 pr-1 pl-3">
+      <code className="text-sm">{command}</code>
+      <CopyButton value={command} size="sm" label="Copy install command" />
+    </div>
+    ```
+  </Tab>
+</Tabs>
+
+Use `onCopy` to react to a successful copy, for example to show a toast.
+
+#### Composition
+
+Build a custom layout from the parts. `ClipboardIndicator` swaps between its children and `copied` content.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <ClipboardRoot value="INVITE-7F3K-29QX" className="w-fit">
+      <ClipboardControl className="rounded-md border bg-muted py-1 pr-1 pl-3">
+        <ClipboardValueText />
+        <ClipboardTrigger variant="ghost" size="sm" aria-label="Copy invite code">
+          <ClipboardIndicator copied="Copied">Copy</ClipboardIndicator>
+        </ClipboardTrigger>
+      </ClipboardControl>
+    </ClipboardRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import {
+      ClipboardControl,
+      ClipboardIndicator,
+      ClipboardRoot,
+      ClipboardTrigger,
+      ClipboardValueText,
+    } from "@/components/ui/clipboard";
+
+    <ClipboardRoot value="INVITE-7F3K-29QX" className="w-fit">
+      <ClipboardControl className="rounded-md border bg-muted py-1 pr-1 pl-3">
+        <ClipboardValueText />
+        <ClipboardTrigger variant="ghost" size="sm" aria-label="Copy invite code">
+          <ClipboardIndicator copied="Copied">Copy</ClipboardIndicator>
+        </ClipboardTrigger>
+      </ClipboardControl>
+    </ClipboardRoot>
+    ```
+  </Tab>
+</Tabs>

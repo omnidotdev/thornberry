@@ -12,6 +12,7 @@
     "card",
     "carousel",
     "checkbox",
+    "clipboard",
     "collapsible",
     "color-picker",
     "combobox",
@@ -25,8 +26,11 @@
     "pagination",
     "pin-input",
     "popover",
+    "progress",
     "radio-group",
     "rating-group",
+    "scroll-area",
+    "segment-group",
     "select",
     "sheet",
     "sidebar",
@@ -37,6 +41,8 @@
     "tabs",
     "tags-input",
     "timer",
+    "toggle",
+    "toggle-group",
     "tooltip",
     "tour"
   ]
