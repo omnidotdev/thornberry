@@ -1,0 +1,124 @@
+---
+title: Toggle
+description: A two-state button that can be switched on or off.
+---
+
+import { Bold, Pin, PinOff, Star } from "lucide-react";
+import { Toggle, ToggleIndicator } from "@/registry/thornberry/components/toggle";
+
+<Toggle className="mb-8" aria-label="Toggle bold">
+  <Bold className="size-4" />
+</Toggle>
+
+## Installation
+
+<InstallationTabs filename="toggle.json" />
+
+## Usage
+
+```tsx
+import { Toggle } from "@/components/ui/toggle";
+```
+
+```tsx
+<Toggle aria-label="Toggle bold">
+  <Bold className="size-4" />
+</Toggle>
+```
+
+Use `pressed` and `onPressedChange` to control the state, or `defaultPressed` to set the initial state. Give icon-only toggles an `aria-label`.
+
+## Examples
+
+<br />
+
+#### Variants
+
+<Tabs items={["Ghost", "Outline", "Solid"]} className="mt-4">
+  <Tab value="Ghost">
+    <Toggle variant="ghost" defaultPressed>Ghost</Toggle>
+
+    ```tsx
+    <Toggle variant="ghost">Ghost</Toggle>
+    ```
+  </Tab>
+  <Tab value="Outline">
+    <Toggle variant="outline" defaultPressed>Outline</Toggle>
+
+    ```tsx
+    <Toggle variant="outline">Outline</Toggle>
+    ```
+  </Tab>
+  <Tab value="Solid">
+    <Toggle variant="solid" defaultPressed>Solid</Toggle>
+
+    ```tsx
+    <Toggle variant="solid">Solid</Toggle>
+    ```
+  </Tab>
+</Tabs>
+
+#### Sizes
+
+<Tabs items={["Small", "Medium", "Large", "Icon"]} className="mt-4">
+  <Tab value="Small">
+    <Toggle variant="outline" size="sm">Small</Toggle>
+
+    ```tsx
+    <Toggle size="sm">Small</Toggle>
+    ```
+  </Tab>
+  <Tab value="Medium">
+    <Toggle variant="outline" size="md">Medium</Toggle>
+
+    ```tsx
+    <Toggle size="md">Medium</Toggle>
+    ```
+  </Tab>
+  <Tab value="Large">
+    <Toggle variant="outline" size="lg">Large</Toggle>
+
+    ```tsx
+    <Toggle size="lg">Large</Toggle>
+    ```
+  </Tab>
+  <Tab value="Icon">
+    <Toggle variant="outline" size="icon" aria-label="Favorite">
+      <Star className="size-4" />
+    </Toggle>
+
+    ```tsx
+    <Toggle size="icon" aria-label="Favorite">
+      <Star className="size-4" />
+    </Toggle>
+    ```
+  </Tab>
+</Tabs>
+
+#### Indicator
+
+`ToggleIndicator` renders its children while on and `fallback` while off.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <Toggle variant="outline">
+      <ToggleIndicator fallback={<PinOff className="size-4" />}>
+        <Pin className="size-4" />
+      </ToggleIndicator>
+      Pin
+    </Toggle>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { Pin, PinOff } from "lucide-react";
+    import { Toggle, ToggleIndicator } from "@/components/ui/toggle";
+
+    <Toggle variant="outline">
+      <ToggleIndicator fallback={<PinOff className="size-4" />}>
+        <Pin className="size-4" />
+      </ToggleIndicator>
+      Pin
+    </Toggle>
+    ```
+  </Tab>
+</Tabs>

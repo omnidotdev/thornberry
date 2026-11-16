@@ -1,0 +1,150 @@
+---
+title: Toggle Group
+description: A set of toggle buttons supporting single or multiple selection.
+---
+
+import {
+  AlignCenter,
+  AlignLeft,
+  AlignRight,
+  Bold,
+  Italic,
+  Underline,
+} from "lucide-react";
+import { ToggleGroupItem, ToggleGroupRoot } from "@/registry/thornberry/components/toggle-group";
+
+<ToggleGroupRoot className="mb-8" defaultValue={["left"]} aria-label="Text alignment">
+  <ToggleGroupItem value="left" size="icon" aria-label="Align left">
+    <AlignLeft className="size-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="center" size="icon" aria-label="Align center">
+    <AlignCenter className="size-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="right" size="icon" aria-label="Align right">
+    <AlignRight className="size-4" />
+  </ToggleGroupItem>
+</ToggleGroupRoot>
+
+## Installation
+
+<InstallationTabs filename="toggle-group.json" />
+
+## Usage
+
+```tsx
+import { ToggleGroupItem, ToggleGroupRoot } from "@/components/ui/toggle-group";
+```
+
+```tsx
+<ToggleGroupRoot defaultValue={["left"]}>
+  <ToggleGroupItem value="left">Left</ToggleGroupItem>
+  <ToggleGroupItem value="center">Center</ToggleGroupItem>
+  <ToggleGroupItem value="right">Right</ToggleGroupItem>
+</ToggleGroupRoot>
+```
+
+The group allows one item at a time by default. `value` is always an array of the active item values. Set `variant` and `size` on the root to style every item; an item can override them.
+
+## Examples
+
+<br />
+
+#### Multiple Selection
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <ToggleGroupRoot multiple variant="outline" size="icon" defaultValue={["bold"]} aria-label="Text formatting">
+      <ToggleGroupItem value="bold" aria-label="Bold">
+        <Bold className="size-4" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="Italic">
+        <Italic className="size-4" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="underline" aria-label="Underline">
+        <Underline className="size-4" />
+      </ToggleGroupItem>
+    </ToggleGroupRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <ToggleGroupRoot multiple variant="outline" size="icon" defaultValue={["bold"]}>
+      <ToggleGroupItem value="bold" aria-label="Bold">
+        <Bold className="size-4" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="Italic">
+        <Italic className="size-4" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="underline" aria-label="Underline">
+        <Underline className="size-4" />
+      </ToggleGroupItem>
+    </ToggleGroupRoot>
+    ```
+  </Tab>
+</Tabs>
+
+#### Variants
+
+<Tabs items={["Ghost", "Outline", "Solid"]} className="mt-4">
+  <Tab value="Ghost">
+    <ToggleGroupRoot variant="ghost" defaultValue={["week"]}>
+      <ToggleGroupItem value="day">Day</ToggleGroupItem>
+      <ToggleGroupItem value="week">Week</ToggleGroupItem>
+      <ToggleGroupItem value="month">Month</ToggleGroupItem>
+    </ToggleGroupRoot>
+
+    ```tsx
+    <ToggleGroupRoot variant="ghost" defaultValue={["week"]}>
+      <ToggleGroupItem value="day">Day</ToggleGroupItem>
+      <ToggleGroupItem value="week">Week</ToggleGroupItem>
+      <ToggleGroupItem value="month">Month</ToggleGroupItem>
+    </ToggleGroupRoot>
+    ```
+  </Tab>
+  <Tab value="Outline">
+    <ToggleGroupRoot variant="outline" defaultValue={["week"]}>
+      <ToggleGroupItem value="day">Day</ToggleGroupItem>
+      <ToggleGroupItem value="week">Week</ToggleGroupItem>
+      <ToggleGroupItem value="month">Month</ToggleGroupItem>
+    </ToggleGroupRoot>
+
+    ```tsx
+    <ToggleGroupRoot variant="outline" defaultValue={["week"]}>
+      {/* items */}
+    </ToggleGroupRoot>
+    ```
+  </Tab>
+  <Tab value="Solid">
+    <ToggleGroupRoot variant="solid" defaultValue={["week"]}>
+      <ToggleGroupItem value="day">Day</ToggleGroupItem>
+      <ToggleGroupItem value="week">Week</ToggleGroupItem>
+      <ToggleGroupItem value="month">Month</ToggleGroupItem>
+    </ToggleGroupRoot>
+
+    ```tsx
+    <ToggleGroupRoot variant="solid" defaultValue={["week"]}>
+      {/* items */}
+    </ToggleGroupRoot>
+    ```
+  </Tab>
+</Tabs>
+
+#### Vertical
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <ToggleGroupRoot orientation="vertical" variant="outline" defaultValue={["inbox"]}>
+      <ToggleGroupItem value="inbox">Inbox</ToggleGroupItem>
+      <ToggleGroupItem value="drafts">Drafts</ToggleGroupItem>
+      <ToggleGroupItem value="archive">Archive</ToggleGroupItem>
+    </ToggleGroupRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <ToggleGroupRoot orientation="vertical" variant="outline" defaultValue={["inbox"]}>
+      <ToggleGroupItem value="inbox">Inbox</ToggleGroupItem>
+      <ToggleGroupItem value="drafts">Drafts</ToggleGroupItem>
+      <ToggleGroupItem value="archive">Archive</ToggleGroupItem>
+    </ToggleGroupRoot>
+    ```
+  </Tab>
+</Tabs>

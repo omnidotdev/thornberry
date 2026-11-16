@@ -789,6 +789,81 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Shows the completion of a task as a linear bar or a circular ring, with determinate and indeterminate states",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "A scroll container with styled, overlaid scrollbars that stay consistent across platforms",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "segment-group",
+      "type": "registry:ui",
+      "title": "Segment Group",
+      "description": "A pill-style segmented control for choosing one option, with an indicator that slides to the selection",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/segment-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "A two-state button that can be switched on or off",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "A set of toggle buttons supporting single or multiple selection",
+      "registryDependencies": ["toggle"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "clipboard",
+      "type": "registry:ui",
+      "title": "Clipboard",
+      "description": "Copy text to the clipboard with a read-only field or a drop-in copy button",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/clipboard.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

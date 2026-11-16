@@ -1,0 +1,147 @@
+---
+title: Scroll Area
+description: A scroll container with styled, overlaid scrollbars that stay consistent across platforms.
+---
+
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaRoot,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from "@/registry/thornberry/components/scroll-area";
+
+<ScrollArea className="mb-8 h-64 max-w-sm rounded-md border">
+  <div className="p-4">
+    <h4 className="mb-4 font-medium text-sm">Release notes</h4>
+    {Array.from({ length: 30 }, (_, i) => (
+      <div key={i} className="border-b py-2 text-sm">
+        v1.{30 - i}.0
+      </div>
+    ))}
+  </div>
+</ScrollArea>
+
+## Installation
+
+<InstallationTabs filename="scroll-area.json" />
+
+## Usage
+
+```tsx
+import { ScrollArea } from "@/components/ui/scroll-area";
+```
+
+```tsx
+<ScrollArea className="h-64 rounded-md border">
+  <div className="p-4">{/* long content */}</div>
+</ScrollArea>
+```
+
+Give the scroll area a bounded height (or width, for horizontal scrolling) so its content can overflow.
+
+## Examples
+
+<br />
+
+#### Horizontal
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <ScrollArea orientation="horizontal" className="max-w-md rounded-md border">
+      <div className="flex w-max gap-4 p-4">
+        {Array.from({ length: 12 }, (_, i) => (
+          <div
+            key={i}
+            className="flex size-32 shrink-0 items-center justify-center rounded-md bg-muted font-medium text-sm"
+          >
+            Card {i + 1}
+          </div>
+        ))}
+      </div>
+    </ScrollArea>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <ScrollArea orientation="horizontal" className="max-w-md rounded-md border">
+      <div className="flex w-max gap-4 p-4">
+        {cards.map((card) => (
+          <div key={card.id} className="size-32 shrink-0 rounded-md bg-muted">
+            {card.title}
+          </div>
+        ))}
+      </div>
+    </ScrollArea>
+    ```
+  </Tab>
+</Tabs>
+
+#### Both Directions
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <ScrollArea orientation="both" className="h-48 max-w-sm rounded-md border">
+      <div className="grid w-max grid-cols-8 gap-2 p-4">
+        {Array.from({ length: 96 }, (_, i) => (
+          <div
+            key={i}
+            className="flex size-16 items-center justify-center rounded-md bg-muted text-xs"
+          >
+            {i + 1}
+          </div>
+        ))}
+      </div>
+    </ScrollArea>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <ScrollArea orientation="both" className="h-48 max-w-sm rounded-md border">
+      <div className="grid w-max grid-cols-8 gap-2 p-4">{/* cells */}</div>
+    </ScrollArea>
+    ```
+  </Tab>
+</Tabs>
+
+#### Composition
+
+Use the parts directly to style the scrollbar or thumb per instance.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <ScrollAreaRoot className="h-48 max-w-sm rounded-md border">
+      <ScrollAreaViewport>
+        <ScrollAreaContent className="p-4 text-sm">
+          {Array.from({ length: 20 }, (_, i) => (
+            <p key={i} className="py-1">
+              Line {i + 1}
+            </p>
+          ))}
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar>
+        <ScrollAreaThumb className="bg-primary/40 hover:bg-primary/60" />
+      </ScrollAreaScrollbar>
+    </ScrollAreaRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import {
+      ScrollAreaContent,
+      ScrollAreaRoot,
+      ScrollAreaScrollbar,
+      ScrollAreaThumb,
+      ScrollAreaViewport,
+    } from "@/components/ui/scroll-area";
+
+    <ScrollAreaRoot className="h-48 rounded-md border">
+      <ScrollAreaViewport>
+        <ScrollAreaContent className="p-4">{/* content */}</ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar>
+        <ScrollAreaThumb className="bg-primary/40 hover:bg-primary/60" />
+      </ScrollAreaScrollbar>
+    </ScrollAreaRoot>
+    ```
+  </Tab>
+</Tabs>

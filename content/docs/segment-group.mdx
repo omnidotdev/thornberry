@@ -1,0 +1,168 @@
+---
+title: Segment Group
+description: A pill-style segmented control for choosing one option, with an indicator that slides to the selection.
+---
+
+import { List, LayoutGrid, CalendarDays } from "lucide-react";
+import {
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItem,
+  SegmentGroupItemHiddenInput,
+  SegmentGroupItemText,
+  SegmentGroupRoot,
+} from "@/registry/thornberry/components/segment-group";
+
+<SegmentGroup
+  className="mb-8"
+  items={["Day", "Week", "Month"]}
+  defaultValue="Week"
+  aria-label="Calendar range"
+/>
+
+## Installation
+
+<InstallationTabs filename="segment-group.json" />
+
+## Usage
+
+```tsx
+import { SegmentGroup } from "@/components/ui/segment-group";
+```
+
+```tsx
+<SegmentGroup items={["Day", "Week", "Month"]} defaultValue="Week" />
+```
+
+Items can be strings or `{ value, label, disabled }` objects. Use `value` and `onValueChange` to control the selection.
+
+## Examples
+
+<br />
+
+#### Sizes
+
+<Tabs items={["Small", "Medium", "Large"]} className="mt-4">
+  <Tab value="Small">
+    <SegmentGroup size="sm" items={["Day", "Week", "Month"]} defaultValue="Day" />
+
+    ```tsx
+    <SegmentGroup size="sm" items={["Day", "Week", "Month"]} defaultValue="Day" />
+    ```
+  </Tab>
+  <Tab value="Medium">
+    <SegmentGroup size="md" items={["Day", "Week", "Month"]} defaultValue="Day" />
+
+    ```tsx
+    <SegmentGroup size="md" items={["Day", "Week", "Month"]} defaultValue="Day" />
+    ```
+  </Tab>
+  <Tab value="Large">
+    <SegmentGroup size="lg" items={["Day", "Week", "Month"]} defaultValue="Day" />
+
+    ```tsx
+    <SegmentGroup size="lg" items={["Day", "Week", "Month"]} defaultValue="Day" />
+    ```
+  </Tab>
+</Tabs>
+
+#### Disabled Item
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <SegmentGroup
+      items={[
+        { value: "free", label: "Free" },
+        { value: "pro", label: "Pro" },
+        { value: "team", label: "Team", disabled: true },
+      ]}
+      defaultValue="free"
+    />
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <SegmentGroup
+      items={[
+        { value: "free", label: "Free" },
+        { value: "pro", label: "Pro" },
+        { value: "team", label: "Team", disabled: true },
+      ]}
+      defaultValue="free"
+    />
+    ```
+  </Tab>
+</Tabs>
+
+#### Vertical
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <SegmentGroup
+      orientation="vertical"
+      items={["Overview", "Activity", "Settings"]}
+      defaultValue="Overview"
+    />
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <SegmentGroup
+      orientation="vertical"
+      items={["Overview", "Activity", "Settings"]}
+      defaultValue="Overview"
+    />
+    ```
+  </Tab>
+</Tabs>
+
+#### With Icons
+
+Compose the parts to put icons in the segments.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <SegmentGroupRoot defaultValue="board" aria-label="View">
+      <SegmentGroupIndicator />
+      <SegmentGroupItem value="board">
+        <LayoutGrid className="size-4" />
+        <SegmentGroupItemText>Board</SegmentGroupItemText>
+        <SegmentGroupItemHiddenInput />
+      </SegmentGroupItem>
+      <SegmentGroupItem value="list">
+        <List className="size-4" />
+        <SegmentGroupItemText>List</SegmentGroupItemText>
+        <SegmentGroupItemHiddenInput />
+      </SegmentGroupItem>
+      <SegmentGroupItem value="calendar">
+        <CalendarDays className="size-4" />
+        <SegmentGroupItemText>Calendar</SegmentGroupItemText>
+        <SegmentGroupItemHiddenInput />
+      </SegmentGroupItem>
+    </SegmentGroupRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { LayoutGrid, List } from "lucide-react";
+    import {
+      SegmentGroupIndicator,
+      SegmentGroupItem,
+      SegmentGroupItemHiddenInput,
+      SegmentGroupItemText,
+      SegmentGroupRoot,
+    } from "@/components/ui/segment-group";
+
+    <SegmentGroupRoot defaultValue="board" aria-label="View">
+      <SegmentGroupIndicator />
+      <SegmentGroupItem value="board">
+        <LayoutGrid className="size-4" />
+        <SegmentGroupItemText>Board</SegmentGroupItemText>
+        <SegmentGroupItemHiddenInput />
+      </SegmentGroupItem>
+      <SegmentGroupItem value="list">
+        <List className="size-4" />
+        <SegmentGroupItemText>List</SegmentGroupItemText>
+        <SegmentGroupItemHiddenInput />
+      </SegmentGroupItem>
+    </SegmentGroupRoot>
+    ```
+  </Tab>
+</Tabs>
