@@ -208,7 +208,7 @@ const Sidebar = ({
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className="w-1/2 bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
+          className="bg-sidebar text-sidebar-foreground w-1/2 p-0 [&>button]:hidden"
           side={side}
         >
           <div className="sr-only">
@@ -223,7 +223,7 @@ const Sidebar = ({
 
   return (
     <div
-      className="group peer block text-sidebar-foreground"
+      className="group peer text-sidebar-foreground block"
       data-state={state}
       data-collapsible={state === "collapsed" ? collapsible : ""}
       data-variant={variant}
@@ -265,7 +265,7 @@ const Sidebar = ({
         <div
           data-sidebar="sidebar"
           data-slot="sidebar-inner"
-          className="flex h-full w-full flex-col rounded-xl bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm"
+          className="bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col rounded-xl group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm"
         >
           {children}
         </div>
@@ -373,7 +373,7 @@ const SidebarRail = ({
       </TooltipContext>
 
       <TooltipPositioner>
-        <TooltipContent className="flex h-fit w-full flex-col gap-1 border bg-background text-foreground">
+        <TooltipContent className="bg-background text-foreground flex h-fit w-full flex-col gap-1 border">
           <span>Drag to resize</span>
           <div className="inline-flex">
             Click to {isCollapsed ? "expand" : "collapse"}{" "}
@@ -602,7 +602,7 @@ const SidebarMenuButton = ({
     >
       <TooltipTrigger asChild>{button}</TooltipTrigger>
       <TooltipPositioner>
-        <TooltipContent className="border bg-background text-foreground">
+        <TooltipContent className="bg-background text-foreground border">
           <div className="flex items-center gap-2">
             {tooltip}
             {shortcut && (
@@ -756,13 +756,13 @@ export {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuShortcut,
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarProvider,
   SidebarRail,
+  SidebarSeparator,
   SidebarTrigger,
   useSidebar,
-  SidebarMenuShortcut,
-  SidebarSeparator,
 };

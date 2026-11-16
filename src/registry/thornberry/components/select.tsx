@@ -181,27 +181,27 @@ const SelectSeparator = ({
   />
 );
 
-export {
-  Select,
-  SelectRoot,
-  SelectRootProvider,
-  SelectContext,
-  SelectLabel,
-  SelectControl,
-  SelectTrigger,
-  SelectValueText,
-  SelectIndicator,
-  SelectClearTrigger,
-  SelectPositioner,
-  SelectContent,
-  SelectItemGroup,
-  SelectItemGroupLabel,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
-  SelectSeparator,
-  SelectHiddenSelect,
-};
-
 // Re-export createListCollection for convenience
 export { createListCollection } from "@ark-ui/react";
+
+export {
+  Select,
+  SelectClearTrigger,
+  SelectContent,
+  SelectContext,
+  SelectControl,
+  SelectHiddenSelect,
+  SelectIndicator,
+  SelectItem,
+  SelectItemGroup,
+  SelectItemGroupLabel,
+  SelectItemIndicator,
+  SelectItemText,
+  SelectLabel,
+  SelectPositioner,
+  SelectRoot,
+  SelectRootProvider,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValueText,
+};

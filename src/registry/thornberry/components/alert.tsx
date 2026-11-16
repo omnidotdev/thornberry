@@ -7,7 +7,7 @@ import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 
 const alertVariants = cva(
-  "relative w-full rounded-lg border px-4 py-5 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:top-4 [&>svg]:left-4 [&>svg]:text-foreground [&>svg~*]:pl-7",
+  "[&>svg]:text-foreground relative w-full rounded-lg border px-4 py-5 text-sm [&>svg]:absolute [&>svg]:top-4 [&>svg]:left-4 [&>svg+div]:translate-y-[-3px] [&>svg~*]:pl-7",
   {
     variants: {
       variant: {
@@ -63,4 +63,4 @@ const AlertDescription = ({
   />
 );
 
-export { AlertRoot, AlertIcon, AlertTitle, AlertDescription, alertVariants };
+export { AlertDescription, AlertIcon, AlertRoot, AlertTitle, alertVariants };

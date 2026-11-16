@@ -94,7 +94,7 @@ const TypingIndicator = () => (
     {[0, 1, 2].map((i) => (
       <span
         key={i}
-        className="size-1.5 animate-bounce rounded-full bg-muted-foreground/60"
+        className="bg-muted-foreground/60 size-1.5 animate-bounce rounded-full"
         style={{ animationDelay: `${i * 0.15}s` }}
       />
     ))}
@@ -121,7 +121,7 @@ const MessageParts = ({
       const key = `${part.type}-${index}`;
       if (part.type === "text") {
         return (
-          <div key={key} className="whitespace-pre-wrap break-words text-sm">
+          <div key={key} className="text-sm break-words whitespace-pre-wrap">
             {renderText ? renderText(part.text) : part.text}
           </div>
         );
@@ -130,7 +130,7 @@ const MessageParts = ({
         return (
           <div
             key={key}
-            className="whitespace-pre-wrap break-words text-muted-foreground text-xs italic"
+            className="text-muted-foreground text-xs break-words whitespace-pre-wrap italic"
           >
             {part.text}
           </div>
@@ -150,7 +150,7 @@ const MessageParts = ({
             {part.name}
           </Badge>
           {part.detail && (
-            <span className="truncate text-muted-foreground">
+            <span className="text-muted-foreground truncate">
               {part.detail}
             </span>
           )}
@@ -223,7 +223,7 @@ const AiChatThread = ({
     <div className="flex h-full min-h-0 flex-col">
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4">
         {messages.length === 0 && emptyState ? (
-          <div className="flex h-full items-center justify-center text-center text-muted-foreground text-sm">
+          <div className="text-muted-foreground flex h-full items-center justify-center text-center text-sm">
             {emptyState}
           </div>
         ) : (
@@ -256,7 +256,7 @@ const AiChatThread = ({
         {status === "streaming" && (
           <div className="flex gap-3">
             {avatarFor({ id: "__streaming__", role: "assistant", parts: [] })}
-            <div className="rounded-lg bg-muted px-3 py-2">
+            <div className="bg-muted rounded-lg px-3 py-2">
               <TypingIndicator />
             </div>
           </div>
@@ -266,7 +266,7 @@ const AiChatThread = ({
       </div>
 
       {notice && (
-        <div className="border-border border-t px-4 py-2 text-muted-foreground text-sm">
+        <div className="border-border text-muted-foreground border-t px-4 py-2 text-sm">
           {notice}
         </div>
       )}
@@ -304,7 +304,7 @@ const AiChatThread = ({
           </Button>
         </div>
         {footerHint && (
-          <div className="mt-1.5 text-muted-foreground text-xs">
+          <div className="text-muted-foreground mt-1.5 text-xs">
             {footerHint}
           </div>
         )}

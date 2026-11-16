@@ -56,12 +56,12 @@ const RatingGroupHiddenInput = ({
 );
 
 export {
-  RatingGroupRoot,
-  RatingGroupLabel,
-  RatingGroupControl,
-  RatingGroupItem,
-  RatingGroupHiddenInput,
-  RatingGroupProvider,
   RatingGroupContext,
+  RatingGroupControl,
+  RatingGroupHiddenInput,
+  RatingGroupItem,
   RatingGroupItemContext,
+  RatingGroupLabel,
+  RatingGroupProvider,
+  RatingGroupRoot,
 };

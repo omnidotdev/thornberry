@@ -77,7 +77,7 @@ const getCroppedImg = async (
 export {
   ALLOWED_IMAGE_TYPES,
   BANNER_ASPECT,
-  getCroppedImg,
   MAX_BANNER_IMAGE_SIZE,
   MAX_IMAGE_SIZE,
+  getCroppedImg,
 };

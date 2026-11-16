@@ -99,7 +99,7 @@ const FieldErrors = ({ errors }: { errors: unknown[] }) => {
   if (!messages.length) return null;
 
   return (
-    <p className="font-medium text-destructive text-xs">
+    <p className="text-destructive text-xs font-medium">
       {messages.join(", ")}
     </p>
   );
@@ -114,7 +114,7 @@ const FieldLabel = ({
 }) => (
   <label
     htmlFor={htmlFor}
-    className="font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+    className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
   >
     {children}
   </label>
@@ -364,24 +364,24 @@ const { useAppForm, withForm, withFieldGroup } = createFormHook({
 });
 
 export {
-  useAppForm,
-  withForm,
-  withFieldGroup,
-  useFieldContext,
-  useFormContext,
+  CheckboxField,
+  type CheckboxFieldProps,
+  PasswordField,
+  type PasswordFieldProps,
+  SelectField,
+  type SelectFieldItem,
+  type SelectFieldProps,
+  SubmitButton,
+  type SubmitButtonProps,
+  TextField,
+  type TextFieldProps,
+  TextareaField,
+  type TextareaFieldProps,
   fieldContext,
   formContext,
-  TextField,
-  PasswordField,
-  TextareaField,
-  CheckboxField,
-  SelectField,
-  SubmitButton,
-  type TextFieldProps,
-  type PasswordFieldProps,
-  type TextareaFieldProps,
-  type CheckboxFieldProps,
-  type SelectFieldProps,
-  type SelectFieldItem,
-  type SubmitButtonProps,
+  useAppForm,
+  useFieldContext,
+  useFormContext,
+  withFieldGroup,
+  withForm,
 };

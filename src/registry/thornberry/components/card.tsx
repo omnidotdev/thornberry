@@ -47,10 +47,10 @@ const CardFooter = ({ className, ...rest }: ComponentProps<typeof ark.div>) => (
 );
 
 export {
-  CardRoot,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardDescription,
   CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardRoot,
+  CardTitle,
 };

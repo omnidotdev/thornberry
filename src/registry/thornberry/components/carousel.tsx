@@ -105,14 +105,14 @@ const CarouselControl = ({
 );
 
 export {
-  CarouselRoot,
-  CarouselItemGroup,
+  CarouselContext,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
   CarouselItem,
+  CarouselItemGroup,
   CarouselNextTrigger,
   CarouselPrevTrigger,
-  CarouselIndicatorGroup,
-  CarouselIndicator,
-  CarouselControl,
   CarouselProvider,
-  CarouselContext,
+  CarouselRoot,
 };

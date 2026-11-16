@@ -67,11 +67,11 @@ const TabsIndicator = ({
 );
 
 export {
-  TabsRoot,
-  TabsList,
-  TabsTrigger,
   TabsContent,
-  TabsIndicator,
-  TabsProvider,
   TabsContext,
+  TabsIndicator,
+  TabsList,
+  TabsProvider,
+  TabsRoot,
+  TabsTrigger,
 };

@@ -51,7 +51,7 @@ const onEnter =
  */
 const QrPanel = ({ value }: { value: string }) => (
   <div className="flex justify-center">
-    <div className="rounded-lg border border-border bg-white p-4">
+    <div className="border-border rounded-lg border bg-white p-4">
       <QRCode value={value} size={180} />
     </div>
   </div>
@@ -72,11 +72,11 @@ const BackupCodesPanel = ({
   toaster: AccountContextValue["toaster"];
 }) => (
   <div className="flex flex-col gap-2">
-    <p className="font-medium text-sm">
+    <p className="text-sm font-medium">
       Save these backup codes somewhere safe. Each one works once to sign in if
       you lose your authenticator. They will not be shown again.
     </p>
-    <ul className="grid grid-cols-2 gap-2 rounded-md border border-border bg-muted p-3">
+    <ul className="border-border bg-muted grid grid-cols-2 gap-2 rounded-md border p-3">
       {codes.map((code) => (
         <li key={code} className="font-mono text-sm">
           {code}
@@ -284,9 +284,9 @@ const UserTwoFactorAuthentication = () => {
 
   return (
     <>
-      <h3 className="font-bold text-xl">Two-Factor Authentication</h3>
+      <h3 className="text-xl font-bold">Two-Factor Authentication</h3>
 
-      <p className="max-w-prose text-muted-foreground text-sm">
+      <p className="text-muted-foreground max-w-prose text-sm">
         Two-factor authentication adds a second step when you sign in: after
         your password, you enter a short code from an authenticator app on your
         phone. Even if someone learns your password, they can't sign in without
@@ -298,9 +298,9 @@ const UserTwoFactorAuthentication = () => {
               href={brand.securityDocsUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 text-primary underline underline-offset-2"
+              className="text-primary inline-flex items-center gap-1 underline underline-offset-2"
             >
-              Learn more
+              Learn more about two-factor authentication
               <ExternalLink className="size-3" />
             </a>
           </>
@@ -341,7 +341,7 @@ const UserTwoFactorAuthentication = () => {
                       id="two-factor-uri"
                       readOnly
                       value={twoFactorVerifyUri}
-                      className="w-full rounded border border-border bg-muted px-2 py-1 font-mono text-sm"
+                      className="border-border bg-muted w-full rounded border px-2 py-1 font-mono text-sm"
                     />
                   </>
                 ) : (

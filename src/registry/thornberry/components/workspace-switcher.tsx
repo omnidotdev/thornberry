@@ -147,7 +147,7 @@ const WorkspaceSwitcher = ({
                 href={manageUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 rounded-sm px-2 py-1.5 text-muted-foreground text-sm hover:bg-accent"
+                className="text-muted-foreground hover:bg-accent flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm"
               >
                 <ExternalLink className="size-4" />
                 {manageLabel}

@@ -42,10 +42,10 @@ const HoverCardPositioner = ({
 );
 
 export {
-  HoverCardRoot,
-  HoverCardTrigger,
   HoverCardContent,
+  HoverCardContext,
   HoverCardPositioner,
   HoverCardProvider,
-  HoverCardContext,
+  HoverCardRoot,
+  HoverCardTrigger,
 };

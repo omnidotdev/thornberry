@@ -100,14 +100,14 @@ const SliderValueText = ({
 );
 
 export {
-  SliderRoot,
-  SliderLabel,
-  SliderControl,
-  SliderTrack,
-  SliderRange,
-  SliderThumb,
-  SliderMarker,
-  SliderValueText,
-  SliderProvider,
   SliderContext,
+  SliderControl,
+  SliderLabel,
+  SliderMarker,
+  SliderProvider,
+  SliderRange,
+  SliderRoot,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
 };

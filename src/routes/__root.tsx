@@ -31,7 +31,7 @@ function MaintenancePage() {
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-violet-900 to-violet-800 p-8 text-white">
       <div className="text-center">
         <div className="mb-6 text-9xl">🫐</div>
-        <h1 className="mb-4 font-bold text-4xl">Berry Good Things Coming</h1>
+        <h1 className="mb-4 text-4xl font-bold">Berry Good Things Coming</h1>
         <p className="max-w-md text-lg text-violet-200">
           We're picking the best. Thornberry will be ripe again soon.
         </p>

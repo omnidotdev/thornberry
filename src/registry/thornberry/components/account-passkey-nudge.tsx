@@ -46,13 +46,13 @@ const PasskeyNudge = () => {
 
   return (
     <CardRoot className="flex items-start gap-4 p-4">
-      <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-muted">
+      <div className="bg-muted flex size-10 shrink-0 items-center justify-center rounded-full">
         <Fingerprint className="size-5" />
       </div>
 
       <div className="flex flex-1 flex-col gap-3">
         <div className="flex flex-col gap-1">
-          <h3 className="font-semibold text-sm leading-none">Add a passkey</h3>
+          <h3 className="text-sm leading-none font-semibold">Add a passkey</h3>
           <p className="text-muted-foreground text-sm">
             Sign in faster and more securely without a password.
           </p>

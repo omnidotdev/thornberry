@@ -232,7 +232,7 @@ const BannerUpload = ({
           onClick={() => setDialogOpen(true)}
         >
           {preview ?? (
-            <span className="flex size-full items-center justify-center gap-2 text-muted-foreground text-sm">
+            <span className="text-muted-foreground flex size-full items-center justify-center gap-2 text-sm">
               <ImageIcon className="size-4" />
               Add a banner
             </span>

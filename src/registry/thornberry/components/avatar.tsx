@@ -13,7 +13,7 @@ const avatarVariants = cva(
       size: {
         xs: "size-8 text-xs",
         sm: "size-9 text-sm",
-        md: "size-10 text-md",
+        md: "text-md size-10",
         lg: "size-11 text-lg",
         xl: "size-12 text-xl",
       },
@@ -103,4 +103,4 @@ const AvatarImage = ({
   />
 );
 
-export { AvatarRoot, AvatarFallback, AvatarImage, AvatarProvider, useAvatar };
+export { AvatarFallback, AvatarImage, AvatarProvider, AvatarRoot, useAvatar };

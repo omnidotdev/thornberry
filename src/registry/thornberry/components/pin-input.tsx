@@ -55,11 +55,11 @@ const PinInputHiddenInput = ({
 );
 
 export {
-  PinInputRoot,
-  PinInputLabel,
-  PinInputControl,
-  PinInputInput,
-  PinInputHiddenInput,
-  PinInputProvider,
   PinInputContext,
+  PinInputControl,
+  PinInputHiddenInput,
+  PinInputInput,
+  PinInputLabel,
+  PinInputProvider,
+  PinInputRoot,
 };

@@ -216,13 +216,13 @@ const BoardColumnHeader = ({
           style={{ backgroundColor: color ?? "var(--color-muted-foreground)" }}
         />
       )}
-      <span className="truncate font-semibold text-foreground text-sm">
+      <span className="text-foreground truncate text-sm font-semibold">
         {title}
       </span>
     </div>
 
     {count != null && (
-      <span className="shrink-0 rounded-full bg-card px-2 py-0.5 font-medium text-muted-foreground text-xs tabular-nums">
+      <span className="bg-card text-muted-foreground shrink-0 rounded-full px-2 py-0.5 text-xs font-medium tabular-nums">
         {count}
       </span>
     )}
@@ -250,8 +250,8 @@ const BoardColumnEmpty = ({ className, ...rest }: ComponentProps<"p">) => (
 export {
   Board,
   BoardColumn,
-  BoardColumnHeader,
   BoardColumnBody,
   BoardColumnEmpty,
+  BoardColumnHeader,
   useInertialScroll,
 };

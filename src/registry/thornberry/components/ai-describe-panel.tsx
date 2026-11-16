@@ -205,7 +205,7 @@ const AiDescribePanel = ({
               <div className="space-y-2">
                 <button
                   type="button"
-                  className="cursor-pointer text-muted-foreground text-sm underline-offset-4 hover:underline"
+                  className="text-muted-foreground cursor-pointer text-sm underline-offset-4 hover:underline"
                   onClick={() => byok.onOpenChange(!byok.open)}
                   aria-expanded={byok.open}
                 >
@@ -250,7 +250,7 @@ const AiDescribePanel = ({
               {/* Left: a live status while pending (so a multi-step run reads as
                   progress), otherwise the host's meta (credits, cost estimate).
                   Keeps the row present so the actions never shift */}
-              <div className="min-w-0 flex-1 text-muted-foreground text-xs">
+              <div className="text-muted-foreground min-w-0 flex-1 text-xs">
                 {isPending ? (
                   <span className="inline-flex items-center gap-1.5">
                     <Loader2 className="size-3 shrink-0 animate-spin" />

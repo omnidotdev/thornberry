@@ -33,7 +33,7 @@ const PasswordInput = ({
         type="button"
         variant="ghost"
         size="icon"
-        className="absolute top-0 right-0 size-9 text-muted-foreground hover:text-foreground"
+        className="text-muted-foreground hover:text-foreground absolute top-0 right-0 size-9"
         onClick={() => setShowPassword((prev) => !prev)}
         disabled={disabled}
         aria-label={showPassword ? "Hide password" : "Show password"}

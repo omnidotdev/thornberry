@@ -80,10 +80,10 @@ const RadioGroupItemText = ({
 );
 
 export {
-  RadioGroupRoot,
-  RadioGroupLabel,
   RadioGroupItem,
-  RadioGroupItemHiddenInput,
   RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
   RadioGroupItemText,
+  RadioGroupLabel,
+  RadioGroupRoot,
 };
