@@ -195,3 +195,33 @@ test("tokenTheme returns a CodeMirror extension usable as a theme", () => {
     mount({ doc: "themed", theme: tokenTheme({ dark: true }) }),
   ).not.toThrow();
 });
+
+test("lineWrapping is off by default, so a long line does not soft-wrap", () => {
+  const handle = mount({ doc: "x".repeat(400) });
+  // CodeMirror marks the wrapping content DOM with the cm-lineWrapping class
+  expect(handle.view.contentDOM.classList.contains("cm-lineWrapping")).toBe(
+    false,
+  );
+});
+
+test("the lineWrapping option soft-wraps long lines", () => {
+  const handle = mount({ doc: "x".repeat(400), lineWrapping: true });
+  expect(handle.view.contentDOM.classList.contains("cm-lineWrapping")).toBe(
+    true,
+  );
+});
+
+test("setLineWrapping toggles soft wrapping live", () => {
+  const handle = mount({ doc: "x".repeat(400) });
+  expect(handle.view.contentDOM.classList.contains("cm-lineWrapping")).toBe(
+    false,
+  );
+  handle.setLineWrapping(true);
+  expect(handle.view.contentDOM.classList.contains("cm-lineWrapping")).toBe(
+    true,
+  );
+  handle.setLineWrapping(false);
+  expect(handle.view.contentDOM.classList.contains("cm-lineWrapping")).toBe(
+    false,
+  );
+});
