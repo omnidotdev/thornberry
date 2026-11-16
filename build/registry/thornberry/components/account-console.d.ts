@@ -44,5 +44,5 @@ interface AccountConsoleProps {
  * relying-party account app.
  */
 declare const AccountConsole: ({ avatar, passwordRequirements, checkUsernameAvailability, onProfileUpdated, activeSessions, enableActiveSessions, onSessionRevoked, onResendVerification, onStopImpersonating, badges, socialSection, organizationsSection, footer, }: AccountConsoleProps) => import("react/jsx-runtime").JSX.Element | null;
-export { AccountConsole };
 export type { AccountConsoleProps };
+export { AccountConsole };

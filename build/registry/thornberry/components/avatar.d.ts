@@ -9,4 +9,4 @@ declare const AvatarProvider: ({ className, size, ...rest }: ComponentProps<type
 declare const AvatarRoot: ({ className, size, ...rest }: ComponentProps<typeof ArkAvatar.Root> & VariantProps<typeof avatarVariants>) => import("react/jsx-runtime").JSX.Element;
 declare const AvatarFallback: ({ className, ...rest }: ComponentProps<typeof ArkAvatar.Fallback>) => import("react/jsx-runtime").JSX.Element;
 declare const AvatarImage: ({ className, ...rest }: ComponentProps<typeof ArkAvatar.Image>) => import("react/jsx-runtime").JSX.Element;
-export { AvatarRoot, AvatarFallback, AvatarImage, AvatarProvider, useAvatar };
+export { AvatarFallback, AvatarImage, AvatarProvider, AvatarRoot, useAvatar };

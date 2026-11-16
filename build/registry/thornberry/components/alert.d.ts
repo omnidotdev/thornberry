@@ -8,4 +8,4 @@ declare const AlertRoot: ({ className, variant, ...rest }: ComponentProps<typeof
 declare const AlertIcon: ({ className, ...rest }: ComponentProps<typeof ark.svg>) => import("react/jsx-runtime").JSX.Element;
 declare const AlertTitle: ({ className, ...rest }: ComponentProps<typeof ark.div>) => import("react/jsx-runtime").JSX.Element;
 declare const AlertDescription: ({ className, ...rest }: ComponentProps<typeof ark.div>) => import("react/jsx-runtime").JSX.Element;
-export { AlertRoot, AlertIcon, AlertTitle, AlertDescription, alertVariants };
+export { AlertDescription, AlertIcon, AlertRoot, AlertTitle, alertVariants };

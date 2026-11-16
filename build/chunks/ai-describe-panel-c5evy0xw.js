@@ -3,7 +3,7 @@ import {
 } from "./ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "./ai-describe-panel-qyg3bvpa.js";
+} from "./ai-describe-panel-k2cwy48h.js";
 import {
   DialogRoot2,
   DialogBackdrop2,
@@ -13,13 +13,13 @@ import {
 } from "./ai-describe-panel-8q0yqrx6.js";
 import {
   ConfirmDialog2
-} from "./ai-describe-panel-4yw3abje.js";
+} from "./ai-describe-panel-19k53w4t.js";
 import {
   ALLOWED_IMAGE_TYPES,
   MAX_BANNER_IMAGE_SIZE,
   BANNER_ASPECT,
   ImageCropper2
-} from "./ai-describe-panel-4v8v7btg.js";
+} from "./ai-describe-panel-b3rhyrd1.js";
 import {
   cn
 } from "./ai-describe-panel-81fr4sax.js";
@@ -162,7 +162,7 @@ var BannerUpload2 = ({
         onClick: () => setDialogOpen(true),
         children: [
           preview ?? /* @__PURE__ */ jsxs("span", {
-            className: "flex size-full items-center justify-center gap-2 text-muted-foreground text-sm",
+            className: "text-muted-foreground flex size-full items-center justify-center gap-2 text-sm",
             children: [
               /* @__PURE__ */ jsx(ImageIcon, {
                 className: "size-4"

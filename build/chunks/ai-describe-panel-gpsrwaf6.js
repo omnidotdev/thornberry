@@ -8,7 +8,7 @@ import {
 // src/registry/thornberry/components/alert.tsx
 import { ark } from "@ark-ui/react";
 import { jsx } from "react/jsx-runtime";
-var alertVariants2 = cva("relative w-full rounded-lg border px-4 py-5 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:top-4 [&>svg]:left-4 [&>svg]:text-foreground [&>svg~*]:pl-7", {
+var alertVariants2 = cva("[&>svg]:text-foreground relative w-full rounded-lg border px-4 py-5 text-sm [&>svg]:absolute [&>svg]:top-4 [&>svg]:left-4 [&>svg+div]:translate-y-[-3px] [&>svg~*]:pl-7", {
   variants: {
     variant: {
       default: "bg-background text-foreground",

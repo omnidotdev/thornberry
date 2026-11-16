@@ -4,7 +4,7 @@ import {
   AvatarRoot2,
   AvatarFallback2,
   AvatarImage2
-} from "../../../chunks/ai-describe-panel-b7jpk793.js";
+} from "../../../chunks/ai-describe-panel-6r0bwytq.js";
 export {
   AvatarFallback2 as AvatarFallback,
   AvatarImage2 as AvatarImage,

@@ -11,4 +11,4 @@ declare const TagsInputItemDeleteTrigger: ({ className, children, asChild, ...re
 declare const TagsInputClearTrigger: ({ className, children, asChild, ...rest }: ComponentProps<typeof ArkTagsInput.ClearTrigger>) => import("react/jsx-runtime").JSX.Element;
 declare const TagsInputContext: (props: ArkTagsInput.ContextProps) => import("react").ReactNode;
 declare const TagsInputRoot: import("react").ForwardRefExoticComponent<ArkTagsInput.RootProps & import("react").RefAttributes<HTMLDivElement>>;
-export { TagsInputClearTrigger, TagsInputControl, TagsInputContext, TagsInputInput, TagsInputItem, TagsInputItemDeleteTrigger, TagsInputItemInput, TagsInputItemText, TagsInputLabel, TagsInputRoot, TagsInputItemPreview, };
+export { TagsInputClearTrigger, TagsInputContext, TagsInputControl, TagsInputInput, TagsInputItem, TagsInputItemDeleteTrigger, TagsInputItemInput, TagsInputItemPreview, TagsInputItemText, TagsInputLabel, TagsInputRoot, };

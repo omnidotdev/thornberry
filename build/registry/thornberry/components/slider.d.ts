@@ -10,4 +10,4 @@ declare const SliderRange: ({ className, ...rest }: ComponentProps<typeof ArkSli
 declare const SliderThumb: ({ className, ...rest }: ComponentProps<typeof ArkSlider.Thumb>) => import("react/jsx-runtime").JSX.Element;
 declare const SliderMarker: ({ className, ...rest }: ComponentProps<typeof ArkSlider.Marker>) => import("react/jsx-runtime").JSX.Element;
 declare const SliderValueText: ({ className, ...rest }: ComponentProps<typeof ArkSlider.ValueText>) => import("react/jsx-runtime").JSX.Element;
-export { SliderRoot, SliderLabel, SliderControl, SliderTrack, SliderRange, SliderThumb, SliderMarker, SliderValueText, SliderProvider, SliderContext, };
+export { SliderContext, SliderControl, SliderLabel, SliderMarker, SliderProvider, SliderRange, SliderRoot, SliderThumb, SliderTrack, SliderValueText, };

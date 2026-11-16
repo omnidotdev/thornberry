@@ -20,5 +20,5 @@ declare const SelectItem: ({ className, children, ...rest }: ComponentProps<type
 declare const SelectItemText: ({ className, ...rest }: ComponentProps<typeof ArkSelect.ItemText>) => import("react/jsx-runtime").JSX.Element;
 declare const SelectItemIndicator: ({ className, children, ...rest }: ComponentProps<typeof ArkSelect.ItemIndicator>) => import("react/jsx-runtime").JSX.Element;
 declare const SelectSeparator: ({ className, ...rest }: HTMLAttributes<HTMLDivElement>) => import("react/jsx-runtime").JSX.Element;
-export { Select, SelectRoot, SelectRootProvider, SelectContext, SelectLabel, SelectControl, SelectTrigger, SelectValueText, SelectIndicator, SelectClearTrigger, SelectPositioner, SelectContent, SelectItemGroup, SelectItemGroupLabel, SelectItem, SelectItemText, SelectItemIndicator, SelectSeparator, SelectHiddenSelect, };
 export { createListCollection } from "@ark-ui/react";
+export { Select, SelectClearTrigger, SelectContent, SelectContext, SelectControl, SelectHiddenSelect, SelectIndicator, SelectItem, SelectItemGroup, SelectItemGroupLabel, SelectItemIndicator, SelectItemText, SelectLabel, SelectPositioner, SelectRoot, SelectRootProvider, SelectSeparator, SelectTrigger, SelectValueText, };

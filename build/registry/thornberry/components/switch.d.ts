@@ -7,4 +7,4 @@ declare const SwitchControl: ({ className, ...rest }: ComponentProps<typeof ArkS
 declare const SwitchThumb: ({ className, ...rest }: ComponentProps<typeof ArkSwitch.Thumb>) => import("react/jsx-runtime").JSX.Element;
 declare const SwitchHiddenInput: ({ className, ...rest }: ComponentProps<typeof ArkSwitch.HiddenInput>) => import("react/jsx-runtime").JSX.Element;
 declare const SwitchLabel: ({ className, ...rest }: ComponentProps<typeof ArkSwitch.Label>) => import("react/jsx-runtime").JSX.Element;
-export { SwitchRoot, SwitchControl, SwitchThumb, SwitchLabel, SwitchHiddenInput, SwitchProvider, SwitchContext, };
+export { SwitchContext, SwitchControl, SwitchHiddenInput, SwitchLabel, SwitchProvider, SwitchRoot, SwitchThumb, };

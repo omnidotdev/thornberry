@@ -13,4 +13,4 @@ declare const TourTitle: ({ className, ...rest }: ComponentProps<typeof ArkTour.
 declare const TourDescription: ({ className, ...rest }: ComponentProps<typeof ArkTour.Description>) => import("react/jsx-runtime").JSX.Element;
 declare const TourCloseTrigger: ({ className, ...rest }: ComponentProps<typeof ArkTour.CloseTrigger>) => import("react/jsx-runtime").JSX.Element;
 declare const TourControl: ({ className, ...rest }: ComponentProps<typeof ArkTour.Control>) => import("react/jsx-runtime").JSX.Element;
-export { TourContext, TourRoot, TourBackdrop, TourSpotlight, TourPositioner, TourContent, TourTitle, TourDescription, TourProgressText, TourCloseTrigger, TourControl, TourActions, TourActionTrigger, };
+export { TourActionTrigger, TourActions, TourBackdrop, TourCloseTrigger, TourContent, TourContext, TourControl, TourDescription, TourPositioner, TourProgressText, TourRoot, TourSpotlight, TourTitle, };

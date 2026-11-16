@@ -8,4 +8,4 @@ declare const RatingGroupLabel: ({ className, ...rest }: ComponentProps<typeof A
 declare const RatingGroupControl: ({ className, ...rest }: ComponentProps<typeof ArkRatingGroup.Control>) => import("react/jsx-runtime").JSX.Element;
 declare const RatingGroupItem: ({ className, ...rest }: ComponentProps<typeof ArkRatingGroup.Item>) => import("react/jsx-runtime").JSX.Element;
 declare const RatingGroupHiddenInput: ({ className, ...rest }: ComponentProps<typeof ArkRatingGroup.HiddenInput>) => import("react/jsx-runtime").JSX.Element;
-export { RatingGroupRoot, RatingGroupLabel, RatingGroupControl, RatingGroupItem, RatingGroupHiddenInput, RatingGroupProvider, RatingGroupContext, RatingGroupItemContext, };
+export { RatingGroupContext, RatingGroupControl, RatingGroupHiddenInput, RatingGroupItem, RatingGroupItemContext, RatingGroupLabel, RatingGroupProvider, RatingGroupRoot, };

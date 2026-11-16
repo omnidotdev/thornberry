@@ -7,4 +7,4 @@ interface ItemTriggerProps extends AccordionItemTriggerProps {
 }
 declare const AccordionItemTrigger: ({ className, children, icon, ...rest }: ItemTriggerProps) => import("react/jsx-runtime").JSX.Element;
 declare const AccordionItemContent: ({ className, children, ...rest }: AccordionItemContentProps) => import("react/jsx-runtime").JSX.Element;
-export { AccordionRoot, AccordionItem, AccordionItemTrigger, AccordionItemContent, };
+export { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot, };

@@ -5,10 +5,10 @@ import {
   AvatarRoot2,
   AvatarFallback2,
   AvatarImage2
-} from "./ai-describe-panel-b7jpk793.js";
+} from "./ai-describe-panel-6r0bwytq.js";
 import {
   Button2
-} from "./ai-describe-panel-qyg3bvpa.js";
+} from "./ai-describe-panel-k2cwy48h.js";
 import {
   DialogRoot2,
   DialogBackdrop2,
@@ -18,12 +18,12 @@ import {
 } from "./ai-describe-panel-8q0yqrx6.js";
 import {
   ConfirmDialog2
-} from "./ai-describe-panel-4yw3abje.js";
+} from "./ai-describe-panel-19k53w4t.js";
 import {
   ALLOWED_IMAGE_TYPES,
   MAX_IMAGE_SIZE,
   ImageCropper2
-} from "./ai-describe-panel-4v8v7btg.js";
+} from "./ai-describe-panel-b3rhyrd1.js";
 
 // src/registry/thornberry/components/account-avatar-upload.tsx
 import { Camera, CloudUpload, Loader2, Trash2 } from "lucide-react";

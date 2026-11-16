@@ -3,45 +3,45 @@ import {
 } from "../../../chunks/ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import"../../../chunks/ai-describe-panel-8q0yqrx6.js";
 import"../../../chunks/ai-describe-panel-hj664zsh.js";
 import"../../../chunks/ai-describe-panel-fa46q8yp.js";
 import {
   AddPasskey2
-} from "../../../chunks/ai-describe-panel-hpz9hsny.js";
-import"../../../chunks/ai-describe-panel-b7jpk793.js";
-import"../../../chunks/ai-describe-panel-4yw3abje.js";
-import"../../../chunks/ai-describe-panel-4v8v7btg.js";
+} from "../../../chunks/ai-describe-panel-vknke4yx.js";
+import"../../../chunks/ai-describe-panel-6r0bwytq.js";
+import"../../../chunks/ai-describe-panel-19k53w4t.js";
+import"../../../chunks/ai-describe-panel-b3rhyrd1.js";
 import {
   AvatarUpload2
-} from "../../../chunks/ai-describe-panel-8151vcmn.js";
+} from "../../../chunks/ai-describe-panel-zmgkdp7d.js";
 import"../../../chunks/ai-describe-panel-h7z0b3ps.js";
-import"../../../chunks/ai-describe-panel-5yqzhe3k.js";
-import"../../../chunks/ai-describe-panel-rmtq1dzy.js";
-import"../../../chunks/ai-describe-panel-e8m4br8p.js";
+import"../../../chunks/ai-describe-panel-d073rjfq.js";
+import"../../../chunks/ai-describe-panel-2n4efn1k.js";
+import"../../../chunks/ai-describe-panel-nw1mqaed.js";
 import"../../../chunks/ai-describe-panel-8wtqb3wn.js";
 import {
   ChangePassword2
-} from "../../../chunks/ai-describe-panel-nyewfbf9.js";
+} from "../../../chunks/ai-describe-panel-261yd3kr.js";
 import {
   EditProfile2
-} from "../../../chunks/ai-describe-panel-bykmrf3c.js";
+} from "../../../chunks/ai-describe-panel-bg5qa1f2.js";
 import {
   UserActiveSessions2
-} from "../../../chunks/ai-describe-panel-k8yefn33.js";
+} from "../../../chunks/ai-describe-panel-kjmakvjb.js";
 import {
   UserTwoFactorAuthentication2
-} from "../../../chunks/ai-describe-panel-5b5pcjd4.js";
+} from "../../../chunks/ai-describe-panel-09bvr446.js";
 import"../../../chunks/ai-describe-panel-06kze8cq.js";
 import {
   ViewPasskeys2
-} from "../../../chunks/ai-describe-panel-088hbbp0.js";
+} from "../../../chunks/ai-describe-panel-x8bnr3w8.js";
 import {
   AlertRoot2,
   AlertTitle2,
   AlertDescription2
-} from "../../../chunks/ai-describe-panel-zzr25an1.js";
+} from "../../../chunks/ai-describe-panel-gpsrwaf6.js";
 import {
   CardRoot2,
   CardHeader2,
@@ -197,7 +197,7 @@ var AccountConsole = ({
           }),
           /* @__PURE__ */ jsx(UserTwoFactorAuthentication2, {}),
           /* @__PURE__ */ jsx("h3", {
-            className: "font-bold text-xl",
+            className: "text-xl font-bold",
             children: "Passkeys"
           }),
           /* @__PURE__ */ jsxs("div", {

@@ -1,19 +1,19 @@
 import {
   Button2
-} from "./ai-describe-panel-qyg3bvpa.js";
+} from "./ai-describe-panel-k2cwy48h.js";
 import {
   CheckboxRoot2,
   CheckboxLabel2,
   CheckboxControl2,
   CheckboxIndicator2,
   CheckboxHiddenInput2
-} from "./ai-describe-panel-rmtq1dzy.js";
+} from "./ai-describe-panel-2n4efn1k.js";
 import {
   Input2
 } from "./ai-describe-panel-hj664zsh.js";
 import {
   PasswordInput2
-} from "./ai-describe-panel-e8m4br8p.js";
+} from "./ai-describe-panel-nw1mqaed.js";
 import {
   SelectHiddenSelect2,
   Select2,
@@ -4577,7 +4577,7 @@ var FieldErrors = ({ errors }) => {
   if (!messages.length)
     return null;
   return /* @__PURE__ */ jsx6("p", {
-    className: "font-medium text-destructive text-xs",
+    className: "text-destructive text-xs font-medium",
     children: messages.join(", ")
   });
 };
@@ -4586,7 +4586,7 @@ var FieldLabel = ({
   children
 }) => /* @__PURE__ */ jsx6("label", {
   htmlFor,
-  className: "font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+  className: "text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
   children
 });
 var TextField2 = ({ label, className, id, ...rest }) => {

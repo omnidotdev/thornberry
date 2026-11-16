@@ -6,4 +6,4 @@ declare const TimerItem: ({ className, ...rest }: ComponentProps<typeof Timer.It
 declare const TimerSeparator: ({ className, ...rest }: ComponentProps<typeof Timer.Separator>) => import("react/jsx-runtime").JSX.Element;
 declare const TimerControl: ({ className, ...rest }: ComponentProps<typeof Timer.Control>) => import("react/jsx-runtime").JSX.Element;
 declare const TimerActionTrigger: ({ className, ...rest }: ComponentProps<typeof Timer.ActionTrigger>) => import("react/jsx-runtime").JSX.Element;
-export { TimerRoot as Timer, TimerArea, TimerItem, TimerSeparator, TimerControl, TimerActionTrigger, };
+export { TimerActionTrigger, TimerArea, TimerControl, TimerItem, TimerRoot as Timer, TimerSeparator, };

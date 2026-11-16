@@ -1,6 +1,6 @@
 import {
   Button2
-} from "./ai-describe-panel-qyg3bvpa.js";
+} from "./ai-describe-panel-k2cwy48h.js";
 import {
   Input2
 } from "./ai-describe-panel-hj664zsh.js";
@@ -30,7 +30,7 @@ var PasswordInput2 = ({
         type: "button",
         variant: "ghost",
         size: "icon",
-        className: "absolute top-0 right-0 size-9 text-muted-foreground hover:text-foreground",
+        className: "text-muted-foreground hover:text-foreground absolute top-0 right-0 size-9",
         onClick: () => setShowPassword((prev) => !prev),
         disabled,
         "aria-label": showPassword ? "Hide password" : "Show password",

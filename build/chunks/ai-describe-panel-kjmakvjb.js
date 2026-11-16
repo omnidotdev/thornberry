@@ -3,10 +3,10 @@ import {
 } from "./ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "./ai-describe-panel-qyg3bvpa.js";
+} from "./ai-describe-panel-k2cwy48h.js";
 import {
   ConfirmDialog2
-} from "./ai-describe-panel-4yw3abje.js";
+} from "./ai-describe-panel-19k53w4t.js";
 
 // src/registry/thornberry/components/account-user-active-sessions.tsx
 import { Monitor, Smartphone } from "lucide-react";
@@ -42,7 +42,7 @@ var UserActiveSessions2 = ({
   return /* @__PURE__ */ jsxs(Fragment, {
     children: [
       /* @__PURE__ */ jsx("h3", {
-        className: "font-bold text-xl",
+        className: "text-xl font-bold",
         children: "Active Sessions"
       }),
       activeSessions.map((activeSession) => /* @__PURE__ */ jsxs("div", {

@@ -16,4 +16,4 @@ declare const ComboboxItemGroup: ({ className, ...rest }: ComponentProps<typeof 
 declare const ComboboxItemGroupLabel: ({ className, ...rest }: ComponentProps<typeof ArkCombobox.ItemGroupLabel>) => import("react/jsx-runtime").JSX.Element;
 declare const ComboboxItemIndicator: ({ className, ...rest }: ComponentProps<typeof ArkCombobox.ItemIndicator>) => import("react/jsx-runtime").JSX.Element;
 declare const ComboboxItemText: ({ className, ...rest }: ComponentProps<typeof ArkCombobox.ItemText>) => import("react/jsx-runtime").JSX.Element;
-export { ComboboxRoot, ComboboxLabel, ComboboxControl, ComboboxInput, ComboboxTrigger, ComboboxClearTrigger, ComboboxPositioner, ComboboxContent, ComboboxItem, ComboboxItemGroup, ComboboxItemGroupLabel, ComboboxProvider, ComboboxContext, ComboboxItemIndicator, ComboboxItemText, type ComboboxProps, };
+export { ComboboxClearTrigger, ComboboxContent, ComboboxContext, ComboboxControl, ComboboxInput, ComboboxItem, ComboboxItemGroup, ComboboxItemGroupLabel, ComboboxItemIndicator, ComboboxItemText, ComboboxLabel, ComboboxPositioner, type ComboboxProps, ComboboxProvider, ComboboxRoot, ComboboxTrigger, };

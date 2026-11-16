@@ -8,7 +8,7 @@ import {
   CommandSeparator2,
   CommandItem2,
   CommandShortcut2
-} from "../../../chunks/ai-describe-panel-1qcg15v6.js";
+} from "../../../chunks/ai-describe-panel-b874y8hy.js";
 import {
   Kbd2
 } from "../../../chunks/ai-describe-panel-ym1fwyxy.js";

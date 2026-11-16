@@ -3,7 +3,7 @@ import {
 } from "./ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "./ai-describe-panel-qyg3bvpa.js";
+} from "./ai-describe-panel-k2cwy48h.js";
 import {
   DialogRoot2,
   DialogTrigger2,
@@ -21,7 +21,7 @@ import {
 } from "./ai-describe-panel-fa46q8yp.js";
 import {
   ConfirmDialog2
-} from "./ai-describe-panel-4yw3abje.js";
+} from "./ai-describe-panel-19k53w4t.js";
 import {
   Table2,
   TableHeader2,

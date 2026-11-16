@@ -3,7 +3,7 @@ import {
   CheckboxControl2,
   CheckboxIndicator2,
   CheckboxHiddenInput2
-} from "../../../chunks/ai-describe-panel-rmtq1dzy.js";
+} from "../../../chunks/ai-describe-panel-2n4efn1k.js";
 import {
   Input2
 } from "../../../chunks/ai-describe-panel-hj664zsh.js";
@@ -3012,7 +3012,7 @@ var DataTable = ({
             className: "relative max-w-sm flex-1",
             children: [
               /* @__PURE__ */ jsx(Search, {
-                className: "absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+                className: "text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2"
               }),
               /* @__PURE__ */ jsx(Input2, {
                 placeholder: searchPlaceholder,
@@ -3026,10 +3026,10 @@ var DataTable = ({
         ]
       }),
       enableSelection && selectedRows.length > 0 && /* @__PURE__ */ jsxs("div", {
-        className: "flex flex-wrap items-center gap-3 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2",
+        className: "border-primary/30 bg-primary/10 flex flex-wrap items-center gap-3 rounded-lg border px-3 py-2",
         children: [
           /* @__PURE__ */ jsxs("span", {
-            className: "font-medium text-primary text-sm",
+            className: "text-primary text-sm font-medium",
             children: [
               selectedRows.length,
               " selected"
@@ -3042,7 +3042,7 @@ var DataTable = ({
           /* @__PURE__ */ jsx("button", {
             type: "button",
             onClick: clearSelection,
-            className: "ml-auto text-muted-foreground text-sm transition-colors hover:text-foreground",
+            className: "text-muted-foreground hover:text-foreground ml-auto text-sm transition-colors",
             children: "Clear"
           })
         ]
@@ -3062,7 +3062,7 @@ var DataTable = ({
                     children: header.isPlaceholder ? null : canSort ? /* @__PURE__ */ jsxs("button", {
                       type: "button",
                       onClick: header.column.getToggleSortingHandler(),
-                      className: "-ml-1 flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors hover:text-foreground",
+                      className: "hover:text-foreground -ml-1 flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors",
                       children: [
                         flexRender(header.column.columnDef.header, header.getContext()),
                         sorted === "asc" ? /* @__PURE__ */ jsx(ArrowUp, {
@@ -3070,7 +3070,7 @@ var DataTable = ({
                         }) : sorted === "desc" ? /* @__PURE__ */ jsx(ArrowDown, {
                           className: "size-3.5"
                         }) : /* @__PURE__ */ jsx(ChevronsUpDown, {
-                          className: "size-3.5 text-muted-foreground"
+                          className: "text-muted-foreground size-3.5"
                         })
                       ]
                     }) : flexRender(header.column.columnDef.header, header.getContext())
@@ -3082,7 +3082,7 @@ var DataTable = ({
               children: table.getRowModel().rows.length === 0 ? /* @__PURE__ */ jsx(TableRow2, {
                 children: /* @__PURE__ */ jsx(TableCell2, {
                   colSpan: table.getAllColumns().length,
-                  className: "py-8 text-center text-muted-foreground text-sm",
+                  className: "text-muted-foreground py-8 text-center text-sm",
                   children: emptyLabel
                 })
               }) : table.getRowModel().rows.map((row) => /* @__PURE__ */ jsx(TableRow2, {

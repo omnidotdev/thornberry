@@ -6,4 +6,4 @@ declare const CardTitle: ({ className, ...rest }: ComponentProps<typeof ark.div>
 declare const CardDescription: ({ className, ...rest }: ComponentProps<typeof ark.div>) => import("react/jsx-runtime").JSX.Element;
 declare const CardContent: ({ className, ...rest }: ComponentProps<typeof ark.div>) => import("react/jsx-runtime").JSX.Element;
 declare const CardFooter: ({ className, ...rest }: ComponentProps<typeof ark.div>) => import("react/jsx-runtime").JSX.Element;
-export { CardRoot, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, };
+export { CardContent, CardDescription, CardFooter, CardHeader, CardRoot, CardTitle, };

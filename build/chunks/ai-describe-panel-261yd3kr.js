@@ -6,7 +6,7 @@ import {
 } from "./ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "./ai-describe-panel-qyg3bvpa.js";
+} from "./ai-describe-panel-k2cwy48h.js";
 import {
   DialogRoot2,
   DialogTrigger2,
@@ -18,7 +18,7 @@ import {
 } from "./ai-describe-panel-8q0yqrx6.js";
 import {
   useAppForm2
-} from "./ai-describe-panel-5yqzhe3k.js";
+} from "./ai-describe-panel-d073rjfq.js";
 
 // src/registry/thornberry/components/account-change-password.tsx
 import { Lock } from "lucide-react";

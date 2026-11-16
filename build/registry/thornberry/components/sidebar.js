@@ -1,6 +1,6 @@
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import {
   Input2
 } from "../../../chunks/ai-describe-panel-hj664zsh.js";
@@ -398,7 +398,7 @@ var Sidebar = ({
           "data-sidebar": "sidebar",
           "data-slot": "sidebar",
           "data-mobile": "true",
-          className: "w-1/2 bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden",
+          className: "bg-sidebar text-sidebar-foreground w-1/2 p-0 [&>button]:hidden",
           side,
           children: [
             /* @__PURE__ */ jsxs("div", {
@@ -422,7 +422,7 @@ var Sidebar = ({
     });
   }
   return /* @__PURE__ */ jsxs("div", {
-    className: "group peer block text-sidebar-foreground",
+    className: "group peer text-sidebar-foreground block",
     "data-state": state,
     "data-collapsible": state === "collapsed" ? collapsible : "",
     "data-variant": variant,
@@ -441,7 +441,7 @@ var Sidebar = ({
         children: /* @__PURE__ */ jsx("div", {
           "data-sidebar": "sidebar",
           "data-slot": "sidebar-inner",
-          className: "flex h-full w-full flex-col rounded-xl bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm",
+          className: "bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col rounded-xl group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm",
           children
         })
       })
@@ -525,7 +525,7 @@ var SidebarRail = ({
       }),
       /* @__PURE__ */ jsx(TooltipPositioner2, {
         children: /* @__PURE__ */ jsxs(TooltipContent2, {
-          className: "flex h-fit w-full flex-col gap-1 border bg-background text-foreground",
+          className: "bg-background text-foreground flex h-fit w-full flex-col gap-1 border",
           children: [
             /* @__PURE__ */ jsx("span", {
               children: "Drag to resize"
@@ -684,7 +684,7 @@ var SidebarMenuButton = ({
       }),
       /* @__PURE__ */ jsx(TooltipPositioner2, {
         children: /* @__PURE__ */ jsx(TooltipContent2, {
-          className: "border bg-background text-foreground",
+          className: "bg-background text-foreground border",
           children: /* @__PURE__ */ jsxs("div", {
             className: "flex items-center gap-2",
             children: [

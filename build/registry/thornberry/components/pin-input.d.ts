@@ -7,4 +7,4 @@ declare const PinInputLabel: ({ className, ...rest }: ComponentProps<typeof ArkP
 declare const PinInputControl: ({ className, ...rest }: ComponentProps<typeof ArkPinInput.Control>) => import("react/jsx-runtime").JSX.Element;
 declare const PinInputInput: ({ className, ...rest }: ComponentProps<typeof ArkPinInput.Input>) => import("react/jsx-runtime").JSX.Element;
 declare const PinInputHiddenInput: ({ className, ...rest }: ComponentProps<typeof ArkPinInput.HiddenInput>) => import("react/jsx-runtime").JSX.Element;
-export { PinInputRoot, PinInputLabel, PinInputControl, PinInputInput, PinInputHiddenInput, PinInputProvider, PinInputContext, };
+export { PinInputContext, PinInputControl, PinInputHiddenInput, PinInputInput, PinInputLabel, PinInputProvider, PinInputRoot, };

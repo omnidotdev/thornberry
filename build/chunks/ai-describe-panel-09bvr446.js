@@ -3,7 +3,7 @@ import {
 } from "./ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "./ai-describe-panel-qyg3bvpa.js";
+} from "./ai-describe-panel-k2cwy48h.js";
 import {
   DialogRoot2,
   DialogTrigger2,
@@ -21,7 +21,7 @@ import {
 } from "./ai-describe-panel-fa46q8yp.js";
 import {
   PasswordInput2
-} from "./ai-describe-panel-e8m4br8p.js";
+} from "./ai-describe-panel-nw1mqaed.js";
 import {
   __toESM,
   __commonJS
@@ -1824,7 +1824,7 @@ var onEnter = (run) => (event) => {
 var QrPanel = ({ value }) => /* @__PURE__ */ jsx("div", {
   className: "flex justify-center",
   children: /* @__PURE__ */ jsx("div", {
-    className: "rounded-lg border border-border bg-white p-4",
+    className: "border-border rounded-lg border bg-white p-4",
     children: /* @__PURE__ */ jsx(QRCode, {
       value,
       size: 180
@@ -1839,11 +1839,11 @@ var BackupCodesPanel = ({
   className: "flex flex-col gap-2",
   children: [
     /* @__PURE__ */ jsx("p", {
-      className: "font-medium text-sm",
+      className: "text-sm font-medium",
       children: "Save these backup codes somewhere safe. Each one works once to sign in if you lose your authenticator. They will not be shown again."
     }),
     /* @__PURE__ */ jsx("ul", {
-      className: "grid grid-cols-2 gap-2 rounded-md border border-border bg-muted p-3",
+      className: "border-border bg-muted grid grid-cols-2 gap-2 rounded-md border p-3",
       children: codes.map((code) => /* @__PURE__ */ jsx("li", {
         className: "font-mono text-sm",
         children: code
@@ -2031,11 +2031,11 @@ var UserTwoFactorAuthentication2 = () => {
   return /* @__PURE__ */ jsxs(Fragment, {
     children: [
       /* @__PURE__ */ jsx("h3", {
-        className: "font-bold text-xl",
+        className: "text-xl font-bold",
         children: "Two-Factor Authentication"
       }),
       /* @__PURE__ */ jsxs("p", {
-        className: "max-w-prose text-muted-foreground text-sm",
+        className: "text-muted-foreground max-w-prose text-sm",
         children: [
           "Two-factor authentication adds a second step when you sign in: after your password, you enter a short code from an authenticator app on your phone. Even if someone learns your password, they can't sign in without your phone.",
           brand.securityDocsUrl ? /* @__PURE__ */ jsxs(Fragment, {
@@ -2045,9 +2045,9 @@ var UserTwoFactorAuthentication2 = () => {
                 href: brand.securityDocsUrl,
                 target: "_blank",
                 rel: "noreferrer",
-                className: "inline-flex items-center gap-1 text-primary underline underline-offset-2",
+                className: "text-primary inline-flex items-center gap-1 underline underline-offset-2",
                 children: [
-                  "Learn more",
+                  "Learn more about two-factor authentication",
                   /* @__PURE__ */ jsx(ExternalLink, {
                     className: "size-3"
                   })
@@ -2110,7 +2110,7 @@ var UserTwoFactorAuthentication2 = () => {
                           id: "two-factor-uri",
                           readOnly: true,
                           value: twoFactorVerifyUri,
-                          className: "w-full rounded border border-border bg-muted px-2 py-1 font-mono text-sm"
+                          className: "border-border bg-muted w-full rounded border px-2 py-1 font-mono text-sm"
                         })
                       ]
                     }) : /* @__PURE__ */ jsxs(Fragment, {

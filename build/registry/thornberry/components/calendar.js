@@ -39,7 +39,7 @@ var CalendarHeader = ({
   ...rest,
   children: [
     /* @__PURE__ */ jsx("h2", {
-      className: "font-semibold text-lg",
+      className: "text-lg font-semibold",
       children: title
     }),
     /* @__PURE__ */ jsxs("div", {
@@ -49,7 +49,7 @@ var CalendarHeader = ({
           type: "button",
           "aria-label": "Previous",
           onClick: onPrevious,
-          className: "rounded-md p-1.5 hover:bg-muted",
+          className: "hover:bg-muted rounded-md p-1.5",
           children: /* @__PURE__ */ jsx(ChevronLeftIcon, {
             className: "size-4"
           })
@@ -57,14 +57,14 @@ var CalendarHeader = ({
         /* @__PURE__ */ jsx("button", {
           type: "button",
           onClick: onToday,
-          className: "rounded-md border px-2 py-1 text-sm hover:bg-muted",
+          className: "hover:bg-muted rounded-md border px-2 py-1 text-sm",
           children: "Today"
         }),
         /* @__PURE__ */ jsx("button", {
           type: "button",
           "aria-label": "Next",
           onClick: onNext,
-          className: "rounded-md p-1.5 hover:bg-muted",
+          className: "hover:bg-muted rounded-md p-1.5",
           children: /* @__PURE__ */ jsx(ChevronRightIcon, {
             className: "size-4"
           })
@@ -82,7 +82,7 @@ var CalendarWeekdays = ({
   className: cn("grid grid-cols-7 border-border border-b", className),
   ...rest,
   children: orderedWeekdays(weekStartsOn).map((day) => /* @__PURE__ */ jsx("div", {
-    className: "px-2 py-1 text-center font-medium text-muted-foreground text-xs",
+    className: "text-muted-foreground px-2 py-1 text-center text-xs font-medium",
     children: day
   }, day))
 });
@@ -120,7 +120,7 @@ var ITEM_TONE_CLASSES = {
 };
 var CalendarItemAvatarCircle = ({ name, src }) => /* @__PURE__ */ jsxs("span", {
   title: name,
-  className: "relative inline-flex size-4 items-center justify-center overflow-hidden rounded-full bg-muted font-medium text-[0.5rem] uppercase leading-none ring-1 ring-background",
+  className: "bg-muted ring-background relative inline-flex size-4 items-center justify-center overflow-hidden rounded-full text-[0.5rem] leading-none font-medium uppercase ring-1",
   children: [
     name.trim().charAt(0) || "?",
     src && /* @__PURE__ */ jsx("img", {
@@ -165,7 +165,7 @@ var CalendarItemChip = ({
           src: avatar.src
         }, index)),
         avatars.length > maxAvatars && /* @__PURE__ */ jsxs("span", {
-          className: "inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-muted px-1 font-medium text-[0.5rem] leading-none ring-1 ring-background",
+          className: "bg-muted ring-background inline-flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[0.5rem] leading-none font-medium ring-1",
           children: [
             "+",
             avatars.length - maxAvatars

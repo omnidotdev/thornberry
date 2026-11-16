@@ -23,4 +23,4 @@ declare const BANNER_ASPECT = 4;
  * black in the alpha-less JPEG output.
  */
 declare const getCroppedImg: (imageSrc: string, pixelCrop: Area) => Promise<Blob | null>;
-export { ALLOWED_IMAGE_TYPES, BANNER_ASPECT, getCroppedImg, MAX_BANNER_IMAGE_SIZE, MAX_IMAGE_SIZE, };
+export { ALLOWED_IMAGE_TYPES, BANNER_ASPECT, MAX_BANNER_IMAGE_SIZE, MAX_IMAGE_SIZE, getCroppedImg, };

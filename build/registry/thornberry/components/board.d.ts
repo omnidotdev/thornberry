@@ -51,4 +51,4 @@ declare const BoardColumnHeader: ({ title, color, icon, count, className, childr
 declare const BoardColumnBody: ({ className, ...rest }: ComponentProps<"div">) => import("react/jsx-runtime").JSX.Element;
 /** Empty-state placeholder for a column with no items. */
 declare const BoardColumnEmpty: ({ className, ...rest }: ComponentProps<"p">) => import("react/jsx-runtime").JSX.Element;
-export { Board, BoardColumn, BoardColumnHeader, BoardColumnBody, BoardColumnEmpty, useInertialScroll, };
+export { Board, BoardColumn, BoardColumnBody, BoardColumnEmpty, BoardColumnHeader, useInertialScroll, };

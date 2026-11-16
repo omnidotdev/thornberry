@@ -3,13 +3,13 @@ import {
 } from "../../../chunks/ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import"../../../chunks/ai-describe-panel-8q0yqrx6.js";
 import"../../../chunks/ai-describe-panel-hj664zsh.js";
 import"../../../chunks/ai-describe-panel-fa46q8yp.js";
 import {
   AddPasskey2
-} from "../../../chunks/ai-describe-panel-hpz9hsny.js";
+} from "../../../chunks/ai-describe-panel-vknke4yx.js";
 import {
   CardRoot2
 } from "../../../chunks/ai-describe-panel-f7d4gzjq.js";
@@ -46,7 +46,7 @@ var PasskeyNudge = () => {
     className: "flex items-start gap-4 p-4",
     children: [
       /* @__PURE__ */ jsx("div", {
-        className: "flex size-10 shrink-0 items-center justify-center rounded-full bg-muted",
+        className: "bg-muted flex size-10 shrink-0 items-center justify-center rounded-full",
         children: /* @__PURE__ */ jsx(Fingerprint, {
           className: "size-5"
         })
@@ -58,7 +58,7 @@ var PasskeyNudge = () => {
             className: "flex flex-col gap-1",
             children: [
               /* @__PURE__ */ jsx("h3", {
-                className: "font-semibold text-sm leading-none",
+                className: "text-sm leading-none font-semibold",
                 children: "Add a passkey"
               }),
               /* @__PURE__ */ jsx("p", {

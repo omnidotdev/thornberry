@@ -13,4 +13,4 @@ declare const SheetContent: ({ className, side, ...rest }: ArkSheetContentProps)
 declare const SheetTitle: ({ className, ...rest }: ComponentProps<typeof ArkSheet.Title>) => import("react/jsx-runtime").JSX.Element;
 declare const SheetDescription: ({ className, ...rest }: ComponentProps<typeof ArkSheet.Description>) => import("react/jsx-runtime").JSX.Element;
 declare const SheetCloseTrigger: ({ className, children, asChild, ...rest }: ComponentProps<typeof ArkSheet.CloseTrigger>) => import("react/jsx-runtime").JSX.Element;
-export { SheetRoot, SheetTrigger, SheetBackdrop, SheetPositioner, SheetContent, SheetTitle, SheetDescription, SheetCloseTrigger, SheetProvider, SheetContext, };
+export { SheetBackdrop, SheetCloseTrigger, SheetContent, SheetContext, SheetDescription, SheetPositioner, SheetProvider, SheetRoot, SheetTitle, SheetTrigger, };
