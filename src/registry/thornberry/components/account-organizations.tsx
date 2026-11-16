@@ -426,7 +426,7 @@ const CreateOrganizationDialog = ({ onCreated }: { onCreated: () => void }) => {
                 <div className="space-y-1.5">
                   <Label htmlFor="org-slug">Handle</Label>
                   <div className="relative">
-                    <span className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm">
+                    <span className="text-muted-foreground absolute top-1/2 left-3 -translate-y-1/2 text-sm">
                       @
                     </span>
                     <Input
@@ -439,13 +439,13 @@ const CreateOrganizationDialog = ({ onCreated }: { onCreated: () => void }) => {
                     />
                     <div className="absolute top-1/2 right-3 -translate-y-1/2">
                       {slugStatus === "checking" && (
-                        <Loader2 className="size-4 animate-spin text-muted-foreground" />
+                        <Loader2 className="text-muted-foreground size-4 animate-spin" />
                       )}
                       {slugStatus === "available" && (
                         <Check className="size-4 text-green-500" />
                       )}
                       {(slugStatus === "taken" || slugStatus === "invalid") && (
-                        <X className="size-4 text-destructive" />
+                        <X className="text-destructive size-4" />
                       )}
                     </div>
                   </div>
@@ -583,7 +583,7 @@ const LinkFavicon = ({ url }: { url: string }) => {
   const [index, setIndex] = useState(0);
   const src = candidates[index];
 
-  if (!src) return <Globe className="size-4 shrink-0 text-muted-foreground" />;
+  if (!src) return <Globe className="text-muted-foreground size-4 shrink-0" />;
 
   return (
     <img
@@ -675,7 +675,7 @@ const WorkspaceLinksSection = ({
   return (
     <div className="space-y-3 rounded-lg border p-5">
       <div>
-        <h4 className="font-medium text-sm">Links</h4>
+        <h4 className="text-sm font-medium">Links</h4>
         <p className="text-muted-foreground text-sm">
           Add your workspace's website and social links. Each link is Public
           (shown on public workspace pages) or Private (visible only to your
@@ -686,8 +686,8 @@ const WorkspaceLinksSection = ({
 
       {links.length === 0 ? (
         <div className="rounded-lg border border-dashed p-6 text-center">
-          <Globe className="mx-auto size-5 text-muted-foreground" />
-          <p className="mt-2 text-muted-foreground text-sm">No links yet.</p>
+          <Globe className="text-muted-foreground mx-auto size-5" />
+          <p className="text-muted-foreground mt-2 text-sm">No links yet.</p>
         </div>
       ) : (
         <div className="space-y-2">
@@ -717,7 +717,7 @@ const WorkspaceLinksSection = ({
                   type="button"
                   variant="outline"
                   size="sm"
-                  className="shrink-0 justify-center gap-1.5 px-2 text-muted-foreground sm:w-28"
+                  className="text-muted-foreground shrink-0 justify-center gap-1.5 px-2 sm:w-28"
                   aria-label={
                     link.visibility === "public"
                       ? "Public link, change to private"
@@ -777,12 +777,12 @@ const WorkspaceLinksSection = ({
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-md p-2 text-sm hover:bg-muted/50"
+                className="hover:bg-muted/50 flex items-center gap-2 rounded-md p-2 text-sm"
               >
                 <LinkFavicon url={link.url} />
                 <span className="truncate">{link.title || link.url}</span>
                 {link.visibility === "members" && (
-                  <Lock className="size-3 shrink-0 text-muted-foreground" />
+                  <Lock className="text-muted-foreground size-3 shrink-0" />
                 )}
               </a>
             ),
@@ -950,7 +950,7 @@ const EditOrganizationDialog = ({
               <div className="space-y-1.5">
                 <Label htmlFor="edit-org-slug">Handle</Label>
                 <div className="relative">
-                  <span className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm">
+                  <span className="text-muted-foreground absolute top-1/2 left-3 -translate-y-1/2 text-sm">
                     @
                   </span>
                   <Input
@@ -962,13 +962,13 @@ const EditOrganizationDialog = ({
                   />
                   <div className="absolute top-1/2 right-3 -translate-y-1/2">
                     {slugStatus === "checking" && (
-                      <Loader2 className="size-4 animate-spin text-muted-foreground" />
+                      <Loader2 className="text-muted-foreground size-4 animate-spin" />
                     )}
                     {slugStatus === "available" && (
                       <Check className="size-4 text-green-500" />
                     )}
                     {(slugStatus === "taken" || slugStatus === "invalid") && (
-                      <X className="size-4 text-destructive" />
+                      <X className="text-destructive size-4" />
                     )}
                   </div>
                 </div>
@@ -1327,7 +1327,7 @@ const OrganizationDetail = ({
       <Button
         variant="ghost"
         size="sm"
-        className="w-fit gap-1.5 px-2 text-muted-foreground"
+        className="text-muted-foreground w-fit gap-1.5 px-2"
         onClick={onBack}
       >
         <ArrowLeft className="size-4" />
@@ -1408,7 +1408,7 @@ const OrganizationDetail = ({
           />
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <h3 className="font-semibold text-lg">{organization.name}</h3>
+              <h3 className="text-lg font-semibold">{organization.name}</h3>
               {currentMember && (
                 <Badge variant="outline" className="capitalize">
                   {currentMember.role}
@@ -1428,9 +1428,9 @@ const OrganizationDetail = ({
       </div>
 
       {scheduledDeletionDate && (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-destructive/50 bg-destructive/5 p-4">
+        <div className="border-destructive/50 bg-destructive/5 flex flex-wrap items-center justify-between gap-3 rounded-lg border p-4">
           <div className="min-w-0">
-            <div className="font-medium text-sm">Scheduled for deletion</div>
+            <div className="text-sm font-medium">Scheduled for deletion</div>
             <div className="text-muted-foreground text-sm">
               This workspace will be permanently deleted around{" "}
               {scheduledDeletionDate.toLocaleDateString()}. Restore it before
@@ -1469,7 +1469,7 @@ const OrganizationDetail = ({
         {canManage && (
           <div className="space-y-3 rounded-lg border p-5">
             <div>
-              <h4 className="font-medium text-sm">Invite a member</h4>
+              <h4 className="text-sm font-medium">Invite a member</h4>
               <p className="text-muted-foreground text-sm">
                 {isPersonal
                   ? "Your personal workspace is just you by default. Invite people to collaborate here."
@@ -1512,7 +1512,7 @@ const OrganizationDetail = ({
         <div className="space-y-3 rounded-lg border p-5">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
-              <h4 className="font-medium text-sm">Members</h4>
+              <h4 className="text-sm font-medium">Members</h4>
               <p className="text-muted-foreground text-sm">
                 People with access to this workspace.
               </p>
@@ -1621,11 +1621,11 @@ const OrganizationDetail = ({
               ))}
             </div>
           ) : members.length === 0 ? (
-            <p className="py-4 text-center text-muted-foreground text-sm">
+            <p className="text-muted-foreground py-4 text-center text-sm">
               No members yet.
             </p>
           ) : visibleMembers.length === 0 ? (
-            <p className="py-4 text-center text-muted-foreground text-sm">
+            <p className="text-muted-foreground py-4 text-center text-sm">
               No members match your search.
             </p>
           ) : (
@@ -1652,16 +1652,16 @@ const OrganizationDetail = ({
                       </AvatarFallback>
                     </AvatarRoot>
                     <div className="min-w-0">
-                      <div className="truncate font-medium text-sm">
+                      <div className="truncate text-sm font-medium">
                         {memberDisplayName(member)}
                         {member.user.email.toLowerCase() ===
                           currentEmail.toLowerCase() && (
-                          <span className="ml-1.5 font-normal text-muted-foreground">
+                          <span className="text-muted-foreground ml-1.5 font-normal">
                             (you)
                           </span>
                         )}
                       </div>
-                      <div className="truncate text-muted-foreground text-xs">
+                      <div className="text-muted-foreground truncate text-xs">
                         {member.user.email}
                       </div>
                     </div>
@@ -1708,17 +1708,17 @@ const OrganizationDetail = ({
 
         {canManage && invitations.length > 0 && (
           <div className="space-y-2 rounded-lg border p-5">
-            <h4 className="font-medium text-sm">Pending invitations</h4>
+            <h4 className="text-sm font-medium">Pending invitations</h4>
             {invitations.map((invitation) => (
               <div
                 key={invitation.id}
                 className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-3"
               >
                 <div className="flex min-w-0 items-center gap-3">
-                  <Mail className="size-4 shrink-0 text-muted-foreground" />
+                  <Mail className="text-muted-foreground size-4 shrink-0" />
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <div className="truncate font-medium text-sm">
+                      <div className="truncate text-sm font-medium">
                         {invitation.email}
                       </div>
                       {invitation.isExpired && (
@@ -1799,7 +1799,7 @@ const OrganizationDetail = ({
               !scheduledDeletionDate && (
                 <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5">
                   <div className="min-w-0">
-                    <div className="font-medium text-sm">
+                    <div className="text-sm font-medium">
                       Delete this workspace
                     </div>
                     <div className="text-muted-foreground text-sm">
@@ -1819,7 +1819,7 @@ const OrganizationDetail = ({
             ) : (
               <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5">
                 <div className="min-w-0">
-                  <div className="font-medium text-sm">
+                  <div className="text-sm font-medium">
                     Leave this workspace
                   </div>
                   <div className="text-muted-foreground text-sm">
@@ -1838,7 +1838,7 @@ const OrganizationDetail = ({
             {isOwner && !isSoleOwner && (
               <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-5">
                 <div className="min-w-0">
-                  <div className="font-medium text-sm">
+                  <div className="text-sm font-medium">
                     Leave this workspace
                   </div>
                   <div className="text-muted-foreground text-sm">
@@ -1994,7 +1994,7 @@ const AccountOrganizations = ({
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h3 className="font-semibold text-lg">Workspaces</h3>
+          <h3 className="text-lg font-semibold">Workspaces</h3>
           <p className="text-muted-foreground text-sm">
             The workspaces you belong to, including your personal one.
           </p>
@@ -2011,7 +2011,7 @@ const AccountOrganizations = ({
               key={org.id}
               type="button"
               onClick={() => setSelectedSlug(org.slug)}
-              className="flex w-full items-center justify-between gap-3 rounded-lg border p-3 text-left transition-colors hover:bg-muted/50"
+              className="hover:bg-muted/50 flex w-full items-center justify-between gap-3 rounded-lg border p-3 text-left transition-colors"
             >
               <div className="flex min-w-0 items-center gap-3">
                 <AvatarRoot className="size-9 shrink-0">
@@ -2020,7 +2020,7 @@ const AccountOrganizations = ({
                 </AvatarRoot>
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="truncate font-medium text-sm">
+                    <span className="truncate text-sm font-medium">
                       {org.name}
                     </span>
                     {org.type === "personal" && (
@@ -2030,16 +2030,16 @@ const AccountOrganizations = ({
                       <Badge variant="warning">Scheduled for deletion</Badge>
                     )}
                   </div>
-                  <div className="truncate text-muted-foreground text-xs">
+                  <div className="text-muted-foreground truncate text-xs">
                     @{org.slug}
                   </div>
                 </div>
               </div>
-              <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+              <ChevronRight className="text-muted-foreground size-4 shrink-0" />
             </button>
           ))
         ) : (
-          <div className="py-8 text-center text-muted-foreground text-sm">
+          <div className="text-muted-foreground py-8 text-center text-sm">
             You don't belong to any workspaces yet.
           </div>
         )}

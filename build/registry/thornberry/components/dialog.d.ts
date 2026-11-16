@@ -19,4 +19,4 @@ declare const DialogContent: ({ className, ...rest }: ComponentProps<typeof ArkD
 declare const DialogTitle: ({ className, ...rest }: ComponentProps<typeof ArkDialog.Title>) => import("react/jsx-runtime").JSX.Element;
 declare const DialogDescription: ({ className, ...rest }: ComponentProps<typeof ArkDialog.Description>) => import("react/jsx-runtime").JSX.Element;
 declare const DialogCloseTrigger: ({ className, children, asChild, ...rest }: ComponentProps<typeof ArkDialog.CloseTrigger>) => import("react/jsx-runtime").JSX.Element;
-export { DialogRoot, DialogPortal, DialogTrigger, DialogBackdrop, DialogPositioner, DialogContent, DialogTitle, DialogDescription, DialogCloseTrigger, DialogProvider, DialogContext, };
+export { DialogBackdrop, DialogCloseTrigger, DialogContent, DialogContext, DialogDescription, DialogPortal, DialogPositioner, DialogProvider, DialogRoot, DialogTitle, DialogTrigger, };

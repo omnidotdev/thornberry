@@ -615,13 +615,13 @@ const BlockDragPlugin = ({ anchorElem }: { anchorElem: HTMLElement }) => {
         aria-label="Drag to reorder block"
         role="button"
         tabIndex={-1}
-        className="absolute top-0 left-0 flex cursor-grab rounded-sm px-0.5 py-1 opacity-0 transition-all duration-150 ease-out will-change-transform hover:bg-muted active:cursor-grabbing"
+        className="hover:bg-muted absolute top-0 left-0 flex cursor-grab rounded-sm px-0.5 py-1 opacity-0 transition-all duration-150 ease-out will-change-transform active:cursor-grabbing"
       >
-        <GripVertical className="size-4 text-muted-foreground" />
+        <GripVertical className="text-muted-foreground size-4" />
       </div>
       <div
         ref={lineRef}
-        className="pointer-events-none absolute top-0 left-0 h-0.5 rounded-full bg-primary opacity-0 transition-all duration-150 ease-out will-change-transform"
+        className="bg-primary pointer-events-none absolute top-0 left-0 h-0.5 rounded-full opacity-0 transition-all duration-150 ease-out will-change-transform"
       />
     </>
   );
@@ -802,7 +802,7 @@ const MentionTypeahead = ({ items }: { items: MentionItem[] }) => {
       ) =>
         anchorRef.current && options.length
           ? createPortal(
-              <ul className="z-50 max-h-56 min-w-44 overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md">
+              <ul className="bg-popover text-popover-foreground z-50 max-h-56 min-w-44 overflow-auto rounded-md border p-1 shadow-md">
                 {options.map((option, index) => (
                   <li
                     key={option.key}
@@ -904,7 +904,7 @@ const IssueReferenceTypeahead = ({
       ) =>
         anchorRef.current && options.length
           ? createPortal(
-              <ul className="z-50 max-h-56 min-w-56 max-w-72 overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md">
+              <ul className="bg-popover text-popover-foreground z-50 max-h-56 max-w-72 min-w-56 overflow-auto rounded-md border p-1 shadow-md">
                 {options.map((option, index) => (
                   <li
                     key={option.key}
@@ -918,7 +918,7 @@ const IssueReferenceTypeahead = ({
                       selectOptionAndCleanUp(option);
                     }}
                   >
-                    <span className="shrink-0 font-medium text-muted-foreground">
+                    <span className="text-muted-foreground shrink-0 font-medium">
                       #{option.item.number}
                     </span>
                     <span className="truncate">{option.item.title}</span>
@@ -1333,13 +1333,13 @@ const RichTextContent = ({
 };
 
 export {
-  RichTextEditor,
   RichTextContent,
+  RichTextEditor,
+  dragUnitClass,
+  dropSide,
+  getDragUnits,
   linkFromText,
   linkifyBareUrls,
   linkifyMarkdownLinks,
-  getDragUnits,
-  dragUnitClass,
-  dropSide,
 };
 export default RichTextEditor;

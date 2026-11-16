@@ -78,6 +78,7 @@ function createCodeEditor(parent, opts = {}) {
     language,
     theme,
     extensions = [],
+    lineWrapping = false,
     completionSources,
     autocompletion: autocompletionConfig,
     readOnly = false,
@@ -88,6 +89,7 @@ function createCodeEditor(parent, opts = {}) {
   const themeCompartment = new Compartment;
   const languageCompartment = new Compartment;
   const extrasCompartment = new Compartment;
+  const lineWrappingCompartment = new Compartment;
   const completionCompartment = new Compartment;
   const readOnlyCompartment = new Compartment;
   const placeholderCompartment = new Compartment;
@@ -104,6 +106,7 @@ function createCodeEditor(parent, opts = {}) {
   ];
   const placeholderExtension = (text) => text ? placeholder(text) : [];
   const idExtension = (value) => value ? EditorView.contentAttributes.of({ id: value }) : [];
+  const lineWrappingExtension = (value) => value ? EditorView.lineWrapping : [];
   const view = new EditorView({
     parent,
     state: EditorState.create({
@@ -124,6 +127,7 @@ function createCodeEditor(parent, opts = {}) {
         themeCompartment.of(theme ?? neutralTheme),
         languageCompartment.of(language ?? []),
         extrasCompartment.of(extensions),
+        lineWrappingCompartment.of(lineWrappingExtension(lineWrapping)),
         completionCompartment.of(completionExtension(completionSources)),
         EditorView.updateListener.of((update) => {
           if (update.docChanged)
@@ -145,6 +149,9 @@ function createCodeEditor(parent, opts = {}) {
       effects: completionCompartment.reconfigure(completionExtension(sources))
     }),
     setExtensions: (exts) => view.dispatch({ effects: extrasCompartment.reconfigure(exts) }),
+    setLineWrapping: (wrap) => view.dispatch({
+      effects: lineWrappingCompartment.reconfigure(lineWrappingExtension(wrap))
+    }),
     setReadOnly: (value) => view.dispatch({
       effects: readOnlyCompartment.reconfigure(readOnlyExtension(value))
     }),
@@ -166,6 +173,7 @@ var CodeEditor = forwardRef(({
   language,
   theme,
   extensions,
+  lineWrapping,
   completionSources,
   autocompletion: autocompletionConfig,
   readOnly,
@@ -188,6 +196,7 @@ var CodeEditor = forwardRef(({
       language,
       theme,
       extensions,
+      lineWrapping,
       completionSources,
       autocompletion: autocompletionConfig,
       readOnly,
@@ -224,6 +233,10 @@ var CodeEditor = forwardRef(({
       handleRef.current.setExtensions(extensions);
   }, [extensions]);
   useEffect(() => {
+    if (handleRef.current && lineWrapping !== undefined)
+      handleRef.current.setLineWrapping(lineWrapping);
+  }, [lineWrapping]);
+  useEffect(() => {
     if (handleRef.current && readOnly !== undefined)
       handleRef.current.setReadOnly(readOnly);
   }, [readOnly]);
@@ -242,6 +255,7 @@ var CodeEditor = forwardRef(({
     setLanguage: (nextLanguage) => handleRef.current?.setLanguage(nextLanguage),
     setCompletionSources: (sources) => handleRef.current?.setCompletionSources(sources),
     setExtensions: (exts) => handleRef.current?.setExtensions(exts),
+    setLineWrapping: (wrap) => handleRef.current?.setLineWrapping(wrap),
     setReadOnly: (next) => handleRef.current?.setReadOnly(next),
     setPlaceholder: (text) => handleRef.current?.setPlaceholder(text),
     setId: (next) => handleRef.current?.setId(next),

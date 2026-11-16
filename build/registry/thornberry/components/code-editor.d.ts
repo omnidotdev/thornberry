@@ -62,6 +62,8 @@ export interface CodeEditorHandle {
     setCompletionSources(sources: CompletionSource[]): void;
     /** Reconfigure the extra extensions compartment live (replaces the previous extras). */
     setExtensions(exts: Extension[]): void;
+    /** Toggle soft line wrapping live (long lines wrap instead of scrolling horizontally). */
+    setLineWrapping(wrap: boolean): void;
     /** Reconfigure the read-only state live (also toggles the view's editability). */
     setReadOnly(readOnly: boolean): void;
     /** Reconfigure the placeholder text live (empty string clears it). */
@@ -87,6 +89,13 @@ export interface CodeEditorOptions {
     theme?: Extension;
     /** Extra extensions layered on top (consumer-provided). */
     extensions?: Extension[];
+    /**
+     * Soft-wrap long lines instead of scrolling horizontally. Off by default to
+     * match a plain code editor; turn it on for content with very long lines (a
+     * minified blob, a long SVG path string, prose). Reconfigurable live via
+     * `setLineWrapping`
+     */
+    lineWrapping?: boolean;
     /**
      * Completion sources to inject (e.g. a product's domain API). When provided,
      * they override the language's own completions via
@@ -159,6 +168,8 @@ export interface CodeEditorProps {
     theme?: Extension;
     /** Extra extensions layered on top (consumer-provided). */
     extensions?: Extension[];
+    /** Soft-wrap long lines instead of scrolling horizontally; reconfigures live when it changes. */
+    lineWrapping?: boolean;
     /** Completion sources to inject; override the language's own completions when provided. */
     completionSources?: CompletionSource[];
     /** Autocompletion config passed through to `autocompletion()` (see {@link CodeEditorOptions.autocompletion}). */

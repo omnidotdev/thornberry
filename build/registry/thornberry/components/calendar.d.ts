@@ -146,4 +146,4 @@ declare const useDayOverflow: ({ count, maxVisible }: UseDayOverflowOptions) => 
     isExpanded: boolean;
     toggle: () => void;
 };
-export { CalendarHeader, CalendarWeekdays, CalendarGrid, CalendarDayCell, CalendarItemChip, CalendarMoreToggle, useCalendarMonth, useCalendarView, useDayOverflow, };
+export { CalendarDayCell, CalendarGrid, CalendarHeader, CalendarItemChip, CalendarMoreToggle, CalendarWeekdays, useCalendarMonth, useCalendarView, useDayOverflow, };

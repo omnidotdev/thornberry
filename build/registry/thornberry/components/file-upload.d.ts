@@ -11,4 +11,4 @@ declare const FileUploadItemSizeText: ({ className, ...rest }: ComponentProps<ty
 declare const FileUploadItemDeleteTrigger: ({ className, ...rest }: ComponentProps<typeof FileUpload.ItemDeleteTrigger>) => import("react/jsx-runtime").JSX.Element;
 declare const FileUploadLabel: ({ className, ...rest }: ComponentProps<typeof FileUpload.Label>) => import("react/jsx-runtime").JSX.Element;
 declare const FileUploadHiddenInput: ({ className, ...rest }: ComponentProps<typeof FileUpload.HiddenInput>) => import("react/jsx-runtime").JSX.Element;
-export { FileUploadContext, FileUploadRoot as FileUpload, FileUploadDropzone, FileUploadTrigger, FileUploadItemGroup, FileUploadItem, FileUploadItemName, FileUploadItemSizeText, FileUploadItemDeleteTrigger, FileUploadLabel, FileUploadHiddenInput, };
+export { FileUploadContext, FileUploadDropzone, FileUploadHiddenInput, FileUploadItem, FileUploadItemDeleteTrigger, FileUploadItemGroup, FileUploadItemName, FileUploadItemSizeText, FileUploadLabel, FileUploadRoot as FileUpload, FileUploadTrigger, };

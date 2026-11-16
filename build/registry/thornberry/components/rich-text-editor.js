@@ -1,6 +1,6 @@
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import {
   Skeleton2
 } from "../../../chunks/ai-describe-panel-4ayhnmp9.js";
@@ -446,14 +446,14 @@ var BlockDragPlugin = ({ anchorElem }) => {
         "aria-label": "Drag to reorder block",
         role: "button",
         tabIndex: -1,
-        className: "absolute top-0 left-0 flex cursor-grab rounded-sm px-0.5 py-1 opacity-0 transition-all duration-150 ease-out will-change-transform hover:bg-muted active:cursor-grabbing",
+        className: "hover:bg-muted absolute top-0 left-0 flex cursor-grab rounded-sm px-0.5 py-1 opacity-0 transition-all duration-150 ease-out will-change-transform active:cursor-grabbing",
         children: /* @__PURE__ */ jsx(GripVertical, {
-          className: "size-4 text-muted-foreground"
+          className: "text-muted-foreground size-4"
         })
       }),
       /* @__PURE__ */ jsx("div", {
         ref: lineRef,
-        className: "pointer-events-none absolute top-0 left-0 h-0.5 rounded-full bg-primary opacity-0 transition-all duration-150 ease-out will-change-transform"
+        className: "bg-primary pointer-events-none absolute top-0 left-0 h-0.5 rounded-full opacity-0 transition-all duration-150 ease-out will-change-transform"
       })
     ]
   });
@@ -560,7 +560,7 @@ var MentionTypeahead = ({ items }) => {
     triggerFn,
     options,
     menuRenderFn: (anchorRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => anchorRef.current && options.length ? createPortal(/* @__PURE__ */ jsx("ul", {
-      className: "z-50 max-h-56 min-w-44 overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
+      className: "bg-popover text-popover-foreground z-50 max-h-56 min-w-44 overflow-auto rounded-md border p-1 shadow-md",
       children: options.map((option, index) => /* @__PURE__ */ jsxs("li", {
         className: cn("cursor-pointer rounded-sm px-2 py-1.5 text-sm", selectedIndex === index && "bg-muted"),
         onMouseEnter: () => setHighlightedIndex(index),
@@ -611,7 +611,7 @@ var IssueReferenceTypeahead = ({
     triggerFn,
     options,
     menuRenderFn: (anchorRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => anchorRef.current && options.length ? createPortal(/* @__PURE__ */ jsx("ul", {
-      className: "z-50 max-h-56 min-w-56 max-w-72 overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
+      className: "bg-popover text-popover-foreground z-50 max-h-56 max-w-72 min-w-56 overflow-auto rounded-md border p-1 shadow-md",
       children: options.map((option, index) => /* @__PURE__ */ jsxs("li", {
         className: cn("flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm", selectedIndex === index && "bg-muted"),
         onMouseEnter: () => setHighlightedIndex(index),
@@ -621,7 +621,7 @@ var IssueReferenceTypeahead = ({
         },
         children: [
           /* @__PURE__ */ jsxs("span", {
-            className: "shrink-0 font-medium text-muted-foreground",
+            className: "text-muted-foreground shrink-0 font-medium",
             children: [
               "#",
               option.item.number

@@ -11,4 +11,4 @@ declare const PopoverArrowTip: ({ className, ...rest }: ComponentProps<typeof Ar
 declare const PopoverCloseTrigger: ({ className, children, asChild, ...rest }: ComponentProps<typeof ArkPopover.CloseTrigger>) => import("react/jsx-runtime").JSX.Element;
 declare const PopoverTitle: ({ className, ...rest }: ComponentProps<typeof ArkPopover.Title>) => import("react/jsx-runtime").JSX.Element;
 declare const PopoverDescription: ({ className, ...rest }: ComponentProps<typeof ArkPopover.Description>) => import("react/jsx-runtime").JSX.Element;
-export { PopoverRoot, PopoverTrigger, PopoverContent, PopoverPositioner, PopoverArrow, PopoverArrowTip, PopoverCloseTrigger, PopoverProvider, PopoverContext, PopoverTitle, PopoverDescription, };
+export { PopoverArrow, PopoverArrowTip, PopoverCloseTrigger, PopoverContent, PopoverContext, PopoverDescription, PopoverPositioner, PopoverProvider, PopoverRoot, PopoverTitle, PopoverTrigger, };

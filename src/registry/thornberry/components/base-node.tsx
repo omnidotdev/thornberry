@@ -113,7 +113,7 @@ export const BaseNode = memo(
           <button
             type="button"
             aria-label="Delete node"
-            className="absolute -top-3 -right-3 flex h-6 w-6 items-center justify-center rounded-full border bg-card text-destructive opacity-0 shadow-md transition-opacity group-hover:opacity-100"
+            className="bg-card text-destructive absolute -top-3 -right-3 flex h-6 w-6 items-center justify-center rounded-full border opacity-0 shadow-md transition-opacity group-hover:opacity-100"
             onClick={(e) => {
               e.stopPropagation();
               onDelete();

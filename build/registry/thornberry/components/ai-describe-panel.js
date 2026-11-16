@@ -1,6 +1,6 @@
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import {
   DialogRoot2,
   DialogPortal2,
@@ -16,7 +16,7 @@ import {
 import"../../../chunks/ai-describe-panel-hj664zsh.js";
 import {
   PasswordInput2
-} from "../../../chunks/ai-describe-panel-e8m4br8p.js";
+} from "../../../chunks/ai-describe-panel-nw1mqaed.js";
 import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";
@@ -115,7 +115,7 @@ var AiDescribePanel = ({
                 children: [
                   /* @__PURE__ */ jsx("button", {
                     type: "button",
-                    className: "cursor-pointer text-muted-foreground text-sm underline-offset-4 hover:underline",
+                    className: "text-muted-foreground cursor-pointer text-sm underline-offset-4 hover:underline",
                     onClick: () => byok.onOpenChange(!byok.open),
                     "aria-expanded": byok.open,
                     children: byok.label ?? "Use your own Synapse key"
@@ -158,7 +158,7 @@ var AiDescribePanel = ({
                 className: "flex items-center justify-between gap-3",
                 children: [
                   /* @__PURE__ */ jsx("div", {
-                    className: "min-w-0 flex-1 text-muted-foreground text-xs",
+                    className: "text-muted-foreground min-w-0 flex-1 text-xs",
                     children: isPending ? /* @__PURE__ */ jsxs("span", {
                       className: "inline-flex items-center gap-1.5",
                       children: [

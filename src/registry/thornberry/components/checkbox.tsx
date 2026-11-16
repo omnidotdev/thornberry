@@ -16,7 +16,7 @@ const CheckboxRoot = ({
 );
 
 const CheckboxLabel = ({ children }: { children: ReactNode }) => (
-  <ArkCheckbox.Label className="ml-2 font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+  <ArkCheckbox.Label className="ml-2 text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
     {children}
   </ArkCheckbox.Label>
 );
@@ -55,12 +55,12 @@ const CheckboxHiddenInput = ({
 );
 
 export {
-  CheckboxProvider,
-  CheckboxGroup,
   CheckboxContext,
-  CheckboxRoot,
-  CheckboxLabel,
   CheckboxControl,
-  CheckboxIndicator,
+  CheckboxGroup,
   CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+  CheckboxProvider,
+  CheckboxRoot,
 };

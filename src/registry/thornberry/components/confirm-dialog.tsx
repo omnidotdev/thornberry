@@ -87,7 +87,7 @@ const ConfirmDialog = ({
               <div className="space-y-1.5">
                 <Label htmlFor="confirm-input">
                   Type{" "}
-                  <span className="font-medium text-foreground">
+                  <span className="text-foreground font-medium">
                     {confirmationText}
                   </span>{" "}
                   to confirm

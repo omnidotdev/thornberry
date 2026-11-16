@@ -99,15 +99,15 @@ const PopoverDescription = ({
 );
 
 export {
-  PopoverRoot,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverPositioner,
   PopoverArrow,
   PopoverArrowTip,
   PopoverCloseTrigger,
-  PopoverProvider,
+  PopoverContent,
   PopoverContext,
-  PopoverTitle,
   PopoverDescription,
+  PopoverPositioner,
+  PopoverProvider,
+  PopoverRoot,
+  PopoverTitle,
+  PopoverTrigger,
 };

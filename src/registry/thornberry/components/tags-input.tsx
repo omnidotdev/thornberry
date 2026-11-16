@@ -152,14 +152,14 @@ const TagsInputRoot = ArkTagsInput.Root;
 
 export {
   TagsInputClearTrigger,
-  TagsInputControl,
   TagsInputContext,
+  TagsInputControl,
   TagsInputInput,
   TagsInputItem,
   TagsInputItemDeleteTrigger,
   TagsInputItemInput,
+  TagsInputItemPreview,
   TagsInputItemText,
   TagsInputLabel,
   TagsInputRoot,
-  TagsInputItemPreview,
 };

@@ -64,7 +64,7 @@ const UserActiveSessions = ({
 
   return (
     <>
-      <h3 className="font-bold text-xl">Active Sessions</h3>
+      <h3 className="text-xl font-bold">Active Sessions</h3>
 
       {activeSessions.map((activeSession) => (
         <div key={activeSession.id} className="flex items-center gap-2">

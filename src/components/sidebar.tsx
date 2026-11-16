@@ -202,7 +202,7 @@ export const SidebarExample = () => {
   return (
     <SidebarContext>
       <AppSidebar />
-      <SidebarInset className="flex flex-1 overflow-hidden border bg-background">
+      <SidebarInset className="bg-background flex flex-1 overflow-hidden border">
         <SidebarTrigger />
       </SidebarInset>
     </SidebarContext>
@@ -223,7 +223,7 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
           <SidebarMenuItem>
             <MenuRoot>
               <MenuTrigger asChild>
-                <SidebarMenuButton className="h-12 bg-sidebar-accent">
+                <SidebarMenuButton className="bg-sidebar-accent h-12">
                   <activeTeam.logo
                     className={cn(
                       "rotate-none!",
@@ -265,7 +265,7 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
                     <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
                       <Plus className="size-4" />
                     </div>
-                    <div className="font-medium text-muted-foreground">
+                    <div className="text-muted-foreground font-medium">
                       Add team
                     </div>
                   </MenuItem>
@@ -428,7 +428,7 @@ const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
           <SidebarMenuItem>
             <MenuRoot>
               <MenuTrigger asChild>
-                <SidebarMenuButton className="h-12 bg-sidebar-accent group-data-[collapsible=icon]:p-1!">
+                <SidebarMenuButton className="bg-sidebar-accent h-12 group-data-[collapsible=icon]:p-1!">
                   <AvatarRoot
                     className={cn(
                       "rounded-sm",

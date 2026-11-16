@@ -111,14 +111,14 @@ const SheetCloseTrigger = ({
 };
 
 export {
-  SheetRoot,
-  SheetTrigger,
   SheetBackdrop,
-  SheetPositioner,
-  SheetContent,
-  SheetTitle,
-  SheetDescription,
   SheetCloseTrigger,
-  SheetProvider,
+  SheetContent,
   SheetContext,
+  SheetDescription,
+  SheetPositioner,
+  SheetProvider,
+  SheetRoot,
+  SheetTitle,
+  SheetTrigger,
 };

@@ -89,12 +89,12 @@ const NumberInputIncrementTrigger = ({
 );
 
 export {
-  NumberInputRoot,
-  NumberInputLabel,
+  NumberInputContext,
   NumberInputControl,
-  NumberInputInput,
   NumberInputDecrementTrigger,
   NumberInputIncrementTrigger,
+  NumberInputInput,
+  NumberInputLabel,
   NumberInputProvider,
-  NumberInputContext,
+  NumberInputRoot,
 };

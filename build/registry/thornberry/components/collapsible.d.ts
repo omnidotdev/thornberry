@@ -5,4 +5,4 @@ declare const CollapsibleContext: (props: ArkCollapsible.ContextProps) => import
 declare const CollapsibleRoot: ({ className, ...rest }: ComponentProps<typeof ArkCollapsible.Root>) => import("react/jsx-runtime").JSX.Element;
 declare const CollapsibleTrigger: ({ className, children, ...rest }: ComponentProps<typeof ArkCollapsible.Trigger>) => import("react/jsx-runtime").JSX.Element;
 declare const CollapsibleContent: ({ className, ...rest }: ComponentProps<typeof ArkCollapsible.Content>) => import("react/jsx-runtime").JSX.Element;
-export { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent, CollapsibleProvider, CollapsibleContext, };
+export { CollapsibleContent, CollapsibleContext, CollapsibleProvider, CollapsibleRoot, CollapsibleTrigger, };

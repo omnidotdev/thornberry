@@ -9,4 +9,4 @@ declare const PaginationItem: ({ className, page, ...rest }: ComponentProps<type
 }) => import("react/jsx-runtime").JSX.Element;
 declare const PaginationPrevTrigger: ({ className, ...rest }: ComponentProps<typeof ArkPagination.PrevTrigger>) => import("react/jsx-runtime").JSX.Element;
 declare const PaginationNextTrigger: ({ className, ...rest }: ComponentProps<typeof ArkPagination.NextTrigger>) => import("react/jsx-runtime").JSX.Element;
-export { PaginationRoot, PaginationItem, PaginationEllipsis, PaginationPrevTrigger, PaginationNextTrigger, PaginationProvider, PaginationContext, };
+export { PaginationContext, PaginationEllipsis, PaginationItem, PaginationNextTrigger, PaginationPrevTrigger, PaginationProvider, PaginationRoot, };

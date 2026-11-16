@@ -135,7 +135,7 @@ const OWNER_SELF: Member = {
 describe("AccountOrganizations invitations", () => {
   afterEach(() => cleanup());
 
-  test("marks an expired invite 'Expired' and offers Resend, not a plain Cancel", async () => {
+  test("marks an expired invite 'Expired' and swaps its Cancel for Remove", async () => {
     const { client } = makeClient({
       currentEmail: "owner@acme.test",
       members: [OWNER_SELF],
@@ -158,14 +158,18 @@ describe("AccountOrganizations invitations", () => {
     });
     renderDetail(client);
 
-    // the live invite keeps a plain Cancel and carries no Expired badge
+    // the live invite keeps Cancel, carries no Expired badge, and (like every
+    // pending invite) can be resent
     await screen.findByText("live@acme.test");
     expect(row("live@acme.test").queryByText("Expired")).toBeNull();
     expect(
       row("live@acme.test").getByRole("button", { name: "Cancel" }),
     ).toBeTruthy();
     expect(
-      row("live@acme.test").queryByRole("button", { name: "Resend" }),
+      row("live@acme.test").getByRole("button", { name: "Resend" }),
+    ).toBeTruthy();
+    expect(
+      row("live@acme.test").queryByRole("button", { name: "Remove" }),
     ).toBeNull();
 
     // the expired invite is badged and offers Resend + Remove

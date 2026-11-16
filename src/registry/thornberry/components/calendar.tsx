@@ -67,20 +67,20 @@ const CalendarHeader = ({
     className={cn("flex items-center justify-between px-1 py-3", className)}
     {...rest}
   >
-    <h2 className="font-semibold text-lg">{title}</h2>
+    <h2 className="text-lg font-semibold">{title}</h2>
     <div className="flex items-center gap-1">
       <button
         type="button"
         aria-label="Previous"
         onClick={onPrevious}
-        className="rounded-md p-1.5 hover:bg-muted"
+        className="hover:bg-muted rounded-md p-1.5"
       >
         <ChevronLeftIcon className="size-4" />
       </button>
       <button
         type="button"
         onClick={onToday}
-        className="rounded-md border px-2 py-1 text-sm hover:bg-muted"
+        className="hover:bg-muted rounded-md border px-2 py-1 text-sm"
       >
         Today
       </button>
@@ -88,7 +88,7 @@ const CalendarHeader = ({
         type="button"
         aria-label="Next"
         onClick={onNext}
-        className="rounded-md p-1.5 hover:bg-muted"
+        className="hover:bg-muted rounded-md p-1.5"
       >
         <ChevronRightIcon className="size-4" />
       </button>
@@ -115,7 +115,7 @@ const CalendarWeekdays = ({
     {orderedWeekdays(weekStartsOn).map((day) => (
       <div
         key={day}
-        className="px-2 py-1 text-center font-medium text-muted-foreground text-xs"
+        className="text-muted-foreground px-2 py-1 text-center text-xs font-medium"
       >
         {day}
       </div>
@@ -221,7 +221,7 @@ interface CalendarItemChipProps extends ComponentProps<"button"> {
 const CalendarItemAvatarCircle = ({ name, src }: CalendarItemAvatar) => (
   <span
     title={name}
-    className="relative inline-flex size-4 items-center justify-center overflow-hidden rounded-full bg-muted font-medium text-[0.5rem] uppercase leading-none ring-1 ring-background"
+    className="bg-muted ring-background relative inline-flex size-4 items-center justify-center overflow-hidden rounded-full text-[0.5rem] leading-none font-medium uppercase ring-1"
   >
     {name.trim().charAt(0) || "?"}
     {src && (
@@ -288,7 +288,7 @@ const CalendarItemChip = ({
           />
         ))}
         {avatars.length > maxAvatars && (
-          <span className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-muted px-1 font-medium text-[0.5rem] leading-none ring-1 ring-background">
+          <span className="bg-muted ring-background inline-flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[0.5rem] leading-none font-medium ring-1">
             +{avatars.length - maxAvatars}
           </span>
         )}
@@ -490,12 +490,12 @@ const useDayOverflow = ({ count, maxVisible = 3 }: UseDayOverflowOptions) => {
 };
 
 export {
-  CalendarHeader,
-  CalendarWeekdays,
-  CalendarGrid,
   CalendarDayCell,
+  CalendarGrid,
+  CalendarHeader,
   CalendarItemChip,
   CalendarMoreToggle,
+  CalendarWeekdays,
   useCalendarMonth,
   useCalendarView,
   useDayOverflow,

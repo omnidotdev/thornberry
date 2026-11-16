@@ -166,20 +166,20 @@ const ComboboxItemText = ({
 );
 
 export {
-  ComboboxRoot,
-  ComboboxLabel,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxContext,
   ComboboxControl,
   ComboboxInput,
-  ComboboxTrigger,
-  ComboboxClearTrigger,
-  ComboboxPositioner,
-  ComboboxContent,
   ComboboxItem,
   ComboboxItemGroup,
   ComboboxItemGroupLabel,
-  ComboboxProvider,
-  ComboboxContext,
   ComboboxItemIndicator,
   ComboboxItemText,
+  ComboboxLabel,
+  ComboboxPositioner,
   type ComboboxProps,
+  ComboboxProvider,
+  ComboboxRoot,
+  ComboboxTrigger,
 };

@@ -24,7 +24,7 @@ var NotFoundPage = ({
       children: [
         appLogo,
         /* @__PURE__ */ jsx("span", {
-          className: "font-semibold text-foreground text-lg tracking-tight",
+          className: "text-foreground text-lg font-semibold tracking-tight",
           children: appName
         })
       ]
@@ -33,15 +33,15 @@ var NotFoundPage = ({
       className: "flex flex-col items-center gap-2",
       children: [
         /* @__PURE__ */ jsx("h1", {
-          className: "font-bold text-7xl text-foreground tabular-nums tracking-tight",
+          className: "text-foreground text-7xl font-bold tracking-tight tabular-nums",
           children: "404"
         }),
         /* @__PURE__ */ jsx("h2", {
-          className: "font-semibold text-2xl text-foreground",
+          className: "text-foreground text-2xl font-semibold",
           children: "Page not found"
         }),
         /* @__PURE__ */ jsx("p", {
-          className: "max-w-md text-muted-foreground",
+          className: "text-muted-foreground max-w-md",
           children: description
         })
       ]
@@ -52,12 +52,12 @@ var NotFoundPage = ({
         showBack && /* @__PURE__ */ jsx("button", {
           type: "button",
           onClick: () => window.history.back(),
-          className: "rounded-lg border border-border bg-card px-4 py-2 font-medium text-foreground text-sm transition-colors hover:bg-accent",
+          className: "border-border bg-card text-foreground hover:bg-accent rounded-lg border px-4 py-2 text-sm font-medium transition-colors",
           children: backLabel
         }),
         /* @__PURE__ */ jsx("a", {
           href: homeHref,
-          className: "rounded-lg bg-primary px-4 py-2 font-medium text-primary-foreground text-sm transition-colors hover:bg-primary/90",
+          className: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
           children: homeLabel
         })
       ]

@@ -188,7 +188,7 @@ const DataTable = <TData,>({
         <div className="flex flex-wrap items-center gap-3">
           {searchPlaceholder && (
             <div className="relative max-w-sm flex-1">
-              <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2" />
               <Input
                 placeholder={searchPlaceholder}
                 value={globalFilter}
@@ -202,8 +202,8 @@ const DataTable = <TData,>({
       )}
 
       {enableSelection && selectedRows.length > 0 && (
-        <div className="flex flex-wrap items-center gap-3 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2">
-          <span className="font-medium text-primary text-sm">
+        <div className="border-primary/30 bg-primary/10 flex flex-wrap items-center gap-3 rounded-lg border px-3 py-2">
+          <span className="text-primary text-sm font-medium">
             {selectedRows.length} selected
           </span>
           <div className="flex flex-wrap items-center gap-2">
@@ -212,7 +212,7 @@ const DataTable = <TData,>({
           <button
             type="button"
             onClick={clearSelection}
-            className="ml-auto text-muted-foreground text-sm transition-colors hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground ml-auto text-sm transition-colors"
           >
             Clear
           </button>
@@ -239,7 +239,7 @@ const DataTable = <TData,>({
                         <button
                           type="button"
                           onClick={header.column.getToggleSortingHandler()}
-                          className="-ml-1 flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors hover:text-foreground"
+                          className="hover:text-foreground -ml-1 flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors"
                         >
                           {flexRender(
                             header.column.columnDef.header,
@@ -250,7 +250,7 @@ const DataTable = <TData,>({
                           ) : sorted === "desc" ? (
                             <ArrowDown className="size-3.5" />
                           ) : (
-                            <ChevronsUpDown className="size-3.5 text-muted-foreground" />
+                            <ChevronsUpDown className="text-muted-foreground size-3.5" />
                           )}
                         </button>
                       ) : (
@@ -270,7 +270,7 @@ const DataTable = <TData,>({
               <TableRow>
                 <TableCell
                   colSpan={table.getAllColumns().length}
-                  className="py-8 text-center text-muted-foreground text-sm"
+                  className="text-muted-foreground py-8 text-center text-sm"
                 >
                   {emptyLabel}
                 </TableCell>

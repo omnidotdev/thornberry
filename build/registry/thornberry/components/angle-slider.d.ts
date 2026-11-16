@@ -6,4 +6,4 @@ declare const AngleSliderMarkerGroup: ({ className, ...rest }: AngleSliderMarker
 declare const AngleSliderMarker: ({ className, value, ...rest }: AngleSliderMarkerProps) => import("react/jsx-runtime").JSX.Element;
 declare const AngleSliderValueText: ({ className, ...rest }: AngleSliderValueTextProps) => import("react/jsx-runtime").JSX.Element;
 declare const AngleSliderHiddenInput: ({ className, ...rest }: AngleSliderHiddenInputProps) => import("react/jsx-runtime").JSX.Element;
-export { AngleSliderRoot, AngleSliderControl, AngleSliderMarkerGroup, AngleSliderMarker, AngleSliderThumb, AngleSliderValueText, AngleSliderHiddenInput, };
+export { AngleSliderControl, AngleSliderHiddenInput, AngleSliderMarker, AngleSliderMarkerGroup, AngleSliderRoot, AngleSliderThumb, AngleSliderValueText, };

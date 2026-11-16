@@ -111,14 +111,14 @@ const FileUploadHiddenInput = ({
 
 export {
   FileUploadContext,
-  FileUploadRoot as FileUpload,
   FileUploadDropzone,
-  FileUploadTrigger,
-  FileUploadItemGroup,
+  FileUploadHiddenInput,
   FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
   FileUploadItemName,
   FileUploadItemSizeText,
-  FileUploadItemDeleteTrigger,
   FileUploadLabel,
-  FileUploadHiddenInput,
+  FileUploadRoot as FileUpload,
+  FileUploadTrigger,
 };

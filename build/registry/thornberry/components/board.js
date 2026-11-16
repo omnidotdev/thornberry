@@ -141,13 +141,13 @@ var BoardColumnHeader = ({
           style: { backgroundColor: color ?? "var(--color-muted-foreground)" }
         }),
         /* @__PURE__ */ jsx("span", {
-          className: "truncate font-semibold text-foreground text-sm",
+          className: "text-foreground truncate text-sm font-semibold",
           children: title
         })
       ]
     }),
     count != null && /* @__PURE__ */ jsx("span", {
-      className: "shrink-0 rounded-full bg-card px-2 py-0.5 font-medium text-muted-foreground text-xs tabular-nums",
+      className: "bg-card text-muted-foreground shrink-0 rounded-full px-2 py-0.5 text-xs font-medium tabular-nums",
       children: count
     }),
     children

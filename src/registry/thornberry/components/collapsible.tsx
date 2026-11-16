@@ -44,9 +44,9 @@ const CollapsibleContent = ({
 );
 
 export {
+  CollapsibleContent,
+  CollapsibleContext,
+  CollapsibleProvider,
   CollapsibleRoot,
   CollapsibleTrigger,
-  CollapsibleContent,
-  CollapsibleProvider,
-  CollapsibleContext,
 };

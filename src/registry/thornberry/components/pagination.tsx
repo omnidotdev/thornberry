@@ -70,11 +70,11 @@ const PaginationNextTrigger = ({
 );
 
 export {
-  PaginationRoot,
-  PaginationItem,
-  PaginationEllipsis,
-  PaginationPrevTrigger,
-  PaginationNextTrigger,
-  PaginationProvider,
   PaginationContext,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationProvider,
+  PaginationRoot,
 };

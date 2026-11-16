@@ -1,7 +1,7 @@
 import {
   NODE_WIDTH2,
   NODE_MIN_HEIGHT2
-} from "./ai-describe-panel-jkgqd6za.js";
+} from "./ai-describe-panel-xd5xc81t.js";
 
 // src/registry/thornberry/components/smart-edge.tsx
 import { getSmoothStepPath, useStore } from "@xyflow/react";

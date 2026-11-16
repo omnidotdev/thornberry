@@ -23,4 +23,4 @@ declare const MenuRadioItemGroup: ({ className, ...rest }: ComponentProps<typeof
 declare const MenuSeparator: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Separator>) => import("react/jsx-runtime").JSX.Element;
 declare const MenuTriggerItem: ({ className, children, ...rest }: ComponentProps<typeof ArkMenu.TriggerItem>) => import("react/jsx-runtime").JSX.Element;
 declare const MenuItemShortcut: ({ className, children, ...rest }: ComponentProps<typeof ark.span>) => import("react/jsx-runtime").JSX.Element;
-export { MenuArrow, MenuArrowTip, MenuContent, MenuItem, MenuItemGroup, MenuItemGroupLabel, MenuCheckboxItem, MenuRadioItem, MenuRadioItemGroup, MenuItemText, MenuItemIndicator, MenuPositioner, MenuProvider, MenuRoot, MenuSeparator, MenuTrigger, MenuTriggerItem, MenuContextTrigger, MenuItemShortcut, PrimitiveMenuIndicator, };
+export { MenuArrow, MenuArrowTip, MenuCheckboxItem, MenuContent, MenuContextTrigger, MenuItem, MenuItemGroup, MenuItemGroupLabel, MenuItemIndicator, MenuItemShortcut, MenuItemText, MenuPositioner, MenuProvider, MenuRadioItem, MenuRadioItemGroup, MenuRoot, MenuSeparator, MenuTrigger, MenuTriggerItem, PrimitiveMenuIndicator, };

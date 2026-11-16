@@ -6,4 +6,4 @@ declare const HoverCardRoot: (props: ArkHoverCard.RootProps) => import("react/js
 declare const HoverCardTrigger: ({ className, ...rest }: ComponentProps<typeof ArkHoverCard.Trigger>) => import("react/jsx-runtime").JSX.Element;
 declare const HoverCardContent: ({ className, ...rest }: ComponentProps<typeof ArkHoverCard.Content>) => import("react/jsx-runtime").JSX.Element;
 declare const HoverCardPositioner: ({ className, ...rest }: ComponentProps<typeof ArkHoverCard.Positioner>) => import("react/jsx-runtime").JSX.Element;
-export { HoverCardRoot, HoverCardTrigger, HoverCardContent, HoverCardPositioner, HoverCardProvider, HoverCardContext, };
+export { HoverCardContent, HoverCardContext, HoverCardPositioner, HoverCardProvider, HoverCardRoot, HoverCardTrigger, };

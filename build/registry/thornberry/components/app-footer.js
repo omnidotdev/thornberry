@@ -43,7 +43,7 @@ var FooterLink = ({ className, ...rest }) => /* @__PURE__ */ jsx("a", {
   ...rest
 });
 var Divider = () => /* @__PURE__ */ jsx("div", {
-  className: "hidden h-1/2 w-px bg-muted-foreground/30 sm:block",
+  className: "bg-muted-foreground/30 hidden h-1/2 w-px sm:block",
   "aria-hidden": "true"
 });
 var AppFooter = ({

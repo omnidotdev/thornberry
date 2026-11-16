@@ -8,4 +8,4 @@ declare const NumberInputControl: ({ className, ...rest }: ComponentProps<typeof
 declare const NumberInputInput: ({ className, ...rest }: ComponentProps<typeof ArkNumberInput.Input>) => import("react/jsx-runtime").JSX.Element;
 declare const NumberInputDecrementTrigger: ({ className, ...rest }: ComponentProps<typeof ArkNumberInput.DecrementTrigger>) => import("react/jsx-runtime").JSX.Element;
 declare const NumberInputIncrementTrigger: ({ className, ...rest }: ComponentProps<typeof ArkNumberInput.IncrementTrigger>) => import("react/jsx-runtime").JSX.Element;
-export { NumberInputRoot, NumberInputLabel, NumberInputControl, NumberInputInput, NumberInputDecrementTrigger, NumberInputIncrementTrigger, NumberInputProvider, NumberInputContext, };
+export { NumberInputContext, NumberInputControl, NumberInputDecrementTrigger, NumberInputIncrementTrigger, NumberInputInput, NumberInputLabel, NumberInputProvider, NumberInputRoot, };

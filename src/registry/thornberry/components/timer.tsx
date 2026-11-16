@@ -71,10 +71,10 @@ const TimerActionTrigger = ({
 );
 
 export {
-  TimerRoot as Timer,
-  TimerArea,
-  TimerItem,
-  TimerSeparator,
-  TimerControl,
   TimerActionTrigger,
+  TimerArea,
+  TimerControl,
+  TimerItem,
+  TimerRoot as Timer,
+  TimerSeparator,
 };

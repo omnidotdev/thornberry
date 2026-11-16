@@ -16,7 +16,7 @@ var CheckboxRoot2 = ({
   ...rest
 });
 var CheckboxLabel2 = ({ children }) => /* @__PURE__ */ jsx(ArkCheckbox.Label, {
-  className: "ml-2 font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+  className: "ml-2 text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
   children
 });
 var CheckboxControl2 = ({

@@ -37,7 +37,7 @@ var AccordionItemContent = ({
   children,
   ...rest
 }) => /* @__PURE__ */ jsx(ArkAccordion.ItemContent, {
-  className: "overflow-hidden px-2 text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
+  className: "data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden px-2 text-sm",
   ...rest,
   children: /* @__PURE__ */ jsx("div", {
     className: cn("pt-0 pb-4", className),

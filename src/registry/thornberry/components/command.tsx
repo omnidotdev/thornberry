@@ -57,7 +57,7 @@ const CommandDialog = ({
           </DialogDescription>
           <Command
             loop
-            className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:size-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:size-5"
+            className="[&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:size-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:size-5"
           >
             {children}
           </Command>
@@ -98,7 +98,7 @@ const CommandList = ({
 
 const CommandEmpty = (rest: ComponentProps<typeof CommandPrimitive.Empty>) => (
   <CommandPrimitive.Empty
-    className="py-6 text-center text-muted-foreground text-sm"
+    className="text-muted-foreground py-6 text-center text-sm"
     {...rest}
   />
 );
@@ -153,11 +153,11 @@ const CommandShortcut = ({ className, ...rest }: ComponentProps<"span">) => (
 export {
   Command,
   CommandDialog,
-  CommandInput,
-  CommandList,
   CommandEmpty,
   CommandGroup,
+  CommandInput,
   CommandItem,
-  CommandShortcut,
+  CommandList,
   CommandSeparator,
+  CommandShortcut,
 };

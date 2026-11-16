@@ -2,10 +2,10 @@ import {
   AvatarRoot2,
   AvatarFallback2,
   AvatarImage2
-} from "../../../chunks/ai-describe-panel-b7jpk793.js";
+} from "../../../chunks/ai-describe-panel-6r0bwytq.js";
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import {
   MenuRoot2,
   MenuTrigger2,
@@ -123,7 +123,7 @@ var WorkspaceSwitcher = ({
                   href: manageUrl,
                   target: "_blank",
                   rel: "noreferrer",
-                  className: "flex items-center gap-2 rounded-sm px-2 py-1.5 text-muted-foreground text-sm hover:bg-accent",
+                  className: "text-muted-foreground hover:bg-accent flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm",
                   children: [
                     /* @__PURE__ */ jsx(ExternalLink, {
                       className: "size-4"

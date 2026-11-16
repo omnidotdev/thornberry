@@ -7,4 +7,4 @@ declare const TabsList: ({ className, ...rest }: ComponentProps<typeof ArkTabs.L
 declare const TabsTrigger: ({ className, ...rest }: ComponentProps<typeof ArkTabs.Trigger>) => import("react/jsx-runtime").JSX.Element;
 declare const TabsContent: ({ className, ...rest }: ComponentProps<typeof ArkTabs.Content>) => import("react/jsx-runtime").JSX.Element;
 declare const TabsIndicator: ({ className, ...rest }: ComponentProps<typeof ArkTabs.Indicator>) => import("react/jsx-runtime").JSX.Element;
-export { TabsRoot, TabsList, TabsTrigger, TabsContent, TabsIndicator, TabsProvider, TabsContext, };
+export { TabsContent, TabsContext, TabsIndicator, TabsList, TabsProvider, TabsRoot, TabsTrigger, };

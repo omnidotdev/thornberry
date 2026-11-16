@@ -13,7 +13,7 @@ var avatarVariants = cva("relative flex shrink-0 items-center justify-center ove
     size: {
       xs: "size-8 text-xs",
       sm: "size-9 text-sm",
-      md: "size-10 text-md",
+      md: "text-md size-10",
       lg: "size-11 text-lg",
       xl: "size-12 text-xl"
     }

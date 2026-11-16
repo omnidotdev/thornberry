@@ -3,7 +3,7 @@ import {
 } from "./ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "./ai-describe-panel-qyg3bvpa.js";
+} from "./ai-describe-panel-k2cwy48h.js";
 import {
   DialogRoot2,
   DialogTrigger2,
@@ -15,7 +15,7 @@ import {
 } from "./ai-describe-panel-8q0yqrx6.js";
 import {
   useAppForm2
-} from "./ai-describe-panel-5yqzhe3k.js";
+} from "./ai-describe-panel-d073rjfq.js";
 
 // src/registry/thornberry/components/account-edit-profile.tsx
 import { Check, Pencil, X } from "lucide-react";
@@ -177,7 +177,7 @@ var EditProfile2 = ({
                               className: "size-3 text-green-600"
                             }),
                             /* @__PURE__ */ jsx("p", {
-                              className: "text-green-600 text-xs",
+                              className: "text-xs text-green-600",
                               children: "Available"
                             })
                           ]
@@ -187,7 +187,7 @@ var EditProfile2 = ({
                               className: "size-3 text-red-500"
                             }),
                             /* @__PURE__ */ jsx("p", {
-                              className: "text-red-500 text-xs",
+                              className: "text-xs text-red-500",
                               children: "Already taken"
                             })
                           ]

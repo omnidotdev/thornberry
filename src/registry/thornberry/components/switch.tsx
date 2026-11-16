@@ -72,11 +72,11 @@ const SwitchLabel = ({
 );
 
 export {
-  SwitchRoot,
-  SwitchControl,
-  SwitchThumb,
-  SwitchLabel,
-  SwitchHiddenInput,
-  SwitchProvider,
   SwitchContext,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+  SwitchProvider,
+  SwitchRoot,
+  SwitchThumb,
 };

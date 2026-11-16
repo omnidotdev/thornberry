@@ -1,6 +1,6 @@
 import {
   Button2
-} from "./ai-describe-panel-qyg3bvpa.js";
+} from "./ai-describe-panel-k2cwy48h.js";
 import {
   DialogRoot2,
   DialogPortal2,
@@ -70,7 +70,7 @@ var ConfirmDialog2 = ({
                       "Type",
                       " ",
                       /* @__PURE__ */ jsx("span", {
-                        className: "font-medium text-foreground",
+                        className: "text-foreground font-medium",
                         children: confirmationText
                       }),
                       " ",

@@ -10,4 +10,4 @@ declare const CarouselPrevTrigger: ({ className, ...rest }: ComponentProps<typeo
 declare const CarouselIndicatorGroup: ({ className, ...rest }: ComponentProps<typeof ArkCarousel.IndicatorGroup>) => import("react/jsx-runtime").JSX.Element;
 declare const CarouselIndicator: ({ className, index, ...rest }: ComponentProps<typeof ArkCarousel.Indicator>) => import("react/jsx-runtime").JSX.Element;
 declare const CarouselControl: ({ className, ...rest }: ComponentProps<typeof ArkCarousel.Control>) => import("react/jsx-runtime").JSX.Element;
-export { CarouselRoot, CarouselItemGroup, CarouselItem, CarouselNextTrigger, CarouselPrevTrigger, CarouselIndicatorGroup, CarouselIndicator, CarouselControl, CarouselProvider, CarouselContext, };
+export { CarouselContext, CarouselControl, CarouselIndicator, CarouselIndicatorGroup, CarouselItem, CarouselItemGroup, CarouselNextTrigger, CarouselPrevTrigger, CarouselProvider, CarouselRoot, };

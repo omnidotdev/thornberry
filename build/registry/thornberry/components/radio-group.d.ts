@@ -6,4 +6,4 @@ declare const RadioGroupItem: ({ className, ...rest }: ComponentProps<typeof Ark
 declare const RadioGroupItemHiddenInput: ({ className, ...rest }: ComponentProps<typeof ArkRadioGroup.ItemHiddenInput>) => import("react/jsx-runtime").JSX.Element;
 declare const RadioGroupItemControl: ({ className, ...rest }: ComponentProps<typeof ArkRadioGroup.ItemControl>) => import("react/jsx-runtime").JSX.Element;
 declare const RadioGroupItemText: ({ children, className, }: ComponentProps<typeof ArkRadioGroup.ItemText>) => import("react/jsx-runtime").JSX.Element;
-export { RadioGroupRoot, RadioGroupLabel, RadioGroupItem, RadioGroupItemHiddenInput, RadioGroupItemControl, RadioGroupItemText, };
+export { RadioGroupItem, RadioGroupItemControl, RadioGroupItemHiddenInput, RadioGroupItemText, RadioGroupLabel, RadioGroupRoot, };

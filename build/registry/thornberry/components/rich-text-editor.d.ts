@@ -123,5 +123,5 @@ interface RichTextContentProps extends ComponentProps<"div"> {
  * user-generated content safe. Mirrors the editor's node-class theme.
  */
 declare const RichTextContent: ({ html, fallback, className, ...rest }: RichTextContentProps) => import("react/jsx-runtime").JSX.Element;
-export { RichTextEditor, RichTextContent, linkFromText, linkifyBareUrls, linkifyMarkdownLinks, getDragUnits, dragUnitClass, dropSide, };
+export { RichTextContent, RichTextEditor, dragUnitClass, dropSide, getDragUnits, linkFromText, linkifyBareUrls, linkifyMarkdownLinks, };
 export default RichTextEditor;

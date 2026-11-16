@@ -58,19 +58,19 @@ const NotFoundPage = ({
     <div className="flex items-center gap-2">
       {appLogo}
 
-      <span className="font-semibold text-foreground text-lg tracking-tight">
+      <span className="text-foreground text-lg font-semibold tracking-tight">
         {appName}
       </span>
     </div>
 
     <div className="flex flex-col items-center gap-2">
-      <h1 className="font-bold text-7xl text-foreground tabular-nums tracking-tight">
+      <h1 className="text-foreground text-7xl font-bold tracking-tight tabular-nums">
         404
       </h1>
 
-      <h2 className="font-semibold text-2xl text-foreground">Page not found</h2>
+      <h2 className="text-foreground text-2xl font-semibold">Page not found</h2>
 
-      <p className="max-w-md text-muted-foreground">{description}</p>
+      <p className="text-muted-foreground max-w-md">{description}</p>
     </div>
 
     <div className="flex flex-wrap items-center justify-center gap-2">
@@ -78,7 +78,7 @@ const NotFoundPage = ({
         <button
           type="button"
           onClick={() => window.history.back()}
-          className="rounded-lg border border-border bg-card px-4 py-2 font-medium text-foreground text-sm transition-colors hover:bg-accent"
+          className="border-border bg-card text-foreground hover:bg-accent rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
         >
           {backLabel}
         </button>
@@ -86,7 +86,7 @@ const NotFoundPage = ({
 
       <a
         href={homeHref}
-        className="rounded-lg bg-primary px-4 py-2 font-medium text-primary-foreground text-sm transition-colors hover:bg-primary/90"
+        className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
       >
         {homeLabel}
       </a>

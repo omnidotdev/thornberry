@@ -10,4 +10,4 @@ declare const CheckboxLabel: ({ children }: {
 declare const CheckboxControl: ({ className, ...rest }: ComponentProps<typeof ArkCheckbox.Control>) => import("react/jsx-runtime").JSX.Element;
 declare const CheckboxIndicator: ({ className, ...rest }: ComponentProps<typeof ArkCheckbox.Indicator>) => import("react/jsx-runtime").JSX.Element;
 declare const CheckboxHiddenInput: ({ className, ...rest }: ComponentProps<typeof ArkCheckbox.HiddenInput>) => import("react/jsx-runtime").JSX.Element;
-export { CheckboxProvider, CheckboxGroup, CheckboxContext, CheckboxRoot, CheckboxLabel, CheckboxControl, CheckboxIndicator, CheckboxHiddenInput, };
+export { CheckboxContext, CheckboxControl, CheckboxGroup, CheckboxHiddenInput, CheckboxIndicator, CheckboxLabel, CheckboxProvider, CheckboxRoot, };

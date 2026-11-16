@@ -46,7 +46,7 @@ const AngleSliderThumb = ({ className, ...rest }: AngleSliderThumbProps) => (
       <button
         type="button"
         className={
-          "h-4 w-4 shrink-0 scale-125 rounded-full bg-primary ring ring-primary/60 ring-offset-1 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          "bg-primary ring-primary/60 ring-offset-background focus-visible:ring-primary focus-visible:ring-offset-background h-4 w-4 shrink-0 scale-125 rounded-full ring ring-offset-1 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
         }
       />
     </ArkAngleSlider.Thumb>
@@ -92,11 +92,11 @@ const AngleSliderHiddenInput = ({
 );
 
 export {
-  AngleSliderRoot,
   AngleSliderControl,
-  AngleSliderMarkerGroup,
+  AngleSliderHiddenInput,
   AngleSliderMarker,
+  AngleSliderMarkerGroup,
+  AngleSliderRoot,
   AngleSliderThumb,
   AngleSliderValueText,
-  AngleSliderHiddenInput,
 };

@@ -23,4 +23,4 @@ declare const CommandSeparator: ({ className, ...rest }: ComponentProps<typeof C
 declare const CommandItem: ({ className, ...rest }: ComponentProps<typeof CommandPrimitive.Item>) => import("react/jsx-runtime").JSX.Element;
 /** A trailing shortcut hint inside a command item. */
 declare const CommandShortcut: ({ className, ...rest }: ComponentProps<"span">) => import("react/jsx-runtime").JSX.Element;
-export { Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut, CommandSeparator, };
+export { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, };

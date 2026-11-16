@@ -199,7 +199,7 @@ const AccountConsole = ({
 
         <UserTwoFactorAuthentication />
 
-        <h3 className="font-bold text-xl">Passkeys</h3>
+        <h3 className="text-xl font-bold">Passkeys</h3>
 
         <div className="flex items-center gap-2">
           <AddPasskey />
@@ -221,5 +221,5 @@ const AccountConsole = ({
   );
 };
 
-export { AccountConsole };
 export type { AccountConsoleProps };
+export { AccountConsole };

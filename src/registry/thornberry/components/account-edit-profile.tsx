@@ -205,12 +205,12 @@ const EditProfile = ({
                       {usernameAvailable ? (
                         <>
                           <Check className="size-3 text-green-600" />
-                          <p className="text-green-600 text-xs">Available</p>
+                          <p className="text-xs text-green-600">Available</p>
                         </>
                       ) : (
                         <>
                           <X className="size-3 text-red-500" />
-                          <p className="text-red-500 text-xs">Already taken</p>
+                          <p className="text-xs text-red-500">Already taken</p>
                         </>
                       )}
                     </div>

@@ -180,8 +180,8 @@ const AccountOrganizationTeams = ({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <Users className="size-4 text-muted-foreground" />
-            <h4 className="font-medium text-sm">Teams</h4>
+            <Users className="text-muted-foreground size-4" />
+            <h4 className="text-sm font-medium">Teams</h4>
           </div>
           <p className="text-muted-foreground text-sm">
             Groups within this workspace, for organizing members and their
@@ -195,18 +195,18 @@ const AccountOrganizationTeams = ({
       </div>
 
       {isLoading ? (
-        <p className="py-4 text-center text-muted-foreground text-sm">
+        <p className="text-muted-foreground py-4 text-center text-sm">
           Loading teams...
         </p>
       ) : teams.length === 0 ? (
-        <p className="py-4 text-center text-muted-foreground text-sm">
+        <p className="text-muted-foreground py-4 text-center text-sm">
           No teams yet.
         </p>
       ) : (
         teams.map((team) => (
           <div key={team.id} className="rounded-lg border p-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="truncate font-medium text-sm">{team.name}</span>
+              <span className="truncate text-sm font-medium">{team.name}</span>
               <div className="flex items-center gap-2">
                 <Button
                   variant="ghost"
@@ -505,9 +505,9 @@ const TeamMembers = ({
   return (
     <div className="mt-3 space-y-2 border-t pt-3">
       {isLoading ? (
-        <p className="py-2 text-muted-foreground text-sm">Loading members...</p>
+        <p className="text-muted-foreground py-2 text-sm">Loading members...</p>
       ) : teamMembers.length === 0 ? (
-        <p className="py-2 text-muted-foreground text-sm">No members yet.</p>
+        <p className="text-muted-foreground py-2 text-sm">No members yet.</p>
       ) : (
         teamMembers.map((member) => (
           <div
@@ -517,7 +517,7 @@ const TeamMembers = ({
             <span className="truncate">
               {teamMemberLabel(member)}
               {currentUserId && member.userId === currentUserId && (
-                <span className="ml-1.5 text-muted-foreground">(you)</span>
+                <span className="text-muted-foreground ml-1.5">(you)</span>
               )}
             </span>
             <Button

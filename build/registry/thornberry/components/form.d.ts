@@ -132,4 +132,4 @@ declare const useAppForm: <TFormData, TOnMount extends import("@tanstack/form-co
     }>;
     fields: TFields;
 }>) => ReturnType<import("react").FunctionComponent>;
-export { useAppForm, withForm, withFieldGroup, useFieldContext, useFormContext, fieldContext, formContext, TextField, PasswordField, TextareaField, CheckboxField, SelectField, SubmitButton, type TextFieldProps, type PasswordFieldProps, type TextareaFieldProps, type CheckboxFieldProps, type SelectFieldProps, type SelectFieldItem, type SubmitButtonProps, };
+export { CheckboxField, type CheckboxFieldProps, PasswordField, type PasswordFieldProps, SelectField, type SelectFieldItem, type SelectFieldProps, SubmitButton, type SubmitButtonProps, TextField, type TextFieldProps, TextareaField, type TextareaFieldProps, fieldContext, formContext, useAppForm, useFieldContext, useFormContext, withFieldGroup, withForm, };

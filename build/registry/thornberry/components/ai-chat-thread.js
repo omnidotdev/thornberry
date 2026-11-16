@@ -1,9 +1,9 @@
 import {
   Badge2
-} from "../../../chunks/ai-describe-panel-mhbe1kzg.js";
+} from "../../../chunks/ai-describe-panel-mn2q46hh.js";
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";
@@ -21,7 +21,7 @@ var TypingIndicator = () => /* @__PURE__ */ jsx("div", {
   role: "status",
   "aria-label": "Assistant is typing",
   children: [0, 1, 2].map((i) => /* @__PURE__ */ jsx("span", {
-    className: "size-1.5 animate-bounce rounded-full bg-muted-foreground/60",
+    className: "bg-muted-foreground/60 size-1.5 animate-bounce rounded-full",
     style: { animationDelay: `${i * 0.15}s` }
   }, i))
 });
@@ -35,13 +35,13 @@ var MessageParts = ({
     const key = `${part.type}-${index}`;
     if (part.type === "text") {
       return /* @__PURE__ */ jsx("div", {
-        className: "whitespace-pre-wrap break-words text-sm",
+        className: "text-sm break-words whitespace-pre-wrap",
         children: renderText ? renderText(part.text) : part.text
       }, key);
     }
     if (part.type === "thinking") {
       return /* @__PURE__ */ jsx("div", {
-        className: "whitespace-pre-wrap break-words text-muted-foreground text-xs italic",
+        className: "text-muted-foreground text-xs break-words whitespace-pre-wrap italic",
         children: part.text
       }, key);
     }
@@ -61,7 +61,7 @@ var MessageParts = ({
           ]
         }),
         part.detail && /* @__PURE__ */ jsx("span", {
-          className: "truncate text-muted-foreground",
+          className: "text-muted-foreground truncate",
           children: part.detail
         })
       ]
@@ -107,7 +107,7 @@ var AiChatThread = ({
         className: "min-h-0 flex-1 space-y-4 overflow-y-auto p-4",
         children: [
           messages.length === 0 && emptyState ? /* @__PURE__ */ jsx("div", {
-            className: "flex h-full items-center justify-center text-center text-muted-foreground text-sm",
+            className: "text-muted-foreground flex h-full items-center justify-center text-center text-sm",
             children: emptyState
           }) : messages.map((message) => {
             const isUser = message.role === "user";
@@ -130,7 +130,7 @@ var AiChatThread = ({
             children: [
               avatarFor({ id: "__streaming__", role: "assistant", parts: [] }),
               /* @__PURE__ */ jsx("div", {
-                className: "rounded-lg bg-muted px-3 py-2",
+                className: "bg-muted rounded-lg px-3 py-2",
                 children: /* @__PURE__ */ jsx(TypingIndicator, {})
               })
             ]
@@ -141,7 +141,7 @@ var AiChatThread = ({
         ]
       }),
       notice && /* @__PURE__ */ jsx("div", {
-        className: "border-border border-t px-4 py-2 text-muted-foreground text-sm",
+        className: "border-border text-muted-foreground border-t px-4 py-2 text-sm",
         children: notice
       }),
       /* @__PURE__ */ jsxs("div", {
@@ -185,7 +185,7 @@ var AiChatThread = ({
             ]
           }),
           footerHint && /* @__PURE__ */ jsx("div", {
-            className: "mt-1.5 text-muted-foreground text-xs",
+            className: "text-muted-foreground mt-1.5 text-xs",
             children: footerHint
           })
         ]

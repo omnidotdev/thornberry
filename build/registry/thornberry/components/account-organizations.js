@@ -5,10 +5,10 @@ import {
   AvatarRoot2,
   AvatarFallback2,
   AvatarImage2
-} from "../../../chunks/ai-describe-panel-b7jpk793.js";
+} from "../../../chunks/ai-describe-panel-6r0bwytq.js";
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-qyg3bvpa.js";
+} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import {
   DialogRoot2,
   DialogPortal2,
@@ -26,14 +26,14 @@ import {
 } from "../../../chunks/ai-describe-panel-fa46q8yp.js";
 import {
   ConfirmDialog2
-} from "../../../chunks/ai-describe-panel-4yw3abje.js";
-import"../../../chunks/ai-describe-panel-4v8v7btg.js";
+} from "../../../chunks/ai-describe-panel-19k53w4t.js";
+import"../../../chunks/ai-describe-panel-b3rhyrd1.js";
 import {
   AvatarUpload2
-} from "../../../chunks/ai-describe-panel-8151vcmn.js";
+} from "../../../chunks/ai-describe-panel-zmgkdp7d.js";
 import {
   BannerUpload2
-} from "../../../chunks/ai-describe-panel-58wkhfpw.js";
+} from "../../../chunks/ai-describe-panel-c5evy0xw.js";
 import {
   Select2,
   SelectControl2,
@@ -50,10 +50,10 @@ import {
 } from "../../../chunks/ai-describe-panel-8wtqb3wn.js";
 import {
   AccountOrganizationTeams2
-} from "../../../chunks/ai-describe-panel-y7z7p0p2.js";
+} from "../../../chunks/ai-describe-panel-fzmemy7h.js";
 import {
   Badge2
-} from "../../../chunks/ai-describe-panel-mhbe1kzg.js";
+} from "../../../chunks/ai-describe-panel-mn2q46hh.js";
 import {
   Skeleton2
 } from "../../../chunks/ai-describe-panel-4ayhnmp9.js";
@@ -408,7 +408,7 @@ var CreateOrganizationDialog = ({ onCreated }) => {
                             className: "relative",
                             children: [
                               /* @__PURE__ */ jsx("span", {
-                                className: "absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm",
+                                className: "text-muted-foreground absolute top-1/2 left-3 -translate-y-1/2 text-sm",
                                 children: "@"
                               }),
                               /* @__PURE__ */ jsx(Input2, {
@@ -423,13 +423,13 @@ var CreateOrganizationDialog = ({ onCreated }) => {
                                 className: "absolute top-1/2 right-3 -translate-y-1/2",
                                 children: [
                                   slugStatus === "checking" && /* @__PURE__ */ jsx(Loader2, {
-                                    className: "size-4 animate-spin text-muted-foreground"
+                                    className: "text-muted-foreground size-4 animate-spin"
                                   }),
                                   slugStatus === "available" && /* @__PURE__ */ jsx(Check, {
                                     className: "size-4 text-green-500"
                                   }),
                                   (slugStatus === "taken" || slugStatus === "invalid") && /* @__PURE__ */ jsx(X, {
-                                    className: "size-4 text-destructive"
+                                    className: "text-destructive size-4"
                                   })
                                 ]
                               })
@@ -524,7 +524,7 @@ var LinkFavicon = ({ url }) => {
   const src = candidates[index];
   if (!src)
     return /* @__PURE__ */ jsx(Globe, {
-      className: "size-4 shrink-0 text-muted-foreground"
+      className: "text-muted-foreground size-4 shrink-0"
     });
   return /* @__PURE__ */ jsx("img", {
     src,
@@ -581,7 +581,7 @@ var WorkspaceLinksSection = ({
       /* @__PURE__ */ jsxs("div", {
         children: [
           /* @__PURE__ */ jsx("h4", {
-            className: "font-medium text-sm",
+            className: "text-sm font-medium",
             children: "Links"
           }),
           /* @__PURE__ */ jsx("p", {
@@ -594,10 +594,10 @@ var WorkspaceLinksSection = ({
         className: "rounded-lg border border-dashed p-6 text-center",
         children: [
           /* @__PURE__ */ jsx(Globe, {
-            className: "mx-auto size-5 text-muted-foreground"
+            className: "text-muted-foreground mx-auto size-5"
           }),
           /* @__PURE__ */ jsx("p", {
-            className: "mt-2 text-muted-foreground text-sm",
+            className: "text-muted-foreground mt-2 text-sm",
             children: "No links yet."
           })
         ]
@@ -627,7 +627,7 @@ var WorkspaceLinksSection = ({
               type: "button",
               variant: "outline",
               size: "sm",
-              className: "shrink-0 justify-center gap-1.5 px-2 text-muted-foreground sm:w-28",
+              className: "text-muted-foreground shrink-0 justify-center gap-1.5 px-2 sm:w-28",
               "aria-label": link.visibility === "public" ? "Public link, change to private" : "Private link, change to public",
               onClick: () => update(link.id, {
                 visibility: link.visibility === "public" ? "members" : "public"
@@ -686,7 +686,7 @@ var WorkspaceLinksSection = ({
           href: link.url,
           target: "_blank",
           rel: "noopener noreferrer",
-          className: "flex items-center gap-2 rounded-md p-2 text-sm hover:bg-muted/50",
+          className: "hover:bg-muted/50 flex items-center gap-2 rounded-md p-2 text-sm",
           children: [
             /* @__PURE__ */ jsx(LinkFavicon, {
               url: link.url
@@ -696,7 +696,7 @@ var WorkspaceLinksSection = ({
               children: link.title || link.url
             }),
             link.visibility === "members" && /* @__PURE__ */ jsx(Lock, {
-              className: "size-3 shrink-0 text-muted-foreground"
+              className: "text-muted-foreground size-3 shrink-0"
             })
           ]
         }, link.id))
@@ -862,7 +862,7 @@ var EditOrganizationDialog = ({
                         className: "relative",
                         children: [
                           /* @__PURE__ */ jsx("span", {
-                            className: "absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground text-sm",
+                            className: "text-muted-foreground absolute top-1/2 left-3 -translate-y-1/2 text-sm",
                             children: "@"
                           }),
                           /* @__PURE__ */ jsx(Input2, {
@@ -876,13 +876,13 @@ var EditOrganizationDialog = ({
                             className: "absolute top-1/2 right-3 -translate-y-1/2",
                             children: [
                               slugStatus === "checking" && /* @__PURE__ */ jsx(Loader2, {
-                                className: "size-4 animate-spin text-muted-foreground"
+                                className: "text-muted-foreground size-4 animate-spin"
                               }),
                               slugStatus === "available" && /* @__PURE__ */ jsx(Check, {
                                 className: "size-4 text-green-500"
                               }),
                               (slugStatus === "taken" || slugStatus === "invalid") && /* @__PURE__ */ jsx(X, {
-                                className: "size-4 text-destructive"
+                                className: "text-destructive size-4"
                               })
                             ]
                           })
@@ -1170,7 +1170,7 @@ var OrganizationDetail = ({
       /* @__PURE__ */ jsxs(Button2, {
         variant: "ghost",
         size: "sm",
-        className: "w-fit gap-1.5 px-2 text-muted-foreground",
+        className: "text-muted-foreground w-fit gap-1.5 px-2",
         onClick: onBack,
         children: [
           /* @__PURE__ */ jsx(ArrowLeft, {
@@ -1241,7 +1241,7 @@ var OrganizationDetail = ({
                     className: "flex flex-wrap items-center gap-2",
                     children: [
                       /* @__PURE__ */ jsx("h3", {
-                        className: "font-semibold text-lg",
+                        className: "text-lg font-semibold",
                         children: organization.name
                       }),
                       currentMember && /* @__PURE__ */ jsx(Badge2, {
@@ -1271,13 +1271,13 @@ var OrganizationDetail = ({
         ]
       }),
       scheduledDeletionDate && /* @__PURE__ */ jsxs("div", {
-        className: "flex flex-wrap items-center justify-between gap-3 rounded-lg border border-destructive/50 bg-destructive/5 p-4",
+        className: "border-destructive/50 bg-destructive/5 flex flex-wrap items-center justify-between gap-3 rounded-lg border p-4",
         children: [
           /* @__PURE__ */ jsxs("div", {
             className: "min-w-0",
             children: [
               /* @__PURE__ */ jsx("div", {
-                className: "font-medium text-sm",
+                className: "text-sm font-medium",
                 children: "Scheduled for deletion"
               }),
               /* @__PURE__ */ jsxs("div", {
@@ -1319,7 +1319,7 @@ var OrganizationDetail = ({
               /* @__PURE__ */ jsxs("div", {
                 children: [
                   /* @__PURE__ */ jsx("h4", {
-                    className: "font-medium text-sm",
+                    className: "text-sm font-medium",
                     children: "Invite a member"
                   }),
                   /* @__PURE__ */ jsx("p", {
@@ -1373,7 +1373,7 @@ var OrganizationDetail = ({
                   /* @__PURE__ */ jsxs("div", {
                     children: [
                       /* @__PURE__ */ jsx("h4", {
-                        className: "font-medium text-sm",
+                        className: "text-sm font-medium",
                         children: "Members"
                       }),
                       /* @__PURE__ */ jsx("p", {
@@ -1516,10 +1516,10 @@ var OrganizationDetail = ({
                   ]
                 }, key))
               }) : members.length === 0 ? /* @__PURE__ */ jsx("p", {
-                className: "py-4 text-center text-muted-foreground text-sm",
+                className: "text-muted-foreground py-4 text-center text-sm",
                 children: "No members yet."
               }) : visibleMembers.length === 0 ? /* @__PURE__ */ jsx("p", {
-                className: "py-4 text-center text-muted-foreground text-sm",
+                className: "text-muted-foreground py-4 text-center text-sm",
                 children: "No members match your search."
               }) : visibleMembers.map((member) => {
                 const isLastOwner = member.role === "owner" && ownerCount === 1;
@@ -1545,17 +1545,17 @@ var OrganizationDetail = ({
                           className: "min-w-0",
                           children: [
                             /* @__PURE__ */ jsxs("div", {
-                              className: "truncate font-medium text-sm",
+                              className: "truncate text-sm font-medium",
                               children: [
                                 memberDisplayName(member),
                                 member.user.email.toLowerCase() === currentEmail.toLowerCase() && /* @__PURE__ */ jsx("span", {
-                                  className: "ml-1.5 font-normal text-muted-foreground",
+                                  className: "text-muted-foreground ml-1.5 font-normal",
                                   children: "(you)"
                                 })
                               ]
                             }),
                             /* @__PURE__ */ jsx("div", {
-                              className: "truncate text-muted-foreground text-xs",
+                              className: "text-muted-foreground truncate text-xs",
                               children: member.user.email
                             })
                           ]
@@ -1597,7 +1597,7 @@ var OrganizationDetail = ({
             className: "space-y-2 rounded-lg border p-5",
             children: [
               /* @__PURE__ */ jsx("h4", {
-                className: "font-medium text-sm",
+                className: "text-sm font-medium",
                 children: "Pending invitations"
               }),
               invitations.map((invitation) => /* @__PURE__ */ jsxs("div", {
@@ -1607,7 +1607,7 @@ var OrganizationDetail = ({
                     className: "flex min-w-0 items-center gap-3",
                     children: [
                       /* @__PURE__ */ jsx(Mail, {
-                        className: "size-4 shrink-0 text-muted-foreground"
+                        className: "text-muted-foreground size-4 shrink-0"
                       }),
                       /* @__PURE__ */ jsxs("div", {
                         className: "min-w-0",
@@ -1616,7 +1616,7 @@ var OrganizationDetail = ({
                             className: "flex items-center gap-2",
                             children: [
                               /* @__PURE__ */ jsx("div", {
-                                className: "truncate font-medium text-sm",
+                                className: "truncate text-sm font-medium",
                                 children: invitation.email
                               }),
                               invitation.isExpired && /* @__PURE__ */ jsx(Badge2, {
@@ -1678,7 +1678,7 @@ var OrganizationDetail = ({
                     className: "min-w-0",
                     children: [
                       /* @__PURE__ */ jsx("div", {
-                        className: "font-medium text-sm",
+                        className: "text-sm font-medium",
                         children: "Delete this workspace"
                       }),
                       /* @__PURE__ */ jsx("div", {
@@ -1700,7 +1700,7 @@ var OrganizationDetail = ({
                     className: "min-w-0",
                     children: [
                       /* @__PURE__ */ jsx("div", {
-                        className: "font-medium text-sm",
+                        className: "text-sm font-medium",
                         children: "Leave this workspace"
                       }),
                       /* @__PURE__ */ jsx("div", {
@@ -1723,7 +1723,7 @@ var OrganizationDetail = ({
                     className: "min-w-0",
                     children: [
                       /* @__PURE__ */ jsx("div", {
-                        className: "font-medium text-sm",
+                        className: "text-sm font-medium",
                         children: "Leave this workspace"
                       }),
                       /* @__PURE__ */ jsx("div", {
@@ -1821,7 +1821,7 @@ var AccountOrganizations = ({
           /* @__PURE__ */ jsxs("div", {
             children: [
               /* @__PURE__ */ jsx("h3", {
-                className: "font-semibold text-lg",
+                className: "text-lg font-semibold",
                 children: "Workspaces"
               }),
               /* @__PURE__ */ jsx("p", {
@@ -1840,7 +1840,7 @@ var AccountOrganizations = ({
         children: isLoading ? /* @__PURE__ */ jsx(OrganizationListSkeleton, {}) : sortedOrganizations.length ? sortedOrganizations.map((org) => /* @__PURE__ */ jsxs("button", {
           type: "button",
           onClick: () => setSelectedSlug(org.slug),
-          className: "flex w-full items-center justify-between gap-3 rounded-lg border p-3 text-left transition-colors hover:bg-muted/50",
+          className: "hover:bg-muted/50 flex w-full items-center justify-between gap-3 rounded-lg border p-3 text-left transition-colors",
           children: [
             /* @__PURE__ */ jsxs("div", {
               className: "flex min-w-0 items-center gap-3",
@@ -1863,7 +1863,7 @@ var AccountOrganizations = ({
                       className: "flex flex-wrap items-center gap-2",
                       children: [
                         /* @__PURE__ */ jsx("span", {
-                          className: "truncate font-medium text-sm",
+                          className: "truncate text-sm font-medium",
                           children: org.name
                         }),
                         org.type === "personal" && /* @__PURE__ */ jsx(Badge2, {
@@ -1877,7 +1877,7 @@ var AccountOrganizations = ({
                       ]
                     }),
                     /* @__PURE__ */ jsxs("div", {
-                      className: "truncate text-muted-foreground text-xs",
+                      className: "text-muted-foreground truncate text-xs",
                       children: [
                         "@",
                         org.slug
@@ -1888,11 +1888,11 @@ var AccountOrganizations = ({
               ]
             }),
             /* @__PURE__ */ jsx(ChevronRight, {
-              className: "size-4 shrink-0 text-muted-foreground"
+              className: "text-muted-foreground size-4 shrink-0"
             })
           ]
         }, org.id)) : /* @__PURE__ */ jsx("div", {
-          className: "py-8 text-center text-muted-foreground text-sm",
+          className: "text-muted-foreground py-8 text-center text-sm",
           children: "You don't belong to any workspaces yet."
         })
       })

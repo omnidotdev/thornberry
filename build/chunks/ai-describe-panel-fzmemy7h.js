@@ -3,7 +3,7 @@ import {
 } from "./ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "./ai-describe-panel-qyg3bvpa.js";
+} from "./ai-describe-panel-k2cwy48h.js";
 import {
   DialogRoot2,
   DialogPortal2,
@@ -21,7 +21,7 @@ import {
 } from "./ai-describe-panel-fa46q8yp.js";
 import {
   ConfirmDialog2
-} from "./ai-describe-panel-4yw3abje.js";
+} from "./ai-describe-panel-19k53w4t.js";
 import {
   Select2,
   SelectControl2,
@@ -155,10 +155,10 @@ var AccountOrganizationTeams2 = ({
                 className: "flex items-center gap-2",
                 children: [
                   /* @__PURE__ */ jsx(Users, {
-                    className: "size-4 text-muted-foreground"
+                    className: "text-muted-foreground size-4"
                   }),
                   /* @__PURE__ */ jsx("h4", {
-                    className: "font-medium text-sm",
+                    className: "text-sm font-medium",
                     children: "Teams"
                   })
                 ]
@@ -183,10 +183,10 @@ var AccountOrganizationTeams2 = ({
         ]
       }),
       isLoading ? /* @__PURE__ */ jsx("p", {
-        className: "py-4 text-center text-muted-foreground text-sm",
+        className: "text-muted-foreground py-4 text-center text-sm",
         children: "Loading teams..."
       }) : teams.length === 0 ? /* @__PURE__ */ jsx("p", {
-        className: "py-4 text-center text-muted-foreground text-sm",
+        className: "text-muted-foreground py-4 text-center text-sm",
         children: "No teams yet."
       }) : teams.map((team) => /* @__PURE__ */ jsxs("div", {
         className: "rounded-lg border p-3",
@@ -195,7 +195,7 @@ var AccountOrganizationTeams2 = ({
             className: "flex flex-wrap items-center justify-between gap-2",
             children: [
               /* @__PURE__ */ jsx("span", {
-                className: "truncate font-medium text-sm",
+                className: "truncate text-sm font-medium",
                 children: team.name
               }),
               /* @__PURE__ */ jsxs("div", {
@@ -490,10 +490,10 @@ var TeamMembers = ({
     className: "mt-3 space-y-2 border-t pt-3",
     children: [
       isLoading ? /* @__PURE__ */ jsx("p", {
-        className: "py-2 text-muted-foreground text-sm",
+        className: "text-muted-foreground py-2 text-sm",
         children: "Loading members..."
       }) : teamMembers.length === 0 ? /* @__PURE__ */ jsx("p", {
-        className: "py-2 text-muted-foreground text-sm",
+        className: "text-muted-foreground py-2 text-sm",
         children: "No members yet."
       }) : teamMembers.map((member) => /* @__PURE__ */ jsxs("div", {
         className: "flex items-center justify-between gap-2 text-sm",
@@ -503,7 +503,7 @@ var TeamMembers = ({
             children: [
               teamMemberLabel(member),
               currentUserId && member.userId === currentUserId && /* @__PURE__ */ jsx("span", {
-                className: "ml-1.5 text-muted-foreground",
+                className: "text-muted-foreground ml-1.5",
                 children: "(you)"
               })
             ]
