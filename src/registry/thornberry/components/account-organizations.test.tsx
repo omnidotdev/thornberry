@@ -57,6 +57,12 @@ const makeClient = ({
   const cancelCalls: Array<{ invitationId: string }> = [];
   const deleteCalls: Array<{ organizationId: string }> = [];
 
+  // Return stable object identities across calls: a fresh identity each fetch
+  // drives an infinite refetch/re-render loop (see account-org-logo-crop.test)
+  const listData = [ORG];
+  const fullOrg = { ...ORG, logo: null, members, invitations };
+  const teamsData: never[] = [];
+
   const client = {
     useSession: () => ({
       data: {
@@ -67,11 +73,9 @@ const makeClient = ({
       refetch: async () => {},
     }),
     organization: {
-      list: async () => ({ data: [ORG] }),
-      getFullOrganization: async () => ({
-        data: { ...ORG, logo: null, members, invitations },
-      }),
-      listTeams: async () => ({ data: [] }),
+      list: async () => ({ data: listData }),
+      getFullOrganization: async () => ({ data: fullOrg }),
+      listTeams: async () => ({ data: teamsData }),
       inviteMember: async (args: {
         email: string;
         role: string;
