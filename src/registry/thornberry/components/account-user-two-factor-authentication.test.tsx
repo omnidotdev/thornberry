@@ -132,10 +132,13 @@ describe("UserTwoFactorAuthentication", () => {
     const dialog = await screen.findByRole("dialog");
     press(within(dialog).getByRole("button", { name: "Enable 2FA" }));
 
-    // react-qr-code renders an <svg>; the manual-entry field carries the URI
+    // the QR code renders as a labelled <svg>; the manual-entry field carries the URI
     await screen.findByText("Verify & activate");
-    const svg = document.querySelector("svg[viewBox]");
-    expect(svg).not.toBeNull();
+    const qr = screen.getByRole("img", { name: "Authenticator setup QR code" });
+    expect(qr.tagName.toLowerCase()).toBe("svg");
+    expect(
+      qr.querySelector('[data-part="pattern"]')?.getAttribute("d"),
+    ).not.toBe("");
   });
 
   test("surfaces the backup codes after the user verifies, so they can be saved", async () => {

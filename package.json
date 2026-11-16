@@ -28,8 +28,7 @@
     "release": "changeset publish"
   },
   "dependencies": {
-    "react-easy-crop": "^6.2.3",
-    "react-qr-code": "^2.2.0"
+    "react-easy-crop": "^6.2.3"
   },
   "devDependencies": {
     "@ark-ui/react": "^5.30.0",

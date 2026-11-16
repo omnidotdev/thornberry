@@ -1,0 +1,214 @@
+---
+title: Steps
+description: A multi-step progress indicator and wizard with complete, current, and upcoming step states.
+---
+
+import { Input } from "@/registry/thornberry/components/input";
+import {
+  Steps,
+  StepsContent,
+  StepsContext,
+  StepsIndicator,
+  StepsItem,
+  StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
+  StepsProgress,
+  StepsRoot,
+  StepsTitle,
+  StepsTrigger,
+} from "@/registry/thornberry/components/steps";
+
+<Steps
+  className="mb-8"
+  items={[
+    {
+      title: "Account",
+      description: "Your details",
+      content: <p className="text-muted-foreground">Enter your name and email.</p>,
+    },
+    {
+      title: "Workspace",
+      description: "Name and URL",
+      content: <p className="text-muted-foreground">Choose a workspace name.</p>,
+    },
+    {
+      title: "Invite",
+      description: "Add your team",
+      content: <p className="text-muted-foreground">Invite teammates by email.</p>,
+    },
+  ]}
+  completedContent={<p className="text-muted-foreground">You are all set.</p>}
+/>
+
+## Installation
+
+<InstallationTabs filename="steps.json" />
+
+## Usage
+
+```tsx
+import { Steps } from "@/components/ui/steps";
+```
+
+```tsx
+<Steps
+  items={[
+    { title: "Account", description: "Your details", content: <AccountForm /> },
+    { title: "Workspace", description: "Name and URL", content: <WorkspaceForm /> },
+    { title: "Invite", description: "Add your team", content: <InviteForm /> },
+  ]}
+  completedContent={<Done />}
+/>
+```
+
+Steps before the current one are complete (shown with a check), the current step is highlighted, and later steps are upcoming. Back and Next move between steps; Next reads Finish on the last step and shows `completedContent` once pressed. Use `step` and `onStepChange` to control the current step (zero-based), and `showNavigation={false}` to drive it from your own buttons.
+
+## Examples
+
+<br />
+
+#### Vertical
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <Steps
+      orientation="vertical"
+      defaultStep={1}
+      items={[
+        {
+          title: "Connect repository",
+          description: "Pick a Git provider",
+          content: <p className="text-muted-foreground">Repository connected.</p>,
+        },
+        {
+          title: "Configure build",
+          description: "Framework and commands",
+          content: <p className="text-muted-foreground">Set the build command and output directory.</p>,
+        },
+        {
+          title: "Deploy",
+          description: "Ship it",
+          content: <p className="text-muted-foreground">Review and deploy.</p>,
+        },
+      ]}
+    />
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Steps
+      orientation="vertical"
+      defaultStep={1}
+      items={[
+        { title: "Connect repository", description: "Pick a Git provider", content: <Connect /> },
+        { title: "Configure build", description: "Framework and commands", content: <Configure /> },
+        { title: "Deploy", description: "Ship it", content: <Deploy /> },
+      ]}
+    />
+    ```
+  </Tab>
+</Tabs>
+
+#### Linear
+
+Set `linear` so steps can only be reached in order with Back and Next; clicking a step header does nothing.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <Steps
+      linear
+      items={[
+        { title: "Cart", content: <p className="text-muted-foreground">Review your items.</p> },
+        { title: "Shipping", content: <p className="text-muted-foreground">Enter a shipping address.</p> },
+        { title: "Payment", content: <p className="text-muted-foreground">Choose a payment method.</p> },
+      ]}
+    />
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Steps linear items={checkoutSteps} />
+    ```
+  </Tab>
+</Tabs>
+
+#### Composition
+
+Build a custom wizard from the parts. `StepsProgress` draws a bar filled to the share of completed steps, and `StepsContext` exposes the current step for custom controls.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <StepsRoot count={2}>
+      <StepsList>
+        {["Name", "Confirm"].map((title, index) => (
+          <StepsItem key={title} index={index}>
+            <StepsTrigger>
+              <StepsIndicator />
+              <StepsTitle>{title}</StepsTitle>
+            </StepsTrigger>
+          </StepsItem>
+        ))}
+      </StepsList>
+      <StepsProgress />
+      <StepsContent index={0}>
+        <Input placeholder="Project name" aria-label="Project name" className="max-w-xs" />
+      </StepsContent>
+      <StepsContent index={1}>Create the project?</StepsContent>
+      <StepsContext>
+        {(steps) => (
+          <div className="flex items-center gap-2">
+            <StepsPrevTrigger size="sm">Back</StepsPrevTrigger>
+            <StepsNextTrigger size="sm">{steps.hasNextStep ? "Continue" : "Done"}</StepsNextTrigger>
+            <span className="text-muted-foreground text-sm">
+              {Math.min(steps.value + 1, steps.count)} of {steps.count}
+            </span>
+          </div>
+        )}
+      </StepsContext>
+    </StepsRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import {
+      StepsContent,
+      StepsContext,
+      StepsIndicator,
+      StepsItem,
+      StepsList,
+      StepsNextTrigger,
+      StepsPrevTrigger,
+      StepsProgress,
+      StepsRoot,
+      StepsTitle,
+      StepsTrigger,
+    } from "@/components/ui/steps";
+
+    <StepsRoot count={2}>
+      <StepsList>
+        {["Name", "Confirm"].map((title, index) => (
+          <StepsItem key={title} index={index}>
+            <StepsTrigger>
+              <StepsIndicator />
+              <StepsTitle>{title}</StepsTitle>
+            </StepsTrigger>
+          </StepsItem>
+        ))}
+      </StepsList>
+      <StepsProgress />
+      <StepsContent index={0}>
+        <Input placeholder="Project name" aria-label="Project name" />
+      </StepsContent>
+      <StepsContent index={1}>Create the project?</StepsContent>
+      <StepsContext>
+        {(steps) => (
+          <div className="flex items-center gap-2">
+            <StepsPrevTrigger size="sm">Back</StepsPrevTrigger>
+            <StepsNextTrigger size="sm">
+              {steps.hasNextStep ? "Continue" : "Done"}
+            </StepsNextTrigger>
+          </div>
+        )}
+      </StepsContext>
+    </StepsRoot>
+    ```
+  </Tab>
+</Tabs>

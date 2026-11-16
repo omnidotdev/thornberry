@@ -1,0 +1,269 @@
+---
+title: Splitter
+description: Resizable panels separated by draggable, keyboard-accessible dividers, laid out horizontally or vertically.
+---
+
+import {
+  Splitter,
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterResizeTriggerIndicator,
+  SplitterRoot,
+} from "@/registry/thornberry/components/splitter";
+
+<div className="mb-8 h-64 rounded-md border">
+  <Splitter
+    withHandle
+    panels={[
+      {
+        id: "sidebar",
+        label: "Sidebar",
+        defaultSize: 30,
+        minSize: 20,
+        maxSize: 50,
+        content: (
+          <div className="flex h-full items-center justify-center text-sm font-medium">
+            Sidebar
+          </div>
+        ),
+      },
+      {
+        id: "editor",
+        label: "Editor",
+        content: (
+          <div className="flex h-full items-center justify-center text-sm font-medium">
+            Editor
+          </div>
+        ),
+      },
+    ]}
+  />
+</div>
+
+## Installation
+
+<InstallationTabs filename="splitter.json" />
+
+## Usage
+
+```tsx
+import { Splitter } from "@/components/ui/splitter";
+```
+
+```tsx
+<Splitter
+  className="h-64"
+  panels={[
+    { id: "sidebar", label: "Sidebar", defaultSize: 30, minSize: 20, content: <Sidebar /> },
+    { id: "editor", label: "Editor", content: <Editor /> },
+  ]}
+/>
+```
+
+Sizes, `minSize`, and `maxSize` are percentages of the splitter. Panels without a `defaultSize` share whatever the sized panels leave. The splitter fills its parent, so give it (or the parent) a height.
+
+Drag a divider to resize, or focus it and use the arrow keys (hold Shift for larger steps). Home and End jump the panel to its minimum and maximum size. Each divider is labelled from the `label`s of the panels on either side.
+
+## Examples
+
+<br />
+
+#### Vertical
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="h-72 rounded-md border">
+      <Splitter
+        orientation="vertical"
+        withHandle
+        panels={[
+          {
+            id: "query",
+            label: "Query",
+            defaultSize: 60,
+            minSize: 25,
+            content: (
+              <div className="flex h-full items-center justify-center text-sm font-medium">
+                Query
+              </div>
+            ),
+          },
+          {
+            id: "results",
+            label: "Results",
+            minSize: 25,
+            content: (
+              <div className="flex h-full items-center justify-center text-sm font-medium">
+                Results
+              </div>
+            ),
+          },
+        ]}
+      />
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Splitter
+      className="h-72"
+      orientation="vertical"
+      withHandle
+      panels={[
+        { id: "query", label: "Query", defaultSize: 60, minSize: 25, content: <Query /> },
+        { id: "results", label: "Results", minSize: 25, content: <Results /> },
+      ]}
+    />
+    ```
+  </Tab>
+</Tabs>
+
+#### Three Panels
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="h-56 rounded-md border">
+      <Splitter
+        panels={[
+          {
+            id: "files",
+            label: "Files",
+            defaultSize: 20,
+            minSize: 15,
+            content: (
+              <div className="flex h-full items-center justify-center text-sm font-medium">
+                Files
+              </div>
+            ),
+          },
+          {
+            id: "code",
+            label: "Code",
+            minSize: 30,
+            content: (
+              <div className="flex h-full items-center justify-center text-sm font-medium">
+                Code
+              </div>
+            ),
+          },
+          {
+            id: "preview",
+            label: "Preview",
+            defaultSize: 30,
+            minSize: 15,
+            content: (
+              <div className="flex h-full items-center justify-center text-sm font-medium">
+                Preview
+              </div>
+            ),
+          },
+        ]}
+      />
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Splitter
+      className="h-56"
+      panels={[
+        { id: "files", label: "Files", defaultSize: 20, minSize: 15, content: <Files /> },
+        { id: "code", label: "Code", minSize: 30, content: <Code /> },
+        { id: "preview", label: "Preview", defaultSize: 30, minSize: 15, content: <Preview /> },
+      ]}
+    />
+    ```
+  </Tab>
+</Tabs>
+
+#### Collapsible
+
+Mark a panel `collapsible` to let it snap shut when dragged past half its `minSize`, or when its divider is focused and Enter is pressed. `collapsedSize` sets the size it collapses to (0 by default).
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="h-56 rounded-md border">
+      <Splitter
+        withHandle
+        panels={[
+          {
+            id: "outline",
+            label: "Outline",
+            defaultSize: 25,
+            minSize: 20,
+            collapsible: true,
+            content: (
+              <div className="flex h-full items-center justify-center text-sm font-medium">
+                Outline
+              </div>
+            ),
+          },
+          {
+            id: "document",
+            label: "Document",
+            content: (
+              <div className="flex h-full items-center justify-center text-sm font-medium">
+                Document
+              </div>
+            ),
+          },
+        ]}
+      />
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <Splitter
+      withHandle
+      panels={[
+        { id: "outline", label: "Outline", defaultSize: 25, minSize: 20, collapsible: true, content: <Outline /> },
+        { id: "document", label: "Document", content: <Document /> },
+      ]}
+    />
+    ```
+  </Tab>
+</Tabs>
+
+#### Composition
+
+Build the layout from the parts. Each `SplitterResizeTrigger` takes the `id` pair of the panels it sits between.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="h-56 rounded-md border">
+      <SplitterRoot
+        panels={[{ id: "a", minSize: 20 }, { id: "b", minSize: 20 }]}
+        defaultSize={[50, 50]}
+      >
+        <SplitterPanel id="a" className="flex items-center justify-center bg-muted text-sm font-medium">
+          A
+        </SplitterPanel>
+        <SplitterResizeTrigger id="a:b" aria-label="Resize A and B">
+          <SplitterResizeTriggerIndicator />
+        </SplitterResizeTrigger>
+        <SplitterPanel id="b" className="flex items-center justify-center text-sm font-medium">
+          B
+        </SplitterPanel>
+      </SplitterRoot>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import {
+      SplitterPanel,
+      SplitterResizeTrigger,
+      SplitterResizeTriggerIndicator,
+      SplitterRoot,
+    } from "@/components/ui/splitter";
+
+    <SplitterRoot
+      panels={[{ id: "a", minSize: 20 }, { id: "b", minSize: 20 }]}
+      defaultSize={[50, 50]}
+    >
+      <SplitterPanel id="a">A</SplitterPanel>
+      <SplitterResizeTrigger id="a:b" aria-label="Resize A and B">
+        <SplitterResizeTriggerIndicator />
+      </SplitterResizeTrigger>
+      <SplitterPanel id="b">B</SplitterPanel>
+    </SplitterRoot>
+    ```
+  </Tab>
+</Tabs>

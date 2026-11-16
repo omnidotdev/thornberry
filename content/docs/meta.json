@@ -27,6 +27,7 @@
     "pin-input",
     "popover",
     "progress",
+    "qr-code",
     "radio-group",
     "rating-group",
     "scroll-area",
@@ -36,6 +37,8 @@
     "sidebar",
     "skeleton",
     "slider",
+    "splitter",
+    "steps",
     "switch",
     "table",
     "tabs",
@@ -44,6 +47,7 @@
     "toggle",
     "toggle-group",
     "tooltip",
-    "tour"
+    "tour",
+    "tree-view"
   ]
 }

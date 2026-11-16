@@ -1,0 +1,387 @@
+---
+title: Tree View
+description: A hierarchical list of expandable branches and selectable items, with keyboard navigation and an optional file tree style.
+---
+
+import { Badge } from "@/registry/thornberry/components/badge";
+import { BookOpen, FileText, Image, Settings } from "lucide-react";
+import {
+  createTreeCollection,
+  TreeView,
+  TreeViewBranch,
+  TreeViewBranchContent,
+  TreeViewBranchControl,
+  TreeViewBranchIndentGuide,
+  TreeViewBranchIndicator,
+  TreeViewBranchText,
+  TreeViewItem,
+  TreeViewItemText,
+  TreeViewNodeProvider,
+  TreeViewRoot,
+  TreeViewTree,
+} from "@/registry/thornberry/components/tree-view";
+
+<div className="mb-8 max-w-xs rounded-md border p-2">
+  <TreeView
+    label="Files"
+    fileIcons
+    defaultExpandedValue={["src", "src/components"]}
+    defaultSelectedValue={["src/components/button.tsx"]}
+    nodes={[
+      {
+        id: "src",
+        label: "src",
+        children: [
+          {
+            id: "src/components",
+            label: "components",
+            children: [
+              { id: "src/components/button.tsx", label: "button.tsx" },
+              { id: "src/components/dialog.tsx", label: "dialog.tsx" },
+            ],
+          },
+          {
+            id: "src/lib",
+            label: "lib",
+            children: [{ id: "src/lib/utils.ts", label: "utils.ts" }],
+          },
+          { id: "src/main.tsx", label: "main.tsx" },
+        ],
+      },
+      { id: "package.json", label: "package.json" },
+      { id: "README.md", label: "README.md" },
+    ]}
+  />
+</div>
+
+## Installation
+
+<InstallationTabs filename="tree-view.json" />
+
+## Usage
+
+```tsx
+import { TreeView } from "@/components/ui/tree-view";
+```
+
+```tsx
+<TreeView
+  label="Files"
+  fileIcons
+  nodes={[
+    {
+      id: "src",
+      label: "src",
+      children: [{ id: "src/main.tsx", label: "main.tsx" }],
+    },
+    { id: "README.md", label: "README.md" },
+  ]}
+  onSelectionChange={({ selectedValue }) => openFile(selectedValue[0])}
+/>
+```
+
+A node with a `children` array renders as an expandable branch; any other node is a leaf. Each node needs a unique `id`, which is the value used by `selectedValue` and `expandedValue`.
+
+Clicking a branch selects it and toggles it open. With the tree focused, use the arrow keys to move between nodes, Right and Left to open and close branches, Enter or Space to select, Home and End to jump to the first and last node, `*` to expand every sibling branch, and type a label to jump to it.
+
+## Examples
+
+<br />
+
+#### File Tree
+
+`fileIcons` shows folder icons on branches (open while expanded) and file icons on leaves. `defaultExpandAll` opens every branch on first render. Use `suffix` for trailing content such as a change status.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="max-w-xs rounded-md border p-2">
+      <TreeView
+        aria-label="Changed files"
+        fileIcons
+        defaultExpandAll
+        size="sm"
+        nodes={[
+          {
+            id: "src/routes",
+            label: "src/routes",
+            children: [
+              {
+                id: "src/routes/index.tsx",
+                label: "index.tsx",
+                suffix: <Badge variant="warning">M</Badge>,
+              },
+              {
+                id: "src/routes/settings.tsx",
+                label: "settings.tsx",
+                suffix: <Badge variant="success">A</Badge>,
+              },
+            ],
+          },
+          {
+            id: "package.json",
+            label: "package.json",
+            suffix: <Badge variant="warning">M</Badge>,
+          },
+        ]}
+      />
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <TreeView
+      aria-label="Changed files"
+      fileIcons
+      defaultExpandAll
+      size="sm"
+      nodes={[
+        {
+          id: "src/routes",
+          label: "src/routes",
+          children: [
+            {
+              id: "src/routes/index.tsx",
+              label: "index.tsx",
+              suffix: <Badge variant="warning">M</Badge>,
+            },
+            {
+              id: "src/routes/settings.tsx",
+              label: "settings.tsx",
+              suffix: <Badge variant="success">A</Badge>,
+            },
+          ],
+        },
+        {
+          id: "package.json",
+          label: "package.json",
+          suffix: <Badge variant="warning">M</Badge>,
+        },
+      ]}
+    />
+    ```
+  </Tab>
+</Tabs>
+
+#### Custom Icons
+
+Give a node an `icon` to show it before the label. A node's `icon` takes precedence over the file tree icons.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="max-w-xs rounded-md border p-2">
+      <TreeView
+        aria-label="Documentation"
+        defaultExpandAll
+        nodes={[
+          {
+            id: "guides",
+            label: "Guides",
+            icon: <BookOpen className="size-4 text-muted-foreground" />,
+            children: [
+              {
+                id: "guides/getting-started",
+                label: "Getting started",
+                icon: <FileText className="size-4 text-muted-foreground" />,
+              },
+              {
+                id: "guides/theming",
+                label: "Theming",
+                icon: <Image className="size-4 text-muted-foreground" />,
+              },
+            ],
+          },
+          {
+            id: "settings",
+            label: "Settings",
+            icon: <Settings className="size-4 text-muted-foreground" />,
+            disabled: true,
+          },
+        ]}
+      />
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { BookOpen, FileText, Settings } from "lucide-react";
+
+    <TreeView
+      aria-label="Documentation"
+      defaultExpandAll
+      nodes={[
+        {
+          id: "guides",
+          label: "Guides",
+          icon: <BookOpen className="size-4 text-muted-foreground" />,
+          children: [
+            {
+              id: "guides/getting-started",
+              label: "Getting started",
+              icon: <FileText className="size-4 text-muted-foreground" />,
+            },
+          ],
+        },
+        {
+          id: "settings",
+          label: "Settings",
+          icon: <Settings className="size-4 text-muted-foreground" />,
+          disabled: true,
+        },
+      ]}
+    />
+    ```
+  </Tab>
+</Tabs>
+
+#### Multiple Selection
+
+Set `selectionMode="multiple"` to select several nodes with Ctrl/Cmd+click or Shift+click.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="max-w-xs rounded-md border p-2">
+      <TreeView
+        aria-label="Labels"
+        selectionMode="multiple"
+        defaultExpandAll
+        nodes={[
+          {
+            id: "type",
+            label: "Type",
+            children: [
+              { id: "bug", label: "Bug" },
+              { id: "feature", label: "Feature" },
+            ],
+          },
+          {
+            id: "priority",
+            label: "Priority",
+            children: [
+              { id: "high", label: "High" },
+              { id: "low", label: "Low" },
+            ],
+          },
+        ]}
+      />
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <TreeView aria-label="Labels" selectionMode="multiple" defaultExpandAll nodes={nodes} />
+    ```
+  </Tab>
+</Tabs>
+
+#### Composition
+
+Build a custom tree from the parts with a collection from `createTreeCollection`. Each node is wrapped in a `TreeViewNodeProvider`, which the rows read their state from. Set `--tree-indent` on the root to change the indent step.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <div className="max-w-xs rounded-md border p-2">
+      <TreeViewRoot
+        defaultExpandedValue={["fruits"]}
+        collection={createTreeCollection({
+          nodeToValue: (node) => node.id,
+          nodeToString: (node) => node.name,
+          rootNode: {
+            id: "root",
+            name: "",
+            children: [
+              {
+                id: "fruits",
+                name: "Fruits",
+                children: [
+                  { id: "apple", name: "Apple" },
+                  { id: "pear", name: "Pear" },
+                ],
+              },
+            ],
+          },
+        })}
+      >
+        <TreeViewTree aria-label="Produce">
+          <TreeViewNodeProvider
+            node={{ id: "fruits", name: "Fruits" }}
+            indexPath={[0]}
+          >
+            <TreeViewBranch>
+              <TreeViewBranchControl>
+                <TreeViewBranchIndicator />
+                <TreeViewBranchText>Fruits</TreeViewBranchText>
+              </TreeViewBranchControl>
+              <TreeViewBranchContent>
+                <TreeViewBranchIndentGuide />
+                {["Apple", "Pear"].map((name, index) => (
+                  <TreeViewNodeProvider
+                    key={name}
+                    node={{ id: name.toLowerCase(), name }}
+                    indexPath={[0, index]}
+                  >
+                    <TreeViewItem>
+                      <span className="size-4" />
+                      <TreeViewItemText>{name}</TreeViewItemText>
+                    </TreeViewItem>
+                  </TreeViewNodeProvider>
+                ))}
+              </TreeViewBranchContent>
+            </TreeViewBranch>
+          </TreeViewNodeProvider>
+        </TreeViewTree>
+      </TreeViewRoot>
+    </div>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import {
+      createTreeCollection,
+      TreeViewBranch,
+      TreeViewBranchContent,
+      TreeViewBranchControl,
+      TreeViewBranchIndentGuide,
+      TreeViewBranchIndicator,
+      TreeViewBranchText,
+      TreeViewItem,
+      TreeViewItemText,
+      TreeViewNodeProvider,
+      TreeViewRoot,
+      TreeViewTree,
+    } from "@/components/ui/tree-view";
+
+    const collection = createTreeCollection({
+      nodeToValue: (node) => node.id,
+      nodeToString: (node) => node.name,
+      rootNode: { id: "root", name: "", children: produce },
+    });
+
+    const Node = ({ node, indexPath }) => (
+      <TreeViewNodeProvider node={node} indexPath={indexPath}>
+        {node.children ? (
+          <TreeViewBranch>
+            <TreeViewBranchControl>
+              <TreeViewBranchIndicator />
+              <TreeViewBranchText>{node.name}</TreeViewBranchText>
+            </TreeViewBranchControl>
+            <TreeViewBranchContent>
+              <TreeViewBranchIndentGuide />
+              {node.children.map((child, index) => (
+                <Node key={child.id} node={child} indexPath={[...indexPath, index]} />
+              ))}
+            </TreeViewBranchContent>
+          </TreeViewBranch>
+        ) : (
+          <TreeViewItem>
+            <TreeViewItemText>{node.name}</TreeViewItemText>
+          </TreeViewItem>
+        )}
+      </TreeViewNodeProvider>
+    );
+
+    <TreeViewRoot collection={collection}>
+      <TreeViewTree aria-label="Produce">
+        {collection.rootNode.children.map((node, index) => (
+          <Node key={node.id} node={node} indexPath={[index]} />
+        ))}
+      </TreeViewTree>
+    </TreeViewRoot>
+    ```
+  </Tab>
+</Tabs>

@@ -4,12 +4,10 @@ import {
   ExternalLink,
   KeyRound,
   Loader2,
-  QrCode,
   ShieldCheck,
   ShieldOff,
 } from "lucide-react";
 import { useState } from "react";
-import QRCode from "react-qr-code";
 
 import { useAccountContext } from "@/registry/thornberry/components/account-provider";
 import { Button } from "@/registry/thornberry/components/button";
@@ -25,6 +23,7 @@ import {
 import { Input } from "@/registry/thornberry/components/input";
 import { Label } from "@/registry/thornberry/components/label";
 import { PasswordInput } from "@/registry/thornberry/components/password-input";
+import { QrCode } from "@/registry/thornberry/components/qr-code";
 
 import type { KeyboardEvent } from "react";
 import type { AccountContextValue } from "@/registry/thornberry/components/account-provider";
@@ -46,14 +45,17 @@ const onEnter =
   };
 
 /**
- * QR code on a fixed light background with a quiet zone, centered. TOTP QR
- * codes must stay dark-on-light to scan, so this never inherits a dark theme.
+ * The TOTP setup QR code, centered. `QrCode` keeps it dark-on-light with a
+ * quiet zone so it scans even under a dark theme.
  */
 const QrPanel = ({ value }: { value: string }) => (
   <div className="flex justify-center">
-    <div className="border-border rounded-lg border bg-white p-4">
-      <QRCode value={value} size={180} />
-    </div>
+    <QrCode
+      value={value}
+      size={180}
+      label="Authenticator setup QR code"
+      className="border-border rounded-lg border p-4"
+    />
   </div>
 );
 

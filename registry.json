@@ -864,6 +864,59 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "tree-view",
+      "type": "registry:ui",
+      "title": "Tree View",
+      "description": "A hierarchical list of expandable branches and selectable items, with keyboard navigation and an optional file tree style",
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/tree-view.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "qr-code",
+      "type": "registry:ui",
+      "title": "QR Code",
+      "description": "Renders a value as a scannable QR code, with error correction levels and an optional centered overlay such as a logo",
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/qr-code.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "splitter",
+      "type": "registry:ui",
+      "title": "Splitter",
+      "description": "Resizable panels separated by draggable, keyboard-accessible dividers, laid out horizontally or vertically",
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/splitter.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "steps",
+      "type": "registry:ui",
+      "title": "Steps",
+      "description": "A multi-step progress indicator and wizard with complete, current, and upcoming step states",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/steps.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,172 @@
+---
+title: QR Code
+description: Renders a value as a scannable QR code, with error correction levels and an optional centered overlay such as a logo.
+---
+
+import { Download } from "lucide-react";
+import {
+  QrCode,
+  QrCodeDownloadTrigger,
+  QrCodeFrame,
+  QrCodePattern,
+  QrCodeRoot,
+} from "@/registry/thornberry/components/qr-code";
+
+<QrCode className="mb-8" value="https://thornberry.omni.dev" label="Thornberry website" />
+
+## Installation
+
+<InstallationTabs filename="qr-code.json" />
+
+## Usage
+
+```tsx
+import { QrCode } from "@/components/ui/qr-code";
+```
+
+```tsx
+<QrCode value="https://thornberry.omni.dev" />
+```
+
+`value` can be any text: a URL, an `otpauth://` URI for an authenticator app, a Wi-Fi configuration string. The code always renders black on a white, padded background, since scanners expect dark modules on a light background, so it stays scannable under a dark theme. Pass `label` to give the image a descriptive accessible name.
+
+## Examples
+
+<br />
+
+#### Sizes
+
+`size` sets the rendered width and height in pixels (160 by default).
+
+<Tabs items={["Small", "Medium", "Large"]} className="mt-4">
+  <Tab value="Small">
+    <QrCode value="https://thornberry.omni.dev" size={96} />
+
+    ```tsx
+    <QrCode value="https://thornberry.omni.dev" size={96} />
+    ```
+  </Tab>
+  <Tab value="Medium">
+    <QrCode value="https://thornberry.omni.dev" size={160} />
+
+    ```tsx
+    <QrCode value="https://thornberry.omni.dev" size={160} />
+    ```
+  </Tab>
+  <Tab value="Large">
+    <QrCode value="https://thornberry.omni.dev" size={240} />
+
+    ```tsx
+    <QrCode value="https://thornberry.omni.dev" size={240} />
+    ```
+  </Tab>
+</Tabs>
+
+#### Error Correction
+
+`errorCorrection` sets how much of the code can be damaged or covered and still scan: `L` (7%, the default), `M` (15%), `Q` (25%), or `H` (30%). Higher levels draw denser codes.
+
+<Tabs items={["L", "M", "Q", "H"]} className="mt-4">
+  <Tab value="L">
+    <QrCode value="https://thornberry.omni.dev" errorCorrection="L" />
+
+    ```tsx
+    <QrCode value="https://thornberry.omni.dev" errorCorrection="L" />
+    ```
+  </Tab>
+  <Tab value="M">
+    <QrCode value="https://thornberry.omni.dev" errorCorrection="M" />
+
+    ```tsx
+    <QrCode value="https://thornberry.omni.dev" errorCorrection="M" />
+    ```
+  </Tab>
+  <Tab value="Q">
+    <QrCode value="https://thornberry.omni.dev" errorCorrection="Q" />
+
+    ```tsx
+    <QrCode value="https://thornberry.omni.dev" errorCorrection="Q" />
+    ```
+  </Tab>
+  <Tab value="H">
+    <QrCode value="https://thornberry.omni.dev" errorCorrection="H" />
+
+    ```tsx
+    <QrCode value="https://thornberry.omni.dev" errorCorrection="H" />
+    ```
+  </Tab>
+</Tabs>
+
+#### With Logo
+
+`overlay` centers content, such as a logo, over the code. Error correction defaults to `H` when an overlay is set so the covered modules can be recovered; keep the overlay under about a fifth of the code's width.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <QrCode
+      value="https://thornberry.omni.dev"
+      size={200}
+      overlay={<img src="/apple-touch-icon.png" alt="" className="size-8 rounded-sm" />}
+    />
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    <QrCode
+      value="https://thornberry.omni.dev"
+      size={200}
+      overlay={<img src="/logo.png" alt="" className="size-8 rounded-sm" />}
+    />
+    ```
+  </Tab>
+</Tabs>
+
+#### Download
+
+Compose the parts to add a `QrCodeDownloadTrigger`, which saves the code as an image. It must sit inside `QrCodeRoot`; `fileName` and `mimeType` are required.
+
+<Tabs items={["Preview", "Code"]} className="mt-4">
+  <Tab value="Preview">
+    <QrCodeRoot
+      value="https://thornberry.omni.dev"
+      encoding={{ ecc: "M" }}
+      className="flex-col gap-3 bg-transparent p-0"
+    >
+      <div className="rounded-md bg-white p-3">
+        <QrCodeFrame aria-label="Thornberry website" className="size-40">
+          <QrCodePattern />
+        </QrCodeFrame>
+      </div>
+      <QrCodeDownloadTrigger fileName="thornberry.png" mimeType="image/png">
+        <Download className="size-4" aria-hidden="true" />
+        Download
+      </QrCodeDownloadTrigger>
+    </QrCodeRoot>
+  </Tab>
+  <Tab value="Code">
+    ```tsx
+    import { Download } from "lucide-react";
+    import {
+      QrCodeDownloadTrigger,
+      QrCodeFrame,
+      QrCodePattern,
+      QrCodeRoot,
+    } from "@/components/ui/qr-code";
+
+    <QrCodeRoot
+      value={url}
+      encoding={{ ecc: "M" }}
+      className="flex-col gap-3 bg-transparent p-0"
+    >
+      <div className="rounded-md bg-white p-3">
+        <QrCodeFrame aria-label="Thornberry website" className="size-40">
+          <QrCodePattern />
+        </QrCodeFrame>
+      </div>
+      <QrCodeDownloadTrigger fileName="thornberry.png" mimeType="image/png">
+        <Download className="size-4" aria-hidden="true" />
+        Download
+      </QrCodeDownloadTrigger>
+    </QrCodeRoot>
+    ```
+  </Tab>
+</Tabs>
