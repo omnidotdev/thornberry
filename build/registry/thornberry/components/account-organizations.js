@@ -1163,7 +1163,7 @@ var OrganizationDetail = ({
   const canEditProfile = canManage && !isPersonal;
   const bannerSrc = full?.banner ?? organization.banner ?? null;
   const canScheduleDeletion = !!authClient.organization.scheduleOrganizationDeletion;
-  const scheduledDeletionDate = organization.deletedAt ? new Date(new Date(organization.deletedAt).getTime() + DELETION_GRACE_DAYS * 24 * 60 * 60 * 1000) : null;
+  const scheduledDeletionDate = organization.deletionPurgeAt ? new Date(organization.deletionPurgeAt) : organization.deletedAt ? new Date(new Date(organization.deletedAt).getTime() + DELETION_GRACE_DAYS * 24 * 60 * 60 * 1000) : null;
   return /* @__PURE__ */ jsxs("div", {
     className: "space-y-6",
     children: [
@@ -1283,10 +1283,12 @@ var OrganizationDetail = ({
               /* @__PURE__ */ jsxs("div", {
                 className: "text-muted-foreground text-sm",
                 children: [
-                  "This workspace will be permanently deleted around",
+                  "This workspace will be permanently deleted on",
                   " ",
-                  scheduledDeletionDate.toLocaleDateString(),
-                  ". Restore it before then to cancel."
+                  scheduledDeletionDate.toLocaleDateString(undefined, {
+                    dateStyle: "long"
+                  }),
+                  ". Restore it before then to cancel the deletion."
                 ]
               })
             ]
