@@ -1312,15 +1312,16 @@ const OrganizationDetail = ({
   const bannerSrc = full?.banner ?? organization.banner ?? null;
   const canScheduleDeletion =
     !!authClient.organization.scheduleOrganizationDeletion;
-  // The organization is within its deletion grace window. The exact purge date
-  // is the server's; DELETION_GRACE_DAYS mirrors Gatekeeper's default window so
-  // the banner can show an approximate date.
-  const scheduledDeletionDate = organization.deletedAt
-    ? new Date(
-        new Date(organization.deletedAt).getTime() +
-          DELETION_GRACE_DAYS * 24 * 60 * 60 * 1000,
-      )
-    : null;
+  // The organization is within its deletion grace window. Prefer the purge
+  // date the backend reports; otherwise derive it from the default window
+  const scheduledDeletionDate = organization.deletionPurgeAt
+    ? new Date(organization.deletionPurgeAt)
+    : organization.deletedAt
+      ? new Date(
+          new Date(organization.deletedAt).getTime() +
+            DELETION_GRACE_DAYS * 24 * 60 * 60 * 1000,
+        )
+      : null;
 
   return (
     <div className="space-y-6">
@@ -1432,9 +1433,11 @@ const OrganizationDetail = ({
           <div className="min-w-0">
             <div className="text-sm font-medium">Scheduled for deletion</div>
             <div className="text-muted-foreground text-sm">
-              This workspace will be permanently deleted around{" "}
-              {scheduledDeletionDate.toLocaleDateString()}. Restore it before
-              then to cancel.
+              This workspace will be permanently deleted on{" "}
+              {scheduledDeletionDate.toLocaleDateString(undefined, {
+                dateStyle: "long",
+              })}
+              . Restore it before then to cancel the deletion.
             </div>
           </div>
           {isOwner && authClient.organization.restoreOrganization && (

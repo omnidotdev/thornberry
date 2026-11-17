@@ -503,8 +503,16 @@ describe("AccountOrganizations scheduled deletion", () => {
    * A client whose backend supports scheduled deletion. `deletedAt` seeds the
    * org as already scheduled (for the restore/banner test).
    */
-  const makeSchedulingClient = (deletedAt?: string) => {
-    const org = { ...ORG, logo: null, deletedAt: deletedAt ?? null };
+  const makeSchedulingClient = (
+    deletedAt?: string,
+    deletionPurgeAt?: string,
+  ) => {
+    const org = {
+      ...ORG,
+      logo: null,
+      deletedAt: deletedAt ?? null,
+      deletionPurgeAt: deletionPurgeAt ?? null,
+    };
     const scheduleCalls: Array<{ organizationId: string }> = [];
     const restoreCalls: Array<{ organizationId: string }> = [];
     const deleteCalls: Array<{ organizationId: string }> = [];
@@ -579,5 +587,20 @@ describe("AccountOrganizations scheduled deletion", () => {
     fireEvent.click(await screen.findByRole("button", { name: "Restore" }));
     await waitFor(() => expect(restoreCalls.length).toBe(1));
     expect(restoreCalls[0]).toEqual({ organizationId: "org1" });
+  });
+
+  test("the banner shows the backend's exact purge date", async () => {
+    const purgeAt = "2026-12-06T12:00:00.000Z";
+    const { client } = makeSchedulingClient(new Date().toISOString(), purgeAt);
+    renderDetail(client);
+
+    const formatted = new Date(purgeAt).toLocaleDateString(undefined, {
+      dateStyle: "long",
+    });
+    expect(
+      await screen.findByText(
+        `This workspace will be permanently deleted on ${formatted}. Restore it before then to cancel the deletion.`,
+      ),
+    ).toBeTruthy();
   });
 });

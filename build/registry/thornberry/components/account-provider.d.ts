@@ -114,10 +114,16 @@ export interface AccountOrganization {
     type?: string | null;
     /**
      * When set (ISO timestamp), the organization is scheduled for deletion and is
-     * within its grace window: still functional, restorable, and hard-deleted by a
-     * retention job once the window elapses.
+     * within its grace window: suspended for members, restorable by an owner, and
+     * hard-deleted by a retention job once the window elapses.
      */
     deletedAt?: string | null;
+    /**
+     * When the backend purges a scheduled organization (ISO timestamp). Shown as
+     * the deletion date; absent for hosts that do not report it, in which case the
+     * console derives it from `deletedAt` and the default grace window.
+     */
+    deletionPurgeAt?: string | null;
 }
 /** A team within an organization */
 export interface AccountTeam {
