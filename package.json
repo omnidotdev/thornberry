@@ -48,7 +48,7 @@
     "@lexical/react": "^0.53.0",
     "@lexical/rich-text": "^0.53.0",
     "@omnidotdev/cadence": "github:omnidotdev/cadence#9352906",
-    "@omnidotdev/providers": "github:omnidotdev/providers#15d1fc2",
+    "@omnidotdev/providers": "github:omnidotdev/providers#v0.2.0",
     "@tailwindcss/vite": "^4.3.5",
     "@tanstack/devtools-vite": "^0.8.0",
     "@tanstack/form-core": "^1.33.5",
