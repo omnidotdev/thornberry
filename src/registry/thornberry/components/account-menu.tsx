@@ -1,4 +1,4 @@
-import { ExternalLink, LogOut } from "lucide-react";
+import { ChevronsUpDown, ExternalLink, LogOut } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import {
@@ -77,15 +77,24 @@ interface AccountMenuProps {
   manageAccountUrl?: string;
   manageAccountLabel?: string;
   signOutLabel?: string;
-  /** Accessible name of the avatar trigger */
+  /**
+   * Trigger layout: "avatar" is the round avatar for a header; "sidebar" is a
+   * full-width row with the avatar, name, and email for a sidebar footer (it
+   * shrinks to the avatar in a collapsed icon sidebar). Defaults to "avatar"
+   */
+  variant?: "avatar" | "sidebar";
+  /** Accessible name of the avatar trigger (the sidebar row is named by its text) */
   triggerLabel?: string;
-  /** Avatar size in the trigger */
+  /** Avatar size in the trigger. Defaults to "sm", or "xs" in the sidebar row */
   avatarSize?: ComponentProps<typeof AvatarRoot>["size"];
   /** Classes for the avatar trigger */
   className?: string;
   /** Classes for the menu panel */
   contentClassName?: string;
-  /** Menu placement relative to the avatar. Defaults to below, end-aligned */
+  /**
+   * Menu placement relative to the trigger. Defaults to below, end-aligned for
+   * the avatar, and to the right, bottom-aligned for the sidebar row
+   */
   positioning?: ComponentProps<typeof MenuRoot>["positioning"];
 }
 
@@ -112,32 +121,67 @@ const AccountMenu = ({
   manageAccountUrl,
   manageAccountLabel = "Manage account",
   signOutLabel = "Sign out",
+  variant = "avatar",
   triggerLabel = "Open account menu",
-  avatarSize = "sm",
+  avatarSize,
   className,
   contentClassName,
-  positioning = { placement: "bottom-end" },
+  positioning,
 }: AccountMenuProps) => {
   const name = user.name?.trim() || null;
   const email = user.email?.trim() || null;
+  const isSidebar = variant === "sidebar";
+
+  const avatar = (
+    <AvatarRoot size={avatarSize ?? (isSidebar ? "xs" : "sm")}>
+      <AvatarImage src={user.image ?? undefined} alt="" />
+      <AvatarFallback className="font-medium">
+        {getInitials(name, email)}
+      </AvatarFallback>
+    </AvatarRoot>
+  );
 
   return (
-    <MenuRoot positioning={positioning}>
-      <MenuTrigger
-        aria-label={triggerLabel}
-        className={cn(
-          // A 44px target around the avatar on touch screens
-          "inline-flex shrink-0 items-center justify-center rounded-full transition-shadow hover:ring-2 hover:ring-border data-[state=open]:ring-2 data-[state=open]:ring-border pointer-coarse:size-11",
-          className,
-        )}
-      >
-        <AvatarRoot size={avatarSize}>
-          <AvatarImage src={user.image ?? undefined} alt="" />
-          <AvatarFallback className="font-medium">
-            {getInitials(name, email)}
-          </AvatarFallback>
-        </AvatarRoot>
-      </MenuTrigger>
+    <MenuRoot
+      positioning={
+        positioning ?? { placement: isSidebar ? "right-end" : "bottom-end" }
+      }
+    >
+      {isSidebar ? (
+        <MenuTrigger
+          className={cn(
+            "flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm transition-colors hover:bg-muted data-[state=open]:bg-muted pointer-coarse:min-h-11",
+            // A collapsed icon sidebar keeps just the avatar
+            "group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0",
+            className,
+          )}
+        >
+          {avatar}
+          <span className="flex min-w-0 flex-1 flex-col group-data-[collapsible=icon]:hidden">
+            <span className="truncate font-medium">{name ?? email}</span>
+            {name && email && (
+              <span className="text-muted-foreground truncate text-xs">
+                {email}
+              </span>
+            )}
+          </span>
+          <ChevronsUpDown
+            className="text-muted-foreground size-4 shrink-0 group-data-[collapsible=icon]:hidden"
+            aria-hidden
+          />
+        </MenuTrigger>
+      ) : (
+        <MenuTrigger
+          aria-label={triggerLabel}
+          className={cn(
+            // A 44px target around the avatar on touch screens
+            "inline-flex shrink-0 items-center justify-center rounded-full transition-shadow hover:ring-2 hover:ring-border data-[state=open]:ring-2 data-[state=open]:ring-border pointer-coarse:size-11",
+            className,
+          )}
+        >
+          {avatar}
+        </MenuTrigger>
+      )}
 
       <MenuPositioner>
         <MenuContent className={cn("min-w-56 max-w-xs", contentClassName)}>

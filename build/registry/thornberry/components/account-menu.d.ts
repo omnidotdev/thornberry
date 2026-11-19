@@ -31,15 +31,24 @@ interface AccountMenuProps {
     manageAccountUrl?: string;
     manageAccountLabel?: string;
     signOutLabel?: string;
-    /** Accessible name of the avatar trigger */
+    /**
+     * Trigger layout: "avatar" is the round avatar for a header; "sidebar" is a
+     * full-width row with the avatar, name, and email for a sidebar footer (it
+     * shrinks to the avatar in a collapsed icon sidebar). Defaults to "avatar"
+     */
+    variant?: "avatar" | "sidebar";
+    /** Accessible name of the avatar trigger (the sidebar row is named by its text) */
     triggerLabel?: string;
-    /** Avatar size in the trigger */
+    /** Avatar size in the trigger. Defaults to "sm", or "xs" in the sidebar row */
     avatarSize?: ComponentProps<typeof AvatarRoot>["size"];
     /** Classes for the avatar trigger */
     className?: string;
     /** Classes for the menu panel */
     contentClassName?: string;
-    /** Menu placement relative to the avatar. Defaults to below, end-aligned */
+    /**
+     * Menu placement relative to the trigger. Defaults to below, end-aligned for
+     * the avatar, and to the right, bottom-aligned for the sidebar row
+     */
     positioning?: ComponentProps<typeof MenuRoot>["positioning"];
 }
 /**
@@ -58,6 +67,6 @@ interface AccountMenuProps {
  *   </AccountMenuItem>
  * </AccountMenu>
  */
-declare const AccountMenu: ({ user, onSignOut, children, manageAccountUrl, manageAccountLabel, signOutLabel, triggerLabel, avatarSize, className, contentClassName, positioning, }: AccountMenuProps) => import("react/jsx-runtime").JSX.Element;
+declare const AccountMenu: ({ user, onSignOut, children, manageAccountUrl, manageAccountLabel, signOutLabel, variant, triggerLabel, avatarSize, className, contentClassName, positioning, }: AccountMenuProps) => import("react/jsx-runtime").JSX.Element;
 export type { AccountMenuProps, AccountMenuUser };
 export { AccountMenu, AccountMenuItem, getInitials };

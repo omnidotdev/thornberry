@@ -21,6 +21,8 @@ import {
 export interface WorkspaceOption {
   id: string;
   name: string;
+  /** The workspace's `@handle`, shown under its name in the list when set. */
+  slug?: string | null;
   /** Logo URL, if set; falls back to the name's first letter. */
   logo?: string | null;
 }
@@ -42,6 +44,9 @@ export interface WorkspaceSwitcherProps {
    */
   variant?: "header" | "sidebar";
 }
+
+/** Menu value of the manage link, never passed to `onSelect` */
+const MANAGE_VALUE = "manage-workspaces";
 
 /** Workspace avatar: logo if set, else the first letter of the name. */
 const WorkspaceAvatar = ({ workspace }: { workspace: WorkspaceOption }) => (
@@ -108,7 +113,12 @@ const WorkspaceSwitcher = ({
   }
 
   return (
-    <MenuRoot onSelect={(details) => onSelect(details.value)}>
+    <MenuRoot
+      onSelect={(details) => {
+        // The manage link navigates on its own; only workspaces are selected
+        if (details.value !== MANAGE_VALUE) onSelect(details.value);
+      }}
+    >
       <MenuTrigger asChild>
         {isSidebar ? (
           <button type="button" className={sidebarTriggerClass}>
@@ -132,7 +142,14 @@ const WorkspaceSwitcher = ({
                 className="gap-2"
               >
                 <WorkspaceAvatar workspace={workspace} />
-                <span className="flex-1 truncate">{workspace.name}</span>
+                <span className="flex min-w-0 flex-1 flex-col">
+                  <span className="truncate">{workspace.name}</span>
+                  {workspace.slug && (
+                    <span className="text-muted-foreground truncate text-xs">
+                      @{workspace.slug}
+                    </span>
+                  )}
+                </span>
                 {workspace.id === currentWorkspaceId && (
                   <Check className="size-4 shrink-0" />
                 )}
@@ -143,15 +160,17 @@ const WorkspaceSwitcher = ({
           {manageUrl && (
             <>
               <MenuSeparator />
-              <a
-                href={manageUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="text-muted-foreground hover:bg-accent flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm"
-              >
-                <ExternalLink className="size-4" />
-                {manageLabel}
-              </a>
+              <MenuItem value={MANAGE_VALUE} asChild>
+                <a
+                  href={manageUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-muted-foreground"
+                >
+                  <ExternalLink className="size-4" />
+                  {manageLabel}
+                </a>
+              </MenuItem>
             </>
           )}
         </MenuContent>

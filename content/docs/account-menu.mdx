@@ -69,6 +69,30 @@ When `user.image` is unset or fails to load, the avatar shows up to two initials
 />
 ```
 
+#### Sidebar
+
+`variant="sidebar"` renders the trigger as a full-width row with the avatar, name, and email, for a sidebar footer. The menu opens to the right, and in a collapsed icon sidebar the row shrinks to the avatar.
+
+<div className="my-4 max-w-64">
+  <AccountMenu
+    variant="sidebar"
+    user={{ name: "Ada Lovelace", email: "ada@omni.dev" }}
+    onSignOut={() => {}}
+  >
+    <AccountMenuItem value="profile">Profile</AccountMenuItem>
+  </AccountMenu>
+</div>
+
+```tsx
+<SidebarFooter>
+  <AccountMenu variant="sidebar" user={user} onSignOut={signOut}>
+    <AccountMenuItem value="/profile" asChild>
+      <Link to="/profile">Profile</Link>
+    </AccountMenuItem>
+  </AccountMenu>
+</SidebarFooter>
+```
+
 #### Custom labels
 
 ```tsx
@@ -92,8 +116,9 @@ When `user.image` is unset or fails to load, the avatar shows up to two initials
 | `manageAccountUrl` | `string` | | Link to the Omni account hub; hidden when unset |
 | `manageAccountLabel` | `string` | `"Manage account"` | |
 | `signOutLabel` | `string` | `"Sign out"` | |
-| `triggerLabel` | `string` | `"Open account menu"` | Accessible name of the avatar |
-| `avatarSize` | `"xs" \| "sm" \| "md" \| "lg" \| "xl"` | `"sm"` | |
-| `positioning` | `PositioningOptions` | `{ placement: "bottom-end" }` | |
+| `variant` | `"avatar" \| "sidebar"` | `"avatar"` | Round header avatar, or a full-width sidebar row |
+| `triggerLabel` | `string` | `"Open account menu"` | Accessible name of the avatar (the sidebar row is named by its text) |
+| `avatarSize` | `"xs" \| "sm" \| "md" \| "lg" \| "xl"` | `"sm"`, or `"xs"` in the sidebar | |
+| `positioning` | `PositioningOptions` | `bottom-end`, or `right-end` in the sidebar | |
 | `className` | `string` | | Classes for the avatar trigger |
 | `contentClassName` | `string` | | Classes for the menu panel |
