@@ -15,7 +15,7 @@ import {
   MenuItemGroup2,
   MenuItemGroupLabel2,
   MenuSeparator2
-} from "../../../chunks/ai-describe-panel-jw3adf69.js";
+} from "../../../chunks/ai-describe-panel-egwd21sn.js";
 
 // src/registry/thornberry/components/workspace-switcher.tsx
 import { Check, ChevronsUpDown, ExternalLink } from "lucide-react";

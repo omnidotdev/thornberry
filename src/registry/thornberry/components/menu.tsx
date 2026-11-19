@@ -11,11 +11,21 @@ const MenuRoot = ArkMenu.Root;
 const MenuContextTrigger = ArkMenu.ContextTrigger;
 const PrimitiveMenuIndicator = ArkMenu.ItemIndicator;
 
+/**
+ * Opens the menu. Shows a pointer, a keyboard focus ring, and a disabled state
+ * whether it renders its own button or wraps a child via `asChild`
+ */
 const MenuTrigger = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkMenu.Trigger>) => (
-  <ArkMenu.Trigger className={className} {...rest} />
+  <ArkMenu.Trigger
+    className={cn(
+      "cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50",
+      className,
+    )}
+    {...rest}
+  />
 );
 
 const MenuPositioner = ({
@@ -139,7 +149,7 @@ const MenuRadioItem = ({
 }: ComponentProps<typeof ArkMenu.RadioItem>) => (
   <ArkMenu.RadioItem
     className={cn(
-      "relative flex cursor-pointer select-none items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden focus:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      "relative flex cursor-pointer select-none items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden hover:bg-muted focus:bg-muted data-highlighted:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
       className,
     )}
     {...rest}

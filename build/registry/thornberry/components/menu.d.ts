@@ -5,6 +5,10 @@ declare const MenuProvider: (props: ArkMenu.RootProviderProps) => import("react/
 declare const MenuRoot: (props: ArkMenu.RootProps) => import("react/jsx-runtime").JSX.Element;
 declare const MenuContextTrigger: import("react").ForwardRefExoticComponent<ArkMenu.ContextTriggerProps & import("react").RefAttributes<HTMLButtonElement>>;
 declare const PrimitiveMenuIndicator: import("react").ForwardRefExoticComponent<ArkMenu.ItemIndicatorProps & import("react").RefAttributes<HTMLDivElement>>;
+/**
+ * Opens the menu. Shows a pointer, a keyboard focus ring, and a disabled state
+ * whether it renders its own button or wraps a child via `asChild`
+ */
 declare const MenuTrigger: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Trigger>) => import("react/jsx-runtime").JSX.Element;
 declare const MenuPositioner: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Positioner>) => import("react/jsx-runtime").JSX.Element;
 declare const MenuContent: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Content>) => import("react/jsx-runtime").JSX.Element;

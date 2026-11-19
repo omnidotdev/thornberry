@@ -1,0 +1,99 @@
+---
+title: Account Menu
+description: The standard Omni account menu, opened from the signed-in user's avatar.
+---
+
+import {
+  AccountMenu,
+  AccountMenuItem,
+} from "@/registry/thornberry/components/account-menu";
+
+<div className="my-8 flex justify-center">
+  <AccountMenu
+    user={{ name: "Ada Lovelace", email: "ada@omni.dev" }}
+    onSignOut={() => {}}
+    manageAccountUrl="https://omni.dev"
+  >
+    <AccountMenuItem value="profile">Profile</AccountMenuItem>
+    <AccountMenuItem value="workspaces">Workspaces</AccountMenuItem>
+  </AccountMenu>
+</div>
+
+## Installation
+
+<InstallationTabs filename="account-menu.json" />
+
+## Usage
+
+```tsx
+import {
+  AccountMenu,
+  AccountMenuItem,
+} from "@/components/ui/account-menu";
+```
+
+```tsx
+<AccountMenu
+  user={auth.user}
+  onSignOut={signOut}
+  manageAccountUrl="https://account.omni.dev"
+>
+  <AccountMenuItem value="/profile" asChild>
+    <Link to="/profile">Profile</Link>
+  </AccountMenuItem>
+</AccountMenu>
+```
+
+The trigger is the user's avatar, showing their initials until an image loads. The menu opens below it, aligned to its end, and is headed by the user's name and email. The app's own destinations come next, then **Manage account** (when `manageAccountUrl` is set, opened in a new tab), then **Sign out**.
+
+Every entry is a menu item: the arrow keys move between them, Home and End jump to the ends, typing a letter jumps to a matching entry, and Escape closes the menu and returns focus to the avatar. On touch screens the avatar and every entry get a 44px target.
+
+The component is router-agnostic. To make an entry a destination, wrap your router's link with `asChild`, as above.
+
+## Examples
+
+<br />
+
+#### Without an image
+
+When `user.image` is unset or fails to load, the avatar shows up to two initials from the name (or the first letter of the email).
+
+<div className="my-4 flex justify-center">
+  <AccountMenu user={{ name: "Grace Hopper", email: "grace@omni.dev" }} onSignOut={() => {}} />
+</div>
+
+```tsx
+<AccountMenu
+  user={{ name: "Grace Hopper", email: "grace@omni.dev" }}
+  onSignOut={signOut}
+/>
+```
+
+#### Custom labels
+
+```tsx
+<AccountMenu
+  user={user}
+  onSignOut={signOut}
+  manageAccountUrl={hubUrl}
+  manageAccountLabel="Account settings"
+  signOutLabel="Log out"
+  avatarSize="md"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `user` | `{ name?, email?, image? }` | | The signed-in user |
+| `onSignOut` | `() => void` | | Called when Sign out is chosen |
+| `children` | `ReactNode` | | The app's destinations, as `AccountMenuItem`s |
+| `manageAccountUrl` | `string` | | Link to the Omni account hub; hidden when unset |
+| `manageAccountLabel` | `string` | `"Manage account"` | |
+| `signOutLabel` | `string` | `"Sign out"` | |
+| `triggerLabel` | `string` | `"Open account menu"` | Accessible name of the avatar |
+| `avatarSize` | `"xs" \| "sm" \| "md" \| "lg" \| "xl"` | `"sm"` | |
+| `positioning` | `PositioningOptions` | `{ placement: "bottom-end" }` | |
+| `className` | `string` | | Classes for the avatar trigger |
+| `contentClassName` | `string` | | Classes for the menu panel |
