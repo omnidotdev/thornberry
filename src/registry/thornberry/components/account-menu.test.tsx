@@ -212,4 +212,21 @@ describe("AccountMenu", () => {
 
     expect(items).toEqual(["Profile", "Sign out"]);
   });
+
+  test("a collapsed icon sidebar keeps the row's name for screen readers", () => {
+    render(
+      <div data-collapsible="icon" className="group">
+        <AccountMenu variant="sidebar" user={user} onSignOut={() => {}} />
+      </div>,
+    );
+
+    const name = Array.from(document.querySelectorAll("span")).find(
+      (span) => span.textContent === "Ada Lovelaceada@example.com",
+    );
+
+    expect(name?.className).toContain("group-data-[collapsible=icon]:sr-only");
+    expect(name?.className).not.toContain(
+      "group-data-[collapsible=icon]:hidden",
+    );
+  });
 });
