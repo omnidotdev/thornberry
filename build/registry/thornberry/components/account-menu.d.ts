@@ -1,0 +1,63 @@
+import { AvatarRoot } from "../../../registry/thornberry/components/avatar";
+import { MenuItem, MenuRoot } from "../../../registry/thornberry/components/menu";
+import type { ComponentProps, ReactNode } from "react";
+/** The signed-in user the account menu belongs to */
+interface AccountMenuUser {
+    name?: string | null;
+    email?: string | null;
+    /** Avatar URL, if set; falls back to initials */
+    image?: string | null;
+}
+/**
+ * Up to two initials for an avatar fallback: the first letters of the first
+ * and last words of the name, else the first letter of the email, else "?"
+ * @param name - The user's display name
+ * @param email - The user's email, used when the name is blank
+ */
+declare const getInitials: (name?: string | null, email?: string | null) => string;
+/**
+ * An entry in the account menu. A menu item with a touch-sized target; wrap an
+ * app's router link with `asChild` to make it a destination
+ */
+declare const AccountMenuItem: ({ className, ...rest }: ComponentProps<typeof MenuItem>) => import("react/jsx-runtime").JSX.Element;
+interface AccountMenuProps {
+    /** The signed-in user */
+    user: AccountMenuUser;
+    /** Signs the user out; offered as the last entry */
+    onSignOut: () => void;
+    /** App destinations (`AccountMenuItem`s), listed under the user's name */
+    children?: ReactNode;
+    /** Link to the shared Omni account hub, opened in a new tab when set */
+    manageAccountUrl?: string;
+    manageAccountLabel?: string;
+    signOutLabel?: string;
+    /** Accessible name of the avatar trigger */
+    triggerLabel?: string;
+    /** Avatar size in the trigger */
+    avatarSize?: ComponentProps<typeof AvatarRoot>["size"];
+    /** Classes for the avatar trigger */
+    className?: string;
+    /** Classes for the menu panel */
+    contentClassName?: string;
+    /** Menu placement relative to the avatar. Defaults to below, end-aligned */
+    positioning?: ComponentProps<typeof MenuRoot>["positioning"];
+}
+/**
+ * The standard Omni account menu: the signed-in user's avatar (initials while
+ * no image loads), opening a menu headed by their name and email, with the
+ * app's destinations, an optional link to the Omni account hub, and Sign out.
+ *
+ * Presentational and router-agnostic: the host app passes the user, its own
+ * destinations as children, and the sign-out handler. Every entry is a menu
+ * item, so the arrow keys, Home/End, typeahead, and Escape all work.
+ *
+ * @example
+ * <AccountMenu user={auth.user} onSignOut={signOut} manageAccountUrl={hubUrl}>
+ *   <AccountMenuItem value="/profile" asChild>
+ *     <Link to="/profile">Profile</Link>
+ *   </AccountMenuItem>
+ * </AccountMenu>
+ */
+declare const AccountMenu: ({ user, onSignOut, children, manageAccountUrl, manageAccountLabel, signOutLabel, triggerLabel, avatarSize, className, contentClassName, positioning, }: AccountMenuProps) => import("react/jsx-runtime").JSX.Element;
+export type { AccountMenuProps, AccountMenuUser };
+export { AccountMenu, AccountMenuItem, getInitials };

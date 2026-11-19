@@ -68,6 +68,20 @@
       ]
     },
     {
+      "name": "account-menu",
+      "type": "registry:ui",
+      "title": "Account Menu",
+      "description": "The standard Omni account menu: the signed-in user's avatar opening their name, the app's destinations, the account hub, and Sign out",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["avatar", "menu"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/account-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "app-footer",
       "type": "registry:ui",
       "title": "App Footer",
