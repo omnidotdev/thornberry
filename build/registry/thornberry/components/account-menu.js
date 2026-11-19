@@ -77,7 +77,7 @@ var AccountMenu = ({
         children: [
           avatar,
           /* @__PURE__ */ jsxs("span", {
-            className: "flex min-w-0 flex-1 flex-col group-data-[collapsible=icon]:hidden",
+            className: "flex min-w-0 flex-1 flex-col group-data-[collapsible=icon]:sr-only",
             children: [
               /* @__PURE__ */ jsx("span", {
                 className: "truncate font-medium",

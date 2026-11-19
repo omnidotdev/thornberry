@@ -157,7 +157,9 @@ const AccountMenu = ({
           )}
         >
           {avatar}
-          <span className="flex min-w-0 flex-1 flex-col group-data-[collapsible=icon]:hidden">
+          {/* Visually hidden, not removed, in a collapsed icon sidebar, so the
+              avatar-only row keeps the user's name as its accessible name */}
+          <span className="flex min-w-0 flex-1 flex-col group-data-[collapsible=icon]:sr-only">
             <span className="truncate font-medium">{name ?? email}</span>
             {name && email && (
               <span className="text-muted-foreground truncate text-xs">
