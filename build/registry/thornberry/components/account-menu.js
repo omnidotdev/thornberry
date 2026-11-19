@@ -19,7 +19,7 @@ import {
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/account-menu.tsx
-import { ExternalLink, LogOut } from "lucide-react";
+import { ChevronsUpDown, ExternalLink, LogOut } from "lucide-react";
 import { jsx, jsxs } from "react/jsx-runtime";
 var getInitials = (name, email) => {
   const words = (name ?? "").trim().split(/\s+/).filter(Boolean);
@@ -46,33 +46,58 @@ var AccountMenu = ({
   manageAccountUrl,
   manageAccountLabel = "Manage account",
   signOutLabel = "Sign out",
+  variant = "avatar",
   triggerLabel = "Open account menu",
-  avatarSize = "sm",
+  avatarSize,
   className,
   contentClassName,
-  positioning = { placement: "bottom-end" }
+  positioning
 }) => {
   const name = user.name?.trim() || null;
   const email = user.email?.trim() || null;
-  return /* @__PURE__ */ jsxs(MenuRoot2, {
-    positioning,
+  const isSidebar = variant === "sidebar";
+  const avatar = /* @__PURE__ */ jsxs(AvatarRoot2, {
+    size: avatarSize ?? (isSidebar ? "xs" : "sm"),
     children: [
-      /* @__PURE__ */ jsx(MenuTrigger2, {
+      /* @__PURE__ */ jsx(AvatarImage2, {
+        src: user.image ?? undefined,
+        alt: ""
+      }),
+      /* @__PURE__ */ jsx(AvatarFallback2, {
+        className: "font-medium",
+        children: getInitials(name, email)
+      })
+    ]
+  });
+  return /* @__PURE__ */ jsxs(MenuRoot2, {
+    positioning: positioning ?? { placement: isSidebar ? "right-end" : "bottom-end" },
+    children: [
+      isSidebar ? /* @__PURE__ */ jsxs(MenuTrigger2, {
+        className: cn("flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm transition-colors hover:bg-muted data-[state=open]:bg-muted pointer-coarse:min-h-11", "group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0", className),
+        children: [
+          avatar,
+          /* @__PURE__ */ jsxs("span", {
+            className: "flex min-w-0 flex-1 flex-col group-data-[collapsible=icon]:hidden",
+            children: [
+              /* @__PURE__ */ jsx("span", {
+                className: "truncate font-medium",
+                children: name ?? email
+              }),
+              name && email && /* @__PURE__ */ jsx("span", {
+                className: "text-muted-foreground truncate text-xs",
+                children: email
+              })
+            ]
+          }),
+          /* @__PURE__ */ jsx(ChevronsUpDown, {
+            className: "text-muted-foreground size-4 shrink-0 group-data-[collapsible=icon]:hidden",
+            "aria-hidden": true
+          })
+        ]
+      }) : /* @__PURE__ */ jsx(MenuTrigger2, {
         "aria-label": triggerLabel,
         className: cn("inline-flex shrink-0 items-center justify-center rounded-full transition-shadow hover:ring-2 hover:ring-border data-[state=open]:ring-2 data-[state=open]:ring-border pointer-coarse:size-11", className),
-        children: /* @__PURE__ */ jsxs(AvatarRoot2, {
-          size: avatarSize,
-          children: [
-            /* @__PURE__ */ jsx(AvatarImage2, {
-              src: user.image ?? undefined,
-              alt: ""
-            }),
-            /* @__PURE__ */ jsx(AvatarFallback2, {
-              className: "font-medium",
-              children: getInitials(name, email)
-            })
-          ]
-        })
+        children: avatar
       }),
       /* @__PURE__ */ jsx(MenuPositioner2, {
         children: /* @__PURE__ */ jsxs(MenuContent2, {

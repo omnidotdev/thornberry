@@ -181,4 +181,35 @@ describe("AccountMenu", () => {
     expect(document.body.textContent).toContain("ada@example.com");
     expect(document.body.textContent).toContain("A");
   });
+
+  test("the sidebar row shows the user's name and email and opens the same menu", async () => {
+    const onSignOut = mock(() => {});
+
+    render(
+      <AccountMenu variant="sidebar" user={user} onSignOut={onSignOut}>
+        <AccountMenuItem value="/profile">Profile</AccountMenuItem>
+      </AccountMenu>,
+    );
+
+    const trigger = document.querySelector<HTMLButtonElement>(
+      "[aria-haspopup='menu']",
+    );
+    if (!trigger) throw new Error("expected the sidebar row trigger");
+
+    // Named by its visible text, so the label matches what is on screen
+    expect(trigger.getAttribute("aria-label")).toBeNull();
+    expect(trigger.textContent).toContain("Ada Lovelace");
+    expect(trigger.textContent).toContain("ada@example.com");
+    expect(trigger.className).toContain("cursor-pointer");
+
+    await act(async () => {
+      fireEvent.click(trigger);
+    });
+
+    const items = Array.from(
+      document.querySelectorAll<HTMLElement>("[role='menuitem']"),
+    ).map((item) => item.textContent?.trim());
+
+    expect(items).toEqual(["Profile", "Sign out"]);
+  });
 });

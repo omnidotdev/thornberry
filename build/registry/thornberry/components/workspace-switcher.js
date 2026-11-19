@@ -20,6 +20,7 @@ import {
 // src/registry/thornberry/components/workspace-switcher.tsx
 import { Check, ChevronsUpDown, ExternalLink } from "lucide-react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
+var MANAGE_VALUE = "manage-workspaces";
 var WorkspaceAvatar = ({ workspace }) => /* @__PURE__ */ jsxs(AvatarRoot2, {
   className: "size-5 shrink-0 text-xs",
   children: [
@@ -74,7 +75,10 @@ var WorkspaceSwitcher = ({
     });
   }
   return /* @__PURE__ */ jsxs(MenuRoot2, {
-    onSelect: (details) => onSelect(details.value),
+    onSelect: (details) => {
+      if (details.value !== MANAGE_VALUE)
+        onSelect(details.value);
+    },
     children: [
       /* @__PURE__ */ jsx(MenuTrigger2, {
         asChild: true,
@@ -105,9 +109,21 @@ var WorkspaceSwitcher = ({
                     /* @__PURE__ */ jsx(WorkspaceAvatar, {
                       workspace
                     }),
-                    /* @__PURE__ */ jsx("span", {
-                      className: "flex-1 truncate",
-                      children: workspace.name
+                    /* @__PURE__ */ jsxs("span", {
+                      className: "flex min-w-0 flex-1 flex-col",
+                      children: [
+                        /* @__PURE__ */ jsx("span", {
+                          className: "truncate",
+                          children: workspace.name
+                        }),
+                        workspace.slug && /* @__PURE__ */ jsxs("span", {
+                          className: "text-muted-foreground truncate text-xs",
+                          children: [
+                            "@",
+                            workspace.slug
+                          ]
+                        })
+                      ]
                     }),
                     workspace.id === currentWorkspaceId && /* @__PURE__ */ jsx(Check, {
                       className: "size-4 shrink-0"
@@ -119,17 +135,21 @@ var WorkspaceSwitcher = ({
             manageUrl && /* @__PURE__ */ jsxs(Fragment, {
               children: [
                 /* @__PURE__ */ jsx(MenuSeparator2, {}),
-                /* @__PURE__ */ jsxs("a", {
-                  href: manageUrl,
-                  target: "_blank",
-                  rel: "noreferrer",
-                  className: "text-muted-foreground hover:bg-accent flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm",
-                  children: [
-                    /* @__PURE__ */ jsx(ExternalLink, {
-                      className: "size-4"
-                    }),
-                    manageLabel
-                  ]
+                /* @__PURE__ */ jsx(MenuItem2, {
+                  value: MANAGE_VALUE,
+                  asChild: true,
+                  children: /* @__PURE__ */ jsxs("a", {
+                    href: manageUrl,
+                    target: "_blank",
+                    rel: "noreferrer",
+                    className: "text-muted-foreground",
+                    children: [
+                      /* @__PURE__ */ jsx(ExternalLink, {
+                        className: "size-4"
+                      }),
+                      manageLabel
+                    ]
+                  })
                 })
               ]
             })

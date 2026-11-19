@@ -2,6 +2,8 @@
 export interface WorkspaceOption {
     id: string;
     name: string;
+    /** The workspace's `@handle`, shown under its name in the list when set. */
+    slug?: string | null;
     /** Logo URL, if set; falls back to the name's first letter. */
     logo?: string | null;
 }
