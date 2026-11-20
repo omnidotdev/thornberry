@@ -1,0 +1,77 @@
+---
+title: Options Menu
+description: A small settings menu beside a composer's send button, for secondary choices like a model or quality level.
+---
+
+import { OptionsMenu, OptionsMenuChoice } from "@/registry/thornberry/components/options-menu";
+
+<div className="flex justify-center my-8">
+  <OptionsMenu>
+    <OptionsMenuChoice
+      label="Quality"
+      value="balanced"
+      onValueChange={() => {}}
+      options={[
+        { value: "fast", label: "Fast", description: "Quick drafts and small edits", hint: "Fewer credits" },
+        { value: "balanced", label: "Balanced", description: "Great results for most requests" },
+        { value: "best", label: "Most capable", description: "Richer, more detailed results", hint: "More credits" },
+      ]}
+    />
+  </OptionsMenu>
+</div>
+
+## Installation
+
+<InstallationTabs filename="options-menu.json" />
+
+## Usage
+
+```tsx
+import { OptionsMenu, OptionsMenuChoice } from "@/components/ui/options-menu";
+```
+
+```tsx
+<OptionsMenu>
+  <OptionsMenuChoice
+    label="Quality"
+    value={quality}
+    onValueChange={setQuality}
+    options={[
+      { value: "fast", label: "Fast", description: "Quick drafts and small edits" },
+      { value: "balanced", label: "Balanced", description: "Great results for most requests" },
+    ]}
+  />
+</OptionsMenu>
+```
+
+Keep a composer's main row to what most people need (the prompt, attach, send) and move secondary settings here. Give each choice a plain name and a one-line description of what it is good for, rather than a technical name.
+
+## Behavior
+
+- The trigger is a sliders icon named "Options" for screen readers (set `label` to rename it, `showLabel` to show the name, `icon` to swap the icon), with a 44px target on touch screens
+- The menu opens above the trigger by default (`placement`), portaled to the body so a clipped composer never cuts it off
+- `OptionsMenuChoice` is a radio group: arrow keys move between rows, and each row shows its `label`, an optional `hint` (such as a relative cost), and an optional `description`
+- The host owns and persists every value; the menu stays open after a pick so the change is visible
+
+## Props
+
+### OptionsMenu
+
+| Prop | Type | Default |
+|------|------|---------|
+| `label` | `string` | `"Options"` |
+| `showLabel` | `boolean` | `false` |
+| `icon` | `ReactNode` | sliders icon |
+| `placement` | `"top-start" \| "top-end" \| "bottom-start" \| "bottom-end"` | `"top-end"` |
+| `open` / `onOpenChange` | `boolean` / `(open: boolean) => void` | uncontrolled |
+| `disabled` | `boolean` | `false` |
+
+### OptionsMenuChoice
+
+| Prop | Type | Default |
+|------|------|---------|
+| `label` | `string` | |
+| `value` | `string` | |
+| `onValueChange` | `(value: string) => void` | |
+| `options` | `{ value: string; label: string; description?: string; hint?: string }[]` | |
+| `disabled` | `boolean` | `false` |

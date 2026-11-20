@@ -255,7 +255,9 @@ const AiDescribePanel = ({
               </div>
             )}
 
-            <div className="flex items-center justify-between gap-3">
+            {/* On a phone the meta sits above the actions instead of being
+                squeezed into a narrow column beside them */}
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               {/* Left: a live status while pending (so a multi-step run reads as
                   progress), otherwise the host's meta (credits, cost estimate).
                   Keeps the row present so the actions never shift */}
@@ -277,17 +279,23 @@ const AiDescribePanel = ({
                   variant="outline"
                   onClick={() => onOpenChange(false)}
                   disabled={isPending}
+                  className="pointer-coarse:min-h-11"
                 >
                   Cancel
                 </Button>
                 {mode === "signIn" ? (
-                  <Button onClick={onSignIn} disabled={isPending || !onSignIn}>
+                  <Button
+                    onClick={onSignIn}
+                    disabled={isPending || !onSignIn}
+                    className="pointer-coarse:min-h-11"
+                  >
                     {signInLabel}
                   </Button>
                 ) : (
                   <Button
                     onClick={onGenerate}
                     disabled={isPending || !canGenerate}
+                    className="pointer-coarse:min-h-11"
                   >
                     {isPending ? (
                       <Loader2 className="size-4 animate-spin" />

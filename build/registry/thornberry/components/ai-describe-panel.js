@@ -160,7 +160,7 @@ var AiDescribePanel = ({
                 ]
               }),
               /* @__PURE__ */ jsxs("div", {
-                className: "flex items-center justify-between gap-3",
+                className: "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between",
                 children: [
                   /* @__PURE__ */ jsx("div", {
                     className: "text-muted-foreground min-w-0 flex-1 text-xs",
@@ -184,15 +184,18 @@ var AiDescribePanel = ({
                         variant: "outline",
                         onClick: () => onOpenChange(false),
                         disabled: isPending,
+                        className: "pointer-coarse:min-h-11",
                         children: "Cancel"
                       }),
                       mode === "signIn" ? /* @__PURE__ */ jsx(Button2, {
                         onClick: onSignIn,
                         disabled: isPending || !onSignIn,
+                        className: "pointer-coarse:min-h-11",
                         children: signInLabel
                       }) : /* @__PURE__ */ jsx(Button2, {
                         onClick: onGenerate,
                         disabled: isPending || !canGenerate,
+                        className: "pointer-coarse:min-h-11",
                         children: isPending ? /* @__PURE__ */ jsx(Loader2, {
                           className: "size-4 animate-spin"
                         }) : generateLabel
