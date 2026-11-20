@@ -1,0 +1,98 @@
+---
+title: Prompt Suggestions
+description: Example prompt chips for an empty composer, with a control to cycle through more ideas.
+---
+
+import { PromptSuggestions } from "@/registry/thornberry/components/prompt-suggestions";
+
+<div className="my-8 max-w-xl">
+  <PromptSuggestions
+    suggestions={[
+      "A booking site for a dog groomer in Austin",
+      "A portfolio for a wedding photographer",
+      "A menu site for a ramen bar with online orders",
+      "A landing page for a budgeting app",
+      "A site for a neighborhood book club",
+      "A conference site with a schedule and speakers",
+    ]}
+    onPick={() => {}}
+  />
+</div>
+
+## Installation
+
+<InstallationTabs filename="prompt-suggestions.json" />
+
+## Usage
+
+```tsx
+import { PromptSuggestions } from "@/components/ui/prompt-suggestions";
+```
+
+```tsx
+{input.trim() === "" && (
+  <PromptSuggestions
+    suggestions={examples}
+    onPick={(prompt) => {
+      setInput(prompt);
+      composerRef.current?.focus();
+    }}
+  />
+)}
+```
+
+A pick drafts the example into the composer so the user can edit it before sending. Never send it outright.
+
+## Examples
+
+<br />
+
+#### Short labels, fuller prompts
+
+A suggestion can be a string, or an object whose short `label` shows on the chip while its fuller `prompt` is what a pick hands over.
+
+```tsx
+<PromptSuggestions
+  suggestions={[
+    {
+      label: "A booking site for a dog groomer",
+      prompt:
+        "A booking site for a dog groomer in Austin, with services, prices, and a request form",
+    },
+  ]}
+  onPick={draft}
+/>
+```
+
+#### In a chat thread
+
+`AiChatThread` takes `suggestions` (and `suggestionCount`) and shows them above its composer while the thread is empty and the composer is blank. A pick drafts the prompt and focuses the composer.
+
+```tsx
+<AiChatThread
+  messages={messages}
+  input={input}
+  onInputChange={setInput}
+  onSend={send}
+  suggestions={examples}
+/>
+```
+
+## Behavior
+
+- The examples are drawn in a random order on each visit, after mount, so a server render and its hydration agree
+- **More ideas** swaps in the next set and walks through every example before repeating. It shows whenever there are more examples than `count` (4 by default); set `shuffle` to override
+- Every chip gets a 44px target on touch screens
+
+## Props
+
+| Prop | Type | Default |
+|------|------|---------|
+| `suggestions` | `(string \| { label: string; prompt?: string })[]` | |
+| `onPick` | `(prompt: string, suggestion) => void` | |
+| `count` | `number` | `4` |
+| `shuffle` | `boolean` | more examples than `count` |
+| `shuffleLabel` | `string` | `"More ideas"` |
+| `label` | `string` | `"Example prompts"` |
+| `disabled` | `boolean` | `false` |
+| `random` | `() => number` | `Math.random` |

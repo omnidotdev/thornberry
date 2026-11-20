@@ -127,4 +127,67 @@ describe("AiChatThread", () => {
     expect(getByText("voice")).toBeDefined();
     expect(getByText("Shift+Enter for a new line")).toBeDefined();
   });
+
+  test("drafts a picked example prompt into the composer, without sending", () => {
+    const onInputChange = mock();
+    const onSend = mock();
+    const { getByText, getByRole } = render(
+      <AiChatThread
+        messages={[]}
+        input=""
+        onInputChange={onInputChange}
+        onSend={onSend}
+        suggestions={["A booking site for a dog groomer"]}
+      />,
+    );
+
+    expect(getByRole("group", { name: "Example prompts" })).toBeDefined();
+
+    fireEvent.click(getByText("A booking site for a dog groomer"));
+
+    expect(onInputChange).toHaveBeenCalledWith(
+      "A booking site for a dog groomer",
+    );
+    expect(onSend).not.toHaveBeenCalled();
+    expect(document.activeElement).toBe(getByRole("textbox"));
+  });
+
+  test("hides the examples once the user types or the thread has messages", () => {
+    const suggestions = ["A booking site for a dog groomer"];
+    const { queryByRole, rerender } = render(
+      <AiChatThread
+        messages={[]}
+        input="a bakery"
+        onInputChange={noop}
+        onSend={noop}
+        suggestions={suggestions}
+      />,
+    );
+
+    expect(queryByRole("group", { name: "Example prompts" })).toBeNull();
+
+    rerender(
+      <AiChatThread
+        messages={messages}
+        input=""
+        onInputChange={noop}
+        onSend={noop}
+        suggestions={suggestions}
+      />,
+    );
+
+    expect(queryByRole("group", { name: "Example prompts" })).toBeNull();
+
+    rerender(
+      <AiChatThread
+        messages={[]}
+        input=""
+        onInputChange={noop}
+        onSend={noop}
+        suggestions={suggestions}
+      />,
+    );
+
+    expect(queryByRole("group", { name: "Example prompts" })).not.toBeNull();
+  });
 });

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { PromptSuggestion } from "../../../registry/thornberry/components/prompt-suggestions";
 /**
  * One ordered piece of a chat message. Mirrors the typed-parts model common to
  * streaming chat SDKs: plain text, model thinking, a tool call, and its result.
@@ -67,6 +68,15 @@ export interface AiChatThreadProps {
     composerActions?: ReactNode;
     /** A small hint under the composer, e.g. "Shift+Enter for a new line". */
     footerHint?: ReactNode;
+    /**
+     * Example prompts shown as chips above the composer while the thread is
+     * empty and the composer is blank (see `PromptSuggestions`). Picking one
+     * drafts its prompt into the composer and focuses it; it is never sent
+     * until the user sends it
+     */
+    suggestions?: readonly (string | PromptSuggestion)[];
+    /** How many example prompts show at once. Defaults to 4 */
+    suggestionCount?: number;
 }
 /**
  * Chat thread: the shared conversation surface for the fleet's AI assistants
@@ -78,5 +88,5 @@ export interface AiChatThreadProps {
  * that hook's messages onto `ChatMessage`/`ChatPart` and passing `status` and
  * the send handler. This owns no network, streaming, or tool-execution logic
  */
-declare const AiChatThread: ({ messages, status, input, onInputChange, onSend, placeholder, emptyState, notice, disabled, renderText, renderAvatar, composerAccessory, composerActions, footerHint, }: AiChatThreadProps) => import("react/jsx-runtime").JSX.Element;
+declare const AiChatThread: ({ messages, status, input, onInputChange, onSend, placeholder, emptyState, notice, disabled, renderText, renderAvatar, composerAccessory, composerActions, footerHint, suggestions, suggestionCount, }: AiChatThreadProps) => import("react/jsx-runtime").JSX.Element;
 export { AiChatThread };
