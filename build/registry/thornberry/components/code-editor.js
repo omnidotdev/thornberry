@@ -5,9 +5,14 @@ import {
 // src/registry/thornberry/components/code-editor.tsx
 import { autocompletion } from "@codemirror/autocomplete";
 import { indentWithTab, redo, undo } from "@codemirror/commands";
-import { indentUnit } from "@codemirror/language";
+import {
+  HighlightStyle,
+  indentUnit,
+  syntaxHighlighting
+} from "@codemirror/language";
 import { Compartment, EditorState } from "@codemirror/state";
 import { EditorView, keymap, placeholder } from "@codemirror/view";
+import { tags as t } from "@lezer/highlight";
 import { basicSetup } from "codemirror";
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { jsx } from "react/jsx-runtime";
@@ -49,6 +54,40 @@ var tokenTheme = (opts = {}) => EditorView.theme({
     color: "var(--foreground, #0a0a0a)"
   }
 }, { dark: opts.dark ?? false });
+var tokenHighlightStyle = HighlightStyle.define([
+  {
+    tag: [t.keyword, t.controlKeyword, t.moduleKeyword, t.definitionKeyword],
+    color: "var(--primary, #7c3aed)"
+  },
+  { tag: [t.tagName], color: "var(--chart-1, #2563eb)" },
+  {
+    tag: [t.function(t.variableName), t.function(t.propertyName)],
+    color: "var(--chart-1, #2563eb)"
+  },
+  {
+    tag: [t.string, t.special(t.string), t.attributeValue, t.regexp],
+    color: "var(--chart-2, #15803d)"
+  },
+  {
+    tag: [t.number, t.bool, t.null, t.atom, t.unit, t.color],
+    color: "var(--chart-3, #c2410c)"
+  },
+  {
+    tag: [t.attributeName, t.className, t.typeName],
+    color: "var(--chart-4, #b45309)"
+  },
+  { tag: [t.propertyName], color: "var(--chart-5, #0e7490)" },
+  {
+    tag: [t.comment, t.lineComment, t.blockComment],
+    color: "var(--muted-foreground, #71717a)",
+    fontStyle: "italic"
+  },
+  {
+    tag: [t.punctuation, t.angleBracket, t.operator, t.separator],
+    color: "var(--muted-foreground, #71717a)"
+  }
+]);
+var tokenSyntax = () => syntaxHighlighting(tokenHighlightStyle);
 var createDoubleClickGuard = (mode = "swallow-dblclick") => {
   if (mode === false)
     return [];
@@ -278,5 +317,7 @@ export {
   CodeEditor,
   createCodeEditor,
   createDoubleClickGuard,
+  tokenHighlightStyle,
+  tokenSyntax,
   tokenTheme
 };
