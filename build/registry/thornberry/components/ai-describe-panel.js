@@ -18,11 +18,15 @@ import {
   PasswordInput2
 } from "../../../chunks/ai-describe-panel-nw1mqaed.js";
 import {
+  PromptSuggestions2
+} from "../../../chunks/ai-describe-panel-645h2f0w.js";
+import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/ai-describe-panel.tsx
 import { Loader2 } from "lucide-react";
+import { useRef } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 var PromptTextarea = ({
   className,
@@ -41,6 +45,7 @@ var AiDescribePanel = ({
   onPromptChange,
   placeholder = "Describe what you want to build",
   suggestions,
+  suggestionCount,
   onPickSuggestion,
   onGenerate,
   isPending = false,
@@ -52,6 +57,7 @@ var AiDescribePanel = ({
   notice,
   byok
 }) => {
+  const promptRef = useRef(null);
   const showSuggestions = mode === "generate" && prompt.trim().length === 0 && suggestions && suggestions.length > 0;
   const canGenerate = mode === "generate" && prompt.trim().length > 0;
   return /* @__PURE__ */ jsx(DialogRoot2, {
@@ -81,6 +87,7 @@ var AiDescribePanel = ({
                 className: "space-y-2",
                 children: [
                   /* @__PURE__ */ jsx(PromptTextarea, {
+                    ref: promptRef,
                     value: prompt,
                     onChange: (event) => onPromptChange(event.target.value),
                     onKeyDown: (event) => {
@@ -93,16 +100,14 @@ var AiDescribePanel = ({
                     disabled: isPending || mode === "signIn",
                     "aria-label": title
                   }),
-                  showSuggestions && /* @__PURE__ */ jsx("div", {
-                    className: "flex flex-wrap gap-2",
-                    children: suggestions?.map((suggestion) => /* @__PURE__ */ jsx(Button2, {
-                      type: "button",
-                      variant: "outline",
-                      size: "sm",
-                      disabled: isPending,
-                      onClick: () => onPickSuggestion?.(suggestion),
-                      children: suggestion
-                    }, suggestion))
+                  showSuggestions && /* @__PURE__ */ jsx(PromptSuggestions2, {
+                    suggestions,
+                    count: suggestionCount,
+                    disabled: isPending,
+                    onPick: (picked) => {
+                      onPickSuggestion?.(picked);
+                      promptRef.current?.focus();
+                    }
                   })
                 ]
               }),

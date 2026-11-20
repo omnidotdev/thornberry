@@ -1,4 +1,5 @@
 import { Loader2 } from "lucide-react";
+import { useRef } from "react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
@@ -13,8 +14,10 @@ import {
 } from "@/registry/thornberry/components/dialog";
 import { Label } from "@/registry/thornberry/components/label";
 import { PasswordInput } from "@/registry/thornberry/components/password-input";
+import { PromptSuggestions } from "@/registry/thornberry/components/prompt-suggestions";
 
 import type { ComponentProps, ReactNode } from "react";
+import type { PromptSuggestion } from "@/registry/thornberry/components/prompt-suggestions";
 
 /**
  * Which affordance the panel leads with:
@@ -38,9 +41,16 @@ export interface AiDescribePanelProps {
   prompt: string;
   onPromptChange: (prompt: string) => void;
   placeholder?: string;
-  /** Starter prompts shown as chips while the prompt is empty. */
-  suggestions?: readonly string[];
-  onPickSuggestion?: (suggestion: string) => void;
+  /**
+   * Example prompts shown as chips under the prompt while it is empty (see
+   * `PromptSuggestions`): drawn in a random order per open, with "More ideas"
+   * when there are more than `suggestionCount`. A pick hands its prompt to
+   * `onPickSuggestion` and focuses the prompt; it never generates outright
+   */
+  suggestions?: readonly (string | PromptSuggestion)[];
+  /** How many example prompts show at once. Defaults to 4 */
+  suggestionCount?: number;
+  onPickSuggestion?: (prompt: string) => void;
 
   /** Fire a generation with the current prompt. */
   onGenerate: () => void;
@@ -118,6 +128,7 @@ const AiDescribePanel = ({
   onPromptChange,
   placeholder = "Describe what you want to build",
   suggestions,
+  suggestionCount,
   onPickSuggestion,
   onGenerate,
   isPending = false,
@@ -129,6 +140,8 @@ const AiDescribePanel = ({
   notice,
   byok,
 }: AiDescribePanelProps) => {
+  const promptRef = useRef<HTMLTextAreaElement>(null);
+
   const showSuggestions =
     mode === "generate" &&
     prompt.trim().length === 0 &&
@@ -159,6 +172,7 @@ const AiDescribePanel = ({
             {mode !== "needsKey" && (
               <div className="space-y-2">
                 <PromptTextarea
+                  ref={promptRef}
                   value={prompt}
                   onChange={(event) => onPromptChange(event.target.value)}
                   onKeyDown={(event) => {
@@ -179,20 +193,15 @@ const AiDescribePanel = ({
                 />
 
                 {showSuggestions && (
-                  <div className="flex flex-wrap gap-2">
-                    {suggestions?.map((suggestion) => (
-                      <Button
-                        key={suggestion}
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        disabled={isPending}
-                        onClick={() => onPickSuggestion?.(suggestion)}
-                      >
-                        {suggestion}
-                      </Button>
-                    ))}
-                  </div>
+                  <PromptSuggestions
+                    suggestions={suggestions}
+                    count={suggestionCount}
+                    disabled={isPending}
+                    onPick={(picked) => {
+                      onPickSuggestion?.(picked);
+                      promptRef.current?.focus();
+                    }}
+                  />
                 )}
               </div>
             )}
