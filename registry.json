@@ -32,6 +32,19 @@
       ]
     },
     {
+      "name": "options-menu",
+      "type": "registry:ui",
+      "title": "Options Menu",
+      "description": "A small settings menu beside a composer's send button: an icon trigger that opens a popover of secondary choices, each with a plain name, an optional hint, and a one-line description",
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/options-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "ai-describe-panel",
       "type": "registry:ui",
       "title": "AI Describe Panel",
