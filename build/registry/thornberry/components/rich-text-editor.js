@@ -2,6 +2,13 @@ import {
   Button2
 } from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import {
+  checkImageSrc2,
+  RichTextImageNode2,
+  getRichTextImageSummary2,
+  RichTextImages2,
+  RichTextImageToolbarControls2
+} from "../../../chunks/ai-describe-panel-2t12rj8s.js";
+import {
   Skeleton2
 } from "../../../chunks/ai-describe-panel-4ayhnmp9.js";
 import {
@@ -199,6 +206,7 @@ var ToolbarButton = ({
 });
 var Toolbar = ({
   enableChecklist,
+  enableImages,
   className
 }) => {
   const [editor] = useLexicalComposerContext();
@@ -240,6 +248,14 @@ var Toolbar = ({
         label: "Link",
         onClick: insertLink,
         children: /* @__PURE__ */ jsx(LinkIcon, {})
+      }),
+      enableImages && /* @__PURE__ */ jsx(RichTextImageToolbarControls2, {
+        renderButton: ({ label, icon, onClick, pressed }) => /* @__PURE__ */ jsx(ToolbarButton, {
+          label,
+          "aria-pressed": pressed,
+          onClick,
+          children: icon
+        }, label)
       })
     ]
   });
@@ -648,6 +664,7 @@ var RichTextEditor = ({
   issueReferenceItems,
   enableChecklist,
   enableBlockDrag,
+  images,
   extraNodes,
   plugins,
   theme,
@@ -699,79 +716,90 @@ var RichTextEditor = ({
       ListItemNode,
       LinkNode,
       AutoLinkNode,
+      RichTextImageNode2,
       ...extraNodes ?? []
     ]
   };
   const handleChange = (_state, editor) => {
-    const empty = isEditorEmpty(editor);
+    const imageSummary = images ? getRichTextImageSummary2(editor) : null;
+    const empty = isEditorEmpty(editor) && !imageSummary?.count;
     setIsEmpty(empty);
     onUpdate?.({
       getHTML: () => exportToHtml(editor),
       getText: () => getTextContent(editor),
-      isEmpty: empty
+      isEmpty: empty,
+      hasMissingAltText: imageSummary?.hasMissingAltText ?? false,
+      isUploading: imageSummary?.isUploading ?? false,
+      hasExternalImages: imageSummary?.hasExternalImages ?? false
     });
   };
   return /* @__PURE__ */ jsx("div", {
     className: cn("rounded-md border border-input bg-background text-sm focus-within:ring-1 focus-within:ring-ring", className),
+    "data-rich-text-editor": "",
     ...rest,
-    children: /* @__PURE__ */ jsxs(LexicalComposer, {
+    children: /* @__PURE__ */ jsx(LexicalComposer, {
       initialConfig,
-      children: [
-        !hideToolbar && editable && /* @__PURE__ */ jsx(Toolbar, {
-          enableChecklist,
-          className: toolbarClassName
-        }),
-        /* @__PURE__ */ jsxs("div", {
-          className: "relative",
-          ref: onAnchorRef,
-          children: [
-            /* @__PURE__ */ jsx(RichTextPlugin, {
-              contentEditable: /* @__PURE__ */ jsx(ContentEditable, {
-                className: cn("min-h-20 px-3 py-2 text-base outline-none md:text-sm", blockDragEnabled && "pl-7", editorClassName),
-                spellCheck: true
+      children: /* @__PURE__ */ jsxs(RichTextImages2, {
+        options: images,
+        children: [
+          !hideToolbar && editable && /* @__PURE__ */ jsx(Toolbar, {
+            enableChecklist,
+            enableImages: Boolean(images),
+            className: toolbarClassName
+          }),
+          /* @__PURE__ */ jsxs("div", {
+            className: "relative",
+            ref: onAnchorRef,
+            children: [
+              /* @__PURE__ */ jsx(RichTextPlugin, {
+                contentEditable: /* @__PURE__ */ jsx(ContentEditable, {
+                  className: cn("min-h-20 px-3 py-2 text-base outline-none md:text-sm", blockDragEnabled && "pl-7", editorClassName),
+                  spellCheck: true
+                }),
+                placeholder: placeholder && isEmpty ? /* @__PURE__ */ jsx("div", {
+                  className: cn("pointer-events-none absolute top-2 left-3 select-none text-muted-foreground", blockDragEnabled && "left-7"),
+                  children: placeholder
+                }) : null,
+                ErrorBoundary: LexicalErrorBoundary
               }),
-              placeholder: placeholder && isEmpty ? /* @__PURE__ */ jsx("div", {
-                className: cn("pointer-events-none absolute top-2 left-3 select-none text-muted-foreground", blockDragEnabled && "left-7"),
-                children: placeholder
+              /* @__PURE__ */ jsx(HistoryPlugin, {}),
+              /* @__PURE__ */ jsx(ListPlugin, {}),
+              enableChecklist && /* @__PURE__ */ jsx(CheckListPlugin, {}),
+              /* @__PURE__ */ jsx(TabIndentationPlugin, {}),
+              /* @__PURE__ */ jsx(MarkdownShortcutPlugin, {
+                transformers: MARKDOWN_TRANSFORMERS
+              }),
+              /* @__PURE__ */ jsx(LinkPlugin, {}),
+              /* @__PURE__ */ jsx(LinkShortcutsPlugin, {}),
+              /* @__PURE__ */ jsx(AutoLinkPlugin, {
+                matchers: AUTO_LINK_MATCHERS
+              }),
+              /* @__PURE__ */ jsx(ClickableLinkPlugin, {}),
+              mentionItems?.length ? /* @__PURE__ */ jsx(MentionTypeahead, {
+                items: mentionItems
               }) : null,
-              ErrorBoundary: LexicalErrorBoundary
-            }),
-            /* @__PURE__ */ jsx(HistoryPlugin, {}),
-            /* @__PURE__ */ jsx(ListPlugin, {}),
-            enableChecklist && /* @__PURE__ */ jsx(CheckListPlugin, {}),
-            /* @__PURE__ */ jsx(TabIndentationPlugin, {}),
-            /* @__PURE__ */ jsx(MarkdownShortcutPlugin, {
-              transformers: MARKDOWN_TRANSFORMERS
-            }),
-            /* @__PURE__ */ jsx(LinkPlugin, {}),
-            /* @__PURE__ */ jsx(LinkShortcutsPlugin, {}),
-            /* @__PURE__ */ jsx(AutoLinkPlugin, {
-              matchers: AUTO_LINK_MATCHERS
-            }),
-            /* @__PURE__ */ jsx(ClickableLinkPlugin, {}),
-            mentionItems?.length ? /* @__PURE__ */ jsx(MentionTypeahead, {
-              items: mentionItems
-            }) : null,
-            issueReferenceItems?.length ? /* @__PURE__ */ jsx(IssueReferenceTypeahead, {
-              items: issueReferenceItems
-            }) : null,
-            blockDragEnabled && anchorElem ? /* @__PURE__ */ jsx(BlockDragPlugin, {
-              anchorElem
-            }) : null,
-            plugins,
-            /* @__PURE__ */ jsx(OnChangePlugin, {
-              onChange: handleChange
-            }),
-            /* @__PURE__ */ jsx(EditablePlugin, {
-              editable
-            }),
-            /* @__PURE__ */ jsx(EditorApiPlugin, {
-              editorApi,
-              defaultContent
-            })
-          ]
-        })
-      ]
+              issueReferenceItems?.length ? /* @__PURE__ */ jsx(IssueReferenceTypeahead, {
+                items: issueReferenceItems
+              }) : null,
+              blockDragEnabled && anchorElem ? /* @__PURE__ */ jsx(BlockDragPlugin, {
+                anchorElem
+              }) : null,
+              plugins,
+              /* @__PURE__ */ jsx(OnChangePlugin, {
+                onChange: handleChange,
+                ignoreHistoryMergeTagChange: !images
+              }),
+              /* @__PURE__ */ jsx(EditablePlugin, {
+                editable
+              }),
+              /* @__PURE__ */ jsx(EditorApiPlugin, {
+                editorApi,
+                defaultContent
+              })
+            ]
+          })
+        ]
+      })
     })
   });
 };
@@ -821,9 +849,36 @@ var openLinksInNewTab = (node) => {
     node.setAttribute("rel", "noopener noreferrer");
   }
 };
+var IMAGE_ATTRIBUTES = new Set(["src", "alt", "width"]);
+var sanitizeImage = (node, allowInsecureHttp, isAllowedSrc) => {
+  if (node.tagName !== "IMG") {
+    for (const name of IMAGE_ATTRIBUTES) {
+      if (name !== "alt")
+        node.removeAttribute(name);
+    }
+    return;
+  }
+  const src = node.getAttribute("src");
+  if (!src || checkImageSrc2(src, { allowInsecureHttp, isAllowedSrc }) !== "allowed") {
+    node.remove();
+    return;
+  }
+  for (const { name } of Array.from(node.attributes)) {
+    if (!IMAGE_ATTRIBUTES.has(name))
+      node.removeAttribute(name);
+  }
+  node.setAttribute("src", new URL(src.trim()).href);
+  const width = (node.getAttribute("width") ?? "").trim();
+  if (!/^\d+$/.test(width) || Number(width) === 0) {
+    node.removeAttribute("width");
+  }
+};
 var RichTextContent = ({
   html,
   fallback = null,
+  allowImages = false,
+  allowInsecureHttp = false,
+  isAllowedSrc,
   className,
   ...rest
 }) => {
@@ -831,7 +886,11 @@ var RichTextContent = ({
     return /* @__PURE__ */ jsx(Fragment, {
       children: fallback
     });
-  DOMPurify.addHook("afterSanitizeAttributes", openLinksInNewTab);
+  DOMPurify.addHook("afterSanitizeAttributes", (node) => {
+    openLinksInNewTab(node);
+    if (allowImages)
+      sanitizeImage(node, allowInsecureHttp, isAllowedSrc);
+  });
   const clean = DOMPurify.sanitize(linkifyBareUrls(linkifyMarkdownLinks(html)), {
     ALLOWED_TAGS: [
       "p",
@@ -855,13 +914,20 @@ var RichTextContent = ({
       "h5",
       "h6",
       "blockquote",
-      "span"
+      "span",
+      ...allowImages ? ["img"] : []
     ],
-    ALLOWED_ATTR: ["href", "target", "rel", "class"]
+    ALLOWED_ATTR: [
+      "href",
+      "target",
+      "rel",
+      "class",
+      ...allowImages ? ["src", "alt", "width"] : []
+    ]
   });
   DOMPurify.removeHook("afterSanitizeAttributes");
   return /* @__PURE__ */ jsx("div", {
-    className: cn("[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_blockquote]:my-2 [&_blockquote]:border-border [&_blockquote]:border-l-2 [&_blockquote]:pl-3 [&_blockquote]:text-muted-foreground [&_blockquote]:italic [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em] [&_h1]:font-bold [&_h1]:text-xl [&_h2]:font-bold [&_h2]:text-lg [&_h3]:font-semibold [&_h3]:text-base [&_ol]:ml-5 [&_ol]:list-decimal [&_ol_ol]:list-[lower-alpha] [&_p:last-child]:mb-0 [&_p]:mb-2 [&_ul]:ml-5 [&_ul]:list-disc [&_ul_ul]:list-[circle]", className),
+    className: cn("[&_img]:block [&_img]:h-auto [&_img]:max-w-full [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_blockquote]:my-2 [&_blockquote]:border-border [&_blockquote]:border-l-2 [&_blockquote]:pl-3 [&_blockquote]:text-muted-foreground [&_blockquote]:italic [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em] [&_h1]:font-bold [&_h1]:text-xl [&_h2]:font-bold [&_h2]:text-lg [&_h3]:font-semibold [&_h3]:text-base [&_ol]:ml-5 [&_ol]:list-decimal [&_ol_ol]:list-[lower-alpha] [&_p:last-child]:mb-0 [&_p]:mb-2 [&_ul]:ml-5 [&_ul]:list-disc [&_ul_ul]:list-[circle]", className),
     dangerouslySetInnerHTML: { __html: clean },
     ...rest
   });

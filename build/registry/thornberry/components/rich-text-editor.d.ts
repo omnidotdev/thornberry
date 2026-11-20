@@ -1,5 +1,6 @@
 import type { EditorThemeClasses, Klass, LexicalNode } from "lexical";
 import type { ComponentProps, ReactNode, RefObject } from "react";
+import type { RichTextImageOptions } from "../../../registry/thornberry/components/rich-text-image";
 /** Imperative handle exposed via `editorApi` for clearing/focusing the editor. */
 export interface EditorApi {
     clearContent: () => void;
@@ -46,15 +47,37 @@ export interface IssueReferenceItem {
     /** Title, shown in the menu. */
     title: string;
 }
+/** What `onUpdate` reports on every change. */
+interface RichTextEditorUpdate {
+    /** Read the content as HTML. */
+    getHTML: () => string;
+    /** Read the content as plain text. */
+    getText: () => string;
+    /** Whether the editor holds no text (and, with `images`, no images). */
+    isEmpty: boolean;
+    /**
+     * Whether any image lacks alt text. Always false without `images`. Block
+     * publishing while true.
+     */
+    hasMissingAltText: boolean;
+    /**
+     * Whether any image is still uploading (its placeholder exports nothing).
+     * Always false without `images`. Block publishing while true.
+     */
+    isUploading: boolean;
+    /**
+     * Whether any loaded or pasted image is hosted elsewhere (refused by
+     * `images.isAllowedSrc`, or plain http) and waits for an uploaded copy; it
+     * exports nothing until then. Always false without `images`. Warn or block
+     * publishing while true.
+     */
+    hasExternalImages: boolean;
+}
 interface RichTextEditorProps extends Omit<ComponentProps<"div">, "placeholder" | "onChange"> {
     /** Imperative handle for clearing/focusing the editor. */
     editorApi?: RefObject<EditorApi | null>;
     /** Called on every change with the current HTML/text and empty state. */
-    onUpdate?: (update: {
-        getHTML: () => string;
-        getText: () => string;
-        isEmpty: boolean;
-    }) => void;
+    onUpdate?: (update: RichTextEditorUpdate) => void;
     /** Initial HTML content. */
     defaultContent?: string;
     /** Whether the editor accepts input. */
@@ -78,6 +101,13 @@ interface RichTextEditorProps extends Omit<ComponentProps<"div">, "placeholder" 
      * multi-block editors (e.g. a task description).
      */
     enableBlockDrag?: boolean;
+    /**
+     * Turn on images: a toolbar upload button, "insert from link" (https only),
+     * paste, and drag-and-drop. Each image needs alt text, and exports as
+     * email-safe markup with an absolute URL and a pixel width. Off when omitted
+     * (and may be turned on or off after mount).
+     */
+    images?: RichTextImageOptions;
     /** Extra Lexical node classes to register (e.g. an app's image node). */
     extraNodes?: ReadonlyArray<Klass<LexicalNode>>;
     /** Extra Lexical plugins rendered inside the composer (e.g. image paste, code highlighting). */
@@ -94,7 +124,7 @@ interface RichTextEditorProps extends Omit<ComponentProps<"div">, "placeholder" 
  * via a minimal toolbar. Content is read out as sanitizable HTML through
  * `onUpdate`. Render stored HTML back with {@link RichTextContent}.
  */
-declare const RichTextEditor: ({ editorApi, onUpdate, defaultContent, editable, placeholder, hideToolbar, toolbarClassName, mentionItems, issueReferenceItems, enableChecklist, enableBlockDrag, extraNodes, plugins, theme, skeletonClassName, className, editorClassName, ...rest }: RichTextEditorProps) => import("react/jsx-runtime").JSX.Element;
+declare const RichTextEditor: ({ editorApi, onUpdate, defaultContent, editable, placeholder, hideToolbar, toolbarClassName, mentionItems, issueReferenceItems, enableChecklist, enableBlockDrag, images, extraNodes, plugins, theme, skeletonClassName, className, editorClassName, ...rest }: RichTextEditorProps) => import("react/jsx-runtime").JSX.Element;
 /**
  * Linkify bare URLs and email addresses in a rich-text HTML string so plain
  * links in stored content render as anchors. Splits on tags so matching only
@@ -117,11 +147,26 @@ interface RichTextContentProps extends ComponentProps<"div"> {
     html: string;
     /** Optional fallback when there is no content. */
     fallback?: ReactNode;
+    /**
+     * Render `<img>` tags (https sources only, with just `src`, `alt`, and a
+     * pixel `width`). Off by default, so stored content cannot load remote images
+     * (such as tracking pixels) unless the app opts in.
+     */
+    allowImages?: boolean;
+    /** With `allowImages`, also render `http://` images. For local development only. */
+    allowInsecureHttp?: boolean;
+    /**
+     * With `allowImages`, render only images whose source this accepts (e.g. a
+     * host whitelist); others are dropped.
+     */
+    isAllowedSrc?: (src: string) => boolean;
 }
 /**
  * Render stored rich-text HTML, sanitized with DOMPurify to keep
  * user-generated content safe. Mirrors the editor's node-class theme.
  */
-declare const RichTextContent: ({ html, fallback, className, ...rest }: RichTextContentProps) => import("react/jsx-runtime").JSX.Element;
+declare const RichTextContent: ({ html, fallback, allowImages, allowInsecureHttp, isAllowedSrc, className, ...rest }: RichTextContentProps) => import("react/jsx-runtime").JSX.Element;
+export type { RichTextImageError, RichTextImageErrorCode, RichTextImageOptions, RichTextImageUploadResult, } from "../../../registry/thornberry/components/rich-text-image";
+export type { RichTextEditorProps, RichTextEditorUpdate };
 export { RichTextContent, RichTextEditor, dragUnitClass, dropSide, getDragUnits, linkFromText, linkifyBareUrls, linkifyMarkdownLinks, };
 export default RichTextEditor;
