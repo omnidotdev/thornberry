@@ -35,9 +35,15 @@
       "name": "ai-describe-panel",
       "type": "registry:ui",
       "title": "AI Describe Panel",
-      "description": "Describe-to-draft dialog: plain-English prompt, suggestions, BYOK key, and sign-in gating for the fleet AI-creation flow. Presentational; the host injects generation and auth logic",
+      "description": "Describe-to-draft dialog: plain-English prompt, example prompt chips, BYOK key, and sign-in gating for the fleet AI-creation flow. Presentational; the host injects generation and auth logic",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["button", "dialog", "label", "password-input"],
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "label",
+        "password-input",
+        "prompt-suggestions"
+      ],
       "files": [
         {
           "path": "src/registry/thornberry/components/ai-describe-panel.tsx",

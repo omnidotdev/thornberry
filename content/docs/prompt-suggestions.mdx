@@ -78,6 +78,24 @@ A suggestion can be a string, or an object whose short `label` shows on the chip
 />
 ```
 
+#### In a describe panel
+
+`AiDescribePanel` takes `suggestions` (and `suggestionCount`) and shows them under its prompt while the prompt is empty and Generate leads. A pick hands the prompt to `onPickSuggestion` and focuses the prompt; it never generates outright.
+
+```tsx
+<AiDescribePanel
+  open={open}
+  onOpenChange={setOpen}
+  mode="generate"
+  prompt={prompt}
+  onPromptChange={setPrompt}
+  suggestions={examples}
+  suggestionCount={3}
+  onPickSuggestion={setPrompt}
+  onGenerate={generate}
+/>
+```
+
 ## Behavior
 
 - The examples are drawn in a random order on each visit, after mount, so a server render and its hydration agree

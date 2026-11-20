@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { PromptSuggestion } from "../../../registry/thornberry/components/prompt-suggestions";
 /**
  * Which affordance the panel leads with:
  * - `generate`: signed in or a key is set, so Generate runs
@@ -19,9 +20,16 @@ export interface AiDescribePanelProps {
     prompt: string;
     onPromptChange: (prompt: string) => void;
     placeholder?: string;
-    /** Starter prompts shown as chips while the prompt is empty. */
-    suggestions?: readonly string[];
-    onPickSuggestion?: (suggestion: string) => void;
+    /**
+     * Example prompts shown as chips under the prompt while it is empty (see
+     * `PromptSuggestions`): drawn in a random order per open, with "More ideas"
+     * when there are more than `suggestionCount`. A pick hands its prompt to
+     * `onPickSuggestion` and focuses the prompt; it never generates outright
+     */
+    suggestions?: readonly (string | PromptSuggestion)[];
+    /** How many example prompts show at once. Defaults to 4 */
+    suggestionCount?: number;
+    onPickSuggestion?: (prompt: string) => void;
     /** Fire a generation with the current prompt. */
     onGenerate: () => void;
     /** While true the dialog cannot be dismissed and inputs are disabled. */
@@ -70,5 +78,5 @@ export interface AiDescribePanelProps {
  * owns no network, auth, or billing logic. A draft never auto-applies; the host
  * closes the panel and shows the result for review.
  */
-declare const AiDescribePanel: ({ open, onOpenChange, mode, title, description, prompt, onPromptChange, placeholder, suggestions, onPickSuggestion, onGenerate, isPending, generateLabel, pendingLabel, meta, onSignIn, signInLabel, notice, byok, }: AiDescribePanelProps) => import("react/jsx-runtime").JSX.Element;
+declare const AiDescribePanel: ({ open, onOpenChange, mode, title, description, prompt, onPromptChange, placeholder, suggestions, suggestionCount, onPickSuggestion, onGenerate, isPending, generateLabel, pendingLabel, meta, onSignIn, signInLabel, notice, byok, }: AiDescribePanelProps) => import("react/jsx-runtime").JSX.Element;
 export { AiDescribePanel };
