@@ -7,7 +7,7 @@ import {
   getRichTextImageSummary2,
   RichTextImages2,
   RichTextImageToolbarControls2
-} from "../../../chunks/ai-describe-panel-0aegqrdk.js";
+} from "../../../chunks/ai-describe-panel-2t12rj8s.js";
 import {
   Skeleton2
 } from "../../../chunks/ai-describe-panel-4ayhnmp9.js";

@@ -97,6 +97,14 @@ var checkImageSrc2 = (src, {
   return "allowed";
 };
 var isSafeImageSrc2 = (src, allowInsecureHttp = false) => checkImageSrc2(src, { allowInsecureHttp }) === "allowed";
+var normalizeImageSrc2 = (src) => {
+  const trimmed = src.trim();
+  try {
+    return new URL(trimmed).href;
+  } catch {
+    return trimmed;
+  }
+};
 var isHttpsUrl2 = (value) => {
   try {
     return new URL(value.trim()).protocol === "https:";
@@ -315,7 +323,7 @@ class RichTextImageNode2 extends DecoratorNode {
   }
   setUploaded(src, width) {
     const writable = this.getWritable();
-    writable.__src = src;
+    writable.__src = normalizeImageSrc2(src);
     writable.__width = width;
     writable.__uploading = false;
     writable.__external = false;
@@ -335,7 +343,7 @@ class RichTextImageNode2 extends DecoratorNode {
     });
   }
 }
-var $createRichTextImageNode2 = (payload) => $applyNodeReplacement(new RichTextImageNode2(payload));
+var $createRichTextImageNode2 = (payload) => $applyNodeReplacement(new RichTextImageNode2({ ...payload, src: normalizeImageSrc2(payload.src) }));
 var $isRichTextImageNode2 = (node) => node instanceof RichTextImageNode2;
 var $collectImageNodes = () => {
   const found = [];
@@ -1285,4 +1293,4 @@ var RichTextImageToolbarControls2 = ({
     ]
   });
 };
-export { DEFAULT_IMAGE_ACCEPT2, DEFAULT_IMAGE_MAX_WIDTH2, EMAIL_IMAGE_STYLE2, checkImageSrc2, isSafeImageSrc2, isHttpsUrl2, clampImageWidth2, validateImageFile2, RichTextImageNode2, $createRichTextImageNode2, $isRichTextImageNode2, $getRichTextImageSummary2, getRichTextImageSummary2, INSERT_RICH_TEXT_IMAGE_COMMAND2, UPLOAD_RICH_TEXT_IMAGES_COMMAND2, REPLACE_RICH_TEXT_IMAGE_COMMAND2, rememberUploadOutcome2, RichTextImages2, RichTextImageToolbarControls2 };
+export { DEFAULT_IMAGE_ACCEPT2, DEFAULT_IMAGE_MAX_WIDTH2, EMAIL_IMAGE_STYLE2, checkImageSrc2, isSafeImageSrc2, normalizeImageSrc2, isHttpsUrl2, clampImageWidth2, validateImageFile2, RichTextImageNode2, $createRichTextImageNode2, $isRichTextImageNode2, $getRichTextImageSummary2, getRichTextImageSummary2, INSERT_RICH_TEXT_IMAGE_COMMAND2, UPLOAD_RICH_TEXT_IMAGES_COMMAND2, REPLACE_RICH_TEXT_IMAGE_COMMAND2, rememberUploadOutcome2, RichTextImages2, RichTextImageToolbarControls2 };

@@ -36,6 +36,7 @@ import {
   checkImageSrc,
   isHttpsUrl,
   isSafeImageSrc,
+  normalizeImageSrc,
   rememberUploadOutcome,
   validateImageFile,
 } from "@/registry/thornberry/components/rich-text-image";
@@ -1270,5 +1271,92 @@ describe("re-review fixes", () => {
         i.getAttribute("src"),
       ),
     ).toEqual([`${CDN}/a.png`]);
+  });
+});
+
+describe("normalized sources", () => {
+  // the server compares normalized URLs, so the editor must store and export
+  // exactly the normalized source it checked
+  const RAW = "https://API.Example.com/a/../x.png";
+  const NORMALIZED = "https://api.example.com/x.png";
+  const isAllowedSrc = (src: string) =>
+    src.startsWith("https://api.example.com/");
+
+  test("normalizeImageSrc returns the URL's canonical form", () => {
+    expect(normalizeImageSrc(` ${RAW} `)).toBe(NORMALIZED);
+    expect(normalizeImageSrc("HTTPS://cdn.example.com/a%20b.png")).toBe(
+      "https://cdn.example.com/a%20b.png",
+    );
+    expect(normalizeImageSrc("")).toBe("");
+  });
+
+  test("an upload result is stored and exported normalized", async () => {
+    const h = renderEditor({
+      isAllowedSrc,
+      upload: async () => ({ src: RAW }),
+    });
+    await ready(h);
+    pickFiles(h.container, [png()]);
+    await waitFor(() =>
+      expect(h.latest().getHTML()).toContain(`<img src="${NORMALIZED}"`),
+    );
+    expect(h.latest().getHTML()).not.toContain("API.Example");
+  });
+
+  test("a link is stored and exported normalized", async () => {
+    const h = renderEditor({ isAllowedSrc });
+    fireEvent.click(await screen.findByLabelText("Insert image from link"));
+    const input = await screen.findByLabelText("Image link");
+    fireEvent.change(input, { target: { value: RAW } });
+    fireEvent.keyDown(input, { key: "Enter" });
+    await waitFor(() =>
+      expect(h.latest().getHTML()).toContain(`<img src="${NORMALIZED}"`),
+    );
+  });
+
+  test("loaded HTML is stored and exported normalized", async () => {
+    const h = renderEditor({
+      isAllowedSrc,
+      defaultContent: `<img src="${RAW}" alt="x">`,
+    });
+    await waitFor(() =>
+      expect(h.latest().getHTML()).toContain(
+        `<img src="${NORMALIZED}" alt="x"`,
+      ),
+    );
+    expect(h.latest().hasExternalImages).toBe(false);
+  });
+
+  test("pasted editor data is stored and exported normalized", async () => {
+    const h = renderEditor({ isAllowedSrc });
+    await ready(h);
+    await pasteInto(h, [serializedImage({ src: RAW, alt: "x" })]);
+    await waitFor(() =>
+      expect(h.latest().getHTML()).toContain(
+        `<img src="${NORMALIZED}" alt="x"`,
+      ),
+    );
+  });
+
+  test("a replacement upload is stored and exported normalized", async () => {
+    const h = renderEditor({
+      isAllowedSrc,
+      upload: async () => ({ src: RAW }),
+      defaultContent: '<img src="https://other.example/a.png" alt="x">',
+    });
+    await waitFor(() => expect(h.latest().hasExternalImages).toBe(true));
+    const key = imageNodes(h.editor())[0]?.key ?? "";
+    await act(async () => {
+      h.editor().dispatchCommand(REPLACE_RICH_TEXT_IMAGE_COMMAND, {
+        key,
+        file: png(),
+      });
+    });
+    await waitFor(() =>
+      expect(h.latest().getHTML()).toContain(
+        `<img src="${NORMALIZED}" alt="x"`,
+      ),
+    );
+    expect(h.latest().hasExternalImages).toBe(false);
   });
 });

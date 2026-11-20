@@ -95,6 +95,14 @@ type ImageSrcVerdict = "allowed" | "external" | "invalid";
 declare const checkImageSrc: (src: string | null | undefined, { allowInsecureHttp, isAllowedSrc, }?: Partial<Pick<ImageSourcePolicy, "allowInsecureHttp" | "isAllowedSrc">>) => ImageSrcVerdict;
 /** Whether `src` is an absolute `https://` URL (or `http://` when allowed) */
 declare const isSafeImageSrc: (src: string | null | undefined, allowInsecureHttp?: boolean) => src is string;
+/**
+ * The canonical form of an image source (`new URL(src).href`: lowercased
+ * scheme and host, resolved dots, percent-encoding), which is what
+ * `isAllowedSrc` judges, so the source kept and exported is exactly the one
+ * that was checked. A source that is not a URL (an upload placeholder's empty
+ * one) is returned trimmed
+ */
+declare const normalizeImageSrc: (src: string) => string;
 /** Whether `value` is an absolute `https://` URL */
 declare const isHttpsUrl: (value: string) => boolean;
 /** Round a width to whole pixels within [16, maxWidth] */
@@ -220,4 +228,4 @@ interface RichTextImageToolbarControlsProps {
  */
 declare const RichTextImageToolbarControls: ({ renderButton, }: RichTextImageToolbarControlsProps) => import("react/jsx-runtime").JSX.Element | null;
 export type { ImageSrcVerdict, RichTextImageError, RichTextImageErrorCode, RichTextImageOptions, RichTextImageSummary, RichTextImageUploadResult, SerializedRichTextImageNode, };
-export { $createRichTextImageNode, $getRichTextImageSummary, $isRichTextImageNode, DEFAULT_IMAGE_ACCEPT, DEFAULT_IMAGE_MAX_WIDTH, EMAIL_IMAGE_STYLE, INSERT_RICH_TEXT_IMAGE_COMMAND, REPLACE_RICH_TEXT_IMAGE_COMMAND, RichTextImageNode, RichTextImageToolbarControls, RichTextImages, UPLOAD_RICH_TEXT_IMAGES_COMMAND, checkImageSrc, clampImageWidth, getRichTextImageSummary, isHttpsUrl, isSafeImageSrc, rememberUploadOutcome, validateImageFile, };
+export { $createRichTextImageNode, $getRichTextImageSummary, $isRichTextImageNode, DEFAULT_IMAGE_ACCEPT, DEFAULT_IMAGE_MAX_WIDTH, EMAIL_IMAGE_STYLE, INSERT_RICH_TEXT_IMAGE_COMMAND, REPLACE_RICH_TEXT_IMAGE_COMMAND, RichTextImageNode, RichTextImageToolbarControls, RichTextImages, UPLOAD_RICH_TEXT_IMAGES_COMMAND, checkImageSrc, clampImageWidth, getRichTextImageSummary, isHttpsUrl, isSafeImageSrc, normalizeImageSrc, rememberUploadOutcome, validateImageFile, };

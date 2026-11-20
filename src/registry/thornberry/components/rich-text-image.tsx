@@ -219,6 +219,22 @@ const isSafeImageSrc = (
   allowInsecureHttp = false,
 ): src is string => checkImageSrc(src, { allowInsecureHttp }) === "allowed";
 
+/**
+ * The canonical form of an image source (`new URL(src).href`: lowercased
+ * scheme and host, resolved dots, percent-encoding), which is what
+ * `isAllowedSrc` judges, so the source kept and exported is exactly the one
+ * that was checked. A source that is not a URL (an upload placeholder's empty
+ * one) is returned trimmed
+ */
+const normalizeImageSrc = (src: string): string => {
+  const trimmed = src.trim();
+  try {
+    return new URL(trimmed).href;
+  } catch {
+    return trimmed;
+  }
+};
+
 /** Whether `value` is an absolute `https://` URL */
 const isHttpsUrl = (value: string): boolean => {
   try {
@@ -565,7 +581,7 @@ class RichTextImageNode extends DecoratorNode<ReactNode> {
   /** Swap the uploading placeholder for the hosted image */
   setUploaded(src: string, width: number | null): this {
     const writable = this.getWritable();
-    writable.__src = src;
+    writable.__src = normalizeImageSrc(src);
     writable.__width = width;
     writable.__uploading = false;
     writable.__external = false;
@@ -588,9 +604,13 @@ class RichTextImageNode extends DecoratorNode<ReactNode> {
   }
 }
 
+// every source enters the node here or through `setUploaded`, normalized
 const $createRichTextImageNode = (
   payload: RichTextImagePayload,
-): RichTextImageNode => $applyNodeReplacement(new RichTextImageNode(payload));
+): RichTextImageNode =>
+  $applyNodeReplacement(
+    new RichTextImageNode({ ...payload, src: normalizeImageSrc(payload.src) }),
+  );
 
 const $isRichTextImageNode = (
   node: LexicalNode | null | undefined,
@@ -1816,6 +1836,7 @@ export {
   getRichTextImageSummary,
   isHttpsUrl,
   isSafeImageSrc,
+  normalizeImageSrc,
   rememberUploadOutcome,
   validateImageFile,
 };

@@ -4,6 +4,7 @@ import {
   EMAIL_IMAGE_STYLE2,
   checkImageSrc2,
   isSafeImageSrc2,
+  normalizeImageSrc2,
   isHttpsUrl2,
   clampImageWidth2,
   validateImageFile2,
@@ -18,7 +19,7 @@ import {
   rememberUploadOutcome2,
   RichTextImages2,
   RichTextImageToolbarControls2
-} from "../../../chunks/ai-describe-panel-0aegqrdk.js";
+} from "../../../chunks/ai-describe-panel-2t12rj8s.js";
 import"../../../chunks/ai-describe-panel-k2cwy48h.js";
 export {
   $createRichTextImageNode2 as $createRichTextImageNode,
@@ -38,6 +39,7 @@ export {
   getRichTextImageSummary2 as getRichTextImageSummary,
   isHttpsUrl2 as isHttpsUrl,
   isSafeImageSrc2 as isSafeImageSrc,
+  normalizeImageSrc2 as normalizeImageSrc,
   rememberUploadOutcome2 as rememberUploadOutcome,
   validateImageFile2 as validateImageFile
 };
