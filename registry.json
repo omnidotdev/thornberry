@@ -9,10 +9,24 @@
       "title": "AI Chat Thread",
       "description": "A conversation surface for AI assistants: role-aligned bubbles, typed message parts (text, thinking, tool calls), a streaming indicator, and a composer. Presentational; the host drives it from any streaming chat hook",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["button", "badge"],
+      "registryDependencies": ["button", "badge", "prompt-suggestions"],
       "files": [
         {
           "path": "src/registry/thornberry/components/ai-chat-thread.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "prompt-suggestions",
+      "type": "registry:ui",
+      "title": "Prompt Suggestions",
+      "description": "Example prompt chips for an empty composer: a few concrete examples drawn in a random order per visit, a More ideas control to cycle them, and a pick that drafts the prompt for editing rather than sending it",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/prompt-suggestions.tsx",
           "type": "registry:ui"
         }
       ]

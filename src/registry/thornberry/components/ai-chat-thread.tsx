@@ -4,8 +4,10 @@ import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/registry/thornberry/components/badge";
 import { Button } from "@/registry/thornberry/components/button";
+import { PromptSuggestions } from "@/registry/thornberry/components/prompt-suggestions";
 
 import type { ComponentProps, ReactNode } from "react";
+import type { PromptSuggestion } from "@/registry/thornberry/components/prompt-suggestions";
 
 /**
  * One ordered piece of a chat message. Mirrors the typed-parts model common to
@@ -71,6 +73,15 @@ export interface AiChatThreadProps {
   composerActions?: ReactNode;
   /** A small hint under the composer, e.g. "Shift+Enter for a new line". */
   footerHint?: ReactNode;
+  /**
+   * Example prompts shown as chips above the composer while the thread is
+   * empty and the composer is blank (see `PromptSuggestions`). Picking one
+   * drafts its prompt into the composer and focuses it; it is never sent
+   * until the user sends it
+   */
+  suggestions?: readonly (string | PromptSuggestion)[];
+  /** How many example prompts show at once. Defaults to 4 */
+  suggestionCount?: number;
 }
 
 /** A styled auto-growing textarea matching the input primitive's tokens. */
@@ -185,8 +196,15 @@ const AiChatThread = ({
   composerAccessory,
   composerActions,
   footerHint,
+  suggestions,
+  suggestionCount,
 }: AiChatThreadProps) => {
   const endRef = useRef<HTMLDivElement>(null);
+  const composerRef = useRef<HTMLTextAreaElement>(null);
+  const showSuggestions =
+    messages.length === 0 &&
+    input.trim().length === 0 &&
+    Boolean(suggestions?.length);
   const busy = status === "submitting" || status === "streaming";
   const canSend = !disabled && !busy && input.trim().length > 0;
 
@@ -272,9 +290,22 @@ const AiChatThread = ({
       )}
 
       <div className="border-border border-t p-3">
+        {showSuggestions && suggestions && (
+          <PromptSuggestions
+            suggestions={suggestions}
+            count={suggestionCount}
+            disabled={disabled || busy}
+            onPick={(prompt) => {
+              onInputChange(prompt);
+              composerRef.current?.focus();
+            }}
+            className="mb-2"
+          />
+        )}
         {composerAccessory && <div className="mb-2">{composerAccessory}</div>}
         <div className="flex items-end gap-2">
           <Composer
+            ref={composerRef}
             value={input}
             onChange={(event) => onInputChange(event.target.value)}
             onKeyDown={(event) => {

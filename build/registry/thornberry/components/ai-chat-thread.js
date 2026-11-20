@@ -5,6 +5,9 @@ import {
   Button2
 } from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import {
+  PromptSuggestions2
+} from "../../../chunks/ai-describe-panel-645h2f0w.js";
+import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
@@ -82,9 +85,13 @@ var AiChatThread = ({
   renderAvatar,
   composerAccessory,
   composerActions,
-  footerHint
+  footerHint,
+  suggestions,
+  suggestionCount
 }) => {
   const endRef = useRef(null);
+  const composerRef = useRef(null);
+  const showSuggestions = messages.length === 0 && input.trim().length === 0 && Boolean(suggestions?.length);
   const busy = status === "submitting" || status === "streaming";
   const canSend = !disabled && !busy && input.trim().length > 0;
   const defaultAvatar = (role) => /* @__PURE__ */ jsx("div", {
@@ -147,6 +154,16 @@ var AiChatThread = ({
       /* @__PURE__ */ jsxs("div", {
         className: "border-border border-t p-3",
         children: [
+          showSuggestions && suggestions && /* @__PURE__ */ jsx(PromptSuggestions2, {
+            suggestions,
+            count: suggestionCount,
+            disabled: disabled || busy,
+            onPick: (prompt) => {
+              onInputChange(prompt);
+              composerRef.current?.focus();
+            },
+            className: "mb-2"
+          }),
           composerAccessory && /* @__PURE__ */ jsx("div", {
             className: "mb-2",
             children: composerAccessory
@@ -155,6 +172,7 @@ var AiChatThread = ({
             className: "flex items-end gap-2",
             children: [
               /* @__PURE__ */ jsx(Composer, {
+                ref: composerRef,
                 value: input,
                 onChange: (event) => onInputChange(event.target.value),
                 onKeyDown: (event) => {
