@@ -81,6 +81,13 @@ import { createPortal } from "react-dom";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
+import {
+  RichTextImageNode,
+  RichTextImageToolbarControls,
+  RichTextImages,
+  checkImageSrc,
+  getRichTextImageSummary,
+} from "@/registry/thornberry/components/rich-text-image";
 import { Skeleton } from "@/registry/thornberry/components/skeleton";
 
 import type {
@@ -98,6 +105,7 @@ import type {
   ReactNode,
   RefObject,
 } from "react";
+import type { RichTextImageOptions } from "@/registry/thornberry/components/rich-text-image";
 
 /** Imperative handle exposed via `editorApi` for clearing/focusing the editor. */
 export interface EditorApi {
@@ -282,12 +290,14 @@ const ToolbarButton = ({
   </Button>
 );
 
-/** Minimal formatting toolbar: bold, italic, lists, link, optional checklist. */
+/** Minimal formatting toolbar: bold, italic, lists, link, optional checklist and images. */
 const Toolbar = ({
   enableChecklist,
+  enableImages,
   className,
 }: {
   enableChecklist?: boolean;
+  enableImages?: boolean;
   className?: string;
 }) => {
   const [editor] = useLexicalComposerContext();
@@ -342,6 +352,20 @@ const Toolbar = ({
       <ToolbarButton label="Link" onClick={insertLink}>
         <LinkIcon />
       </ToolbarButton>
+      {enableImages && (
+        <RichTextImageToolbarControls
+          renderButton={({ label, icon, onClick, pressed }) => (
+            <ToolbarButton
+              key={label}
+              label={label}
+              aria-pressed={pressed}
+              onClick={onClick}
+            >
+              {icon}
+            </ToolbarButton>
+          )}
+        />
+      )}
     </div>
   );
 };
@@ -933,16 +957,39 @@ const IssueReferenceTypeahead = ({
   );
 };
 
+/** What `onUpdate` reports on every change. */
+interface RichTextEditorUpdate {
+  /** Read the content as HTML. */
+  getHTML: () => string;
+  /** Read the content as plain text. */
+  getText: () => string;
+  /** Whether the editor holds no text (and, with `images`, no images). */
+  isEmpty: boolean;
+  /**
+   * Whether any image lacks alt text. Always false without `images`. Block
+   * publishing while true.
+   */
+  hasMissingAltText: boolean;
+  /**
+   * Whether any image is still uploading (its placeholder exports nothing).
+   * Always false without `images`. Block publishing while true.
+   */
+  isUploading: boolean;
+  /**
+   * Whether any loaded or pasted image is hosted elsewhere (refused by
+   * `images.isAllowedSrc`, or plain http) and waits for an uploaded copy; it
+   * exports nothing until then. Always false without `images`. Warn or block
+   * publishing while true.
+   */
+  hasExternalImages: boolean;
+}
+
 interface RichTextEditorProps
   extends Omit<ComponentProps<"div">, "placeholder" | "onChange"> {
   /** Imperative handle for clearing/focusing the editor. */
   editorApi?: RefObject<EditorApi | null>;
   /** Called on every change with the current HTML/text and empty state. */
-  onUpdate?: (update: {
-    getHTML: () => string;
-    getText: () => string;
-    isEmpty: boolean;
-  }) => void;
+  onUpdate?: (update: RichTextEditorUpdate) => void;
   /** Initial HTML content. */
   defaultContent?: string;
   /** Whether the editor accepts input. */
@@ -966,6 +1013,13 @@ interface RichTextEditorProps
    * multi-block editors (e.g. a task description).
    */
   enableBlockDrag?: boolean;
+  /**
+   * Turn on images: a toolbar upload button, "insert from link" (https only),
+   * paste, and drag-and-drop. Each image needs alt text, and exports as
+   * email-safe markup with an absolute URL and a pixel width. Off when omitted
+   * (and may be turned on or off after mount).
+   */
+  images?: RichTextImageOptions;
   /** Extra Lexical node classes to register (e.g. an app's image node). */
   extraNodes?: ReadonlyArray<Klass<LexicalNode>>;
   /** Extra Lexical plugins rendered inside the composer (e.g. image paste, code highlighting). */
@@ -995,6 +1049,7 @@ const RichTextEditor = ({
   issueReferenceItems,
   enableChecklist,
   enableBlockDrag,
+  images,
   extraNodes,
   plugins,
   theme,
@@ -1074,17 +1129,24 @@ const RichTextEditor = ({
       ListItemNode,
       LinkNode,
       AutoLinkNode,
+      // always registered so `images` can be toggled after mount; it stays
+      // inert (no import, no toolbar, no paste handling) while `images` is off
+      RichTextImageNode,
       ...(extraNodes ?? []),
     ],
   };
 
   const handleChange = (_state: EditorState, editor: LexicalEditor) => {
-    const empty = isEditorEmpty(editor);
+    const imageSummary = images ? getRichTextImageSummary(editor) : null;
+    const empty = isEditorEmpty(editor) && !imageSummary?.count;
     setIsEmpty(empty);
     onUpdate?.({
       getHTML: () => exportToHtml(editor),
       getText: () => getTextContent(editor),
       isEmpty: empty,
+      hasMissingAltText: imageSummary?.hasMissingAltText ?? false,
+      isUploading: imageSummary?.isUploading ?? false,
+      hasExternalImages: imageSummary?.hasExternalImages ?? false,
     });
   };
 
@@ -1094,81 +1156,90 @@ const RichTextEditor = ({
         "rounded-md border border-input bg-background text-sm focus-within:ring-1 focus-within:ring-ring",
         className,
       )}
+      data-rich-text-editor=""
       {...rest}
     >
       <LexicalComposer initialConfig={initialConfig}>
-        {!hideToolbar && editable && (
-          <Toolbar
-            enableChecklist={enableChecklist}
-            className={toolbarClassName}
-          />
-        )}
+        <RichTextImages options={images}>
+          {!hideToolbar && editable && (
+            <Toolbar
+              enableChecklist={enableChecklist}
+              enableImages={Boolean(images)}
+              className={toolbarClassName}
+            />
+          )}
 
-        <div className="relative" ref={onAnchorRef}>
-          <RichTextPlugin
-            contentEditable={
-              <ContentEditable
-                className={cn(
-                  // 16px floor on mobile stops iOS Safari from auto-zooming the
-                  // viewport on focus (it zooms any field under 16px and never
-                  // zooms back out); drop to 14px from md up to match Input/Textarea
-                  "min-h-20 px-3 py-2 text-base outline-none md:text-sm",
-                  // reserve a left gutter for the block-drag handle so it never
-                  // overlaps the text (the handle sits ~4px from the surface edge)
-                  blockDragEnabled && "pl-7",
-                  editorClassName,
-                )}
-                spellCheck
-              />
-            }
-            placeholder={
-              placeholder && isEmpty ? (
-                <div
+          <div className="relative" ref={onAnchorRef}>
+            <RichTextPlugin
+              contentEditable={
+                <ContentEditable
                   className={cn(
-                    "pointer-events-none absolute top-2 left-3 select-none text-muted-foreground",
-                    // keep the placeholder aligned with the gutter-shifted text
-                    blockDragEnabled && "left-7",
+                    // 16px floor on mobile stops iOS Safari from auto-zooming the
+                    // viewport on focus (it zooms any field under 16px and never
+                    // zooms back out); drop to 14px from md up to match Input/Textarea
+                    "min-h-20 px-3 py-2 text-base outline-none md:text-sm",
+                    // reserve a left gutter for the block-drag handle so it never
+                    // overlaps the text (the handle sits ~4px from the surface edge)
+                    blockDragEnabled && "pl-7",
+                    editorClassName,
                   )}
-                >
-                  {placeholder}
-                </div>
-              ) : null
-            }
-            ErrorBoundary={LexicalErrorBoundary}
-          />
-          <HistoryPlugin />
-          <ListPlugin />
-          {enableChecklist && <CheckListPlugin />}
-          {/* Tab / Shift+Tab to indent + nest list items */}
-          <TabIndentationPlugin />
-          {/* markdown-style input: `- `, `1. `, `# `, `> `, `**bold**`, etc. */}
-          <MarkdownShortcutPlugin transformers={MARKDOWN_TRANSFORMERS} />
-          <LinkPlugin />
-          {/* paste a URL over a selection to link it; Cmd/Ctrl+K to link */}
-          <LinkShortcutsPlugin />
-          {/* turn bare URLs / emails into links as they are typed or pasted */}
-          <AutoLinkPlugin matchers={AUTO_LINK_MATCHERS} />
-          {/* open links on click (new tab), in both read-only and edit mode;
-              drag-selecting a link's text suppresses navigation so it stays
-              editable. Without this, Lexical swallows the click for selection */}
-          <ClickableLinkPlugin />
-          {mentionItems?.length ? (
-            <MentionTypeahead items={mentionItems} />
-          ) : null}
-          {issueReferenceItems?.length ? (
-            <IssueReferenceTypeahead items={issueReferenceItems} />
-          ) : null}
-          {blockDragEnabled && anchorElem ? (
-            <BlockDragPlugin anchorElem={anchorElem} />
-          ) : null}
-          {plugins}
-          <OnChangePlugin onChange={handleChange} />
-          <EditablePlugin editable={editable} />
-          <EditorApiPlugin
-            editorApi={editorApi}
-            defaultContent={defaultContent}
-          />
-        </div>
+                  spellCheck
+                />
+              }
+              placeholder={
+                placeholder && isEmpty ? (
+                  <div
+                    className={cn(
+                      "pointer-events-none absolute top-2 left-3 select-none text-muted-foreground",
+                      // keep the placeholder aligned with the gutter-shifted text
+                      blockDragEnabled && "left-7",
+                    )}
+                  >
+                    {placeholder}
+                  </div>
+                ) : null
+              }
+              ErrorBoundary={LexicalErrorBoundary}
+            />
+            <HistoryPlugin />
+            <ListPlugin />
+            {enableChecklist && <CheckListPlugin />}
+            {/* Tab / Shift+Tab to indent + nest list items */}
+            <TabIndentationPlugin />
+            {/* markdown-style input: `- `, `1. `, `# `, `> `, `**bold**`, etc. */}
+            <MarkdownShortcutPlugin transformers={MARKDOWN_TRANSFORMERS} />
+            <LinkPlugin />
+            {/* paste a URL over a selection to link it; Cmd/Ctrl+K to link */}
+            <LinkShortcutsPlugin />
+            {/* turn bare URLs / emails into links as they are typed or pasted */}
+            <AutoLinkPlugin matchers={AUTO_LINK_MATCHERS} />
+            {/* open links on click (new tab), in both read-only and edit mode;
+                  drag-selecting a link's text suppresses navigation so it stays
+                  editable. Without this, Lexical swallows the click for selection */}
+            <ClickableLinkPlugin />
+            {mentionItems?.length ? (
+              <MentionTypeahead items={mentionItems} />
+            ) : null}
+            {issueReferenceItems?.length ? (
+              <IssueReferenceTypeahead items={issueReferenceItems} />
+            ) : null}
+            {blockDragEnabled && anchorElem ? (
+              <BlockDragPlugin anchorElem={anchorElem} />
+            ) : null}
+            {plugins}
+            {/* image uploads, alt text, and width edits merge into the previous
+                  undo step, so with images on those updates must still report */}
+            <OnChangePlugin
+              onChange={handleChange}
+              ignoreHistoryMergeTagChange={!images}
+            />
+            <EditablePlugin editable={editable} />
+            <EditorApiPlugin
+              editorApi={editorApi}
+              defaultContent={defaultContent}
+            />
+          </div>
+        </RichTextImages>
       </LexicalComposer>
     </div>
   );
@@ -1263,11 +1334,63 @@ const openLinksInNewTab = (node: Element): void => {
   }
 };
 
+// attributes an image keeps when images are allowed; everything else (class,
+// style, srcset, event handlers) is stripped
+const IMAGE_ATTRIBUTES = new Set(["src", "alt", "width"]);
+
+/**
+ * Reduce an `<img>` to an https `src` (normalized), `alt`, and a digits-only
+ * `width`, or drop it when its source is not allowed. DOMPurify alone would
+ * let `data:` sources, `class`, and `style` through. Image-only attributes are
+ * removed from every other element.
+ */
+const sanitizeImage = (
+  node: Element,
+  allowInsecureHttp: boolean,
+  isAllowedSrc?: (src: string) => boolean,
+): void => {
+  if (node.tagName !== "IMG") {
+    for (const name of IMAGE_ATTRIBUTES) {
+      if (name !== "alt") node.removeAttribute(name);
+    }
+    return;
+  }
+  const src = node.getAttribute("src");
+  if (
+    !src ||
+    checkImageSrc(src, { allowInsecureHttp, isAllowedSrc }) !== "allowed"
+  ) {
+    node.remove();
+    return;
+  }
+  for (const { name } of Array.from(node.attributes)) {
+    if (!IMAGE_ATTRIBUTES.has(name)) node.removeAttribute(name);
+  }
+  node.setAttribute("src", new URL(src.trim()).href);
+  const width = (node.getAttribute("width") ?? "").trim();
+  if (!/^\d+$/.test(width) || Number(width) === 0) {
+    node.removeAttribute("width");
+  }
+};
+
 interface RichTextContentProps extends ComponentProps<"div"> {
   /** Stored HTML to render (sanitized before insertion). */
   html: string;
   /** Optional fallback when there is no content. */
   fallback?: ReactNode;
+  /**
+   * Render `<img>` tags (https sources only, with just `src`, `alt`, and a
+   * pixel `width`). Off by default, so stored content cannot load remote images
+   * (such as tracking pixels) unless the app opts in.
+   */
+  allowImages?: boolean;
+  /** With `allowImages`, also render `http://` images. For local development only. */
+  allowInsecureHttp?: boolean;
+  /**
+   * With `allowImages`, render only images whose source this accepts (e.g. a
+   * host whitelist); others are dropped.
+   */
+  isAllowedSrc?: (src: string) => boolean;
 }
 
 /**
@@ -1277,6 +1400,9 @@ interface RichTextContentProps extends ComponentProps<"div"> {
 const RichTextContent = ({
   html,
   fallback = null,
+  allowImages = false,
+  allowInsecureHttp = false,
+  isAllowedSrc,
   className,
   ...rest
 }: RichTextContentProps) => {
@@ -1286,7 +1412,10 @@ const RichTextContent = ({
   // URLs/emails (incl. legacy plain-text content); add the hook around this
   // single synchronous sanitize so the new-tab behavior does not leak onto
   // other DOMPurify callers.
-  DOMPurify.addHook("afterSanitizeAttributes", openLinksInNewTab);
+  DOMPurify.addHook("afterSanitizeAttributes", (node) => {
+    openLinksInNewTab(node);
+    if (allowImages) sanitizeImage(node, allowInsecureHttp, isAllowedSrc);
+  });
   const clean = DOMPurify.sanitize(
     linkifyBareUrls(linkifyMarkdownLinks(html)),
     {
@@ -1313,8 +1442,15 @@ const RichTextContent = ({
         "h6",
         "blockquote",
         "span",
+        ...(allowImages ? ["img"] : []),
       ],
-      ALLOWED_ATTR: ["href", "target", "rel", "class"],
+      ALLOWED_ATTR: [
+        "href",
+        "target",
+        "rel",
+        "class",
+        ...(allowImages ? ["src", "alt", "width"] : []),
+      ],
     },
   );
   DOMPurify.removeHook("afterSanitizeAttributes");
@@ -1322,7 +1458,7 @@ const RichTextContent = ({
   return (
     <div
       className={cn(
-        "[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_blockquote]:my-2 [&_blockquote]:border-border [&_blockquote]:border-l-2 [&_blockquote]:pl-3 [&_blockquote]:text-muted-foreground [&_blockquote]:italic [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em] [&_h1]:font-bold [&_h1]:text-xl [&_h2]:font-bold [&_h2]:text-lg [&_h3]:font-semibold [&_h3]:text-base [&_ol]:ml-5 [&_ol]:list-decimal [&_ol_ol]:list-[lower-alpha] [&_p:last-child]:mb-0 [&_p]:mb-2 [&_ul]:ml-5 [&_ul]:list-disc [&_ul_ul]:list-[circle]",
+        "[&_img]:block [&_img]:h-auto [&_img]:max-w-full [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_blockquote]:my-2 [&_blockquote]:border-border [&_blockquote]:border-l-2 [&_blockquote]:pl-3 [&_blockquote]:text-muted-foreground [&_blockquote]:italic [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em] [&_h1]:font-bold [&_h1]:text-xl [&_h2]:font-bold [&_h2]:text-lg [&_h3]:font-semibold [&_h3]:text-base [&_ol]:ml-5 [&_ol]:list-decimal [&_ol_ol]:list-[lower-alpha] [&_p:last-child]:mb-0 [&_p]:mb-2 [&_ul]:ml-5 [&_ul]:list-disc [&_ul_ul]:list-[circle]",
         className,
       )}
       // biome-ignore lint/security/noDangerouslySetInnerHtml: sanitized above with DOMPurify
@@ -1332,6 +1468,13 @@ const RichTextContent = ({
   );
 };
 
+export type {
+  RichTextImageError,
+  RichTextImageErrorCode,
+  RichTextImageOptions,
+  RichTextImageUploadResult,
+} from "@/registry/thornberry/components/rich-text-image";
+export type { RichTextEditorProps, RichTextEditorUpdate };
 export {
   RichTextContent,
   RichTextEditor,

@@ -1,0 +1,96 @@
+---
+title: Date Time Picker
+description: Pick a date and a time of day in an explicit time zone.
+---
+
+import { DateTimePicker } from "@/components"
+
+<DateTimePicker />
+
+## Installation
+
+<InstallationTabs filename="date-time-picker.json" />
+
+## Usage
+
+```tsx
+import { DateTimePicker } from "@/components/ui/date-time-picker";
+```
+
+```tsx
+<DateTimePicker
+  label="Send at"
+  minValue="now"
+  onValueChange={({ value }) => setSendAt(value)}
+/>
+```
+
+The date has a calendar and also accepts typing. The time accepts free typing (`9:30`, `2:15pm`, `14:15`, or the time written the way the locale writes it, in its own digits and AM/PM markers), suggests times every 15 minutes, and steps with the arrow keys. The time zone is always shown under the fields.
+
+`onValueChange` reports the moment as ISO 8601 with the zone's offset, such as `"2026-11-20T09:30:00-05:00"`, so it means the same instant wherever it is read. `value` is `null` until both a date and a time are entered, and while the entry is invalid or out of range, in which case `error` says why (`invalid-time`, `before-min`, or `after-max`) and a message appears under the fields.
+
+Picking a date first fills in `defaultTime` (9:00 AM), or the next step on or after `minValue` when that falls later on the same day.
+
+### Daylight saving
+
+On a date when the clocks change, the picker says what happens to the chosen time:
+
+- A time the clocks skip (such as 2:30 AM when they go forward) moves to the time it becomes, with a note: "2:30 AM doesn't exist on this date (the clocks go forward); using 3:30 AM." The same note shows for a `value` or `defaultValue` without an offset that names a skipped time
+- A time the clocks pass twice (such as 1:30 AM when they go back) uses the first occurrence, with a note naming its offset and a button to use the second one instead
+
+### Limits
+
+`minValue="now"` disallows the past, checked against the current time every time the entry changes, so a form left open never accepts a time that has passed. `minValue` and `maxValue` also take an ISO string or a `Date`. A string without an offset (`"2026-11-20T12:00"`) is read as wall-clock time in the picker's time zone, with a warning in development, since it does not name an exact moment on its own.
+
+## Examples
+
+<br />
+
+#### Time zone
+
+Dates and times are entered in the browser's time zone unless `timeZone` names another IANA zone. The offset follows daylight saving time for the chosen date. Changing `timeZone` keeps the same moment: the shown date and time move into the new zone, and `onValueChange` reports the value again with the new offset.
+
+```tsx
+<DateTimePicker
+  label="Go live"
+  timeZone="America/New_York"
+  defaultValue="2026-07-04T10:00:00-04:00"
+/>
+```
+
+#### Controlled
+
+`value` accepts an ISO string with an offset (or `Z`), or a `Date`.
+
+```tsx
+const [sendAt, setSendAt] = useState<string | null>(null);
+
+<DateTimePicker value={sendAt} onValueChange={({ value }) => setSendAt(value)} />
+```
+
+#### In a form
+
+With `name`, the ISO value submits through a hidden input.
+
+```tsx
+<DateTimePicker name="sendAt" required minValue="now" />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string \| Date \| null` | | The chosen moment (controlled) |
+| `defaultValue` | `string \| Date \| null` | | The initial moment (uncontrolled) |
+| `onValueChange` | `(details) => void` | | Receives `{ value, date, timeZone, error }` |
+| `timeZone` | `string` | the browser's | IANA zone the date and time are entered in; changing it keeps the same moment and reports it again |
+| `minValue` | `string \| Date \| "now"` | | Earliest allowed moment; earlier days are disabled. `"now"` is checked on every change |
+| `maxValue` | `string \| Date` | | Latest allowed moment |
+| `stepMinutes` | `number` | `15` | Minutes between suggested times |
+| `defaultTime` | `string` | `"09:00"` | Time filled in when a date is picked first |
+| `label` | `ReactNode` | `"Date and time"` | |
+| `description` | `ReactNode` | | Help text under the label |
+| `locale` | `string` | the browser's | Formatting and parsing locale |
+| `name` | `string` | | Submits the ISO value in a form |
+| `disabled` | `boolean` | | |
+| `required` | `boolean` | | |

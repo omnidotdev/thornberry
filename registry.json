@@ -263,6 +263,20 @@
       ]
     },
     {
+      "name": "date-time-picker",
+      "type": "registry:ui",
+      "title": "Date Time Picker",
+      "description": "Pick a date and a time of day in an explicit time zone, reported as ISO 8601 with offset",
+      "dependencies": ["@ark-ui/react", "@internationalized/date"],
+      "registryDependencies": ["date-picker"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/date-time-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
@@ -651,7 +665,7 @@
       "name": "rich-text-editor",
       "type": "registry:ui",
       "title": "Rich Text Editor",
-      "description": "A friendly Lexical rich-text editor with a minimal toolbar (bold, italic, lists, links) and a sanitized HTML renderer.",
+      "description": "A friendly Lexical rich-text editor with a minimal toolbar (bold, italic, lists, links), optional email-safe images with required alt text, and a sanitized HTML renderer.",
       "dependencies": [
         "lexical",
         "@lexical/react",
@@ -665,6 +679,10 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/rich-text-editor.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/thornberry/components/rich-text-image.tsx",
           "type": "registry:ui"
         }
       ]

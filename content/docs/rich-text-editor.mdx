@@ -1,0 +1,155 @@
+---
+title: Rich Text Editor
+description: A friendly rich text editor with a minimal toolbar, optional email-safe images, and a sanitized HTML renderer.
+---
+
+import { RichTextEditorImages } from "@/components"
+
+<RichTextEditorImages />
+
+## Installation
+
+<InstallationTabs filename="rich-text-editor.json" />
+
+## Usage
+
+```tsx
+import {
+  RichTextContent,
+  RichTextEditor,
+} from "@/components/ui/rich-text-editor";
+```
+
+```tsx
+<RichTextEditor
+  placeholder="Write something"
+  onUpdate={({ getHTML, isEmpty }) => setBody(isEmpty ? "" : getHTML())}
+/>
+
+<RichTextContent html={body} />
+```
+
+The toolbar covers bold, italic, bulleted and numbered lists, and links. Markdown shortcuts work as you type (`- ` for a bullet, `# ` for a heading, `**bold**`). Content is read out as HTML through `onUpdate`; render stored HTML with `RichTextContent`, which sanitizes it first.
+
+## Images
+
+Pass `images` to turn on images. Without it the editor behaves exactly as before: no image buttons, and images in `defaultContent` or pasted content are dropped. `images` can be turned on or off after the editor mounts without losing content or undo history; turning it off ends any upload still running.
+
+```tsx
+<RichTextEditor
+  images={{
+    upload: async (file) => {
+      const { url, width, height } = await uploadToStorage(file);
+      return { src: url, width, height };
+    },
+    // only images on your own asset host are kept and exported
+    isAllowedSrc: (src) => new URL(src).host === "assets.example.com",
+    maxBytes: 5 * 1024 * 1024,
+    onError: (error) => toast.error(error.message),
+  }}
+  onUpdate={({ getHTML, hasMissingAltText, isUploading, hasExternalImages }) => {
+    setBody(getHTML());
+    setCanSend(!hasMissingAltText && !isUploading && !hasExternalImages);
+  }}
+/>
+```
+
+Images come in four ways:
+
+- **Upload image** in the toolbar opens the file picker (several files at once are fine)
+- **Insert image from link** takes an image that is already hosted. Only `https://` links are accepted, and `isAllowedSrc` must allow them
+- Pasting an image, such as a screenshot or "Copy image" from a browser
+- Dragging image files onto the editor
+
+Each file goes to your `upload` function exactly as picked, so animated GIFs stay animated. While it uploads, the image shows as a placeholder. If `upload` rejects, or resolves to a source that is not `https://` (or that `isAllowedSrc` refuses), the placeholder is removed and `onError` receives an `upload-failed` error with a plain-language message. Files that are not an accepted type, or larger than `maxBytes`, are turned away before uploading. Undoing and redoing around an upload never leaves a placeholder behind.
+
+Each image is a block of its own: inserting one in the middle of a paragraph splits the paragraph around it.
+
+### Image sources
+
+Image sources must be absolute `https://` URLs. `data:`, `blob:`, and relative sources are dropped.
+
+An image in loaded or pasted HTML that is hosted somewhere you have not allowed (refused by `isAllowedSrc`, or plain `http://`) is kept as a placeholder that names its host and offers **Upload replacement**. It is never loaded or exported, and `hasExternalImages` stays true until it is replaced or deleted, so you can warn before sending. If the replacement upload fails, the placeholder (and its alt text) stays. Changing `isAllowedSrc` applies to images already in the editor too. This keeps every sent image on your own host.
+
+For local development against a plain-http asset server, set `allowInsecureHttp: true`. Never set it in production.
+
+### Alt text
+
+Every image needs alt text. An image without alt text shows a dashed outline and an **Add alt text** button until it has some. Use `hasMissingAltText` from `onUpdate` to block sending until every image is described, and `isUploading` to wait for uploads to finish.
+
+When you insert an image while the editor has focus, its alt text field opens and takes focus. If focus has moved elsewhere (for example, to a subject line) by the time an upload finishes, the field stays closed and only the warning shows.
+
+Each alt text or width change is its own undo step.
+
+### Keyboard
+
+- Use the arrow keys to move onto an image; screen readers announce "Image selected. Press Enter to edit its alt text and width."
+- Press **Enter** or **Space** to open the alt text and width settings with focus in the alt text field
+- Press **Escape** (or Enter in the alt text field) to close them and return to the text
+- Press **Delete** or **Backspace** with an image selected to remove it
+
+The same keys work on images that came in through loaded or pasted HTML. On an external image, Enter or Space opens the file picker for its replacement.
+
+### Width
+
+Width presets set an image to 25, 50, 75, or 100% of `maxWidth` (600px by default, the usual email body width), or type an exact width in pixels. Widths never exceed `maxWidth`, including widths in loaded HTML. An image with no known width takes its natural width, capped at `maxWidth`, once it loads.
+
+### HTML output
+
+Images export as email-safe markup, each as a block of its own:
+
+```html
+<img src="https://cdn.example.com/hero.png" alt="Spring sale" width="600" style="display:block;max-width:100%;height:auto;border:0">
+```
+
+An image that is still uploading, or hosted elsewhere, exports nothing. `<img>` tags in `defaultContent` load back as images with their `src`, `alt`, and `width` (or a pixel `width` style); an image inside a paragraph is lifted out to a block of its own.
+
+### Rendering stored HTML
+
+`RichTextContent` strips images unless you pass `allowImages`, so stored content cannot load remote images (such as tracking pixels) by default. With `allowImages`, an image keeps only an `https://` `src`, its `alt`, and a digits-only `width`; everything else (`class`, `style`, `srcset`, event handlers) is removed, and images with any other source are dropped.
+
+```tsx
+<RichTextContent
+  html={body}
+  allowImages
+  isAllowedSrc={(src) => new URL(src).host === "assets.example.com"}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `defaultContent` | `string` | | Initial HTML |
+| `onUpdate` | `(update: RichTextEditorUpdate) => void` | | Called on every change with `getHTML`, `getText`, `isEmpty`, `hasMissingAltText`, `isUploading`, and `hasExternalImages` |
+| `placeholder` | `string` | | Shown when empty |
+| `editable` | `boolean` | `true` | |
+| `hideToolbar` | `boolean` | `false` | |
+| `images` | `RichTextImageOptions` | | Turns on images; see below |
+| `enableChecklist` | `boolean` | `false` | Adds a checklist button |
+| `enableBlockDrag` | `boolean` | `false` | Adds a drag handle for reordering blocks |
+| `mentionItems` | `MentionItem[]` | | Turns on `@` mentions |
+| `issueReferenceItems` | `IssueReferenceItem[]` | | Turns on `#` references |
+| `editorApi` | `RefObject<EditorApi>` | | Imperative `clearContent` and `focus` |
+
+### `RichTextImageOptions`
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `upload` | `(file: File) => Promise<{ src: string; width?: number; height?: number }>` | | Hosts a file and resolves to its absolute `https://` URL |
+| `accept` | `string` | `"image/jpeg,image/png,image/webp,image/gif"` | Accepted file types |
+| `maxBytes` | `number` | unlimited | Largest file accepted |
+| `maxWidth` | `number` | `600` | Widest an image may be set, in pixels |
+| `isAllowedSrc` | `(src: string) => boolean` | allow all `https://` | Which image sources may be kept and exported; others become placeholders to replace |
+| `allowInsecureHttp` | `boolean` | `false` | Accept `http://` sources (local development only) |
+| `onError` | `(error: RichTextImageError) => void` | inline message | Receives `{ code, message, file?, url?, cause? }`, where `code` is `unsupported-type`, `file-too-large`, `upload-failed`, or `invalid-url` (a refused link, also explained inside the link form) |
+
+### `RichTextContent`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `html` | `string` | | Stored HTML, sanitized before rendering |
+| `fallback` | `ReactNode` | | Shown when there is no content |
+| `allowImages` | `boolean` | `false` | Render `https://` images (with only `src`, `alt`, and a pixel `width`) |
+| `allowInsecureHttp` | `boolean` | `false` | With `allowImages`, also render `http://` images (local development only) |
+| `isAllowedSrc` | `(src: string) => boolean` | allow all `https://` | With `allowImages`, render only images whose source this accepts |
