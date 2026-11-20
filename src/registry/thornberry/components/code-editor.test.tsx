@@ -5,11 +5,15 @@ import {
   currentCompletions,
   startCompletion,
 } from "@codemirror/autocomplete";
+import { highlightingFor } from "@codemirror/language";
 import { EditorView } from "@codemirror/view";
+import { tags as t } from "@lezer/highlight";
 
 import {
   createCodeEditor,
   createDoubleClickGuard,
+  tokenHighlightStyle,
+  tokenSyntax,
   tokenTheme,
 } from "@/registry/thornberry/components/code-editor";
 
@@ -194,6 +198,40 @@ test("tokenTheme returns a CodeMirror extension usable as a theme", () => {
   expect(() =>
     mount({ doc: "themed", theme: tokenTheme({ dark: true }) }),
   ).not.toThrow();
+});
+
+test("tokenHighlightStyle colors code from design-token custom properties", () => {
+  const rules = tokenHighlightStyle.module?.getRules() ?? "";
+
+  for (const token of [
+    "--primary",
+    "--chart-1",
+    "--chart-2",
+    "--chart-3",
+    "--chart-4",
+    "--chart-5",
+    "--muted-foreground",
+  ]) {
+    expect(rules).toContain(`var(${token}`);
+  }
+
+  // Each with a literal fallback for an app without the property
+  expect(rules).toMatch(/var\(--primary, #[0-9a-f]{6}\)/);
+});
+
+test("tokenSyntax applies the token highlight style alongside tokenTheme", () => {
+  const handle = mount({
+    doc: "const x = 1;",
+    theme: [tokenTheme(), tokenSyntax()],
+  });
+
+  const keyword = highlightingFor(handle.view.state, [t.keyword]);
+
+  expect(keyword).toBeTruthy();
+  expect(keyword).toBe(tokenHighlightStyle.style([t.keyword]));
+  expect(highlightingFor(handle.view.state, [t.string])).toBe(
+    tokenHighlightStyle.style([t.string]),
+  );
 });
 
 test("lineWrapping is off by default, so a long line does not soft-wrap", () => {

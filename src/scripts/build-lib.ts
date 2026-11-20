@@ -32,6 +32,9 @@ const EXTERNAL = [
   "@codemirror/language",
   "@codemirror/commands",
   "@codemirror/autocomplete",
+  // Highlight tags are identity-keyed like @codemirror/state, so a bundled
+  // second copy would color nothing
+  "@lezer/highlight",
   "lexical",
   "@lexical/html",
   "@lexical/link",

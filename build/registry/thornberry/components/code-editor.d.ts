@@ -1,4 +1,5 @@
 import { autocompletion } from "@codemirror/autocomplete";
+import { HighlightStyle } from "@codemirror/language";
 import { EditorView } from "@codemirror/view";
 import type { CompletionSource } from "@codemirror/autocomplete";
 import type { Extension } from "@codemirror/state";
@@ -143,6 +144,27 @@ export interface CodeEditorOptions {
 export declare const tokenTheme: (opts?: {
     dark?: boolean;
 }) => Extension;
+/**
+ * Opt-in token-aware syntax colors, the companion to {@link tokenTheme}: code is
+ * colored from the design system's CSS custom properties, so it follows the
+ * app's palette in light and dark without a hand-rolled highlight style. Each
+ * reads a literal fallback when the property is unset.
+ *
+ * - `--primary`: keywords
+ * - `--chart-1`: HTML tag names and function names
+ * - `--chart-2`: strings and attribute values
+ * - `--chart-3`: numbers, booleans, and other literals
+ * - `--chart-4`: attribute names, class and type names
+ * - `--chart-5`: property names (CSS properties, object keys)
+ * - `--muted-foreground`: comments (italic), punctuation, and operators
+ */
+export declare const tokenHighlightStyle: HighlightStyle;
+/**
+ * The {@link tokenHighlightStyle} as an editor extension. Pass it with
+ * {@link tokenTheme} for an editor themed and colored entirely from design
+ * tokens: `theme: [tokenTheme({ dark }), tokenSyntax()]`
+ */
+export declare const tokenSyntax: () => Extension;
 /**
  * Build the double-click guard extension for a given mode. Exported so the guard
  * logic can be exercised without mounting a full editor

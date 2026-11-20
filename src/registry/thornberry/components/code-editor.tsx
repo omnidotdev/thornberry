@@ -1,8 +1,13 @@
 import { autocompletion } from "@codemirror/autocomplete";
 import { indentWithTab, redo, undo } from "@codemirror/commands";
-import { indentUnit } from "@codemirror/language";
+import {
+  HighlightStyle,
+  indentUnit,
+  syntaxHighlighting,
+} from "@codemirror/language";
 import { Compartment, EditorState } from "@codemirror/state";
 import { EditorView, keymap, placeholder } from "@codemirror/view";
+import { tags as t } from "@lezer/highlight";
 import { basicSetup } from "codemirror";
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 
@@ -206,6 +211,62 @@ export const tokenTheme = (opts: { dark?: boolean } = {}): Extension =>
     },
     { dark: opts.dark ?? false },
   );
+
+/**
+ * Opt-in token-aware syntax colors, the companion to {@link tokenTheme}: code is
+ * colored from the design system's CSS custom properties, so it follows the
+ * app's palette in light and dark without a hand-rolled highlight style. Each
+ * reads a literal fallback when the property is unset.
+ *
+ * - `--primary`: keywords
+ * - `--chart-1`: HTML tag names and function names
+ * - `--chart-2`: strings and attribute values
+ * - `--chart-3`: numbers, booleans, and other literals
+ * - `--chart-4`: attribute names, class and type names
+ * - `--chart-5`: property names (CSS properties, object keys)
+ * - `--muted-foreground`: comments (italic), punctuation, and operators
+ */
+export const tokenHighlightStyle = HighlightStyle.define([
+  {
+    tag: [t.keyword, t.controlKeyword, t.moduleKeyword, t.definitionKeyword],
+    color: "var(--primary, #7c3aed)",
+  },
+  { tag: [t.tagName], color: "var(--chart-1, #2563eb)" },
+  {
+    tag: [t.function(t.variableName), t.function(t.propertyName)],
+    color: "var(--chart-1, #2563eb)",
+  },
+  {
+    tag: [t.string, t.special(t.string), t.attributeValue, t.regexp],
+    color: "var(--chart-2, #15803d)",
+  },
+  {
+    tag: [t.number, t.bool, t.null, t.atom, t.unit, t.color],
+    color: "var(--chart-3, #c2410c)",
+  },
+  {
+    tag: [t.attributeName, t.className, t.typeName],
+    color: "var(--chart-4, #b45309)",
+  },
+  { tag: [t.propertyName], color: "var(--chart-5, #0e7490)" },
+  {
+    tag: [t.comment, t.lineComment, t.blockComment],
+    color: "var(--muted-foreground, #71717a)",
+    fontStyle: "italic",
+  },
+  {
+    tag: [t.punctuation, t.angleBracket, t.operator, t.separator],
+    color: "var(--muted-foreground, #71717a)",
+  },
+]);
+
+/**
+ * The {@link tokenHighlightStyle} as an editor extension. Pass it with
+ * {@link tokenTheme} for an editor themed and colored entirely from design
+ * tokens: `theme: [tokenTheme({ dark }), tokenSyntax()]`
+ */
+export const tokenSyntax = (): Extension =>
+  syntaxHighlighting(tokenHighlightStyle);
 
 /**
  * Build the double-click guard extension for a given mode. Exported so the guard
