@@ -1834,9 +1834,12 @@ export {
   checkImageSrc,
   clampImageWidth,
   getRichTextImageSummary,
+  inputClassName,
   isHttpsUrl,
   isSafeImageSrc,
   normalizeImageSrc,
+  preventSubmit,
   rememberUploadOutcome,
+  useIsolateFromEditor,
   validateImageFile,
 };

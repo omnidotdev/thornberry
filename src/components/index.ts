@@ -10,6 +10,7 @@ export { default as InstallationTabs } from "./installation-tabs";
 export { default as getMDXComponents } from "./mdx-components";
 export { CheckboxMenu, DemoMenu, NestedMenu, RadioGroupMenu } from "./menus";
 export { default as Pagination } from "./pagination";
+export { default as RichTextEditorButtons } from "./rich-text-editor-buttons";
 export { default as RichTextEditorImages } from "./rich-text-editor-images";
 export { default as SelectExample } from "./select";
 export { SidebarExample } from "./sidebar";

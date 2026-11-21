@@ -438,7 +438,7 @@ var ISOLATED_EVENTS = [
   "dragstart",
   "drop"
 ];
-var useIsolateFromEditor = (ref) => {
+var useIsolateFromEditor2 = (ref) => {
   useEffect(() => {
     const el = ref.current;
     if (!el)
@@ -452,11 +452,11 @@ var useIsolateFromEditor = (ref) => {
     };
   });
 };
-var preventSubmit = (event) => {
+var preventSubmit2 = (event) => {
   if (event.key === "Enter")
     event.preventDefault();
 };
-var inputClassName = "flex h-8 w-full rounded-md border border-input bg-background px-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary aria-invalid:border-destructive";
+var inputClassName2 = "flex h-8 w-full rounded-md border border-input bg-background px-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary aria-invalid:border-destructive";
 var RichTextImageView = ({
   nodeKey,
   src,
@@ -488,9 +488,9 @@ var RichTextImageView = ({
   const altId = `${id}-alt`;
   const altHelpId = `${id}-alt-help`;
   const widthId = `${id}-width`;
-  useIsolateFromEditor(settingsRef);
-  useIsolateFromEditor(badgeRef);
-  useIsolateFromEditor(externalRef);
+  useIsolateFromEditor2(settingsRef);
+  useIsolateFromEditor2(badgeRef);
+  useIsolateFromEditor2(externalRef);
   const ready = !uploading && !external;
   const missingAlt = ready && !alt.trim();
   const showSettings = editable && ready && (isSelected || pinned);
@@ -769,7 +769,7 @@ var RichTextImageView = ({
                 placeholder: "e.g. Three friends laughing at a cafe",
                 "aria-invalid": missingAlt || undefined,
                 "aria-describedby": altHelpId,
-                className: inputClassName,
+                className: inputClassName2,
                 onFocus: () => {
                   altFocused.current = true;
                   altEditStarted.current = false;
@@ -778,7 +778,7 @@ var RichTextImageView = ({
                   altFocused.current = false;
                 },
                 onKeyDown: (event) => {
-                  preventSubmit(event);
+                  preventSubmit2(event);
                   if (event.key === "Enter")
                     closeSettings();
                 },
@@ -831,7 +831,7 @@ var RichTextImageView = ({
                         min: MIN_IMAGE_WIDTH,
                         max: maxWidth,
                         value: widthDraft,
-                        className: cn(inputClassName, "w-20"),
+                        className: cn(inputClassName2, "w-20"),
                         onChange: (event) => setWidthDraft(event.target.value),
                         onBlur: () => {
                           const value = Number(widthDraft);
@@ -841,7 +841,7 @@ var RichTextImageView = ({
                             setWidthDraft(shownWidth ? String(shownWidth) : "");
                         },
                         onKeyDown: (event) => {
-                          preventSubmit(event);
+                          preventSubmit2(event);
                           if (event.key === "Enter") {
                             const value = Number(widthDraft);
                             if (Number.isFinite(value) && value > 0) {
@@ -1253,13 +1253,13 @@ var RichTextImageToolbarControls2 = ({
                 value: url,
                 "aria-invalid": urlError ? true : undefined,
                 "aria-describedby": urlError ? `${id}-url-error` : undefined,
-                className: inputClassName,
+                className: inputClassName2,
                 onChange: (event) => {
                   setUrl(event.target.value);
                   setUrlError(null);
                 },
                 onKeyDown: (event) => {
-                  preventSubmit(event);
+                  preventSubmit2(event);
                   if (event.key === "Enter")
                     insertUrl();
                 }
@@ -1293,4 +1293,4 @@ var RichTextImageToolbarControls2 = ({
     ]
   });
 };
-export { DEFAULT_IMAGE_ACCEPT2, DEFAULT_IMAGE_MAX_WIDTH2, EMAIL_IMAGE_STYLE2, checkImageSrc2, isSafeImageSrc2, normalizeImageSrc2, isHttpsUrl2, clampImageWidth2, validateImageFile2, RichTextImageNode2, $createRichTextImageNode2, $isRichTextImageNode2, $getRichTextImageSummary2, getRichTextImageSummary2, INSERT_RICH_TEXT_IMAGE_COMMAND2, UPLOAD_RICH_TEXT_IMAGES_COMMAND2, REPLACE_RICH_TEXT_IMAGE_COMMAND2, rememberUploadOutcome2, RichTextImages2, RichTextImageToolbarControls2 };
+export { DEFAULT_IMAGE_ACCEPT2, DEFAULT_IMAGE_MAX_WIDTH2, EMAIL_IMAGE_STYLE2, checkImageSrc2, isSafeImageSrc2, normalizeImageSrc2, isHttpsUrl2, clampImageWidth2, validateImageFile2, RichTextImageNode2, $createRichTextImageNode2, $isRichTextImageNode2, $getRichTextImageSummary2, getRichTextImageSummary2, INSERT_RICH_TEXT_IMAGE_COMMAND2, UPLOAD_RICH_TEXT_IMAGES_COMMAND2, REPLACE_RICH_TEXT_IMAGE_COMMAND2, useIsolateFromEditor2, preventSubmit2, inputClassName2, rememberUploadOutcome2, RichTextImages2, RichTextImageToolbarControls2 };

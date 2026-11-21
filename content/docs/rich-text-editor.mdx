@@ -1,9 +1,9 @@
 ---
 title: Rich Text Editor
-description: A friendly rich text editor with a minimal toolbar, optional email-safe images, and a sanitized HTML renderer.
+description: A friendly rich text editor with a minimal toolbar, optional email-safe images and call-to-action buttons, and a sanitized HTML renderer.
 ---
 
-import { RichTextEditorImages } from "@/components"
+import { RichTextEditorButtons, RichTextEditorImages } from "@/components"
 
 <RichTextEditorImages />
 
@@ -116,6 +116,53 @@ An image that is still uploading, or hosted elsewhere, exports nothing. `<img>` 
 />
 ```
 
+## Buttons
+
+Pass `buttons` to add call-to-action buttons, such as "Shop the sale" in an email. Without it the editor behaves exactly as before: no button control, and button links in `defaultContent` or pasted content load as ordinary links. Like `images`, `buttons` can be turned on or off after the editor mounts; turning it off turns existing buttons into ordinary links.
+
+<RichTextEditorButtons />
+
+```tsx
+<RichTextEditor
+  buttons={{
+    // only links to your own domains are accepted
+    isAllowedHref: (href) =>
+      href.startsWith("mailto:") || new URL(href).host === "shop.example.com",
+  }}
+  onUpdate={({ getHTML }) => setBody(getHTML())}
+/>
+```
+
+**Insert button** in the toolbar opens a form for the button text and its link. Each button is a block of its own: inserting one in the middle of a paragraph splits the paragraph around it. In the editor it shows as a pill in the theme's primary color; the styling of the sent email is up to you.
+
+### Links
+
+A button link must be an absolute `https://` link or a `mailto:` address (`mailto:hello@example.com`). Plain `http://`, relative, `javascript:`, `data:`, and every other kind of link are refused, in the form, in loaded or pasted HTML, and in pasted editor data. Links are kept and exported in their normalized form (`new URL(href).href`), which is also what `isAllowedHref` receives, after the built-in check.
+
+A button in loaded or pasted HTML whose link is refused keeps only its text. If `isAllowedHref` gets stricter after a button was added, the button shows a warning and exports only its text until its link is fixed.
+
+### Editing and keyboard
+
+- Click a button to open its edit form, with fields for the text and the link, plus **Save**, **Remove**, and **Cancel**
+- Use the arrow keys to move onto a button; screen readers announce "Button selected. Press Enter to edit it."
+- Press **Enter** or **Space** on a selected button to open the edit form with focus in the text field
+- Press **Enter** in a field to insert or save, and **Escape** to close the form and return to the text
+- Press **Delete** or **Backspace** with a button selected to remove it
+
+Each insert, edit, or removal is its own undo step.
+
+### HTML output
+
+Each button exports as a paragraph holding one marked anchor, so it keeps paragraph spacing in any email template:
+
+```html
+<p><a href="https://shop.example.com/sale" data-variant="button">Shop the sale</a></p>
+```
+
+`data-variant="button"` is the only marker; the anchor carries no inline style, so style it in your email template or sanitizer (for example `a[data-variant="button"]`). An `<a data-variant="button">` in `defaultContent` loads back as a button, on its own or inside a block: a paragraph, heading, or quote is split around it, and a list is left whole with the button moved after it.
+
+`RichTextContent` keeps `data-variant="button"` only on an `<a>` with an `https://` or `mailto:` link, removes it everywhere else, and renders those links as pills.
+
 ## Props
 
 | Prop | Type | Default | Description |
@@ -126,6 +173,7 @@ An image that is still uploading, or hosted elsewhere, exports nothing. `<img>` 
 | `editable` | `boolean` | `true` | |
 | `hideToolbar` | `boolean` | `false` | |
 | `images` | `RichTextImageOptions` | | Turns on images; see below |
+| `buttons` | `RichTextButtonOptions` | | Turns on call-to-action buttons; see below |
 | `enableChecklist` | `boolean` | `false` | Adds a checklist button |
 | `enableBlockDrag` | `boolean` | `false` | Adds a drag handle for reordering blocks |
 | `mentionItems` | `MentionItem[]` | | Turns on `@` mentions |
@@ -143,6 +191,12 @@ An image that is still uploading, or hosted elsewhere, exports nothing. `<img>` 
 | `isAllowedSrc` | `(src: string) => boolean` | allow all `https://` | Which image sources may be kept and exported; others become placeholders to replace |
 | `allowInsecureHttp` | `boolean` | `false` | Accept `http://` sources (local development only) |
 | `onError` | `(error: RichTextImageError) => void` | inline message | Receives `{ code, message, file?, url?, cause? }`, where `code` is `unsupported-type`, `file-too-large`, `upload-failed`, or `invalid-url` (a refused link, also explained inside the link form) |
+
+### `RichTextButtonOptions`
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `isAllowedHref` | `(href: string) => boolean` | allow every `https://` and `mailto:` link | Which button links are accepted, called with the normalized link after the built-in check |
 
 ### `RichTextContent`
 

@@ -712,7 +712,7 @@
       "name": "rich-text-editor",
       "type": "registry:ui",
       "title": "Rich Text Editor",
-      "description": "A friendly Lexical rich-text editor with a minimal toolbar (bold, italic, lists, links), optional email-safe images with required alt text, and a sanitized HTML renderer.",
+      "description": "A friendly Lexical rich-text editor with a minimal toolbar (bold, italic, lists, links), optional email-safe images with required alt text, optional call-to-action buttons, and a sanitized HTML renderer.",
       "dependencies": [
         "lexical",
         "@lexical/react",
@@ -730,6 +730,10 @@
         },
         {
           "path": "src/registry/thornberry/components/rich-text-image.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/thornberry/components/rich-text-button.tsx",
           "type": "registry:ui"
         }
       ]

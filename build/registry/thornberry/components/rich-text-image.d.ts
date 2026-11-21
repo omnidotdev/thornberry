@@ -1,6 +1,6 @@
 import { DecoratorNode } from "lexical";
 import type { DOMConversionMap, DOMExportOutput, LexicalCommand, LexicalEditor, LexicalNode, NodeKey, SerializedLexicalNode, Spread } from "lexical";
-import type { ReactNode } from "react";
+import type { KeyboardEvent, ReactNode, RefObject } from "react";
 /** What an `upload` call resolves to: the hosted image's absolute URL and, when known, its pixel size */
 interface RichTextImageUploadResult {
     /** Absolute `https://` URL of the hosted file (`http://` only with `allowInsecureHttp`) */
@@ -195,6 +195,15 @@ declare const REPLACE_RICH_TEXT_IMAGE_COMMAND: LexicalCommand<{
     file: File;
 }>;
 /**
+ * Mark events inside `ref` as handled so the editor root ignores them: typing
+ * Backspace in the alt text field must edit the field, never delete the
+ * selected image
+ */
+declare const useIsolateFromEditor: (ref: RefObject<HTMLElement | null>) => void;
+/** Keep Enter in a settings field from submitting a form the editor sits in */
+declare const preventSubmit: (event: KeyboardEvent<HTMLInputElement>) => void;
+declare const inputClassName = "flex h-8 w-full rounded-md border border-input bg-background px-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary aria-invalid:border-destructive";
+/**
  * Remember how an upload turned out so an undo or redo that restores its
  * placeholder can re-apply it, keeping only the most recent `limit` outcomes
  */
@@ -228,4 +237,4 @@ interface RichTextImageToolbarControlsProps {
  */
 declare const RichTextImageToolbarControls: ({ renderButton, }: RichTextImageToolbarControlsProps) => import("react/jsx-runtime").JSX.Element | null;
 export type { ImageSrcVerdict, RichTextImageError, RichTextImageErrorCode, RichTextImageOptions, RichTextImageSummary, RichTextImageUploadResult, SerializedRichTextImageNode, };
-export { $createRichTextImageNode, $getRichTextImageSummary, $isRichTextImageNode, DEFAULT_IMAGE_ACCEPT, DEFAULT_IMAGE_MAX_WIDTH, EMAIL_IMAGE_STYLE, INSERT_RICH_TEXT_IMAGE_COMMAND, REPLACE_RICH_TEXT_IMAGE_COMMAND, RichTextImageNode, RichTextImageToolbarControls, RichTextImages, UPLOAD_RICH_TEXT_IMAGES_COMMAND, checkImageSrc, clampImageWidth, getRichTextImageSummary, isHttpsUrl, isSafeImageSrc, normalizeImageSrc, rememberUploadOutcome, validateImageFile, };
+export { $createRichTextImageNode, $getRichTextImageSummary, $isRichTextImageNode, DEFAULT_IMAGE_ACCEPT, DEFAULT_IMAGE_MAX_WIDTH, EMAIL_IMAGE_STYLE, INSERT_RICH_TEXT_IMAGE_COMMAND, REPLACE_RICH_TEXT_IMAGE_COMMAND, RichTextImageNode, RichTextImageToolbarControls, RichTextImages, UPLOAD_RICH_TEXT_IMAGES_COMMAND, checkImageSrc, clampImageWidth, getRichTextImageSummary, inputClassName, isHttpsUrl, isSafeImageSrc, normalizeImageSrc, preventSubmit, rememberUploadOutcome, useIsolateFromEditor, validateImageFile, };

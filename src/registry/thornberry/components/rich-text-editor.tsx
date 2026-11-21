@@ -82,6 +82,12 @@ import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
 import {
+  RichTextButtonNode,
+  RichTextButtonToolbarControl,
+  RichTextButtons,
+  checkButtonHref,
+} from "@/registry/thornberry/components/rich-text-button";
+import {
   RichTextImageNode,
   RichTextImageToolbarControls,
   RichTextImages,
@@ -105,6 +111,7 @@ import type {
   ReactNode,
   RefObject,
 } from "react";
+import type { RichTextButtonOptions } from "@/registry/thornberry/components/rich-text-button";
 import type { RichTextImageOptions } from "@/registry/thornberry/components/rich-text-image";
 
 /** Imperative handle exposed via `editorApi` for clearing/focusing the editor. */
@@ -290,14 +297,16 @@ const ToolbarButton = ({
   </Button>
 );
 
-/** Minimal formatting toolbar: bold, italic, lists, link, optional checklist and images. */
+/** Minimal formatting toolbar: bold, italic, lists, link, optional checklist, images, and buttons. */
 const Toolbar = ({
   enableChecklist,
   enableImages,
+  enableButtons,
   className,
 }: {
   enableChecklist?: boolean;
   enableImages?: boolean;
+  enableButtons?: boolean;
   className?: string;
 }) => {
   const [editor] = useLexicalComposerContext();
@@ -313,7 +322,7 @@ const Toolbar = ({
   return (
     <div
       className={cn(
-        "flex items-center gap-0.5 border-input border-b px-1 py-1",
+        "relative flex items-center gap-0.5 border-input border-b px-1 py-1",
         className,
       )}
     >
@@ -359,6 +368,20 @@ const Toolbar = ({
               key={label}
               label={label}
               aria-pressed={pressed}
+              onClick={onClick}
+            >
+              {icon}
+            </ToolbarButton>
+          )}
+        />
+      )}
+      {enableButtons && (
+        <RichTextButtonToolbarControl
+          renderButton={({ label, icon, onClick, pressed }) => (
+            <ToolbarButton
+              label={label}
+              aria-pressed={pressed}
+              aria-expanded={pressed}
               onClick={onClick}
             >
               {icon}
@@ -1020,6 +1043,14 @@ interface RichTextEditorProps
    * (and may be turned on or off after mount).
    */
   images?: RichTextImageOptions;
+  /**
+   * Turn on call-to-action buttons: an "Insert button" toolbar control that
+   * takes a label and an `https://` or `mailto:` link. Each button is a block
+   * of its own and exports as
+   * `<p><a href="…" data-variant="button">Label</a></p>` for the consumer to
+   * style. Off when omitted (and may be turned on or off after mount)
+   */
+  buttons?: RichTextButtonOptions;
   /** Extra Lexical node classes to register (e.g. an app's image node). */
   extraNodes?: ReadonlyArray<Klass<LexicalNode>>;
   /** Extra Lexical plugins rendered inside the composer (e.g. image paste, code highlighting). */
@@ -1050,6 +1081,7 @@ const RichTextEditor = ({
   enableChecklist,
   enableBlockDrag,
   images,
+  buttons,
   extraNodes,
   plugins,
   theme,
@@ -1132,6 +1164,8 @@ const RichTextEditor = ({
       // always registered so `images` can be toggled after mount; it stays
       // inert (no import, no toolbar, no paste handling) while `images` is off
       RichTextImageNode,
+      // likewise always registered, and inert while `buttons` is off
+      RichTextButtonNode,
       ...(extraNodes ?? []),
     ],
   };
@@ -1161,84 +1195,88 @@ const RichTextEditor = ({
     >
       <LexicalComposer initialConfig={initialConfig}>
         <RichTextImages options={images}>
-          {!hideToolbar && editable && (
-            <Toolbar
-              enableChecklist={enableChecklist}
-              enableImages={Boolean(images)}
-              className={toolbarClassName}
-            />
-          )}
+          <RichTextButtons options={buttons}>
+            {!hideToolbar && editable && (
+              <Toolbar
+                enableChecklist={enableChecklist}
+                enableImages={Boolean(images)}
+                enableButtons={Boolean(buttons)}
+                className={toolbarClassName}
+              />
+            )}
 
-          <div className="relative" ref={onAnchorRef}>
-            <RichTextPlugin
-              contentEditable={
-                <ContentEditable
-                  className={cn(
-                    // 16px floor on mobile stops iOS Safari from auto-zooming the
-                    // viewport on focus (it zooms any field under 16px and never
-                    // zooms back out); drop to 14px from md up to match Input/Textarea
-                    "min-h-20 px-3 py-2 text-base outline-none md:text-sm",
-                    // reserve a left gutter for the block-drag handle so it never
-                    // overlaps the text (the handle sits ~4px from the surface edge)
-                    blockDragEnabled && "pl-7",
-                    editorClassName,
-                  )}
-                  spellCheck
-                />
-              }
-              placeholder={
-                placeholder && isEmpty ? (
-                  <div
+            <div className="relative" ref={onAnchorRef}>
+              <RichTextPlugin
+                contentEditable={
+                  <ContentEditable
                     className={cn(
-                      "pointer-events-none absolute top-2 left-3 select-none text-muted-foreground",
-                      // keep the placeholder aligned with the gutter-shifted text
-                      blockDragEnabled && "left-7",
+                      // 16px floor on mobile stops iOS Safari from auto-zooming the
+                      // viewport on focus (it zooms any field under 16px and never
+                      // zooms back out); drop to 14px from md up to match Input/Textarea
+                      "min-h-20 px-3 py-2 text-base outline-none md:text-sm",
+                      // reserve a left gutter for the block-drag handle so it never
+                      // overlaps the text (the handle sits ~4px from the surface edge)
+                      blockDragEnabled && "pl-7",
+                      editorClassName,
                     )}
-                  >
-                    {placeholder}
-                  </div>
-                ) : null
-              }
-              ErrorBoundary={LexicalErrorBoundary}
-            />
-            <HistoryPlugin />
-            <ListPlugin />
-            {enableChecklist && <CheckListPlugin />}
-            {/* Tab / Shift+Tab to indent + nest list items */}
-            <TabIndentationPlugin />
-            {/* markdown-style input: `- `, `1. `, `# `, `> `, `**bold**`, etc. */}
-            <MarkdownShortcutPlugin transformers={MARKDOWN_TRANSFORMERS} />
-            <LinkPlugin />
-            {/* paste a URL over a selection to link it; Cmd/Ctrl+K to link */}
-            <LinkShortcutsPlugin />
-            {/* turn bare URLs / emails into links as they are typed or pasted */}
-            <AutoLinkPlugin matchers={AUTO_LINK_MATCHERS} />
-            {/* open links on click (new tab), in both read-only and edit mode;
+                    spellCheck
+                  />
+                }
+                placeholder={
+                  placeholder && isEmpty ? (
+                    <div
+                      className={cn(
+                        "pointer-events-none absolute top-2 left-3 select-none text-muted-foreground",
+                        // keep the placeholder aligned with the gutter-shifted text
+                        blockDragEnabled && "left-7",
+                      )}
+                    >
+                      {placeholder}
+                    </div>
+                  ) : null
+                }
+                ErrorBoundary={LexicalErrorBoundary}
+              />
+              <HistoryPlugin />
+              <ListPlugin />
+              {enableChecklist && <CheckListPlugin />}
+              {/* Tab / Shift+Tab to indent + nest list items */}
+              <TabIndentationPlugin />
+              {/* markdown-style input: `- `, `1. `, `# `, `> `, `**bold**`, etc. */}
+              <MarkdownShortcutPlugin transformers={MARKDOWN_TRANSFORMERS} />
+              <LinkPlugin />
+              {/* paste a URL over a selection to link it; Cmd/Ctrl+K to link */}
+              <LinkShortcutsPlugin />
+              {/* turn bare URLs / emails into links as they are typed or pasted */}
+              <AutoLinkPlugin matchers={AUTO_LINK_MATCHERS} />
+              {/* open links on click (new tab), in both read-only and edit mode;
                   drag-selecting a link's text suppresses navigation so it stays
                   editable. Without this, Lexical swallows the click for selection */}
-            <ClickableLinkPlugin />
-            {mentionItems?.length ? (
-              <MentionTypeahead items={mentionItems} />
-            ) : null}
-            {issueReferenceItems?.length ? (
-              <IssueReferenceTypeahead items={issueReferenceItems} />
-            ) : null}
-            {blockDragEnabled && anchorElem ? (
-              <BlockDragPlugin anchorElem={anchorElem} />
-            ) : null}
-            {plugins}
-            {/* image uploads, alt text, and width edits merge into the previous
-                  undo step, so with images on those updates must still report */}
-            <OnChangePlugin
-              onChange={handleChange}
-              ignoreHistoryMergeTagChange={!images}
-            />
-            <EditablePlugin editable={editable} />
-            <EditorApiPlugin
-              editorApi={editorApi}
-              defaultContent={defaultContent}
-            />
-          </div>
+              <ClickableLinkPlugin />
+              {mentionItems?.length ? (
+                <MentionTypeahead items={mentionItems} />
+              ) : null}
+              {issueReferenceItems?.length ? (
+                <IssueReferenceTypeahead items={issueReferenceItems} />
+              ) : null}
+              {blockDragEnabled && anchorElem ? (
+                <BlockDragPlugin anchorElem={anchorElem} />
+              ) : null}
+              {plugins}
+              {/* image uploads, alt text, and width edits (and lifting loaded
+                  buttons to blocks) merge into the previous undo step, so with
+                  images or buttons on those updates must still report */}
+              <OnChangePlugin
+                onChange={handleChange}
+                ignoreHistoryMergeTagChange={!images && !buttons}
+              />
+              <EditablePlugin editable={editable} />
+              <EditorApiPlugin
+                editorApi={editorApi}
+                defaultContent={defaultContent}
+              />
+            </div>
+          </RichTextButtons>
         </RichTextImages>
       </LexicalComposer>
     </div>
@@ -1373,6 +1411,19 @@ const sanitizeImage = (
   }
 };
 
+/**
+ * Keep `data-variant` only as a button marker: on an `<a>`, with the value
+ * `button`, and an `https://` or `mailto:` link. It is removed everywhere else
+ */
+const sanitizeButtonVariant = (node: Element): void => {
+  if (!node.hasAttribute("data-variant")) return;
+  const isButton =
+    node.tagName === "A" &&
+    node.getAttribute("data-variant") === "button" &&
+    checkButtonHref(node.getAttribute("href")).ok;
+  if (!isButton) node.removeAttribute("data-variant");
+};
+
 interface RichTextContentProps extends ComponentProps<"div"> {
   /** Stored HTML to render (sanitized before insertion). */
   html: string;
@@ -1414,6 +1465,7 @@ const RichTextContent = ({
   // other DOMPurify callers.
   DOMPurify.addHook("afterSanitizeAttributes", (node) => {
     openLinksInNewTab(node);
+    sanitizeButtonVariant(node);
     if (allowImages) sanitizeImage(node, allowInsecureHttp, isAllowedSrc);
   });
   const clean = DOMPurify.sanitize(
@@ -1449,6 +1501,9 @@ const RichTextContent = ({
         "target",
         "rel",
         "class",
+        // a button marker, narrowed to `<a data-variant="button">` by
+        // sanitizeButtonVariant
+        "data-variant",
         ...(allowImages ? ["src", "alt", "width"] : []),
       ],
     },
@@ -1458,6 +1513,8 @@ const RichTextContent = ({
   return (
     <div
       className={cn(
+        // stored buttons render as token-styled pills; email styling is the consumer's
+        "[&_a[data-variant=button]]:inline-flex [&_a[data-variant=button]]:rounded-md [&_a[data-variant=button]]:bg-primary [&_a[data-variant=button]]:px-4 [&_a[data-variant=button]]:py-2 [&_a[data-variant=button]]:font-medium [&_a[data-variant=button]]:text-primary-foreground [&_a[data-variant=button]]:no-underline [&_a[data-variant=button]]:hover:opacity-90",
         "[&_img]:block [&_img]:h-auto [&_img]:max-w-full [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_blockquote]:my-2 [&_blockquote]:border-border [&_blockquote]:border-l-2 [&_blockquote]:pl-3 [&_blockquote]:text-muted-foreground [&_blockquote]:italic [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em] [&_h1]:font-bold [&_h1]:text-xl [&_h2]:font-bold [&_h2]:text-lg [&_h3]:font-semibold [&_h3]:text-base [&_ol]:ml-5 [&_ol]:list-decimal [&_ol_ol]:list-[lower-alpha] [&_p:last-child]:mb-0 [&_p]:mb-2 [&_ul]:ml-5 [&_ul]:list-disc [&_ul_ul]:list-[circle]",
         className,
       )}
@@ -1468,6 +1525,7 @@ const RichTextContent = ({
   );
 };
 
+export type { RichTextButtonOptions } from "@/registry/thornberry/components/rich-text-button";
 export type {
   RichTextImageError,
   RichTextImageErrorCode,
