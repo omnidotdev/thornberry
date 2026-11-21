@@ -7,7 +7,13 @@ import {
   getRichTextImageSummary2,
   RichTextImages2,
   RichTextImageToolbarControls2
-} from "../../../chunks/ai-describe-panel-2t12rj8s.js";
+} from "../../../chunks/ai-describe-panel-sbwr6vks.js";
+import {
+  checkButtonHref2,
+  RichTextButtonNode2,
+  RichTextButtons2,
+  RichTextButtonToolbarControl2
+} from "../../../chunks/ai-describe-panel-7kbxsmfx.js";
 import {
   Skeleton2
 } from "../../../chunks/ai-describe-panel-4ayhnmp9.js";
@@ -207,6 +213,7 @@ var ToolbarButton = ({
 var Toolbar = ({
   enableChecklist,
   enableImages,
+  enableButtons,
   className
 }) => {
   const [editor] = useLexicalComposerContext();
@@ -217,7 +224,7 @@ var Toolbar = ({
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, url.trim());
   };
   return /* @__PURE__ */ jsxs("div", {
-    className: cn("flex items-center gap-0.5 border-input border-b px-1 py-1", className),
+    className: cn("relative flex items-center gap-0.5 border-input border-b px-1 py-1", className),
     children: [
       /* @__PURE__ */ jsx(ToolbarButton, {
         label: "Bold",
@@ -256,6 +263,15 @@ var Toolbar = ({
           onClick,
           children: icon
         }, label)
+      }),
+      enableButtons && /* @__PURE__ */ jsx(RichTextButtonToolbarControl2, {
+        renderButton: ({ label, icon, onClick, pressed }) => /* @__PURE__ */ jsx(ToolbarButton, {
+          label,
+          "aria-pressed": pressed,
+          "aria-expanded": pressed,
+          onClick,
+          children: icon
+        })
       })
     ]
   });
@@ -665,6 +681,7 @@ var RichTextEditor = ({
   enableChecklist,
   enableBlockDrag,
   images,
+  buttons,
   extraNodes,
   plugins,
   theme,
@@ -717,6 +734,7 @@ var RichTextEditor = ({
       LinkNode,
       AutoLinkNode,
       RichTextImageNode2,
+      RichTextButtonNode2,
       ...extraNodes ?? []
     ]
   };
@@ -739,66 +757,70 @@ var RichTextEditor = ({
     ...rest,
     children: /* @__PURE__ */ jsx(LexicalComposer, {
       initialConfig,
-      children: /* @__PURE__ */ jsxs(RichTextImages2, {
+      children: /* @__PURE__ */ jsx(RichTextImages2, {
         options: images,
-        children: [
-          !hideToolbar && editable && /* @__PURE__ */ jsx(Toolbar, {
-            enableChecklist,
-            enableImages: Boolean(images),
-            className: toolbarClassName
-          }),
-          /* @__PURE__ */ jsxs("div", {
-            className: "relative",
-            ref: onAnchorRef,
-            children: [
-              /* @__PURE__ */ jsx(RichTextPlugin, {
-                contentEditable: /* @__PURE__ */ jsx(ContentEditable, {
-                  className: cn("min-h-20 px-3 py-2 text-base outline-none md:text-sm", blockDragEnabled && "pl-7", editorClassName),
-                  spellCheck: true
+        children: /* @__PURE__ */ jsxs(RichTextButtons2, {
+          options: buttons,
+          children: [
+            !hideToolbar && editable && /* @__PURE__ */ jsx(Toolbar, {
+              enableChecklist,
+              enableImages: Boolean(images),
+              enableButtons: Boolean(buttons),
+              className: toolbarClassName
+            }),
+            /* @__PURE__ */ jsxs("div", {
+              className: "relative",
+              ref: onAnchorRef,
+              children: [
+                /* @__PURE__ */ jsx(RichTextPlugin, {
+                  contentEditable: /* @__PURE__ */ jsx(ContentEditable, {
+                    className: cn("min-h-20 px-3 py-2 text-base outline-none md:text-sm", blockDragEnabled && "pl-7", editorClassName),
+                    spellCheck: true
+                  }),
+                  placeholder: placeholder && isEmpty ? /* @__PURE__ */ jsx("div", {
+                    className: cn("pointer-events-none absolute top-2 left-3 select-none text-muted-foreground", blockDragEnabled && "left-7"),
+                    children: placeholder
+                  }) : null,
+                  ErrorBoundary: LexicalErrorBoundary
                 }),
-                placeholder: placeholder && isEmpty ? /* @__PURE__ */ jsx("div", {
-                  className: cn("pointer-events-none absolute top-2 left-3 select-none text-muted-foreground", blockDragEnabled && "left-7"),
-                  children: placeholder
+                /* @__PURE__ */ jsx(HistoryPlugin, {}),
+                /* @__PURE__ */ jsx(ListPlugin, {}),
+                enableChecklist && /* @__PURE__ */ jsx(CheckListPlugin, {}),
+                /* @__PURE__ */ jsx(TabIndentationPlugin, {}),
+                /* @__PURE__ */ jsx(MarkdownShortcutPlugin, {
+                  transformers: MARKDOWN_TRANSFORMERS
+                }),
+                /* @__PURE__ */ jsx(LinkPlugin, {}),
+                /* @__PURE__ */ jsx(LinkShortcutsPlugin, {}),
+                /* @__PURE__ */ jsx(AutoLinkPlugin, {
+                  matchers: AUTO_LINK_MATCHERS
+                }),
+                /* @__PURE__ */ jsx(ClickableLinkPlugin, {}),
+                mentionItems?.length ? /* @__PURE__ */ jsx(MentionTypeahead, {
+                  items: mentionItems
                 }) : null,
-                ErrorBoundary: LexicalErrorBoundary
-              }),
-              /* @__PURE__ */ jsx(HistoryPlugin, {}),
-              /* @__PURE__ */ jsx(ListPlugin, {}),
-              enableChecklist && /* @__PURE__ */ jsx(CheckListPlugin, {}),
-              /* @__PURE__ */ jsx(TabIndentationPlugin, {}),
-              /* @__PURE__ */ jsx(MarkdownShortcutPlugin, {
-                transformers: MARKDOWN_TRANSFORMERS
-              }),
-              /* @__PURE__ */ jsx(LinkPlugin, {}),
-              /* @__PURE__ */ jsx(LinkShortcutsPlugin, {}),
-              /* @__PURE__ */ jsx(AutoLinkPlugin, {
-                matchers: AUTO_LINK_MATCHERS
-              }),
-              /* @__PURE__ */ jsx(ClickableLinkPlugin, {}),
-              mentionItems?.length ? /* @__PURE__ */ jsx(MentionTypeahead, {
-                items: mentionItems
-              }) : null,
-              issueReferenceItems?.length ? /* @__PURE__ */ jsx(IssueReferenceTypeahead, {
-                items: issueReferenceItems
-              }) : null,
-              blockDragEnabled && anchorElem ? /* @__PURE__ */ jsx(BlockDragPlugin, {
-                anchorElem
-              }) : null,
-              plugins,
-              /* @__PURE__ */ jsx(OnChangePlugin, {
-                onChange: handleChange,
-                ignoreHistoryMergeTagChange: !images
-              }),
-              /* @__PURE__ */ jsx(EditablePlugin, {
-                editable
-              }),
-              /* @__PURE__ */ jsx(EditorApiPlugin, {
-                editorApi,
-                defaultContent
-              })
-            ]
-          })
-        ]
+                issueReferenceItems?.length ? /* @__PURE__ */ jsx(IssueReferenceTypeahead, {
+                  items: issueReferenceItems
+                }) : null,
+                blockDragEnabled && anchorElem ? /* @__PURE__ */ jsx(BlockDragPlugin, {
+                  anchorElem
+                }) : null,
+                plugins,
+                /* @__PURE__ */ jsx(OnChangePlugin, {
+                  onChange: handleChange,
+                  ignoreHistoryMergeTagChange: !images && !buttons
+                }),
+                /* @__PURE__ */ jsx(EditablePlugin, {
+                  editable
+                }),
+                /* @__PURE__ */ jsx(EditorApiPlugin, {
+                  editorApi,
+                  defaultContent
+                })
+              ]
+            })
+          ]
+        })
       })
     })
   });
@@ -873,6 +895,13 @@ var sanitizeImage = (node, allowInsecureHttp, isAllowedSrc) => {
     node.removeAttribute("width");
   }
 };
+var sanitizeButtonVariant = (node) => {
+  if (!node.hasAttribute("data-variant"))
+    return;
+  const isButton = node.tagName === "A" && node.getAttribute("data-variant") === "button" && checkButtonHref2(node.getAttribute("href")).ok;
+  if (!isButton)
+    node.removeAttribute("data-variant");
+};
 var RichTextContent = ({
   html,
   fallback = null,
@@ -888,6 +917,7 @@ var RichTextContent = ({
     });
   DOMPurify.addHook("afterSanitizeAttributes", (node) => {
     openLinksInNewTab(node);
+    sanitizeButtonVariant(node);
     if (allowImages)
       sanitizeImage(node, allowInsecureHttp, isAllowedSrc);
   });
@@ -922,12 +952,13 @@ var RichTextContent = ({
       "target",
       "rel",
       "class",
+      "data-variant",
       ...allowImages ? ["src", "alt", "width"] : []
     ]
   });
   DOMPurify.removeHook("afterSanitizeAttributes");
   return /* @__PURE__ */ jsx("div", {
-    className: cn("[&_img]:block [&_img]:h-auto [&_img]:max-w-full [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_blockquote]:my-2 [&_blockquote]:border-border [&_blockquote]:border-l-2 [&_blockquote]:pl-3 [&_blockquote]:text-muted-foreground [&_blockquote]:italic [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em] [&_h1]:font-bold [&_h1]:text-xl [&_h2]:font-bold [&_h2]:text-lg [&_h3]:font-semibold [&_h3]:text-base [&_ol]:ml-5 [&_ol]:list-decimal [&_ol_ol]:list-[lower-alpha] [&_p:last-child]:mb-0 [&_p]:mb-2 [&_ul]:ml-5 [&_ul]:list-disc [&_ul_ul]:list-[circle]", className),
+    className: cn("[&_a[data-variant=button]]:inline-flex [&_a[data-variant=button]]:rounded-md [&_a[data-variant=button]]:bg-primary [&_a[data-variant=button]]:px-4 [&_a[data-variant=button]]:py-2 [&_a[data-variant=button]]:font-medium [&_a[data-variant=button]]:text-primary-foreground [&_a[data-variant=button]]:no-underline [&_a[data-variant=button]]:hover:opacity-90", "[&_img]:block [&_img]:h-auto [&_img]:max-w-full [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_blockquote]:my-2 [&_blockquote]:border-border [&_blockquote]:border-l-2 [&_blockquote]:pl-3 [&_blockquote]:text-muted-foreground [&_blockquote]:italic [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em] [&_h1]:font-bold [&_h1]:text-xl [&_h2]:font-bold [&_h2]:text-lg [&_h3]:font-semibold [&_h3]:text-base [&_ol]:ml-5 [&_ol]:list-decimal [&_ol_ol]:list-[lower-alpha] [&_p:last-child]:mb-0 [&_p]:mb-2 [&_ul]:ml-5 [&_ul]:list-disc [&_ul_ul]:list-[circle]", className),
     dangerouslySetInnerHTML: { __html: clean },
     ...rest
   });

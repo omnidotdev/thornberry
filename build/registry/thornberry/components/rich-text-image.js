@@ -16,10 +16,13 @@ import {
   INSERT_RICH_TEXT_IMAGE_COMMAND2,
   UPLOAD_RICH_TEXT_IMAGES_COMMAND2,
   REPLACE_RICH_TEXT_IMAGE_COMMAND2,
+  useIsolateFromEditor2,
+  preventSubmit2,
+  inputClassName2,
   rememberUploadOutcome2,
   RichTextImages2,
   RichTextImageToolbarControls2
-} from "../../../chunks/ai-describe-panel-2t12rj8s.js";
+} from "../../../chunks/ai-describe-panel-sbwr6vks.js";
 import"../../../chunks/ai-describe-panel-k2cwy48h.js";
 export {
   $createRichTextImageNode2 as $createRichTextImageNode,
@@ -37,9 +40,12 @@ export {
   checkImageSrc2 as checkImageSrc,
   clampImageWidth2 as clampImageWidth,
   getRichTextImageSummary2 as getRichTextImageSummary,
+  inputClassName2 as inputClassName,
   isHttpsUrl2 as isHttpsUrl,
   isSafeImageSrc2 as isSafeImageSrc,
   normalizeImageSrc2 as normalizeImageSrc,
+  preventSubmit2 as preventSubmit,
   rememberUploadOutcome2 as rememberUploadOutcome,
+  useIsolateFromEditor2 as useIsolateFromEditor,
   validateImageFile2 as validateImageFile
 };

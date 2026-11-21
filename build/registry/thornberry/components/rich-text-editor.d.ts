@@ -1,5 +1,6 @@
 import type { EditorThemeClasses, Klass, LexicalNode } from "lexical";
 import type { ComponentProps, ReactNode, RefObject } from "react";
+import type { RichTextButtonOptions } from "../../../registry/thornberry/components/rich-text-button";
 import type { RichTextImageOptions } from "../../../registry/thornberry/components/rich-text-image";
 /** Imperative handle exposed via `editorApi` for clearing/focusing the editor. */
 export interface EditorApi {
@@ -108,6 +109,14 @@ interface RichTextEditorProps extends Omit<ComponentProps<"div">, "placeholder" 
      * (and may be turned on or off after mount).
      */
     images?: RichTextImageOptions;
+    /**
+     * Turn on call-to-action buttons: an "Insert button" toolbar control that
+     * takes a label and an `https://` or `mailto:` link. Each button is a block
+     * of its own and exports as
+     * `<p><a href="…" data-variant="button">Label</a></p>` for the consumer to
+     * style. Off when omitted (and may be turned on or off after mount)
+     */
+    buttons?: RichTextButtonOptions;
     /** Extra Lexical node classes to register (e.g. an app's image node). */
     extraNodes?: ReadonlyArray<Klass<LexicalNode>>;
     /** Extra Lexical plugins rendered inside the composer (e.g. image paste, code highlighting). */
@@ -124,7 +133,7 @@ interface RichTextEditorProps extends Omit<ComponentProps<"div">, "placeholder" 
  * via a minimal toolbar. Content is read out as sanitizable HTML through
  * `onUpdate`. Render stored HTML back with {@link RichTextContent}.
  */
-declare const RichTextEditor: ({ editorApi, onUpdate, defaultContent, editable, placeholder, hideToolbar, toolbarClassName, mentionItems, issueReferenceItems, enableChecklist, enableBlockDrag, images, extraNodes, plugins, theme, skeletonClassName, className, editorClassName, ...rest }: RichTextEditorProps) => import("react/jsx-runtime").JSX.Element;
+declare const RichTextEditor: ({ editorApi, onUpdate, defaultContent, editable, placeholder, hideToolbar, toolbarClassName, mentionItems, issueReferenceItems, enableChecklist, enableBlockDrag, images, buttons, extraNodes, plugins, theme, skeletonClassName, className, editorClassName, ...rest }: RichTextEditorProps) => import("react/jsx-runtime").JSX.Element;
 /**
  * Linkify bare URLs and email addresses in a rich-text HTML string so plain
  * links in stored content render as anchors. Splits on tags so matching only
@@ -166,6 +175,7 @@ interface RichTextContentProps extends ComponentProps<"div"> {
  * user-generated content safe. Mirrors the editor's node-class theme.
  */
 declare const RichTextContent: ({ html, fallback, allowImages, allowInsecureHttp, isAllowedSrc, className, ...rest }: RichTextContentProps) => import("react/jsx-runtime").JSX.Element;
+export type { RichTextButtonOptions } from "../../../registry/thornberry/components/rich-text-button";
 export type { RichTextImageError, RichTextImageErrorCode, RichTextImageOptions, RichTextImageUploadResult, } from "../../../registry/thornberry/components/rich-text-image";
 export type { RichTextEditorProps, RichTextEditorUpdate };
 export { RichTextContent, RichTextEditor, dragUnitClass, dropSide, getDragUnits, linkFromText, linkifyBareUrls, linkifyMarkdownLinks, };
