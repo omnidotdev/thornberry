@@ -1,0 +1,160 @@
+---
+title: Native Select
+description: A styled native select for plain form choices.
+---
+
+import { NativeSelect } from "@/registry/thornberry/components/native-select";
+
+<div className="mb-8 flex flex-col gap-1.5">
+  <label htmlFor="native-select-hero" className="text-sm font-medium">
+    Priority
+  </label>
+  <NativeSelect
+    id="native-select-hero"
+    className="w-full max-w-xs"
+    placeholder="Choose a priority"
+    options={[
+      { value: "low", label: "Low" },
+      { value: "medium", label: "Medium" },
+      { value: "high", label: "High" },
+    ]}
+  />
+</div>
+
+`NativeSelect` is a real `<select>` styled to match [Input](/input). It submits with forms, opens the OS picker on phones, and keeps full keyboard and screen reader support, so it is the default choice for plain form choices. Reach for [Select](/select) only when options need custom rendering (icons, descriptions, avatars) or a styled dropdown list.
+
+## Installation
+
+<InstallationTabs filename="native-select.json" />
+
+## Usage
+
+```tsx
+import { NativeSelect } from "@/components/ui/native-select";
+```
+
+Pass `options` for the simple case:
+
+```tsx
+<NativeSelect
+  name="priority"
+  placeholder="Choose a priority"
+  options={[
+    { value: "low", label: "Low" },
+    { value: "medium", label: "Medium" },
+    { value: "high", label: "High", disabled: true },
+  ]}
+/>
+```
+
+Or write `<option>` and `<optgroup>` children yourself. Children render after any `options`:
+
+```tsx
+<NativeSelect name="region" defaultValue="de">
+  <optgroup label="Europe">
+    <option value="de">Germany</option>
+    <option value="fr">France</option>
+  </optgroup>
+  <optgroup label="Asia">
+    <option value="jp">Japan</option>
+  </optgroup>
+</NativeSelect>
+```
+
+## Props
+
+Every native `<select>` prop (`id`, `name`, `value`, `defaultValue`, `onChange`, `required`, `disabled`, `aria-*`, `ref`, and the rest) goes to the `<select>` element, so labels, form libraries, and refs work as they do with a plain select. `size` is the visual size here (the native listbox `size` and `multiple` are not supported; use [Select](/select) for multiple choices).
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `options` | `{ value: string; label: string; disabled?: boolean }[]` | | Options rendered before any `children` |
+| `placeholder` | `string` | | Prompt shown until a choice is made, as a disabled, hidden first option with an empty value |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Height and padding; `md` matches Input |
+| `className` | `string` | | Classes for the outer box: use it for width (`w-full`, `w-48`, `flex-1`) and layout |
+| `selectClassName` | `string` | | Classes for the `<select>` element itself |
+
+With a `placeholder` and no `value` or `defaultValue`, the select starts on the placeholder. Add `required` to reject the placeholder on submit.
+
+## Examples
+
+<br />
+
+#### Sizes
+
+<div className="mt-4 flex flex-wrap items-center gap-3">
+  <NativeSelect aria-label="Small" size="sm" defaultValue="sm" options={[{ value: "sm", label: "Small" }]} />
+  <NativeSelect aria-label="Medium" size="md" defaultValue="md" options={[{ value: "md", label: "Medium" }]} />
+  <NativeSelect aria-label="Large" size="lg" defaultValue="lg" options={[{ value: "lg", label: "Large" }]} />
+</div>
+
+```tsx
+<NativeSelect size="sm" options={options} />
+<NativeSelect size="md" options={options} />
+<NativeSelect size="lg" options={options} />
+```
+
+#### Full width
+
+The control sizes to its content by default. Pass a width through `className`:
+
+<NativeSelect
+  aria-label="Time zone"
+  className="mt-4 w-full"
+  defaultValue="utc"
+  options={[
+    { value: "utc", label: "Coordinated Universal Time (UTC)" },
+    { value: "est", label: "Eastern Time (US and Canada)" },
+  ]}
+/>
+
+```tsx
+<NativeSelect className="w-full" options={options} />
+```
+
+#### States
+
+<Tabs items={["Disabled", "Invalid", "With Label"]} className="mt-4">
+  <Tab value="Disabled">
+    <NativeSelect aria-label="Disabled" disabled placeholder="Not available" options={[{ value: "a", label: "A" }]} />
+  </Tab>
+  <Tab value="Invalid">
+    <NativeSelect aria-label="Invalid" aria-invalid placeholder="Choose a plan" options={[{ value: "free", label: "Free" }]} />
+  </Tab>
+  <Tab value="With Label">
+    <div className="grid w-full max-w-sm items-center gap-1.5">
+      <label htmlFor="native-select-plan" className="text-sm font-medium">Plan</label>
+      <NativeSelect
+        id="native-select-plan"
+        className="w-full"
+        placeholder="Choose a plan"
+        options={[
+          { value: "free", label: "Free" },
+          { value: "pro", label: "Pro" },
+        ]}
+      />
+    </div>
+  </Tab>
+</Tabs>
+
+```tsx
+<NativeSelect disabled options={options} />
+<NativeSelect aria-invalid options={options} />
+
+<label htmlFor="plan">Plan</label>
+<NativeSelect id="plan" className="w-full" options={options} />
+```
+
+#### Controlled
+
+```tsx
+const [plan, setPlan] = useState("free");
+
+<NativeSelect
+  value={plan}
+  onChange={(event) => setPlan(event.target.value)}
+  options={[
+    { value: "free", label: "Free" },
+    { value: "pro", label: "Pro" },
+  ]}
+/>
+```
