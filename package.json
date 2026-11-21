@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@ark-ui/react": "^5.30.0",
-    "@biomejs/biome": "2.6.7",
+    "@biomejs/biome": "2.6.8",
     "@changesets/changelog-github": "^1.0.1",
     "@changesets/cli": "^3.0.0",
     "@codemirror/autocomplete": "^6.18.0",
