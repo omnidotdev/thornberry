@@ -460,6 +460,19 @@
       ]
     },
     {
+      "name": "native-select",
+      "type": "registry:ui",
+      "title": "Native Select",
+      "description": "A styled native select for plain form choices, with OS pickers on mobile and native form submission",
+      "dependencies": ["class-variance-authority", "lucide-react"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/native-select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "number-input",
       "type": "registry:ui",
       "title": "Number Input",
