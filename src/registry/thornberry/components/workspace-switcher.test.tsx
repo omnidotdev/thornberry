@@ -106,4 +106,32 @@ describe("WorkspaceSwitcher", () => {
 
     expect(onSelect).not.toHaveBeenCalled();
   });
+
+  test("scrolls a long workspace list instead of running off screen", async () => {
+    const many = Array.from({ length: 40 }, (_, i) => ({
+      id: `w${i}`,
+      name: `Workspace ${i}`,
+    }));
+
+    render(
+      <WorkspaceSwitcher
+        workspaces={many}
+        currentWorkspaceId="w0"
+        onSelect={() => {}}
+        manageUrl="https://account.example.com/workspaces"
+      />,
+    );
+
+    await open();
+
+    // Layout is not computed under happy-dom, so assert the overflow contract:
+    // the panel is capped to the viewport and the workspace list scrolls
+    const content = document.querySelector<HTMLElement>("[role='menu']");
+    expect(content?.className).toContain("max-h-(--available-height)");
+    expect(content?.className).toContain("overflow-y-auto");
+
+    const list = document.querySelector<HTMLElement>("[role='group']");
+    expect(list?.className).toContain("overflow-y-auto");
+    expect(list?.querySelectorAll("[role='menuitem']")).toHaveLength(40);
+  });
 });

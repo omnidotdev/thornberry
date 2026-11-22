@@ -114,6 +114,10 @@ const WorkspaceSwitcher = ({
 
   return (
     <MenuRoot
+      // In a nav rail the list drops straight down at the row's own width
+      {...(isSidebar && {
+        positioning: { placement: "bottom-start", sameWidth: true },
+      })}
       onSelect={(details) => {
         // The manage link navigates on its own; only workspaces are selected
         if (details.value !== MANAGE_VALUE) onSelect(details.value);
@@ -132,9 +136,12 @@ const WorkspaceSwitcher = ({
       </MenuTrigger>
 
       <MenuPositioner>
-        <MenuContent className="min-w-52">
-          <MenuItemGroup>
-            <MenuItemGroupLabel>{groupLabel}</MenuItemGroupLabel>
+        <MenuContent className={isSidebar ? "w-full min-w-0" : "min-w-52"}>
+          {/* The list scrolls on its own so the manage link stays in view */}
+          <MenuItemGroup className="max-h-80 min-h-0 overflow-y-auto overscroll-contain">
+            <MenuItemGroupLabel className="bg-popover sticky top-0 z-10">
+              {groupLabel}
+            </MenuItemGroupLabel>
             {workspaces.map((workspace) => (
               <MenuItem
                 key={workspace.id}

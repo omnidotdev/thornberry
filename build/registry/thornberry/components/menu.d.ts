@@ -11,6 +11,11 @@ declare const PrimitiveMenuIndicator: import("react").ForwardRefExoticComponent<
  */
 declare const MenuTrigger: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Trigger>) => import("react/jsx-runtime").JSX.Element;
 declare const MenuPositioner: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Positioner>) => import("react/jsx-runtime").JSX.Element;
+/**
+ * Menu panel. Capped to the viewport space the positioner reports
+ * (`--available-height`) and scrolls past it, so a long menu never runs off
+ * screen with its bottom entries unreachable
+ */
 declare const MenuContent: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Content>) => import("react/jsx-runtime").JSX.Element;
 declare const MenuArrow: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Arrow>) => import("react/jsx-runtime").JSX.Element;
 declare const MenuArrowTip: ({ className, ...rest }: ComponentProps<typeof ArkMenu.ArrowTip>) => import("react/jsx-runtime").JSX.Element;
