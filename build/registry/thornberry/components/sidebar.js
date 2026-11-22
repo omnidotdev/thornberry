@@ -1,25 +1,25 @@
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-g9z5bw52.js";
 import {
   Input2
-} from "../../../chunks/ai-describe-panel-hj664zsh.js";
+} from "../../../chunks/ai-describe-panel-mxvczhaq.js";
 import {
   SheetRoot2,
   SheetTrigger2,
   SheetContent2,
   SheetTitle2,
   SheetDescription2
-} from "../../../chunks/ai-describe-panel-mny4qh82.js";
+} from "../../../chunks/ai-describe-panel-fqrmttpz.js";
 import {
   TooltipRoot2,
   TooltipTrigger2,
   TooltipPositioner2,
   TooltipContent2
-} from "../../../chunks/ai-describe-panel-fyv865k9.js";
+} from "../../../chunks/ai-describe-panel-6p4pawfp.js";
 import {
   cn
-} from "../../../chunks/ai-describe-panel-81fr4sax.js";
+} from "../../../chunks/ai-describe-panel-zm6svx9v.js";
 
 // src/registry/thornberry/components/sidebar.tsx
 import { ark } from "@ark-ui/react/factory";

@@ -9,7 +9,7 @@ import {
   SheetTitle2,
   SheetDescription2,
   SheetCloseTrigger2
-} from "../../../chunks/ai-describe-panel-mny4qh82.js";
+} from "../../../chunks/ai-describe-panel-fqrmttpz.js";
 export {
   SheetBackdrop2 as SheetBackdrop,
   SheetCloseTrigger2 as SheetCloseTrigger,

@@ -115,6 +115,20 @@
       ]
     },
     {
+      "name": "workspace-switcher",
+      "type": "registry:ui",
+      "title": "Workspace Switcher",
+      "description": "The standard Omni workspace switcher: the active workspace, a scrollable list of the user's workspaces, and links to create, browse, or manage them",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["avatar", "button", "menu"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/workspace-switcher.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "app-footer",
       "type": "registry:ui",
       "title": "App Footer",

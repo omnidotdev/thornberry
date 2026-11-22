@@ -1,0 +1,189 @@
+---
+title: Workspace Switcher
+description: The standard Omni workspace switcher, for a top bar or a sidebar.
+---
+
+import { LayoutGrid, Plus } from "lucide-react";
+
+import { WorkspaceSwitcher } from "@/registry/thornberry/components/workspace-switcher";
+
+<div className="my-8 flex justify-center">
+  <WorkspaceSwitcher
+    workspaces={[
+      { id: "w1", name: "Ada Lovelace", slug: "ada", badge: "Personal" },
+      { id: "w2", name: "Analytical Engines", slug: "engines" },
+      { id: "w3", name: "Difference Labs", slug: "difference" },
+    ]}
+    currentWorkspaceId="w2"
+    onSelect={() => {}}
+    manageUrl="https://omni.dev"
+  />
+</div>
+
+## Installation
+
+<InstallationTabs filename="workspace-switcher.json" />
+
+## Usage
+
+```tsx
+import { WorkspaceSwitcher } from "@/components/ui/workspace-switcher";
+```
+
+```tsx
+<WorkspaceSwitcher
+  workspaces={workspaces.map((org) => ({
+    id: org.id,
+    name: org.name,
+    slug: org.slug,
+    logo: org.logo,
+  }))}
+  currentWorkspaceId={active?.id}
+  onSelect={(id) => navigate({ to: "/@{$workspaceSlug}", params: { workspaceSlug: slugOf(id) } })}
+  manageUrl={workspacesUrl(ACCOUNT_URL)}
+/>
+```
+
+The trigger shows the active workspace's logo (or its first letter) and name. The menu lists every workspace with its `@handle` under the name and a check beside the active one, then any `actions`, then **Manage workspaces** (when `manageUrl` is set, opened in a new tab).
+
+The workspace list scrolls on its own past 20rem, and the whole panel never grows past the space left in the viewport, so the actions stay in view however many workspaces a user has.
+
+The component is data-agnostic and router-agnostic. `onSelect` receives the chosen workspace's id, and the host does the rest: navigate, set a cookie, close a mobile sidebar, clear cached data.
+
+A user with one workspace and no actions sees a static label instead of a menu, or nothing with `hideWhenSingle`. With no workspaces and no actions, nothing renders.
+
+## Examples
+
+<br />
+
+#### Sidebar
+
+`variant="sidebar"` renders the trigger as a full-width row for a sidebar header. The menu drops straight down at the row's own width. In a collapsed icon sidebar the row shrinks to the avatar and the menu opens beside the rail.
+
+<div className="my-4 max-w-64">
+  <WorkspaceSwitcher
+    variant="sidebar"
+    workspaces={[
+      { id: "w1", name: "Ada Lovelace", slug: "ada" },
+      { id: "w2", name: "Analytical Engines", slug: "engines" },
+    ]}
+    currentWorkspaceId="w1"
+    onSelect={() => {}}
+  />
+</div>
+
+```tsx
+<SidebarHeader>
+  <WorkspaceSwitcher
+    variant="sidebar"
+    workspaces={workspaces}
+    currentWorkspaceId={active?.id}
+    onSelect={selectWorkspace}
+  />
+</SidebarHeader>
+```
+
+#### Actions
+
+`actions` adds entries below the list, in order. An entry with `href` is a link (`external` opens it in a new tab); one with only `onSelect` runs the callback, for an in-app navigate.
+
+<div className="my-4 flex justify-center">
+  <WorkspaceSwitcher
+    workspaces={[
+      { id: "w1", name: "Ada Lovelace", slug: "ada" },
+      { id: "w2", name: "Analytical Engines", slug: "engines" },
+    ]}
+    currentWorkspaceId="w1"
+    onSelect={() => {}}
+    actions={[
+      { id: "all", label: "All workspaces", icon: <LayoutGrid />, onSelect: () => {} },
+      { id: "new", label: "New workspace", icon: <Plus />, href: "https://omni.dev", external: true },
+    ]}
+  />
+</div>
+
+```tsx
+<WorkspaceSwitcher
+  workspaces={workspaces}
+  currentWorkspaceId={active?.id}
+  onSelect={selectWorkspace}
+  actions={[
+    {
+      id: "all",
+      label: "All workspaces",
+      icon: <LayoutGrid />,
+      onSelect: () => navigate({ to: "/workspaces" }),
+    },
+    {
+      id: "new",
+      label: "New workspace",
+      icon: <Plus />,
+      href: workspacesUrl(ACCOUNT_URL),
+      external: true,
+    },
+  ]}
+/>
+```
+
+#### Roles and badges
+
+`description` replaces the `@handle` line (for example with the viewer's role), and `badge` tags the name.
+
+```tsx
+<WorkspaceSwitcher
+  workspaces={workspaces.map((org) => ({
+    id: org.id,
+    name: org.name,
+    description: roleLabel(org.role),
+    badge: org.type === "personal" ? "Personal" : null,
+  }))}
+  currentWorkspaceId={active?.id}
+  onSelect={selectWorkspace}
+/>
+```
+
+#### Preloading
+
+`onItemIntent` is called with a workspace's id when it is highlighted by pointer or keyboard, before it is chosen. Use it to preload the workspace's route.
+
+```tsx
+<WorkspaceSwitcher
+  workspaces={workspaces}
+  currentWorkspaceId={active?.id}
+  onSelect={selectWorkspace}
+  onItemIntent={(id) =>
+    router.preloadRoute({ to: "/@{$workspaceSlug}", params: { workspaceSlug: slugOf(id) } })
+  }
+/>
+```
+
+#### No active workspace
+
+When `currentWorkspaceId` is unset or not in the list, the trigger shows `placeholder` and still opens the list.
+
+<div className="my-4 flex justify-center">
+  <WorkspaceSwitcher
+    workspaces={[
+      { id: "w1", name: "Ada Lovelace", slug: "ada" },
+      { id: "w2", name: "Analytical Engines", slug: "engines" },
+    ]}
+    onSelect={() => {}}
+  />
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `workspaces` | `WorkspaceOption[]` | | `{ id, name, slug?, logo?, description?, badge? }` for each workspace |
+| `currentWorkspaceId` | `string \| null` | | The active workspace |
+| `onSelect` | `(id: string) => void` | | Called with the chosen workspace's id |
+| `onItemIntent` | `(id: string) => void` | | Called when a workspace is highlighted, before it is chosen |
+| `actions` | `WorkspaceSwitcherAction[]` | `[]` | `{ id, label, icon?, href?, external?, onSelect? }` entries below the list |
+| `manageUrl` | `string` | | Link to manage workspaces, opened in a new tab; hidden when unset |
+| `manageLabel` | `string` | `"Manage workspaces"` | |
+| `groupLabel` | `string` | `"Workspaces"` | Heading of the list |
+| `placeholder` | `string` | `"Select workspace"` | Trigger text when no workspace is active |
+| `hideWhenSingle` | `boolean` | `false` | Render nothing, instead of a static label, for a single workspace with no actions |
+| `variant` | `"header" \| "sidebar"` | `"header"` | Compact top-bar button, or a full-width sidebar row |
+| `className` | `string` | | Classes for the trigger |

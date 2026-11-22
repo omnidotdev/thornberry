@@ -54,6 +54,7 @@
     "toggle-group",
     "tooltip",
     "tour",
-    "tree-view"
+    "tree-view",
+    "workspace-switcher"
   ]
 }

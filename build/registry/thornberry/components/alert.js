@@ -4,7 +4,7 @@ import {
   AlertIcon2,
   AlertTitle2,
   AlertDescription2
-} from "../../../chunks/ai-describe-panel-gpsrwaf6.js";
+} from "../../../chunks/ai-describe-panel-hkkw0ecr.js";
 export {
   AlertDescription2 as AlertDescription,
   AlertIcon2 as AlertIcon,

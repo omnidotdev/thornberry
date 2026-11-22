@@ -1,9 +1,9 @@
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-g9z5bw52.js";
 import {
   cn
-} from "../../../chunks/ai-describe-panel-81fr4sax.js";
+} from "../../../chunks/ai-describe-panel-zm6svx9v.js";
 
 // src/registry/thornberry/components/number-input.tsx
 import { NumberInput as ArkNumberInput } from "@ark-ui/react/number-input";

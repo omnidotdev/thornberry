@@ -7,7 +7,7 @@ import {
   TableHead2,
   TableCell2,
   TableCaption2
-} from "../../../chunks/ai-describe-panel-06kze8cq.js";
+} from "../../../chunks/ai-describe-panel-xx6pae2c.js";
 export {
   Table2 as Table,
   TableBody2 as TableBody,

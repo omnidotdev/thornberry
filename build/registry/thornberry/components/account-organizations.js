@@ -5,10 +5,10 @@ import {
   AvatarRoot2,
   AvatarFallback2,
   AvatarImage2
-} from "../../../chunks/ai-describe-panel-6r0bwytq.js";
+} from "../../../chunks/ai-describe-panel-0238qcrd.js";
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-g9z5bw52.js";
 import {
   DialogRoot2,
   DialogPortal2,
@@ -17,23 +17,23 @@ import {
   DialogContent2,
   DialogTitle2,
   DialogDescription2
-} from "../../../chunks/ai-describe-panel-8q0yqrx6.js";
+} from "../../../chunks/ai-describe-panel-tn4pedcc.js";
 import {
   Input2
-} from "../../../chunks/ai-describe-panel-hj664zsh.js";
+} from "../../../chunks/ai-describe-panel-mxvczhaq.js";
 import {
   Label2
-} from "../../../chunks/ai-describe-panel-fa46q8yp.js";
+} from "../../../chunks/ai-describe-panel-2b38chzx.js";
 import {
   ConfirmDialog2
-} from "../../../chunks/ai-describe-panel-19k53w4t.js";
-import"../../../chunks/ai-describe-panel-b3rhyrd1.js";
+} from "../../../chunks/ai-describe-panel-y5v7qv4b.js";
+import"../../../chunks/ai-describe-panel-35fh6h4b.js";
 import {
   AvatarUpload2
-} from "../../../chunks/ai-describe-panel-zmgkdp7d.js";
+} from "../../../chunks/ai-describe-panel-6xvcgvdt.js";
 import {
   BannerUpload2
-} from "../../../chunks/ai-describe-panel-c5evy0xw.js";
+} from "../../../chunks/ai-describe-panel-4zm09msn.js";
 import {
   Select2,
   SelectControl2,
@@ -47,16 +47,16 @@ import {
   SelectItemText2,
   SelectItemIndicator2,
   createListCollection2
-} from "../../../chunks/ai-describe-panel-8wtqb3wn.js";
+} from "../../../chunks/ai-describe-panel-psz0kn00.js";
 import {
   AccountOrganizationTeams2
-} from "../../../chunks/ai-describe-panel-fzmemy7h.js";
+} from "../../../chunks/ai-describe-panel-q38mf8p1.js";
 import {
   Badge2
-} from "../../../chunks/ai-describe-panel-mn2q46hh.js";
+} from "../../../chunks/ai-describe-panel-zza65eh3.js";
 import {
   Skeleton2
-} from "../../../chunks/ai-describe-panel-4ayhnmp9.js";
+} from "../../../chunks/ai-describe-panel-gn0a3ddx.js";
 
 // src/registry/thornberry/components/account-organizations.tsx
 import {

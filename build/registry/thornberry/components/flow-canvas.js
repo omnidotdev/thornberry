@@ -1,9 +1,9 @@
 import {
   BaseNode2
-} from "../../../chunks/ai-describe-panel-xd5xc81t.js";
+} from "../../../chunks/ai-describe-panel-0mymakq4.js";
 import {
   SmartEdge2
-} from "../../../chunks/ai-describe-panel-fhrr4xka.js";
+} from "../../../chunks/ai-describe-panel-9qdx2n0e.js";
 
 // src/registry/thornberry/components/flow-canvas.tsx
 import {

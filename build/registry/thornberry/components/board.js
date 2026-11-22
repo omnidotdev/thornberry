@@ -1,6 +1,6 @@
 import {
   cn
-} from "../../../chunks/ai-describe-panel-81fr4sax.js";
+} from "../../../chunks/ai-describe-panel-zm6svx9v.js";
 
 // src/registry/thornberry/components/board.tsx
 import { useCallback, useEffect, useRef, useState } from "react";

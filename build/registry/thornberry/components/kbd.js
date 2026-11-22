@@ -1,6 +1,6 @@
 import {
   Kbd2
-} from "../../../chunks/ai-describe-panel-ym1fwyxy.js";
+} from "../../../chunks/ai-describe-panel-78pfnvdf.js";
 export {
   Kbd2 as Kbd
 };

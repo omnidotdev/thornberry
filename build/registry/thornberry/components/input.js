@@ -1,6 +1,6 @@
 import {
   Input2
-} from "../../../chunks/ai-describe-panel-hj664zsh.js";
+} from "../../../chunks/ai-describe-panel-mxvczhaq.js";
 export {
   Input2 as Input
 };

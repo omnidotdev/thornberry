@@ -1,25 +1,25 @@
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-g9z5bw52.js";
 import {
   checkImageSrc2,
   RichTextImageNode2,
   getRichTextImageSummary2,
   RichTextImages2,
   RichTextImageToolbarControls2
-} from "../../../chunks/ai-describe-panel-sbwr6vks.js";
+} from "../../../chunks/ai-describe-panel-ykcjfcgz.js";
 import {
   checkButtonHref2,
   RichTextButtonNode2,
   RichTextButtons2,
   RichTextButtonToolbarControl2
-} from "../../../chunks/ai-describe-panel-7kbxsmfx.js";
+} from "../../../chunks/ai-describe-panel-rq2m4nmh.js";
 import {
   Skeleton2
-} from "../../../chunks/ai-describe-panel-4ayhnmp9.js";
+} from "../../../chunks/ai-describe-panel-gn0a3ddx.js";
 import {
   cn
-} from "../../../chunks/ai-describe-panel-81fr4sax.js";
+} from "../../../chunks/ai-describe-panel-zm6svx9v.js";
 
 // src/registry/thornberry/components/rich-text-editor.tsx
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";

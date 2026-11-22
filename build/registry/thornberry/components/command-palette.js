@@ -1,4 +1,4 @@
-import"../../../chunks/ai-describe-panel-8q0yqrx6.js";
+import"../../../chunks/ai-describe-panel-tn4pedcc.js";
 import {
   CommandDialog2,
   CommandInput2,
@@ -8,10 +8,10 @@ import {
   CommandSeparator2,
   CommandItem2,
   CommandShortcut2
-} from "../../../chunks/ai-describe-panel-b874y8hy.js";
+} from "../../../chunks/ai-describe-panel-p2ywkd7f.js";
 import {
   Kbd2
-} from "../../../chunks/ai-describe-panel-ym1fwyxy.js";
+} from "../../../chunks/ai-describe-panel-78pfnvdf.js";
 
 // src/registry/thornberry/components/command-palette.tsx
 import { Fragment, useEffect, useState } from "react";

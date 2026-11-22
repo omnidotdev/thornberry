@@ -10,7 +10,7 @@ import {
   DialogTitle2,
   DialogDescription2,
   DialogCloseTrigger2
-} from "../../../chunks/ai-describe-panel-8q0yqrx6.js";
+} from "../../../chunks/ai-describe-panel-tn4pedcc.js";
 export {
   DialogBackdrop2 as DialogBackdrop,
   DialogCloseTrigger2 as DialogCloseTrigger,
