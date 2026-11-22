@@ -3,6 +3,8 @@ name: Release 🏗️
 on:
   push:
     branches: [master]
+  # Rerun a release by hand (e.g. after Actions was off and pushes were missed)
+  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
