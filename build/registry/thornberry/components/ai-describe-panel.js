@@ -1,6 +1,6 @@
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-g9z5bw52.js";
+} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import {
   DialogRoot2,
   DialogPortal2,
@@ -9,20 +9,20 @@ import {
   DialogContent2,
   DialogTitle2,
   DialogDescription2
-} from "../../../chunks/ai-describe-panel-tn4pedcc.js";
+} from "../../../chunks/ai-describe-panel-8q0yqrx6.js";
 import {
   Label2
-} from "../../../chunks/ai-describe-panel-2b38chzx.js";
-import"../../../chunks/ai-describe-panel-mxvczhaq.js";
+} from "../../../chunks/ai-describe-panel-fa46q8yp.js";
+import"../../../chunks/ai-describe-panel-hj664zsh.js";
 import {
   PasswordInput2
-} from "../../../chunks/ai-describe-panel-14cd852n.js";
+} from "../../../chunks/ai-describe-panel-nw1mqaed.js";
 import {
   PromptSuggestions2
-} from "../../../chunks/ai-describe-panel-q8hzcs1m.js";
+} from "../../../chunks/ai-describe-panel-645h2f0w.js";
 import {
   cn
-} from "../../../chunks/ai-describe-panel-zm6svx9v.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/ai-describe-panel.tsx
 import { Loader2 } from "lucide-react";

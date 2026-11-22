@@ -1,9 +1,9 @@
 import {
   buttonVariants2
-} from "../../../chunks/ai-describe-panel-g9z5bw52.js";
+} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import {
   cn
-} from "../../../chunks/ai-describe-panel-zm6svx9v.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/steps.tsx
 import { Steps as ArkSteps, useStepsItemContext } from "@ark-ui/react/steps";

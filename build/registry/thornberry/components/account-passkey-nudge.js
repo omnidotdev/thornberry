@@ -3,16 +3,16 @@ import {
 } from "../../../chunks/ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-g9z5bw52.js";
-import"../../../chunks/ai-describe-panel-tn4pedcc.js";
-import"../../../chunks/ai-describe-panel-mxvczhaq.js";
-import"../../../chunks/ai-describe-panel-2b38chzx.js";
+} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+import"../../../chunks/ai-describe-panel-8q0yqrx6.js";
+import"../../../chunks/ai-describe-panel-hj664zsh.js";
+import"../../../chunks/ai-describe-panel-fa46q8yp.js";
 import {
   AddPasskey2
-} from "../../../chunks/ai-describe-panel-jp3j4nk3.js";
+} from "../../../chunks/ai-describe-panel-vknke4yx.js";
 import {
   CardRoot2
-} from "../../../chunks/ai-describe-panel-5e732fet.js";
+} from "../../../chunks/ai-describe-panel-f7d4gzjq.js";
 
 // src/registry/thornberry/components/account-passkey-nudge.tsx
 import { Fingerprint, X } from "lucide-react";

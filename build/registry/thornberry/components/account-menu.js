@@ -2,7 +2,7 @@ import {
   AvatarRoot2,
   AvatarFallback2,
   AvatarImage2
-} from "../../../chunks/ai-describe-panel-0238qcrd.js";
+} from "../../../chunks/ai-describe-panel-6r0bwytq.js";
 import {
   MenuRoot2,
   MenuTrigger2,
@@ -13,10 +13,10 @@ import {
   MenuItemGroupLabel2,
   MenuItemText2,
   MenuSeparator2
-} from "../../../chunks/ai-describe-panel-a0ha7qk5.js";
+} from "../../../chunks/ai-describe-panel-c85b3y6e.js";
 import {
   cn
-} from "../../../chunks/ai-describe-panel-zm6svx9v.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/account-menu.tsx
 import { ChevronsUpDown, ExternalLink, LogOut } from "lucide-react";

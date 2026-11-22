@@ -1,9 +1,9 @@
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-g9z5bw52.js";
+} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import {
   cn
-} from "../../../chunks/ai-describe-panel-zm6svx9v.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/combobox.tsx
 import { Combobox as ArkCombobox } from "@ark-ui/react/combobox";

@@ -1,9 +1,9 @@
 import {
   toggleVariants2
-} from "../../../chunks/ai-describe-panel-hrmdca8d.js";
+} from "../../../chunks/ai-describe-panel-39jw4qp5.js";
 import {
   cn
-} from "../../../chunks/ai-describe-panel-zm6svx9v.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/toggle-group.tsx
 import { ToggleGroup as ArkToggleGroup } from "@ark-ui/react/toggle-group";

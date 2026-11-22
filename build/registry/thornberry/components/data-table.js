@@ -3,10 +3,10 @@ import {
   CheckboxControl2,
   CheckboxIndicator2,
   CheckboxHiddenInput2
-} from "../../../chunks/ai-describe-panel-9zn9rzzk.js";
+} from "../../../chunks/ai-describe-panel-2n4efn1k.js";
 import {
   Input2
-} from "../../../chunks/ai-describe-panel-mxvczhaq.js";
+} from "../../../chunks/ai-describe-panel-hj664zsh.js";
 import {
   Table2,
   TableHeader2,
@@ -14,15 +14,15 @@ import {
   TableRow2,
   TableHead2,
   TableCell2
-} from "../../../chunks/ai-describe-panel-xx6pae2c.js";
+} from "../../../chunks/ai-describe-panel-06kze8cq.js";
 import {
   cn
-} from "../../../chunks/ai-describe-panel-zm6svx9v.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
-// ../thornberry-menu-scroll/node_modules/@tanstack/react-table/build/lib/index.mjs
+// node_modules/@tanstack/react-table/build/lib/index.mjs
 import * as React from "react";
 
-// ../thornberry-menu-scroll/node_modules/@tanstack/table-core/build/lib/index.mjs
+// node_modules/@tanstack/table-core/build/lib/index.mjs
 function functionalUpdate(updater, input) {
   return typeof updater === "function" ? updater(input) : updater;
 }
@@ -2874,7 +2874,7 @@ function getSortedRowModel() {
   }, getMemoOptions(table.options, "debugTable", "getSortedRowModel", () => table._autoResetPageIndex()));
 }
 
-// ../thornberry-menu-scroll/node_modules/@tanstack/react-table/build/lib/index.mjs
+// node_modules/@tanstack/react-table/build/lib/index.mjs
 function flexRender(Comp, props) {
   return !Comp ? null : isReactComponent(Comp) ? /* @__PURE__ */ React.createElement(Comp, props) : Comp;
 }

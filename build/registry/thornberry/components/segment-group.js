@@ -1,9 +1,9 @@
 import {
   cva
-} from "../../../chunks/ai-describe-panel-dcxtbj5x.js";
+} from "../../../chunks/ai-describe-panel-g7wczx51.js";
 import {
   cn
-} from "../../../chunks/ai-describe-panel-zm6svx9v.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/segment-group.tsx
 import { SegmentGroup as ArkSegmentGroup } from "@ark-ui/react/segment-group";

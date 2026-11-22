@@ -1,15 +1,15 @@
 import {
   Badge2
-} from "../../../chunks/ai-describe-panel-zza65eh3.js";
+} from "../../../chunks/ai-describe-panel-mn2q46hh.js";
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-g9z5bw52.js";
+} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
 import {
   PromptSuggestions2
-} from "../../../chunks/ai-describe-panel-q8hzcs1m.js";
+} from "../../../chunks/ai-describe-panel-645h2f0w.js";
 import {
   cn
-} from "../../../chunks/ai-describe-panel-zm6svx9v.js";
+} from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/ai-chat-thread.tsx
 import { ArrowUp, Bot, Loader2, User, Wrench } from "lucide-react";
