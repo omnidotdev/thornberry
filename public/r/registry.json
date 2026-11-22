@@ -4,6 +4,67 @@
   "homepage": "https://github.com/omnidotdev/thornberry",
   "items": [
     {
+      "name": "ai-chat-thread",
+      "type": "registry:ui",
+      "title": "AI Chat Thread",
+      "description": "A conversation surface for AI assistants: role-aligned bubbles, typed message parts (text, thinking, tool calls), a streaming indicator, and a composer. Presentational; the host drives it from any streaming chat hook",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "badge", "prompt-suggestions"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/ai-chat-thread.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "prompt-suggestions",
+      "type": "registry:ui",
+      "title": "Prompt Suggestions",
+      "description": "Example prompt chips for an empty composer: a few concrete examples drawn in a random order per visit, a More ideas control to cycle them, and a pick that drafts the prompt for editing rather than sending it",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/prompt-suggestions.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "options-menu",
+      "type": "registry:ui",
+      "title": "Options Menu",
+      "description": "A small settings menu beside a composer's send button: an icon trigger that opens a popover of secondary choices, each with a plain name, an optional hint, and a one-line description",
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/options-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "ai-describe-panel",
+      "type": "registry:ui",
+      "title": "AI Describe Panel",
+      "description": "Describe-to-draft dialog: plain-English prompt, example prompt chips, BYOK key, and sign-in gating for the fleet AI-creation flow. Presentational; the host injects generation and auth logic",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "label",
+        "password-input",
+        "prompt-suggestions"
+      ],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/ai-describe-panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "accordion",
       "type": "registry:ui",
       "title": "Accordion",
@@ -35,6 +96,46 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/angle-slider.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "account-menu",
+      "type": "registry:ui",
+      "title": "Account Menu",
+      "description": "The standard Omni account menu: the signed-in user's avatar opening their name, the app's destinations, the account hub, and Sign out",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["avatar", "menu"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/account-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "workspace-switcher",
+      "type": "registry:ui",
+      "title": "Workspace Switcher",
+      "description": "The standard Omni workspace switcher: the active workspace, a scrollable list of the user's workspaces, and links to create, browse, or manage them",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["avatar", "button", "menu"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/workspace-switcher.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "app-footer",
+      "type": "registry:ui",
+      "title": "App Footer",
+      "description": "Standard Omni product footer (Made with <symbol> by Omni credit).",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/app-footer.tsx",
           "type": "registry:ui"
         }
       ]
@@ -76,6 +177,23 @@
       ]
     },
     {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Presentational, drag-agnostic month-calendar primitives (header, weekday row, day cells, item chips) with grid math from @omnidotdev/cadence",
+      "dependencies": [
+        "@omnidotdev/cadence",
+        "@internationalized/date",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/calendar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "card",
       "type": "registry:ui",
       "title": "Card",
@@ -111,6 +229,27 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "code-editor",
+      "type": "registry:ui",
+      "title": "Code Editor",
+      "description": "A headless-ish CodeMirror 6 code editor whose language, theme, extensions, read-only state, placeholder, and completion are consumer-injected through compartments and reconfigure live, with an optional token-aware theme and syntax colors bound to design-system CSS variables, an autocompletion config pass-through, a content-DOM id for a11y, and a double-click guard that stops a dictionary extension's definition popup while preserving word-select.",
+      "dependencies": [
+        "codemirror",
+        "@codemirror/state",
+        "@codemirror/view",
+        "@codemirror/language",
+        "@codemirror/commands",
+        "@codemirror/autocomplete",
+        "@lezer/highlight"
+      ],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/code-editor.tsx",
           "type": "registry:ui"
         }
       ]
@@ -172,6 +311,20 @@
       ]
     },
     {
+      "name": "date-time-picker",
+      "type": "registry:ui",
+      "title": "Date Time Picker",
+      "description": "Pick a date and a time of day in an explicit time zone, reported as ISO 8601 with offset",
+      "dependencies": ["@ark-ui/react", "@internationalized/date"],
+      "registryDependencies": ["date-picker"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/date-time-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
@@ -208,6 +361,30 @@
       ]
     },
     {
+      "name": "logo-lockup",
+      "type": "registry:ui",
+      "title": "Logo Lockup",
+      "description": "A header brand lockup pairing a product mark with its name for consistent top-left branding",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/logo-lockup.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "not-found",
+      "type": "registry:ui",
+      "title": "Not Found",
+      "description": "Standard Omni 404 page: in-shell, theme-aware, per-app branding (logomark plus wordmark) with a prominent 404 and a way home.",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/not-found.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "command",
       "type": "registry:ui",
       "title": "Command",
@@ -218,6 +395,33 @@
         {
           "path": "src/registry/thornberry/components/command.tsx",
           "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "command-palette",
+      "type": "registry:ui",
+      "title": "Command Palette",
+      "description": "An opinionated command palette (cmdk) that owns the mod+k shortcut and an open event, so apps supply only their own action list",
+      "dependencies": ["cmdk", "react-hotkeys-hook"],
+      "registryDependencies": ["command", "kbd"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/command-palette.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "use-hotkeys",
+      "type": "registry:hook",
+      "title": "Use Hotkeys",
+      "description": "Shared keyboard-shortcut surface: a single react-hotkeys-hook import source plus normalized global bindings and a label helper",
+      "dependencies": ["react-hotkeys-hook"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/use-hotkeys.tsx",
+          "type": "registry:hook"
         }
       ]
     },
@@ -265,6 +469,19 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "native-select",
+      "type": "registry:ui",
+      "title": "Native Select",
+      "description": "A styled native select for plain form choices, with OS pickers on mobile and native form submission",
+      "dependencies": ["class-variance-authority", "lucide-react"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/native-select.tsx",
           "type": "registry:ui"
         }
       ]
@@ -509,7 +726,7 @@
       "name": "rich-text-editor",
       "type": "registry:ui",
       "title": "Rich Text Editor",
-      "description": "A friendly Lexical rich-text editor with a minimal toolbar (bold, italic, lists, links) and a sanitized HTML renderer.",
+      "description": "A friendly Lexical rich-text editor with a minimal toolbar (bold, italic, lists, links), optional email-safe images with required alt text, optional call-to-action buttons, and a sanitized HTML renderer.",
       "dependencies": [
         "lexical",
         "@lexical/react",
@@ -523,6 +740,14 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/rich-text-editor.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/thornberry/components/rich-text-image.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/thornberry/components/rich-text-button.tsx",
           "type": "registry:ui"
         }
       ]
@@ -630,6 +855,162 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/flow-canvas.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "data-table",
+      "type": "registry:ui",
+      "title": "Data Table",
+      "description": "An advanced data table built on TanStack Table with global search, sortable headers, a filter toolbar slot, optional row selection with a bulk action bar, and an empty state.",
+      "dependencies": ["@tanstack/react-table"],
+      "registryDependencies": ["table", "input", "checkbox"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/data-table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "form",
+      "type": "registry:ui",
+      "title": "Form",
+      "description": "A TanStack Form wrapper that binds typed, validation-aware field components onto thornberry inputs (text, textarea, checkbox, select) with matching styling.",
+      "dependencies": ["@tanstack/react-form"],
+      "registryDependencies": ["input", "checkbox", "select", "button"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/form.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Shows the completion of a task as a linear bar or a circular ring, with determinate and indeterminate states",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "A scroll container with styled, overlaid scrollbars that stay consistent across platforms",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "segment-group",
+      "type": "registry:ui",
+      "title": "Segment Group",
+      "description": "A pill-style segmented control for choosing one option, with an indicator that slides to the selection",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/segment-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "A two-state button that can be switched on or off",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "A set of toggle buttons supporting single or multiple selection",
+      "registryDependencies": ["toggle"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "clipboard",
+      "type": "registry:ui",
+      "title": "Clipboard",
+      "description": "Copy text to the clipboard with a read-only field or a drop-in copy button",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/clipboard.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tree-view",
+      "type": "registry:ui",
+      "title": "Tree View",
+      "description": "A hierarchical list of expandable branches and selectable items, with keyboard navigation and an optional file tree style",
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/tree-view.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "qr-code",
+      "type": "registry:ui",
+      "title": "QR Code",
+      "description": "Renders a value as a scannable QR code, with error correction levels and an optional centered overlay such as a logo",
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/qr-code.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "splitter",
+      "type": "registry:ui",
+      "title": "Splitter",
+      "description": "Resizable panels separated by draggable, keyboard-accessible dividers, laid out horizontally or vertically",
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/splitter.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "steps",
+      "type": "registry:ui",
+      "title": "Steps",
+      "description": "A multi-step progress indicator and wizard with complete, current, and upcoming step states",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/steps.tsx",
           "type": "registry:ui"
         }
       ]

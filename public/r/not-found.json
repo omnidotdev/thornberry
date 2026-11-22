@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "not-found",
+  "title": "Not Found",
+  "description": "Standard Omni 404 page: in-shell, theme-aware, per-app branding (logomark plus wordmark) with a prominent 404 and a way home.",
+  "dependencies": ["clsx", "tailwind-merge"],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/not-found.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps, ReactNode } from \"react\";\n\ninterface Props extends ComponentProps<\"div\"> {\n  /**\n   * Product name shown as the wordmark above the 404. Required: it is the\n   * branding fallback for apps with no logomark asset, so the page is never\n   * unbranded.\n   */\n  appName: ReactNode;\n  /**\n   * Product logomark rendered beside the name (the same asset the app header\n   * uses). Omit for wordmark-only branding. Never an emoji stand-in.\n   */\n  appLogo?: ReactNode;\n  /** Where \"Go home\" points. Defaults to the app root. */\n  homeHref?: string;\n  /** \"Go home\" label. */\n  homeLabel?: string;\n  /** Render the \"Go back\" button (browser history). Omit to hide it. */\n  showBack?: boolean;\n  /** \"Go back\" label. */\n  backLabel?: string;\n  /** Secondary copy under the 404. Uniform default; override per app if needed. */\n  description?: ReactNode;\n}\n\n/**\n * Standard Omni 404 page. Renders in-shell (inherits the app's globals and\n * theme), leads with the app's own branding (logomark plus wordmark, or the\n * wordmark alone when no mark is supplied), shows a prominent \"404\", and offers\n * a way back. Presentational and router-agnostic: navigation uses a plain\n * anchor and browser history so it drops into any app without a router\n * dependency. Wire it on BOTH the `__root` route (`notFoundComponent`, so a\n * thrown `notFound()` renders in-shell) and the router\n * (`defaultNotFoundComponent`, so unmatched routes render it).\n */\nconst NotFoundPage = ({\n  appName,\n  appLogo,\n  homeHref = \"/\",\n  homeLabel = \"Go home\",\n  showBack = true,\n  backLabel = \"Go back\",\n  description = \"The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.\",\n  className,\n  ...rest\n}: Props) => (\n  <div\n    data-slot=\"not-found\"\n    className={cn(\n      \"flex min-h-screen w-full flex-col items-center justify-center gap-6 p-6 text-center\",\n      className,\n    )}\n    {...rest}\n  >\n    <div className=\"flex items-center gap-2\">\n      {appLogo}\n\n      <span className=\"text-foreground text-lg font-semibold tracking-tight\">\n        {appName}\n      </span>\n    </div>\n\n    <div className=\"flex flex-col items-center gap-2\">\n      <h1 className=\"text-foreground text-7xl font-bold tracking-tight tabular-nums\">\n        404\n      </h1>\n\n      <h2 className=\"text-foreground text-2xl font-semibold\">Page not found</h2>\n\n      <p className=\"text-muted-foreground max-w-md\">{description}</p>\n    </div>\n\n    <div className=\"flex flex-wrap items-center justify-center gap-2\">\n      {showBack && (\n        <button\n          type=\"button\"\n          onClick={() => window.history.back()}\n          className=\"border-border bg-card text-foreground hover:bg-accent rounded-lg border px-4 py-2 text-sm font-medium transition-colors\"\n        >\n          {backLabel}\n        </button>\n      )}\n\n      <a\n        href={homeHref}\n        className=\"bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-4 py-2 text-sm font-medium transition-colors\"\n      >\n        {homeLabel}\n      </a>\n    </div>\n  </div>\n);\n\nexport { NotFoundPage };\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ],
+  "type": "registry:ui"
+}

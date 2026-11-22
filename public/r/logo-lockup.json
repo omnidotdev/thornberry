@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "logo-lockup",
+  "title": "Logo Lockup",
+  "description": "A header brand lockup pairing a product mark with its name for consistent top-left branding",
+  "dependencies": ["clsx", "tailwind-merge"],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/logo-lockup.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps, ReactNode } from \"react\";\n\ninterface Props extends ComponentProps<\"div\"> {\n  /** Brand mark to render alongside the name (img, inline SVG, or icon). */\n  logo?: ReactNode;\n  /** Product name shown next to the mark. */\n  name: ReactNode;\n  /** Class applied to the name text. */\n  nameClassName?: string;\n}\n\n/**\n * Header brand lockup: a product mark paired with its name for consistent\n * top-left branding across Omni apps. Presentational only; wrap it in the\n * consuming app's router link to make it navigable.\n */\nconst LogoLockup = ({\n  logo,\n  name,\n  className,\n  nameClassName,\n  ...rest\n}: Props) => (\n  <div\n    data-slot=\"logo-lockup\"\n    className={cn(\"flex items-center gap-2\", className)}\n    {...rest}\n  >\n    {logo}\n\n    <span\n      className={cn(\n        \"font-semibold text-foreground text-lg tracking-tight\",\n        nameClassName,\n      )}\n    >\n      {name}\n    </span>\n  </div>\n);\n\nexport { LogoLockup };\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ],
+  "type": "registry:ui"
+}
