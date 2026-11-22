@@ -15,7 +15,7 @@ import {
   MenuItemGroup2,
   MenuItemGroupLabel2,
   MenuSeparator2
-} from "../../../chunks/ai-describe-panel-egwd21sn.js";
+} from "../../../chunks/ai-describe-panel-c85b3y6e.js";
 
 // src/registry/thornberry/components/workspace-switcher.tsx
 import { Check, ChevronsUpDown, ExternalLink } from "lucide-react";
@@ -75,6 +75,9 @@ var WorkspaceSwitcher = ({
     });
   }
   return /* @__PURE__ */ jsxs(MenuRoot2, {
+    ...isSidebar && {
+      positioning: { placement: "bottom-start", sameWidth: true }
+    },
     onSelect: (details) => {
       if (details.value !== MANAGE_VALUE)
         onSelect(details.value);
@@ -95,11 +98,13 @@ var WorkspaceSwitcher = ({
       }),
       /* @__PURE__ */ jsx(MenuPositioner2, {
         children: /* @__PURE__ */ jsxs(MenuContent2, {
-          className: "min-w-52",
+          className: isSidebar ? "w-full min-w-0" : "min-w-52",
           children: [
             /* @__PURE__ */ jsxs(MenuItemGroup2, {
+              className: "max-h-80 min-h-0 overflow-y-auto overscroll-contain",
               children: [
                 /* @__PURE__ */ jsx(MenuItemGroupLabel2, {
+                  className: "bg-popover sticky top-0 z-10",
                   children: groupLabel
                 }),
                 workspaces.map((workspace) => /* @__PURE__ */ jsxs(MenuItem2, {

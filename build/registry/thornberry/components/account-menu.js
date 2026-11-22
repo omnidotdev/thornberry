@@ -13,7 +13,7 @@ import {
   MenuItemGroupLabel2,
   MenuItemText2,
   MenuSeparator2
-} from "../../../chunks/ai-describe-panel-egwd21sn.js";
+} from "../../../chunks/ai-describe-panel-c85b3y6e.js";
 import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";

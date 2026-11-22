@@ -19,7 +19,7 @@ import {
   MenuSeparator2,
   MenuTriggerItem2,
   MenuItemShortcut2
-} from "../../../chunks/ai-describe-panel-egwd21sn.js";
+} from "../../../chunks/ai-describe-panel-c85b3y6e.js";
 export {
   MenuArrow2 as MenuArrow,
   MenuArrowTip2 as MenuArrowTip,
