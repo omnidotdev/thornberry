@@ -20,7 +20,7 @@
     "check": "fumadocs-mdx && biome check --diagnostic-level=error",
     "format": "biome format --write",
     "lint": "biome lint",
-    "registry:build": "shadcn registry:build",
+    "registry:build": "bun src/scripts/build-registry.ts && biome format --write public/r",
     "build:lib": "NODE_ENV=production bun src/scripts/build-lib.ts",
     "test": "bun test --conditions production",
     "knip": "knip-bun",

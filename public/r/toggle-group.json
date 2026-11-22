@@ -3,12 +3,30 @@
   "name": "toggle-group",
   "title": "Toggle Group",
   "description": "A set of toggle buttons supporting single or multiple selection",
+  "dependencies": [
+    "@ark-ui/react",
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
   "registryDependencies": ["toggle"],
   "files": [
     {
       "path": "src/registry/thornberry/components/toggle-group.tsx",
       "content": "import { ToggleGroup as ArkToggleGroup } from \"@ark-ui/react/toggle-group\";\nimport { createContext, useContext } from \"react\";\n\nimport { cn } from \"@/lib/utils\";\nimport { toggleVariants } from \"@/registry/thornberry/components/toggle\";\n\nimport type { VariantProps } from \"class-variance-authority\";\nimport type { ComponentProps } from \"react\";\n\ntype ToggleGroupVariantProps = VariantProps<typeof toggleVariants>;\n\n// Lets items inherit the variant and size set once on the root\nconst ToggleGroupStyleContext = createContext<ToggleGroupVariantProps>({});\n\nconst ToggleGroupProvider = ArkToggleGroup.RootProvider;\nconst ToggleGroupContext = ArkToggleGroup.Context;\n\n/**\n * A set of toggle buttons. Single selection by default; pass `multiple` to\n * allow several items on at once. `value` is always an array of item values.\n * `variant` and `size` set here apply to every item unless an item overrides\n * them.\n */\nconst ToggleGroupRoot = ({\n  className,\n  variant,\n  size,\n  ...rest\n}: ComponentProps<typeof ArkToggleGroup.Root> & ToggleGroupVariantProps) => (\n  <ToggleGroupStyleContext.Provider value={{ variant, size }}>\n    <ArkToggleGroup.Root\n      className={cn(\n        \"inline-flex w-fit items-center gap-1 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch\",\n        className,\n      )}\n      {...rest}\n    />\n  </ToggleGroupStyleContext.Provider>\n);\n\nconst ToggleGroupItem = ({\n  className,\n  variant,\n  size,\n  ...rest\n}: ComponentProps<typeof ArkToggleGroup.Item> & ToggleGroupVariantProps) => {\n  const inherited = useContext(ToggleGroupStyleContext);\n\n  return (\n    <ArkToggleGroup.Item\n      className={cn(\n        toggleVariants({\n          variant: variant ?? inherited.variant,\n          size: size ?? inherited.size,\n        }),\n        className,\n      )}\n      {...rest}\n    />\n  );\n};\n\nexport {\n  ToggleGroupContext,\n  ToggleGroupItem,\n  ToggleGroupProvider,\n  ToggleGroupRoot,\n};\n",
       "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    },
+    {
+      "path": "src/registry/thornberry/components/toggle.tsx",
+      "content": "import { Toggle as ArkToggle } from \"@ark-ui/react/toggle\";\nimport { cva } from \"class-variance-authority\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { VariantProps } from \"class-variance-authority\";\nimport type { ComponentProps } from \"react\";\n\n/**\n * Shared toggle styles, also used by toggle-group items. Variants and sizes\n * mirror the button so toggles sit naturally next to buttons; the pressed\n * (\"on\") state is expressed through `data-[state=on]`.\n */\nconst toggleVariants = cva(\n  \"focus-visible:ring-primary focus-visible:ring-offset-background inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-colors outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50\",\n  {\n    variants: {\n      variant: {\n        ghost:\n          \"hover:bg-muted hover:text-muted-foreground data-[state=on]:bg-accent data-[state=on]:text-accent-foreground bg-transparent\",\n        outline:\n          \"bg-background hover:bg-accent hover:text-accent-foreground data-[state=on]:bg-accent data-[state=on]:text-accent-foreground border shadow-xs\",\n        solid:\n          \"bg-muted text-muted-foreground hover:bg-muted/80 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:hover:bg-primary/90 shadow-xs\",\n      },\n      size: {\n        sm: \"h-8 min-w-8 gap-1.5 px-2.5\",\n        md: \"h-9 min-w-9 px-3\",\n        lg: \"h-10 min-w-10 px-4\",\n        icon: \"size-9\",\n      },\n    },\n    defaultVariants: {\n      variant: \"ghost\",\n      size: \"md\",\n    },\n  },\n);\n\nconst ToggleContext = ArkToggle.Context;\n\n/**\n * A two-state button that can be either on or off. Use `pressed` and\n * `onPressedChange` to control it, or `defaultPressed` for uncontrolled use.\n */\nconst Toggle = ({\n  className,\n  variant,\n  size,\n  ...rest\n}: ComponentProps<typeof ArkToggle.Root> &\n  VariantProps<typeof toggleVariants>) => (\n  <ArkToggle.Root\n    className={cn(toggleVariants({ variant, size }), className)}\n    {...rest}\n  />\n);\n\n/**\n * Renders `children` while the toggle is on and `fallback` while it is off,\n * e.g. to swap an outlined icon for a filled one.\n */\nconst ToggleIndicator = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ArkToggle.Indicator>) => (\n  <ArkToggle.Indicator\n    className={cn(\"inline-flex items-center\", className)}\n    {...rest}\n  />\n);\n\nexport { Toggle, ToggleContext, ToggleIndicator, toggleVariants };\n",
+      "type": "registry:component",
+      "target": ""
     }
   ],
   "type": "registry:ui"

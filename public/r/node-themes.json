@@ -3,7 +3,6 @@
   "name": "node-themes",
   "title": "Node Themes",
   "description": "Semantic node themes driven by design-system tokens, plus a resolver for custom theme objects.",
-  "dependencies": [],
   "files": [
     {
       "path": "src/registry/thornberry/lib/node-themes.ts",
