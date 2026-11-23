@@ -29,7 +29,7 @@ import {
   TableRow2,
   TableHead2,
   TableCell2
-} from "./ai-describe-panel-06kze8cq.js";
+} from "./ai-describe-panel-233f93y5.js";
 
 // src/registry/thornberry/components/account-view-passkeys.tsx
 import { Fingerprint, Loader2, Trash2 } from "lucide-react";

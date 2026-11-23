@@ -6,7 +6,7 @@ import {
 import { jsx } from "react/jsx-runtime";
 var Table2 = ({ containerProps, className, ...rest }) => /* @__PURE__ */ jsx("div", {
   "data-slot": "table-container",
-  className: cn("no-scrollbar relative w-full overflow-auto", containerProps),
+  className: cn("relative w-full overflow-auto", containerProps),
   children: /* @__PURE__ */ jsx("table", {
     "data-slot": "table",
     className: cn("w-full caption-bottom text-sm", className),

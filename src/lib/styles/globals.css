@@ -126,6 +126,18 @@
     overflow-y: scroll;
     scrollbar-gutter: stable;
   }
+  /* Thin, theme-following scrollbars. See base.css */
+  :root {
+    scrollbar-color: color-mix(
+        in oklab,
+        var(--muted-foreground, currentColor) 45%,
+        transparent
+      )
+      transparent;
+  }
+  * {
+    scrollbar-width: thin;
+  }
   /* Dark native scrollbars and form controls in the dark theme. See base.css */
   .dark,
   [data-theme="dark"] {
@@ -149,5 +161,15 @@
   }
   .font-text {
     font-weight: var(--text-weight);
+  }
+}
+
+/* See base.css */
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }

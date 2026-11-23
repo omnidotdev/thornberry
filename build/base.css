@@ -43,6 +43,24 @@
     color-scheme: dark;
   }
 
+  /* One scrollbar look across the fleet: thin, with a muted thumb on a clear
+     track. The thumb follows the theme through the `--muted-foreground`
+     token every Omni palette defines (falling back to the text color), so
+     light and dark both get a scrollbar that matches the surface instead of
+     the platform default */
+  :root {
+    scrollbar-color: color-mix(
+        in oklab,
+        var(--muted-foreground, currentColor) 45%,
+        transparent
+      )
+      transparent;
+  }
+
+  * {
+    scrollbar-width: thin;
+  }
+
   /* Counterpart to the persistent `html` scrollbar above, for the OTHER scroll
      locker in the stack: Radix dialogs (and cmdk's `Command.Dialog`, which is
      Radix under the hood) lock scroll via `react-remove-scroll`. That library
@@ -86,5 +104,18 @@
   [role="radio"]:not([aria-disabled="true"]):not([data-disabled]),
   [role="checkbox"]:not([aria-disabled="true"]):not([data-disabled]) {
     cursor: pointer;
+  }
+}
+
+/* Hide a scrollbar where scrolling is already obvious (a sidebar's own nav,
+   horizontal chip rows). Shipped here so the utility means the same thing in
+   every app, whether or not the app defines it too */
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
