@@ -18,7 +18,7 @@ import {
 } from "./ai-describe-panel-6bn090ct.js";
 import {
   useAppForm2
-} from "./ai-describe-panel-qk5vvjcz.js";
+} from "./ai-describe-panel-wt5wbet3.js";
 
 // src/registry/thornberry/components/account-change-password.tsx
 import { Lock } from "lucide-react";

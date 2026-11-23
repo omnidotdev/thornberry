@@ -165,7 +165,7 @@ var OptionsSelect2 = ({
     disabled,
     required,
     ids: id ? { trigger: id } : undefined,
-    positioning: { sameWidth },
+    positioning: { sameWidth: false },
     lazyMount: true,
     unmountOnExit: true,
     loopFocus: true,
@@ -199,7 +199,7 @@ var OptionsSelect2 = ({
         children: /* @__PURE__ */ jsx(SelectPositioner2, {
           className: positionerClassName,
           children: /* @__PURE__ */ jsx(SelectContent2, {
-            className: cn(sameWidth ? "w-full" : "w-max max-w-(--available-width)", "p-1", contentClassName),
+            className: cn("max-w-(--available-width)", sameWidth ? "w-(--reference-width) min-w-32" : "w-max", "p-1", contentClassName),
             children: options.map((option) => /* @__PURE__ */ jsxs(SelectItem2, {
               item: option,
               children: [

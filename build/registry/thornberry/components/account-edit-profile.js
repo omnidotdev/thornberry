@@ -1,9 +1,9 @@
 import {
   EditProfile2
-} from "../../../chunks/ai-describe-panel-f63zcnae.js";
-import"../../../chunks/ai-describe-panel-qk5vvjcz.js";
+} from "../../../chunks/ai-describe-panel-ysf1v9dw.js";
+import"../../../chunks/ai-describe-panel-wt5wbet3.js";
 import"../../../chunks/ai-describe-panel-tq09kxk4.js";
-import"../../../chunks/ai-describe-panel-3mf8qc1g.js";
+import"../../../chunks/ai-describe-panel-6t9yeg4q.js";
 import"../../../chunks/ai-describe-panel-71sfcq15.js";
 import"../../../chunks/ai-describe-panel-xqxz7ze0.js";
 import"../../../chunks/ai-describe-panel-b60vh03c.js";

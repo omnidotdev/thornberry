@@ -20,7 +20,7 @@ import {
   SelectSeparator2,
   OptionsSelect2,
   createListCollection2
-} from "../../../chunks/ai-describe-panel-3mf8qc1g.js";
+} from "../../../chunks/ai-describe-panel-6t9yeg4q.js";
 export {
   OptionsSelect2 as OptionsSelect,
   Select2 as Select,

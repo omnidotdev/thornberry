@@ -210,8 +210,9 @@ interface OptionsSelectProps {
   /** Mark the hidden native select required for form validation */
   required?: boolean;
   /**
-   * Match the list's width to the trigger (default). Set false for a compact
-   * trigger whose options are wider than it, e.g. a toolbar chip
+   * Match the list's width to the trigger (default; never narrower than 8rem,
+   * and always kept on screen). Set false for a compact trigger whose options
+   * are wider than it, e.g. a toolbar chip
    */
   sameWidth?: boolean;
   /** Tooltip text on the trigger */
@@ -282,7 +283,9 @@ const OptionsSelect = ({
       disabled={disabled}
       required={required}
       ids={id ? { trigger: id } : undefined}
-      positioning={{ sameWidth }}
+      // the list is measured at its real width (never forced to a narrow
+      // trigger's), so positioning keeps it on screen
+      positioning={{ sameWidth: false }}
       // mount the list on open so its portal lands after any dialog it sits
       // in, keeping it above that dialog at the same z-index
       lazyMount
@@ -314,7 +317,8 @@ const OptionsSelect = ({
         <SelectPositioner className={positionerClassName}>
           <SelectContent
             className={cn(
-              sameWidth ? "w-full" : "w-max max-w-(--available-width)",
+              "max-w-(--available-width)",
+              sameWidth ? "w-(--reference-width) min-w-32" : "w-max",
               "p-1",
               contentClassName,
             )}

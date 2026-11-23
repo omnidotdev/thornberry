@@ -44,8 +44,9 @@ interface OptionsSelectProps {
     /** Mark the hidden native select required for form validation */
     required?: boolean;
     /**
-     * Match the list's width to the trigger (default). Set false for a compact
-     * trigger whose options are wider than it, e.g. a toolbar chip
+     * Match the list's width to the trigger (default; never narrower than 8rem,
+     * and always kept on screen). Set false for a compact trigger whose options
+     * are wider than it, e.g. a toolbar chip
      */
     sameWidth?: boolean;
     /** Tooltip text on the trigger */
