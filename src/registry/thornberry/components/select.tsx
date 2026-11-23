@@ -269,6 +269,10 @@ const OptionsSelect = ({
       disabled={disabled}
       ids={id ? { trigger: id } : undefined}
       positioning={{ sameWidth: true }}
+      // mount the list on open so its portal lands after any dialog it sits
+      // in, keeping it above that dialog at the same z-index
+      lazyMount
+      unmountOnExit
       loopFocus
       className={cn("flex w-full min-w-0 flex-col gap-1.5", className)}
     >
@@ -278,7 +282,7 @@ const OptionsSelect = ({
           aria-label={label ? undefined : ariaLabel}
           data-size={size === "sm" ? "sm" : "default"}
           className={cn(
-            "w-full border border-input bg-transparent shadow-sm focus-visible:ring-2 focus-visible:ring-primary",
+            "w-full border border-input bg-transparent shadow-sm focus-visible:ring-2 focus-visible:ring-primary data-placeholder-shown:text-muted-foreground",
             triggerClassName,
           )}
         >

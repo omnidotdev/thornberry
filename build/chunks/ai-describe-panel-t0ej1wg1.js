@@ -162,6 +162,8 @@ var OptionsSelect2 = ({
     disabled,
     ids: id ? { trigger: id } : undefined,
     positioning: { sameWidth: true },
+    lazyMount: true,
+    unmountOnExit: true,
     loopFocus: true,
     className: cn("flex w-full min-w-0 flex-col gap-1.5", className),
     children: [
@@ -173,7 +175,7 @@ var OptionsSelect2 = ({
         children: /* @__PURE__ */ jsxs(SelectTrigger2, {
           "aria-label": label ? undefined : ariaLabel,
           "data-size": size === "sm" ? "sm" : "default",
-          className: cn("w-full border border-input bg-transparent shadow-sm focus-visible:ring-2 focus-visible:ring-primary", triggerClassName),
+          className: cn("w-full border border-input bg-transparent shadow-sm focus-visible:ring-2 focus-visible:ring-primary data-placeholder-shown:text-muted-foreground", triggerClassName),
           children: [
             /* @__PURE__ */ jsx(SelectValueText2, {
               placeholder,
