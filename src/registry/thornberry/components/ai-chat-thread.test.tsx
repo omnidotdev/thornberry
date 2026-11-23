@@ -128,6 +128,21 @@ describe("AiChatThread", () => {
     expect(getByText("Shift+Enter for a new line")).toBeDefined();
   });
 
+  test("hides the keyboard hint on touch-first devices", () => {
+    const { getByText } = render(
+      <AiChatThread
+        messages={messages}
+        input=""
+        onInputChange={noop}
+        onSend={noop}
+        footerHint="Shift+Enter for a new line"
+      />,
+    );
+    expect(getByText("Shift+Enter for a new line").className).toContain(
+      "pointer-coarse:hidden",
+    );
+  });
+
   test("drafts a picked example prompt into the composer, without sending", () => {
     const onInputChange = mock();
     const onSend = mock();

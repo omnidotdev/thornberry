@@ -203,7 +203,7 @@ var AiChatThread = ({
             ]
           }),
           footerHint && /* @__PURE__ */ jsx("div", {
-            className: "text-muted-foreground mt-1.5 text-xs",
+            className: "text-muted-foreground mt-1.5 text-xs pointer-coarse:hidden",
             children: footerHint
           })
         ]

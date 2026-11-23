@@ -71,7 +71,11 @@ export interface AiChatThreadProps {
    * voice-input button. Aligned to the composer's baseline
    */
   composerActions?: ReactNode;
-  /** A small hint under the composer, e.g. "Shift+Enter for a new line". */
+  /**
+   * A small keyboard hint under the composer, e.g. "Shift+Enter for a new
+   * line". Hidden on touch-first devices, where an on-screen keyboard has no
+   * such shortcut
+   */
   footerHint?: ReactNode;
   /**
    * Example prompts shown as chips above the composer while the thread is
@@ -335,7 +339,7 @@ const AiChatThread = ({
           </Button>
         </div>
         {footerHint && (
-          <div className="text-muted-foreground mt-1.5 text-xs">
+          <div className="text-muted-foreground mt-1.5 text-xs pointer-coarse:hidden">
             {footerHint}
           </div>
         )}
