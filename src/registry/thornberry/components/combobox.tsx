@@ -245,6 +245,7 @@ const OptionsCombobox = ({
       disabled={disabled}
       loopFocus
       openOnClick
+      positioning={{ sameWidth: true }}
       lazyMount
       unmountOnExit
       className={className}
@@ -256,11 +257,13 @@ const OptionsCombobox = ({
       </ComboboxControl>
       <Portal>
         <ComboboxPositioner>
-          <ComboboxContent>
+          {/* the list matches the input's width, so long labels truncate
+              instead of running off a phone screen */}
+          <ComboboxContent className="w-full">
             {items.map((item) => (
               <ComboboxItem key={item.value} item={item}>
-                <ComboboxItemText>
-                  <span className="truncate">{item.label}</span>
+                <ComboboxItemText className="flex min-w-0 flex-1 items-center">
+                  <span className="min-w-0 truncate">{item.label}</span>
                   {item.description && (
                     <span className="text-muted-foreground ml-2 shrink-0 text-xs">
                       {item.description}

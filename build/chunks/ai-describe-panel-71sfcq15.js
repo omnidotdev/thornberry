@@ -4,7 +4,7 @@ import {
 
 // src/registry/thornberry/components/checkbox.tsx
 import { Checkbox as ArkCheckbox } from "@ark-ui/react/checkbox";
-import { Check } from "lucide-react";
+import { Check, Minus } from "lucide-react";
 import { jsx, jsxs } from "react/jsx-runtime";
 var CheckboxProvider2 = ArkCheckbox.RootProvider;
 var CheckboxGroup2 = ArkCheckbox.Group;
@@ -48,12 +48,20 @@ var Checkbox2 = ({ label, ...rest }) => /* @__PURE__ */ jsxs(CheckboxRoot2, {
   ...rest,
   children: [
     /* @__PURE__ */ jsx(CheckboxHiddenInput2, {}),
-    /* @__PURE__ */ jsx(CheckboxControl2, {
-      children: /* @__PURE__ */ jsx(CheckboxIndicator2, {
-        children: /* @__PURE__ */ jsx(Check, {
-          className: "size-3.5"
+    /* @__PURE__ */ jsxs(CheckboxControl2, {
+      children: [
+        /* @__PURE__ */ jsx(CheckboxIndicator2, {
+          children: /* @__PURE__ */ jsx(Check, {
+            className: "size-3.5"
+          })
+        }),
+        /* @__PURE__ */ jsx(CheckboxIndicator2, {
+          indeterminate: true,
+          children: /* @__PURE__ */ jsx(Minus, {
+            className: "size-3.5"
+          })
         })
-      })
+      ]
     }),
     label && /* @__PURE__ */ jsx(CheckboxLabel2, {
       children: label

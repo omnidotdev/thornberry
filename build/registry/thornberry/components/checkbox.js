@@ -8,7 +8,7 @@ import {
   CheckboxIndicator2,
   CheckboxHiddenInput2,
   Checkbox2
-} from "../../../chunks/ai-describe-panel-kchsgea4.js";
+} from "../../../chunks/ai-describe-panel-71sfcq15.js";
 export {
   Checkbox2 as Checkbox,
   CheckboxContext2 as CheckboxContext,

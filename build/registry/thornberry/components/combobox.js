@@ -149,6 +149,7 @@ var OptionsCombobox = ({
     disabled,
     loopFocus: true,
     openOnClick: true,
+    positioning: { sameWidth: true },
     lazyMount: true,
     unmountOnExit: true,
     className,
@@ -167,14 +168,16 @@ var OptionsCombobox = ({
       /* @__PURE__ */ jsx(Portal, {
         children: /* @__PURE__ */ jsx(ComboboxPositioner, {
           children: /* @__PURE__ */ jsxs(ComboboxContent, {
+            className: "w-full",
             children: [
               items.map((item) => /* @__PURE__ */ jsxs(ComboboxItem, {
                 item,
                 children: [
                   /* @__PURE__ */ jsxs(ComboboxItemText, {
+                    className: "flex min-w-0 flex-1 items-center",
                     children: [
                       /* @__PURE__ */ jsx("span", {
-                        className: "truncate",
+                        className: "min-w-0 truncate",
                         children: item.label
                       }),
                       item.description && /* @__PURE__ */ jsx("span", {

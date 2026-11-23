@@ -14,7 +14,7 @@ interface CheckboxProps extends ComponentProps<typeof CheckboxRoot> {
 }
 /**
  * Checkbox with its control, check indicator, hidden input, and optional
- * label. Takes the root's props (`checked`, `onCheckedChange`, `name`,
+ * label. `checked="indeterminate"` shows a dash (e.g. a select-all header). Takes the root's props (`checked`, `onCheckedChange`, `name`,
  * `disabled`, ...). Compose `CheckboxRoot` and its parts for anything else.
  */
 declare const Checkbox: ({ label, ...rest }: CheckboxProps) => import("react/jsx-runtime").JSX.Element;

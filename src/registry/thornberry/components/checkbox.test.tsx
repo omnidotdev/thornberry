@@ -33,3 +33,18 @@ describe("Checkbox", () => {
     expect(control?.className).toContain("shrink-0");
   });
 });
+
+describe("Checkbox indeterminate", () => {
+  test("shows a dash when checked is indeterminate", () => {
+    const { container } = render(
+      <Checkbox aria-label="Select all" checked="indeterminate" />,
+    );
+
+    expect(
+      container
+        .querySelector("[data-part=control]")
+        ?.getAttribute("data-state"),
+    ).toBe("indeterminate");
+    expect(container.querySelector("svg.lucide-minus")).toBeTruthy();
+  });
+});

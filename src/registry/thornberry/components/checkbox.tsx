@@ -1,5 +1,5 @@
 import { Checkbox as ArkCheckbox } from "@ark-ui/react/checkbox";
-import { Check } from "lucide-react";
+import { Check, Minus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -69,7 +69,7 @@ interface CheckboxProps extends ComponentProps<typeof CheckboxRoot> {
 
 /**
  * Checkbox with its control, check indicator, hidden input, and optional
- * label. Takes the root's props (`checked`, `onCheckedChange`, `name`,
+ * label. `checked="indeterminate"` shows a dash (e.g. a select-all header). Takes the root's props (`checked`, `onCheckedChange`, `name`,
  * `disabled`, ...). Compose `CheckboxRoot` and its parts for anything else.
  */
 const Checkbox = ({ label, ...rest }: CheckboxProps) => (
@@ -78,6 +78,9 @@ const Checkbox = ({ label, ...rest }: CheckboxProps) => (
     <CheckboxControl>
       <CheckboxIndicator>
         <Check className="size-3.5" />
+      </CheckboxIndicator>
+      <CheckboxIndicator indeterminate>
+        <Minus className="size-3.5" />
       </CheckboxIndicator>
     </CheckboxControl>
     {label && <CheckboxLabel>{label}</CheckboxLabel>}

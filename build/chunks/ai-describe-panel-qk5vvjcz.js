@@ -7,7 +7,7 @@ import {
   CheckboxControl2,
   CheckboxIndicator2,
   CheckboxHiddenInput2
-} from "./ai-describe-panel-kchsgea4.js";
+} from "./ai-describe-panel-71sfcq15.js";
 import {
   Input2
 } from "./ai-describe-panel-hj664zsh.js";
