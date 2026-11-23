@@ -13,6 +13,10 @@ export const GLOBAL_HOTKEYS = {
   commandPalette: "mod+k",
   /** Toggle light/dark theme. */
   toggleTheme: "t",
+  /** Collapse or expand the sidebar. */
+  toggleSidebar: "b",
+  /** Show the keyboard shortcuts list (the `?` key). */
+  showShortcuts: "shift+slash",
 } as const;
 
 const isApplePlatform = () =>

@@ -29,6 +29,7 @@ import {
   TooltipRoot,
   TooltipTrigger,
 } from "@/registry/thornberry/components/tooltip";
+import { GLOBAL_HOTKEYS } from "./use-hotkeys";
 
 import type { CSSProperties, ComponentProps } from "react";
 
@@ -110,7 +111,7 @@ const SidebarProvider = ({
   }, [isMobile, setOpen]);
 
   // Adds a keyboard shortcut to toggle the sidebar.
-  useHotkeys("b", toggleSidebar, [toggleSidebar]);
+  useHotkeys(GLOBAL_HOTKEYS.toggleSidebar, toggleSidebar, [toggleSidebar]);
 
   const state = open ? "expanded" : "collapsed";
 
