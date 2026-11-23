@@ -462,6 +462,18 @@
       ]
     },
     {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Multi-line text control, styled to match Input",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "menu",
       "type": "registry:ui",
       "title": "Menu",
@@ -879,7 +891,13 @@
       "title": "Form",
       "description": "A TanStack Form wrapper that binds typed, validation-aware field components onto thornberry inputs (text, textarea, checkbox, select) with matching styling.",
       "dependencies": ["@tanstack/react-form"],
-      "registryDependencies": ["input", "checkbox", "select", "button"],
+      "registryDependencies": [
+        "input",
+        "textarea",
+        "checkbox",
+        "select",
+        "button"
+      ],
       "files": [
         {
           "path": "src/registry/thornberry/components/form.tsx",

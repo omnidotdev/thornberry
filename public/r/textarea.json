@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "textarea",
+  "title": "Textarea",
+  "description": "Multi-line text control, styled to match Input",
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+  "files": [
+    {
+      "path": "src/registry/thornberry/components/textarea.tsx",
+      "content": "import { ark } from \"@ark-ui/react\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport type { ComponentProps } from \"react\";\n\n/**\n * Multi-line text control, styled to match `Input`. Pair with `Label` via\n * `htmlFor`; set `aria-invalid` to show the error state.\n */\nconst Textarea = ({\n  className,\n  ...rest\n}: ComponentProps<typeof ark.textarea>) => (\n  <ark.textarea\n    className={cn(\n      \"flex min-h-20 w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:focus-visible:ring-destructive md:text-sm\",\n      className,\n    )}\n    {...rest}\n  />\n);\n\nexport { Textarea };\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport type { ClassValue } from \"clsx\";\n\nexport const cn = (...inputs: ClassValue[]) => {\n  return twMerge(clsx(inputs));\n};\n",
+      "type": "registry:lib",
+      "target": ""
+    }
+  ],
+  "type": "registry:ui"
+}

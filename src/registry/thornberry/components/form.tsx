@@ -1,4 +1,3 @@
-import { ark } from "@ark-ui/react";
 import { createFormHook, createFormHookContexts } from "@tanstack/react-form";
 import { Check, ChevronDown } from "lucide-react";
 import { useMemo } from "react";
@@ -29,7 +28,9 @@ import {
   SelectValueText,
   createListCollection,
 } from "@/registry/thornberry/components/select";
+import { Textarea } from "@/registry/thornberry/components/textarea";
 
+import type { ark } from "@ark-ui/react";
 import type { ComponentProps, ReactNode } from "react";
 
 /**
@@ -217,18 +218,14 @@ const TextareaField = ({
   return (
     <div className="flex w-full flex-col gap-1.5">
       {label && <FieldLabel htmlFor={fieldId}>{label}</FieldLabel>}
-      <ark.textarea
+      <Textarea
         id={fieldId}
         name={field.name}
         value={field.state.value ?? ""}
         onBlur={field.handleBlur}
         onChange={(event) => field.handleChange(event.target.value)}
         aria-invalid={hasError || undefined}
-        className={cn(
-          "flex min-h-16 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50",
-          hasError && "border-destructive focus-visible:ring-destructive",
-          className,
-        )}
+        className={cn("min-h-16", className)}
         {...rest}
       />
       {hasError && <FieldErrors errors={field.state.meta.errors} />}

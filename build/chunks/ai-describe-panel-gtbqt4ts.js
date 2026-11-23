@@ -30,6 +30,9 @@ import {
   createListCollection2
 } from "./ai-describe-panel-8wtqb3wn.js";
 import {
+  Textarea2
+} from "./ai-describe-panel-tq09kxk4.js";
+import {
   __toESM,
   __commonJS
 } from "./ai-describe-panel-k4gym8zt.js";
@@ -156,9 +159,6 @@ var require_with_selector = __commonJS(function(exports, module) {
     module.exports = require_with_selector_production();
   }
 });
-
-// src/registry/thornberry/components/form.tsx
-import { ark } from "@ark-ui/react";
 
 // node_modules/@tanstack/store/dist/alien.js
 function createReactiveSystem({ update, notify, unwatched }) {
@@ -4664,14 +4664,14 @@ var TextareaField2 = ({
         htmlFor: fieldId,
         children: label
       }),
-      /* @__PURE__ */ jsx6(ark.textarea, {
+      /* @__PURE__ */ jsx6(Textarea2, {
         id: fieldId,
         name: field.name,
         value: field.state.value ?? "",
         onBlur: field.handleBlur,
         onChange: (event) => field.handleChange(event.target.value),
         "aria-invalid": hasError || undefined,
-        className: cn("flex min-h-16 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50", hasError && "border-destructive focus-visible:ring-destructive", className),
+        className: cn("min-h-16", className),
         ...rest
       }),
       hasError && /* @__PURE__ */ jsx6(FieldErrors, {
