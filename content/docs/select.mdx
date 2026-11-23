@@ -91,7 +91,7 @@ const SelectExample = () => {
 
 ### Options shorthand
 
-For a single choice from a flat list of strings, `OptionsSelect` renders the label, trigger, portaled list, and hidden native select, and fills its container like an input. Options take an optional `hint` (list only) and `disabled`. Pass `id` to point an external `Label` at the trigger, `size="sm"` for dense rows, and `positionerClassName` to lift the list above a product overlay.
+For a single choice from a flat list of strings, `OptionsSelect` renders the label, trigger, portaled list, and hidden native select, and fills its container like an input. Options take an optional `hint` (list only) and `disabled`. Pass `id` to point an external `Label` at the trigger, `size="sm"` for dense rows, `sameWidth={false}` when the options are wider than a compact trigger, `title` for a trigger tooltip, `required` for form validation, and `positionerClassName` to lift the list above a product overlay. An empty `value` shows the placeholder, so use a stand-in value (e.g. `"none"`) for a real "None" option.
 
 ```tsx
 import { OptionsSelect } from "@omnidotdev/thornberry/select";

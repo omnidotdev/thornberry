@@ -72,3 +72,23 @@ describe("OptionsSelect", () => {
     expect(screen.getByRole("combobox").id).toBe("cadence");
   });
 });
+
+describe("OptionsSelect options", () => {
+  test("passes title and required through", () => {
+    render(
+      <OptionsSelect
+        value="weekly"
+        options={options}
+        onValueChange={() => {}}
+        aria-label="Cadence"
+        title="Billing cadence"
+        required
+      />,
+    );
+
+    expect(screen.getByRole("combobox").getAttribute("title")).toBe(
+      "Billing cadence",
+    );
+    expect(document.querySelector("select")?.required).toBe(true);
+  });
+});

@@ -35,7 +35,7 @@ import {
   SelectItemText2,
   SelectItemIndicator2,
   createListCollection2
-} from "./ai-describe-panel-t0ej1wg1.js";
+} from "./ai-describe-panel-3mf8qc1g.js";
 
 // src/registry/thornberry/components/account-teams.tsx
 import { ChevronsUpDown, Plus, Users } from "lucide-react";

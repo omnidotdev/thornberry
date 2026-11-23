@@ -207,6 +207,15 @@ interface OptionsSelectProps {
   id?: string;
   name?: string;
   disabled?: boolean;
+  /** Mark the hidden native select required for form validation */
+  required?: boolean;
+  /**
+   * Match the list's width to the trigger (default). Set false for a compact
+   * trigger whose options are wider than it, e.g. a toolbar chip
+   */
+  sameWidth?: boolean;
+  /** Tooltip text on the trigger */
+  title?: string;
   /** `sm` is a compact trigger for toolbars and dense rows */
   size?: "sm" | "md";
   open?: boolean;
@@ -220,7 +229,8 @@ interface OptionsSelectProps {
 }
 
 /**
- * Single-choice select from a flat list of string options: label, trigger,
+ * Single-choice select from a flat list of string options (an empty `value`
+ * means nothing is selected and shows the placeholder): label, trigger,
  * portaled list, and hidden native select for forms. Fills its container
  * like an input. Compose `Select` and its parts for groups, rich items, or
  * multiple selection.
@@ -235,6 +245,9 @@ const OptionsSelect = ({
   id,
   name,
   disabled,
+  required,
+  sameWidth = true,
+  title,
   size = "md",
   open,
   onOpenChange,
@@ -267,8 +280,9 @@ const OptionsSelect = ({
       }
       name={name}
       disabled={disabled}
+      required={required}
       ids={id ? { trigger: id } : undefined}
-      positioning={{ sameWidth: true }}
+      positioning={{ sameWidth }}
       // mount the list on open so its portal lands after any dialog it sits
       // in, keeping it above that dialog at the same z-index
       lazyMount
@@ -280,6 +294,7 @@ const OptionsSelect = ({
       <SelectControl className="min-w-0">
         <SelectTrigger
           aria-label={label ? undefined : ariaLabel}
+          title={title}
           data-size={size === "sm" ? "sm" : "default"}
           className={cn(
             "w-full border border-input bg-transparent shadow-sm focus-visible:ring-2 focus-visible:ring-primary data-placeholder-shown:text-muted-foreground",
@@ -297,7 +312,13 @@ const OptionsSelect = ({
       </SelectControl>
       <Portal>
         <SelectPositioner className={positionerClassName}>
-          <SelectContent className={cn("w-full p-1", contentClassName)}>
+          <SelectContent
+            className={cn(
+              sameWidth ? "w-full" : "w-max max-w-(--available-width)",
+              "p-1",
+              contentClassName,
+            )}
+          >
             {options.map((option) => (
               <SelectItem key={option.value} item={option}>
                 <SelectItemText className="min-w-0 truncate">

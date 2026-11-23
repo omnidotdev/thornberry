@@ -136,6 +136,9 @@ var OptionsSelect2 = ({
   id,
   name,
   disabled,
+  required,
+  sameWidth = true,
+  title,
   size = "md",
   open,
   onOpenChange,
@@ -160,8 +163,9 @@ var OptionsSelect2 = ({
     onOpenChange: onOpenChange ? (details) => onOpenChange(details.open) : undefined,
     name,
     disabled,
+    required,
     ids: id ? { trigger: id } : undefined,
-    positioning: { sameWidth: true },
+    positioning: { sameWidth },
     lazyMount: true,
     unmountOnExit: true,
     loopFocus: true,
@@ -174,6 +178,7 @@ var OptionsSelect2 = ({
         className: "min-w-0",
         children: /* @__PURE__ */ jsxs(SelectTrigger2, {
           "aria-label": label ? undefined : ariaLabel,
+          title,
           "data-size": size === "sm" ? "sm" : "default",
           className: cn("w-full border border-input bg-transparent shadow-sm focus-visible:ring-2 focus-visible:ring-primary data-placeholder-shown:text-muted-foreground", triggerClassName),
           children: [
@@ -194,7 +199,7 @@ var OptionsSelect2 = ({
         children: /* @__PURE__ */ jsx(SelectPositioner2, {
           className: positionerClassName,
           children: /* @__PURE__ */ jsx(SelectContent2, {
-            className: cn("w-full p-1", contentClassName),
+            className: cn(sameWidth ? "w-full" : "w-max max-w-(--available-width)", "p-1", contentClassName),
             children: options.map((option) => /* @__PURE__ */ jsxs(SelectItem2, {
               item: option,
               children: [

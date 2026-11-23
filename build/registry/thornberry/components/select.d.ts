@@ -41,6 +41,15 @@ interface OptionsSelectProps {
     id?: string;
     name?: string;
     disabled?: boolean;
+    /** Mark the hidden native select required for form validation */
+    required?: boolean;
+    /**
+     * Match the list's width to the trigger (default). Set false for a compact
+     * trigger whose options are wider than it, e.g. a toolbar chip
+     */
+    sameWidth?: boolean;
+    /** Tooltip text on the trigger */
+    title?: string;
     /** `sm` is a compact trigger for toolbars and dense rows */
     size?: "sm" | "md";
     open?: boolean;
@@ -53,11 +62,12 @@ interface OptionsSelectProps {
     positionerClassName?: string;
 }
 /**
- * Single-choice select from a flat list of string options: label, trigger,
+ * Single-choice select from a flat list of string options (an empty `value`
+ * means nothing is selected and shows the placeholder): label, trigger,
  * portaled list, and hidden native select for forms. Fills its container
  * like an input. Compose `Select` and its parts for groups, rich items, or
  * multiple selection.
  */
-declare const OptionsSelect: ({ value, options, onValueChange, placeholder, label, "aria-label": ariaLabel, id, name, disabled, size, open, onOpenChange, className, triggerClassName, contentClassName, positionerClassName, }: OptionsSelectProps) => import("react/jsx-runtime").JSX.Element;
+declare const OptionsSelect: ({ value, options, onValueChange, placeholder, label, "aria-label": ariaLabel, id, name, disabled, required, sameWidth, title, size, open, onOpenChange, className, triggerClassName, contentClassName, positionerClassName, }: OptionsSelectProps) => import("react/jsx-runtime").JSX.Element;
 export { createListCollection } from "@ark-ui/react";
 export { OptionsSelect, type OptionsSelectProps, Select, SelectClearTrigger, SelectContent, SelectContext, SelectControl, SelectHiddenSelect, SelectIndicator, SelectItem, SelectItemGroup, SelectItemGroupLabel, SelectItemIndicator, SelectItemText, SelectLabel, type SelectOption, SelectPositioner, SelectRoot, SelectRootProvider, SelectSeparator, SelectTrigger, SelectValueText, };
