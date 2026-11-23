@@ -9,7 +9,7 @@ import {
   DialogContent2,
   DialogTitle2,
   DialogDescription2
-} from "../../../chunks/ai-describe-panel-saba89b9.js";
+} from "../../../chunks/ai-describe-panel-6bn090ct.js";
 import {
   Label2
 } from "../../../chunks/ai-describe-panel-fa46q8yp.js";

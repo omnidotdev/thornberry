@@ -10,10 +10,10 @@ import {
   DialogPositioner2,
   DialogContent2,
   DialogTitle2
-} from "./ai-describe-panel-saba89b9.js";
+} from "./ai-describe-panel-6bn090ct.js";
 import {
   ConfirmDialog2
-} from "./ai-describe-panel-k13065jh.js";
+} from "./ai-describe-panel-jbj1fzyj.js";
 import {
   ALLOWED_IMAGE_TYPES,
   MAX_BANNER_IMAGE_SIZE,

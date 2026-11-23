@@ -12,7 +12,7 @@ import {
   DialogContent2,
   DialogTitle2,
   DialogDescription2
-} from "./ai-describe-panel-saba89b9.js";
+} from "./ai-describe-panel-6bn090ct.js";
 import {
   Input2
 } from "./ai-describe-panel-hj664zsh.js";
@@ -21,7 +21,7 @@ import {
 } from "./ai-describe-panel-fa46q8yp.js";
 import {
   ConfirmDialog2
-} from "./ai-describe-panel-k13065jh.js";
+} from "./ai-describe-panel-jbj1fzyj.js";
 import {
   Select2,
   SelectControl2,
