@@ -11,6 +11,10 @@ export declare const GLOBAL_HOTKEYS: {
     readonly commandPalette: "mod+k";
     /** Toggle light/dark theme. */
     readonly toggleTheme: "t";
+    /** Collapse or expand the sidebar. */
+    readonly toggleSidebar: "b";
+    /** Show the keyboard shortcuts list (the `?` key). */
+    readonly showShortcuts: "shift+slash";
 };
 /**
  * Render a `react-hotkeys-hook` binding string as a human label, e.g. `mod+k`

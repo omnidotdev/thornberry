@@ -129,6 +129,19 @@
       ]
     },
     {
+      "name": "shortcuts-dialog",
+      "type": "registry:ui",
+      "title": "Shortcuts Dialog",
+      "description": "The standard Omni keyboard shortcuts list, opened with the ? key: the global hotkeys an app binds, then its own shortcut groups",
+      "registryDependencies": ["dialog", "kbd", "use-hotkeys"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/shortcuts-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "app-footer",
       "type": "registry:ui",
       "title": "App Footer",

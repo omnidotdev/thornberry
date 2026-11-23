@@ -18,6 +18,9 @@ import {
   TooltipContent2
 } from "../../../chunks/ai-describe-panel-fyv865k9.js";
 import {
+  GLOBAL_HOTKEYS2
+} from "../../../chunks/ai-describe-panel-vea3rdsy.js";
+import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
@@ -321,7 +324,7 @@ var SidebarProvider = ({
   const toggleSidebar = useCallback2(() => {
     return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
   }, [isMobile, setOpen]);
-  useHotkeys("b", toggleSidebar, [toggleSidebar]);
+  useHotkeys(GLOBAL_HOTKEYS2.toggleSidebar, toggleSidebar, [toggleSidebar]);
   const state = open ? "expanded" : "collapsed";
   const contextValue = useMemo2(() => ({
     state,
