@@ -1,10 +1,11 @@
-import { Dialog as ArkSheet } from "@ark-ui/react/dialog";
+import { Dialog as ArkSheet, useDialogContext } from "@ark-ui/react/dialog";
 import { Portal } from "@ark-ui/react/portal";
 import { X } from "lucide-react";
+import { useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
-import type { ComponentProps } from "react";
+import type { ComponentProps, PointerEvent } from "react";
 
 const SheetProvider = ArkSheet.RootProvider;
 const SheetContext = ArkSheet.Context;
@@ -46,29 +47,120 @@ const SheetPositioner = ({
 
 interface ArkSheetContentProps extends ComponentProps<typeof ArkSheet.Content> {
   side?: "top" | "right" | "bottom" | "left";
+  /** Close when the sheet is swiped toward its edge on a touch screen */
+  swipeToClose?: boolean;
 }
+
+/** Distance (px) a swipe must travel toward the edge to close the sheet */
+const SWIPE_CLOSE_DISTANCE = 80;
 
 const SheetContent = ({
   className,
   side = "left",
+  swipeToClose = true,
+  onPointerDown,
+  onPointerMove,
+  onPointerUp,
+  onPointerCancel,
+  style,
   ...rest
-}: ArkSheetContentProps) => (
-  <ArkSheet.Content
-    className={cn(
-      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed z-50 bg-background data-[state=closed]:animate-out data-[state=open]:animate-in",
-      side === "right" &&
-        "data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm",
-      side === "left" &&
-        "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm",
-      side === "top" &&
-        "data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 h-auto border-b",
-      side === "bottom" &&
-        "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t",
-      className,
-    )}
-    {...rest}
-  />
-);
+}: ArkSheetContentProps) => {
+  const dialog = useDialogContext();
+  const contentRef = useRef<HTMLDivElement>(null);
+  const start = useRef<{ x: number; y: number; dragging: boolean } | null>(
+    null,
+  );
+
+  const horizontal = side === "left" || side === "right";
+  // a swipe toward the sheet's own edge closes it
+  const towardEdge = (dx: number, dy: number) =>
+    side === "left" ? -dx : side === "right" ? dx : side === "top" ? -dy : dy;
+
+  const setOffset = (offset: number) => {
+    const node = contentRef.current;
+    if (!node) return;
+    const signed = side === "left" || side === "top" ? -offset : offset;
+    node.style.transition = offset === 0 ? "transform 150ms ease-out" : "none";
+    node.style.transform =
+      offset === 0
+        ? ""
+        : horizontal
+          ? `translateX(${signed}px)`
+          : `translateY(${signed}px)`;
+  };
+
+  const handlers = swipeToClose
+    ? {
+        onPointerDown: (event: PointerEvent<HTMLDivElement>) => {
+          onPointerDown?.(event);
+          if (event.pointerType !== "touch") return;
+          start.current = {
+            x: event.clientX,
+            y: event.clientY,
+            dragging: false,
+          };
+        },
+        onPointerMove: (event: PointerEvent<HTMLDivElement>) => {
+          onPointerMove?.(event);
+          const origin = start.current;
+          if (!origin) return;
+          const dx = event.clientX - origin.x;
+          const dy = event.clientY - origin.y;
+          // only a swipe mostly along the closing axis drags the sheet, so
+          // scrolling the sheet's own content keeps working
+          if (!origin.dragging) {
+            const along = Math.abs(horizontal ? dx : dy);
+            const across = Math.abs(horizontal ? dy : dx);
+            if (along < 8 || across > along) {
+              if (across > 8) start.current = null;
+              return;
+            }
+            origin.dragging = true;
+          }
+          setOffset(Math.max(0, towardEdge(dx, dy)));
+        },
+        onPointerUp: (event: PointerEvent<HTMLDivElement>) => {
+          onPointerUp?.(event);
+          const origin = start.current;
+          start.current = null;
+          if (!origin?.dragging) return;
+          const distance = towardEdge(
+            event.clientX - origin.x,
+            event.clientY - origin.y,
+          );
+          setOffset(0);
+          if (distance > SWIPE_CLOSE_DISTANCE) dialog.setOpen(false);
+        },
+        onPointerCancel: (event: PointerEvent<HTMLDivElement>) => {
+          onPointerCancel?.(event);
+          start.current = null;
+          setOffset(0);
+        },
+      }
+    : { onPointerDown, onPointerMove, onPointerUp, onPointerCancel };
+
+  return (
+    <ArkSheet.Content
+      ref={contentRef}
+      className={cn(
+        "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed z-50 bg-background data-[state=closed]:animate-out data-[state=open]:animate-in",
+        swipeToClose && (horizontal ? "touch-pan-y" : "touch-pan-x"),
+        side === "right" &&
+          "data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm",
+        side === "left" &&
+          "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm",
+        side === "top" &&
+          "data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 h-auto border-b",
+        side === "bottom" &&
+          "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t",
+        className,
+      )}
+      style={style}
+      {...handlers}
+      {...rest}
+    />
+  );
+};
 
 const SheetTitle = ({
   className,

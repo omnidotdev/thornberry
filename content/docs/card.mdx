@@ -53,7 +53,7 @@ import {
 
 ### Shorthand
 
-For the standard header, content, and footer layout, `Card` takes `title`, `description`, and `footer`, and puts its children in the content. Each part still takes its own props (`headerProps`, `titleProps`, `descriptionProps`, `contentProps`, `footerProps`). Compose `CardRoot` and its parts for any other layout.
+For the standard header, content, and footer layout, `Card` takes `title`, `description`, and `footer`, and puts its children in the content. Each part still takes its own props (`headerProps`, `titleProps`, `descriptionProps`, `contentProps`, `footerProps`). Compose `CardRoot` and its parts for any other layout. `CardTitle` renders a `div` so the page decides heading levels; pass `asChild` with a heading (`<CardTitle asChild><h3>Plan</h3></CardTitle>`) where the card title belongs in the outline.
 
 ```tsx
 import { Card } from "@omnidotdev/thornberry/card";

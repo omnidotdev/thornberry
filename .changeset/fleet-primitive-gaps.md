@@ -12,7 +12,7 @@ Closes gaps products kept local copies for:
 - `Checkbox` and `Tooltip` shorthands (`<Checkbox label>`, `<Tooltip content>`); tooltips wrap longer text instead of clipping to one line
 - `CheckboxLabel` takes `className` and wraps long labels with readable line height; the box no longer shrinks beside them
 - `Button` gains an `xs` size
-- `SheetPortal`, and `SheetBackdrop` ships the standard overlay styling
+- `SheetPortal`, `SheetBackdrop` ships the standard overlay styling, and sheets close when swiped toward their edge on touch screens (`swipeToClose={false}` opts out)
 - A `Card` without a title or description pads its content's top edge
 - A wide child (a code editor) no longer stretches a dialog past a phone screen, and dialog text uses the foreground color (titles were unreadable in dark-only apps)
 - `Sidebar` no longer flashes the desktop panel on phones before hydration, its phone drawer is wider (`w-5/6 max-w-xs`, overridable with `mobileClassName`) and has a backdrop

@@ -11,7 +11,7 @@ import {
   SheetContent2,
   SheetTitle2,
   SheetDescription2
-} from "../../../chunks/ai-describe-panel-tkyh24he.js";
+} from "../../../chunks/ai-describe-panel-vqcc8kxk.js";
 import {
   TooltipRoot2,
   TooltipTrigger2,
