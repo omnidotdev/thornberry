@@ -1,9 +1,10 @@
-import type { ColumnDef, FilterFn, SortingState } from "@tanstack/react-table";
+import type { ColumnDef, FilterFn, OnChangeFn, SortingState } from "@tanstack/react-table";
 import type { ReactNode } from "react";
 interface DataTableProps<TData> {
     columns: ColumnDef<TData, unknown>[];
     data: TData[];
-    getRowId: (row: TData) => string;
+    /** Stable row id (keeps selection across data changes); defaults to the row index */
+    getRowId?: (row: TData) => string;
     /** Show a global search box with this placeholder when provided. */
     searchPlaceholder?: string;
     /**
@@ -21,7 +22,19 @@ interface DataTableProps<TData> {
     /** Renders inside the bulk bar; receives the selected rows and a reset fn. */
     bulkActions?: (rows: TData[], clearSelection: () => void) => ReactNode;
     initialSorting?: SortingState;
+    /** Controlled sorting (e.g. kept in the URL); pair with `onSortingChange` */
+    sorting?: SortingState;
+    onSortingChange?: OnChangeFn<SortingState>;
     emptyLabel?: string;
+    /**
+     * Rendered in place of the whole table, headers included, when `data` is
+     * empty (a search with no matches still shows `emptyLabel`)
+     */
+    emptyState?: ReactNode;
+    /** Makes rows clickable; interactive cells should stop propagation */
+    onRowClick?: (row: TData) => void;
+    /** Minimum table width (e.g. `"48rem"`), so narrow screens scroll it */
+    minWidth?: string;
 }
 /**
  * Advanced data table built on TanStack Table. Supports column definitions, a
@@ -41,5 +54,5 @@ interface DataTableProps<TData> {
  *   )}
  * />
  */
-declare const DataTable: <TData>({ columns, data, getRowId, searchPlaceholder, globalFilterFn, toolbar, enableSelection, rowSelectable, bulkActions, initialSorting, emptyLabel, }: DataTableProps<TData>) => import("react/jsx-runtime").JSX.Element;
+declare const DataTable: <TData>({ columns, data, getRowId, searchPlaceholder, globalFilterFn, toolbar, enableSelection, rowSelectable, bulkActions, initialSorting, sorting: sortingProp, onSortingChange, emptyLabel, emptyState, onRowClick, minWidth, }: DataTableProps<TData>) => import("react/jsx-runtime").JSX.Element;
 export { DataTable, type DataTableProps };

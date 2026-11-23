@@ -89,6 +89,25 @@ const SelectExample = () => {
 };
 ```
 
+### Options shorthand
+
+For a single choice from a flat list of strings, `OptionsSelect` renders the label, trigger, portaled list, and hidden native select, and fills its container like an input. Options take an optional `hint` (list only) and `disabled`. Pass `id` to point an external `Label` at the trigger, `size="sm"` for dense rows, and `positionerClassName` to lift the list above a product overlay.
+
+```tsx
+import { OptionsSelect } from "@omnidotdev/thornberry/select";
+
+<OptionsSelect
+  label="Cadence"
+  value={cadence}
+  onValueChange={setCadence}
+  placeholder="Pick a cadence"
+  options={[
+    { value: "weekly", label: "Weekly" },
+    { value: "monthly", label: "Monthly", hint: "Most popular" },
+  ]}
+/>
+```
+
 ## Examples
 
 <p className="py-4">Coming Soon</p>

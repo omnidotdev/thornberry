@@ -3,9 +3,11 @@ import {
 } from "./ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/menu.tsx
-import { Menu as ArkMenu } from "@ark-ui/react/menu";
+import { ark as arkFactory } from "@ark-ui/react/factory";
+import { Menu as ArkMenu, useMenu } from "@ark-ui/react/menu";
+import { Portal } from "@ark-ui/react/portal";
 import { Check, ChevronRight } from "lucide-react";
-import { jsx, jsxs } from "react/jsx-runtime";
+import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 var MenuProvider2 = ArkMenu.RootProvider;
 var MenuRoot2 = ArkMenu.Root;
 var MenuContextTrigger2 = ArkMenu.ContextTrigger;
@@ -142,4 +144,44 @@ var MenuItemShortcut2 = ({
   ...rest,
   children
 });
-export { MenuProvider2, MenuRoot2, MenuContextTrigger2, PrimitiveMenuIndicator2, MenuTrigger2, MenuPositioner2, MenuContent2, MenuArrow2, MenuArrowTip2, MenuItem2, MenuCheckboxItem2, MenuItemGroup2, MenuItemGroupLabel2, MenuItemText2, MenuItemIndicator2, MenuRadioItem2, MenuRadioItemGroup2, MenuSeparator2, MenuTriggerItem2, MenuItemShortcut2 };
+var ContextMenu2 = ({ items, children }) => {
+  const menu = useMenu();
+  const triggerProps = menu.api.getContextTriggerProps();
+  return /* @__PURE__ */ jsxs(Fragment, {
+    children: [
+      /* @__PURE__ */ jsx(arkFactory.div, {
+        asChild: true,
+        ...triggerProps,
+        onContextMenu: (event) => {
+          triggerProps.onContextMenu?.(event);
+          event.stopPropagation();
+        },
+        children
+      }),
+      /* @__PURE__ */ jsx(MenuProvider2, {
+        value: menu,
+        lazyMount: true,
+        unmountOnExit: true,
+        children: /* @__PURE__ */ jsx(Portal, {
+          children: /* @__PURE__ */ jsx(MenuPositioner2, {
+            children: /* @__PURE__ */ jsx(MenuContent2, {
+              children: items.map((item, index) => item.separator ? /* @__PURE__ */ jsx(MenuSeparator2, {}, `separator-${index}`) : /* @__PURE__ */ jsxs(MenuItem2, {
+                value: item.value ?? item.label,
+                disabled: item.disabled,
+                variant: item.variant,
+                onSelect: item.onSelect,
+                children: [
+                  item.label,
+                  item.shortcut && /* @__PURE__ */ jsx(MenuItemShortcut2, {
+                    children: item.shortcut
+                  })
+                ]
+              }, item.value ?? item.label))
+            })
+          })
+        })
+      })
+    ]
+  });
+};
+export { MenuProvider2, MenuRoot2, MenuContextTrigger2, PrimitiveMenuIndicator2, MenuTrigger2, MenuPositioner2, MenuContent2, MenuArrow2, MenuArrowTip2, MenuItem2, MenuCheckboxItem2, MenuItemGroup2, MenuItemGroupLabel2, MenuItemText2, MenuItemIndicator2, MenuRadioItem2, MenuRadioItemGroup2, MenuSeparator2, MenuTriggerItem2, MenuItemShortcut2, ContextMenu2 };

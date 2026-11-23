@@ -1,6 +1,6 @@
 import { Menu as ArkMenu } from "@ark-ui/react/menu";
 import type { ark } from "@ark-ui/react";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 declare const MenuProvider: (props: ArkMenu.RootProviderProps) => import("react/jsx-runtime").JSX.Element;
 declare const MenuRoot: (props: ArkMenu.RootProps) => import("react/jsx-runtime").JSX.Element;
 declare const MenuContextTrigger: import("react").ForwardRefExoticComponent<ArkMenu.ContextTriggerProps & import("react").RefAttributes<HTMLButtonElement>>;
@@ -32,4 +32,29 @@ declare const MenuRadioItemGroup: ({ className, ...rest }: ComponentProps<typeof
 declare const MenuSeparator: ({ className, ...rest }: ComponentProps<typeof ArkMenu.Separator>) => import("react/jsx-runtime").JSX.Element;
 declare const MenuTriggerItem: ({ className, children, ...rest }: ComponentProps<typeof ArkMenu.TriggerItem>) => import("react/jsx-runtime").JSX.Element;
 declare const MenuItemShortcut: ({ className, children, ...rest }: ComponentProps<typeof ark.span>) => import("react/jsx-runtime").JSX.Element;
-export { MenuArrow, MenuArrowTip, MenuCheckboxItem, MenuContent, MenuContextTrigger, MenuItem, MenuItemGroup, MenuItemGroupLabel, MenuItemIndicator, MenuItemShortcut, MenuItemText, MenuPositioner, MenuProvider, MenuRadioItem, MenuRadioItemGroup, MenuRoot, MenuSeparator, MenuTrigger, MenuTriggerItem, PrimitiveMenuIndicator, };
+interface ContextMenuItem {
+    label: string;
+    /** Unique value; defaults to the label */
+    value?: string;
+    onSelect?: () => void;
+    variant?: "default" | "destructive";
+    disabled?: boolean;
+    /** Shortcut hint shown beside the label (render it with `hotkeyLabel`) */
+    shortcut?: string;
+    /** Render a separator here instead of an item */
+    separator?: boolean;
+}
+interface ContextMenuProps {
+    items: ContextMenuItem[];
+    /** The single element that opens the menu on right-click (rendered `asChild`) */
+    children: ReactNode;
+}
+/**
+ * Right-click menu around one element. Context menus nest (an app-wide
+ * fallback, then a row's own menu), so two things keep them independent: the
+ * trigger stops the event once it opens, so only the innermost menu shows, and
+ * the menu context wraps only the menu itself, never `children`, so menus
+ * rendered inside are not mistaken for submenus of this one
+ */
+declare const ContextMenu: ({ items, children }: ContextMenuProps) => import("react/jsx-runtime").JSX.Element;
+export { ContextMenu, type ContextMenuItem, type ContextMenuProps, MenuArrow, MenuArrowTip, MenuCheckboxItem, MenuContent, MenuContextTrigger, MenuItem, MenuItemGroup, MenuItemGroupLabel, MenuItemIndicator, MenuItemShortcut, MenuItemText, MenuPositioner, MenuProvider, MenuRadioItem, MenuRadioItemGroup, MenuRoot, MenuSeparator, MenuTrigger, MenuTriggerItem, PrimitiveMenuIndicator, };

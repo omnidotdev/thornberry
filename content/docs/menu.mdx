@@ -83,6 +83,24 @@ import {
 </MenuRoot>
 ```
 
+### Context menu
+
+`ContextMenu` opens a menu on right-click of a single element (rendered `asChild`), from a list of `items` (`label`, `onSelect`, `variant`, `disabled`, `shortcut`, or `separator`). Context menus nest safely: only the innermost one opens, and menus inside its element are never treated as its submenus.
+
+```tsx
+import { ContextMenu } from "@omnidotdev/thornberry/menu";
+
+<ContextMenu
+  items={[
+    { label: "Rename", onSelect: rename },
+    { label: "", separator: true },
+    { label: "Delete", variant: "destructive", onSelect: remove },
+  ]}
+>
+  <div>{track.name}</div>
+</ContextMenu>
+```
+
 ## Examples
 
 #### Checkbox Menu

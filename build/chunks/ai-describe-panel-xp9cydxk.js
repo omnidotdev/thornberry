@@ -28,7 +28,7 @@ import {
   SelectItemText2,
   SelectItemIndicator2,
   createListCollection2
-} from "./ai-describe-panel-8wtqb3wn.js";
+} from "./ai-describe-panel-8w0v7ahf.js";
 import {
   Textarea2
 } from "./ai-describe-panel-tq09kxk4.js";

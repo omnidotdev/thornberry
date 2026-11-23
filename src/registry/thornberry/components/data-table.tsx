@@ -33,7 +33,12 @@ import {
 } from "@/registry/thornberry/components/table";
 
 import type { CheckboxCheckedState } from "@ark-ui/react/checkbox";
-import type { ColumnDef, FilterFn, SortingState } from "@tanstack/react-table";
+import type {
+  ColumnDef,
+  FilterFn,
+  OnChangeFn,
+  SortingState,
+} from "@tanstack/react-table";
 import type { ReactNode } from "react";
 
 /**
@@ -71,7 +76,8 @@ const SelectionCheckbox = ({
 interface DataTableProps<TData> {
   columns: ColumnDef<TData, unknown>[];
   data: TData[];
-  getRowId: (row: TData) => string;
+  /** Stable row id (keeps selection across data changes); defaults to the row index */
+  getRowId?: (row: TData) => string;
   /** Show a global search box with this placeholder when provided. */
   searchPlaceholder?: string;
   /**
@@ -89,7 +95,25 @@ interface DataTableProps<TData> {
   /** Renders inside the bulk bar; receives the selected rows and a reset fn. */
   bulkActions?: (rows: TData[], clearSelection: () => void) => ReactNode;
   initialSorting?: SortingState;
+  /** Controlled sorting (e.g. kept in the URL); pair with `onSortingChange` */
+  sorting?: SortingState;
+  onSortingChange?: OnChangeFn<SortingState>;
   emptyLabel?: string;
+  /**
+   * Rendered in place of the whole table, headers included, when `data` is
+   * empty (a search with no matches still shows `emptyLabel`)
+   */
+  emptyState?: ReactNode;
+  /** Makes rows clickable; interactive cells should stop propagation */
+  onRowClick?: (row: TData) => void;
+  /** Minimum table width (e.g. `"48rem"`), so narrow screens scroll it */
+  minWidth?: string;
+}
+
+/** Per-column options read from `columnDef.meta` */
+interface ColumnMeta {
+  /** Right-align numeric columns (header and cells) */
+  align?: "left" | "right";
 }
 
 // biome-ignore lint/suspicious/noExplicitAny: TanStack column defs are heterogeneous
@@ -124,9 +148,20 @@ const DataTable = <TData,>({
   rowSelectable,
   bulkActions,
   initialSorting = [],
+  sorting: sortingProp,
+  onSortingChange,
   emptyLabel = "No results found",
+  emptyState,
+  onRowClick,
+  minWidth,
 }: DataTableProps<TData>) => {
-  const [sorting, setSorting] = useState<SortingState>(initialSorting);
+  const [sortingState, setSortingState] =
+    useState<SortingState>(initialSorting);
+  const sorting = sortingProp ?? sortingState;
+  const setSorting: OnChangeFn<SortingState> = (updater) => {
+    if (sortingProp === undefined) setSortingState(updater);
+    onSortingChange?.(updater);
+  };
   const [globalFilter, setGlobalFilter] = useState("");
   const [rowSelection, setRowSelection] = useState({});
 
@@ -182,6 +217,8 @@ const DataTable = <TData,>({
   const selectedRows = table.getSelectedRowModel().rows.map((r) => r.original);
   const clearSelection = () => setRowSelection({});
 
+  if (data.length === 0 && emptyState) return <>{emptyState}</>;
+
   return (
     <div className="space-y-3">
       {(searchPlaceholder || toolbar) && (
@@ -222,24 +259,42 @@ const DataTable = <TData,>({
       {/* Horizontal scroll keeps rows a single uniform height: cells never wrap
           to a second line, wide tables scroll instead of growing taller */}
       <div className="overflow-x-auto">
-        <Table>
+        <Table style={minWidth ? { minWidth } : undefined}>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   const canSort = header.column.getCanSort();
                   const sorted = header.column.getIsSorted();
+                  const alignRight =
+                    (header.column.columnDef.meta as ColumnMeta | undefined)
+                      ?.align === "right";
                   return (
                     <TableHead
                       key={header.id}
-                      className="whitespace-nowrap"
+                      aria-sort={
+                        sorted === "asc"
+                          ? "ascending"
+                          : sorted === "desc"
+                            ? "descending"
+                            : canSort
+                              ? "none"
+                              : undefined
+                      }
+                      className={cn(
+                        "whitespace-nowrap",
+                        alignRight && "text-right",
+                      )}
                       style={{ width: header.getSize() }}
                     >
                       {header.isPlaceholder ? null : canSort ? (
                         <button
                           type="button"
                           onClick={header.column.getToggleSortingHandler()}
-                          className="hover:text-foreground -ml-1 flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors"
+                          className={cn(
+                            "hover:text-foreground -ml-1 flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors",
+                            alignRight && "ml-auto flex-row-reverse",
+                          )}
                         >
                           {flexRender(
                             header.column.columnDef.header,
@@ -279,10 +334,24 @@ const DataTable = <TData,>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  className={cn("h-14", row.getIsSelected() && "bg-primary/5")}
+                  className={cn(
+                    "h-14",
+                    row.getIsSelected() && "bg-primary/5",
+                    onRowClick && "cursor-pointer hover:bg-muted",
+                  )}
+                  onClick={
+                    onRowClick ? () => onRowClick(row.original) : undefined
+                  }
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="whitespace-nowrap">
+                    <TableCell
+                      key={cell.id}
+                      className={cn(
+                        "whitespace-nowrap",
+                        (cell.column.columnDef.meta as ColumnMeta | undefined)
+                          ?.align === "right" && "text-right",
+                      )}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),

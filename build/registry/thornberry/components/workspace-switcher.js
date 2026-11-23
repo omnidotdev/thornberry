@@ -15,7 +15,7 @@ import {
   MenuItemGroup2,
   MenuItemGroupLabel2,
   MenuSeparator2
-} from "../../../chunks/ai-describe-panel-c85b3y6e.js";
+} from "../../../chunks/ai-describe-panel-1gzajcsh.js";
 import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";

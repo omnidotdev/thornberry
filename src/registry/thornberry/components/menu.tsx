@@ -1,10 +1,12 @@
-import { Menu as ArkMenu } from "@ark-ui/react/menu";
+import { ark as arkFactory } from "@ark-ui/react/factory";
+import { Menu as ArkMenu, useMenu } from "@ark-ui/react/menu";
+import { Portal } from "@ark-ui/react/portal";
 import { Check, ChevronRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
 import type { ark } from "@ark-ui/react";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 
 const MenuProvider = ArkMenu.RootProvider;
 const MenuRoot = ArkMenu.Root;
@@ -214,7 +216,83 @@ const MenuItemShortcut = ({
   </span>
 );
 
+interface ContextMenuItem {
+  label: string;
+  /** Unique value; defaults to the label */
+  value?: string;
+  onSelect?: () => void;
+  variant?: "default" | "destructive";
+  disabled?: boolean;
+  /** Shortcut hint shown beside the label (render it with `hotkeyLabel`) */
+  shortcut?: string;
+  /** Render a separator here instead of an item */
+  separator?: boolean;
+}
+
+interface ContextMenuProps {
+  items: ContextMenuItem[];
+  /** The single element that opens the menu on right-click (rendered `asChild`) */
+  children: ReactNode;
+}
+
+/**
+ * Right-click menu around one element. Context menus nest (an app-wide
+ * fallback, then a row's own menu), so two things keep them independent: the
+ * trigger stops the event once it opens, so only the innermost menu shows, and
+ * the menu context wraps only the menu itself, never `children`, so menus
+ * rendered inside are not mistaken for submenus of this one
+ */
+const ContextMenu = ({ items, children }: ContextMenuProps) => {
+  const menu = useMenu();
+  const triggerProps = menu.api.getContextTriggerProps();
+
+  return (
+    <>
+      <arkFactory.div
+        asChild
+        {...triggerProps}
+        onContextMenu={(event) => {
+          triggerProps.onContextMenu?.(event);
+          event.stopPropagation();
+        }}
+      >
+        {children}
+      </arkFactory.div>
+      <MenuProvider value={menu} lazyMount unmountOnExit>
+        <Portal>
+          <MenuPositioner>
+            <MenuContent>
+              {items.map((item, index) =>
+                item.separator ? (
+                  // biome-ignore lint/suspicious/noArrayIndexKey: separators have no identity of their own
+                  <MenuSeparator key={`separator-${index}`} />
+                ) : (
+                  <MenuItem
+                    key={item.value ?? item.label}
+                    value={item.value ?? item.label}
+                    disabled={item.disabled}
+                    variant={item.variant}
+                    onSelect={item.onSelect}
+                  >
+                    {item.label}
+                    {item.shortcut && (
+                      <MenuItemShortcut>{item.shortcut}</MenuItemShortcut>
+                    )}
+                  </MenuItem>
+                ),
+              )}
+            </MenuContent>
+          </MenuPositioner>
+        </Portal>
+      </MenuProvider>
+    </>
+  );
+};
+
 export {
+  ContextMenu,
+  type ContextMenuItem,
+  type ContextMenuProps,
   MenuArrow,
   MenuArrowTip,
   MenuCheckboxItem,

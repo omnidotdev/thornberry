@@ -15,7 +15,7 @@ import {
 } from "./ai-describe-panel-saba89b9.js";
 import {
   useAppForm2
-} from "./ai-describe-panel-8zb3cr2c.js";
+} from "./ai-describe-panel-xp9cydxk.js";
 
 // src/registry/thornberry/components/account-edit-profile.tsx
 import { Check, Pencil, X } from "lucide-react";

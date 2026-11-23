@@ -18,9 +18,11 @@ import {
   SelectItemText2,
   SelectItemIndicator2,
   SelectSeparator2,
+  OptionsSelect2,
   createListCollection2
-} from "../../../chunks/ai-describe-panel-8wtqb3wn.js";
+} from "../../../chunks/ai-describe-panel-8w0v7ahf.js";
 export {
+  OptionsSelect2 as OptionsSelect,
   Select2 as Select,
   SelectClearTrigger2 as SelectClearTrigger,
   SelectContent2 as SelectContent,

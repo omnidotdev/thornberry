@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, test } from "bun:test";
+import { afterEach, describe, expect, mock, test } from "bun:test";
 
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 
@@ -75,5 +75,36 @@ describe("DataTable", () => {
   test("omits checkboxes when selection is disabled", () => {
     renderTable();
     expect(screen.queryAllByRole("checkbox")).toHaveLength(0);
+  });
+
+  test("renders emptyState in place of the table when there is no data", () => {
+    renderTable({ data: [], emptyState: <p>No invoices yet</p> });
+
+    expect(screen.getByText("No invoices yet")).toBeDefined();
+    expect(screen.queryByRole("table")).toBeNull();
+  });
+
+  test("calls onRowClick with the row", () => {
+    const onRowClick = mock((_row: Row) => {});
+    renderTable({ onRowClick });
+
+    fireEvent.click(screen.getByText("Bravo"));
+    expect(onRowClick).toHaveBeenCalledWith(data[1] as Row);
+  });
+
+  test("follows controlled sorting and reports header clicks", () => {
+    const onSortingChange = mock(() => {});
+    renderTable({ sorting: [{ id: "name", desc: true }], onSortingChange });
+
+    const cells = screen.getAllByRole("cell").map((cell) => cell.textContent);
+    expect(cells).toEqual(["Charlie", "Bravo", "Alpha"]);
+    expect(
+      screen
+        .getByRole("columnheader", { name: /Name/ })
+        .getAttribute("aria-sort"),
+    ).toBe("descending");
+
+    fireEvent.click(screen.getByRole("button", { name: /Name/ }));
+    expect(onSortingChange).toHaveBeenCalled();
   });
 });
