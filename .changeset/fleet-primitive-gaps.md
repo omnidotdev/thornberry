@@ -6,6 +6,8 @@ Closes gaps products kept local copies for:
 
 - `OptionsSelect`: a single-choice select from a flat list of options (label, hints, disabled options, placeholder), so products stop carrying their own dropdown wrappers; its list mounts on open so it stays above a dialog it sits in; select lists now show their scrollbar like menus do
 - `DataTable` takes controlled `sorting`/`onSortingChange` (e.g. sort kept in the URL), `onRowClick`, an `emptyState` that replaces the whole table, `minWidth`, right-aligned columns via `meta.align`, and marks sorted headers with `aria-sort`; `getRowId` is optional
+- `OptionsCombobox` (items with descriptions, opens on click, empty state) and a `ComboboxEmpty` part
+- `Skeleton` uses the muted surface instead of the accent color (which read red or teal in branded apps), and `Switch` shows a disabled state
 - `ContextMenu`: a right-click menu from a list of items that nests safely inside other menus and context menus
 - `Checkbox` and `Tooltip` shorthands (`<Checkbox label>`, `<Tooltip content>`); tooltips wrap longer text instead of clipping to one line
 - `CheckboxLabel` takes `className` and wraps long labels with readable line height; the box no longer shrinks beside them

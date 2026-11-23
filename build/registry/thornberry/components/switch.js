@@ -18,7 +18,7 @@ var SwitchControl = ({
   className,
   ...rest
 }) => /* @__PURE__ */ jsx(ArkSwitch.Control, {
-  className: cn("inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors", "data-[state=checked]:bg-primary data-[state=unchecked]:bg-input", className),
+  className: cn("inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors", "data-disabled:cursor-not-allowed data-disabled:opacity-50", "data-[state=checked]:bg-primary data-[state=unchecked]:bg-input", className),
   ...rest
 });
 var SwitchThumb = ({

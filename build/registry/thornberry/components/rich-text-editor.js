@@ -16,7 +16,7 @@ import {
 } from "../../../chunks/ai-describe-panel-dp27a35v.js";
 import {
   Skeleton2
-} from "../../../chunks/ai-describe-panel-4ayhnmp9.js";
+} from "../../../chunks/ai-describe-panel-htat80e9.js";
 import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";

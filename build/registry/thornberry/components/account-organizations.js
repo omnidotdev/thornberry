@@ -56,7 +56,7 @@ import {
 } from "../../../chunks/ai-describe-panel-mn2q46hh.js";
 import {
   Skeleton2
-} from "../../../chunks/ai-describe-panel-4ayhnmp9.js";
+} from "../../../chunks/ai-describe-panel-htat80e9.js";
 
 // src/registry/thornberry/components/account-organizations.tsx
 import {

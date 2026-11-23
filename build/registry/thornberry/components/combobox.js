@@ -6,9 +6,14 @@ import {
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/combobox.tsx
-import { Combobox as ArkCombobox } from "@ark-ui/react/combobox";
+import {
+  Combobox as ArkCombobox,
+  createListCollection
+} from "@ark-ui/react/combobox";
+import { Portal } from "@ark-ui/react/portal";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { jsx } from "react/jsx-runtime";
+import { useMemo } from "react";
+import { jsx, jsxs } from "react/jsx-runtime";
 var ComboboxProvider = ArkCombobox.RootProvider;
 var ComboboxContext = ArkCombobox.Context;
 var ComboboxRoot = ({ className, ...rest }) => /* @__PURE__ */ jsx(ArkCombobox.Root, {
@@ -112,11 +117,91 @@ var ComboboxItemText = ({
   className,
   ...rest
 });
+var ComboboxEmpty = ({
+  className,
+  ...rest
+}) => /* @__PURE__ */ jsx(ArkCombobox.Empty, {
+  className: cn("px-2 py-4 text-center text-muted-foreground text-sm", className),
+  ...rest
+});
+var OptionsCombobox = ({
+  items,
+  value,
+  onValueChange,
+  inputValue,
+  onInputValueChange,
+  placeholder = "Select...",
+  label,
+  emptyLabel = "No results",
+  disabled,
+  className
+}) => {
+  const collection = useMemo(() => createListCollection({
+    items,
+    isItemDisabled: (item) => Boolean(item.disabled)
+  }), [items]);
+  return /* @__PURE__ */ jsxs(ComboboxRoot, {
+    collection,
+    value,
+    onValueChange: (details) => onValueChange?.(details.value),
+    inputValue,
+    onInputValueChange: (details) => onInputValueChange?.(details.inputValue),
+    disabled,
+    loopFocus: true,
+    openOnClick: true,
+    lazyMount: true,
+    unmountOnExit: true,
+    className,
+    children: [
+      label && /* @__PURE__ */ jsx(ComboboxLabel, {
+        children: label
+      }),
+      /* @__PURE__ */ jsxs(ComboboxControl, {
+        children: [
+          /* @__PURE__ */ jsx(ComboboxInput, {
+            placeholder
+          }),
+          /* @__PURE__ */ jsx(ComboboxTrigger, {})
+        ]
+      }),
+      /* @__PURE__ */ jsx(Portal, {
+        children: /* @__PURE__ */ jsx(ComboboxPositioner, {
+          children: /* @__PURE__ */ jsxs(ComboboxContent, {
+            children: [
+              items.map((item) => /* @__PURE__ */ jsxs(ComboboxItem, {
+                item,
+                children: [
+                  /* @__PURE__ */ jsxs(ComboboxItemText, {
+                    children: [
+                      /* @__PURE__ */ jsx("span", {
+                        className: "truncate",
+                        children: item.label
+                      }),
+                      item.description && /* @__PURE__ */ jsx("span", {
+                        className: "text-muted-foreground ml-2 shrink-0 text-xs",
+                        children: item.description
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsx(ComboboxItemIndicator, {})
+                ]
+              }, item.value)),
+              /* @__PURE__ */ jsx(ComboboxEmpty, {
+                children: emptyLabel
+              })
+            ]
+          })
+        })
+      })
+    ]
+  });
+};
 export {
   ComboboxClearTrigger,
   ComboboxContent,
   ComboboxContext,
   ComboboxControl,
+  ComboboxEmpty,
   ComboboxInput,
   ComboboxItem,
   ComboboxItemGroup,
@@ -127,5 +212,6 @@ export {
   ComboboxPositioner,
   ComboboxProvider,
   ComboboxRoot,
-  ComboboxTrigger
+  ComboboxTrigger,
+  OptionsCombobox
 };
