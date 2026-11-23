@@ -6,7 +6,7 @@ import {
 } from "./ai-describe-panel-k2cwy48h.js";
 import {
   ConfirmDialog2
-} from "./ai-describe-panel-19k53w4t.js";
+} from "./ai-describe-panel-4f1k5355.js";
 
 // src/registry/thornberry/components/account-user-active-sessions.tsx
 import { Monitor, Smartphone } from "lucide-react";

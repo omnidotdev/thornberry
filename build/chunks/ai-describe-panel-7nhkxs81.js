@@ -21,7 +21,7 @@ import {
 } from "./ai-describe-panel-fa46q8yp.js";
 import {
   ConfirmDialog2
-} from "./ai-describe-panel-19k53w4t.js";
+} from "./ai-describe-panel-4f1k5355.js";
 import {
   Select2,
   SelectControl2,

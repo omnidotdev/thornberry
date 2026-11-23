@@ -1,7 +1,7 @@
 import {
   UserActiveSessions2
-} from "../../../chunks/ai-describe-panel-kjmakvjb.js";
-import"../../../chunks/ai-describe-panel-19k53w4t.js";
+} from "../../../chunks/ai-describe-panel-9yqnpwwc.js";
+import"../../../chunks/ai-describe-panel-4f1k5355.js";
 import"../../../chunks/ai-describe-panel-b60vh03c.js";
 import"../../../chunks/ai-describe-panel-fa46q8yp.js";
 import"../../../chunks/ai-describe-panel-8q0yqrx6.js";

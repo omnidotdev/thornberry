@@ -20,7 +20,7 @@ import {
 // src/registry/thornberry/components/confirm-dialog.tsx
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { jsx, jsxs } from "react/jsx-runtime";
+import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 var ConfirmDialog2 = ({
   open,
   onOpenChange,
@@ -28,8 +28,11 @@ var ConfirmDialog2 = ({
   description,
   confirmLabel = "Confirm",
   cancelLabel = "Cancel",
+  confirmVariant = "destructive",
   onConfirm,
   isPending = false,
+  pendingLabel,
+  error,
   confirmationText
 }) => {
   const [typed, setTyped] = useState("");
@@ -40,6 +43,7 @@ var ConfirmDialog2 = ({
   const confirmable = !confirmationText || typed === confirmationText;
   return /* @__PURE__ */ jsx(DialogRoot2, {
     open,
+    role: "alertdialog",
     onOpenChange: (details) => {
       if (!isPending)
         onOpenChange(details.open);
@@ -94,6 +98,11 @@ var ConfirmDialog2 = ({
                   })
                 ]
               }),
+              error && /* @__PURE__ */ jsx("p", {
+                role: "alert",
+                className: "text-destructive text-sm",
+                children: error
+              }),
               /* @__PURE__ */ jsxs("div", {
                 className: "flex justify-end gap-2",
                 children: [
@@ -104,11 +113,16 @@ var ConfirmDialog2 = ({
                     children: cancelLabel
                   }),
                   /* @__PURE__ */ jsx(Button2, {
-                    variant: "destructive",
+                    variant: confirmVariant,
                     onClick: onConfirm,
                     disabled: isPending || !confirmable,
-                    children: isPending ? /* @__PURE__ */ jsx(Loader2, {
-                      className: "size-4 animate-spin"
+                    children: isPending ? /* @__PURE__ */ jsxs(Fragment, {
+                      children: [
+                        /* @__PURE__ */ jsx(Loader2, {
+                          className: "size-4 animate-spin"
+                        }),
+                        pendingLabel
+                      ]
                     }) : confirmLabel
                   })
                 ]

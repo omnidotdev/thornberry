@@ -14,7 +14,9 @@ import {
 import { Input } from "@/registry/thornberry/components/input";
 import { Label } from "@/registry/thornberry/components/label";
 
+import type { VariantProps } from "class-variance-authority";
 import type { ReactNode } from "react";
+import type { buttonVariants } from "@/registry/thornberry/components/button";
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -24,9 +26,18 @@ interface ConfirmDialogProps {
   description?: ReactNode;
   confirmLabel?: string;
   cancelLabel?: string;
+  /**
+   * Confirm button variant. Defaults to `destructive`; pass another variant
+   * for a confirmation that is irreversible but not destructive.
+   */
+  confirmVariant?: VariantProps<typeof buttonVariants>["variant"];
   onConfirm: () => void;
   /** While true the dialog cannot be dismissed and the actions are disabled. */
   isPending?: boolean;
+  /** Confirm button label while pending (e.g. "Deleting..."); a spinner alone when unset. */
+  pendingLabel?: string;
+  /** Error from a failed attempt, shown above the actions so the user can retry. */
+  error?: ReactNode;
   /**
    * When set, the confirm button stays disabled until the user types this exact
    * string (case-sensitive). Use for the highest-severity, irreversible actions
@@ -50,8 +61,11 @@ const ConfirmDialog = ({
   description,
   confirmLabel = "Confirm",
   cancelLabel = "Cancel",
+  confirmVariant = "destructive",
   onConfirm,
   isPending = false,
+  pendingLabel,
+  error,
   confirmationText,
 }: ConfirmDialogProps) => {
   const [typed, setTyped] = useState("");
@@ -67,6 +81,7 @@ const ConfirmDialog = ({
   return (
     <DialogRoot
       open={open}
+      role="alertdialog"
       onOpenChange={(details) => {
         if (!isPending) onOpenChange(details.open);
       }}
@@ -112,6 +127,12 @@ const ConfirmDialog = ({
               </div>
             )}
 
+            {error && (
+              <p role="alert" className="text-destructive text-sm">
+                {error}
+              </p>
+            )}
+
             <div className="flex justify-end gap-2">
               <Button
                 variant="outline"
@@ -121,12 +142,15 @@ const ConfirmDialog = ({
                 {cancelLabel}
               </Button>
               <Button
-                variant="destructive"
+                variant={confirmVariant}
                 onClick={onConfirm}
                 disabled={isPending || !confirmable}
               >
                 {isPending ? (
-                  <Loader2 className="size-4 animate-spin" />
+                  <>
+                    <Loader2 className="size-4 animate-spin" />
+                    {pendingLabel}
+                  </>
                 ) : (
                   confirmLabel
                 )}
