@@ -7,7 +7,7 @@ import {
 
 // src/registry/thornberry/components/avatar.tsx
 import { Avatar as ArkAvatar, useAvatar as useArkAvatar } from "@ark-ui/react";
-import { jsx } from "react/jsx-runtime";
+import { jsx, jsxs } from "react/jsx-runtime";
 var avatarVariants = cva("relative flex shrink-0 items-center justify-center overflow-hidden rounded-full", {
   variants: {
     size: {
@@ -64,4 +64,25 @@ var AvatarImage2 = ({
   alt: "Avatar",
   ...rest
 });
-export { useAvatar2, AvatarProvider2, AvatarRoot2, AvatarFallback2, AvatarImage2 };
+var Avatar2 = ({
+  src,
+  alt,
+  fallback,
+  imageProps,
+  fallbackProps,
+  ...rest
+}) => /* @__PURE__ */ jsxs(AvatarRoot2, {
+  ...rest,
+  children: [
+    /* @__PURE__ */ jsx(AvatarFallback2, {
+      ...fallbackProps,
+      children: fallback
+    }),
+    /* @__PURE__ */ jsx(AvatarImage2, {
+      src: src ?? undefined,
+      alt: alt ?? "Avatar",
+      ...imageProps
+    })
+  ]
+});
+export { useAvatar2, AvatarProvider2, AvatarRoot2, AvatarFallback2, AvatarImage2, Avatar2 };

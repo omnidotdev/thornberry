@@ -10,12 +10,12 @@ import"../../../chunks/ai-describe-panel-fa46q8yp.js";
 import {
   AddPasskey2
 } from "../../../chunks/ai-describe-panel-q8fr6bqm.js";
-import"../../../chunks/ai-describe-panel-6r0bwytq.js";
+import"../../../chunks/ai-describe-panel-516n6cnr.js";
 import"../../../chunks/ai-describe-panel-5r0wwsv3.js";
 import"../../../chunks/ai-describe-panel-b3rhyrd1.js";
 import {
   AvatarUpload2
-} from "../../../chunks/ai-describe-panel-w870rqt0.js";
+} from "../../../chunks/ai-describe-panel-5m7v1k8z.js";
 import"../../../chunks/ai-describe-panel-h7z0b3ps.js";
 import"../../../chunks/ai-describe-panel-gmc19emg.js";
 import"../../../chunks/ai-describe-panel-2n4efn1k.js";
@@ -48,7 +48,7 @@ import {
   CardHeader2,
   CardContent2,
   CardFooter2
-} from "../../../chunks/ai-describe-panel-f7d4gzjq.js";
+} from "../../../chunks/ai-describe-panel-xj54p31a.js";
 
 // src/registry/thornberry/components/account-console.tsx
 import { Loader2, StopCircle } from "lucide-react";

@@ -12,7 +12,7 @@ import {
 } from "../../../chunks/ai-describe-panel-q8fr6bqm.js";
 import {
   CardRoot2
-} from "../../../chunks/ai-describe-panel-f7d4gzjq.js";
+} from "../../../chunks/ai-describe-panel-xj54p31a.js";
 
 // src/registry/thornberry/components/account-passkey-nudge.tsx
 import { Fingerprint, X } from "lucide-react";

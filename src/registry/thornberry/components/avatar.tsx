@@ -4,7 +4,7 @@ import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 import type { VariantProps } from "class-variance-authority";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 
 const avatarVariants = cva(
   "relative flex shrink-0 items-center justify-center overflow-hidden rounded-full",
@@ -103,4 +103,42 @@ const AvatarImage = ({
   />
 );
 
-export { AvatarFallback, AvatarImage, AvatarProvider, AvatarRoot, useAvatar };
+interface AvatarProps extends ComponentProps<typeof AvatarRoot> {
+  /** Image URL; the fallback shows while it loads, or when unset or broken. */
+  src?: string | null;
+  alt?: string;
+  /** Shown until the image loads (e.g. the user's initials). */
+  fallback: ReactNode;
+  imageProps?: ComponentProps<typeof AvatarImage>;
+  fallbackProps?: ComponentProps<typeof AvatarFallback>;
+}
+
+/**
+ * Avatar with an image and a fallback. `className` and `size` style the round
+ * frame only; the image and fallback keep their own shape so a border or
+ * background set on the frame is never repeated inside the clip.
+ */
+const Avatar = ({
+  src,
+  alt,
+  fallback,
+  imageProps,
+  fallbackProps,
+  ...rest
+}: AvatarProps) => (
+  <AvatarRoot {...rest}>
+    <AvatarFallback {...fallbackProps}>{fallback}</AvatarFallback>
+
+    <AvatarImage src={src ?? undefined} alt={alt ?? "Avatar"} {...imageProps} />
+  </AvatarRoot>
+);
+
+export {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  type AvatarProps,
+  AvatarProvider,
+  AvatarRoot,
+  useAvatar,
+};

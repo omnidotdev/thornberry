@@ -5,7 +5,7 @@ import {
   AvatarRoot2,
   AvatarFallback2,
   AvatarImage2
-} from "./ai-describe-panel-6r0bwytq.js";
+} from "./ai-describe-panel-516n6cnr.js";
 import {
   Button2
 } from "./ai-describe-panel-k2cwy48h.js";

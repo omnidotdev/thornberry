@@ -35,7 +35,7 @@ import {
   CardDescription2,
   CardContent2,
   CardFooter2
-} from "../../../chunks/ai-describe-panel-f7d4gzjq.js";
+} from "../../../chunks/ai-describe-panel-xj54p31a.js";
 
 // src/registry/thornberry/components/account-security-settings.tsx
 import { KeyRound, Loader2 } from "lucide-react";

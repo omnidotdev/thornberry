@@ -5,7 +5,7 @@ import {
   AvatarRoot2,
   AvatarFallback2,
   AvatarImage2
-} from "../../../chunks/ai-describe-panel-6r0bwytq.js";
+} from "../../../chunks/ai-describe-panel-516n6cnr.js";
 import {
   Button2
 } from "../../../chunks/ai-describe-panel-k2cwy48h.js";
@@ -30,7 +30,7 @@ import {
 import"../../../chunks/ai-describe-panel-b3rhyrd1.js";
 import {
   AvatarUpload2
-} from "../../../chunks/ai-describe-panel-w870rqt0.js";
+} from "../../../chunks/ai-describe-panel-5m7v1k8z.js";
 import {
   BannerUpload2
 } from "../../../chunks/ai-describe-panel-51dqmejm.js";
