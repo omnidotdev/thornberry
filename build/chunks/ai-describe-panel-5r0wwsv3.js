@@ -9,7 +9,7 @@ import {
   DialogContent2,
   DialogTitle2,
   DialogDescription2
-} from "./ai-describe-panel-8q0yqrx6.js";
+} from "./ai-describe-panel-b89k5zcp.js";
 import {
   Input2
 } from "./ai-describe-panel-hj664zsh.js";

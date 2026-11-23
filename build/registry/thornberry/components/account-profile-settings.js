@@ -5,16 +5,16 @@ import"../../../chunks/ai-describe-panel-6r0bwytq.js";
 import {
   Button2
 } from "../../../chunks/ai-describe-panel-k2cwy48h.js";
-import"../../../chunks/ai-describe-panel-8q0yqrx6.js";
+import"../../../chunks/ai-describe-panel-b89k5zcp.js";
 import {
   Input2
 } from "../../../chunks/ai-describe-panel-hj664zsh.js";
 import"../../../chunks/ai-describe-panel-fa46q8yp.js";
-import"../../../chunks/ai-describe-panel-4f1k5355.js";
+import"../../../chunks/ai-describe-panel-5r0wwsv3.js";
 import"../../../chunks/ai-describe-panel-b3rhyrd1.js";
 import {
   AvatarUpload2
-} from "../../../chunks/ai-describe-panel-yqmy062y.js";
+} from "../../../chunks/ai-describe-panel-w870rqt0.js";
 import {
   CardRoot2,
   CardHeader2,

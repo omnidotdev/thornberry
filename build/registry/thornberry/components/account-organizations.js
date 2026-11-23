@@ -17,7 +17,7 @@ import {
   DialogContent2,
   DialogTitle2,
   DialogDescription2
-} from "../../../chunks/ai-describe-panel-8q0yqrx6.js";
+} from "../../../chunks/ai-describe-panel-b89k5zcp.js";
 import {
   Input2
 } from "../../../chunks/ai-describe-panel-hj664zsh.js";
@@ -26,14 +26,14 @@ import {
 } from "../../../chunks/ai-describe-panel-fa46q8yp.js";
 import {
   ConfirmDialog2
-} from "../../../chunks/ai-describe-panel-4f1k5355.js";
+} from "../../../chunks/ai-describe-panel-5r0wwsv3.js";
 import"../../../chunks/ai-describe-panel-b3rhyrd1.js";
 import {
   AvatarUpload2
-} from "../../../chunks/ai-describe-panel-yqmy062y.js";
+} from "../../../chunks/ai-describe-panel-w870rqt0.js";
 import {
   BannerUpload2
-} from "../../../chunks/ai-describe-panel-26zsph41.js";
+} from "../../../chunks/ai-describe-panel-51dqmejm.js";
 import {
   Select2,
   SelectControl2,
@@ -50,7 +50,7 @@ import {
 } from "../../../chunks/ai-describe-panel-8wtqb3wn.js";
 import {
   AccountOrganizationTeams2
-} from "../../../chunks/ai-describe-panel-7nhkxs81.js";
+} from "../../../chunks/ai-describe-panel-vwa4s7te.js";
 import {
   Badge2
 } from "../../../chunks/ai-describe-panel-mn2q46hh.js";
