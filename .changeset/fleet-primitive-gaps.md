@@ -13,4 +13,5 @@ Closes gaps products kept local copies for:
 - `SheetPortal`, and `SheetBackdrop` ships the standard overlay styling
 - A `Card` without a title or description pads its content's top edge
 - A wide child (a code editor) no longer stretches a dialog past a phone screen
+- `Sidebar` no longer flashes the desktop panel on phones before hydration, its phone drawer is wider (`w-5/6 max-w-xs`, overridable with `mobileClassName`) and has a backdrop
 - `Sidebar` with `collapsible="none"` uses the sidebar background instead of a leftover red debug color, and sidebar menu buttons show a pointer

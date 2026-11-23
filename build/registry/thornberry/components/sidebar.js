@@ -7,6 +7,7 @@ import {
 import {
   SheetRoot2,
   SheetTrigger2,
+  SheetBackdrop2,
   SheetContent2,
   SheetTitle2,
   SheetDescription2
@@ -369,6 +370,7 @@ var Sidebar = ({
   collapsible = "offcanvas",
   className,
   children,
+  mobileClassName,
   ...rest
 }) => {
   const { isMobile, state, openMobile, setOpenMobile, isDraggingRail } = useSidebar();
@@ -397,11 +399,12 @@ var Sidebar = ({
             })
           })
         }),
+        /* @__PURE__ */ jsx(SheetBackdrop2, {}),
         /* @__PURE__ */ jsxs(SheetContent2, {
           "data-sidebar": "sidebar",
           "data-slot": "sidebar",
           "data-mobile": "true",
-          className: "bg-sidebar text-sidebar-foreground w-1/2 p-0 [&>button]:hidden",
+          className: cn("w-5/6 max-w-xs bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden", mobileClassName),
           side,
           children: [
             /* @__PURE__ */ jsxs("div", {
@@ -425,7 +428,7 @@ var Sidebar = ({
     });
   }
   return /* @__PURE__ */ jsxs("div", {
-    className: "group peer text-sidebar-foreground block",
+    className: "group peer text-sidebar-foreground hidden md:block",
     "data-state": state,
     "data-collapsible": state === "collapsed" ? collapsible : "",
     "data-variant": variant,

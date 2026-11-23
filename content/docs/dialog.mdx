@@ -77,6 +77,8 @@ import {
 </DialogRoot>
 ```
 
+A dialog never grows past the viewport: its content scrolls instead. A picker that opens inside a dialog (a popover, date picker, or combobox list) should portal its positioner (`<Portal>` from `@ark-ui/react/portal`) so the dialog's scroll area does not clip it; `OptionsSelect` and `Menu` already do.
+
 ## Examples
 
 {/* TODO: Add code to copy */}

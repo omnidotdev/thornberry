@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
 import { Input } from "@/registry/thornberry/components/input";
 import {
+  SheetBackdrop,
   SheetContent,
   SheetDescription,
   SheetRoot,
@@ -170,11 +171,14 @@ const Sidebar = ({
   collapsible = "offcanvas",
   className,
   children,
+  mobileClassName,
   ...rest
 }: ComponentProps<"div"> & {
   side?: "left" | "right";
   variant?: "sidebar" | "floating" | "inset";
   collapsible?: "offcanvas" | "icon" | "none";
+  /** Classes for the phone drawer (e.g. a different width) */
+  mobileClassName?: string;
 }) => {
   const { isMobile, state, openMobile, setOpenMobile, isDraggingRail } =
     useSidebar();
@@ -205,11 +209,15 @@ const Sidebar = ({
             <PanelLeftIcon className="size-5" />
           </Button>
         </SheetTrigger>
+        <SheetBackdrop />
         <SheetContent
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className="bg-sidebar text-sidebar-foreground w-1/2 p-0 [&>button]:hidden"
+          className={cn(
+            "w-5/6 max-w-xs bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden",
+            mobileClassName,
+          )}
           side={side}
         >
           <div className="sr-only">
@@ -224,7 +232,9 @@ const Sidebar = ({
 
   return (
     <div
-      className="group peer text-sidebar-foreground block"
+      // hidden below md until hydration picks the phone drawer, so a phone
+      // never flashes the desktop panel on first paint
+      className="group peer text-sidebar-foreground hidden md:block"
       data-state={state}
       data-collapsible={state === "collapsed" ? collapsible : ""}
       data-variant={variant}
