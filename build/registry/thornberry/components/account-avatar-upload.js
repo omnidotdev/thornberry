@@ -1,9 +1,9 @@
 import {
   AvatarUpload2
-} from "../../../chunks/ai-describe-panel-h9ez6j06.js";
+} from "../../../chunks/ai-describe-panel-bhenqekr.js";
 import"../../../chunks/ai-describe-panel-b3rhyrd1.js";
 import"../../../chunks/ai-describe-panel-516n6cnr.js";
-import"../../../chunks/ai-describe-panel-msghhdby.js";
+import"../../../chunks/ai-describe-panel-avdw5bgs.js";
 import"../../../chunks/ai-describe-panel-b60vh03c.js";
 import"../../../chunks/ai-describe-panel-fa46q8yp.js";
 import"../../../chunks/ai-describe-panel-b6hxzz19.js";

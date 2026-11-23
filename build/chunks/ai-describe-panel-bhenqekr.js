@@ -18,7 +18,7 @@ import {
 } from "./ai-describe-panel-b6hxzz19.js";
 import {
   ConfirmDialog2
-} from "./ai-describe-panel-msghhdby.js";
+} from "./ai-describe-panel-avdw5bgs.js";
 import {
   ALLOWED_IMAGE_TYPES,
   MAX_IMAGE_SIZE,

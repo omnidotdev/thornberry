@@ -21,7 +21,7 @@ import {
 } from "./ai-describe-panel-fa46q8yp.js";
 import {
   ConfirmDialog2
-} from "./ai-describe-panel-msghhdby.js";
+} from "./ai-describe-panel-avdw5bgs.js";
 import {
   Table2,
   TableHeader2,

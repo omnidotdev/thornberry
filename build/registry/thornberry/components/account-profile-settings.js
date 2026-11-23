@@ -10,11 +10,11 @@ import {
   Input2
 } from "../../../chunks/ai-describe-panel-hj664zsh.js";
 import"../../../chunks/ai-describe-panel-fa46q8yp.js";
-import"../../../chunks/ai-describe-panel-msghhdby.js";
+import"../../../chunks/ai-describe-panel-avdw5bgs.js";
 import"../../../chunks/ai-describe-panel-b3rhyrd1.js";
 import {
   AvatarUpload2
-} from "../../../chunks/ai-describe-panel-h9ez6j06.js";
+} from "../../../chunks/ai-describe-panel-bhenqekr.js";
 import {
   CardRoot2,
   CardHeader2,

@@ -1,8 +1,8 @@
 import {
   BannerUpload2
-} from "../../../chunks/ai-describe-panel-81xqq0fd.js";
+} from "../../../chunks/ai-describe-panel-tmc78asn.js";
 import"../../../chunks/ai-describe-panel-b3rhyrd1.js";
-import"../../../chunks/ai-describe-panel-msghhdby.js";
+import"../../../chunks/ai-describe-panel-avdw5bgs.js";
 import"../../../chunks/ai-describe-panel-b60vh03c.js";
 import"../../../chunks/ai-describe-panel-fa46q8yp.js";
 import"../../../chunks/ai-describe-panel-b6hxzz19.js";

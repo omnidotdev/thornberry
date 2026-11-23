@@ -1,6 +1,6 @@
 import {
   ConfirmDialog2
-} from "../../../chunks/ai-describe-panel-msghhdby.js";
+} from "../../../chunks/ai-describe-panel-avdw5bgs.js";
 import"../../../chunks/ai-describe-panel-fa46q8yp.js";
 import"../../../chunks/ai-describe-panel-b6hxzz19.js";
 import"../../../chunks/ai-describe-panel-hj664zsh.js";

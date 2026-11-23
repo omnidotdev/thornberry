@@ -57,4 +57,11 @@ describe("ConfirmDialog", () => {
     expect(solid).toContain("bg-primary");
     expect(solid).not.toContain("bg-destructive");
   });
+
+  test("mounts nothing while closed", () => {
+    render(<ConfirmDialog {...baseProps} open={false} />);
+
+    expect(screen.queryByRole("alertdialog")).toBeNull();
+    expect(screen.queryByText("Delete product")).toBeNull();
+  });
 });

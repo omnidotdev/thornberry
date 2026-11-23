@@ -44,6 +44,10 @@ var ConfirmDialog2 = ({
   return /* @__PURE__ */ jsx(DialogRoot2, {
     open,
     role: "alertdialog",
+    closeOnInteractOutside: !isPending,
+    closeOnEscape: !isPending,
+    lazyMount: true,
+    unmountOnExit: true,
     onOpenChange: (details) => {
       if (!isPending)
         onOpenChange(details.open);

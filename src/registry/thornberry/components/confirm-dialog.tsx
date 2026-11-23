@@ -82,6 +82,13 @@ const ConfirmDialog = ({
     <DialogRoot
       open={open}
       role="alertdialog"
+      // alert dialogs ignore outside clicks by default in newer Ark/Zag;
+      // keep the fleet behavior (outside click or Escape cancels) on every
+      // version, except while the action is in flight
+      closeOnInteractOutside={!isPending}
+      closeOnEscape={!isPending}
+      lazyMount
+      unmountOnExit
       onOpenChange={(details) => {
         if (!isPending) onOpenChange(details.open);
       }}
