@@ -54,13 +54,17 @@ const DialogPositioner = ({
   />
 );
 
+/**
+ * Dialog panel. Capped to the positioner's height and scrolls past it, so a tall
+ * dialog never runs off screen with its actions unreachable
+ */
 const DialogContent = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkDialog.Content>) => (
   <ArkDialog.Content
     className={cn(
-      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%] relative grid w-full max-w-lg gap-4 border bg-background p-6 rounded-lg shadow-lg duration-200 data-[state=closed]:animate-out data-[state=open]:animate-in",
+      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%] relative grid max-h-full w-full max-w-lg gap-4 overflow-y-auto overscroll-contain border bg-background p-6 rounded-lg shadow-lg duration-200 data-[state=closed]:animate-out data-[state=open]:animate-in",
       className,
     )}
     {...rest}

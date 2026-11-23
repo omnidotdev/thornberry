@@ -15,7 +15,7 @@ import {
   DialogContent2,
   DialogTitle2,
   DialogDescription2
-} from "./ai-describe-panel-b89k5zcp.js";
+} from "./ai-describe-panel-b6hxzz19.js";
 import {
   useAppForm2
 } from "./ai-describe-panel-gmc19emg.js";

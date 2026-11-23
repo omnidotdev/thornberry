@@ -4,12 +4,12 @@ import {
 import {
   Button2
 } from "../../../chunks/ai-describe-panel-k2cwy48h.js";
-import"../../../chunks/ai-describe-panel-b89k5zcp.js";
+import"../../../chunks/ai-describe-panel-b6hxzz19.js";
 import"../../../chunks/ai-describe-panel-hj664zsh.js";
 import"../../../chunks/ai-describe-panel-fa46q8yp.js";
 import {
   AddPasskey2
-} from "../../../chunks/ai-describe-panel-q8fr6bqm.js";
+} from "../../../chunks/ai-describe-panel-tea6wyg4.js";
 import {
   CardRoot2
 } from "../../../chunks/ai-describe-panel-xj54p31a.js";

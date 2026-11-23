@@ -2,6 +2,11 @@ import {
   useAccountContext2
 } from "./ai-describe-panel-b60vh03c.js";
 import {
+  AvatarRoot2,
+  AvatarFallback2,
+  AvatarImage2
+} from "./ai-describe-panel-516n6cnr.js";
+import {
   Button2
 } from "./ai-describe-panel-k2cwy48h.js";
 import {
@@ -10,46 +15,64 @@ import {
   DialogPositioner2,
   DialogContent2,
   DialogTitle2
-} from "./ai-describe-panel-b89k5zcp.js";
+} from "./ai-describe-panel-b6hxzz19.js";
 import {
   ConfirmDialog2
-} from "./ai-describe-panel-5r0wwsv3.js";
+} from "./ai-describe-panel-msghhdby.js";
 import {
   ALLOWED_IMAGE_TYPES,
-  MAX_BANNER_IMAGE_SIZE,
-  BANNER_ASPECT,
+  MAX_IMAGE_SIZE,
   ImageCropper2
 } from "./ai-describe-panel-b3rhyrd1.js";
-import {
-  cn
-} from "./ai-describe-panel-81fr4sax.js";
 
-// src/registry/thornberry/components/account-banner-upload.tsx
-import { Camera, CloudUpload, ImageIcon, Loader2, Trash2 } from "lucide-react";
+// src/registry/thornberry/components/account-avatar-upload.tsx
+import { Camera, CloudUpload, Loader2, Trash2 } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 var defaultCopy = {
-  label: "Workspace banner",
-  menuTitle: "Workspace banner",
-  cropTitle: "Crop banner",
-  updatedTitle: "Banner updated",
-  updatedDescription: "The workspace banner has been updated.",
-  removedTitle: "Banner removed",
-  removedDescription: "The workspace banner has been removed.",
-  removeConfirmTitle: "Remove workspace banner?",
-  removeConfirmDescription: "This removes the current workspace banner. You can upload a new one anytime."
+  menuTitle: "Profile photo",
+  cropTitle: "Crop your photo",
+  updatedTitle: "Avatar updated",
+  updatedDescription: "Your profile picture has been updated.",
+  removedTitle: "Avatar removed",
+  removedDescription: "Your profile picture has been removed.",
+  removeConfirmTitle: "Remove profile photo?",
+  removeConfirmDescription: "This removes your current profile photo. You can upload a new one anytime."
 };
-var BannerUpload2 = ({
-  src,
+var sizeClassMap = {
+  xs: "size-6",
+  sm: "size-8",
+  md: "size-10",
+  lg: "size-12",
+  xl: "size-14",
+  "2xl": "size-16"
+};
+var sizePixelMap = {
+  xs: 24,
+  sm: 32,
+  md: 40,
+  lg: 48,
+  xl: 56,
+  "2xl": 64
+};
+var AvatarUpload2 = ({
+  size = "md",
   editable = true,
   uploadEnabled = true,
+  cropShape = "round",
+  src,
+  fallback,
   onUpload,
   onClear,
   onChanged,
   copy: copyOverrides
 }) => {
-  const { toaster } = useAccountContext2();
+  const { authClient, toaster } = useAccountContext2();
+  const { data: session, refetch } = authClient.useSession();
   const copy = { ...defaultCopy, ...copyOverrides };
+  const resolvedImage = src !== undefined ? src : session?.user.image;
+  const resolvedFallback = fallback !== undefined ? fallback : session?.user.name?.charAt(0);
+  const refresh = onChanged ?? refetch;
   const [isUploading, setIsUploading] = useState(false);
   const [isClearing, setIsClearing] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -58,10 +81,11 @@ var BannerUpload2 = ({
   const [confirmRemoveOpen, setConfirmRemoveOpen] = useState(false);
   const [imageToCrop, setImageToCrop] = useState(null);
   const canUpload = uploadEnabled && !!onUpload;
-  const image = previewUrl || src;
-  const hasImage = !!image;
+  const hasImage = !!(previewUrl || resolvedImage);
   const isBusy = isUploading || isClearing;
   const isCropping = !!imageToCrop;
+  const pixelSize = sizePixelMap[size];
+  const iconSize = Math.max(16, pixelSize * 0.4);
   const resetCrop = useCallback(() => {
     setImageToCrop(null);
   }, []);
@@ -72,7 +96,7 @@ var BannerUpload2 = ({
     try {
       await onClear();
       setPreviewUrl(null);
-      await onChanged?.();
+      await refresh();
       setConfirmRemoveOpen(false);
       setDialogOpen(false);
       toaster.success({
@@ -90,7 +114,7 @@ var BannerUpload2 = ({
   }, [
     onClear,
     isBusy,
-    onChanged,
+    refresh,
     toaster,
     copy.removedTitle,
     copy.removedDescription
@@ -99,9 +123,6 @@ var BannerUpload2 = ({
     const file = event.target.files?.[0];
     if (!file)
       return;
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
     if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
       toaster.error({
         title: "Invalid file type",
@@ -109,10 +130,10 @@ var BannerUpload2 = ({
       });
       return;
     }
-    if (file.size > MAX_BANNER_IMAGE_SIZE) {
+    if (file.size > MAX_IMAGE_SIZE) {
       toaster.error({
         title: "File too large",
-        description: "Image must be less than 10 MB."
+        description: "Image must be less than 5 MB."
       });
       return;
     }
@@ -121,6 +142,9 @@ var BannerUpload2 = ({
       setImageToCrop(reader.result);
     };
     reader.readAsDataURL(file);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   }, [toaster]);
   const handleCropConfirm = useCallback(async (croppedBlob) => {
     if (!onUpload)
@@ -129,7 +153,7 @@ var BannerUpload2 = ({
     try {
       setPreviewUrl(URL.createObjectURL(croppedBlob));
       await onUpload(croppedBlob);
-      await onChanged?.();
+      await refresh();
       setImageToCrop(null);
       setDialogOpen(false);
       toaster.success({
@@ -145,48 +169,60 @@ var BannerUpload2 = ({
     } finally {
       setIsUploading(false);
     }
-  }, [onUpload, onChanged, toaster, copy.updatedTitle, copy.updatedDescription]);
-  const frameClassName = "group relative block aspect-4/1 w-full overflow-hidden rounded-lg border bg-linear-to-r from-muted to-muted/40";
-  const preview = hasImage ? /* @__PURE__ */ jsx("img", {
-    src: image ?? undefined,
-    alt: editable ? "" : copy.label,
-    className: "size-full object-cover"
-  }) : null;
+  }, [onUpload, refresh, toaster, copy.updatedTitle, copy.updatedDescription]);
   return /* @__PURE__ */ jsxs(Fragment, {
     children: [
-      editable ? /* @__PURE__ */ jsxs("button", {
-        type: "button",
-        className: cn(frameClassName, !isBusy && "cursor-pointer"),
-        "aria-label": copy.label,
-        disabled: isBusy,
-        onClick: () => setDialogOpen(true),
+      /* @__PURE__ */ jsxs("div", {
+        className: "avatar-upload-wrapper relative inline-flex w-fit shrink-0",
+        role: editable ? "button" : undefined,
+        tabIndex: editable && !isBusy ? 0 : undefined,
+        onClick: () => {
+          if (editable && !isBusy)
+            setDialogOpen(true);
+        },
+        onKeyDown: (event) => {
+          if (editable && !isBusy && (event.key === "Enter" || event.key === " ")) {
+            event.preventDefault();
+            setDialogOpen(true);
+          }
+        },
+        style: { cursor: editable && !isBusy ? "pointer" : "default" },
         children: [
-          preview ?? /* @__PURE__ */ jsxs("span", {
-            className: "text-muted-foreground flex size-full items-center justify-center gap-2 text-sm",
+          /* @__PURE__ */ jsxs(AvatarRoot2, {
+            className: sizeClassMap[size],
             children: [
-              /* @__PURE__ */ jsx(ImageIcon, {
-                className: "size-4"
+              /* @__PURE__ */ jsx(AvatarImage2, {
+                src: previewUrl || resolvedImage || undefined
               }),
-              "Add a banner"
+              /* @__PURE__ */ jsx(AvatarFallback2, {
+                children: resolvedFallback
+              })
             ]
           }),
-          /* @__PURE__ */ jsx("span", {
-            className: cn("pointer-events-none absolute inset-0 flex items-center justify-center bg-black/60 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100", isBusy ? "opacity-100" : "opacity-0"),
+          editable && /* @__PURE__ */ jsx("div", {
+            className: "avatar-overlay absolute inset-0 flex items-center justify-center rounded-full bg-black/60 transition-opacity",
+            style: { opacity: isBusy ? 1 : 0, pointerEvents: "none" },
             children: isBusy ? /* @__PURE__ */ jsx(Loader2, {
-              className: "size-6 animate-spin text-white"
+              size: iconSize,
+              color: "white",
+              className: "animate-spin"
             }) : /* @__PURE__ */ jsx(Camera, {
-              className: "size-6 text-white"
+              size: iconSize,
+              color: "white"
             })
+          }),
+          /* @__PURE__ */ jsx("style", {
+            children: `
+          .avatar-upload-wrapper:hover .avatar-overlay {
+            opacity: 1 !important;
+          }
+        `
           })
         ]
-      }) : /* @__PURE__ */ jsx("div", {
-        className: frameClassName,
-        children: preview
       }),
       /* @__PURE__ */ jsx("input", {
         ref: fileInputRef,
         type: "file",
-        "aria-label": "Banner image",
         accept: ALLOWED_IMAGE_TYPES.join(","),
         onChange: handleFileChange,
         style: { display: "none" }
@@ -208,8 +244,7 @@ var BannerUpload2 = ({
                 }),
                 isCropping && imageToCrop ? /* @__PURE__ */ jsx(ImageCropper2, {
                   imageSrc: imageToCrop,
-                  cropShape: "rect",
-                  aspect: BANNER_ASPECT,
+                  cropShape,
                   confirming: isUploading,
                   onCancel: resetCrop,
                   onConfirm: handleCropConfirm
@@ -224,11 +259,11 @@ var BannerUpload2 = ({
                         /* @__PURE__ */ jsx(CloudUpload, {
                           className: "size-5"
                         }),
-                        "Upload new banner"
+                        "Upload new photo"
                       ]
                     }) : /* @__PURE__ */ jsx("p", {
                       className: "text-muted-foreground text-sm",
-                      children: "Banner uploads are unavailable right now."
+                      children: "Photo uploads are unavailable right now."
                     }),
                     hasImage && onClear && /* @__PURE__ */ jsxs(Button2, {
                       variant: "outline",
@@ -239,7 +274,7 @@ var BannerUpload2 = ({
                         /* @__PURE__ */ jsx(Trash2, {
                           className: "size-5"
                         }),
-                        isClearing ? "Removing..." : "Remove banner"
+                        isClearing ? "Removing..." : "Remove photo"
                       ]
                     })
                   ]
@@ -261,4 +296,4 @@ var BannerUpload2 = ({
     ]
   });
 };
-export { BannerUpload2 };
+export { AvatarUpload2 };

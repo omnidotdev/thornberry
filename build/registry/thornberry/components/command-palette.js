@@ -1,4 +1,4 @@
-import"../../../chunks/ai-describe-panel-b89k5zcp.js";
+import"../../../chunks/ai-describe-panel-b6hxzz19.js";
 import {
   CommandDialog2,
   CommandInput2,
@@ -8,7 +8,7 @@ import {
   CommandSeparator2,
   CommandItem2,
   CommandShortcut2
-} from "../../../chunks/ai-describe-panel-rvmq7a6w.js";
+} from "../../../chunks/ai-describe-panel-65b5f9eg.js";
 import {
   Kbd2
 } from "../../../chunks/ai-describe-panel-ym1fwyxy.js";

@@ -15,6 +15,10 @@ declare const DialogPortal: (props: import("react").PropsWithChildren<import("@a
 declare const DialogTrigger: ({ className, ...rest }: ComponentProps<typeof ArkDialog.Trigger>) => import("react/jsx-runtime").JSX.Element;
 declare const DialogBackdrop: ({ className, ...rest }: ComponentProps<typeof ArkDialog.Backdrop>) => import("react/jsx-runtime").JSX.Element;
 declare const DialogPositioner: ({ className, ...rest }: ComponentProps<typeof ArkDialog.Positioner>) => import("react/jsx-runtime").JSX.Element;
+/**
+ * Dialog panel. Capped to the positioner's height and scrolls past it, so a tall
+ * dialog never runs off screen with its actions unreachable
+ */
 declare const DialogContent: ({ className, ...rest }: ComponentProps<typeof ArkDialog.Content>) => import("react/jsx-runtime").JSX.Element;
 declare const DialogTitle: ({ className, ...rest }: ComponentProps<typeof ArkDialog.Title>) => import("react/jsx-runtime").JSX.Element;
 declare const DialogDescription: ({ className, ...rest }: ComponentProps<typeof ArkDialog.Description>) => import("react/jsx-runtime").JSX.Element;
