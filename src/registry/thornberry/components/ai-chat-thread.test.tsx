@@ -2,9 +2,15 @@ import { afterEach, describe, expect, mock, test } from "bun:test";
 
 import { cleanup, fireEvent, render } from "@testing-library/react";
 
-import { AiChatThread } from "@/registry/thornberry/components/ai-chat-thread";
+import {
+  AiChatThread,
+  shouldSendOnKey,
+} from "@/registry/thornberry/components/ai-chat-thread";
 
-import type { ChatMessage } from "@/registry/thornberry/components/ai-chat-thread";
+import type {
+  ChatMessage,
+  ComposerKeyEvent,
+} from "@/registry/thornberry/components/ai-chat-thread";
 
 afterEach(cleanup);
 
@@ -204,5 +210,43 @@ describe("AiChatThread", () => {
     );
 
     expect(queryByRole("group", { name: "Example prompts" })).not.toBeNull();
+  });
+});
+
+describe("shouldSendOnKey", () => {
+  const key = (
+    overrides: Partial<ComposerKeyEvent> = {},
+  ): ComposerKeyEvent => ({
+    key: "Enter",
+    shiftKey: false,
+    altKey: false,
+    metaKey: false,
+    ctrlKey: false,
+    isComposing: false,
+    ...overrides,
+  });
+
+  test("Enter sends with a hardware keyboard", () => {
+    expect(shouldSendOnKey(key(), false)).toBe(true);
+    expect(shouldSendOnKey(key({ shiftKey: true }), false)).toBe(false);
+    expect(shouldSendOnKey(key({ altKey: true }), false)).toBe(false);
+  });
+
+  test("Enter inserts a newline on a touch keyboard", () => {
+    expect(shouldSendOnKey(key(), true)).toBe(false);
+  });
+
+  test("Cmd/Ctrl+Enter always sends", () => {
+    expect(shouldSendOnKey(key({ metaKey: true }), true)).toBe(true);
+    expect(shouldSendOnKey(key({ ctrlKey: true }), false)).toBe(true);
+  });
+
+  test("never sends while an IME is composing", () => {
+    expect(shouldSendOnKey(key({ isComposing: true }), false)).toBe(false);
+    expect(shouldSendOnKey(key({ keyCode: 229 }), false)).toBe(false);
+  });
+
+  test("ignores other keys", () => {
+    expect(shouldSendOnKey(key({ key: "a" }), false)).toBe(false);
   });
 });

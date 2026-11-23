@@ -40,7 +40,11 @@ export interface AiChatThreadProps {
   /** Composer text (controlled). */
   input: string;
   onInputChange: (value: string) => void;
-  /** Send the current input. Enter sends; Shift+Enter inserts a newline. */
+  /**
+   * Send the current input. With a hardware keyboard Enter sends and
+   * Shift+Enter inserts a newline; on touch-first devices Enter inserts a
+   * newline and the send button sends. Cmd/Ctrl+Enter always sends
+   */
   onSend: () => void;
   placeholder?: string;
   /** Shown when there are no messages yet. */
@@ -87,6 +91,48 @@ export interface AiChatThreadProps {
   /** How many example prompts show at once. Defaults to 4 */
   suggestionCount?: number;
 }
+
+/** The subset of a keydown event the composer needs */
+export interface ComposerKeyEvent {
+  key: string;
+  shiftKey: boolean;
+  altKey: boolean;
+  metaKey: boolean;
+  ctrlKey: boolean;
+  /** True while an IME (e.g. Japanese or Chinese input) is composing text */
+  isComposing: boolean;
+  keyCode?: number;
+}
+
+/**
+ * Whether a composer keydown should send the message. Follows the common chat
+ * convention: Enter sends and Shift+Enter inserts a newline, except on touch
+ * keyboards, where Enter inserts a newline and the send button sends since
+ * there is no Shift key to reach for. Cmd/Ctrl+Enter always sends
+ * @param event - the keydown event
+ * @param touchKeyboard - whether the primary pointer is coarse (phones, tablets)
+ */
+export const shouldSendOnKey = (
+  event: ComposerKeyEvent,
+  touchKeyboard: boolean,
+): boolean => {
+  if (event.key !== "Enter") return false;
+
+  // Enter confirms an IME candidate rather than sending (keyCode 229 covers Safari)
+  if (event.isComposing || event.keyCode === 229) return false;
+
+  if (event.metaKey || event.ctrlKey) return true;
+
+  if (event.shiftKey || event.altKey) return false;
+
+  return !touchKeyboard;
+};
+
+/** Whether the primary input is touch, where Enter should insert a newline */
+const isTouchKeyboard = (): boolean =>
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(pointer: coarse)").matches;
 
 /** A styled auto-growing textarea matching the input primitive's tokens. */
 const Composer = ({ className, ...props }: ComponentProps<"textarea">) => (
@@ -313,10 +359,21 @@ const AiChatThread = ({
             value={input}
             onChange={(event) => onInputChange(event.target.value)}
             onKeyDown={(event) => {
-              if (event.key === "Enter" && !event.shiftKey) {
-                event.preventDefault();
-                if (canSend) onSend();
-              }
+              const send = shouldSendOnKey(
+                {
+                  key: event.key,
+                  shiftKey: event.shiftKey,
+                  altKey: event.altKey,
+                  metaKey: event.metaKey,
+                  ctrlKey: event.ctrlKey,
+                  isComposing: event.nativeEvent.isComposing,
+                  keyCode: event.keyCode,
+                },
+                isTouchKeyboard(),
+              );
+              if (!send) return;
+              event.preventDefault();
+              if (canSend) onSend();
             }}
             placeholder={placeholder}
             disabled={disabled}

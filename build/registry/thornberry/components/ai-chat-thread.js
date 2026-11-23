@@ -15,6 +15,18 @@ import {
 import { ArrowUp, Bot, Loader2, User, Wrench } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
+var shouldSendOnKey = (event, touchKeyboard) => {
+  if (event.key !== "Enter")
+    return false;
+  if (event.isComposing || event.keyCode === 229)
+    return false;
+  if (event.metaKey || event.ctrlKey)
+    return true;
+  if (event.shiftKey || event.altKey)
+    return false;
+  return !touchKeyboard;
+};
+var isTouchKeyboard = () => typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia("(pointer: coarse)").matches;
 var Composer = ({ className, ...props }) => /* @__PURE__ */ jsx("textarea", {
   className: cn("flex max-h-40 min-h-11 w-full resize-none rounded-md border border-input bg-transparent px-3 py-2.5 text-sm shadow-xs outline-none transition-[color,box-shadow] placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50", className),
   ...props
@@ -176,11 +188,20 @@ var AiChatThread = ({
                 value: input,
                 onChange: (event) => onInputChange(event.target.value),
                 onKeyDown: (event) => {
-                  if (event.key === "Enter" && !event.shiftKey) {
-                    event.preventDefault();
-                    if (canSend)
-                      onSend();
-                  }
+                  const send = shouldSendOnKey({
+                    key: event.key,
+                    shiftKey: event.shiftKey,
+                    altKey: event.altKey,
+                    metaKey: event.metaKey,
+                    ctrlKey: event.ctrlKey,
+                    isComposing: event.nativeEvent.isComposing,
+                    keyCode: event.keyCode
+                  }, isTouchKeyboard());
+                  if (!send)
+                    return;
+                  event.preventDefault();
+                  if (canSend)
+                    onSend();
                 },
                 placeholder,
                 disabled,
@@ -212,5 +233,6 @@ var AiChatThread = ({
   });
 };
 export {
-  AiChatThread
+  AiChatThread,
+  shouldSendOnKey
 };

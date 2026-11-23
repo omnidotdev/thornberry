@@ -35,7 +35,11 @@ export interface AiChatThreadProps {
     /** Composer text (controlled). */
     input: string;
     onInputChange: (value: string) => void;
-    /** Send the current input. Enter sends; Shift+Enter inserts a newline. */
+    /**
+     * Send the current input. With a hardware keyboard Enter sends and
+     * Shift+Enter inserts a newline; on touch-first devices Enter inserts a
+     * newline and the send button sends. Cmd/Ctrl+Enter always sends
+     */
     onSend: () => void;
     placeholder?: string;
     /** Shown when there are no messages yet. */
@@ -82,6 +86,26 @@ export interface AiChatThreadProps {
     /** How many example prompts show at once. Defaults to 4 */
     suggestionCount?: number;
 }
+/** The subset of a keydown event the composer needs */
+export interface ComposerKeyEvent {
+    key: string;
+    shiftKey: boolean;
+    altKey: boolean;
+    metaKey: boolean;
+    ctrlKey: boolean;
+    /** True while an IME (e.g. Japanese or Chinese input) is composing text */
+    isComposing: boolean;
+    keyCode?: number;
+}
+/**
+ * Whether a composer keydown should send the message. Follows the common chat
+ * convention: Enter sends and Shift+Enter inserts a newline, except on touch
+ * keyboards, where Enter inserts a newline and the send button sends since
+ * there is no Shift key to reach for. Cmd/Ctrl+Enter always sends
+ * @param event - the keydown event
+ * @param touchKeyboard - whether the primary pointer is coarse (phones, tablets)
+ */
+export declare const shouldSendOnKey: (event: ComposerKeyEvent, touchKeyboard: boolean) => boolean;
 /**
  * Chat thread: the shared conversation surface for the fleet's AI assistants
  * (Beacon's Omni chat) and the agentic describe-validate-repair loop. A
