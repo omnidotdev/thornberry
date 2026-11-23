@@ -46,6 +46,20 @@
      cascade despite that rule being injected later with `!important`. Zag
      dialogs use a different attribute (`data-scroll-lock`) and already honor
      `scrollbar-gutter: stable`, so this rule does not touch them. */
+  /* Tailwind v4 Preflight colors every border `currentColor`, so a bare
+     `border`, or a token utility the app never mapped (an unmapped
+     `border-input` generates no rule at all), paints a bright text-colored
+     outline. Fall back to the app's `--border` hairline instead. Apps that map
+     the full token contract are unaffected, since their utilities win; an app
+     with no `--border` keeps the Preflight default */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--border, currentColor);
+  }
+
   html body[data-scroll-locked] {
     margin-right: 0 !important;
   }
