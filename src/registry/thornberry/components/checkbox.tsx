@@ -1,4 +1,5 @@
 import { Checkbox as ArkCheckbox } from "@ark-ui/react/checkbox";
+import { Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -15,10 +16,17 @@ const CheckboxRoot = ({
   <ArkCheckbox.Root className={cn("flex items-center", className)} {...rest} />
 );
 
-const CheckboxLabel = ({ children }: { children: ReactNode }) => (
-  <ArkCheckbox.Label className="ml-2 text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-    {children}
-  </ArkCheckbox.Label>
+const CheckboxLabel = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkCheckbox.Label>) => (
+  <ArkCheckbox.Label
+    className={cn(
+      "ml-2 font-medium text-sm leading-snug peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+      className,
+    )}
+    {...rest}
+  />
 );
 
 const CheckboxControl = ({
@@ -27,7 +35,7 @@ const CheckboxControl = ({
 }: ComponentProps<typeof ArkCheckbox.Control>) => (
   <ArkCheckbox.Control
     className={cn(
-      "flex size-5 items-center justify-center rounded-sm border border-primary shadow transition-normal",
+      "flex size-5 shrink-0 items-center justify-center rounded-sm border border-primary shadow transition-normal",
       "disabled:cursor-not-allowed peer-disabled:opacity-50",
       "data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
       "ring-offset-background peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2",
@@ -54,13 +62,37 @@ const CheckboxHiddenInput = ({
   />
 );
 
+interface CheckboxProps extends ComponentProps<typeof CheckboxRoot> {
+  /** Label beside the box; long labels wrap */
+  label?: ReactNode;
+}
+
+/**
+ * Checkbox with its control, check indicator, hidden input, and optional
+ * label. Takes the root's props (`checked`, `onCheckedChange`, `name`,
+ * `disabled`, ...). Compose `CheckboxRoot` and its parts for anything else.
+ */
+const Checkbox = ({ label, ...rest }: CheckboxProps) => (
+  <CheckboxRoot {...rest}>
+    <CheckboxHiddenInput />
+    <CheckboxControl>
+      <CheckboxIndicator>
+        <Check className="size-3.5" />
+      </CheckboxIndicator>
+    </CheckboxControl>
+    {label && <CheckboxLabel>{label}</CheckboxLabel>}
+  </CheckboxRoot>
+);
+
 export {
+  Checkbox,
   CheckboxContext,
   CheckboxControl,
   CheckboxGroup,
   CheckboxHiddenInput,
   CheckboxIndicator,
   CheckboxLabel,
+  type CheckboxProps,
   CheckboxProvider,
   CheckboxRoot,
 };

@@ -4,17 +4,17 @@ import {
 import"../../../chunks/ai-describe-panel-516n6cnr.js";
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
-import"../../../chunks/ai-describe-panel-b6hxzz19.js";
+} from "../../../chunks/ai-describe-panel-h4yrvya3.js";
+import"../../../chunks/ai-describe-panel-saba89b9.js";
 import {
   Input2
 } from "../../../chunks/ai-describe-panel-hj664zsh.js";
 import"../../../chunks/ai-describe-panel-fa46q8yp.js";
-import"../../../chunks/ai-describe-panel-avdw5bgs.js";
-import"../../../chunks/ai-describe-panel-b3rhyrd1.js";
+import"../../../chunks/ai-describe-panel-k13065jh.js";
+import"../../../chunks/ai-describe-panel-yckmtxnx.js";
 import {
   AvatarUpload2
-} from "../../../chunks/ai-describe-panel-bhenqekr.js";
+} from "../../../chunks/ai-describe-panel-3w43x0q7.js";
 import {
   CardRoot2,
   CardHeader2,
@@ -22,7 +22,7 @@ import {
   CardDescription2,
   CardContent2,
   CardFooter2
-} from "../../../chunks/ai-describe-panel-xj54p31a.js";
+} from "../../../chunks/ai-describe-panel-6x8c66n6.js";
 
 // src/registry/thornberry/components/account-profile-settings.tsx
 import { Check, Loader2, X } from "lucide-react";

@@ -1,6 +1,6 @@
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-h4yrvya3.js";
 import {
   Input2
 } from "../../../chunks/ai-describe-panel-hj664zsh.js";
@@ -10,13 +10,13 @@ import {
   SheetContent2,
   SheetTitle2,
   SheetDescription2
-} from "../../../chunks/ai-describe-panel-mny4qh82.js";
+} from "../../../chunks/ai-describe-panel-tkyh24he.js";
 import {
   TooltipRoot2,
   TooltipTrigger2,
   TooltipPositioner2,
   TooltipContent2
-} from "../../../chunks/ai-describe-panel-fyv865k9.js";
+} from "../../../chunks/ai-describe-panel-my2xd6yt.js";
 import {
   GLOBAL_HOTKEYS2
 } from "../../../chunks/ai-describe-panel-vea3rdsy.js";
@@ -375,7 +375,7 @@ var Sidebar = ({
   if (collapsible === "none") {
     return /* @__PURE__ */ jsx("div", {
       "data-slot": "sidebar",
-      className: cn("flex h-full w-(--sidebar-width) flex-col bg-red-500 text-sidebar-foreground", className),
+      className: cn("flex h-full w-(--sidebar-width) flex-col bg-sidebar text-sidebar-foreground", className),
       ...rest,
       children
     });
@@ -665,7 +665,7 @@ var SidebarMenuButton = ({
     "data-slot": "sidebar-menu-button",
     "data-sidebar": "menu-button",
     "data-active": isActive,
-    className: cn("peer/menu-button flex h-8 w-full items-center gap-2 overflow-hidden rounded-md px-2 text-left text-sm transition-[width,height,padding,color,box-shadow] [&[data-state=open]>svg]:rotate-90", "font-medium text-sidebar-foreground/70", "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground", "outline-hidden focus-visible:text-sidebar-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring! focus-visible:ring-offset-2! focus-visible:ring-offset-background", "active:text-sidebar-accent-foreground", "disabled:pointer-events-none disabled:opacity-50", "aria-disabled:pointer-events-none aria-disabled:opacity-50", "data-[active=true]:bg-sidebar-accent/80 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground", "data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground", "group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2!", "group-has-data-[sidebar=menu-action]/menu-item:pr-8", "[&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0", className),
+    className: cn("peer/menu-button flex h-8 w-full cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-left text-sm transition-[width,height,padding,color,box-shadow] [&[data-state=open]>svg]:rotate-90", "font-medium text-sidebar-foreground/70", "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground", "outline-hidden focus-visible:text-sidebar-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring! focus-visible:ring-offset-2! focus-visible:ring-offset-background", "active:text-sidebar-accent-foreground", "disabled:pointer-events-none disabled:opacity-50", "aria-disabled:pointer-events-none aria-disabled:opacity-50", "data-[active=true]:bg-sidebar-accent/80 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground", "data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground", "group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2!", "group-has-data-[sidebar=menu-action]/menu-item:pr-8", "[&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0", className),
     ...rest
   });
   if (!tooltip) {

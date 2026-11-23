@@ -7,7 +7,7 @@ import {
   DialogTitle2,
   DialogDescription2,
   DialogCloseTrigger2
-} from "../../../chunks/ai-describe-panel-b6hxzz19.js";
+} from "../../../chunks/ai-describe-panel-saba89b9.js";
 import {
   Kbd2
 } from "../../../chunks/ai-describe-panel-ym1fwyxy.js";

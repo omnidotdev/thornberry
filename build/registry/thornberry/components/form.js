@@ -12,13 +12,13 @@ import {
   useAppForm2,
   withForm2,
   withFieldGroup2
-} from "../../../chunks/ai-describe-panel-gtbqt4ts.js";
+} from "../../../chunks/ai-describe-panel-8zb3cr2c.js";
 import"../../../chunks/ai-describe-panel-tq09kxk4.js";
 import"../../../chunks/ai-describe-panel-8wtqb3wn.js";
-import"../../../chunks/ai-describe-panel-2n4efn1k.js";
-import"../../../chunks/ai-describe-panel-nw1mqaed.js";
+import"../../../chunks/ai-describe-panel-kchsgea4.js";
+import"../../../chunks/ai-describe-panel-xqxz7ze0.js";
 import"../../../chunks/ai-describe-panel-hj664zsh.js";
-import"../../../chunks/ai-describe-panel-k2cwy48h.js";
+import"../../../chunks/ai-describe-panel-h4yrvya3.js";
 export {
   CheckboxField2 as CheckboxField,
   PasswordField2 as PasswordField,

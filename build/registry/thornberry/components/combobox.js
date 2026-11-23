@@ -1,6 +1,6 @@
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-h4yrvya3.js";
 import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";

@@ -8,9 +8,9 @@ import {
   INSERT_RICH_TEXT_BUTTON_COMMAND2,
   RichTextButtons2,
   RichTextButtonToolbarControl2
-} from "../../../chunks/ai-describe-panel-7kbxsmfx.js";
-import"../../../chunks/ai-describe-panel-sbwr6vks.js";
-import"../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-dp27a35v.js";
+import"../../../chunks/ai-describe-panel-c8a5m8f5.js";
+import"../../../chunks/ai-describe-panel-h4yrvya3.js";
 export {
   $createRichTextButtonNode2 as $createRichTextButtonNode,
   $isRichTextButtonNode2 as $isRichTextButtonNode,

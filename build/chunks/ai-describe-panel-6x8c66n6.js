@@ -64,6 +64,7 @@ var Card2 = ({
     }),
     /* @__PURE__ */ jsx(CardContent2, {
       ...contentProps,
+      className: cn(!(title || description) && "pt-6", contentProps?.className),
       children
     }),
     footer && /* @__PURE__ */ jsx(CardFooter2, {

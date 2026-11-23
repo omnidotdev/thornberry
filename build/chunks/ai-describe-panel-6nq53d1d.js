@@ -3,10 +3,10 @@ import {
 } from "./ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "./ai-describe-panel-k2cwy48h.js";
+} from "./ai-describe-panel-h4yrvya3.js";
 import {
   ConfirmDialog2
-} from "./ai-describe-panel-avdw5bgs.js";
+} from "./ai-describe-panel-k13065jh.js";
 
 // src/registry/thornberry/components/account-user-active-sessions.tsx
 import { Monitor, Smartphone } from "lucide-react";

@@ -3,10 +3,10 @@ import {
 } from "../../../chunks/ai-describe-panel-mn2q46hh.js";
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-h4yrvya3.js";
 import {
   PromptSuggestions2
-} from "../../../chunks/ai-describe-panel-645h2f0w.js";
+} from "../../../chunks/ai-describe-panel-jw4jqx45.js";
 import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";

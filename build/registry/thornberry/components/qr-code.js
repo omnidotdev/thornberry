@@ -7,8 +7,8 @@ import {
   QrCodeOverlay2,
   QrCodeDownloadTrigger2,
   QrCode2
-} from "../../../chunks/ai-describe-panel-6sr16pzs.js";
-import"../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-pce08k8f.js";
+import"../../../chunks/ai-describe-panel-h4yrvya3.js";
 export {
   QrCode2 as QrCode,
   QrCodeContext2 as QrCodeContext,

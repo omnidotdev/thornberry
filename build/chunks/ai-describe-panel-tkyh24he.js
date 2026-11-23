@@ -4,11 +4,13 @@ import {
 
 // src/registry/thornberry/components/sheet.tsx
 import { Dialog as ArkSheet } from "@ark-ui/react/dialog";
+import { Portal } from "@ark-ui/react/portal";
 import { X } from "lucide-react";
 import { jsx, jsxs } from "react/jsx-runtime";
 var SheetProvider2 = ArkSheet.RootProvider;
 var SheetContext2 = ArkSheet.Context;
 var SheetRoot2 = ArkSheet.Root;
+var SheetPortal2 = Portal;
 var SheetTrigger2 = ({
   className,
   ...rest
@@ -20,7 +22,7 @@ var SheetBackdrop2 = ({
   className,
   ...rest
 }) => /* @__PURE__ */ jsx(ArkSheet.Backdrop, {
-  className,
+  className: cn("data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-background/80 backdrop-blur-sm data-[state=closed]:animate-out data-[state=open]:animate-in", className),
   ...rest
 });
 var SheetPositioner2 = ({
@@ -80,4 +82,4 @@ var SheetCloseTrigger2 = ({
     children
   });
 };
-export { SheetProvider2, SheetContext2, SheetRoot2, SheetTrigger2, SheetBackdrop2, SheetPositioner2, SheetContent2, SheetTitle2, SheetDescription2, SheetCloseTrigger2 };
+export { SheetProvider2, SheetContext2, SheetRoot2, SheetPortal2, SheetTrigger2, SheetBackdrop2, SheetPositioner2, SheetContent2, SheetTitle2, SheetDescription2, SheetCloseTrigger2 };

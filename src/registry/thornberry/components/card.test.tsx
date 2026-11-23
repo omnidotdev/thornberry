@@ -34,3 +34,17 @@ describe("Card", () => {
     expect(container.firstElementChild?.getAttribute("title")).toBeNull();
   });
 });
+
+describe("Card without a header", () => {
+  test("pads the top of the content", () => {
+    const { getByText } = render(<Card>Body</Card>);
+
+    expect(getByText("Body").className).toContain("pt-6");
+  });
+
+  test("keeps the header's spacing when titled", () => {
+    const { getByText } = render(<Card title="Plan">Body</Card>);
+
+    expect(getByText("Body").className).not.toContain("pt-6");
+  });
+});

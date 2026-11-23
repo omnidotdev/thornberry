@@ -1,19 +1,19 @@
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-h4yrvya3.js";
 import {
   checkImageSrc2,
   RichTextImageNode2,
   getRichTextImageSummary2,
   RichTextImages2,
   RichTextImageToolbarControls2
-} from "../../../chunks/ai-describe-panel-sbwr6vks.js";
+} from "../../../chunks/ai-describe-panel-c8a5m8f5.js";
 import {
   checkButtonHref2,
   RichTextButtonNode2,
   RichTextButtons2,
   RichTextButtonToolbarControl2
-} from "../../../chunks/ai-describe-panel-7kbxsmfx.js";
+} from "../../../chunks/ai-describe-panel-dp27a35v.js";
 import {
   Skeleton2
 } from "../../../chunks/ai-describe-panel-4ayhnmp9.js";

@@ -3,7 +3,7 @@ import {
 } from "./ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "./ai-describe-panel-k2cwy48h.js";
+} from "./ai-describe-panel-h4yrvya3.js";
 import {
   DialogRoot2,
   DialogTrigger2,
@@ -12,7 +12,7 @@ import {
   DialogContent2,
   DialogTitle2,
   DialogDescription2
-} from "./ai-describe-panel-b6hxzz19.js";
+} from "./ai-describe-panel-saba89b9.js";
 import {
   Input2
 } from "./ai-describe-panel-hj664zsh.js";
@@ -21,10 +21,10 @@ import {
 } from "./ai-describe-panel-fa46q8yp.js";
 import {
   PasswordInput2
-} from "./ai-describe-panel-nw1mqaed.js";
+} from "./ai-describe-panel-xqxz7ze0.js";
 import {
   QrCode2
-} from "./ai-describe-panel-6sr16pzs.js";
+} from "./ai-describe-panel-pce08k8f.js";
 
 // src/registry/thornberry/components/account-user-two-factor-authentication.tsx
 import {

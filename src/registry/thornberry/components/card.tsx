@@ -86,7 +86,13 @@ const Card = ({
       </CardHeader>
     )}
 
-    <CardContent {...contentProps}>{children}</CardContent>
+    <CardContent
+      {...contentProps}
+      // without a header, the content owns the top padding
+      className={cn(!(title || description) && "pt-6", contentProps?.className)}
+    >
+      {children}
+    </CardContent>
 
     {footer && <CardFooter {...footerProps}>{footer}</CardFooter>}
   </CardRoot>

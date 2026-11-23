@@ -3,7 +3,7 @@ import {
   CheckboxControl2,
   CheckboxIndicator2,
   CheckboxHiddenInput2
-} from "../../../chunks/ai-describe-panel-2n4efn1k.js";
+} from "../../../chunks/ai-describe-panel-kchsgea4.js";
 import {
   Input2
 } from "../../../chunks/ai-describe-panel-hj664zsh.js";

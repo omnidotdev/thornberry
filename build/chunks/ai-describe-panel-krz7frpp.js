@@ -3,7 +3,7 @@ import {
 } from "./ai-describe-panel-b60vh03c.js";
 import {
   Button2
-} from "./ai-describe-panel-k2cwy48h.js";
+} from "./ai-describe-panel-h4yrvya3.js";
 import {
   DialogRoot2,
   DialogTrigger2,
@@ -12,10 +12,10 @@ import {
   DialogContent2,
   DialogTitle2,
   DialogDescription2
-} from "./ai-describe-panel-b6hxzz19.js";
+} from "./ai-describe-panel-saba89b9.js";
 import {
   useAppForm2
-} from "./ai-describe-panel-gtbqt4ts.js";
+} from "./ai-describe-panel-8zb3cr2c.js";
 
 // src/registry/thornberry/components/account-edit-profile.tsx
 import { Check, Pencil, X } from "lucide-react";

@@ -184,7 +184,7 @@ const Sidebar = ({
       <div
         data-slot="sidebar"
         className={cn(
-          "flex h-full w-(--sidebar-width) flex-col bg-red-500 text-sidebar-foreground",
+          "flex h-full w-(--sidebar-width) flex-col bg-sidebar text-sidebar-foreground",
           className,
         )}
         {...rest}
@@ -559,7 +559,7 @@ const SidebarMenuButton = ({
       data-active={isActive}
       className={cn(
         // Base layout and spacing
-        "peer/menu-button flex h-8 w-full items-center gap-2 overflow-hidden rounded-md px-2 text-left text-sm transition-[width,height,padding,color,box-shadow] [&[data-state=open]>svg]:rotate-90",
+        "peer/menu-button flex h-8 w-full cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-left text-sm transition-[width,height,padding,color,box-shadow] [&[data-state=open]>svg]:rotate-90",
         // Typography and base text color
         "font-medium text-sidebar-foreground/70",
         // Hover styles

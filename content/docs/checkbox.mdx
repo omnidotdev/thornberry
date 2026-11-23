@@ -45,6 +45,16 @@ import {
 </CheckboxRoot>
 ```
 
+### Shorthand
+
+`Checkbox` renders the control, check indicator, hidden input, and an optional `label`, and takes the root's props (`checked`, `onCheckedChange`, `name`, `disabled`). Long labels wrap beside a box that keeps its size.
+
+```tsx
+import { Checkbox } from "@omnidotdev/thornberry/checkbox";
+
+<Checkbox label="Remember me" checked={remember} onCheckedChange={({ checked }) => setRemember(checked === true)} />
+```
+
 ## Examples
 
 <br />

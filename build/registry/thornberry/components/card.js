@@ -6,7 +6,7 @@ import {
   CardContent2,
   CardFooter2,
   Card2
-} from "../../../chunks/ai-describe-panel-xj54p31a.js";
+} from "../../../chunks/ai-describe-panel-6x8c66n6.js";
 export {
   Card2 as Card,
   CardContent2 as CardContent,

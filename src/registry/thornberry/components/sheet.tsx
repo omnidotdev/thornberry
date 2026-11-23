@@ -1,4 +1,5 @@
 import { Dialog as ArkSheet } from "@ark-ui/react/dialog";
+import { Portal } from "@ark-ui/react/portal";
 import { X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -8,6 +9,13 @@ import type { ComponentProps } from "react";
 const SheetProvider = ArkSheet.RootProvider;
 const SheetContext = ArkSheet.Context;
 const SheetRoot = ArkSheet.Root;
+
+/**
+ * Portals the sheet's backdrop and positioner to the document body, so no
+ * transformed or blurred ancestor can clip the overlay. Wrap every sheet's
+ * backdrop + positioner in this, as with dialogs
+ */
+const SheetPortal = Portal;
 
 const SheetTrigger = ({
   className,
@@ -20,7 +28,13 @@ const SheetBackdrop = ({
   className,
   ...rest
 }: ComponentProps<typeof ArkSheet.Backdrop>) => (
-  <ArkSheet.Backdrop className={className} {...rest} />
+  <ArkSheet.Backdrop
+    className={cn(
+      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-background/80 backdrop-blur-sm data-[state=closed]:animate-out data-[state=open]:animate-in",
+      className,
+    )}
+    {...rest}
+  />
 );
 
 const SheetPositioner = ({
@@ -116,6 +130,7 @@ export {
   SheetContent,
   SheetContext,
   SheetDescription,
+  SheetPortal,
   SheetPositioner,
   SheetProvider,
   SheetRoot,

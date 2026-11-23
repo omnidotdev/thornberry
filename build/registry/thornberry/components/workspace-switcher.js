@@ -5,7 +5,7 @@ import {
 } from "../../../chunks/ai-describe-panel-516n6cnr.js";
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-h4yrvya3.js";
 import {
   MenuRoot2,
   MenuTrigger2,

@@ -1,6 +1,6 @@
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-h4yrvya3.js";
 import {
   DialogRoot2,
   DialogPortal2,
@@ -9,17 +9,17 @@ import {
   DialogContent2,
   DialogTitle2,
   DialogDescription2
-} from "../../../chunks/ai-describe-panel-b6hxzz19.js";
+} from "../../../chunks/ai-describe-panel-saba89b9.js";
 import {
   Label2
 } from "../../../chunks/ai-describe-panel-fa46q8yp.js";
 import"../../../chunks/ai-describe-panel-hj664zsh.js";
 import {
   PasswordInput2
-} from "../../../chunks/ai-describe-panel-nw1mqaed.js";
+} from "../../../chunks/ai-describe-panel-xqxz7ze0.js";
 import {
   PromptSuggestions2
-} from "../../../chunks/ai-describe-panel-645h2f0w.js";
+} from "../../../chunks/ai-describe-panel-jw4jqx45.js";
 import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";

@@ -8,8 +8,8 @@ import {
   CommandSeparator2,
   CommandItem2,
   CommandShortcut2
-} from "../../../chunks/ai-describe-panel-65b5f9eg.js";
-import"../../../chunks/ai-describe-panel-b6hxzz19.js";
+} from "../../../chunks/ai-describe-panel-8nq3a6kk.js";
+import"../../../chunks/ai-describe-panel-saba89b9.js";
 export {
   Command2 as Command,
   CommandDialog2 as CommandDialog,
