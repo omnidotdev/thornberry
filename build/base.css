@@ -31,6 +31,18 @@
     scrollbar-gutter: stable;
   }
 
+  /* Render native UI (scrollbars, form controls, the caret) in the active
+     theme. Without `color-scheme: dark`, browsers paint light scrollbars on
+     dark surfaces: the page, the command palette list, menus, and every other
+     overflow container. Apps toggle dark mode with a `.dark` class (the
+     `@custom-variant dark` convention) or a `data-theme="dark"` attribute, so
+     both opt in here. Light needs no rule: `normal` already renders light, and
+     leaving it unset keeps apps that follow `prefers-color-scheme` correct. */
+  .dark,
+  [data-theme="dark"] {
+    color-scheme: dark;
+  }
+
   /* Counterpart to the persistent `html` scrollbar above, for the OTHER scroll
      locker in the stack: Radix dialogs (and cmdk's `Command.Dialog`, which is
      Radix under the hood) lock scroll via `react-remove-scroll`. That library

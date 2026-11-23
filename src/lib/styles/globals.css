@@ -126,6 +126,11 @@
     overflow-y: scroll;
     scrollbar-gutter: stable;
   }
+  /* Dark native scrollbars and form controls in the dark theme. See base.css */
+  .dark,
+  [data-theme="dark"] {
+    color-scheme: dark;
+  }
   /* Radix/cmdk dialogs lock scroll via react-remove-scroll, which adds a
      compensating `body` margin that becomes pure layout shift once `html` owns
      the scrollbar. Zero it (higher specificity beats the library's later
