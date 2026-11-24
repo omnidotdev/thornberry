@@ -7,10 +7,11 @@ declare const imageVariants: (props?: ({
 /**
  * Style for an element showing `lqip` blurred until its real image loads.
  * Exposed for images not rendered through `Image` (e.g. a CSS background)
- * @param lqip - Tiny placeholder image (data URI or URL)
+ * @param lqip - Tiny placeholder image (a base64 image data URI); anything
+ *   else yields no placeholder
  * @param objectPosition - Match the image's `object-position` (focal point)
  */
-declare const blurUpStyle: (lqip: string, objectPosition?: string) => CSSProperties;
+declare const blurUpStyle: (lqip: string | null | undefined, objectPosition?: string) => CSSProperties;
 type ImageProps = Omit<ComponentProps<typeof UnpicImage>, "ref"> & VariantProps<typeof imageVariants> & {
     /**
      * Tiny placeholder (LQIP), usually a ~16px webp data URI made at upload

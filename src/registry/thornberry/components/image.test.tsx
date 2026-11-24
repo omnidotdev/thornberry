@@ -56,6 +56,24 @@ describe("Image blur-up", () => {
   });
 });
 
+describe("lqip validation", () => {
+  test("ignores anything but a small base64 image data URI", () => {
+    for (const bad of [
+      "https://tracker.example.com/p.gif",
+      "data:image/svg+xml;base64,PHN2Zz4=",
+      "data:image/webp;base64,AA' onload='x",
+      `data:image/webp;base64,${"A".repeat(5000)}`,
+    ]) {
+      expect(blurUpStyle(bad)).toEqual({});
+      render(
+        <Image src="/photo.jpg" width={400} height={300} alt="" lqip={bad} />,
+      );
+      expect(img().style.backgroundSize).toBe("");
+      cleanup();
+    }
+  });
+});
+
 describe("blurUpStyle", () => {
   test("covers the box and follows the focal point", () => {
     const style = blurUpStyle(LQIP, "top");

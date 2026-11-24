@@ -29,6 +29,17 @@ const imageVariants = cva("", {
  * gives the SVG an intrinsic size, without which browsers paint it empty
  * @param lqip - Tiny image as a data URI (e.g. a 16px webp) or URL
  */
+/** A small inline image: the only placeholder accepted, since it may come from stored user data */
+const LQIP_PATTERN =
+  /^data:image\/(?:webp|png|jpeg|gif|avif);base64,[A-Za-z0-9+/]+=*$/;
+const LQIP_MAX_LENGTH = 4096;
+
+/** Whether `lqip` is a usable placeholder (a small base64 image data URI) */
+const isValidLqip = (lqip: string | null | undefined): lqip is string =>
+  typeof lqip === "string" &&
+  lqip.length <= LQIP_MAX_LENGTH &&
+  LQIP_PATTERN.test(lqip);
+
 const blurredBackground = (lqip: string): string => {
   const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'><filter id='b' color-interpolation-filters='sRGB'><feGaussianBlur stdDeviation='20'/><feComponentTransfer><feFuncA type='discrete' tableValues='1 1'/></feComponentTransfer></filter><image width='100%' height='100%' preserveAspectRatio='xMidYMid slice' href='${lqip}' filter='url(#b)'/></svg>`;
 
@@ -38,18 +49,22 @@ const blurredBackground = (lqip: string): string => {
 /**
  * Style for an element showing `lqip` blurred until its real image loads.
  * Exposed for images not rendered through `Image` (e.g. a CSS background)
- * @param lqip - Tiny placeholder image (data URI or URL)
+ * @param lqip - Tiny placeholder image (a base64 image data URI); anything
+ *   else yields no placeholder
  * @param objectPosition - Match the image's `object-position` (focal point)
  */
 const blurUpStyle = (
-  lqip: string,
+  lqip: string | null | undefined,
   objectPosition = "center",
-): CSSProperties => ({
-  backgroundImage: blurredBackground(lqip),
-  backgroundSize: "cover",
-  backgroundPosition: objectPosition,
-  backgroundRepeat: "no-repeat",
-});
+): CSSProperties =>
+  isValidLqip(lqip)
+    ? {
+        backgroundImage: blurredBackground(lqip),
+        backgroundSize: "cover",
+        backgroundPosition: objectPosition,
+        backgroundRepeat: "no-repeat",
+      }
+    : {};
 
 type ImageProps = Omit<ComponentProps<typeof UnpicImage>, "ref"> &
   VariantProps<typeof imageVariants> & {
@@ -83,7 +98,7 @@ const Image = ({ className, rounded, lqip, ...rest }: ImageProps) => {
   }, []);
 
   const placeholder =
-    lqip && !isLoaded
+    isValidLqip(lqip) && !isLoaded
       ? blurUpStyle(
           lqip,
           typeof style?.objectPosition === "string"
@@ -94,7 +109,7 @@ const Image = ({ className, rounded, lqip, ...rest }: ImageProps) => {
 
   const imageProps = {
     ...rest,
-    ref: lqip ? markIfLoaded : undefined,
+    ref: isValidLqip(lqip) ? markIfLoaded : undefined,
     className: cn(imageVariants({ rounded }), className),
     style: placeholder ? { ...placeholder, ...style } : style,
     onLoad: (event: SyntheticEvent<HTMLImageElement>) => {
