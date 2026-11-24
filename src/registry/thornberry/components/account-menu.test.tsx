@@ -168,6 +168,48 @@ describe("AccountMenu", () => {
     expect(onSignOut).toHaveBeenCalledTimes(1);
   });
 
+  test("offers Switch account only when the app handles it", async () => {
+    const onSwitchAccount = mock(() => {});
+
+    render(
+      <AccountMenu
+        user={user}
+        onSignOut={() => {}}
+        onSwitchAccount={onSwitchAccount}
+      />,
+    );
+
+    await open();
+
+    const items = Array.from(
+      document.querySelectorAll<HTMLElement>("[role='menuitem']"),
+    );
+    const switchAccount = items.find((item) =>
+      item.textContent?.includes("Switch account"),
+    );
+    if (!switchAccount) throw new Error("expected a Switch account entry");
+    // Just above Sign out
+    expect(items.at(-1)?.textContent).toContain("Sign out");
+    expect(items.at(-2)).toBe(switchAccount);
+
+    await act(async () => {
+      fireEvent.pointerMove(switchAccount, { pointerType: "mouse" });
+    });
+    await act(async () => {
+      fireEvent.click(switchAccount);
+    });
+
+    expect(onSwitchAccount).toHaveBeenCalledTimes(1);
+  });
+
+  test("has no Switch account without a handler", async () => {
+    render(<AccountMenu user={user} onSignOut={() => {}} />);
+
+    await open();
+
+    expect(document.body.textContent).not.toContain("Switch account");
+  });
+
   test("heads the menu with the email when the name is blank", async () => {
     render(
       <AccountMenu

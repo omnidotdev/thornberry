@@ -1,4 +1,9 @@
-import { ChevronsUpDown, ExternalLink, LogOut } from "lucide-react";
+import {
+  ArrowLeftRight,
+  ChevronsUpDown,
+  ExternalLink,
+  LogOut,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import {
@@ -71,6 +76,13 @@ interface AccountMenuProps {
   user: AccountMenuUser;
   /** Signs the user out; offered as the last entry */
   onSignOut: () => void;
+  /**
+   * Switches to another Omni account (the app re-runs sign-in with
+   * `prompt=select_account`, which shows the account picker); offered just
+   * above Sign out when set
+   */
+  onSwitchAccount?: () => void;
+  switchAccountLabel?: string;
   /** App destinations (`AccountMenuItem`s), listed under the user's name */
   children?: ReactNode;
   /** Link to the shared Omni account hub, opened in a new tab when set */
@@ -101,7 +113,8 @@ interface AccountMenuProps {
 /**
  * The standard Omni account menu: the signed-in user's avatar (initials while
  * no image loads), opening a menu headed by their name and email, with the
- * app's destinations, an optional link to the Omni account hub, and Sign out.
+ * app's destinations, an optional link to the Omni account hub, an optional
+ * Switch account, and Sign out.
  *
  * Presentational and router-agnostic: the host app passes the user, its own
  * destinations as children, and the sign-out handler. Every entry is a menu
@@ -117,6 +130,8 @@ interface AccountMenuProps {
 const AccountMenu = ({
   user,
   onSignOut,
+  onSwitchAccount,
+  switchAccountLabel = "Switch account",
   children,
   manageAccountUrl,
   manageAccountLabel = "Manage account",
@@ -212,6 +227,13 @@ const AccountMenu = ({
           </MenuItemGroup>
 
           <MenuSeparator />
+
+          {onSwitchAccount && (
+            <AccountMenuItem value="switch-account" onSelect={onSwitchAccount}>
+              <ArrowLeftRight aria-hidden />
+              <MenuItemText>{switchAccountLabel}</MenuItemText>
+            </AccountMenuItem>
+          )}
 
           <AccountMenuItem
             value="sign-out"
