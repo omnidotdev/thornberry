@@ -36,6 +36,7 @@ import {
 <AccountMenu
   user={auth.user}
   onSignOut={signOut}
+  onSwitchAccount={switchAccount}
   manageAccountUrl="https://account.omni.dev"
 >
   <AccountMenuItem value="/profile" asChild>
@@ -44,7 +45,9 @@ import {
 </AccountMenu>
 ```
 
-The trigger is the user's avatar, showing their initials until an image loads. The menu opens below it, aligned to its end, and is headed by the user's name and email. The app's own destinations come next, then **Manage account** (when `manageAccountUrl` is set, opened in a new tab), then **Sign out**.
+The trigger is the user's avatar, showing their initials until an image loads. The menu opens below it, aligned to its end, and is headed by the user's name and email. The app's own destinations come next, then **Manage account** (when `manageAccountUrl` is set, opened in a new tab), then **Switch account** (when `onSwitchAccount` is set), then **Sign out**.
+
+**Switch account** lets someone signed in to more than one Omni account change which one the app uses. The handler re-runs the app's Omni sign-in with `prompt=select_account`, which opens the account picker. With Better Auth: `authClient.signIn.social({ provider: "omni", callbackURL, additionalParams: { prompt: "select_account" } })`. The app stays signed in if they cancel.
 
 Every entry is a menu item: the arrow keys move between them, Home and End jump to the ends, typing a letter jumps to a matching entry, and Escape closes the menu and returns focus to the avatar. On touch screens the avatar and every entry get a 44px target.
 
@@ -112,6 +115,8 @@ When `user.image` is unset or fails to load, the avatar shows up to two initials
 | --- | --- | --- | --- |
 | `user` | `{ name?, email?, image? }` | | The signed-in user |
 | `onSignOut` | `() => void` | | Called when Sign out is chosen |
+| `onSwitchAccount` | `() => void` | | Called when Switch account is chosen; hidden when unset |
+| `switchAccountLabel` | `string` | `"Switch account"` | |
 | `children` | `ReactNode` | | The app's destinations, as `AccountMenuItem`s |
 | `manageAccountUrl` | `string` | | Link to the Omni account hub; hidden when unset |
 | `manageAccountLabel` | `string` | `"Manage account"` | |
