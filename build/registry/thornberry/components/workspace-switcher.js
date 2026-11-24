@@ -2,10 +2,10 @@ import {
   AvatarRoot2,
   AvatarFallback2,
   AvatarImage2
-} from "../../../chunks/ai-describe-panel-6r0bwytq.js";
+} from "../../../chunks/ai-describe-panel-516n6cnr.js";
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-h4yrvya3.js";
 import {
   MenuRoot2,
   MenuTrigger2,
@@ -15,7 +15,7 @@ import {
   MenuItemGroup2,
   MenuItemGroupLabel2,
   MenuSeparator2
-} from "../../../chunks/ai-describe-panel-c85b3y6e.js";
+} from "../../../chunks/ai-describe-panel-1gzajcsh.js";
 import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";

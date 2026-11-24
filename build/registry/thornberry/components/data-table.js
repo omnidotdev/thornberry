@@ -3,7 +3,7 @@ import {
   CheckboxControl2,
   CheckboxIndicator2,
   CheckboxHiddenInput2
-} from "../../../chunks/ai-describe-panel-2n4efn1k.js";
+} from "../../../chunks/ai-describe-panel-71sfcq15.js";
 import {
   Input2
 } from "../../../chunks/ai-describe-panel-hj664zsh.js";
@@ -14,7 +14,7 @@ import {
   TableRow2,
   TableHead2,
   TableCell2
-} from "../../../chunks/ai-describe-panel-06kze8cq.js";
+} from "../../../chunks/ai-describe-panel-233f93y5.js";
 import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";
@@ -2926,7 +2926,7 @@ import {
   Search
 } from "lucide-react";
 import { useState as useState2 } from "react";
-import { jsx, jsxs } from "react/jsx-runtime";
+import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 var SelectionCheckbox = ({
   checked,
   onCheckedChange,
@@ -2966,9 +2966,20 @@ var DataTable = ({
   rowSelectable,
   bulkActions,
   initialSorting = [],
-  emptyLabel = "No results found"
+  sorting: sortingProp,
+  onSortingChange,
+  emptyLabel = "No results found",
+  emptyState,
+  onRowClick,
+  minWidth
 }) => {
-  const [sorting, setSorting] = useState2(initialSorting);
+  const [sortingState, setSortingState] = useState2(initialSorting);
+  const sorting = sortingProp ?? sortingState;
+  const setSorting = (updater) => {
+    if (sortingProp === undefined)
+      setSortingState(updater);
+    onSortingChange?.(updater);
+  };
   const [globalFilter, setGlobalFilter] = useState2("");
   const [rowSelection, setRowSelection] = useState2({});
   const selectionColumn = {
@@ -3002,6 +3013,10 @@ var DataTable = ({
   });
   const selectedRows = table.getSelectedRowModel().rows.map((r) => r.original);
   const clearSelection = () => setRowSelection({});
+  if (data.length === 0 && emptyState)
+    return /* @__PURE__ */ jsx(Fragment, {
+      children: emptyState
+    });
   return /* @__PURE__ */ jsxs("div", {
     className: "space-y-3",
     children: [
@@ -3050,19 +3065,22 @@ var DataTable = ({
       /* @__PURE__ */ jsx("div", {
         className: "overflow-x-auto",
         children: /* @__PURE__ */ jsxs(Table2, {
+          style: minWidth ? { minWidth } : undefined,
           children: [
             /* @__PURE__ */ jsx(TableHeader2, {
               children: table.getHeaderGroups().map((headerGroup) => /* @__PURE__ */ jsx(TableRow2, {
                 children: headerGroup.headers.map((header) => {
                   const canSort = header.column.getCanSort();
                   const sorted = header.column.getIsSorted();
+                  const alignRight = header.column.columnDef.meta?.align === "right";
                   return /* @__PURE__ */ jsx(TableHead2, {
-                    className: "whitespace-nowrap",
+                    "aria-sort": sorted === "asc" ? "ascending" : sorted === "desc" ? "descending" : canSort ? "none" : undefined,
+                    className: cn("whitespace-nowrap", alignRight && "text-right"),
                     style: { width: header.getSize() },
                     children: header.isPlaceholder ? null : canSort ? /* @__PURE__ */ jsxs("button", {
                       type: "button",
                       onClick: header.column.getToggleSortingHandler(),
-                      className: "hover:text-foreground -ml-1 flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors",
+                      className: cn("hover:text-foreground -ml-1 flex items-center gap-1.5 rounded px-1 py-0.5 transition-colors", alignRight && "ml-auto flex-row-reverse"),
                       children: [
                         flexRender(header.column.columnDef.header, header.getContext()),
                         sorted === "asc" ? /* @__PURE__ */ jsx(ArrowUp, {
@@ -3086,9 +3104,10 @@ var DataTable = ({
                   children: emptyLabel
                 })
               }) : table.getRowModel().rows.map((row) => /* @__PURE__ */ jsx(TableRow2, {
-                className: cn("h-14", row.getIsSelected() && "bg-primary/5"),
+                className: cn("h-14", row.getIsSelected() && "bg-primary/5", onRowClick && "cursor-pointer hover:bg-muted"),
+                onClick: onRowClick ? () => onRowClick(row.original) : undefined,
                 children: row.getVisibleCells().map((cell) => /* @__PURE__ */ jsx(TableCell2, {
-                  className: "whitespace-nowrap",
+                  className: cn("whitespace-nowrap", cell.column.columnDef.meta?.align === "right" && "text-right"),
                   children: flexRender(cell.column.columnDef.cell, cell.getContext())
                 }, cell.id))
               }, row.id))

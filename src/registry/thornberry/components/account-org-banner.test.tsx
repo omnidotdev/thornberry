@@ -284,7 +284,7 @@ describe("AccountOrganizations banner removal", () => {
     // The confirm modal stacks over the banner menu (aria-hidden underneath),
     // so scope the click to it and query with hidden as well
     const confirmDialog = confirmTitle.closest(
-      '[role="dialog"]',
+      '[role="alertdialog"]',
     ) as HTMLElement;
     fireEvent.click(
       within(confirmDialog).getByRole("button", {

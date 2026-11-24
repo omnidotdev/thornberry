@@ -22,8 +22,8 @@ import {
   rememberUploadOutcome2,
   RichTextImages2,
   RichTextImageToolbarControls2
-} from "../../../chunks/ai-describe-panel-sbwr6vks.js";
-import"../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-c8a5m8f5.js";
+import"../../../chunks/ai-describe-panel-h4yrvya3.js";
 export {
   $createRichTextImageNode2 as $createRichTextImageNode,
   $getRichTextImageSummary2 as $getRichTextImageSummary,

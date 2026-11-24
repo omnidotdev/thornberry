@@ -129,6 +129,19 @@
       ]
     },
     {
+      "name": "shortcuts-dialog",
+      "type": "registry:ui",
+      "title": "Shortcuts Dialog",
+      "description": "The standard Omni keyboard shortcuts list, opened with the ? key: the global hotkeys an app binds, then its own shortcut groups",
+      "registryDependencies": ["dialog", "kbd", "use-hotkeys"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/shortcuts-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "app-footer",
       "type": "registry:ui",
       "title": "App Footer",
@@ -457,6 +470,18 @@
       "files": [
         {
           "path": "src/registry/thornberry/components/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Multi-line text control, styled to match Input",
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/textarea.tsx",
           "type": "registry:ui"
         }
       ]
@@ -879,7 +904,13 @@
       "title": "Form",
       "description": "A TanStack Form wrapper that binds typed, validation-aware field components onto thornberry inputs (text, textarea, checkbox, select) with matching styling.",
       "dependencies": ["@tanstack/react-form"],
-      "registryDependencies": ["input", "checkbox", "select", "button"],
+      "registryDependencies": [
+        "input",
+        "textarea",
+        "checkbox",
+        "select",
+        "button"
+      ],
       "files": [
         {
           "path": "src/registry/thornberry/components/form.tsx",

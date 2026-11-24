@@ -9,7 +9,7 @@ interface TableProps extends ComponentProps<"table"> {
 const Table = ({ containerProps, className, ...rest }: TableProps) => (
   <div
     data-slot="table-container"
-    className={cn("no-scrollbar relative w-full overflow-auto", containerProps)}
+    className={cn("relative w-full overflow-auto", containerProps)}
   >
     <table
       data-slot="table"

@@ -1,0 +1,35 @@
+---
+title: Shortcuts Dialog
+description: The standard Omni keyboard shortcuts list, opened with the ? key.
+---
+
+## Installation
+
+<InstallationTabs filename="shortcuts-dialog.json" />
+
+## Usage
+
+```tsx
+import { ShortcutsDialog } from "@omnidotdev/thornberry/shortcuts-dialog";
+```
+
+Mount it once in the app root, next to the command palette. It binds `GLOBAL_HOTKEYS.showShortcuts` (the `?` key) itself.
+
+```tsx
+<ShortcutsDialog
+  globals={["commandPalette", "showShortcuts", "toggleSidebar", "toggleTheme"]}
+  groups={[
+    {
+      title: "Board",
+      shortcuts: [
+        { keys: "c", label: "New task" },
+        { keys: "v", label: "Switch board/list view" },
+      ],
+    },
+  ]}
+/>
+```
+
+The list opens with a **General** group: the global hotkeys the app binds (`globals`, default every one except `toggleSidebar`, which only apps with a sidebar bind), then any app-wide `general` shortcuts. Product `groups` follow, each with an optional `hint` beside its heading. Every key renders through `hotkeyLabel`, so `mod+k` reads `⌘K` on Apple platforms and `Ctrl+K` elsewhere.
+
+Pass `open` and `onOpenChange` to control it, for example to open the list from a command palette entry.

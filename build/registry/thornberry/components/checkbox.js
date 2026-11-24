@@ -6,9 +6,11 @@ import {
   CheckboxLabel2,
   CheckboxControl2,
   CheckboxIndicator2,
-  CheckboxHiddenInput2
-} from "../../../chunks/ai-describe-panel-2n4efn1k.js";
+  CheckboxHiddenInput2,
+  Checkbox2
+} from "../../../chunks/ai-describe-panel-71sfcq15.js";
 export {
+  Checkbox2 as Checkbox,
   CheckboxContext2 as CheckboxContext,
   CheckboxControl2 as CheckboxControl,
   CheckboxGroup2 as CheckboxGroup,

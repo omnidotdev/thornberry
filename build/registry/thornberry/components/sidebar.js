@@ -1,22 +1,26 @@
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-h4yrvya3.js";
 import {
   Input2
 } from "../../../chunks/ai-describe-panel-hj664zsh.js";
 import {
   SheetRoot2,
   SheetTrigger2,
+  SheetBackdrop2,
   SheetContent2,
   SheetTitle2,
   SheetDescription2
-} from "../../../chunks/ai-describe-panel-mny4qh82.js";
+} from "../../../chunks/ai-describe-panel-vqcc8kxk.js";
 import {
   TooltipRoot2,
   TooltipTrigger2,
   TooltipPositioner2,
   TooltipContent2
-} from "../../../chunks/ai-describe-panel-fyv865k9.js";
+} from "../../../chunks/ai-describe-panel-my2xd6yt.js";
+import {
+  GLOBAL_HOTKEYS2
+} from "../../../chunks/ai-describe-panel-vea3rdsy.js";
 import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";
@@ -321,7 +325,7 @@ var SidebarProvider = ({
   const toggleSidebar = useCallback2(() => {
     return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
   }, [isMobile, setOpen]);
-  useHotkeys("b", toggleSidebar, [toggleSidebar]);
+  useHotkeys(GLOBAL_HOTKEYS2.toggleSidebar, toggleSidebar, [toggleSidebar]);
   const state = open ? "expanded" : "collapsed";
   const contextValue = useMemo2(() => ({
     state,
@@ -366,13 +370,14 @@ var Sidebar = ({
   collapsible = "offcanvas",
   className,
   children,
+  mobileClassName,
   ...rest
 }) => {
   const { isMobile, state, openMobile, setOpenMobile, isDraggingRail } = useSidebar();
   if (collapsible === "none") {
     return /* @__PURE__ */ jsx("div", {
       "data-slot": "sidebar",
-      className: cn("flex h-full w-(--sidebar-width) flex-col bg-red-500 text-sidebar-foreground", className),
+      className: cn("flex h-full w-(--sidebar-width) flex-col bg-sidebar text-sidebar-foreground", className),
       ...rest,
       children
     });
@@ -394,11 +399,12 @@ var Sidebar = ({
             })
           })
         }),
+        /* @__PURE__ */ jsx(SheetBackdrop2, {}),
         /* @__PURE__ */ jsxs(SheetContent2, {
           "data-sidebar": "sidebar",
           "data-slot": "sidebar",
           "data-mobile": "true",
-          className: "bg-sidebar text-sidebar-foreground w-1/2 p-0 [&>button]:hidden",
+          className: cn("w-5/6 max-w-xs bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden", mobileClassName),
           side,
           children: [
             /* @__PURE__ */ jsxs("div", {
@@ -422,7 +428,7 @@ var Sidebar = ({
     });
   }
   return /* @__PURE__ */ jsxs("div", {
-    className: "group peer text-sidebar-foreground block",
+    className: "group peer text-sidebar-foreground hidden md:block",
     "data-state": state,
     "data-collapsible": state === "collapsed" ? collapsible : "",
     "data-variant": variant,
@@ -662,7 +668,7 @@ var SidebarMenuButton = ({
     "data-slot": "sidebar-menu-button",
     "data-sidebar": "menu-button",
     "data-active": isActive,
-    className: cn("peer/menu-button flex h-8 w-full items-center gap-2 overflow-hidden rounded-md px-2 text-left text-sm transition-[width,height,padding,color,box-shadow] [&[data-state=open]>svg]:rotate-90", "font-medium text-sidebar-foreground/70", "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground", "outline-hidden focus-visible:text-sidebar-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring! focus-visible:ring-offset-2! focus-visible:ring-offset-background", "active:text-sidebar-accent-foreground", "disabled:pointer-events-none disabled:opacity-50", "aria-disabled:pointer-events-none aria-disabled:opacity-50", "data-[active=true]:bg-sidebar-accent/80 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground", "data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground", "group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2!", "group-has-data-[sidebar=menu-action]/menu-item:pr-8", "[&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0", className),
+    className: cn("peer/menu-button flex h-8 w-full cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-left text-sm transition-[width,height,padding,color,box-shadow] [&[data-state=open]>svg]:rotate-90", "font-medium text-sidebar-foreground/70", "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground", "outline-hidden focus-visible:text-sidebar-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring! focus-visible:ring-offset-2! focus-visible:ring-offset-background", "active:text-sidebar-accent-foreground", "disabled:pointer-events-none disabled:opacity-50", "aria-disabled:pointer-events-none aria-disabled:opacity-50", "data-[active=true]:bg-sidebar-accent/80 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground", "data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground", "group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2!", "group-has-data-[sidebar=menu-action]/menu-item:pr-8", "[&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0", className),
     ...rest
   });
   if (!tooltip) {

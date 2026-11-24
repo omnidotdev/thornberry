@@ -1,0 +1,29 @@
+---
+title: Textarea
+description: A multi-line text control, styled to match Input.
+---
+
+import { Label } from "@/registry/thornberry/components/label";
+import { Textarea } from "@/registry/thornberry/components/textarea";
+
+<div className="mb-8 flex flex-col gap-1.5">
+  <Label htmlFor="notes">Notes</Label>
+  <Textarea id="notes" placeholder="Anything we should know?" />
+</div>
+
+## Installation
+
+<InstallationTabs filename="textarea.json" />
+
+## Usage
+
+```tsx
+import { Textarea } from "@omnidotdev/thornberry/textarea";
+```
+
+```tsx
+<Label htmlFor="notes">Notes</Label>
+<Textarea id="notes" placeholder="Anything we should know?" />
+```
+
+Set `aria-invalid` to show the error state. Inside a TanStack Form, use `TextareaField` from `form`, which renders this control.

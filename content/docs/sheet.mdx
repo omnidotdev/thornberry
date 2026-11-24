@@ -89,6 +89,8 @@ import { X } from "lucide-react";
 </SheetRoot>
 ```
 
+Wrap the backdrop and positioner in `SheetPortal` (as with dialogs) so no transformed or blurred ancestor clips the overlay. `SheetBackdrop` ships the standard dimmed, blurred overlay. On touch screens a sheet closes when swiped toward its edge; pass `swipeToClose={false}` to turn that off.
+
 ## Examples
 
 #### Positioning

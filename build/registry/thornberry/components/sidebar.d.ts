@@ -22,10 +22,12 @@ declare const SidebarProvider: ({ defaultOpen, open: openProp, onOpenChange: set
     onOpenChange?: (open: boolean) => void;
     defaultWidth?: string;
 }) => import("react/jsx-runtime").JSX.Element;
-declare const Sidebar: ({ side, variant, collapsible, className, children, ...rest }: ComponentProps<"div"> & {
+declare const Sidebar: ({ side, variant, collapsible, className, children, mobileClassName, ...rest }: ComponentProps<"div"> & {
     side?: "left" | "right";
     variant?: "sidebar" | "floating" | "inset";
     collapsible?: "offcanvas" | "icon" | "none";
+    /** Classes for the phone drawer (e.g. a different width) */
+    mobileClassName?: string;
 }) => import("react/jsx-runtime").JSX.Element;
 declare const SidebarTrigger: ({ className, onClick, ...rest }: ComponentProps<typeof Button>) => import("react/jsx-runtime").JSX.Element;
 declare const SidebarRail: ({ enableDrag, className, ...rest }: ComponentProps<typeof ark.button> & {

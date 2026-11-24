@@ -1,0 +1,88 @@
+import {
+  cva
+} from "./ai-describe-panel-g7wczx51.js";
+import {
+  cn
+} from "./ai-describe-panel-81fr4sax.js";
+
+// src/registry/thornberry/components/avatar.tsx
+import { Avatar as ArkAvatar, useAvatar as useArkAvatar } from "@ark-ui/react";
+import { jsx, jsxs } from "react/jsx-runtime";
+var avatarVariants = cva("relative flex shrink-0 items-center justify-center overflow-hidden rounded-full", {
+  variants: {
+    size: {
+      xs: "size-8 text-xs",
+      sm: "size-9 text-sm",
+      md: "text-md size-10",
+      lg: "size-11 text-lg",
+      xl: "size-12 text-xl"
+    }
+  },
+  defaultVariants: { size: "md" }
+});
+var useAvatar2 = useArkAvatar;
+var AvatarProvider2 = ({
+  className,
+  size,
+  ...rest
+}) => /* @__PURE__ */ jsx(ArkAvatar.RootProvider, {
+  className: cn(avatarVariants({ size, className })),
+  ...rest
+});
+var AvatarRoot2 = ({
+  className,
+  size,
+  ...rest
+}) => /* @__PURE__ */ jsx(ArkAvatar.Root, {
+  className: cn(avatarVariants({ size, className })),
+  ...rest
+});
+var AvatarFallback2 = ({
+  className,
+  ...rest
+}) => /* @__PURE__ */ jsx(ArkAvatar.Fallback, {
+  className: cn("flex size-full items-center justify-center rounded-full bg-muted", className),
+  ...rest
+});
+var AvatarImage2 = ({
+  className,
+  ...rest
+}) => /* @__PURE__ */ jsx(ArkAvatar.Image, {
+  hidden: false,
+  ref: (img) => {
+    if (!img)
+      return;
+    if (img.getAttribute("src") && img.complete && img.naturalWidth > 0) {
+      img.style.transition = "none";
+      img.style.opacity = "1";
+    } else {
+      img.style.opacity = "";
+      img.style.transition = "";
+    }
+  },
+  className: cn("absolute inset-0 aspect-square size-full object-cover opacity-0 transition-opacity duration-300 ease-out data-[state=visible]:opacity-100", className),
+  alt: "Avatar",
+  ...rest
+});
+var Avatar2 = ({
+  src,
+  alt,
+  fallback,
+  imageProps,
+  fallbackProps,
+  ...rest
+}) => /* @__PURE__ */ jsxs(AvatarRoot2, {
+  ...rest,
+  children: [
+    /* @__PURE__ */ jsx(AvatarFallback2, {
+      ...fallbackProps,
+      children: fallback
+    }),
+    /* @__PURE__ */ jsx(AvatarImage2, {
+      src: src ?? undefined,
+      alt: alt ?? "Avatar",
+      ...imageProps
+    })
+  ]
+});
+export { useAvatar2, AvatarProvider2, AvatarRoot2, AvatarFallback2, AvatarImage2, Avatar2 };

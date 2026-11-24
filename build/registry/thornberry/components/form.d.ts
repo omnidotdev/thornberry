@@ -1,7 +1,7 @@
-import { ark } from "@ark-ui/react";
 import { Button } from "../../../registry/thornberry/components/button";
 import { Input } from "../../../registry/thornberry/components/input";
 import { PasswordInput } from "../../../registry/thornberry/components/password-input";
+import type { ark } from "@ark-ui/react";
 import type { ComponentProps } from "react";
 /**
  * TanStack Form wrapper for thornberry.

@@ -2,7 +2,7 @@ import {
   AvatarRoot2,
   AvatarFallback2,
   AvatarImage2
-} from "../../../chunks/ai-describe-panel-6r0bwytq.js";
+} from "../../../chunks/ai-describe-panel-516n6cnr.js";
 import {
   MenuRoot2,
   MenuTrigger2,
@@ -13,7 +13,7 @@ import {
   MenuItemGroupLabel2,
   MenuItemText2,
   MenuSeparator2
-} from "../../../chunks/ai-describe-panel-c85b3y6e.js";
+} from "../../../chunks/ai-describe-panel-1gzajcsh.js";
 import {
   cn
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";

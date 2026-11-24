@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
 import { Input } from "@/registry/thornberry/components/input";
 import {
+  SheetBackdrop,
   SheetContent,
   SheetDescription,
   SheetRoot,
@@ -29,6 +30,7 @@ import {
   TooltipRoot,
   TooltipTrigger,
 } from "@/registry/thornberry/components/tooltip";
+import { GLOBAL_HOTKEYS } from "./use-hotkeys";
 
 import type { CSSProperties, ComponentProps } from "react";
 
@@ -110,7 +112,7 @@ const SidebarProvider = ({
   }, [isMobile, setOpen]);
 
   // Adds a keyboard shortcut to toggle the sidebar.
-  useHotkeys("b", toggleSidebar, [toggleSidebar]);
+  useHotkeys(GLOBAL_HOTKEYS.toggleSidebar, toggleSidebar, [toggleSidebar]);
 
   const state = open ? "expanded" : "collapsed";
 
@@ -169,11 +171,14 @@ const Sidebar = ({
   collapsible = "offcanvas",
   className,
   children,
+  mobileClassName,
   ...rest
 }: ComponentProps<"div"> & {
   side?: "left" | "right";
   variant?: "sidebar" | "floating" | "inset";
   collapsible?: "offcanvas" | "icon" | "none";
+  /** Classes for the phone drawer (e.g. a different width) */
+  mobileClassName?: string;
 }) => {
   const { isMobile, state, openMobile, setOpenMobile, isDraggingRail } =
     useSidebar();
@@ -183,7 +188,7 @@ const Sidebar = ({
       <div
         data-slot="sidebar"
         className={cn(
-          "flex h-full w-(--sidebar-width) flex-col bg-red-500 text-sidebar-foreground",
+          "flex h-full w-(--sidebar-width) flex-col bg-sidebar text-sidebar-foreground",
           className,
         )}
         {...rest}
@@ -204,11 +209,15 @@ const Sidebar = ({
             <PanelLeftIcon className="size-5" />
           </Button>
         </SheetTrigger>
+        <SheetBackdrop />
         <SheetContent
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className="bg-sidebar text-sidebar-foreground w-1/2 p-0 [&>button]:hidden"
+          className={cn(
+            "w-5/6 max-w-xs bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden",
+            mobileClassName,
+          )}
           side={side}
         >
           <div className="sr-only">
@@ -223,7 +232,9 @@ const Sidebar = ({
 
   return (
     <div
-      className="group peer text-sidebar-foreground block"
+      // hidden below md until hydration picks the phone drawer, so a phone
+      // never flashes the desktop panel on first paint
+      className="group peer text-sidebar-foreground hidden md:block"
       data-state={state}
       data-collapsible={state === "collapsed" ? collapsible : ""}
       data-variant={variant}
@@ -558,7 +569,7 @@ const SidebarMenuButton = ({
       data-active={isActive}
       className={cn(
         // Base layout and spacing
-        "peer/menu-button flex h-8 w-full items-center gap-2 overflow-hidden rounded-md px-2 text-left text-sm transition-[width,height,padding,color,box-shadow] [&[data-state=open]>svg]:rotate-90",
+        "peer/menu-button flex h-8 w-full cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-left text-sm transition-[width,height,padding,color,box-shadow] [&[data-state=open]>svg]:rotate-90",
         // Typography and base text color
         "font-medium text-sidebar-foreground/70",
         // Hover styles

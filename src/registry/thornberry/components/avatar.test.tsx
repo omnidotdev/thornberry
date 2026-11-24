@@ -3,6 +3,7 @@ import { afterEach, describe, expect, test } from "bun:test";
 import { cleanup, render } from "@testing-library/react";
 
 import {
+  Avatar,
   AvatarFallback,
   AvatarImage,
   AvatarRoot,
@@ -76,5 +77,27 @@ describe("AvatarImage", () => {
     expect(img.complete && img.naturalWidth > 0).toBe(false);
     expect(img.style.opacity).toBe("");
     expect(img.style.transition).toBe("");
+  });
+});
+
+describe("Avatar", () => {
+  test("renders the image and the fallback", () => {
+    const { getByText } = render(
+      <Avatar src="https://example.com/a.png" alt="Ada" fallback="AL" />,
+    );
+
+    expect(getByText("AL")).toBeTruthy();
+    expect(getImage().getAttribute("alt")).toBe("Ada");
+  });
+
+  test("keeps the frame className off the image and fallback", () => {
+    const { getByText } = render(
+      <Avatar src={null} fallback="AL" className="border-2" />,
+    );
+
+    const fallback = getByText("AL");
+    expect(fallback.className).not.toContain("border-2");
+    expect(getImage().className).not.toContain("border-2");
+    expect(fallback.parentElement?.className).toContain("border-2");
   });
 });

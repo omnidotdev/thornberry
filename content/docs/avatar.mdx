@@ -28,6 +28,16 @@ import { AvatarRoot, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 </AvatarRoot>
 ```
 
+### Shorthand
+
+`Avatar` renders the image and its fallback in one element. `className` and `size` style the round frame; `imageProps` and `fallbackProps` reach the inner parts.
+
+```tsx
+import { Avatar } from "@omnidotdev/thornberry/avatar";
+
+<Avatar src={user.image} alt={user.name} fallback="AL" size="sm" />
+```
+
 ## Examples
 
 <br />

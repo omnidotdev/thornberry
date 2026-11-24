@@ -49,6 +49,18 @@ import { Button } from "@/components/ui/button";
 </TooltipRoot>
 ```
 
+### Shorthand
+
+`Tooltip` wraps a single focusable trigger (rendered `asChild`) and takes its text as `content`. Content wraps past `max-w-xs`, so longer explanations stay readable.
+
+```tsx
+import { Tooltip } from "@omnidotdev/thornberry/tooltip";
+
+<Tooltip content="Copy the invite link">
+  <Button size="icon" aria-label="Copy link"><Copy /></Button>
+</Tooltip>
+```
+
 ## Examples
 
 <br />

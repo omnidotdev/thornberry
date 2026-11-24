@@ -1,5 +1,10 @@
-import { Combobox as ArkCombobox } from "@ark-ui/react/combobox";
+import {
+  Combobox as ArkCombobox,
+  createListCollection,
+} from "@ark-ui/react/combobox";
+import { Portal } from "@ark-ui/react/portal";
 import { Check, ChevronsUpDown } from "lucide-react";
+import { useMemo } from "react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/thornberry/components/button";
@@ -8,7 +13,7 @@ import type {
   Combobox as ComboboxProps,
   ComboboxRootProps,
 } from "@ark-ui/react/combobox";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 
 const ComboboxProvider = ArkCombobox.RootProvider;
 const ComboboxContext = ArkCombobox.Context;
@@ -165,11 +170,123 @@ const ComboboxItemText = ({
   <ArkCombobox.ItemText className={className} {...rest} />
 );
 
+/** Shown in the list when no item matches the input */
+const ComboboxEmpty = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ArkCombobox.Empty>) => (
+  <ArkCombobox.Empty
+    className={cn(
+      "px-2 py-4 text-center text-muted-foreground text-sm",
+      className,
+    )}
+    {...rest}
+  />
+);
+
+interface ComboboxOption {
+  value: string;
+  label: string;
+  /** Secondary text shown muted beside the label (e.g. metadata) */
+  description?: string;
+  disabled?: boolean;
+}
+
+interface OptionsComboboxProps {
+  /** Items to list; filter them yourself from `inputValue` */
+  items: ComboboxOption[];
+  value?: string[];
+  onValueChange?: (value: string[]) => void;
+  inputValue?: string;
+  onInputValueChange?: (inputValue: string) => void;
+  placeholder?: string;
+  /** Visible label above the input */
+  label?: string;
+  /** Shown when `items` is empty */
+  emptyLabel?: ReactNode;
+  disabled?: boolean;
+  className?: string;
+}
+
+/**
+ * Searchable single or multiple choice from a list of items: input, toggle,
+ * portaled list with optional per-item descriptions, and an empty state. The
+ * list opens on click as well as on typing. Pass already-filtered `items`
+ * (from `inputValue`); compose `ComboboxRoot` and its parts for anything else.
+ */
+const OptionsCombobox = ({
+  items,
+  value,
+  onValueChange,
+  inputValue,
+  onInputValueChange,
+  placeholder = "Select...",
+  label,
+  emptyLabel = "No results",
+  disabled,
+  className,
+}: OptionsComboboxProps) => {
+  const collection = useMemo(
+    () =>
+      createListCollection({
+        items,
+        isItemDisabled: (item) => Boolean(item.disabled),
+      }),
+    [items],
+  );
+
+  return (
+    <ComboboxRoot
+      collection={collection}
+      value={value}
+      onValueChange={(details) => onValueChange?.(details.value)}
+      inputValue={inputValue}
+      onInputValueChange={(details) => onInputValueChange?.(details.inputValue)}
+      disabled={disabled}
+      loopFocus
+      openOnClick
+      positioning={{ sameWidth: true }}
+      lazyMount
+      unmountOnExit
+      className={className}
+    >
+      {label && <ComboboxLabel>{label}</ComboboxLabel>}
+      <ComboboxControl>
+        <ComboboxInput placeholder={placeholder} />
+        <ComboboxTrigger />
+      </ComboboxControl>
+      <Portal>
+        <ComboboxPositioner>
+          {/* the list matches the input's width, so long labels truncate
+              instead of running off a phone screen */}
+          <ComboboxContent className="w-full">
+            {items.map((item) => (
+              <ComboboxItem key={item.value} item={item}>
+                <ComboboxItemText className="flex min-w-0 flex-1 items-center">
+                  <span className="min-w-0 truncate">{item.label}</span>
+                  {item.description && (
+                    <span className="text-muted-foreground ml-2 shrink-0 text-xs">
+                      {item.description}
+                    </span>
+                  )}
+                </ComboboxItemText>
+                <ComboboxItemIndicator />
+              </ComboboxItem>
+            ))}
+            <ComboboxEmpty>{emptyLabel}</ComboboxEmpty>
+          </ComboboxContent>
+        </ComboboxPositioner>
+      </Portal>
+    </ComboboxRoot>
+  );
+};
+
 export {
   ComboboxClearTrigger,
   ComboboxContent,
   ComboboxContext,
   ComboboxControl,
+  ComboboxEmpty,
   ComboboxInput,
   ComboboxItem,
   ComboboxItemGroup,
@@ -177,9 +294,12 @@ export {
   ComboboxItemIndicator,
   ComboboxItemText,
   ComboboxLabel,
+  type ComboboxOption,
   ComboboxPositioner,
   type ComboboxProps,
   ComboboxProvider,
   ComboboxRoot,
   ComboboxTrigger,
+  OptionsCombobox,
+  type OptionsComboboxProps,
 };

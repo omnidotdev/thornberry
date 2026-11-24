@@ -88,6 +88,25 @@ const Example = () => {
 };
 ```
 
+### Options shorthand
+
+`OptionsCombobox` renders the input, toggle, portaled list (with optional per-item `description`), and an empty state (`emptyLabel`) from `items`. The list opens on click as well as on typing. It does not filter: derive `items` from `inputValue`.
+
+```tsx
+import { OptionsCombobox } from "@omnidotdev/thornberry/combobox";
+
+<OptionsCombobox
+  placeholder="Pick a repository"
+  items={repos
+    .filter((repo) => repo.name.includes(query))
+    .map((repo) => ({ value: repo.id, label: repo.name, description: repo.updated }))}
+  inputValue={query}
+  onInputValueChange={setQuery}
+  value={selected}
+  onValueChange={setSelected}
+/>
+```
+
 ## Examples
 
 <p className="py-4">Coming Soon</p>

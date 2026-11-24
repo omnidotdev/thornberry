@@ -5,10 +5,10 @@ import {
   AvatarRoot2,
   AvatarFallback2,
   AvatarImage2
-} from "../../../chunks/ai-describe-panel-6r0bwytq.js";
+} from "../../../chunks/ai-describe-panel-516n6cnr.js";
 import {
   Button2
-} from "../../../chunks/ai-describe-panel-k2cwy48h.js";
+} from "../../../chunks/ai-describe-panel-h4yrvya3.js";
 import {
   DialogRoot2,
   DialogPortal2,
@@ -17,7 +17,7 @@ import {
   DialogContent2,
   DialogTitle2,
   DialogDescription2
-} from "../../../chunks/ai-describe-panel-8q0yqrx6.js";
+} from "../../../chunks/ai-describe-panel-6bn090ct.js";
 import {
   Input2
 } from "../../../chunks/ai-describe-panel-hj664zsh.js";
@@ -26,14 +26,14 @@ import {
 } from "../../../chunks/ai-describe-panel-fa46q8yp.js";
 import {
   ConfirmDialog2
-} from "../../../chunks/ai-describe-panel-19k53w4t.js";
-import"../../../chunks/ai-describe-panel-b3rhyrd1.js";
+} from "../../../chunks/ai-describe-panel-jbj1fzyj.js";
+import"../../../chunks/ai-describe-panel-yckmtxnx.js";
 import {
   AvatarUpload2
-} from "../../../chunks/ai-describe-panel-zmgkdp7d.js";
+} from "../../../chunks/ai-describe-panel-xxc3s1nx.js";
 import {
   BannerUpload2
-} from "../../../chunks/ai-describe-panel-c5evy0xw.js";
+} from "../../../chunks/ai-describe-panel-71xvj6dd.js";
 import {
   Select2,
   SelectControl2,
@@ -47,16 +47,16 @@ import {
   SelectItemText2,
   SelectItemIndicator2,
   createListCollection2
-} from "../../../chunks/ai-describe-panel-8wtqb3wn.js";
+} from "../../../chunks/ai-describe-panel-6t9yeg4q.js";
 import {
   AccountOrganizationTeams2
-} from "../../../chunks/ai-describe-panel-fzmemy7h.js";
+} from "../../../chunks/ai-describe-panel-ptwqwjjh.js";
 import {
   Badge2
 } from "../../../chunks/ai-describe-panel-mn2q46hh.js";
 import {
   Skeleton2
-} from "../../../chunks/ai-describe-panel-4ayhnmp9.js";
+} from "../../../chunks/ai-describe-panel-htat80e9.js";
 
 // src/registry/thornberry/components/account-organizations.tsx
 import {

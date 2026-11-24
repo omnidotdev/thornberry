@@ -1,5 +1,8 @@
+import { createListCollection } from "@ark-ui/react/collection";
+import { Portal } from "@ark-ui/react/portal";
 import { Select as ArkSelect } from "@ark-ui/react/select";
-import { Check } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
+import { useMemo } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -100,7 +103,7 @@ const SelectContent = ({
 }: ComponentProps<typeof ArkSelect.Content>) => (
   <ArkSelect.Content
     className={cn(
-      "no-scrollbar data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--available-height) w-fit min-w-32 origin-(--transform-origin) overflow-auto overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-2 text-popover-foreground shadow-md outline-none duration-300 data-[state=closed]:animate-out data-[state=open]:animate-in",
+      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--available-height) w-fit min-w-32 origin-(--transform-origin) overflow-auto overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-2 text-popover-foreground shadow-md outline-none duration-300 data-[state=closed]:animate-out data-[state=open]:animate-in",
       className,
     )}
     {...rest}
@@ -182,9 +185,172 @@ const SelectSeparator = ({
 );
 
 // Re-export createListCollection for convenience
+interface SelectOption {
+  value: string;
+  label: string;
+  /** Secondary text shown in the list only, never in the trigger */
+  hint?: string;
+  disabled?: boolean;
+}
+
+interface OptionsSelectProps {
+  value: string;
+  options: SelectOption[];
+  onValueChange: (value: string) => void;
+  /** Shown in the trigger while nothing is selected */
+  placeholder?: string;
+  /** Visible label above the trigger */
+  label?: string;
+  /** Accessible name when there is no visible label */
+  "aria-label"?: string;
+  /** Id for the trigger, so an external `<Label htmlFor>` points at it */
+  id?: string;
+  name?: string;
+  disabled?: boolean;
+  /** Mark the hidden native select required for form validation */
+  required?: boolean;
+  /**
+   * Match the list's width to the trigger (default; never narrower than 8rem,
+   * and always kept on screen). Set false for a compact trigger whose options
+   * are wider than it, e.g. a toolbar chip
+   */
+  sameWidth?: boolean;
+  /** Tooltip text on the trigger */
+  title?: string;
+  /** `sm` is a compact trigger for toolbars and dense rows */
+  size?: "sm" | "md";
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  /** Classes for the root (width, layout) */
+  className?: string;
+  triggerClassName?: string;
+  contentClassName?: string;
+  /** Classes for the positioner, e.g. a `z-*` above a product overlay */
+  positionerClassName?: string;
+}
+
+/**
+ * Single-choice select from a flat list of string options (an empty `value`
+ * means nothing is selected and shows the placeholder): label, trigger,
+ * portaled list, and hidden native select for forms. Fills its container
+ * like an input. Compose `Select` and its parts for groups, rich items, or
+ * multiple selection.
+ */
+const OptionsSelect = ({
+  value,
+  options,
+  onValueChange,
+  placeholder,
+  label,
+  "aria-label": ariaLabel,
+  id,
+  name,
+  disabled,
+  required,
+  sameWidth = true,
+  title,
+  size = "md",
+  open,
+  onOpenChange,
+  className,
+  triggerClassName,
+  contentClassName,
+  positionerClassName,
+}: OptionsSelectProps) => {
+  const collection = useMemo(
+    () =>
+      createListCollection({
+        items: options,
+        isItemDisabled: (option) => Boolean(option.disabled),
+      }),
+    [options],
+  );
+
+  return (
+    <ArkSelect.Root
+      collection={collection}
+      value={value ? [value] : []}
+      onValueChange={(details) => {
+        const next = details.value[0];
+
+        if (next !== undefined) onValueChange(next);
+      }}
+      open={open}
+      onOpenChange={
+        onOpenChange ? (details) => onOpenChange(details.open) : undefined
+      }
+      name={name}
+      disabled={disabled}
+      required={required}
+      ids={id ? { trigger: id } : undefined}
+      // the list is measured at its real width (never forced to a narrow
+      // trigger's), so positioning keeps it on screen
+      positioning={{ sameWidth: false }}
+      // mount the list on open so its portal lands after any dialog it sits
+      // in, keeping it above that dialog at the same z-index
+      lazyMount
+      unmountOnExit
+      loopFocus
+      className={cn("flex w-full min-w-0 flex-col gap-1.5", className)}
+    >
+      {label && <SelectLabel>{label}</SelectLabel>}
+      <SelectControl className="min-w-0">
+        <SelectTrigger
+          aria-label={label ? undefined : ariaLabel}
+          title={title}
+          data-size={size === "sm" ? "sm" : "default"}
+          className={cn(
+            "w-full border border-input bg-transparent shadow-sm focus-visible:ring-2 focus-visible:ring-primary data-placeholder-shown:text-muted-foreground",
+            triggerClassName,
+          )}
+        >
+          <SelectValueText
+            placeholder={placeholder}
+            className="data-placeholder-shown:text-muted-foreground min-w-0 truncate"
+          />
+          <SelectIndicator className="text-muted-foreground">
+            <ChevronDown aria-hidden="true" />
+          </SelectIndicator>
+        </SelectTrigger>
+      </SelectControl>
+      <Portal>
+        <SelectPositioner className={positionerClassName}>
+          <SelectContent
+            className={cn(
+              "max-w-(--available-width)",
+              sameWidth ? "w-(--reference-width) min-w-32" : "w-max",
+              "p-1",
+              contentClassName,
+            )}
+          >
+            {options.map((option) => (
+              <SelectItem key={option.value} item={option}>
+                <SelectItemText className="min-w-0 truncate">
+                  {option.label}
+                </SelectItemText>
+                {option.hint && (
+                  <span className="text-muted-foreground ml-auto shrink-0 text-xs">
+                    {option.hint}
+                  </span>
+                )}
+                <SelectItemIndicator
+                  className={option.hint ? "ml-0" : undefined}
+                />
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </SelectPositioner>
+      </Portal>
+      <SelectHiddenSelect />
+    </ArkSelect.Root>
+  );
+};
+
 export { createListCollection } from "@ark-ui/react";
 
 export {
+  OptionsSelect,
+  type OptionsSelectProps,
   Select,
   SelectClearTrigger,
   SelectContent,
@@ -198,6 +364,7 @@ export {
   SelectItemIndicator,
   SelectItemText,
   SelectLabel,
+  type SelectOption,
   SelectPositioner,
   SelectRoot,
   SelectRootProvider,

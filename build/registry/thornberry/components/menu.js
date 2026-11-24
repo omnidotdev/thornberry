@@ -18,9 +18,11 @@ import {
   MenuRadioItemGroup2,
   MenuSeparator2,
   MenuTriggerItem2,
-  MenuItemShortcut2
-} from "../../../chunks/ai-describe-panel-c85b3y6e.js";
+  MenuItemShortcut2,
+  ContextMenu2
+} from "../../../chunks/ai-describe-panel-1gzajcsh.js";
 export {
+  ContextMenu2 as ContextMenu,
   MenuArrow2 as MenuArrow,
   MenuArrowTip2 as MenuArrowTip,
   MenuCheckboxItem2 as MenuCheckboxItem,
