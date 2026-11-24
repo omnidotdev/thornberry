@@ -22,16 +22,19 @@ var imageVariants = cva("", {
     }
   }
 });
+var LQIP_PATTERN = /^data:image\/(?:webp|png|jpeg|gif|avif);base64,[A-Za-z0-9+/]+=*$/;
+var LQIP_MAX_LENGTH = 4096;
+var isValidLqip = (lqip) => typeof lqip === "string" && lqip.length <= LQIP_MAX_LENGTH && LQIP_PATTERN.test(lqip);
 var blurredBackground = (lqip) => {
   const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'><filter id='b' color-interpolation-filters='sRGB'><feGaussianBlur stdDeviation='20'/><feComponentTransfer><feFuncA type='discrete' tableValues='1 1'/></feComponentTransfer></filter><image width='100%' height='100%' preserveAspectRatio='xMidYMid slice' href='${lqip}' filter='url(#b)'/></svg>`;
   return `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
 };
-var blurUpStyle = (lqip, objectPosition = "center") => ({
+var blurUpStyle = (lqip, objectPosition = "center") => isValidLqip(lqip) ? {
   backgroundImage: blurredBackground(lqip),
   backgroundSize: "cover",
   backgroundPosition: objectPosition,
   backgroundRepeat: "no-repeat"
-});
+} : {};
 var Image = ({ className, rounded, lqip, ...rest }) => {
   const { style, onLoad } = rest;
   const [isLoaded, setIsLoaded] = useState(false);
@@ -39,10 +42,10 @@ var Image = ({ className, rounded, lqip, ...rest }) => {
     if (img?.complete && img.naturalWidth > 0)
       setIsLoaded(true);
   }, []);
-  const placeholder = lqip && !isLoaded ? blurUpStyle(lqip, typeof style?.objectPosition === "string" ? style.objectPosition : undefined) : undefined;
+  const placeholder = isValidLqip(lqip) && !isLoaded ? blurUpStyle(lqip, typeof style?.objectPosition === "string" ? style.objectPosition : undefined) : undefined;
   const imageProps = {
     ...rest,
-    ref: lqip ? markIfLoaded : undefined,
+    ref: isValidLqip(lqip) ? markIfLoaded : undefined,
     className: cn(imageVariants({ rounded }), className),
     style: placeholder ? { ...placeholder, ...style } : style,
     onLoad: (event) => {
