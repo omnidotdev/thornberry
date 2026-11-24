@@ -234,3 +234,30 @@ import { Image } from "@/components/ui/image";
     ```
   </Tab>
 </Tabs>
+
+#### Blur-up
+
+Pass `lqip`, a tiny version of the image (about 16px wide, as a data URI), and a smoothly blurred preview fills the image's box until the real image loads. It sits on the image element itself, so it changes no layout, and it is removed once the image loads, so transparent images don't keep it behind them. An image that is already cached shows straight away with no flash.
+
+Make the `lqip` once, when the image is uploaded, and store it with the image. On the server, `generateLqip` from `@omnidotdev/providers/media` returns one from the uploaded bytes.
+
+```tsx
+<Image
+  src={photo.url}
+  lqip={photo.lqip}
+  width={800}
+  height={600}
+  alt={photo.alt}
+/>
+```
+
+For an image drawn some other way (a CSS background, a canvas poster), `blurUpStyle(lqip)` returns the same placeholder as inline styles.
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `lqip` | `string \| null` | | Tiny placeholder shown blurred until the image loads; none when unset |
+| `rounded` | `"none" \| "sm" \| "md" \| "lg" \| "xl" \| "2xl" \| "full"` | | Corner radius |
+
+Every other prop is passed to [`@unpic/react`'s `Image`](https://unpic.pics/img/react/) (`src`, `width`, `height`, `layout`, `priority`, `background`, and the standard `img` attributes).
