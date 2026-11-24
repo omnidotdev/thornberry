@@ -19,7 +19,12 @@ import {
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/account-menu.tsx
-import { ChevronsUpDown, ExternalLink, LogOut } from "lucide-react";
+import {
+  ArrowLeftRight,
+  ChevronsUpDown,
+  ExternalLink,
+  LogOut
+} from "lucide-react";
 import { jsx, jsxs } from "react/jsx-runtime";
 var getInitials = (name, email) => {
   const words = (name ?? "").trim().split(/\s+/).filter(Boolean);
@@ -42,6 +47,8 @@ var AccountMenuItem = ({
 var AccountMenu = ({
   user,
   onSignOut,
+  onSwitchAccount,
+  switchAccountLabel = "Switch account",
   children,
   manageAccountUrl,
   manageAccountLabel = "Manage account",
@@ -140,6 +147,18 @@ var AccountMenu = ({
               ]
             }),
             /* @__PURE__ */ jsx(MenuSeparator2, {}),
+            onSwitchAccount && /* @__PURE__ */ jsxs(AccountMenuItem, {
+              value: "switch-account",
+              onSelect: onSwitchAccount,
+              children: [
+                /* @__PURE__ */ jsx(ArrowLeftRight, {
+                  "aria-hidden": true
+                }),
+                /* @__PURE__ */ jsx(MenuItemText2, {
+                  children: switchAccountLabel
+                })
+              ]
+            }),
             /* @__PURE__ */ jsxs(AccountMenuItem, {
               value: "sign-out",
               variant: "destructive",
