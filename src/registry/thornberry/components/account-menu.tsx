@@ -33,6 +33,12 @@ interface AccountMenuUser {
   image?: string | null;
 }
 
+/** Another account signed in on this browser, listed for one-click switching */
+interface AccountMenuAccount extends AccountMenuUser {
+  /** Stable key for the account (e.g. its remembered-account handle) */
+  id: string;
+}
+
 /**
  * Up to two initials for an avatar fallback: the first letters of the first
  * and last words of the name, else the first letter of the email, else "?"
@@ -83,6 +89,25 @@ interface AccountMenuProps {
    */
   onSwitchAccount?: () => void;
   switchAccountLabel?: string;
+  /**
+   * Other accounts signed in on this browser (e.g. from `useRememberedAccounts`
+   * in `@omnidotdev/providers/react`), listed above Switch account when
+   * `onSelectAccount` is set; the signed-in user's own account is left out by
+   * email. Any other account here also splits Sign out (see `onSignOutAll`)
+   */
+  accounts?: AccountMenuAccount[];
+  /**
+   * Switches straight to one of `accounts` (the app re-runs sign-in with
+   * `prompt=select_account` and the account's handle as `login_hint`)
+   */
+  onSelectAccount?: (account: AccountMenuAccount) => void;
+  /**
+   * Signs out of every account on this browser. When set and other accounts
+   * are listed, Sign out ends only this account and a "Sign out of all
+   * accounts" entry follows it
+   */
+  onSignOutAll?: () => void;
+  signOutAllLabel?: string;
   /** App destinations (`AccountMenuItem`s), listed under the user's name */
   children?: ReactNode;
   /** Link to the shared Omni account hub, opened in a new tab when set */
@@ -110,11 +135,31 @@ interface AccountMenuProps {
   positioning?: ComponentProps<typeof MenuRoot>["positioning"];
 }
 
+/** An account's avatar: its image, or initials while none loads */
+const AccountAvatar = ({
+  account,
+  size,
+}: {
+  account: AccountMenuUser;
+  size: ComponentProps<typeof AvatarRoot>["size"];
+}) => (
+  <AvatarRoot size={size}>
+    <AvatarImage src={account.image ?? undefined} alt="" />
+    <AvatarFallback className="font-medium">
+      {getInitials(account.name?.trim() || null, account.email?.trim() || null)}
+    </AvatarFallback>
+  </AvatarRoot>
+);
+
+const sameEmail = (a?: string | null, b?: string | null) =>
+  Boolean(a && b && a.trim().toLowerCase() === b.trim().toLowerCase());
+
 /**
  * The standard Omni account menu: the signed-in user's avatar (initials while
  * no image loads), opening a menu headed by their name and email, with the
- * app's destinations, an optional link to the Omni account hub, an optional
- * Switch account, and Sign out.
+ * app's destinations, an optional link to the Omni account hub, the other
+ * accounts signed in on this browser, an optional Switch account, and Sign out
+ * (split into this account and all accounts when others are signed in).
  *
  * Presentational and router-agnostic: the host app passes the user, its own
  * destinations as children, and the sign-out handler. Every entry is a menu
@@ -132,6 +177,10 @@ const AccountMenu = ({
   onSignOut,
   onSwitchAccount,
   switchAccountLabel = "Switch account",
+  accounts,
+  onSelectAccount,
+  onSignOutAll,
+  signOutAllLabel = "Sign out of all accounts",
   children,
   manageAccountUrl,
   manageAccountLabel = "Manage account",
@@ -147,13 +196,17 @@ const AccountMenu = ({
   const email = user.email?.trim() || null;
   const isSidebar = variant === "sidebar";
 
+  // Every account but the signed-in one; listed only when the app can switch
+  const rememberedOthers = (accounts ?? []).filter(
+    (account) => !sameEmail(account.email, email),
+  );
+  const otherAccounts = onSelectAccount ? rememberedOthers : [];
+
   const avatar = (
-    <AvatarRoot size={avatarSize ?? (isSidebar ? "xs" : "sm")}>
-      <AvatarImage src={user.image ?? undefined} alt="" />
-      <AvatarFallback className="font-medium">
-        {getInitials(name, email)}
-      </AvatarFallback>
-    </AvatarRoot>
+    <AccountAvatar
+      account={user}
+      size={avatarSize ?? (isSidebar ? "xs" : "sm")}
+    />
   );
 
   return (
@@ -228,6 +281,39 @@ const AccountMenu = ({
 
           <MenuSeparator />
 
+          {otherAccounts.length > 0 && (
+            <MenuItemGroup>
+              <MenuItemGroupLabel className="sr-only">
+                Other accounts
+              </MenuItemGroupLabel>
+              {otherAccounts.map((account) => {
+                const accountName = account.name?.trim() || null;
+                const accountEmail = account.email?.trim() || null;
+
+                return (
+                  <AccountMenuItem
+                    key={account.id}
+                    value={`account:${account.id}`}
+                    onSelect={() => onSelectAccount?.(account)}
+                    className="gap-2"
+                  >
+                    <AccountAvatar account={account} size="xs" />
+                    <span className="flex min-w-0 flex-1 flex-col">
+                      <span className="truncate">
+                        {accountName ?? accountEmail}
+                      </span>
+                      {accountName && accountEmail && (
+                        <span className="text-muted-foreground truncate text-xs">
+                          {accountEmail}
+                        </span>
+                      )}
+                    </span>
+                  </AccountMenuItem>
+                );
+              })}
+            </MenuItemGroup>
+          )}
+
           {onSwitchAccount && (
             <AccountMenuItem value="switch-account" onSelect={onSwitchAccount}>
               <ArrowLeftRight aria-hidden />
@@ -243,11 +329,22 @@ const AccountMenu = ({
             <LogOut aria-hidden />
             <MenuItemText>{signOutLabel}</MenuItemText>
           </AccountMenuItem>
+
+          {onSignOutAll && rememberedOthers.length > 0 && (
+            <AccountMenuItem
+              value="sign-out-all"
+              variant="destructive"
+              onSelect={onSignOutAll}
+            >
+              <LogOut aria-hidden />
+              <MenuItemText>{signOutAllLabel}</MenuItemText>
+            </AccountMenuItem>
+          )}
         </MenuContent>
       </MenuPositioner>
     </MenuRoot>
   );
 };
 
-export type { AccountMenuProps, AccountMenuUser };
+export type { AccountMenuAccount, AccountMenuProps, AccountMenuUser };
 export { AccountMenu, AccountMenuItem, getInitials };

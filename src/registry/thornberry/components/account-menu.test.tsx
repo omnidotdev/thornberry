@@ -271,4 +271,143 @@ describe("AccountMenu", () => {
       "group-data-[collapsible=icon]:hidden",
     );
   });
+
+  describe("other accounts on the browser", () => {
+    const grace = {
+      id: "h-grace",
+      name: "Grace Hopper",
+      email: "grace@example.com",
+    };
+    const alan = {
+      id: "h-alan",
+      name: "Alan Turing",
+      email: "alan@example.com",
+    };
+    // The signed-in user's own entry, as a remembered-accounts list includes it
+    const self = {
+      id: "h-ada",
+      name: "Ada Lovelace",
+      email: "ADA@example.com",
+    };
+
+    const menuItems = () =>
+      Array.from(document.querySelectorAll<HTMLElement>("[role='menuitem']"));
+
+    const choose = async (item: HTMLElement) => {
+      await act(async () => {
+        fireEvent.pointerMove(item, { pointerType: "mouse" });
+      });
+      await act(async () => {
+        fireEvent.click(item);
+      });
+    };
+
+    test("lists the other accounts, leaving out the signed-in one", async () => {
+      render(
+        <AccountMenu
+          user={user}
+          onSignOut={() => {}}
+          onSwitchAccount={() => {}}
+          accounts={[self, grace, alan]}
+          onSelectAccount={() => {}}
+          onSignOutAll={() => {}}
+        />,
+      );
+
+      await open();
+
+      expect(menuItems().map((item) => item.textContent?.trim())).toEqual([
+        "GHGrace Hoppergrace@example.com",
+        "ATAlan Turingalan@example.com",
+        "Switch account",
+        "Sign out",
+        "Sign out of all accounts",
+      ]);
+    });
+
+    test("switches to an account in one click", async () => {
+      const onSelectAccount = mock(() => {});
+
+      render(
+        <AccountMenu
+          user={user}
+          onSignOut={() => {}}
+          accounts={[grace]}
+          onSelectAccount={onSelectAccount}
+        />,
+      );
+
+      await open();
+
+      const entry = menuItems().find((item) =>
+        item.textContent?.includes("Grace Hopper"),
+      );
+      if (!entry) throw new Error("expected Grace's entry");
+      await choose(entry);
+
+      expect(onSelectAccount).toHaveBeenCalledWith(grace);
+    });
+
+    test("splits sign-out into this account and all accounts", async () => {
+      const onSignOut = mock(() => {});
+      const onSignOutAll = mock(() => {});
+
+      render(
+        <AccountMenu
+          user={user}
+          onSignOut={onSignOut}
+          accounts={[grace]}
+          onSelectAccount={() => {}}
+          onSignOutAll={onSignOutAll}
+        />,
+      );
+
+      await open();
+
+      const signOutAll = menuItems().find(
+        (item) => item.textContent?.trim() === "Sign out of all accounts",
+      );
+      if (!signOutAll) throw new Error("expected Sign out of all accounts");
+      await choose(signOutAll);
+
+      expect(onSignOutAll).toHaveBeenCalledTimes(1);
+      expect(onSignOut).not.toHaveBeenCalled();
+    });
+
+    test("offers a single Sign out when no other account is signed in", async () => {
+      render(
+        <AccountMenu
+          user={user}
+          onSignOut={() => {}}
+          accounts={[self]}
+          onSelectAccount={() => {}}
+          onSignOutAll={() => {}}
+        />,
+      );
+
+      await open();
+
+      expect(menuItems().map((item) => item.textContent?.trim())).toEqual([
+        "Sign out",
+      ]);
+    });
+
+    test("lists no accounts when the app cannot switch to them", async () => {
+      render(
+        <AccountMenu
+          user={user}
+          onSignOut={() => {}}
+          accounts={[grace]}
+          onSignOutAll={() => {}}
+        />,
+      );
+
+      await open();
+
+      expect(menuItems().map((item) => item.textContent?.trim())).toEqual([
+        "Sign out",
+        "Sign out of all accounts",
+      ]);
+    });
+  });
 });
