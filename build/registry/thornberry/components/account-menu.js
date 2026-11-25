@@ -44,11 +44,32 @@ var AccountMenuItem = ({
   className: cn("justify-start pointer-coarse:min-h-11", className),
   ...rest
 });
+var AccountAvatar = ({
+  account,
+  size
+}) => /* @__PURE__ */ jsxs(AvatarRoot2, {
+  size,
+  children: [
+    /* @__PURE__ */ jsx(AvatarImage2, {
+      src: account.image ?? undefined,
+      alt: ""
+    }),
+    /* @__PURE__ */ jsx(AvatarFallback2, {
+      className: "font-medium",
+      children: getInitials(account.name?.trim() || null, account.email?.trim() || null)
+    })
+  ]
+});
+var sameEmail = (a, b) => Boolean(a && b && a.trim().toLowerCase() === b.trim().toLowerCase());
 var AccountMenu = ({
   user,
   onSignOut,
   onSwitchAccount,
   switchAccountLabel = "Switch account",
+  accounts,
+  onSelectAccount,
+  onSignOutAll,
+  signOutAllLabel = "Sign out of all accounts",
   children,
   manageAccountUrl,
   manageAccountLabel = "Manage account",
@@ -63,18 +84,11 @@ var AccountMenu = ({
   const name = user.name?.trim() || null;
   const email = user.email?.trim() || null;
   const isSidebar = variant === "sidebar";
-  const avatar = /* @__PURE__ */ jsxs(AvatarRoot2, {
-    size: avatarSize ?? (isSidebar ? "xs" : "sm"),
-    children: [
-      /* @__PURE__ */ jsx(AvatarImage2, {
-        src: user.image ?? undefined,
-        alt: ""
-      }),
-      /* @__PURE__ */ jsx(AvatarFallback2, {
-        className: "font-medium",
-        children: getInitials(name, email)
-      })
-    ]
+  const rememberedOthers = (accounts ?? []).filter((account) => !sameEmail(account.email, email));
+  const otherAccounts = onSelectAccount ? rememberedOthers : [];
+  const avatar = /* @__PURE__ */ jsx(AccountAvatar, {
+    account: user,
+    size: avatarSize ?? (isSidebar ? "xs" : "sm")
   });
   return /* @__PURE__ */ jsxs(MenuRoot2, {
     positioning: positioning ?? { placement: isSidebar ? "right-end" : "bottom-end" },
@@ -147,6 +161,42 @@ var AccountMenu = ({
               ]
             }),
             /* @__PURE__ */ jsx(MenuSeparator2, {}),
+            otherAccounts.length > 0 && /* @__PURE__ */ jsxs(MenuItemGroup2, {
+              children: [
+                /* @__PURE__ */ jsx(MenuItemGroupLabel2, {
+                  className: "sr-only",
+                  children: "Other accounts"
+                }),
+                otherAccounts.map((account) => {
+                  const accountName = account.name?.trim() || null;
+                  const accountEmail = account.email?.trim() || null;
+                  return /* @__PURE__ */ jsxs(AccountMenuItem, {
+                    value: `account:${account.id}`,
+                    onSelect: () => onSelectAccount?.(account),
+                    className: "gap-2",
+                    children: [
+                      /* @__PURE__ */ jsx(AccountAvatar, {
+                        account,
+                        size: "xs"
+                      }),
+                      /* @__PURE__ */ jsxs("span", {
+                        className: "flex min-w-0 flex-1 flex-col",
+                        children: [
+                          /* @__PURE__ */ jsx("span", {
+                            className: "truncate",
+                            children: accountName ?? accountEmail
+                          }),
+                          accountName && accountEmail && /* @__PURE__ */ jsx("span", {
+                            className: "text-muted-foreground truncate text-xs",
+                            children: accountEmail
+                          })
+                        ]
+                      })
+                    ]
+                  }, account.id);
+                })
+              ]
+            }),
             onSwitchAccount && /* @__PURE__ */ jsxs(AccountMenuItem, {
               value: "switch-account",
               onSelect: onSwitchAccount,
@@ -169,6 +219,19 @@ var AccountMenu = ({
                 }),
                 /* @__PURE__ */ jsx(MenuItemText2, {
                   children: signOutLabel
+                })
+              ]
+            }),
+            onSignOutAll && rememberedOthers.length > 0 && /* @__PURE__ */ jsxs(AccountMenuItem, {
+              value: "sign-out-all",
+              variant: "destructive",
+              onSelect: onSignOutAll,
+              children: [
+                /* @__PURE__ */ jsx(LogOut, {
+                  "aria-hidden": true
+                }),
+                /* @__PURE__ */ jsx(MenuItemText2, {
+                  children: signOutAllLabel
                 })
               ]
             })
