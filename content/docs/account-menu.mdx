@@ -45,9 +45,13 @@ import {
 </AccountMenu>
 ```
 
-The trigger is the user's avatar, showing their initials until an image loads. The menu opens below it, aligned to its end, and is headed by the user's name and email. The app's own destinations come next, then **Manage account** (when `manageAccountUrl` is set, opened in a new tab), then **Switch account** (when `onSwitchAccount` is set), then **Sign out**.
+The trigger is the user's avatar, showing their initials until an image loads. The menu opens below it, aligned to its end, and is headed by the user's name and email. The app's own destinations come next, then **Manage account** (when `manageAccountUrl` is set, opened in a new tab), then the other accounts signed in on the browser (when `accounts` and `onSelectAccount` are set), then **Switch account** (when `onSwitchAccount` is set), then **Sign out** and, when other accounts are signed in and `onSignOutAll` is set, **Sign out of all accounts**.
 
 **Switch account** lets someone signed in to more than one Omni account change which one the app uses. The handler re-runs the app's Omni sign-in with `prompt=select_account`, which opens the account picker. With Better Auth: `authClient.signIn.social({ provider: "omni", callbackURL, additionalParams: { prompt: "select_account" } })`. The app stays signed in if they cancel.
+
+**Other accounts** are listed one per row, so switching takes one click. Pass the browser's remembered accounts from `useRememberedAccounts` in `@omnidotdev/providers/react` (map each `handle` to `id`); the signed-in user's own account is left out by email. On select, re-run the Omni sign-in with the account's handle as `login_hint`: `authClient.signIn.social({ provider: "omni", callbackURL, additionalParams: switchAccountParams(account.id) })`. The account picker then continues as that account without asking.
+
+**Sign out** with other accounts signed in ends only this account: the others stay signed in and the next one becomes active. **Sign out of all accounts** ends every one. Build each handler's identity provider sign-out URL with `buildIdpLogoutUrl({ ..., accounts: "current" })` or `accounts: "all"`.
 
 Every entry is a menu item: the arrow keys move between them, Home and End jump to the ends, typing a letter jumps to a matching entry, and Escape closes the menu and returns focus to the avatar. On touch screens the avatar and every entry get a 44px target.
 
@@ -96,6 +100,41 @@ When `user.image` is unset or fails to load, the avatar shows up to two initials
 </SidebarFooter>
 ```
 
+#### Other accounts
+
+<div className="my-4 flex justify-center">
+  <AccountMenu
+    user={{ name: "Ada Lovelace", email: "ada@omni.dev" }}
+    accounts={[
+      { id: "grace", name: "Grace Hopper", email: "grace@omni.dev" },
+      { id: "alan", name: "Alan Turing", email: "alan@omni.dev" },
+    ]}
+    onSelectAccount={() => {}}
+    onSwitchAccount={() => {}}
+    onSignOut={() => {}}
+    onSignOutAll={() => {}}
+  />
+</div>
+
+```tsx
+const remembered = useRememberedAccounts({ authBaseUrl });
+
+<AccountMenu
+  user={user}
+  accounts={remembered.map((account) => ({ ...account, id: account.handle }))}
+  onSelectAccount={(account) =>
+    authClient.signIn.social({
+      provider: "omni",
+      callbackURL,
+      additionalParams: switchAccountParams(account.id),
+    })
+  }
+  onSwitchAccount={switchAccount}
+  onSignOut={signOutOfThisAccount}
+  onSignOutAll={signOutOfAllAccounts}
+/>
+```
+
 #### Custom labels
 
 ```tsx
@@ -117,6 +156,10 @@ When `user.image` is unset or fails to load, the avatar shows up to two initials
 | `onSignOut` | `() => void` | | Called when Sign out is chosen |
 | `onSwitchAccount` | `() => void` | | Called when Switch account is chosen; hidden when unset |
 | `switchAccountLabel` | `string` | `"Switch account"` | |
+| `accounts` | `{ id, name?, email?, image? }[]` | | Other accounts signed in on the browser; the user's own is left out by email |
+| `onSelectAccount` | `(account) => void` | | Called with the chosen account; the accounts are listed only when set |
+| `onSignOutAll` | `() => void` | | Called when Sign out of all accounts is chosen; shown only when other accounts are signed in |
+| `signOutAllLabel` | `string` | `"Sign out of all accounts"` | |
 | `children` | `ReactNode` | | The app's destinations, as `AccountMenuItem`s |
 | `manageAccountUrl` | `string` | | Link to the Omni account hub; hidden when unset |
 | `manageAccountLabel` | `string` | `"Manage account"` | |
