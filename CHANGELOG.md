@@ -1,5 +1,57 @@
 # @omnidotdev/thornberry
 
+## 0.3.0
+
+### Minor Changes
+
+- [#129](https://github.com/omnidotdev/thornberry/pull/129) [`235f78b`](https://github.com/omnidotdev/thornberry/commit/235f78b5574da27c1714e3f704b8e5324f6400e1) Thanks [@coopbri](https://github.com/coopbri)! - `AccountMenu` can list the other accounts signed in on the browser (`accounts` with `onSelectAccount`), so switching takes one click, and splits sign-out when other accounts are signed in: Sign out ends only this account, and Sign out of all accounts (`onSignOutAll`, `signOutAllLabel`) ends every one
+
+- [#125](https://github.com/omnidotdev/thornberry/pull/125) [`a527180`](https://github.com/omnidotdev/thornberry/commit/a52718027d57ad238d17aedb3897a8a3e4ada995) Thanks [@coopbri](https://github.com/coopbri)! - `AccountMenu` takes an optional `onSwitchAccount` (and `switchAccountLabel`), which adds a Switch account entry just above Sign out for apps that let people change which Omni account they use
+
+- [#118](https://github.com/omnidotdev/thornberry/pull/118) [`911f1f5`](https://github.com/omnidotdev/thornberry/commit/911f1f57ba2de998a2832aa45724f75dfb2e220e) Thanks [@coopbri](https://github.com/coopbri)! - Add `account-profile-settings` and `account-security-settings` blocks: full Profile (avatar, name, username, email change) and Security (password, two-factor with backup codes, passkeys, active sessions) settings pages, so an identity server and a relying-party account app render the same account page
+
+- [#124](https://github.com/omnidotdev/thornberry/pull/124) [`75eb5c2`](https://github.com/omnidotdev/thornberry/commit/75eb5c2019eeffeeff17b340e5c7451a8cff5bf7) Thanks [@coopbri](https://github.com/coopbri)! - `Card` and `Avatar` shorthands for the layouts products use most: `<Card title description footer>` puts its children in the content, and `<Avatar src alt fallback>` renders the image over its fallback. Both are built on the composable parts, which stay available for any other layout.
+
+- [#124](https://github.com/omnidotdev/thornberry/pull/124) [`75eb5c2`](https://github.com/omnidotdev/thornberry/commit/75eb5c2019eeffeeff17b340e5c7451a8cff5bf7) Thanks [@coopbri](https://github.com/coopbri)! - `ConfirmDialog` covers what products kept local copies for: `error` shows a failed attempt's message above the actions, `pendingLabel` labels the in-flight confirm button (e.g. "Deleting..."), and `confirmVariant` styles the confirm button for confirmations that are irreversible but not destructive. It now renders with the `alertdialog` role, mounts only while open, and still cancels on an outside click or Escape (newer Ark versions ignore outside clicks on alert dialogs by default).
+
+- [#124](https://github.com/omnidotdev/thornberry/pull/124) [`75eb5c2`](https://github.com/omnidotdev/thornberry/commit/75eb5c2019eeffeeff17b340e5c7451a8cff5bf7) Thanks [@coopbri](https://github.com/coopbri)! - Closes gaps products kept local copies for:
+  - One scrollbar look across the fleet: `base.css` makes scrollbars thin with a muted, theme-following thumb on a clear track, and ships the `no-scrollbar` utility so it means the same in every app; tables no longer hide their horizontal scrollbar
+  - `OptionsSelect`: a single-choice select from a flat list of options (label, hints, disabled options, placeholder), so products stop carrying their own dropdown wrappers; its list mounts on open so it stays above a dialog it sits in; select lists now show their scrollbar like menus do
+  - `DataTable` takes controlled `sorting`/`onSortingChange` (e.g. sort kept in the URL), `onRowClick`, an `emptyState` that replaces the whole table, `minWidth`, right-aligned columns via `meta.align`, and marks sorted headers with `aria-sort`; `getRowId` is optional
+  - `OptionsCombobox` (items with descriptions, opens on click, empty state, list matches the input width so long labels truncate) and a `ComboboxEmpty` part
+  - `Skeleton` uses the muted surface instead of the accent color (which read red or teal in branded apps), and `Switch` shows a disabled state
+  - `ContextMenu`: a right-click menu from a list of items that nests safely inside other menus and context menus
+  - `Checkbox` and `Tooltip` shorthands (`<Checkbox label>` with an indeterminate dash, `<Tooltip content>`); tooltips wrap longer text instead of clipping to one line
+  - `CheckboxLabel` takes `className` and wraps long labels with readable line height; the box no longer shrinks beside them
+  - `Button` gains an `xs` size
+  - `SheetPortal`, `SheetBackdrop` ships the standard overlay styling, and sheets close when swiped toward their edge on touch screens (`swipeToClose={false}` opts out)
+  - A `Card` without a title or description pads its content's top edge
+  - A wide child (a code editor) no longer stretches a dialog past a phone screen, and dialog text uses the foreground color (titles were unreadable in dark-only apps)
+  - `Sidebar` no longer flashes the desktop panel on phones before hydration, its phone drawer is wider (`w-5/6 max-w-xs`, overridable with `mobileClassName`) and has a backdrop
+  - `Sidebar` with `collapsible="none"` uses the sidebar background instead of a leftover red debug color, and sidebar menu buttons show a pointer
+
+- [#124](https://github.com/omnidotdev/thornberry/pull/124) [`75eb5c2`](https://github.com/omnidotdev/thornberry/commit/75eb5c2019eeffeeff17b340e5c7451a8cff5bf7) Thanks [@coopbri](https://github.com/coopbri)! - `GLOBAL_HOTKEYS` now includes `toggleSidebar` (`b`) and `showShortcuts` (`shift+slash`, the `?` key), so every Omni app binds the sidebar and the shortcuts list the same way. The sidebar reads its shortcut from it.
+
+- [#127](https://github.com/omnidotdev/thornberry/pull/127) [`4b7b5fa`](https://github.com/omnidotdev/thornberry/commit/4b7b5fa8e86e1e4c6a4db4c383a0e923a7c49c93) Thanks [@coopbri](https://github.com/coopbri)! - `Image` supports blur-up: pass `lqip` (a tiny data URI made at upload) and a smoothly blurred preview fills the image box until it loads, with no wrapper and no layout change. `blurUpStyle` exposes the same placeholder for images drawn another way
+
+- [#124](https://github.com/omnidotdev/thornberry/pull/124) [`75eb5c2`](https://github.com/omnidotdev/thornberry/commit/75eb5c2019eeffeeff17b340e5c7451a8cff5bf7) Thanks [@coopbri](https://github.com/coopbri)! - New `ShortcutsDialog`: the standard keyboard shortcuts list, opened with `?` (`GLOBAL_HOTKEYS.showShortcuts`). It lists the global hotkeys an app binds, then the app's own shortcut groups, with platform-correct key labels.
+
+- [#124](https://github.com/omnidotdev/thornberry/pull/124) [`75eb5c2`](https://github.com/omnidotdev/thornberry/commit/75eb5c2019eeffeeff17b340e5c7451a8cff5bf7) Thanks [@coopbri](https://github.com/coopbri)! - New `Textarea`: a multi-line text control styled to match `Input`, with an `aria-invalid` error state. `TextareaField` in `form` now renders it.
+
+### Patch Changes
+
+- [#122](https://github.com/omnidotdev/thornberry/pull/122) [`8efd5b7`](https://github.com/omnidotdev/thornberry/commit/8efd5b768367a30728a63a929b44655e98ff9543) Thanks [@coopbri](https://github.com/coopbri)! - `base.css` falls back to the app's `--border` hairline for border color, so a bare `border` or an unmapped token utility (such as `border-input` in an app that never maps `--color-input`) no longer paints a bright text-colored outline
+
+- [#122](https://github.com/omnidotdev/thornberry/pull/122) [`8efd5b7`](https://github.com/omnidotdev/thornberry/commit/8efd5b768367a30728a63a929b44655e98ff9543) Thanks [@coopbri](https://github.com/coopbri)! - `AiChatThread`'s composer inserts a newline on Enter on touch-first devices, where there is no Shift key, and the send button sends. With a hardware keyboard Enter still sends and Shift+Enter adds a line. Cmd/Ctrl+Enter always sends, and Enter never sends while an IME is composing. The decision is exported as `shouldSendOnKey`
+
+- [#122](https://github.com/omnidotdev/thornberry/pull/122) [`8efd5b7`](https://github.com/omnidotdev/thornberry/commit/8efd5b768367a30728a63a929b44655e98ff9543) Thanks [@coopbri](https://github.com/coopbri)! - `AiChatThread` hides its `footerHint` on touch-first devices, where an on-screen keyboard has no Shift+Enter, so keep the hint to keyboard tips
+
+- [#124](https://github.com/omnidotdev/thornberry/pull/124) [`75eb5c2`](https://github.com/omnidotdev/thornberry/commit/75eb5c2019eeffeeff17b340e5c7451a8cff5bf7) Thanks [@coopbri](https://github.com/coopbri)! - `base.css` sets `color-scheme: dark` under the dark theme (`.dark` or `data-theme="dark"`), so scrollbars and native form controls render dark in dark mode instead of light-on-dark, in the command palette, menus, and every other scroll container.
+
+- [#124](https://github.com/omnidotdev/thornberry/pull/124) [`75eb5c2`](https://github.com/omnidotdev/thornberry/commit/75eb5c2019eeffeeff17b340e5c7451a8cff5bf7) Thanks [@coopbri](https://github.com/coopbri)! - Dialogs keep a gutter and rounded corners on narrow screens instead of running edge to edge on a phone, and a dialog taller than the screen scrolls instead of pushing its actions out of reach.
+
+- [#128](https://github.com/omnidotdev/thornberry/pull/128) [`4a4aabc`](https://github.com/omnidotdev/thornberry/commit/4a4aabc8681cc56eedcd967c71774499a2fbe235) Thanks [@coopbri](https://github.com/coopbri)! - `Image` and `blurUpStyle` only use an `lqip` that is a small base64 image data URI; anything else (a URL, SVG, or an oversized value) shows no placeholder, since previews can come from stored user data
+
 ## 0.2.0
 
 ### Minor Changes
