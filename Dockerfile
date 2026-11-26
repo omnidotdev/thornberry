@@ -25,7 +25,7 @@ RUN test -f .output/server/node_modules/react-dom/server.node.js \
 # Bun doesn't properly resolve externalized Nitro packages (srvx, react-dom/server),
 # so run under node (slim, glibc to match the oven/bun builder) with the builder's
 # node_modules copied in for those externalized runtime deps
-FROM node:22-slim@sha256:e9f565d32859f0cbfb52125eafe8be39390f24dac302dc3cdf566e8ba3ab21ee AS runner
+FROM node:26-slim@sha256:abe7e5a82b61a8ef67b315b85497c9e65173387ccf2f4a029248184b8e020be5 AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
