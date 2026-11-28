@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@ark-ui/react": "^5.30.0",
-    "@biomejs/biome": "2.6.7",
+    "@biomejs/biome": "2.6.9",
     "@changesets/changelog-github": "^1.0.1",
     "@changesets/cli": "^3.0.0",
     "@codemirror/autocomplete": "^6.18.0",
@@ -51,7 +51,7 @@
     "@lexical/list": "^0.53.0",
     "@lexical/react": "^0.53.0",
     "@lexical/rich-text": "^0.53.0",
-    "@omnidotdev/providers": "github:omnidotdev/providers#v0.2.0",
+    "@omnidotdev/providers": "github:omnidotdev/providers#v0.8.0",
     "@tailwindcss/vite": "^4.3.5",
     "@tanstack/devtools-vite": "^0.8.0",
     "@tanstack/form-core": "^1.33.5",
