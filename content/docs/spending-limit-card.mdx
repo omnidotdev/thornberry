@@ -1,0 +1,88 @@
+---
+title: Spending Limit Card
+description: A workspace's spending limit for one product, for a product's billing page or a cross-product list.
+---
+
+import { SpendingLimitCard } from "@/registry/thornberry/components/spending-limit-card";
+
+<div className="my-8">
+  <SpendingLimitCard
+    productName="Herald"
+    pausedUsage="emails above your plan's included amount"
+    value={{
+      hardLimitCents: 8000,
+      currentSpendCents: 2000,
+      periodEnd: "2026-12-01T00:00:00.000Z",
+      suspended: false,
+    }}
+    canEdit
+    onSave={async () => {}}
+  />
+</div>
+
+## Usage
+
+```tsx
+import { SpendingLimitCard } from "@omnidotdev/thornberry/spending-limit-card";
+```
+
+```tsx
+<SpendingLimitCard
+  productName="Synapse"
+  pausedUsage="requests above your plan's included allowance"
+  value={limit}
+  isLoading={isLoading}
+  canEdit={isWorkspaceAdmin}
+  onSave={({ hardLimitCents }) =>
+    setSpendingLimit({ data: { organizationId, hardLimitCents } })
+  }
+/>
+```
+
+The card shows the overage spent this billing period against the monthly cap, a progress bar that turns destructive at 90%, when the period ends, and a paused notice once the cap is reached. Viewers with `canEdit` set, raise, or lower the cap; everyone else sees the spend and `readOnlyHint`.
+
+There is no way to remove a cap: raising it is the only opt-in to more spend. A typed amount must be a plain dollar amount from `minCents` to `maxCents` ($10 to $100,000 by default). A cap at or below the spend so far pauses usage the moment it is saved, so the card asks for confirmation first.
+
+The card is presentational. The product fetches `value` (null when its plan has no spending limit) and saves through `onSave`, which receives `{ hardLimitCents }` (plus `softLimitCents` with `withSoftLimit`). Resolve to close the form; reject with a user-safe `Error` to keep it open and show the message. Authorization stays on the server: `canEdit` only decides what the viewer is offered.
+
+`pausedUsage` names what stops at the cap as a plural noun phrase ("your services", "requests above your plan's included allowance"). It completes the default description, the paused notice, and the confirmation.
+
+## Examples
+
+<br />
+
+#### Paused
+
+<div className="my-4">
+  <SpendingLimitCard
+    productName="Fractal"
+    pausedUsage="your services"
+    value={{
+      hardLimitCents: 50000,
+      currentSpendCents: 50000,
+      suspended: true,
+    }}
+    canEdit={false}
+    onSave={async () => {}}
+  />
+</div>
+
+#### Row
+
+`variant="row"` renders one product per line for a cross-product list, headed by the product name, with `meta` under it and `action` (e.g. a link to the product's billing page) beside the edit button.
+
+<div className="my-4">
+  <SpendingLimitCard
+    variant="row"
+    productName="Synapse"
+    meta="Pro plan"
+    pausedUsage="requests above your plan's included allowance"
+    value={{ hardLimitCents: 10000, currentSpendCents: 4250, suspended: false }}
+    canEdit
+    onSave={async () => {}}
+  />
+</div>
+
+#### Alert threshold
+
+`withSoftLimit` adds an optional "Alert email at" amount below the cap, for products whose billing sends an extra alert there.
