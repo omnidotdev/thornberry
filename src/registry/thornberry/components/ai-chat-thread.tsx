@@ -1,12 +1,21 @@
-import { ArrowUp, Bot, Loader2, User, Wrench } from "lucide-react";
+import { ArrowUp, Bot, FileText, Loader2, User, Wrench } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 import { cn } from "@/lib/utils";
+import {
+  ATTACH_ACCEPT,
+  ATTACH_IMAGES_ACCEPT,
+  AttachButton,
+  AttachmentDropOverlay,
+  AttachmentError,
+  AttachmentList,
+} from "@/registry/thornberry/components/attachment-composer";
 import { Badge } from "@/registry/thornberry/components/badge";
 import { Button } from "@/registry/thornberry/components/button";
 import { PromptSuggestions } from "@/registry/thornberry/components/prompt-suggestions";
 
 import type { ComponentProps, ReactNode } from "react";
+import type { AttachmentsController } from "@/registry/thornberry/components/attachment-composer";
 import type { PromptSuggestion } from "@/registry/thornberry/components/prompt-suggestions";
 
 /**
@@ -23,7 +32,11 @@ export type ChatPart =
       status?: "pending" | "done" | "error";
       detail?: string;
     }
-  | { type: "tool-result"; name: string; ok?: boolean; detail?: string };
+  | { type: "tool-result"; name: string; ok?: boolean; detail?: string }
+  /** An image sent with the message: a URL or `data:` URL to show */
+  | { type: "image"; src: string; name?: string }
+  /** A file sent with the message, shown by its name */
+  | { type: "file"; name: string; detail?: string };
 
 export interface ChatMessage {
   id: string;
@@ -90,6 +103,16 @@ export interface AiChatThreadProps {
   suggestions?: readonly (string | PromptSuggestion)[];
   /** How many example prompts show at once. Defaults to 4 */
   suggestionCount?: number;
+  /**
+   * Attachments for the composer, from `useAttachments`: shows an attach
+   * button, previews above the composer, and refusals under it; a pasted
+   * screenshot or dropped file attaches. A message with attachments can be
+   * sent without text. The host sends `attachments.attachments` with the
+   * message and clears them once it is sent
+   */
+  attachments?: AttachmentsController;
+  /** Tooltip for the attach button: what can be attached and where it goes */
+  attachTitle?: string;
 }
 
 /** The subset of a keydown event the composer needs */
@@ -197,6 +220,34 @@ const MessageParts = ({
           </div>
         );
       }
+      if (part.type === "image") {
+        return (
+          <img
+            key={key}
+            src={part.src}
+            alt={part.name ? `Attached image: ${part.name}` : "Attached image"}
+            className="border-border max-h-48 max-w-full rounded-md border object-contain"
+          />
+        );
+      }
+      if (part.type === "file") {
+        return (
+          <div
+            key={key}
+            className="border-border bg-background/60 text-foreground flex max-w-full items-center gap-2 rounded-md border px-2.5 py-1.5 text-xs"
+          >
+            <FileText className="size-4 shrink-0" aria-hidden="true" />
+            <span className="truncate" title={part.name}>
+              {part.name}
+            </span>
+            {part.detail && (
+              <span className="text-muted-foreground shrink-0">
+                {part.detail}
+              </span>
+            )}
+          </div>
+        );
+      }
       // tool-call / tool-result
       const isResult = part.type === "tool-result";
       const variant = isResult
@@ -248,6 +299,8 @@ const AiChatThread = ({
   footerHint,
   suggestions,
   suggestionCount,
+  attachments,
+  attachTitle,
 }: AiChatThreadProps) => {
   const endRef = useRef<HTMLDivElement>(null);
   const composerRef = useRef<HTMLTextAreaElement>(null);
@@ -256,7 +309,9 @@ const AiChatThread = ({
     input.trim().length === 0 &&
     Boolean(suggestions?.length);
   const busy = status === "submitting" || status === "streaming";
-  const canSend = !disabled && !busy && input.trim().length > 0;
+  const attached = attachments?.attachments.length ?? 0;
+  const canSend =
+    !disabled && !busy && (input.trim().length > 0 || attached > 0);
 
   // The default role icon, used when the host supplies no renderAvatar (or it
   // returns null for this message)
@@ -339,7 +394,11 @@ const AiChatThread = ({
         </div>
       )}
 
-      <div className="border-border border-t p-3">
+      <div
+        className="border-border relative border-t p-3"
+        {...(attachments && !disabled ? attachments.dropZoneProps : {})}
+      >
+        {attachments && <AttachmentDropOverlay active={attachments.dragging} />}
         {showSuggestions && suggestions && (
           <PromptSuggestions
             suggestions={suggestions}
@@ -353,11 +412,31 @@ const AiChatThread = ({
           />
         )}
         {composerAccessory && <div className="mb-2">{composerAccessory}</div>}
+        {attachments && (
+          <AttachmentList
+            attachments={attachments.attachments}
+            onRemove={attachments.remove}
+            className="mb-2 pt-1"
+          />
+        )}
         <div className="flex items-end gap-2">
+          {attachments && (
+            <AttachButton
+              count={attached}
+              max={attachments.limits.maxAttachments}
+              disabled={disabled || busy || attachments.disabled}
+              onFiles={(files) => void attachments.addFiles(files)}
+              accept={
+                attachments.documents ? ATTACH_ACCEPT : ATTACH_IMAGES_ACCEPT
+              }
+              title={attachTitle}
+            />
+          )}
           <Composer
             ref={composerRef}
             value={input}
             onChange={(event) => onInputChange(event.target.value)}
+            onPaste={attachments?.onPaste}
             onKeyDown={(event) => {
               const send = shouldSendOnKey(
                 {
@@ -395,6 +474,7 @@ const AiChatThread = ({
             )}
           </Button>
         </div>
+        {attachments && <AttachmentError message={attachments.error} />}
         {footerHint && (
           <div className="text-muted-foreground mt-1.5 text-xs pointer-coarse:hidden">
             {footerHint}

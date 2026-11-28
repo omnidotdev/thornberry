@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, mock, test } from "bun:test";
 
-import { cleanup, fireEvent, render } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 
 import {
   AiChatThread,
@@ -11,6 +11,7 @@ import type {
   ChatMessage,
   ComposerKeyEvent,
 } from "@/registry/thornberry/components/ai-chat-thread";
+import type { ComposerAttachment } from "@/registry/thornberry/components/attachment-composer";
 
 afterEach(cleanup);
 
@@ -248,5 +249,94 @@ describe("shouldSendOnKey", () => {
 
   test("ignores other keys", () => {
     expect(shouldSendOnKey(key({ key: "a" }), false)).toBe(false);
+  });
+});
+
+describe("AiChatThread attachments", () => {
+  const controller = (attachments: ComposerAttachment[]) =>
+    ({
+      attachments,
+      error: "That file is empty.",
+      dragging: false,
+      limits: {
+        maxAttachments: 3,
+        maxImageBytes: 1,
+        maxSourceImageBytes: 1,
+        maxImageEdge: 1,
+        maxPdfBytes: 1,
+        maxTextFileBytes: 1,
+      },
+      documents: true,
+      disabled: false,
+      addFiles: async () => {},
+      remove: mock(),
+      clear: () => {},
+      restore: () => {},
+      setError: () => {},
+      onPaste: () => {},
+      dropZoneProps: {
+        onDragEnter: () => {},
+        onDragOver: () => {},
+        onDragLeave: () => {},
+        onDrop: () => {},
+      },
+    }) as never;
+
+  test("sends a message carrying only attachments, and shows the refusal", () => {
+    const onSend = mock();
+
+    render(
+      <AiChatThread
+        messages={[]}
+        input=""
+        onInputChange={noop}
+        onSend={onSend}
+        attachments={controller([
+          {
+            kind: "document",
+            id: "d1",
+            name: "menu.pdf",
+            mediaType: "application/pdf",
+            data: "JVBERi0=",
+          },
+        ])}
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "Attach files" })).toBeTruthy();
+    expect(screen.getByText("menu.pdf")).toBeTruthy();
+    expect(screen.getByRole("alert").textContent).toBe("That file is empty.");
+
+    fireEvent.click(screen.getByRole("button", { name: "Send message" }));
+
+    expect(onSend).toHaveBeenCalledTimes(1);
+  });
+
+  test("shows a sent message's images and files", () => {
+    render(
+      <AiChatThread
+        messages={[
+          {
+            id: "u1",
+            role: "user",
+            parts: [
+              {
+                type: "image",
+                src: "data:image/png;base64,iVBO",
+                name: "a.png",
+              },
+              { type: "file", name: "menu.pdf", detail: "PDF" },
+              { type: "text", text: "what is on this menu" },
+            ],
+          },
+        ]}
+        input=""
+        onInputChange={noop}
+        onSend={noop}
+      />,
+    );
+
+    expect(screen.getByAltText("Attached image: a.png")).toBeTruthy();
+    expect(screen.getByText("menu.pdf")).toBeTruthy();
   });
 });

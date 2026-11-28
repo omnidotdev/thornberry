@@ -7,12 +7,30 @@
       "name": "ai-chat-thread",
       "type": "registry:ui",
       "title": "AI Chat Thread",
-      "description": "A conversation surface for AI assistants: role-aligned bubbles, typed message parts (text, thinking, tool calls), a streaming indicator, and a composer. Presentational; the host drives it from any streaming chat hook",
+      "description": "A conversation surface for AI assistants: role-aligned bubbles, typed message parts (text, thinking, tool calls, attached images and files), a streaming indicator, and a composer with optional attachments. Presentational; the host drives it from any streaming chat hook",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["button", "badge", "prompt-suggestions"],
+      "registryDependencies": [
+        "button",
+        "badge",
+        "prompt-suggestions",
+        "attachment-composer"
+      ],
       "files": [
         {
           "path": "src/registry/thornberry/components/ai-chat-thread.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "attachment-composer",
+      "type": "registry:ui",
+      "title": "Attachment Composer",
+      "description": "Chat attachments for a composer: an attach button, paste a screenshot, drag and drop, preview chips with remove, and plain refusal messages. Files are read and checked in the browser (type, size, a downscale for large images) and handed to the host as base64 ready to send",
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "src/registry/thornberry/components/attachment-composer.tsx",
           "type": "registry:ui"
         }
       ]

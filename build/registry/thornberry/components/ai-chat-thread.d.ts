@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { AttachmentsController } from "../../../registry/thornberry/components/attachment-composer";
 import type { PromptSuggestion } from "../../../registry/thornberry/components/prompt-suggestions";
 /**
  * One ordered piece of a chat message. Mirrors the typed-parts model common to
@@ -20,6 +21,18 @@ export type ChatPart = {
     type: "tool-result";
     name: string;
     ok?: boolean;
+    detail?: string;
+}
+/** An image sent with the message: a URL or `data:` URL to show */
+ | {
+    type: "image";
+    src: string;
+    name?: string;
+}
+/** A file sent with the message, shown by its name */
+ | {
+    type: "file";
+    name: string;
     detail?: string;
 };
 export interface ChatMessage {
@@ -85,6 +98,16 @@ export interface AiChatThreadProps {
     suggestions?: readonly (string | PromptSuggestion)[];
     /** How many example prompts show at once. Defaults to 4 */
     suggestionCount?: number;
+    /**
+     * Attachments for the composer, from `useAttachments`: shows an attach
+     * button, previews above the composer, and refusals under it; a pasted
+     * screenshot or dropped file attaches. A message with attachments can be
+     * sent without text. The host sends `attachments.attachments` with the
+     * message and clears them once it is sent
+     */
+    attachments?: AttachmentsController;
+    /** Tooltip for the attach button: what can be attached and where it goes */
+    attachTitle?: string;
 }
 /** The subset of a keydown event the composer needs */
 export interface ComposerKeyEvent {
@@ -116,5 +139,5 @@ export declare const shouldSendOnKey: (event: ComposerKeyEvent, touchKeyboard: b
  * that hook's messages onto `ChatMessage`/`ChatPart` and passing `status` and
  * the send handler. This owns no network, streaming, or tool-execution logic
  */
-declare const AiChatThread: ({ messages, status, input, onInputChange, onSend, placeholder, emptyState, notice, disabled, renderText, renderAvatar, composerAccessory, composerActions, footerHint, suggestions, suggestionCount, }: AiChatThreadProps) => import("react/jsx-runtime").JSX.Element;
+declare const AiChatThread: ({ messages, status, input, onInputChange, onSend, placeholder, emptyState, notice, disabled, renderText, renderAvatar, composerAccessory, composerActions, footerHint, suggestions, suggestionCount, attachments, attachTitle, }: AiChatThreadProps) => import("react/jsx-runtime").JSX.Element;
 export { AiChatThread };
