@@ -1,4 +1,12 @@
 import {
+  ATTACH_ACCEPT2,
+  ATTACH_IMAGES_ACCEPT2,
+  AttachButton2,
+  AttachmentList2,
+  AttachmentError2,
+  AttachmentDropOverlay2
+} from "../../../chunks/ai-describe-panel-7zrgbtds.js";
+import {
   Badge2
 } from "../../../chunks/ai-describe-panel-mn2q46hh.js";
 import {
@@ -12,7 +20,7 @@ import {
 } from "../../../chunks/ai-describe-panel-81fr4sax.js";
 
 // src/registry/thornberry/components/ai-chat-thread.tsx
-import { ArrowUp, Bot, Loader2, User, Wrench } from "lucide-react";
+import { ArrowUp, Bot, FileText, Loader2, User, Wrench } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 var shouldSendOnKey = (event, touchKeyboard) => {
@@ -60,6 +68,33 @@ var MessageParts = ({
         children: part.text
       }, key);
     }
+    if (part.type === "image") {
+      return /* @__PURE__ */ jsx("img", {
+        src: part.src,
+        alt: part.name ? `Attached image: ${part.name}` : "Attached image",
+        className: "border-border max-h-48 max-w-full rounded-md border object-contain"
+      }, key);
+    }
+    if (part.type === "file") {
+      return /* @__PURE__ */ jsxs("div", {
+        className: "border-border bg-background/60 text-foreground flex max-w-full items-center gap-2 rounded-md border px-2.5 py-1.5 text-xs",
+        children: [
+          /* @__PURE__ */ jsx(FileText, {
+            className: "size-4 shrink-0",
+            "aria-hidden": "true"
+          }),
+          /* @__PURE__ */ jsx("span", {
+            className: "truncate",
+            title: part.name,
+            children: part.name
+          }),
+          part.detail && /* @__PURE__ */ jsx("span", {
+            className: "text-muted-foreground shrink-0",
+            children: part.detail
+          })
+        ]
+      }, key);
+    }
     const isResult = part.type === "tool-result";
     const variant = isResult ? part.ok === false ? "destructive" : "secondary" : toolStatusVariant(part.status);
     return /* @__PURE__ */ jsxs("div", {
@@ -99,13 +134,16 @@ var AiChatThread = ({
   composerActions,
   footerHint,
   suggestions,
-  suggestionCount
+  suggestionCount,
+  attachments,
+  attachTitle
 }) => {
   const endRef = useRef(null);
   const composerRef = useRef(null);
   const showSuggestions = messages.length === 0 && input.trim().length === 0 && Boolean(suggestions?.length);
   const busy = status === "submitting" || status === "streaming";
-  const canSend = !disabled && !busy && input.trim().length > 0;
+  const attached = attachments?.attachments.length ?? 0;
+  const canSend = !disabled && !busy && (input.trim().length > 0 || attached > 0);
   const defaultAvatar = (role) => /* @__PURE__ */ jsx("div", {
     className: cn("flex size-7 shrink-0 items-center justify-center rounded-full", role === "user" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"),
     "aria-hidden": true,
@@ -164,8 +202,12 @@ var AiChatThread = ({
         children: notice
       }),
       /* @__PURE__ */ jsxs("div", {
-        className: "border-border border-t p-3",
+        className: "border-border relative border-t p-3",
+        ...attachments && !disabled ? attachments.dropZoneProps : {},
         children: [
+          attachments && /* @__PURE__ */ jsx(AttachmentDropOverlay2, {
+            active: attachments.dragging
+          }),
           showSuggestions && suggestions && /* @__PURE__ */ jsx(PromptSuggestions2, {
             suggestions,
             count: suggestionCount,
@@ -180,13 +222,27 @@ var AiChatThread = ({
             className: "mb-2",
             children: composerAccessory
           }),
+          attachments && /* @__PURE__ */ jsx(AttachmentList2, {
+            attachments: attachments.attachments,
+            onRemove: attachments.remove,
+            className: "mb-2 pt-1"
+          }),
           /* @__PURE__ */ jsxs("div", {
             className: "flex items-end gap-2",
             children: [
+              attachments && /* @__PURE__ */ jsx(AttachButton2, {
+                count: attached,
+                max: attachments.limits.maxAttachments,
+                disabled: disabled || busy || attachments.disabled,
+                onFiles: (files) => void attachments.addFiles(files),
+                accept: attachments.documents ? ATTACH_ACCEPT2 : ATTACH_IMAGES_ACCEPT2,
+                title: attachTitle
+              }),
               /* @__PURE__ */ jsx(Composer, {
                 ref: composerRef,
                 value: input,
                 onChange: (event) => onInputChange(event.target.value),
+                onPaste: attachments?.onPaste,
                 onKeyDown: (event) => {
                   const send = shouldSendOnKey({
                     key: event.key,
@@ -222,6 +278,9 @@ var AiChatThread = ({
                 })
               })
             ]
+          }),
+          attachments && /* @__PURE__ */ jsx(AttachmentError2, {
+            message: attachments.error
           }),
           footerHint && /* @__PURE__ */ jsx("div", {
             className: "text-muted-foreground mt-1.5 text-xs pointer-coarse:hidden",

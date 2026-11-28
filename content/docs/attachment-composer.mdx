@@ -1,0 +1,99 @@
+---
+title: Attachment Composer
+description: Attach images, PDFs, and text files to a chat message by picking, pasting, or dropping them, with previews and plain refusal messages.
+---
+
+import { AttachmentList } from "@/registry/thornberry/components/attachment-composer";
+
+<div className="my-8 max-w-xl">
+  <AttachmentList
+    attachments={[
+      {
+        kind: "document",
+        id: "menu",
+        name: "menu.pdf",
+        mediaType: "application/pdf",
+        data: "",
+      },
+      {
+        kind: "document",
+        id: "products",
+        name: "products.csv",
+        mediaType: "text/csv",
+        data: "",
+      },
+    ]}
+    onRemove={() => {}}
+  />
+</div>
+
+## Installation
+
+<InstallationTabs filename="attachment-composer.json" />
+
+## Usage
+
+```tsx
+import {
+  AttachButton,
+  AttachmentDropOverlay,
+  AttachmentError,
+  AttachmentList,
+  useAttachments,
+} from "@/components/ui/attachment-composer";
+```
+
+```tsx
+const files = useAttachments({ disabled: sending });
+
+<div className="relative" {...files.dropZoneProps}>
+  <AttachmentDropOverlay active={files.dragging} />
+  <AttachmentList attachments={files.attachments} onRemove={files.remove} />
+  <textarea value={input} onChange={...} onPaste={files.onPaste} />
+  <AttachButton
+    count={files.attachments.length}
+    onFiles={files.addFiles}
+    title="Images go to the assistant with your message"
+  />
+</div>
+<AttachmentError message={files.error} />
+```
+
+Send `files.attachments` with the message (each carries `kind`, `name`, `mediaType`, and base64 `data`), then call `files.clear()`. If the send fails, `files.restore(sent)` puts them back.
+
+#### In a chat thread
+
+`AiChatThread` takes the controller as `attachments` and wires all of it: the attach button beside the composer, previews above it, paste, drop, and the refusal under it. A message with attachments can be sent without text. Sent images and files render as `image` and `file` message parts.
+
+```tsx
+const files = useAttachments();
+
+<AiChatThread
+  messages={messages}
+  input={input}
+  onInputChange={setInput}
+  onSend={() => send(input, files.attachments)}
+  attachments={files}
+  attachTitle="Images go to the assistant; PDFs and text files are read for their text"
+/>
+```
+
+## Behavior
+
+- Takes PNG, JPEG, WebP, and GIF images, and PDF, plain text, Markdown, and CSV files (by type, or by extension when the browser labels a file loosely). Pass `documents: false` for images only
+- Up to 3 files per message; each image up to 2 MB after a browser downscale to 1568 px on its longest edge, each PDF up to 5 MB, each text file up to 200 KB. Pass `limits` to lower them
+- A pasted screenshot attaches; pasted text pastes as usual
+- Removing a preview only takes it off the message, so it needs no confirmation
+- The browser checks are a convenience, not a gate: the server checks every file again by its bytes, and screens images, with `@omnidotdev/providers/attachments`, which shares these limits
+- Remove buttons get a 44px target on touch screens; the attached count is announced to screen readers, and refusals are announced as alerts
+
+## API
+
+| Export | Purpose |
+|------|------|
+| `useAttachments({ limits?, documents?, disabled? })` | State and handlers: `attachments`, `error`, `dragging`, `addFiles`, `remove`, `clear`, `restore`, `onPaste`, `dropZoneProps` |
+| `AttachButton` | The attach button and hidden picker (`count`, `max`, `onFiles`, `accept`, `label`, `title`) |
+| `AttachmentList` | Previews above the composer, each removable (`attachments`, `onRemove`) |
+| `AttachmentError` | The refusal message (`message`) |
+| `AttachmentDropOverlay` | The drop target shown while files are dragged over (`active`) |
+| `prepareAttachment(file, limits?, documents?)` | Read one file for sending, without the hook |
